@@ -12,13 +12,15 @@ You can use the tools below to test out prompts
 
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [GPTTools](https://gpttools.com/comparisontool)
-- [Visual Prompt Builder](https://www.artstyle.ai/)
+- [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
+- [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com/)
 
 ## Guides
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
 - [DALLE Prompt Book](https://dallery.gallery/the-dalle-2-prompt-book/)
 - [DALL·E 2 Prompt Engineering Guide](https://docs.google.com/document/d/11WlzjBT0xRpQhP9tFMtxzd0q6ANIdHPUBkMV-YB043U/edit#)
 - [Prompt Engineering Template](https://docs.google.com/spreadsheets/d/1-snKDn38-KypoYCk9XLPg799bHcNFSBAVu2HVvFEAkA/edit#gid=0)
+- [Prompt Engineering: From Words to Art](https://www.saxifrage.xyz/post/prompt-engineering)
 
 ## Courses/Lectures
 
