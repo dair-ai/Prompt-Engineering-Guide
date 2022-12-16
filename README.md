@@ -13,6 +13,7 @@ You can use the tools below to test out prompts
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [GPTTools](https://gpttools.com/comparisontool)
 - [Lexica](https://lexica.art/)
+- [Playground](https://playgroundai.com/)
 - [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
 - [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com/)
 
