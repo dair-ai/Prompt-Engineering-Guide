@@ -18,10 +18,13 @@ You can use the tools below to test out prompts and conduct research
 - [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com/)
 - [AI Test Kitchen](https://aitestkitchen.withgoogle.com/)
 - [Prompt Engine](https://github.com/microsoft/prompt-engine)
+- [PromptSource](PromptSource)
 
 ## Datasets
 - [PartiPrompts](https://parti.research.google/)
 - [Real Toxicity Prompts](https://allenai.org/data/real-toxicity-prompts)
+- [P3](Public Pool of Prompts)
+- [WritingPrompts](WritingPrompts)
 
 ## Guides
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
@@ -42,6 +45,7 @@ You can use the tools below to test out prompts and conduct research
 - [AI Content Generation](https://www.jonstokes.com/p/ai-content-generation-part-1-machine)
 - [How to Draw Anything](https://andys.page/posts/how-to-draw/)
 - [How to write good prompts](https://andymatuschak.org/prompts/)
+- [Prompting Methods with Language Models and Their Applications to Weak Supervision](https://snorkel.ai/prompting-methods-with-language-models-nlp/)
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a/)
 - [Best 100+ Stable Diffusion Prompts](https://mpost.io/best-100-stable-diffusion-prompts-the-most-beautiful-ai-text-to-image-prompts/)
 - [Notes for Prompt Engineering by sw-yx](https://github.com/sw-yx/ai-notes)
