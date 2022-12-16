@@ -12,7 +12,8 @@ You can use the tools below to test out prompts
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [GPTTools](https://gpttools.com/comparisontool)
 
-## Blogs
+## Guides
+- [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
 
 ## Courses/Lectures
 
