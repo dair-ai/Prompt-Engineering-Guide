@@ -28,6 +28,10 @@ You can use the tools below to test out prompts
 - [Prompt Engineering Template](https://docs.google.com/spreadsheets/d/1-snKDn38-KypoYCk9XLPg799bHcNFSBAVu2HVvFEAkA/edit#gid=0)
 - [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Prompt Engineering: From Words to Art](https://www.saxifrage.xyz/post/prompt-engineering)
+- [A beginner-friendly guide to generative language models - LaMBDA guide](https://aitestkitchen.withgoogle.com/how-lamda-works)
+
+## Blog and Other Readings
+- [Giving GPT-3 a Turing Test](https://lacker.io/ai/2020/07/06/giving-gpt-3-a-turing-test.html)
 
 ## Courses/Lectures
 
