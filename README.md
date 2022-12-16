@@ -10,19 +10,18 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 ## Tools
 You can use the tools below to test out prompts and conduct research
 
-- Researchers:
-  - [PartiPrompts](https://parti.research.google/)
-  - [Real Toxicity Prompts](https://allenai.org/data/real-toxicity-prompts)
+- [OpenAI Playground](https://beta.openai.com/playground)
+- [GPTTools](https://gpttools.com/comparisontool)
+- [Lexica](https://lexica.art/)
+- [Playground](https://playgroundai.com/)
+- [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
+- [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com/)
+- [AI Test Kitchen](https://aitestkitchen.withgoogle.com/)
+- [Prompt Engine](https://github.com/microsoft/prompt-engine)
 
-- Developers
-  - [OpenAI Playground](https://beta.openai.com/playground)
-  - [GPTTools](https://gpttools.com/comparisontool)
-  - [Lexica](https://lexica.art/)
-  - [Playground](https://playgroundai.com/)
-  - [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
-  - [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com/)
-  - [AI Test Kitchen](https://aitestkitchen.withgoogle.com/)
-  - [Prompt Engine](https://github.com/microsoft/prompt-engine)
+## Datasets
+- [PartiPrompts](https://parti.research.google/)
+- [Real Toxicity Prompts](https://allenai.org/data/real-toxicity-prompts)
 
 ## Guides
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
