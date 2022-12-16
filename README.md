@@ -26,6 +26,8 @@ You can use the tools below to test out prompts and conduct research
 - [P3 - Public Pool of Prompts](https://huggingface.co/datasets/bigscience/P3)
 - [WritingPrompts](WritingPrompts)
 - [Midjourney Prompts](https://huggingface.co/datasets/succinctly/midjourney-prompts)
+- [Awesome ChatGPT Prompts](https://huggingface.co/datasets/fka/awesome-chatgpt-prompts)
+- [Stable Diffusion Dataset](https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts)
 
 ## Blog, Guides, Tutorials and Other Readings
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
