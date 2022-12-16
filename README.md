@@ -14,8 +14,10 @@ You can use the tools below to test out prompts
 - [GPTTools](https://gpttools.com/comparisontool)
 - [Lexica](https://lexica.art/)
 - [Playground](https://playgroundai.com/)
+- [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
 - [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com/)
+- [Prompt Engine](https://github.com/microsoft/prompt-engine)
 
 ## Guides
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
