@@ -1,6 +1,6 @@
 # Prompt Engineering Guide
 
-This repo contains a guide for learning about prompt engineering. It includes several materials, examples, papers, examples, etc. Recommended for NLP/ML practitioner and students.
+This repo contains a guide for learning about prompt engineering. It includes several materials, examples, papers, examples, etc. Recommended for NLP/ML practitioners and students.
 
 ## Blogs
 
