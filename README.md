@@ -14,6 +14,7 @@ You can use the tools below to test out prompts
 
 ## Guides
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
+- [DALLE Prompt Book](https://dallery.gallery/the-dalle-2-prompt-book/)
 
 ## Courses/Lectures
 
