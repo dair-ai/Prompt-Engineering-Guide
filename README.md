@@ -25,8 +25,9 @@ You can use the tools below to test out prompts and conduct research
 - [Real Toxicity Prompts](https://allenai.org/data/real-toxicity-prompts)
 - [P3](Public Pool of Prompts)
 - [WritingPrompts](WritingPrompts)
+- [Midjourney Prompts](https://huggingface.co/datasets/succinctly/midjourney-prompts)
 
-## Guides
+## Blog, Guides, Tutorials and Other Readings
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
 - [Prompt Engineering by Microsoft](https://microsoft.github.io/prompt-engineering/)
 - [Start with an Instruction](https://beta.openai.com/docs/quickstart/start-with-an-instruction)
@@ -37,9 +38,8 @@ You can use the tools below to test out prompts and conduct research
 - [Prompt Engineering Template](https://docs.google.com/spreadsheets/d/1-snKDn38-KypoYCk9XLPg799bHcNFSBAVu2HVvFEAkA/edit#gid=0)
 - [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Prompt Engineering: From Words to Art](https://www.saxifrage.xyz/post/prompt-engineering)
+- [NLP for Text-to-Image Generators: Prompt Analysis](https://heartbeat.comet.ml/nlp-for-text-to-image-generators-prompt-analysis-part-1-5076a44d8365)
 - [A beginner-friendly guide to generative language models - LaMBDA guide](https://aitestkitchen.withgoogle.com/how-lamda-works)
-
-## Blog and Other Readings
 - [Giving GPT-3 a Turing Test](https://lacker.io/ai/2020/07/06/giving-gpt-3-a-turing-test.html)
 - [Prompts as Programming by Gwern](https://www.gwern.net/GPT-3#prompts-as-programming)
 - [AI Content Generation](https://www.jonstokes.com/p/ai-content-generation-part-1-machine)
