@@ -23,6 +23,7 @@ You can use the tools below to test out prompts
 - [Prompt Engineering by Microsoft](https://microsoft.github.io/prompt-engineering/)
 - [DALLE Prompt Book](https://dallery.gallery/the-dalle-2-prompt-book/)
 - [DALL·E 2 Prompt Engineering Guide](https://docs.google.com/document/d/11WlzjBT0xRpQhP9tFMtxzd0q6ANIdHPUBkMV-YB043U/edit#)
+- [Prompt Engineering Topic by GitHub](https://github.com/topics/prompt-engineering)
 - [Prompt Engineering Template](https://docs.google.com/spreadsheets/d/1-snKDn38-KypoYCk9XLPg799bHcNFSBAVu2HVvFEAkA/edit#gid=0)
 - [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Prompt Engineering: From Words to Art](https://www.saxifrage.xyz/post/prompt-engineering)
