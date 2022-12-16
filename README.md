@@ -23,7 +23,7 @@ You can use the tools below to test out prompts and conduct research
 ## Datasets
 - [PartiPrompts](https://parti.research.google/)
 - [Real Toxicity Prompts](https://allenai.org/data/real-toxicity-prompts)
-- [P3](Public Pool of Prompts)
+- [P3 - Public Pool of Prompts](https://huggingface.co/datasets/bigscience/P3)
 - [WritingPrompts](WritingPrompts)
 - [Midjourney Prompts](https://huggingface.co/datasets/succinctly/midjourney-prompts)
 
