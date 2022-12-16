@@ -19,7 +19,7 @@ You can use the tools below to test out prompts
 
 ## Guides
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
-- [Prompt Engineering by Microsoft(https://microsoft.github.io/prompt-engineering/)
+- [Prompt Engineering by Microsoft](https://microsoft.github.io/prompt-engineering/)
 - [DALLE Prompt Book](https://dallery.gallery/the-dalle-2-prompt-book/)
 - [DALL·E 2 Prompt Engineering Guide](https://docs.google.com/document/d/11WlzjBT0xRpQhP9tFMtxzd0q6ANIdHPUBkMV-YB043U/edit#)
 - [Prompt Engineering Template](https://docs.google.com/spreadsheets/d/1-snKDn38-KypoYCk9XLPg799bHcNFSBAVu2HVvFEAkA/edit#gid=0)
