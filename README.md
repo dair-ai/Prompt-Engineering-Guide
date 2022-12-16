@@ -14,7 +14,6 @@ You can use the tools below to test out prompts
 - [GPTTools](https://gpttools.com/comparisontool)
 - [Lexica](https://lexica.art/)
 - [Playground](https://playgroundai.com/)
-- [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
 - [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com/)
 - [Prompt Engine](https://github.com/microsoft/prompt-engine)
@@ -25,6 +24,7 @@ You can use the tools below to test out prompts
 - [DALLE Prompt Book](https://dallery.gallery/the-dalle-2-prompt-book/)
 - [DALL·E 2 Prompt Engineering Guide](https://docs.google.com/document/d/11WlzjBT0xRpQhP9tFMtxzd0q6ANIdHPUBkMV-YB043U/edit#)
 - [Prompt Engineering Template](https://docs.google.com/spreadsheets/d/1-snKDn38-KypoYCk9XLPg799bHcNFSBAVu2HVvFEAkA/edit#gid=0)
+- [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Prompt Engineering: From Words to Art](https://www.saxifrage.xyz/post/prompt-engineering)
 
 ## Courses/Lectures
