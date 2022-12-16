@@ -1,6 +1,6 @@
 # Prompt Engineering Guide
 
-This repo contains a guide for learning about prompt engineering. It includes several materials, guides, examples, papers, examples, and much more.
+This guide contains a non-exhaustive set of learning guides and tools about prompt engineering. It includes several materials, guides, examples, papers, examples, and much more.
 
 ## Papers
 
@@ -12,6 +12,7 @@ You can use the tools below to test out prompts
 
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [GPTTools](https://gpttools.com/comparisontool)
+- [Visual Prompt Builder](https://www.artstyle.ai/)
 
 ## Guides
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
