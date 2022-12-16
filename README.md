@@ -1,6 +1,6 @@
 # Prompt Engineering Guide
 
-This guide contains a non-exhaustive set of learning guides and tools about prompt engineering. It includes several materials, guides, examples, papers, examples, and much more.
+This guide contains a non-exhaustive set of learning guides and tools about prompt engineering. It includes several materials, guides, examples, papers, examples, and much more. The point of this repo is not to oversell prompt engineering, it's more intented to be used a research and educational reference for practitioners and developers.
 
 ## Papers
 
