@@ -34,6 +34,7 @@ Table of Contents
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [GPTTools](https://gpttools.com/comparisontool)
 - [Lexica](https://lexica.art/)
+- [Prompt Base](https://promptbase.com/)
 - [Playground](https://playgroundai.com/)
 - [OpenPrompt](https://github.com/thunlp/OpenPrompt)
 - [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
