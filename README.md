@@ -1,6 +1,6 @@
 # Prompt Engineering Guide
 
-This guide contains a non-exhaustive set of learning guides and tools about prompt engineering. It includes several materials, guides, examples, papers, examples, and much more. The intention behind this repo is not to oversell prompt engineering, it's more intented to be used a research and educational reference for practitioners and developers.
+This guide contains a non-exhaustive set of learning guides and tools about prompt engineering. It includes several materials, guides, examples, papers, examples, and much more. The repo is intented to be used a research and educational reference for practitioners and developers.
 
 ## Papers
 
@@ -13,22 +13,28 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
   - [Conversing with Copilot: Exploring Prompt Engineering for Solving CS1 Problems Using Natural Language](https://arxiv.org/abs/2210.15157)
   - [Piloting Copilot and Codex: Hot Temperature, Cold Prompts, or Black Magic?](https://arxiv.org/abs/2210.14699)
 - Approaches/Techniques:
+  - [Ask Me Anything: A simple strategy for prompting language models](https://paperswithcode.com/paper/ask-me-anything-a-simple-strategy-for)
   - [Large Language Models Are Human-Level Prompt Engineers](https://sites.google.com/view/automatic-prompt-engineer?pli=1)
   - [Promptagator: Few-shot Dense Retrieval From 8 Examples](https://arxiv.org/abs/2209.11755)
+  - [Prompt Programming for Large Language Models: Beyond the Few-Shot Paradigm](https://www.arxiv-vanity.com/papers/2102.07350/)
+- Collections:
+  - [Papers with Code](https://paperswithcode.com/task/prompt-engineering)
+  - [Prompt Papers](https://github.com/thunlp/PromptPapers#papers)
 
 
-## Tools
+## Tools & Libraries
 You can use the tools below to test out prompts and conduct research
 
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [GPTTools](https://gpttools.com/comparisontool)
 - [Lexica](https://lexica.art/)
 - [Playground](https://playgroundai.com/)
+- [OpenPrompt](https://github.com/thunlp/OpenPrompt)
 - [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
 - [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com/)
 - [AI Test Kitchen](https://aitestkitchen.withgoogle.com/)
 - [Prompt Engine](https://github.com/microsoft/prompt-engine)
-- [PromptSource](PromptSource)
+- [PromptSource](https://github.com/bigscience-workshop/promptsource)
 
 ## Datasets
 - [PartiPrompts](https://parti.research.google/)
@@ -45,6 +51,7 @@ You can use the tools below to test out prompts and conduct research
 - [Start with an Instruction](https://beta.openai.com/docs/quickstart/start-with-an-instruction)
 - [DALLE Prompt Book](https://dallery.gallery/the-dalle-2-prompt-book/)
 - [DALL·E 2 Prompt Engineering Guide](https://docs.google.com/document/d/11WlzjBT0xRpQhP9tFMtxzd0q6ANIdHPUBkMV-YB043U/edit#)
+- [Language Models and Prompt Engineering: Systematic Survey of Prompting Methods in NLP](https://youtube.com/watch?v=OsbUfL8w-mo&feature=shares)
 - [Learn Prompting](https://learnprompting.org/)
 - [Prompt Engineering Topic by GitHub](https://github.com/topics/prompt-engineering)
 - [Prompt Engineering Template](https://docs.google.com/spreadsheets/d/1-snKDn38-KypoYCk9XLPg799bHcNFSBAVu2HVvFEAkA/edit#gid=0)
@@ -61,6 +68,3 @@ You can use the tools below to test out prompts and conduct research
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a/)
 - [Best 100+ Stable Diffusion Prompts](https://mpost.io/best-100-stable-diffusion-prompts-the-most-beautiful-ai-text-to-image-prompts/)
 - [Notes for Prompt Engineering by sw-yx](https://github.com/sw-yx/ai-notes)
-
-## Courses/Lectures
-
