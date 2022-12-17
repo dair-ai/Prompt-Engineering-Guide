@@ -23,7 +23,6 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 
 
 ## Tools & Libraries
-You can use the tools below to test out prompts and conduct research
 
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [GPTTools](https://gpttools.com/comparisontool)
