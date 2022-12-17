@@ -74,3 +74,9 @@ Table of Contents
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a/)
 - [Best 100+ Stable Diffusion Prompts](https://mpost.io/best-100-stable-diffusion-prompts-the-most-beautiful-ai-text-to-image-prompts/)
 - [Notes for Prompt Engineering by sw-yx](https://github.com/sw-yx/ai-notes)
+
+# Lecture
+Full tutorial and lecture coming soon!
+
+---
+Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions.
