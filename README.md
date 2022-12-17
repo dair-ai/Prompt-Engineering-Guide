@@ -2,6 +2,13 @@
 
 This guide contains a non-exhaustive set of learning guides and tools about prompt engineering. It includes several materials, guides, examples, papers, examples, and much more. The repo is intented to be used a research and educational reference for practitioners and developers.
 
+Table of Contents
+
+- [Papers](#papers)
+- [Tools & Libraries](#tools--libraries)
+- [Datasets](#datasets)
+- [Blog, Guides, Tutorials and Other Readings](#blog-guides-tutorials-and-other-readings)
+
 ## Papers
 
 - Surveys:
