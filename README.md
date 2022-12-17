@@ -11,9 +11,10 @@ Table of Contents
 
 ## Papers
 
-- Surveys:
+- Surveys / Overviews:
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) 
   - [A Taxonomy of Prompt Modifiers for Text-To-Image Generation](https://arxiv.org/abs/2204.13988)
+  - [Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682)
 - Applications:
   - [Legal Prompt Engineering for Multilingual Legal Judgement Prediction](https://arxiv.org/abs/2212.02199)
   - [Investigating Prompt Engineering in Diffusion Models](https://arxiv.org/abs/2211.15462)
@@ -21,7 +22,9 @@ Table of Contents
   - [Piloting Copilot and Codex: Hot Temperature, Cold Prompts, or Black Magic?](https://arxiv.org/abs/2210.14699)
 - Approaches/Techniques:
   - [Ask Me Anything: A simple strategy for prompting language models](https://paperswithcode.com/paper/ask-me-anything-a-simple-strategy-for)
+  - [Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity](https://arxiv.org/abs/2104.08786)
   - [Large Language Models Are Human-Level Prompt Engineers](https://sites.google.com/view/automatic-prompt-engineer?pli=1)
+  - [Reframing Instructional Prompts to GPTk's Language](https://arxiv.org/abs/2109.07830)
   - [Promptagator: Few-shot Dense Retrieval From 8 Examples](https://arxiv.org/abs/2209.11755)
   - [Prompt Programming for Large Language Models: Beyond the Few-Shot Paradigm](https://www.arxiv-vanity.com/papers/2102.07350/)
 - Collections:
