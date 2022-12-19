@@ -25,6 +25,7 @@ Table of Contents
   - [Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity](https://arxiv.org/abs/2104.08786)
   - [AutoPrompt: Eliciting Knowledge from Language Models with Automatically Generated Prompts](https://arxiv.org/abs/2010.15980)
   - [Large Language Models Are Human-Level Prompt Engineers](https://sites.google.com/view/automatic-prompt-engineer?pli=1)
+  - [Structured Prompting: Scaling In-Context Learning to 1,000 Examples](https://arxiv.org/abs/2212.06713)
   - [Reframing Instructional Prompts to GPTk's Language](https://arxiv.org/abs/2109.07830)
   - [Promptagator: Few-shot Dense Retrieval From 8 Examples](https://arxiv.org/abs/2209.11755)
   - [Prompt Programming for Large Language Models: Beyond the Few-Shot Paradigm](https://www.arxiv-vanity.com/papers/2102.07350/)
