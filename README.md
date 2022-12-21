@@ -48,6 +48,7 @@ Table of Contents
 - [AI Test Kitchen](https://aitestkitchen.withgoogle.com/)
 - [Prompt Engine](https://github.com/microsoft/prompt-engine)
 - [PromptSource](https://github.com/bigscience-workshop/promptsource)
+- [sharegpt](https://sharegpt.com/)
 
 ## Datasets
 - [PartiPrompts](https://parti.research.google/)
