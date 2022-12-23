@@ -65,6 +65,7 @@ Table of Contents
 - [Prompt Engineering by Microsoft](https://microsoft.github.io/prompt-engineering/)
 - [Best practices for prompt engineering with OpenAI API](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
 - [Start with an Instruction](https://beta.openai.com/docs/quickstart/start-with-an-instruction)
+- [rompt engineering davinci-003 on our own docs for automated support (Part I)](https://www.patterns.app/blog/2022/12/21/finetune-llm-tech-support/)
 - [DALLE Prompt Book](https://dallery.gallery/the-dalle-2-prompt-book/)
 - [DALL·E 2 Prompt Engineering Guide](https://docs.google.com/document/d/11WlzjBT0xRpQhP9tFMtxzd0q6ANIdHPUBkMV-YB043U/edit#)
 - [Prompt injection attacks against GPT-3](https://simonwillison.net/2022/Sep/12/prompt-injection/)
