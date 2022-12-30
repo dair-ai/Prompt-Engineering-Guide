@@ -93,8 +93,8 @@ Table of Contents
 - [Best 100+ Stable Diffusion Prompts](https://mpost.io/best-100-stable-diffusion-prompts-the-most-beautiful-ai-text-to-image-prompts/)
 - [Notes for Prompt Engineering by sw-yx](https://github.com/sw-yx/ai-notes)
 
-# Lecture
-Full tutorial and lecture coming soon!
+# Lecture + Tutorial
+Full tutorial and lecture coming soon! If you would like to sponsor this open initiative reach out on [Twitter](https://twitter.com/omarsar0) or at ellfae@gmail.com.
 
 ---
 Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions.
