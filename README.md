@@ -42,6 +42,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [GPTTools](https://gpttools.com/comparisontool)
 - [EveryPrompt](https://www.everyprompt.com/)
+- [DUST](https://dust.tt/)
 - [Lexica](https://lexica.art/)
 - [Interactive Composition Explorer](https://github.com/oughtinc/ice)
 - [GPT Index](https://github.com/jerryjliu/gpt_index)
