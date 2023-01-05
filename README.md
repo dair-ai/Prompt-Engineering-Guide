@@ -61,6 +61,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [Stable Diffusion Dataset](https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts)
 
 ## Blog, Guides, Tutorials and Other Readings
+- [Prompt Engineering 101 - Introduction and resources](https://www.linkedin.com/pulse/prompt-engineering-101-introduction-resources-amatriain/)
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
 - [Prompt Engineering by Microsoft](https://microsoft.github.io/prompt-engineering/)
 - [Best practices for prompt engineering with OpenAI API](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
