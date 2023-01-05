@@ -49,6 +49,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
 - [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com/)
 - [AI Test Kitchen](https://aitestkitchen.withgoogle.com/)
+- [betterprompt](https://github.com/krrishdholakia/betterprompt)
 - [Prompt Engine](https://github.com/microsoft/prompt-engine)
 - [PromptSource](https://github.com/bigscience-workshop/promptsource)
 - [sharegpt](https://sharegpt.com/)
