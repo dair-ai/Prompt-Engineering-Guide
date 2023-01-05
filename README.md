@@ -52,6 +52,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [Prompt Engine](https://github.com/microsoft/prompt-engine)
 - [PromptSource](https://github.com/bigscience-workshop/promptsource)
 - [sharegpt](https://sharegpt.com/)
+- (DreamStudio)[https://beta.dreamstudio.ai/]
 
 ## Datasets
 - [PartiPrompts](https://parti.research.google/)
