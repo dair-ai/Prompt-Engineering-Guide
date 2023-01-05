@@ -43,6 +43,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [GPTTools](https://gpttools.com/comparisontool)
 - [EveryPrompt](https://www.everyprompt.com/)
 - [DUST](https://dust.tt/)
+- [Prompts.ai](https://github.com/sevazhidkov/prompts-ai)
 - [Lexica](https://lexica.art/)
 - [Interactive Composition Explorer](https://github.com/oughtinc/ice)
 - [GPT Index](https://github.com/jerryjliu/gpt_index)
