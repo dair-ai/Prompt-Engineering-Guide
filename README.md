@@ -31,6 +31,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
   - [Reframing Instructional Prompts to GPTk's Language](https://arxiv.org/abs/2109.07830)
   - [Promptagator: Few-shot Dense Retrieval From 8 Examples](https://arxiv.org/abs/2209.11755)
   - [Prompt Programming for Large Language Models: Beyond the Few-Shot Paradigm](https://www.arxiv-vanity.com/papers/2102.07350/)
+  - [A Taxonomy of Prompt Modifiers for Text-To-Image Generation](https://arxiv.org/abs/2204.13988)
   - [PromptChainer: Chaining Large Language Model Prompts through Visual Programming](https://arxiv.org/abs/2203.06566)
 - Collections:
   - [Papers with Code](https://paperswithcode.com/task/prompt-engineering)
