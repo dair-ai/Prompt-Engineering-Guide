@@ -47,6 +47,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [Prompts.ai](https://github.com/sevazhidkov/prompts-ai)
 - [Lexica](https://lexica.art/)
 - [Interactive Composition Explorer](https://github.com/oughtinc/ice)
+- [Promptable](https://promptable.ai/)
 - [GPT Index](https://github.com/jerryjliu/gpt_index)
 - [Prompt Base](https://promptbase.com/)
 - [Playground](https://playgroundai.com/)
