@@ -48,6 +48,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [DUST](https://dust.tt/)
 - [Prompts.ai](https://github.com/sevazhidkov/prompts-ai)
 - [Lexica](https://lexica.art/)
+- [Scale SpellBook](https://scale.com/spellbook)
 - [Interactive Composition Explorer](https://github.com/oughtinc/ice)
 - [Promptable](https://promptable.ai/)
 - [GPT Index](https://github.com/jerryjliu/gpt_index)
