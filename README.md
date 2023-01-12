@@ -114,7 +114,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [Notes for Prompt Engineering by sw-yx](https://github.com/sw-yx/ai-notes)
 
 # Lecture + Tutorial
-Full tutorial and lecture coming soon! If you would like to sponsor this open initiative reach out on [Twitter](https://twitter.com/omarsar0) or at ellfae@gmail.com.
+Full tutorial and lecture coming soon!
 
 ---
 Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions.
