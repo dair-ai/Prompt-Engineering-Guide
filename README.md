@@ -27,6 +27,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
   - [Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity](https://arxiv.org/abs/2104.08786)
   - [AutoPrompt: Eliciting Knowledge from Language Models with Automatically Generated Prompts](https://arxiv.org/abs/2010.15980)
   - [Large Language Models Are Human-Level Prompt Engineers](https://sites.google.com/view/automatic-prompt-engineer?pli=1)
+  - [BERTese: Learning to Speak to BERT](https://aclanthology.org/2021.eacl-main.316/)
   - [Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916)
   - [Structured Prompting: Scaling In-Context Learning to 1,000 Examples](https://arxiv.org/abs/2212.06713)
   - [Chain of Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)
