@@ -35,6 +35,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
   - [Prompt Programming for Large Language Models: Beyond the Few-Shot Paradigm](https://www.arxiv-vanity.com/papers/2102.07350/)
   - [A Taxonomy of Prompt Modifiers for Text-To-Image Generation](https://arxiv.org/abs/2204.13988)
   - [PromptChainer: Chaining Large Language Model Prompts through Visual Programming](https://arxiv.org/abs/2203.06566)
+  - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know)
 - Collections:
   - [Papers with Code](https://paperswithcode.com/task/prompt-engineering)
   - [Prompt Papers](https://github.com/thunlp/PromptPapers#papers)
