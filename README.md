@@ -17,6 +17,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) 
   - [A Taxonomy of Prompt Modifiers for Text-To-Image Generation](https://arxiv.org/abs/2204.13988)
   - [Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682)
+  - [A Survey for In-context Learning](https://arxiv.org/pdf/2301.00234.pdf
 - Applications:
   - [Legal Prompt Engineering for Multilingual Legal Judgement Prediction](https://arxiv.org/abs/2212.02199)
   - [Investigating Prompt Engineering in Diffusion Models](https://arxiv.org/abs/2211.15462)
