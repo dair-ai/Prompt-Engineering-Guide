@@ -55,6 +55,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [Lexica](https://lexica.art/)
 - [Scale SpellBook](https://scale.com/spellbook)
 - [Interactive Composition Explorer](https://github.com/oughtinc/ice)
+- [LearnGPT](https://www.learngpt.com/)
 - [Promptable](https://promptable.ai/)
 - [GPT Index](https://github.com/jerryjliu/gpt_index)
 - [Prompt Base](https://promptbase.com/)
