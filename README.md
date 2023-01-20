@@ -49,6 +49,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [GPTTools](https://gpttools.com/comparisontool)
+- [LangChain](https://github.com/hwchase17/langchain)
 - [EveryPrompt](https://www.everyprompt.com/)
 - [DUST](https://dust.tt/)
 - [Prompts.ai](https://github.com/sevazhidkov/prompts-ai)
