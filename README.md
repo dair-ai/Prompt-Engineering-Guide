@@ -104,6 +104,7 @@ This guide contains a non-exhaustive set of learning guides and tools about prom
 - [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Prompt Engineering: From Words to Art](https://www.saxifrage.xyz/post/prompt-engineering)
 - [NLP for Text-to-Image Generators: Prompt Analysis](https://heartbeat.comet.ml/nlp-for-text-to-image-generators-prompt-analysis-part-1-5076a44d8365)
+- [Mysteries of mode collapse](https://www.lesswrong.com/posts/t9svvNPNmFf5Qa3TA/mysteries-of-mode-collapse)
 - [GPT3 and Prompts: A quick primer](https://buildspace.so/notes/intro-to-gpt3-prompts)
 - [Prompt Engineering in GPT-3](https://www.analyticsvidhya.com/blog/2022/05/prompt-engineering-in-gpt-3/)
 - [Talking to machines: prompt engineering & injection](https://artifact-research.com/artificial-intelligence/talking-to-machines-prompt-engineering-injection/)
