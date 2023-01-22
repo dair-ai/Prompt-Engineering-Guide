@@ -18,11 +18,13 @@ This guide contains a set of learning guides and tools related to prompt enginee
   - [A Taxonomy of Prompt Modifiers for Text-To-Image Generation](https://arxiv.org/abs/2204.13988)
   - [Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682)
   - [A Survey for In-context Learning](https://arxiv.org/pdf/2301.00234.pdf)
+  
 - Applications:
   - [Legal Prompt Engineering for Multilingual Legal Judgement Prediction](https://arxiv.org/abs/2212.02199)
   - [Investigating Prompt Engineering in Diffusion Models](https://arxiv.org/abs/2211.15462)
   - [Conversing with Copilot: Exploring Prompt Engineering for Solving CS1 Problems Using Natural Language](https://arxiv.org/abs/2210.15157)
   - [Piloting Copilot and Codex: Hot Temperature, Cold Prompts, or Black Magic?](https://arxiv.org/abs/2210.14699)
+  
 - Approaches/Techniques:
   - [Ask Me Anything: A simple strategy for prompting language models](https://paperswithcode.com/paper/ask-me-anything-a-simple-strategy-for)
   - [Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity](https://arxiv.org/abs/2104.08786)
@@ -31,6 +33,7 @@ This guide contains a set of learning guides and tools related to prompt enginee
   - [BERTese: Learning to Speak to BERT](https://aclanthology.org/2021.eacl-main.316/)
   - [Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity](https://arxiv.org/abs/2104.08786)
   - [Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916)
+  - [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)
   - [Structured Prompting: Scaling In-Context Learning to 1,000 Examples](https://arxiv.org/abs/2212.06713)
   - [Chain of Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)
   - [Reframing Instructional Prompts to GPTk's Language](https://arxiv.org/abs/2109.07830)
