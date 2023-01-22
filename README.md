@@ -53,6 +53,7 @@ This guide contains a set of learning guides and tools related to prompt enginee
 - [LangChain](https://github.com/hwchase17/langchain)
 - [EveryPrompt](https://www.everyprompt.com/)
 - [DUST](https://dust.tt/)
+- [Dyno](https://trydyno.com/)
 - [Prompts.ai](https://github.com/sevazhidkov/prompts-ai)
 - [Lexica](https://lexica.art/)
 - [Scale SpellBook](https://scale.com/spellbook)
