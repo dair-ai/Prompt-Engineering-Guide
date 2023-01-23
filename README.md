@@ -76,6 +76,7 @@ This guide contains a set of learning guides and tools related to prompt enginee
 - [PromptSource](https://github.com/bigscience-workshop/promptsource)
 - [sharegpt](https://sharegpt.com/)
 - [DreamStudio](https://beta.dreamstudio.ai/)
+- [PromptInject](https://github.com/agencyenterprise/PromptInject)
 
 ## Datasets
 - [PartiPrompts](https://parti.research.google/)
@@ -86,6 +87,7 @@ This guide contains a set of learning guides and tools related to prompt enginee
 - [Midjourney Prompts](https://huggingface.co/datasets/succinctly/midjourney-prompts)
 - [Awesome ChatGPT Prompts](https://huggingface.co/datasets/fka/awesome-chatgpt-prompts)
 - [Stable Diffusion Dataset](https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts)
+- [Anthropic's Red Team dataset](https://github.com/anthropics/hh-rlhf/tree/master/red-team-attempts), [paper](https://arxiv.org/abs/2209.07858)
 
 ## Blog, Guides, Tutorials and Other Readings
 - [Pretrain, Prompt, Predict -  A New Paradigm for NLP](http://pretrain.nlpedia.ai/)
@@ -125,6 +127,11 @@ This guide contains a set of learning guides and tools related to prompt enginee
 - [Best 100+ Stable Diffusion Prompts](https://mpost.io/best-100-stable-diffusion-prompts-the-most-beautiful-ai-text-to-image-prompts/)
 - [Notes for Prompt Engineering by sw-yx](https://github.com/sw-yx/ai-notes)
 - [A Generic Framework for ChatGPT Prompt Engineering](https://medium.com/@thorbjoern.heise/a-generic-framework-for-chatgpt-prompt-engineering-7097f6513a0b)
+- [Methods of prompt programming](https://generative.ink/posts/methods-of-prompt-programming/)
+- [Prompt Engineering 101](https://humanloop.com/blog/prompt-engineering-101)
+- [the Book - Fed Honeypot](https://fedhoneypot.notion.site/25fdbdb69e9e44c6877d79e18336fe05?v=1d2bf4143680451986fd2836a04afbf4)
+- [Curtis64's set of prompt gists](https://gist.github.com/Curtis-64)
+- 
 
 # Lecture + Tutorial
 Full tutorial and lecture coming soon!
