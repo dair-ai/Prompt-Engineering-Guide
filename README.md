@@ -33,7 +33,8 @@ This guide contains a set of learning guides and tools related to prompt enginee
   - [BERTese: Learning to Speak to BERT](https://aclanthology.org/2021.eacl-main.316/)
   - [Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity](https://arxiv.org/abs/2104.08786)
   - [Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916)
-  - [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)
+  - [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)7
+  - [Show Your Work: Scratchpads for Intermediate Computation with Language Models](https://arxiv.org/abs/2112.00114)
   - [Structured Prompting: Scaling In-Context Learning to 1,000 Examples](https://arxiv.org/abs/2212.06713)
   - [Chain of Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)
   - [Calibrate Before Use: Improving Few-Shot Performance of Language Models](https://arxiv.org/abs/2102.09690)
