@@ -32,7 +32,6 @@ This guide contains a set of papers, learning guides, and tools related to promp
   - [Large Language Models Are Human-Level Prompt Engineers](https://sites.google.com/view/automatic-prompt-engineer?pli=1)
   - [BERTese: Learning to Speak to BERT](https://aclanthology.org/2021.eacl-main.316/)
   - [Batch Prompting: Efficient Inference with LLM APIs](https://arxiv.org/abs/2301.08721)
-  - [Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity](https://arxiv.org/abs/2104.08786)
   - [Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916)
   - [Decomposed Prompting: A Modular Approach for Solving Complex Tasks](https://arxiv.org/abs/2210.02406)
   - [Successive Prompting for Decomposing Complex Questions](https://arxiv.org/abs/2212.04092)
