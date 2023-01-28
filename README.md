@@ -4,7 +4,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 
 **📣 Full lecture + notebook + exercises on the ~5th of Feb** (announcement will happen on [Twitter](https://twitter.com/dair_ai))
 
-**📣 [Join our Discord](https://discord.gg/SKgkVT8BGJ) to discuss prompt engineering**
+**📣 [Join our Discord](https://discord.gg/SKgkVT8BGJ) to discuss more about prompt engineering**
 
 ## Table of Contents
 
