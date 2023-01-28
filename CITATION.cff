@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Saravia"
+  given-names: "Elvis"
+- family-names: "Community Contributors"
+title: "Prompt Engineering Guide"
+date-released: 2022-12-16
+url: "https://github.com/trigaten/Learn_Prompting"
