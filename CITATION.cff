@@ -7,3 +7,12 @@ authors:
 title: "Prompt Engineering Guide"
 date-released: 2022-12-16
 url: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Saravia"
+    given-names: "Elvis"
+  - family-names: "Community Contributors"
+  month: 12
+  title: "Prompt Engineering Guide"
+  year: 2022
