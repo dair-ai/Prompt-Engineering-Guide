@@ -3,7 +3,6 @@ message: "If you use this software, please cite it as below."
 authors:
 - family-names: "Saravia"
   given-names: "Elvis"
-- family-names: "Community Contributors"
 title: "Prompt Engineering Guide"
 date-released: 2022-12-16
 url: "https://github.com/dair-ai/Prompt-Engineering-Guide"
@@ -12,7 +11,6 @@ preferred-citation:
   authors:
   - family-names: "Saravia"
     given-names: "Elvis"
-  - family-names: "Community Contributors"
   month: 12
   title: "Prompt Engineering Guide"
   year: 2022
