@@ -55,6 +55,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
   - [Investigating Prompt Engineering in Diffusion Models](https://arxiv.org/abs/2211.15462) (Nov 2022)
   - [Conversing with Copilot: Exploring Prompt Engineering for Solving CS1 Problems Using Natural Language](https://arxiv.org/abs/2210.15157) (Oct 2022)
   - [Piloting Copilot and Codex: Hot Temperature, Cold Prompts, or Black Magic?](https://arxiv.org/abs/2210.14699) (Oct 2022)
+  - [Plot Writing From Scratch Pre-Trained Language Models](July 2022)
 
 - Collections:
   - [Papers with Code](https://paperswithcode.com/task/prompt-engineering)
