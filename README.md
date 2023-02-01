@@ -24,6 +24,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - Approaches/Techniques:
   - [Progressive Prompts: Continual Learning for Language Models](https://arxiv.org/abs/2301.12314) (Jan 2023)
   - [Batch Prompting: Efficient Inference with LLM APIs](https://arxiv.org/abs/2301.08721) (Jan 2023)
+  - [On Second Thought, Let's Not Think Step by Step! Bias and Toxicity in Zero-Shot Reasoning](https://arxiv.org/abs/2212.08061)
   - [Successive Prompting for Decomposing Complex Questions](https://arxiv.org/abs/2212.04092) (Dec 2022)
   - [Structured Prompting: Scaling In-Context Learning to 1,000 Examples](https://arxiv.org/abs/2212.06713) (Dec 2022)
   - [PAL: Program-aided Language Models](https://arxiv.org/abs/2211.10435) (Nov 2022)
