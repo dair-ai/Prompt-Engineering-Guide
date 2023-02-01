@@ -73,6 +73,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - [EveryPrompt](https://www.everyprompt.com/)
 - [DUST](https://dust.tt/)
 - [Dyno](https://trydyno.com/)
+- [Metaprompt](https://metaprompt.vercel.app/?task=gpt)
 - [Prompts.ai](https://github.com/sevazhidkov/prompts-ai)
 - [Lexica](https://lexica.art/)
 - [Scale SpellBook](https://scale.com/spellbook)
