@@ -30,6 +30,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
   - [PAL: Program-aided Language Models](https://arxiv.org/abs/2211.10435) (Nov 2022)
   - [Large Language Models Are Human-Level Prompt Engineers](https://arxiv.org/abs/2211.01910) (Nov 2022)
   - [Teaching Algorithmic Reasoning via In-context Learning](https://arxiv.org/abs/2211.09066) (Nov 2022)
+  - [Enhancing Self-Consistency and Performance of Pre-Trained Language Models through Natural Language Inference](https://arxiv.org/abs/2211.11875) (Nov 2022)
   - [Ask Me Anything: A simple strategy for prompting language models](https://paperswithcode.com/paper/ask-me-anything-a-simple-strategy-for) (Oct 2022)
   - [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) (Oct 2022)
   - [Prompting GPT-3 To Be Reliable](https://arxiv.org/abs/2210.09150) (Oct 2022)
