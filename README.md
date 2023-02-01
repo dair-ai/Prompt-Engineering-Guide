@@ -44,6 +44,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
   - [Generated Knowledge Prompting for Commonsense Reasoning](https://arxiv.org/abs/2110.08387) (Oct 2021)
   - [Reframing Instructional Prompts to GPTk's Language](https://arxiv.org/abs/2109.07830) (Sep 2021)
   - [Making Pre-trained Language Models Better Few-shot Learners](https://aclanthology.org/2021.acl-long.295/) (Aug 2021)
+  - [MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning](https://arxiv.org/abs/2205.00445) (May 2022)
   - [Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity](https://arxiv.org/abs/2104.08786) (April 2021)
   - [BERTese: Learning to Speak to BERT](https://aclanthology.org/2021.eacl-main.316/) (April 2021)
   - [The Power of Scale for Parameter-Efficient Prompt Tuning](https://arxiv.org/abs/2104.08691) (April 2021)
