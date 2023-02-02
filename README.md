@@ -22,6 +22,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
   
 - Approaches/Techniques:
+  - [Synthetic Prompting: Generating Chain-of-Thought Demonstrations for Large Language Models](https://arxiv.org/abs/2302.00618) (Feb 2022)
   - [Progressive Prompts: Continual Learning for Language Models](https://arxiv.org/abs/2301.12314) (Jan 2023)
   - [Batch Prompting: Efficient Inference with LLM APIs](https://arxiv.org/abs/2301.08721) (Jan 2023)
   - [On Second Thought, Let's Not Think Step by Step! Bias and Toxicity in Zero-Shot Reasoning](https://arxiv.org/abs/2212.08061) (Dec 2022)
