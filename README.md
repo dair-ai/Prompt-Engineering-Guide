@@ -22,6 +22,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
   
 - Approaches/Techniques:
+  - [Multimodal Chain-of-Thought Reasoning in Language Models](https://arxiv.org/abs/2302.00923) (Feb 2022) 
   - [Large Language Models Can Be Easily Distracted by Irrelevant Context](https://arxiv.org/abs/2302.00093) (Feb 2022)
   - [Synthetic Prompting: Generating Chain-of-Thought Demonstrations for Large Language Models](https://arxiv.org/abs/2302.00618) (Feb 2022)
   - [Progressive Prompts: Continual Learning for Language Models](https://arxiv.org/abs/2301.12314) (Jan 2023)
@@ -152,6 +153,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - [How to Draw Anything](https://andys.page/posts/how-to-draw/)
 - [How to write good prompts](https://andymatuschak.org/prompts/)
 - [Prompting Methods with Language Models and Their Applications to Weak Supervision](https://snorkel.ai/prompting-methods-with-language-models-nlp/)
+- [Simulators](https://www.lesswrong.com/posts/vJFdjigzmcXMhNTsx/simulators)
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a/)
 - [Best 100+ Stable Diffusion Prompts](https://mpost.io/best-100-stable-diffusion-prompts-the-most-beautiful-ai-text-to-image-prompts/)
 - [Notes for Prompt Engineering by sw-yx](https://github.com/sw-yx/ai-notes)
