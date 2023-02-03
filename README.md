@@ -100,6 +100,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - [LangChain](https://github.com/hwchase17/langchain)
 - [LearnGPT](https://www.learngpt.com)
 - [Lexica](https://lexica.art)
+- [loom](https://github.com/socketteer/loom)
 - [Metaprompt](https://metaprompt.vercel.app/?task=gpt)
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [OpenPrompt](https://github.com/thunlp/OpenPrompt)
