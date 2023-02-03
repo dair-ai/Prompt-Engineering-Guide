@@ -92,6 +92,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - [Dyno](https://trydyno.com/)
 - [Metaprompt](https://metaprompt.vercel.app/?task=gpt)
 - [Prompts.ai](https://github.com/sevazhidkov/prompts-ai)
+- [Prodia](https://prodia.com/)
 - [Lexica](https://lexica.art/)
 - [Scale SpellBook](https://scale.com/spellbook)
 - [Interactive Composition Explorer](https://github.com/oughtinc/ice)
