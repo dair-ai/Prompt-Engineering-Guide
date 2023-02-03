@@ -156,6 +156,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - [AI Content Generation](https://www.jonstokes.com/p/ai-content-generation-part-1-machine)
 - [How to Draw Anything](https://andys.page/posts/how-to-draw/)
 - [How to write good prompts](https://andymatuschak.org/prompts/)
+- [Exploiting GPT-3 Prompts](https://twitter.com/goodside/status/1569128808308957185)
 - [Prompting Methods with Language Models and Their Applications to Weak Supervision](https://snorkel.ai/prompting-methods-with-language-models-nlp/)
 - [Simulators](https://www.lesswrong.com/posts/vJFdjigzmcXMhNTsx/simulators)
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a/)
