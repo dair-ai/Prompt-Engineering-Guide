@@ -132,6 +132,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - [Generative AI with Cohere: Part 1 - Model Prompting](https://txt.cohere.ai/generative-ai-part-1/)
 - [Prompt Engineering by Microsoft](https://microsoft.github.io/prompt-engineering/)
 - [Best practices for prompt engineering with OpenAI API](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
+- [Exploring Prompt Injection Attacks](Exploring Prompt Injection Attacks)
 - [Start with an Instruction](https://beta.openai.com/docs/quickstart/start-with-an-instruction)
 - [CMU Advanced NLP 2022: Prompting](https://youtube.com/watch?v=5ef83Wljm-M&feature=shares)
 - [Prompt Engineering 101: Autocomplete, Zero-shot, One-shot, and Few-shot prompting](https://youtube.com/watch?v=v2gD8BHOaX4&feature=shares)
