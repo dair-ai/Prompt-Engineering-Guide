@@ -104,6 +104,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [OpenPrompt](https://github.com/thunlp/OpenPrompt)
 - [Playground](https://playgroundai.com)
+- [Prodia](https://app.prodia.com/#/)
 - [Prompt Base](https://promptbase.com)
 - [Prompt Engine](https://github.com/microsoft/prompt-engine)
 - [Prompt Generator for OpenAI's DALL-E 2](http://dalle2-prompt-generator.s3-website-us-west-2.amazonaws.com)
