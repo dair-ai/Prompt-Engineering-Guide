@@ -122,6 +122,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - [Anthropic's Red Team dataset](https://github.com/anthropics/hh-rlhf/tree/master/red-team-attempts), [(paper)](https://arxiv.org/abs/2209.07858)
 
 ## Blog, Guides, Tutorials and Other Readings
+- [Prompt injection to read out the secret OpenAI API key](https://twitter.com/ludwig_stumpp/status/1619701277419794435?s=20&t=GtoMlmYCSt-UmvjqJVbBSA)
 - [The ChatGPT Prompt Book](https://docs.google.com/presentation/d/17b_ocq-GL5lhV_bYSShzUgxL02mtWDoiw9xEroJ5m3Q/edit#slide=id.gc6f83aa91_0_79)
 - [Pretrain, Prompt, Predict -  A New Paradigm for NLP](http://pretrain.nlpedia.ai/)
 - [Prompt Engineering 101 - Introduction and resources](https://www.linkedin.com/pulse/prompt-engineering-101-introduction-resources-amatriain/)
