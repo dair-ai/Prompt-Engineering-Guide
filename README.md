@@ -98,6 +98,7 @@ This guide contains a set of papers, learning guides, and tools related to promp
 - [GPTTools](https://gpttools.com/comparisontool)
 - [hwchase17/adversarial-prompts](https://github.com/hwchase17/adversarial-prompts)
 - [Interactive Composition Explorer](https://github.com/oughtinc/ice)
+- [Knowledge Graph GPT](https://github.com/iAmmarTahir/KnowledgeGraphGPT)
 - [LangChain](https://github.com/hwchase17/langchain)
 - [LearnGPT](https://www.learngpt.com)
 - [Lexica](https://lexica.art)
