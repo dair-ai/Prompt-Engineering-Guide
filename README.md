@@ -2,11 +2,15 @@
 
 This guide contains a set of recent papers, learning guides, and tools related to prompt engineering. The repo is intended as a research and educational reference for practitioners and developers.
 
-**📣 Full lecture + notebook + exercises on the ~15th of Feb** (announcement will happen on [Twitter](https://twitter.com/dair_ai))
+Announcements:
 
-**📣 Examples and explainers coming soon! (reach out if you want to contribute)**
+- **📣 Full lecture + notebook + exercises on the ~15th of Feb** (announcement will happen on [Twitter](https://twitter.com/dair_ai))
 
-[Join our Discord](https://discord.gg/SKgkVT8BGJ) to discuss more about prompt engineering
+- **📣 Examples and explainers coming soon! (reach out if you want to contribute)**
+
+- [Join our Discord](https://discord.gg/SKgkVT8BGJ) to discuss more about prompt engineering
+
+---
 
 ## Table of Contents
 
@@ -14,6 +18,7 @@ This guide contains a set of recent papers, learning guides, and tools related t
 - [Tools & Libraries](#tools--libraries)
 - [Datasets](#datasets)
 - [Blog, Guides, Tutorials and Other Readings](#blog-guides-tutorials-and-other-readings)
+
 
 ## Papers
 #### (Sorted by Release Date)
