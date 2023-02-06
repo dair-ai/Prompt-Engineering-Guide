@@ -22,7 +22,7 @@ Announcements:
 
 
 ## Guides
-The following are a set of guides on prompt engineering. 
+The following are a set of guides on prompt engineering developed by us. Guides are work in progress.  
 
 - [Prompts Introduction](/guides/prompts-intro.md)
 
