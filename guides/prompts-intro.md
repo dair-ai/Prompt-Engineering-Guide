@@ -1,3 +1,5 @@
+## Prompt Introduction
+
 This guide covers the basics of standard prompts to provide a rough idea on how to use prompts to interact and instruct large language models (LLMs). 
 
 All examples are tested with `text-davinci-003` (using OpenAI's playground) unless otherwise specified. It uses the default configurations, e.g., `temperature=0.7` and `top-p=1`.
@@ -5,8 +7,6 @@ All examples are tested with `text-davinci-003` (using OpenAI's playground) unle
 Before starting with some basic examples, keep in mind that your results may vary depending on the version of LLM you are using. 
 
 ---
-
-## Basic Prompt
 
 You can already achieve a lot with prompts, but the quality of results depends on how much information you provide it. A prompt can contain information like the `instruction` or `question` you are passing to the model and including other details such as `inputs` or `examples`. 
 

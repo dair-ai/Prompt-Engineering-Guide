@@ -25,6 +25,7 @@ Announcements:
 The following are a set of guides on prompt engineering developed by us. Guides are work in progress.  
 
 - [Prompts Introduction](/guides/prompts-intro.md)
+- [Prompts Basic Usage](/guides/prompts-basic-usage.md)
 
 ## Papers
 #### (Sorted by Release Date)
