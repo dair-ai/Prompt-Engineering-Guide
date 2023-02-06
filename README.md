@@ -14,11 +14,17 @@ Announcements:
 
 ## Table of Contents
 
+- [Guides](#guides)
 - [Papers](#papers)
 - [Tools & Libraries](#tools--libraries)
 - [Datasets](#datasets)
 - [Blog, Guides, Tutorials and Other Readings](#blog-guides-tutorials-and-other-readings)
 
+
+## Guides
+The following are a set of guides on prompt engineering. 
+
+- [Prompts Introduction](/guides/prompts-intro.md)
 
 ## Papers
 #### (Sorted by Release Date)
