@@ -6,7 +6,7 @@ This guide contains a set of recent papers, learning guides, and tools related t
 
 **📣 Examples and explainers coming soon! (reach out if you want to contribute)**
 
-**📣 [Join our Discord](https://discord.gg/SKgkVT8BGJ) to discuss more about prompt engineering**
+[Join our Discord](https://discord.gg/SKgkVT8BGJ) to discuss more about prompt engineering
 
 ## Table of Contents
 
