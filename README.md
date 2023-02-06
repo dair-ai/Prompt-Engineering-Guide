@@ -1,6 +1,6 @@
 # Prompt Engineering Guide
 
-This guide contains a set of papers, learning guides, and tools related to prompt engineering. It includes several materials, guides, examples, papers, and more. The repo is intended to be used as a research and educational reference for practitioners and developers.
+This guide contains a set of recent papers, learning guides, and tools related to prompt engineering. The repo is intended as a research and educational reference for practitioners and developers.
 
 **📣 Full lecture + notebook + exercises on the ~15th of Feb** (announcement will happen on [Twitter](https://twitter.com/dair_ai))
 
