@@ -143,6 +143,7 @@ Announcements:
 ## Blog, Guides, Tutorials and Other Readings
 #### (Sorted by Name)
 
+- [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
 - [3 Principles for prompt engineering with GPT-3](https://www.linkedin.com/pulse/3-principles-prompt-engineering-gpt-3-ben-whately)
 - [A beginner-friendly guide to generative language models - LaMBDA guide](https://aitestkitchen.withgoogle.com/how-lamda-works)
 - [A Complete Introduction to Prompt Engineering for Large Language Models](https://www.mihaileric.com/posts/a-complete-introduction-to-prompt-engineering)
