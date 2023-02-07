@@ -1,4 +1,4 @@
-## Basic Prompts Usage (WIP)
+# Basic Prompts Usage
 
 In the previous guide, we introduced and gave a basic example of a prompt. 
 
@@ -244,3 +244,5 @@ Sum: 41
 ```
 
 Much better, right? By the way, I tried this a couple of times and the system sometime fails. If you provide a better instruction combined with examples, it might help get more accurate results. 
+
+In the upcoming guides, we will cover even more advanced prompt engineering concepts for improving performance on all these and more difficult tasks.

@@ -6,7 +6,7 @@ Announcements:
 
 - **📣 Full lecture + notebook + exercises on the ~15th of Feb** (announcement will happen on [Twitter](https://twitter.com/dair_ai))
 
-- **📣 Examples and explainers coming soon! (reach out if you want to contribute)**
+- **📣 Examples and explainers coming soon!**
 
 - [Join our Discord](https://discord.gg/SKgkVT8BGJ) to discuss more about prompt engineering
 
@@ -26,6 +26,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 
 - [Prompts Introduction](/guides/prompts-intro.md)
 - [Prompts Basic Usage](/guides/prompts-basic-usage.md)
+- [Prompts Advanced Usage](/guides/prompts-advanced-usage.md)
 
 ## Papers
 #### (Sorted by Release Date)
@@ -150,12 +151,10 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 ## Blog, Guides, Tutorials and Other Readings
 #### (Sorted by Name)
 
-- [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
 - [3 Principles for prompt engineering with GPT-3](https://www.linkedin.com/pulse/3-principles-prompt-engineering-gpt-3-ben-whately)
 - [A beginner-friendly guide to generative language models - LaMBDA guide](https://aitestkitchen.withgoogle.com/how-lamda-works)
 - [A Complete Introduction to Prompt Engineering for Large Language Models](https://www.mihaileric.com/posts/a-complete-introduction-to-prompt-engineering)
 - [A Generic Framework for ChatGPT Prompt Engineering](https://medium.com/@thorbjoern.heise/a-generic-framework-for-chatgpt-prompt-engineering-7097f6513a0b)
-- [OpenAI Prompt Examples for several applications](https://platform.openai.com/examples)
 - [AI Content Generation](https://www.jonstokes.com/p/ai-content-generation-part-1-machine)
 - [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Best 100+ Stable Diffusion Prompts](https://mpost.io/best-100-stable-diffusion-prompts-the-most-beautiful-ai-text-to-image-prompts)
@@ -180,6 +179,8 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 - [Mysteries of mode collapse](https://www.lesswrong.com/posts/t9svvNPNmFf5Qa3TA/mysteries-of-mode-collapse)
 - [NLP for Text-to-Image Generators: Prompt Analysis](https://heartbeat.comet.ml/nlp-for-text-to-image-generators-prompt-analysis-part-1-5076a44d8365)
 - [Notes for Prompt Engineering by sw-yx](https://github.com/sw-yx/ai-notes)
+- [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
+- [OpenAI Prompt Examples for several applications](https://platform.openai.com/examples)
 - [Pretrain, Prompt, Predict -  A New Paradigm for NLP](http://pretrain.nlpedia.ai)
 - [Prompt Engineering 101 - Introduction and resources](https://www.linkedin.com/pulse/prompt-engineering-101-introduction-resources-amatriain)
 - [Prompt Engineering 101: Autocomplete, Zero-shot, One-shot, and Few-shot prompting](https://youtube.com/watch?v=v2gD8BHOaX4&feature=shares)
@@ -194,6 +195,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 - [Prompt Engineering: From Words to Art](https://www.saxifrage.xyz/post/prompt-engineering)
 - [Prompt injection attacks against GPT-3](https://simonwillison.net/2022/Sep/12/prompt-injection)
 - [Prompt injection to read out the secret OpenAI API key](https://twitter.com/ludwig_stumpp/status/1619701277419794435?s=20&t=GtoMlmYCSt-UmvjqJVbBSA)
+- [Prompting in NLP: Prompt-based zero-shot learning](https://savasy-22028.medium.com/prompting-in-nlp-prompt-based-zero-shot-learning-3f34bfdb2b72)
 - [Prompting Methods with Language Models and Their Applications to Weak Supervision](https://snorkel.ai/prompting-methods-with-language-models-nlp)
 - [Prompts as Programming by Gwern](https://www.gwern.net/GPT-3#prompts-as-programming)
 - [Reverse Prompt Engineering for Fun and (no) Profit](https://lspace.swyx.io/p/reverse-prompt-eng)
