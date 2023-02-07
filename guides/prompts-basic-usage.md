@@ -50,9 +50,6 @@ Here is an example of a prompt that extracts information from a given paragraph.
 Author-contribution statements and acknowledgements in research papers should state clearly and specifically whether, and to what extent, the authors used AI technologies such as ChatGPT in the preparation of their manuscript and analysis. They should also indicate which LLMs were used. This will alert editors and reviewers to scrutinize manuscripts more carefully for potential biases, inaccuracies and improper source crediting. Likewise, scientific journals should be transparent about their use of LLMs, for example when selecting submitted manuscripts.
 
 Mention the large language model based product mentioned in the paragraph above:
-
-The large language model based product mentioned in the paragraph above is ChatGPT.
-
 ```
 
 Output
