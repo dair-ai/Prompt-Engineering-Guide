@@ -101,7 +101,7 @@ Keep in mind that the authors claim that this is an emergent ability that arises
 
 ## Zero-Shot CoT
 
-One recent idea that came out more recently is the idea of CoT that essentially involves adding "Let's think step by step" to the the original prompt. Let's try a simple problem and see how the model performs:
+One recent idea that came out more recently is the idea of [zero-shot CoT](https://arxiv.org/abs/2205.11916) that essentially involves adding "Let's think step by step" to the the original prompt. Let's try a simple problem and see how the model performs:
 
 ```
 I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?
