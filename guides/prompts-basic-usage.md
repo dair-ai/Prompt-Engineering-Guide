@@ -61,6 +61,10 @@ There are many ways we can improve the results above, but this is already very u
 
 By now it should be obvious that you can ask the model to perform different tasks by simply instructing it what to do. That's a powerful capability that AI product builder are already using to build powerful products and experiences.
 
+
+Paragraph source: [ChatGPT: five priorities for research](https://www.nature.com/articles/d41586-023-00288-7) 
+
+
 ## Text Classification
 So far, we have used simple instructions to perform a task. As a prompt engineer, you will need to get better at providing better instructions. But that's not all! You will also find that for harder use cases, just providing instructions won't be enough. This is where you need to think more about the context and the different elements you can use in a prompt. Other elements you can provide are `input data` or `examples`. 
 
@@ -95,7 +99,7 @@ Output
 neutral
 ```
 
-Perfect! This time the model returned `neutral` which is the specific label I was looking for. To highlight why sometimes being specific is important, checkout this example and spot the problem:
+Perfect! This time the model returned `neutral` which is the specific label I was looking for. It seems that the example provided in the prompt helped the model to be specific in its output. To highlight why sometimes being specific is important, checkout this example and spot the problem:
 
 ```
 Classify the text into nutral, negative or positive. 
@@ -111,15 +115,51 @@ Neutral
 
 What is the problem here?
 
-
-Paragraph source: [ChatGPT: five priorities for research](https://www.nature.com/articles/d41586-023-00288-7) 
-
 ## Role-Playing
-...
+Perhaps one of the more interesting things you can achieve with prompt engineering is telling the system how to behave, its intent, and identity. This is particularly useful when you are building conversational systems. 
 
-## Reasoning
-...
+For instance, let's create a conversational system that's able to give more technical and scientific responses to questions. 
 
+```
+The following is a conversation with an AI research assistant. The assistant tone is technical and scientific.
+
+Human: Hello, who are you?
+AI: Greeting! I am an AI research assistant. How can I help you today?
+Human: Can you tell me about the creation of blackholes?
+AI:
+```
+
+Output
+```
+Sure! Black holes are regions of spacetime where the gravitational force is so strong that nothing, not even light, can escape from it. They are created when a very massive star dies and its core collapses in on itself, forming a singularity of infinite density. The intense gravity of the singularity pulls in all the matter and radiation around it, creating the black hole.
+```
+
+Our AI research assistant sounds a bit too technical, right? Okay, let's change this behavior and instruct the system to give more accessible answers. 
+
+```
+The following is a conversation with an AI research assistant. The assistant answers should be easy to understand even by primary school students.
+
+Human: Hello, who are you?
+AI: Greeting! I am an AI research assistant. How can I help you today?
+Human: Can you tell me about the creation of blackholes?
+AI: 
+```
+
+Output
+```
+Sure! Black holes are created when a very massive star runs out of fuel and collapses in on itself. The gravity of the star is so strong that nothing, not even light, can escape its pull. This creates a point in space-time with an intense gravitational force called a black hole.
+```
+
+I think we made some progress. You can continue improving it. I am sure if you add more examples you might get even better results. 
 
 ## Code Generation
-...
+One application where LLMs are quite effective at is code generation. Copilot is a great example of this. There is a vast number of code generation tasks you can perform with clever prompts. Let's look at a few examples below.
+
+
+
+## Reasoning
+Perhaps one of the most difficult tasks for an LLM today is one that requires some form of reasoning. Reasoning is one the areas that I am most excited about due the types of complex applications that can emerge from LLMs. 
+
+That said, current LLMs struggle to perform any type of reasoning.  
+
+
