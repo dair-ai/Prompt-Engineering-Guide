@@ -6,6 +6,7 @@ In this guide, we will provide more examples of how prompts are used and introdu
 
 Often, the best way to learn concepts is by running through examples. Here are a few examples of how prompt engineering can be used to achieve all types of interesting and different tasks. 
 
+---
 
 ## Text Summarization
 One of the standard tasks in natural language generation is text summarization. Text summarization can include many different flavors and domains. In fact, one of the most promising applications of language models is the ability to summarize articles and concepts into quick and easy to read summaries. Let's try a basic summarization task using prompts.
@@ -38,6 +39,8 @@ Antibiotics are medications used to treat bacterial infections by either killing
 
 Without paying too much attention to the accuracy of the output above, which is something we will touch on in a later guide, the model tried to summarize the paragraph in one sentence. You can get clever with the instructions but we will leave that for a later chapter. Feel free to pause here an experiment to see if you get better results.
 
+---
+
 ## Information Extraction
 While language models are trained to perform natural language generation and related tasks, it's also very capable of performing classification and a range of other natural language processing (NLP) tasks. 
 
@@ -64,6 +67,7 @@ By now it should be obvious that you can ask the model to perform different task
 
 Paragraph source: [ChatGPT: five priorities for research](https://www.nature.com/articles/d41586-023-00288-7) 
 
+---
 
 ## Text Classification
 So far, we have used simple instructions to perform a task. As a prompt engineer, you will need to get better at providing better instructions. But that's not all! You will also find that for harder use cases, just providing instructions won't be enough. This is where you need to think more about the context and the different elements you can use in a prompt. Other elements you can provide are `input data` or `examples`. 
@@ -115,6 +119,8 @@ Neutral
 
 What is the problem here?
 
+---
+
 ## Role-Playing
 Perhaps one of the more interesting things you can achieve with prompt engineering is telling the system how to behave, its intent, and identity. This is particularly useful when you are building conversational systems. 
 
@@ -141,7 +147,7 @@ The following is a conversation with an AI research assistant. The assistant ans
 
 Human: Hello, who are you?
 AI: Greeting! I am an AI research assistant. How can I help you today?
-Human: Can you tell me about the creation of blackholes?
+Human: Can you tell me about the creation of black holes?
 AI: 
 ```
 
@@ -152,14 +158,89 @@ Sure! Black holes are created when a very massive star runs out of fuel and coll
 
 I think we made some progress. You can continue improving it. I am sure if you add more examples you might get even better results. 
 
+---
+
 ## Code Generation
 One application where LLMs are quite effective at is code generation. Copilot is a great example of this. There is a vast number of code generation tasks you can perform with clever prompts. Let's look at a few examples below.
 
+First, let's try a simple program that greets the user. 
 
+```
+/*
+Ask the user for their name and say "Hello"
+*/
+```
+
+Output
+```
+let name = prompt("What is your name?");
+console.log(`Hello, ${name}!`);
+```
+
+You can see that we didn't even need to specify language to use. 
+
+Let's switch levels a bit. I want to show you how powerful LLMs can be with a little more effort on designing the prompts.
+
+```
+"""
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a MySQL query for all students in the Computer Science Department
+"""
+```
+
+Output
+```
+SELECT StudentId, StudentName 
+FROM students 
+WHERE DepartmentId IN (SELECT DepartmentId FROM departments WHERE DepartmentName = 'Computer Science');
+```
+
+This is very impressive. In this case we provided data about the database schema and asked it to generate a valid MySQL query. 
+
+---
 
 ## Reasoning
 Perhaps one of the most difficult tasks for an LLM today is one that requires some form of reasoning. Reasoning is one the areas that I am most excited about due the types of complex applications that can emerge from LLMs. 
 
-That said, current LLMs struggle to perform any type of reasoning.  
+There have been some improvements on tasks involving mathematical capabilities. That said, it's important to note that current LLMs struggle to perform reasoning tasks so this require even more advanced prompt engineering techniques. We will cover these advanced techniques in the next guide. For now, we will cover a few basic examples to show arithmetic capabilities.
 
 
+```
+What is 9,000 * 9,000?
+```
+
+Output
+```
+81,000,000
+```
+
+Let's try something more difficult. 
+
+```
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
+
+A: 
+```
+
+Output
+```
+No, the odd numbers in this group add up to an odd number: 119.
+```
+
+That's incorrect! Let's try to improve this by improving the prompt.
+
+```
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
+
+Solve by breaking the problem into steps. First, identify the odd numbers, add them, and indicate whether the result is odd or even. 
+```
+
+Output
+```
+Odd numbers: 15, 5, 13, 7, 1
+Sum: 41 
+41 is an odd number.
+```
+
+Much better, right? By the way, I tried this a couple of times and the system sometime fails. If you provide a better instruction combined with examples, it might help get more accurate results. 
