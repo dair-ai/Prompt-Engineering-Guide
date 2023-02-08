@@ -40,6 +40,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
 
+  - [Hard Prompts Made Easy: Gradient-Based Discrete Optimization for Prompt Tuning and Discovery](https://arxiv.org/abs/2302.03668) (Feb 2023)
   - [Multimodal Chain-of-Thought Reasoning in Language Models](https://arxiv.org/abs/2302.00923) (Feb 2023)
   - [Large Language Models Can Be Easily Distracted by Irrelevant Context](https://arxiv.org/abs/2302.00093) (Feb 2023)
   - [Synthetic Prompting: Generating Chain-of-Thought Demonstrations for Large Language Models](https://arxiv.org/abs/2302.00618) (Feb 2023)
@@ -89,7 +90,9 @@ The following are a set of guides on prompt engineering developed by us. Guides 
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
 
+  - [PLACES: Prompting Language Models for Social Conversation Synthesis](https://arxiv.org/abs/2302.03269) (Feb 2023)
   - [Commonsense-Aware Prompting for Controllable Empathetic Dialogue Generation](https://arxiv.org/abs/2302.01441) (Feb 2023)
+  - [Crawling the Internal Knowledge-Base of Language Models](https://arxiv.org/abs/2301.12810) (Jan 2023)
   - [Legal Prompt Engineering for Multilingual Legal Judgement Prediction](https://arxiv.org/abs/2212.02199) (Dec 2022)
   - [Investigating Prompt Engineering in Diffusion Models](https://arxiv.org/abs/2211.15462) (Nov 2022)
   - [Conversing with Copilot: Exploring Prompt Engineering for Solving CS1 Problems Using Natural Language](https://arxiv.org/abs/2210.15157) (Oct 2022)
