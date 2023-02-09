@@ -25,9 +25,10 @@ Announcements:
 ## Guides
 The following are a set of guides on prompt engineering developed by us. Guides are work in progress.  
 
-- [Prompts Introduction](/guides/prompts-intro.md)
-- [Prompts Basic Usage](/guides/prompts-basic-usage.md)
-- [Prompts Advanced Usage](/guides/prompts-advanced-usage.md)
+- [Prompt Engineering - Introduction](/guides/prompts-intro.md)
+- [Prompt Engineering - Basic Usage](/guides/prompts-basic-usage.md)
+- [Prompt Engineering - Advanced Usage](/guides/prompts-advanced-usage.md)
+- [Prompt Engineering - Miscellaneous Topics](/guides/prompt-miscellaneous.md)
 
 ## Papers
 #### (Sorted by Release Date)

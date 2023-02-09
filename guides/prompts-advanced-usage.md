@@ -52,6 +52,43 @@ That didn't work. It seems like basic standard prompting is not enough to get re
 More recently, chain-of-thought (CoT) prompting has been popularized to address more complex arithmetic,
 commonsense, and symbolic reasoning tasks. So let's talk about CoT next and see if we can solve the above task.
 
+Following the findings from [Min et al. (2022)](https://arxiv.org/abs/2202.12837), here a few more tips about demonstrations/exemplars when doing few-shot:
+
+- the label space and the distribution of the input text specified by the demonstrations are both key (regardless of whether the labels are correct
+for individual inputs).
+- the format you use also plays a key role in performance; Even if you just use random labels, this is much better than no labels at all.  
+- additional results show that selecting random labels from a true distribution of labels (instead of a uniform distribution) also helps.
+
+Let's try out a few examples. Let's first try an example with random labels (meaning the labels Negative and Positive are randomly assigned to the inputs):
+
+```
+This is awesome! // Negative
+This is bad! // Positive
+Wow that movie was rad! // Positive
+What a horrible show! //
+```
+
+Output
+```
+Negative
+```
+
+We still get the correct answer, even though the labels have been randomized. Note that we also kept the format, which helps too. In fact, with further experimentation it seems the newer GPT models we are experimenting with are becoming more robust to even random format. Example:
+
+```
+Positive This is awesome! 
+This is bad! Negative
+Wow that movie was rad!
+Positive
+What a horrible show! --
+```
+Output
+```
+Negative
+```
+
+There is no consistency in the format above but that still affect the model from predicting the correct label. We have to conduct more thorough analysis to confirm if this holds true for different and more complex tasks.
+
 ---
 
 ## Chain-of-Thought Prompting
