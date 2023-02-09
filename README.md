@@ -171,6 +171,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 - [Curtis64's set of prompt gists](https://gist.github.com/Curtis-64)
 - [DALL·E 2 Prompt Engineering Guide](https://docs.google.com/document/d/11WlzjBT0xRpQhP9tFMtxzd0q6ANIdHPUBkMV-YB043U/edit#)
 - [DALLE Prompt Book](https://dallery.gallery/the-dalle-2-prompt-book)
+- [Diffusion Models: A Practical Guide](https://scale.com/guides/diffusion-models-guide)
 - [Exploiting GPT-3 Prompts](https://twitter.com/goodside/status/1569128808308957185)
 - [Exploring Prompt Injection Attacks](https://research.nccgroup.com/2022/12/05/exploring-prompt-injection-attacks)
 - [Extrapolating to Unnatural Language Processing with GPT-3's In-context Learning: The Good, the Bad, and the Mysterious](http://ai.stanford.edu/blog/in-context-learning)
