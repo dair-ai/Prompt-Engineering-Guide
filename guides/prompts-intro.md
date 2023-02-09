@@ -43,9 +43,13 @@ Output
  so  beautiful today.
 ```
 
-Is that better? Well, we told the model to complete the sentence so the result looks a lot better as it follows exactly what we told it to do ("complete the sentence") . This approach of instructing the model to perform a task is what's referred to as **prompt engineering**. 
+Is that better? Well, we told the model to complete the sentence so the result looks a lot better as it follows exactly what we told it to do ("complete the sentence"). This approach of instructing the model to perform a task is what's referred to as **prompt engineering**. 
 
 The example above is a basic illustration of what's possible with LLMs today. Today's LLMs are able to perform all kinds of advanced tasks that range from text summarization to mathematical reasoning to code generation.
+
+You can try other simple tasks by using simple commands to instruct the model like "Write", "Classify", "Summarize", "Translate", "Order", etc.
+
+Keep in mind that you also need to experiment a lot so see what works best. Trying different instructions with different keywords and data and see what works best for your particular use case and task. Usually, the mode specific and relevant the context is to the task you are trying to perform, the better. We will touch on the importance of sampling and adding more context in the upcoming guides.
 
 We will cover more of these capabilities in this guide but also cover other areas of interest such as advanced prompting techniques and research topics around prompt engineering. 
 

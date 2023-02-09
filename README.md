@@ -20,6 +20,7 @@ Announcements:
 - [Datasets](#datasets)
 - [Blog, Guides, Tutorials and Other Readings](#blog-guides-tutorials-and-other-readings)
 
+---
 
 ## Guides
 The following are a set of guides on prompt engineering developed by us. Guides are work in progress.  
@@ -90,6 +91,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
 
+  - [Prompting for Multimodal Hateful Meme Classification](https://arxiv.org/abs/2302.04156) (Feb 2023)
   - [PLACES: Prompting Language Models for Social Conversation Synthesis](https://arxiv.org/abs/2302.03269) (Feb 2023)
   - [Commonsense-Aware Prompting for Controllable Empathetic Dialogue Generation](https://arxiv.org/abs/2302.01441) (Feb 2023)
   - [Crawling the Internal Knowledge-Base of Language Models](https://arxiv.org/abs/2301.12810) (Jan 2023)
