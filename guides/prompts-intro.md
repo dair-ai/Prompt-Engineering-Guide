@@ -4,8 +4,6 @@ This guide covers the basics of standard prompts to provide a rough idea on how 
 
 All examples are tested with `text-davinci-003` (using OpenAI's playground) unless otherwise specified. It uses the default configurations, e.g., `temperature=0.7` and `top-p=1`.
 
-Before starting with some basic examples, keep in mind that your results may vary depending on the version of LLM you are using. 
-
 ---
 
 ## Basic Prompts
@@ -53,6 +51,19 @@ Here are few more tips to keep in mind while you do prompt engineering:
 
 
 We will cover more of these capabilities in this guide but also cover other areas of interest such as advanced prompting techniques and research topics around prompt engineering. 
+
+---
+## A Word on LLM Settings
+
+When working with prompts, you will be interacting with the LLM via an API or directly. You can configure a few parameters to get different results for your prompts. 
+
+**Temperature** - In short, the lower the temperature the more deterministic the results in the sense that the highest probable next token is always picked. Increasing temperature could lead to more randomness encouraging more diverse or creative outputs. We are essentially increasing the weights of the other possible tokens. In terms of application, we might want to use lower temperature for something like fact-based QA to encourage more factual and concise responses. For poem generation or other creative tasks it might be beneficial to increase temperature. 
+
+**Top_p** - Similarly, with top_p, a sampling technique with temperature called nucleus sampling, you can control how deterministic the model is at generating a response. If you are looking for exact and factual answers keep this low. If you are looking for more diverse responses, increase to a higher value. 
+
+The general recommendation is to alter one not both.
+
+Before starting with some basic examples, keep in mind that your results may vary depending on the version of LLM you are using. 
 
 ---
 ## Standard Prompts
@@ -124,4 +135,4 @@ Few-shot prompts enable in-context learning which is the ability of language mod
 
 As we cover more and more examples and applications that are possible with prompt engineering, you will notice that there are certain elements that make up a prompt. 
 
-A prompt can be composed of a question, instruction, input data, and examples. A question or instruction is a required component of a prompt. Depending on the task at hand, you might find it useful to include more information like data and examples. More on this in the upcoming guides.
+A prompt can be composed of a question, instruction, input data, and examples. A question or instruction is a required component of a prompt. Depending on the task at hand, you might find it useful to also include more information like input data and examples. More on this in the upcoming guides.

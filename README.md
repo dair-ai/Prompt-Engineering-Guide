@@ -192,6 +192,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 - [Prompt Engineering 101 - Introduction and resources](https://www.linkedin.com/pulse/prompt-engineering-101-introduction-resources-amatriain)
 - [Prompt Engineering 101: Autocomplete, Zero-shot, One-shot, and Few-shot prompting](https://youtube.com/watch?v=v2gD8BHOaX4&feature=shares)
 - [Prompt Engineering 101](https://humanloop.com/blog/prompt-engineering-101)
+- [Prompt Engineering - A new profession ?](https://www.youtube.com/watch?v=w102J3_9Bcs&ab_channel=PatrickDebois)
 - [Prompt Engineering by co:here](https://docs.cohere.ai/docs/prompt-engineering)
 - [Prompt Engineering by Microsoft](https://microsoft.github.io/prompt-engineering)
 - [Prompt engineering davinci-003 on our own docs for automated support (Part I)](https://www.patterns.app/blog/2022/12/21/finetune-llm-tech-support)
