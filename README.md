@@ -224,5 +224,3 @@ Full tutorial and lecture coming soon!
 ---
 
 Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions.
-
-Join our [Discord](https://discord.gg/SKgkVT8BGJ)
