@@ -43,7 +43,10 @@ The following are a set of guides on prompt engineering developed by us. Guides 
   - [A Taxonomy of Prompt Modifiers for Text-To-Image Generation](https://arxiv.org/abs/2204.13988) (Apr 2022)
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
-
+  
+  - [SwitchPrompt: Learning Domain-Specific Gated Soft Prompts for Classification in Low-Resource Domains](https://arxiv.org/abs/2302.06868) (Feb 2023)
+  - [Evaluating the Robustness of Discrete Prompts](https://arxiv.org/abs/2302.05619) (Feb 2023)
+  - [Compositional Exemplars for In-context Learning](https://arxiv.org/abs/2302.05698) (Feb 2023)
   - [Hard Prompts Made Easy: Gradient-Based Discrete Optimization for Prompt Tuning and Discovery](https://arxiv.org/abs/2302.03668) (Feb 2023)
   - [Multimodal Chain-of-Thought Reasoning in Language Models](https://arxiv.org/abs/2302.00923) (Feb 2023)
   - [Large Language Models Can Be Easily Distracted by Irrelevant Context](https://arxiv.org/abs/2302.00093) (Feb 2023)
