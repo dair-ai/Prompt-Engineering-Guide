@@ -4,7 +4,7 @@ This guide contains a set of recent papers, learning guides, and tools related t
 
 Announcements:
 
-- **📣 Full lecture + notebook + exercises on the ~15th of Feb** (announcement will happen on [Twitter](https://twitter.com/dair_ai))
+- **📣 Full lecture + notebook + exercises (releasing this weekend (19 Feb) on my [YouTube channel](https://www.youtube.com/channel/UCyna_OxOWL7IEuOwb7WhmxQ))
 
 - **📣 Examples and explainers coming soon!**
 
