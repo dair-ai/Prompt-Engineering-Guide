@@ -4,9 +4,9 @@ This guide contains a set of recent papers, learning guides, and tools related t
 
 Announcements:
 
-- **📣 Full lecture + notebook + exercises (releasing this weekend (19 Feb) on my [YouTube channel](https://www.youtube.com/channel/UCyna_OxOWL7IEuOwb7WhmxQ))
+- 📣 Full lecture + notebook + exercises (releasing this weekend (19 Feb) on my [YouTube channel](https://www.youtube.com/channel/UCyna_OxOWL7IEuOwb7WhmxQ))
 
-- **📣 Examples and explainers coming soon!**
+- 📣 Examples and explainers coming soon!
 
 - [Join our Discord](https://discord.gg/SKgkVT8BGJ) to discuss more about prompt engineering
 
