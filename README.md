@@ -192,6 +192,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 - [Methods of prompt programming](https://generative.ink/posts/methods-of-prompt-programming)
 - [Mysteries of mode collapse](https://www.lesswrong.com/posts/t9svvNPNmFf5Qa3TA/mysteries-of-mode-collapse)
 - [NLP for Text-to-Image Generators: Prompt Analysis](https://heartbeat.comet.ml/nlp-for-text-to-image-generators-prompt-analysis-part-1-5076a44d8365)
+- [NLP with Deep Learning CS224N/Ling284 - Lecture 11: Promting, Instruction Tuning, and RLHF](http://web.stanford.edu/class/cs224n/slides/cs224n-2023-lecture11-prompting-rlhf.pdf)
 - [Notes for Prompt Engineering by sw-yx](https://github.com/sw-yx/ai-notes)
 - [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
 - [OpenAI Prompt Examples for several applications](https://platform.openai.com/examples)
