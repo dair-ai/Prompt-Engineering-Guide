@@ -96,7 +96,8 @@ The following are a set of guides on prompt engineering developed by us. Guides 
   - [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) (May 2020)
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
-
+  
+  - [The Capacity for Moral Self-Correction in Large Language Models](https://arxiv.org/abs/2302.07459) (Feb 2023)
   - [Prompting for Multimodal Hateful Meme Classification](https://arxiv.org/abs/2302.04156) (Feb 2023)
   - [PLACES: Prompting Language Models for Social Conversation Synthesis](https://arxiv.org/abs/2302.03269) (Feb 2023)
   - [Commonsense-Aware Prompting for Controllable Empathetic Dialogue Generation](https://arxiv.org/abs/2302.01441) (Feb 2023)
