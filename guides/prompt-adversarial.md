@@ -80,4 +80,4 @@ Models like ChatGPT and Claude have been aligned to avoid outputting content tha
 ---
 [Previous Section (Advanced Prompt Usage)](./prompts-advanced-usage.md)
 
-[Next Section](./prompt-miscellaneous.md)
+[Next Section (Miscellaneous Topics)](./prompt-miscellaneous.md)
