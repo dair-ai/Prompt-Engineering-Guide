@@ -329,3 +329,8 @@ Yes, part of golf is trying to get a higher point total than others. Each player
 ```
 
 Some really interesting things happened with this example. In the first answer, the model was very confident but in the second not so much. I simplify the process for demonstration purposes but there are few more details to consider when arriving to the final answer. Check out the paper for more. 
+
+---
+[Previous Section (Basic Prompts Usage)](./prompts-basic-usage.md)
+
+[Next Section (Adversarial Prompting)](./prompt-adversarial.md)

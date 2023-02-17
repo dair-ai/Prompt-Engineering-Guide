@@ -136,3 +136,6 @@ Few-shot prompts enable in-context learning which is the ability of language mod
 As we cover more and more examples and applications that are possible with prompt engineering, you will notice that there are certain elements that make up a prompt. 
 
 A prompt can be composed of a question, instruction, input data, and examples. A question or instruction is a required component of a prompt. Depending on the task at hand, you might find it useful to also include more information like input data and examples. More on this in the upcoming guides.
+
+---
+[Next Section (Basic Prompts Usage)](./prompts-basic-usage.md)
