@@ -93,7 +93,7 @@ There is no consistency in the format above but that still affect the model from
 
 ## Chain-of-Thought Prompting
 
-Introduced in [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), chain-of-thought (CoT) prompting uses few chain of thought demonstrations are provided as exemplars in prompting to improve the ability of large language models to perform complex reasoning.
+Introduced in [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), chain-of-thought (CoT) prompting enables complex reasoning capabilities through intermediate reasoning steps. You can combine it with few-shot prompting to get better results on more complex tasks that require reasoning before responding.
 
 ```
 The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
@@ -138,7 +138,7 @@ Keep in mind that the authors claim that this is an emergent ability that arises
 
 ## Zero-Shot CoT
 
-One recent idea that came out more recently is the idea of [zero-shot CoT](https://arxiv.org/abs/2205.11916) that essentially involves adding "Let's think step by step" to the the original prompt. Let's try a simple problem and see how the model performs:
+One recent idea that came out more recently is the idea of [zero-shot CoT](https://arxiv.org/abs/2205.11916) that essentially involves adding "Let's think step by step" to the original prompt. Let's try a simple problem and see how the model performs:
 
 ```
 I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?
@@ -149,7 +149,7 @@ Output
 11 apples
 ```
 
-The answer is incorrect Now Let's try with the special prompt. 
+The answer is incorrect! Now Let's try with the special prompt. 
 
 ```
 I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?
@@ -171,7 +171,7 @@ It's actually impressive that this simple prompt is effective at this task. This
 
 ## Self-Consistency
 
-Perhaps one of the more advanced techniques out there for prompt engineering is self-consistency. Proposed by [Wang et al. (2022)](https://arxiv.org/pdf/2203.11171.pdf), self-consistency aims "to replace the naive greedy decoding used in chain-of-thought prompting". The idea is to sample multiple, diverse reasoning paths through few-shot CoT, and use the generations to select the most consistent answer. This helps to boost the performance of CoT prompting ont asks involving arithmetic and commonsense reasoning.
+Perhaps one of the more advanced techniques out there for prompt engineering is self-consistency. Proposed by [Wang et al. (2022)](https://arxiv.org/pdf/2203.11171.pdf), self-consistency aims "to replace the naive greedy decoding used in chain-of-thought prompting". The idea is to sample multiple, diverse reasoning paths through few-shot CoT, and use the generations to select the most consistent answer. This helps to boost the performance of CoT prompting on tasks involving arithmetic and commonsense reasoning.
 
 Let's try the following example for arithmetic reasoning:
 
@@ -250,7 +250,7 @@ Computing for the final answer involves a few steps (check out the paper for the
 
 LLMs continue to be improved and one popular technique include the ability to incorporate knowledge or information to help the model make more accurate predictions. 
 
-Using a similar idea, can the model also be used to generate knowledge before making a prediction? That's what attempted in the paper by [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf). In particular, how helpful is this for tasks such as commonsense reasoning?
+Using a similar idea, can the model also be used to generate knowledge before making a prediction? That's what attempted in the paper by [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf) -- generate knowledge to be used as part of the prompt. In particular, how helpful is this for tasks such as commonsense reasoning?
 
 Let's try a simple prompt:
 
