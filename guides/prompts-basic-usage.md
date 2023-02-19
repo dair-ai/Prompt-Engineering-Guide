@@ -124,7 +124,7 @@ neutral
 Perfect! This time the model returned `neutral` which is the specific label I was looking for. It seems that the example provided in the prompt helped the model to be specific in its output. To highlight why sometimes being specific is important, checkout this example and spot the problem:
 
 ```
-Classify the text into nutral, negative or positive. 
+Classify the text into neutral, negative or positive. 
 
 Text: I think the vacation is okay.
 Sentiment:
@@ -149,7 +149,7 @@ The following is a conversation with an AI research assistant. The assistant ton
 
 Human: Hello, who are you?
 AI: Greeting! I am an AI research assistant. How can I help you today?
-Human: Can you tell me about the creation of blackholes?
+Human: Can you tell me about the creation of black holes?
 AI:
 ```
 
