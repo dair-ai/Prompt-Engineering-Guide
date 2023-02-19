@@ -4,9 +4,7 @@ This guide contains a set of recent papers, learning guides, and tools related t
 
 Announcements:
 
-- 📣 Full lecture + notebook + exercises (releasing this weekend (19 Feb) on my [YouTube channel](https://www.youtube.com/channel/UCyna_OxOWL7IEuOwb7WhmxQ))
-
-- 📣 Examples and explainers coming soon!
+- 🎉 Prompt Engineering Lecture is live [here](https://youtu.be/dOxUroR57xs)! Include [notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb) and [slides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/lecture/Prompt-Engineering-Lecture-Elvis.pdf).
 
 - [Join our Discord](https://discord.gg/SKgkVT8BGJ) to discuss more about prompt engineering
 
