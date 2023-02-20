@@ -23,8 +23,8 @@ Announcements:
 ## Lecture
 
 We have published a 1 hour lecture that provides a comprehensive overview of prompting techniques, applications, and tools.
-- [Video](https://youtu.be/dOxUroR57xs)
-- [Notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb)
+- [Video Lecture](https://youtu.be/dOxUroR57xs)
+- [Notebook with code](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb)
 - [Slides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/lecture/Prompt-Engineering-Lecture-Elvis.pdf)
 
 ---
