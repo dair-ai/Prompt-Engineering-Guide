@@ -4,6 +4,13 @@ This guide covers the basics of standard prompts to provide a rough idea on how 
 
 All examples are tested with `text-davinci-003` (using OpenAI's playground) unless otherwise specified. It uses the default configurations, e.g., `temperature=0.7` and `top-p=1`.
 
+Topic:
+- [Basic Prompts](#basic-prompts)
+- [A Word on LLM Settings](#a-word-on-llm-settings)
+- [Standard Prompts](#standard-prompts)
+- [Prompt Elements](#elements-of-a-prompt)
+
+
 ---
 
 ## Basic Prompts
@@ -135,7 +142,17 @@ Few-shot prompts enable in-context learning which is the ability of language mod
 
 As we cover more and more examples and applications that are possible with prompt engineering, you will notice that there are certain elements that make up a prompt. 
 
-A prompt can be composed of a question, instruction, input data, and examples. A question or instruction is a required component of a prompt. Depending on the task at hand, you might find it useful to also include more information like input data and examples. More on this in the upcoming guides.
+A prompt can contain any of the following components:
+
+**Instruction** - a specific task or instruction you want the model to perform
+
+**Context** - can involve external information or additional context that can steer the model to better responses
+
+**Input Data** - is the input or question that we are interested to find a response for
+
+**Output Indicator** - indicates the type or format of output.
+
+Not all the components are required for a prompt and the format depends on the task at hand. We will touch on more concrete examples in upcoming guides.
 
 ---
 [Next Section (Basic Prompting)](./prompts-basic-usage.md)

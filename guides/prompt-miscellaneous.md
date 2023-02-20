@@ -4,7 +4,13 @@ In this section, we discuss other miscellaneous but important topics in prompt e
 
 **Note that this section is under construction.**
 
---
+Topic:
+- [Program-Aided Language Models](#program-aided-language-models)
+- [ReAct](#react)
+- [Multimodal Prompting](#multimodal-prompting)
+- [GraphPrompts](#graphprompts)
+
+---
 ## Program-Aided Language Models
 [Gao et al., (2022)](https://arxiv.org/abs/2211.10435) presents a method that uses LLMs to read natural language problems and generate programs as the intermediate reasoning steps. Coined, program-aided language models (PAL), it differs from chain-of-thought prompting in that instead of using free-form text to obtain solution it offloads the solution step to a programmatic runtime such as a Python interpreter.
 

@@ -3,6 +3,15 @@ By this point, it should be obvious that it helps to improve prompts to get bett
 
 While those examples were fun, let's cover a few concepts more formally before we jump into more advanced concepts. 
 
+Topics:
+
+- [Few-shot Prompts](#few-shot-prompts)
+- [Chain-of-Thought Prompting](#chain-of-thought-prompting)
+- [Zero-shot Prompting](#zero-shot-cot)
+- [Self Consistency](#self-consistency)
+- [Generate Knowledge Prompting](#generated-knowledge-prompting)
+- [Automatic Prompt Engineer](#automatic-prompt-engineer-ape)
+
 ---
 ## Few-Shot Prompts
 Before jumping into more advanced concepts, let's review an example where we use few-shot prompts.
@@ -138,7 +147,7 @@ Keep in mind that the authors claim that this is an emergent ability that arises
 
 ## Zero-Shot CoT
 
-One recent idea that came out more recently is the idea of [zero-shot CoT](https://arxiv.org/abs/2205.11916) that essentially involves adding "Let's think step by step" to the original prompt. Let's try a simple problem and see how the model performs:
+One recent idea that came out more recently is the idea of [zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022) that essentially involves adding "Let's think step by step" to the original prompt. Let's try a simple problem and see how the model performs:
 
 ```
 I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?
@@ -329,6 +338,16 @@ Yes, part of golf is trying to get a higher point total than others. Each player
 ```
 
 Some really interesting things happened with this example. In the first answer, the model was very confident but in the second not so much. I simplify the process for demonstration purposes but there are few more details to consider when arriving to the final answer. Check out the paper for more. 
+
+---
+
+### Automatic Prompt Engineer (APE)
+
+Zhou et al., (2022) propose automatic prompt engineer (APE) a framework for automatic instruction generation and selection. The instruction generation problem is framed as natural language synthesis addressed as a black-box optimization problem using LLMs to generate and search over candidate solutions. 
+
+The first step involves a large language model (as inference model) that is given output demonstrations to generate instruction candidates for a task. These candidate solution will guide the search procedure. The instructions are executed using a target model, and then the most appropriate instruction is selected based on computed evaluation scores. 
+
+![](../img/APE.png)
 
 ---
 [Previous Section (Basic Prompting)](./prompts-basic-usage.md)

@@ -6,6 +6,15 @@ In this guide, we will provide more examples of how prompts are used and introdu
 
 Often, the best way to learn concepts is by running through examples. Here are a few examples of how prompt engineering can be used to achieve all types of interesting and different tasks. 
 
+Topics:
+- [Text Summarization](#text-summarization)
+- [Information Extraction](#information-extraction)
+- [Question Answering](#question-answering)
+- [Text Classification](#text-classification)
+- [Role-Playing](#role-playing)
+- [Code Generation](#code-generation)
+- [Reasoning](#reasoning)
+
 ---
 
 ## Text Summarization

@@ -8,6 +8,11 @@ When you are building LLMs, it's really important to protect against prompt atta
 
 Please note that it is possible that more robust models have been implemented to address some of the issues documented here. This means that some of the prompt attacks below might not be as effective anymore. 
 
+Topics:
+- [Ignore Previous Instructions](#ignore-previous-instructions)
+- [Prompt Leaking](#prompt-leaking)
+- [Jailbreaking](#jailbreaking)
+
 ---
 ## Ignore Previous Instructions
 One popular approach used to hijack the model's output via prompting is as follows:
