@@ -7,8 +7,8 @@ Topics:
 
 - [Few-shot Prompts](#few-shot-prompts)
 - [Chain-of-Thought Prompting](#chain-of-thought-prompting)
-- [Zero-shot Prompting](#zero-shot-cot)
-- [Self Consistency](#self-consistency)
+- [Zero-shot CoT](#zero-shot-cot)
+- [Self-Consistency](#self-consistency)
 - [Generate Knowledge Prompting](#generated-knowledge-prompting)
 - [Automatic Prompt Engineer](#automatic-prompt-engineer-ape)
 
