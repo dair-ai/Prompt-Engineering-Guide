@@ -12,6 +12,7 @@ Announcements:
 
 ## Table of Contents
 
+- [Lecture](#lecture)
 - [Guides](#guides)
 - [Papers](#papers)
 - [Tools & Libraries](#tools--libraries)
@@ -19,19 +20,28 @@ Announcements:
 - [Blog, Guides, Tutorials and Other Readings](#blog-guides-tutorials-and-other-readings)
 
 ---
+## Lecture
 
-## Guides 🔮
+We have published a 1 hour lecture that provides a comprehensive overview of prompting techniques, applications, and tools.
+- [Video](https://youtu.be/dOxUroR57xs)
+- [Notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb)
+- [Slides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/lecture/Prompt-Engineering-Lecture-Elvis.pdf)
+
+---
+
+## Guides
 The following are a set of guides on prompt engineering developed by us. Guides are work in progress.  
 
 - [Prompt Engineering - Introduction](/guides/prompts-intro.md)
-- [Prompt Engineering - Basic Usage](/guides/prompts-basic-usage.md)
-- [Prompt Engineering - Advanced Usage](/guides/prompts-advanced-usage.md)
-- [Prompt Engineering - Adversarial Prompts](/guides/prompt-adversarial.md)
+- [Prompt Engineering - Basic Prompting](/guides/prompts-basic-usage.md)
+- [Prompt Engineering - Advanced Prompting](/guides/prompts-advanced-usage.md)
+- [Prompt Engineering - Adversarial Prompting](/guides/prompt-adversarial.md)
 - [Prompt Engineering - Miscellaneous Topics](/guides/prompt-miscellaneous.md)
 
-
+---
 ## Papers
-#### (Sorted by Release Date)
+
+The following are the latest papers (sorted by release date) on prompt engineering. We update this on a daily basis and new papers come in. We incorporate summaries of these papers to the guides above every week.
 
 - Surveys / Overviews:
 
@@ -118,6 +128,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
   - [Papers with Code](https://paperswithcode.com/task/prompt-engineering)
   - [Prompt Papers](https://github.com/thunlp/PromptPapers#papers)
 
+---
 ## Tools & Libraries
 #### (Sorted by Name)
 
@@ -152,6 +163,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 - [ThoughtSource](https://github.com/OpenBioLink/ThoughtSource)
 - [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
 
+---
 ## Datasets
 #### (Sorted by Name)
 
@@ -165,6 +177,7 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 - [Stable Diffusion Dataset](https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts)
 - [WritingPrompts](https://www.reddit.com/r/WritingPrompts)
 
+---
 ## Blog, Guides, Tutorials and Other Readings
 #### (Sorted by Name)
 
@@ -226,10 +239,6 @@ The following are a set of guides on prompt engineering developed by us. Guides 
 - [the Book - Fed Honeypot](https://fedhoneypot.notion.site/25fdbdb69e9e44c6877d79e18336fe05?v=1d2bf4143680451986fd2836a04afbf4)
 - [The ChatGPT Prompt Book](https://docs.google.com/presentation/d/17b_ocq-GL5lhV_bYSShzUgxL02mtWDoiw9xEroJ5m3Q/edit#slide=id.gc6f83aa91_0_79)
 - [Using GPT-Eliezer against ChatGPT Jailbreaking](https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/using-gpt-eliezer-against-chatgpt-jailbreaking)
-
-# Lecture + Tutorial
-
-Full tutorial and lecture coming soon!
 
 ---
 

@@ -1,4 +1,4 @@
-# Basic Prompts Usage
+# Basic Prompting
 
 In the previous guide, we introduced and gave a basic example of a prompt. 
 
@@ -269,4 +269,4 @@ In the upcoming guides, we will cover even more advanced prompt engineering conc
 
 [Previous Section (Prompts Introduction)](./prompts-intro.md)
 
-[Next Section (Advanced Prompt Usage)](./prompts-advanced-usage.md)
+[Next Section (Advanced Prompting Techniques)](./prompts-advanced-usage.md)

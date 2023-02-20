@@ -1,4 +1,4 @@
-# Advanced Prompt Usage
+# Advanced Prompting
 By this point, it should be obvious that it helps to improve prompts to get better results on different tasks. That's the whole idea behind prompt engineering. 
 
 While those examples were fun, let's cover a few concepts more formally before we jump into more advanced concepts. 
@@ -331,6 +331,6 @@ Yes, part of golf is trying to get a higher point total than others. Each player
 Some really interesting things happened with this example. In the first answer, the model was very confident but in the second not so much. I simplify the process for demonstration purposes but there are few more details to consider when arriving to the final answer. Check out the paper for more. 
 
 ---
-[Previous Section (Basic Prompts Usage)](./prompts-basic-usage.md)
+[Previous Section (Basic Prompting)](./prompts-basic-usage.md)
 
 [Next Section (Adversarial Prompting)](./prompt-adversarial.md)

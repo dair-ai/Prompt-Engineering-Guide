@@ -1,4 +1,4 @@
-# Prompt Introduction
+# Prompting Introduction
 
 This guide covers the basics of standard prompts to provide a rough idea on how to use prompts to interact and instruct large language models (LLMs). 
 
@@ -138,4 +138,4 @@ As we cover more and more examples and applications that are possible with promp
 A prompt can be composed of a question, instruction, input data, and examples. A question or instruction is a required component of a prompt. Depending on the task at hand, you might find it useful to also include more information like input data and examples. More on this in the upcoming guides.
 
 ---
-[Next Section (Basic Prompts Usage)](./prompts-basic-usage.md)
+[Next Section (Basic Prompting)](./prompts-basic-usage.md)
