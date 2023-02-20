@@ -343,11 +343,18 @@ Some really interesting things happened with this example. In the first answer, 
 
 ### Automatic Prompt Engineer (APE)
 
-Zhou et al., (2022) propose automatic prompt engineer (APE) a framework for automatic instruction generation and selection. The instruction generation problem is framed as natural language synthesis addressed as a black-box optimization problem using LLMs to generate and search over candidate solutions. 
+![](../img/APE.png)
+
+[Zhou et al., (2022)](https://arxiv.org/abs/2211.01910) propose automatic prompt engineer (APE) a framework for automatic instruction generation and selection. The instruction generation problem is framed as natural language synthesis addressed as a black-box optimization problem using LLMs to generate and search over candidate solutions. 
 
 The first step involves a large language model (as inference model) that is given output demonstrations to generate instruction candidates for a task. These candidate solution will guide the search procedure. The instructions are executed using a target model, and then the most appropriate instruction is selected based on computed evaluation scores. 
 
-![](../img/APE.png)
+APE discovers a better zero-shot CoT prompt than the human engineered "Let's think step by step" prompt from (Kojima et al., 2022).
+
+The prompt "Let's work this out it a step by step way to be sure we have the right answer." elicits chain-of-though reasoning and improves performance on the MultiArith and GSM8K benchmarks:
+
+![](../img/ape-zero-shot-cot.png)
+
 
 ---
 [Previous Section (Basic Prompting)](./prompts-basic-usage.md)
