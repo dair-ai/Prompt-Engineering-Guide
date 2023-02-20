@@ -53,7 +53,6 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
   
-  - [Grimm in Wonderland: Prompt Engineering with Midjourney to Illustrate Fairytales](https://arxiv.org/abs/2302.08961) (Feb 2023)
   - [À-la-carte Prompt Tuning (APT): Combining Distinct Data Via Composable Prompting](https://arxiv.org/abs/2302.07994) (Feb 2023)
   - [GraphPrompt: Unifying Pre-Training and Downstream Tasks for Graph Neural Networks](https://arxiv.org/abs/2302.08043) (Feb 2023)
   - [The Capacity for Moral Self-Correction in Large Language Models](https://arxiv.org/abs/2302.07459) (Feb 2023)
@@ -110,6 +109,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
   
+   - [Grimm in Wonderland: Prompt Engineering with Midjourney to Illustrate Fairytales](https://arxiv.org/abs/2302.08961) (Feb 2023)
   - [LabelPrompt: Effective Prompt-based Learning for Relation Classification](https://arxiv.org/abs/2302.08068) (Feb 2023)
   - [Prompt Tuning of Deep Neural Networks for Speaker-adaptive Visual Speech Recognition](https://arxiv.org/abs/2302.08102) (Feb 2023)
   - [The Capacity for Moral Self-Correction in Large Language Models](https://arxiv.org/abs/2302.07459) (Feb 2023)
