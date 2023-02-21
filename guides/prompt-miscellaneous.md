@@ -7,7 +7,7 @@ In this section, we discuss other miscellaneous but important topics in prompt e
 Topic:
 - [Program-Aided Language Models](#program-aided-language-models)
 - [ReAct](#react)
-- [Multimodal Prompting](#multimodal-prompting)
+- [Multimodal CoT Prompting](#multimodal-prompting)
 - [GraphPrompts](#graphprompts)
 
 ---
@@ -30,10 +30,13 @@ The ReAct framework can allow LLMs to interact with external tools to retrieve a
 Full example coming soon!
 
 ---
-## Multimodal Prompting
-In this section, we will cover some examples of multimodal prompting techniques and applications that leverage multiple modalities as opposed to just text alone.
+## Multimodal CoT Prompting
 
-Examples coming soon!
+[Zhang et al. (2023)](https://arxiv.org/abs/2302.00923) recently proposed a multimodal chain-of-thought prompting approach. Traditional CoT focuses on the language modality. In contrast, Multimodal CoT incorporates text and vision into a two-stage framework. The first step involves rationale generation based on multimodal information. This is followed by the second phase, answer inference, which leverages the informative generated rationales.
+
+The multimodal CoT model (1B) outperforms GPT-3.5 on the ScienceQA benchmark.
+
+![](../img/multimodal-cot.png)
 
 ---
 ## GraphPrompts
