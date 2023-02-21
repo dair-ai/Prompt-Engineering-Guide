@@ -11,7 +11,7 @@ Topics:
 - [Information Extraction](#information-extraction)
 - [Question Answering](#question-answering)
 - [Text Classification](#text-classification)
-- [Role-Playing](#role-playing)
+- [Conversation](#conversation)
 - [Code Generation](#code-generation)
 - [Reasoning](#reasoning)
 
@@ -148,10 +148,10 @@ What is the problem here?
 
 ---
 
-## Role-Playing
+## Conversation
 Perhaps one of the more interesting things you can achieve with prompt engineering is telling the system how to behave, its intent, and identity. This is particularly useful when you are building conversational systems. 
 
-For instance, let's create a conversational system that's able to give more technical and scientific responses to questions. 
+For instance, let's create a conversational system that's able to give more technical and scientific responses to questions. Note how we are explicitly telling it how to behave through the instruction.
 
 ```
 The following is a conversation with an AI research assistant. The assistant tone is technical and scientific.

@@ -341,7 +341,7 @@ Some really interesting things happened with this example. In the first answer, 
 
 ---
 
-### Automatic Prompt Engineer (APE)
+## Automatic Prompt Engineer (APE)
 
 ![](../img/APE.png)
 
@@ -355,6 +355,11 @@ The prompt "Let's work this out it a step by step way to be sure we have the rig
 
 ![](../img/ape-zero-shot-cot.png)
 
+This paper touches on an important topic related to prompt engineering which is this idea of automatically optimizing prompts. While we don't go deep in this topic in this guide, here are few key papers if you are interested in the topic:
+
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - proposes an approach to automatically create prompts for a diverse set of tasks based on gradient-guided search.
+- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - a lightweight alternative to fine-tuning that prepends a trainable continuous prefix for NLG tasks. 
+- [Prompt Tuning](https://arxiv.org/abs/2104.08691) - proposes a mechanism for learning soft prompts through back propagation.
 
 ---
 [Previous Section (Basic Prompting)](./prompts-basic-usage.md)
