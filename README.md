@@ -54,6 +54,8 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
   
+  - [Guiding Large Language Models via Directional Stimulus Prompting](https://arxiv.org/abs/2302.11520) (Feb 2023)
+  - [How Does In-Context Learning Help Prompt Tuning?](https://arxiv.org/abs/2302.11521) (Feb 2023)
   - [Scalable Prompt Generation for Semi-supervised Learning with Language Models](https://arxiv.org/abs/2302.09236) (Feb 2023)
   - [Bounding the Capabilities of Large Language Models in Open Text Generation with Prompt Constraints](https://arxiv.org/abs/2302.09185) (Feb 2023)
   - [À-la-carte Prompt Tuning (APT): Combining Distinct Data Via Composable Prompting](https://arxiv.org/abs/2302.07994) (Feb 2023)
