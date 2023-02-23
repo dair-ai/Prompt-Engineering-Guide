@@ -16,7 +16,7 @@ Topics:
 ## Few-Shot Prompts
 Before jumping into more advanced concepts, let's review an example where we use few-shot prompts.
 
-Do you recall the previous example where we provided the following task
+Do you recall the previous example where we provided the following task:
 
 ```
 The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
@@ -24,7 +24,7 @@ The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.
 A: 
 ```
 
-If we try this again, the model output the following:
+If we try this again, the model outputs the following:
 
 ```
 Yes, the odd numbers in this group add up to 107, which is an even number.
@@ -34,6 +34,7 @@ Again, this is not the correct response, which not only highlights the limitatio
 
 Let's try to add some examples, to see if this improves the results.
 
+*Prompt:*
 ```
 The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
 A: The answer is False.
@@ -51,7 +52,7 @@ The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.
 A: 
 ```
 
-Output
+*Output:*
 ```
 The answer is True.
 ```
@@ -70,6 +71,7 @@ for individual inputs).
 
 Let's try out a few examples. Let's first try an example with random labels (meaning the labels Negative and Positive are randomly assigned to the inputs):
 
+*Prompt:*
 ```
 This is awesome! // Negative
 This is bad! // Positive
@@ -77,13 +79,14 @@ Wow that movie was rad! // Positive
 What a horrible show! //
 ```
 
-Output
+*Output:*
 ```
 Negative
 ```
 
 We still get the correct answer, even though the labels have been randomized. Note that we also kept the format, which helps too. In fact, with further experimentation it seems the newer GPT models we are experimenting with are becoming more robust to even random format. Example:
 
+*Prompt:*
 ```
 Positive This is awesome! 
 This is bad! Negative
@@ -91,7 +94,8 @@ Wow that movie was rad!
 Positive
 What a horrible show! --
 ```
-Output
+
+*Output:*
 ```
 Negative
 ```
@@ -104,6 +108,7 @@ There is no consistency in the format above but that still affect the model from
 
 Introduced in [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), chain-of-thought (CoT) prompting enables complex reasoning capabilities through intermediate reasoning steps. You can combine it with few-shot prompting to get better results on more complex tasks that require reasoning before responding.
 
+*Prompt:*
 ```
 The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
 A: Adding all the odd numbers (9, 15, 1) gives 25. The answer is False.
@@ -121,13 +126,14 @@ The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.
 A:
 ```
 
-Output
+*Output:*
 ```
 Adding all the odd numbers (15, 5, 13, 7, 1) gives 41. The answer is False.
 ```
 
 Wow! We can see a perfect result when we provided the reasoning step. In fact, we can solve this task by providing even fewer examples, i.e., just one example seems enough:
 
+*Prompt:*
 ```
 The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
 A: Adding all the odd numbers (9, 15, 1) gives 25. The answer is False.
@@ -136,7 +142,7 @@ The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.
 A:
 ```
 
-Output
+*Output:*
 ```
 Adding all the odd numbers (15, 5, 13, 7, 1) gives 41. The answer is False.
 ```
@@ -149,24 +155,26 @@ Keep in mind that the authors claim that this is an emergent ability that arises
 
 One recent idea that came out more recently is the idea of [zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022) that essentially involves adding "Let's think step by step" to the original prompt. Let's try a simple problem and see how the model performs:
 
+*Prompt:*
 ```
 I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?
 ```
 
-Output
+*Output:*
 ```
 11 apples
 ```
 
 The answer is incorrect! Now Let's try with the special prompt. 
 
+*Prompt:*
 ```
 I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?
 
 Let's think step by step.
 ```
 
-Output
+*Output:*
 ```
 First, you started with 10 apples.
 You gave away 2 apples to the neighbor and 2 to the repairman, so you had 6 apples left.
@@ -184,18 +192,20 @@ Perhaps one of the more advanced techniques out there for prompt engineering is 
 
 Let's try the following example for arithmetic reasoning:
 
+*Prompt:*
 ```
 When I was 6 my sister was half my age. Now
 I’m 70 how old is my sister?
 ```
 
-Output
+*Output:*
 ```
 35
 ```
 
 The output is obviously wrong! How may we improve this with self-consistency? Let's try it out. We will use the few-shot exemplars from Wang et al. 2022 (Table 17):
 
+*Prompt:*
 ```
 Q: There are 15 trees in the grove. Grove workers will plant trees in the grove today. After they are done,
 there will be 21 trees. How many trees did the grove workers plant today?
@@ -237,17 +247,17 @@ Q: When I was 6 my sister was half my age. Now I’m 70 how old is my sister?
 A:
 ```
 
-Output 1:
+*Output 1:*
 ```
 When I was 6 my sister was half my age, so she was 3. Now I am 70, so she is 70 - 3 = 67. The answer is 67.
 ```
 
-Output 2:
+*Output 2:*
 ```
 When the narrator was 6, his sister was half his age, which is 3. Now that the narrator is 70, his sister would be 70 - 3 = 67 years old. The answer is 67.
 ```
 
-Output 3:
+*Output 3:*
 ```
 When I was 6 my sister was half my age, so she was 3. Now I am 70, so she is 70/2 = 35. The answer is 35.
 ```
@@ -263,11 +273,12 @@ Using a similar idea, can the model also be used to generate knowledge before ma
 
 Let's try a simple prompt:
 
+*Prompt:*
 ```
 Part of golf is trying to get a higher point total than others. Yes or No?
 ```
 
-Output
+*Output:*
 ```
 Yes.
 ```
@@ -276,6 +287,7 @@ This type of mistakes reveal the limitations of LLMs to perform tasks that requi
 
 First we generate a few "knowledges":
 
+*Prompt:*
 ```
 Input: Greece is larger than mexico.
 Knowledge: Greece is approximately 131,957 sq km, while Mexico is approximately 1,964,375 sq km, making Mexico 1,389% larger than Greece.
@@ -296,12 +308,12 @@ Input: Part of golf is trying to get a higher point total than others.
 Knowledge:
 ```
 
-Knowledge 1:
+*Knowledge 1:*
 ```
 The objective of golf is to play a set of holes in the least number of strokes. A round of golf typically consists of 18 holes. Each hole is played once in the round on a standard golf course. Each stroke is counted as one point, and the total number of strokes is used to determine the winner of the game.
 ```
 
-Knowledge 2:
+*Knowledge 2:*
 ```
 Golf is a precision club-and-ball sport in which competing players (or golfers) use many types of clubs to hit balls into a series of holes on a course using the fewest number of strokes. The goal is to complete the course with the lowest score, which is calculated by adding up the total number of strokes taken on each hole. The player with the lowest score wins the game.
 ```
@@ -310,6 +322,7 @@ We are using the prompt provided in the paper by [Liu et al. 2022](https://arxiv
 
 Next step is to integrate the knowledge and get a prediction. I reformatted the question into QA format to guide the answer format.
 
+*Prompt:*
 ```
 Question: Part of golf is trying to get a higher point total than others. Yes or No?
 
@@ -318,7 +331,7 @@ Knowledge: The objective of golf is to play a set of holes in the least number o
 Explain and Answer: 
 ```
 
-Answer 1 (confidence very high):
+*Answer 1 (confidence very high):*
 ```
 No, the objective of golf is not to get a higher point total than others. Rather, the objective is to play a set of holes in the least number of strokes. The total number of strokes is used to determine the winner of the game, not the total number of points.
 ```
@@ -332,7 +345,7 @@ Knowledge: Golf is a precision club-and-ball sport in which competing players (o
 Explain and Answer:
 ```
 
-Answer 2 (confidence is a lot lower):
+*Answer 2 (confidence is a lot lower):*
 ```
 Yes, part of golf is trying to get a higher point total than others. Each player tries to complete the course with the lowest score, which is calculated by adding up the total number of strokes taken on each hole. The player with the lowest score wins the game.
 ```

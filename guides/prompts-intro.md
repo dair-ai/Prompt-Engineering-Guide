@@ -19,11 +19,12 @@ You can already achieve a lot with prompts, but the quality of results depends o
 
 Here is a basic example of a simple prompt:
 
+*Prompt*
 ```
 The sky is
 ```
 
-Output:
+*Output:*
 ```
 blue
 
@@ -36,13 +37,14 @@ This basic example also highlights the necessity to provide more context or inst
 
 Let's try to improve it a bit:
 
+*Prompt:*
 ```
 Complete the sentence: 
 
 The sky is
 ```
 
-Output
+*Output:*
 
 ```
  so  beautiful today.
@@ -123,6 +125,7 @@ A:
 
 Keep in mind that it's not required to use QA format. The format depends on the task at hand. For instance, you can perform a simple classification task and give exemplars that demonstrate the task as follows:
 
+*Prompt:*
 ```
 This is awesome! // Positive
 This is bad! // Negative
@@ -130,7 +133,7 @@ Wow that movie was rad! // Positive
 What a horrible show! //
 ```
 
-Output
+*Output:*
 ```
 Negative
 ```
