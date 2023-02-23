@@ -5,7 +5,7 @@ This guide contains a set of recent papers, learning guides, and tools related t
 Announcements:
 
 - 🎉 Prompt Engineering Lecture is live [here](https://youtu.be/dOxUroR57xs)! It Includes [notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb) and [slides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/lecture/Prompt-Engineering-Lecture-Elvis.pdf).
-
+- 📣 New set of deep tutorials coming soon!
 - [Join our Discord](https://discord.gg/SKgkVT8BGJ)
 - [Follow us on Twitter](https://twitter.com/dair_ai)
 
@@ -212,6 +212,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [GPT3 and Prompts: A quick primer](https://buildspace.so/notes/intro-to-gpt3-prompts)
 - [How to Draw Anything](https://andys.page/posts/how-to-draw)
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a)
+- [How to make LLMs say true things](https://evanjconrad.com/posts/world-models)
 - [How to write good prompts](https://andymatuschak.org/prompts)
 - [Introduction to Reinforcement Learning with Human Feedback](https://www.surgehq.ai/blog/introduction-to-reinforcement-learning-with-human-feedback-rlhf-series-part-1)
 - [In defense of prompt engineering](https://simonwillison.net/2023/Feb/21/in-defense-of-prompt-engineering/)
