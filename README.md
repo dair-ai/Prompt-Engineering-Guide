@@ -117,7 +117,8 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
   
-   - [Grimm in Wonderland: Prompt Engineering with Midjourney to Illustrate Fairytales](https://arxiv.org/abs/2302.08961) (Feb 2023)
+  - [How Generative AI models such as ChatGPT can be (Mis)Used in SPC Practice, Education, and Research? An Exploratory Study](https://arxiv.org/abs/2302.10916) (Feb 2023) 
+  - [Grimm in Wonderland: Prompt Engineering with Midjourney to Illustrate Fairytales](https://arxiv.org/abs/2302.08961) (Feb 2023)
   - [LabelPrompt: Effective Prompt-based Learning for Relation Classification](https://arxiv.org/abs/2302.08068) (Feb 2023)
   - [Prompt Tuning of Deep Neural Networks for Speaker-adaptive Visual Speech Recognition](https://arxiv.org/abs/2302.08102) (Feb 2023)
   - [The Capacity for Moral Self-Correction in Large Language Models](https://arxiv.org/abs/2302.07459) (Feb 2023)
@@ -166,6 +167,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Promptable](https://promptable.ai)
 - [PromptInject](https://github.com/agencyenterprise/PromptInject)
 - [Prompts.ai](https://github.com/sevazhidkov/prompts-ai)
+- [Promptly](https://trypromptly.com/)
 - [PromptSource](https://github.com/bigscience-workshop/promptsource)
 - [Scale SpellBook](https://scale.com/spellbook)
 - [sharegpt](https://sharegpt.com)
@@ -253,8 +255,9 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Simulators](https://www.lesswrong.com/posts/vJFdjigzmcXMhNTsx/simulators)
 - [Start with an Instruction](https://beta.openai.com/docs/quickstart/start-with-an-instruction)
 - [Talking to machines: prompt engineering & injection](https://artifact-research.com/artificial-intelligence/talking-to-machines-prompt-engineering-injection)
-- [the Book - Fed Honeypot](https://fedhoneypot.notion.site/25fdbdb69e9e44c6877d79e18336fe05?v=1d2bf4143680451986fd2836a04afbf4)
+- [The Book - Fed Honeypot](https://fedhoneypot.notion.site/25fdbdb69e9e44c6877d79e18336fe05?v=1d2bf4143680451986fd2836a04afbf4)
 - [The ChatGPT Prompt Book](https://docs.google.com/presentation/d/17b_ocq-GL5lhV_bYSShzUgxL02mtWDoiw9xEroJ5m3Q/edit#slide=id.gc6f83aa91_0_79)
+- [The Mirror of Language](https://deepfates.com/the-mirror-of-language)
 - [Using GPT-Eliezer against ChatGPT Jailbreaking](https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/using-gpt-eliezer-against-chatgpt-jailbreaking)
 - [What Is ChatGPT Doing … and Why Does It Work?](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/)
 
