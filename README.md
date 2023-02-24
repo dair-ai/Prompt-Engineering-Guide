@@ -47,6 +47,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - Surveys / Overviews:
 
   - [Augmented Language Models: a Survey](https://arxiv.org/abs/2302.07842) (Feb 2023)
+  - [Wide-range of recources and websites specially for learning AI](https://storage.googleapis.com/deepmind-media/research/New_AtHomeWithAI%20resources.pdf)
   - [A Survey for In-context Learning](https://arxiv.org/abs/2301.00234) (Dec 2022)
   - [Towards Reasoning in Large Language Models: A Survey](https://arxiv.org/abs/2212.10403) (Dec 2022)
   - [Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682) (Jun 2022)
@@ -143,6 +144,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 #### (Sorted by Name)
 
 - [AI Test Kitchen](https://aitestkitchen.withgoogle.com)
+- [Akinator Gini](https://en.akinator.com/)
 - [betterprompt](https://github.com/krrishdholakia/betterprompt)
 - [DreamStudio](https://beta.dreamstudio.ai)
 - [DUST](https://dust.tt)
@@ -172,6 +174,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Scale SpellBook](https://scale.com/spellbook)
 - [sharegpt](https://sharegpt.com)
 - [ThoughtSource](https://github.com/OpenBioLink/ThoughtSource)
+- [TenserFlow PlayGround](https://playground.tensorflow.org/)
 - [Visual Prompt Builder](https://tools.saxifrage.xyz/prompt)
 
 ---
