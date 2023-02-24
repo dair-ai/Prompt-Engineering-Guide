@@ -9,7 +9,7 @@ Topic:
 - [A Word on LLM Settings](#a-word-on-llm-settings)
 - [Standard Prompts](#standard-prompts)
 - [Prompt Elements](#elements-of-a-prompt)
-
+- [General Tips for Designing Prompts](#general-tips-for-designing-prompts)
 
 ---
 
@@ -50,16 +50,9 @@ The sky is
  so  beautiful today.
 ```
 
-Is that better? Well, we told the model to complete the sentence so the result looks a lot better as it follows exactly what we told it to do ("complete the sentence"). This approach of instructing the model to perform a task is what's referred to as **prompt engineering**. 
+Is that better? Well, we told the model to complete the sentence so the result looks a lot better as it follows exactly what we told it to do ("complete the sentence"). This approach of designing optimal prompts to instruct the model to perform a task is what's referred to as **prompt engineering**. 
 
 The example above is a basic illustration of what's possible with LLMs today. Today's LLMs are able to perform all kinds of advanced tasks that range from text summarization to mathematical reasoning to code generation.
-
-Here are few more tips to keep in mind while you do prompt engineering:
-- You can try other simple tasks by using simple commands to instruct the model like "Write", "Classify", "Summarize", "Translate", "Order", etc.
-- Keep in mind that you also need to experiment a lot so see what works best. Trying different instructions with different keywords, context, and data and see what works best for your particular use case and task. Usually, the more specific and relevant the context is to the task you are trying to perform, the better. We will touch on the importance of sampling and adding more context in the upcoming guides.
-
-
-We will cover more of these capabilities in this guide but also cover other areas of interest such as advanced prompting techniques and research topics around prompt engineering. 
 
 ---
 ## A Word on LLM Settings
@@ -156,6 +149,71 @@ A prompt can contain any of the following components:
 **Output Indicator** - indicates the type or format of output.
 
 Not all the components are required for a prompt and the format depends on the task at hand. We will touch on more concrete examples in upcoming guides.
+
+---
+## General Tips for Designing Prompts
+
+Here are few some tips to keep in mind while you are designing your prompts:
+
+### The Instruction
+You can design effective prompts for various simple tasks by using commands to instruct the model what you want to achieve such as "Write", "Classify", "Summarize", "Translate", "Order", etc.
+
+Keep in mind that you also need to experiment a lot so see what works best. Trying different instructions with different keywords, context, and data and see what works best for your particular use case and task. Usually, the more specific and relevant the context is to the task you are trying to perform, the better. We will touch on the importance of sampling and adding more context in the upcoming guides.
+
+Others recommend that instructions are placed at the beginning of the prompt. It's also recommended that some clear separator like "###" is used to separate the instruction and context. 
+
+For instance:
+
+*Prompt:*
+```
+### Instruction ###
+Translate the text below to Spanish:
+
+Text: "hello!"
+```
+
+*Output:*
+```
+¡Hola!
+```
+
+### Specificity
+Be very specific about the instruction and task you want the model to perform. The more descriptive and detailed the prompt is, the better the results. This is particularly important when you have a desired outcome or style of generation you are seeking. There aren't specific tokens or keywords that lead to better results. It's more important to have a good format and descriptive prompt. In fact, providing examples in the prompt is very effective to get desired output in specific formats. 
+
+As an example, let's try a simple prompt to extract specific information from a piece of text.
+
+*Prompt:*
+```
+Extract the name of places in the following text. 
+
+Desired format:
+Place: <comma_separated_list_of_company_names>
+
+Input: "Although these developments are encouraging to researchers, much is still a mystery. “We often have a black box between the brain and the effect we see in the periphery,” says Henrique Veiga-Fernandes, a neuroimmunologist at the Champalimaud Centre for the Unknown in Lisbon. “If we want to use it in the therapeutic context, we actually need to understand the mechanism.""
+```
+
+*Output:*
+```
+Place: Champalimaud Centre for the Unknown, Lisbon
+```
+
+Input text is obtained from [this Nature article](https://www.nature.com/articles/d41586-023-00509-z).
+
+### Avoid Impreciseness
+
+Given the tips above about being detailed and improving format, it's easy to fall into the trap of wanting to be too clever about prompts and potentially creating imprecise descriptions. It's often better to be specific and direct. The analogy here is very similar to effective communication -- the more direct, the more effective the message gets across.
+
+For example, you might be interested in generating a list of products to buy to prepare a BBQ. You might try something like:
+
+```
+Explain the concept prompt engineering. Keep the explanation short, only a few sentences, and don't be too descriptive.
+```
+
+It's not clear from the prompt above how many sentences to use and what style. You might still somewhat get good responses with the above prompts but the better prompt would be one that is very specific, concise, and to the point. Something like:
+
+```
+Use 2-3 sentences to explain the concept of prompt engineering to a high school student.
+```
 
 ---
 [Next Section (Basic Prompting)](./prompts-basic-usage.md)

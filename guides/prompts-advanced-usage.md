@@ -5,12 +5,32 @@ While those examples were fun, let's cover a few concepts more formally before w
 
 Topics:
 
+- [Zero-shot Prompts]()
 - [Few-shot Prompts](#few-shot-prompts)
 - [Chain-of-Thought Prompting](#chain-of-thought-prompting)
 - [Zero-shot CoT](#zero-shot-cot)
 - [Self-Consistency](#self-consistency)
 - [Generate Knowledge Prompting](#generated-knowledge-prompting)
 - [Automatic Prompt Engineer](#automatic-prompt-engineer-ape)
+
+---
+## Zero-Shot Prompts
+LLMs today trained on large amounts of data and tuned to follow instructions, are capable of performing tasks zero-shot. We actually tried a few zero-shot examples in the previous section. Here is one of the examples we used:
+
+*Prompt:*
+```
+Classify the text into neutral, negative or positive. 
+
+Text: I think the vacation is okay.
+Sentiment:
+```
+
+*Output:*
+```
+Neutral
+```
+
+Note that in the prompt above we didn't provide the model any examples -- that's the zero-shot capabilities at work. When zero-shot doesn't work, it's recommended to provide demonstrations or examples in the prompt. Below we discuss the approach known as few-shot prompting.
 
 ---
 ## Few-Shot Prompts
@@ -100,7 +120,9 @@ What a horrible show! --
 Negative
 ```
 
-There is no consistency in the format above but that still affect the model from predicting the correct label. We have to conduct more thorough analysis to confirm if this holds true for different and more complex tasks.
+There is no consistency in the format above but the model still predicted the correct label. We have to conduct more thorough analysis to confirm if this holds true for different and more complex tasks, including different variations of prompts.
+
+Overall, it seems that providing examples is useful in some places. When zero-shot prompting and few-shot prompting are not sufficient, it might mean that the whatever was learned by the model isn't enough to do well at the task. From here it is recommended to start thinking about fine-tuning your own models.
 
 ---
 
