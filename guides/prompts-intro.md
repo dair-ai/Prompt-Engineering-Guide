@@ -215,5 +215,41 @@ It's not clear from the prompt above how many sentences to use and what style. Y
 Use 2-3 sentences to explain the concept of prompt engineering to a high school student.
 ```
 
+### To do or not to do?
+Another common tip when designing prompts is to avoid saying what not to do but say what to do instead. This encourages more specificity and focus on the details that lead to good responses from the model.
+
+Here is an example of movie recommendation chatbot failing at exactly what I don't want it to do because of how I wrote the instruction -- focusing on what not to do. 
+
+*Prompt:*
+```
+The following is an agent that recommends movies to a customer. DO NOT ASK FOR INTERESTS. DO NOT ASK FOR PERSONAL INFORMATION.
+
+Customer: Please recommend a movie based on my interests.
+Agent: 
+```
+
+*Output:*
+```
+Sure, I can recommend a movie based on your interests. What kind of movie would you like to watch? Do you prefer action, comedy, romance, or something else?
+```
+
+Here is a better prompt:
+
+*Prompt:*
+```
+The following is an agent that recommends movies to a customer. The agent is responsible to recommend a movie from the top global trending movies. It should refrain from asking users for their preferences and avoid asking for personal information. If the agent doesn't have a movie to recommend, it should respond "Sorry, couldn't find a movie to recommend today.".
+
+Customer: Please recommend a movie based on my interests.
+Agent:
+```
+
+*Output:*
+```
+Sorry, I don't have any information about your interests. However, here's a list of the top global trending movies right now: [list of movies]. I hope you find something you like!
+```
+
+Some of the examples above were adopted from the ["Best practices for prompt engineering with OpenAI API" article.](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
+
+
 ---
 [Next Section (Basic Prompting)](./prompts-basic-usage.md)
