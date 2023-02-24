@@ -4,10 +4,13 @@ This guide contains a set of recent papers, learning guides, and tools related t
 
 Announcements:
 
-- 🎉 Prompt Engineering Lecture is live [here](https://youtu.be/dOxUroR57xs)! It Includes [notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb) and [slides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/lecture/Prompt-Engineering-Lecture-Elvis.pdf).
-- 📣 New set of deep tutorials coming soon!
-- [Join our Discord](https://discord.gg/SKgkVT8BGJ)
-- [Follow us on Twitter](https://twitter.com/dair_ai)
+- 🔥 We reached #1 on Hacker News on 21 Feb 2023
+- 🎉 Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
+- 📣 New set of deep tutorials coming soon
+
+[Join our Discord](https://discord.gg/SKgkVT8BGJ)
+
+[Follow us on Twitter](https://twitter.com/dair_ai)
 
 ---
 
