@@ -5,7 +5,7 @@ While those examples were fun, let's cover a few concepts more formally before w
 
 Topics:
 
-- [Zero-shot Prompts]()
+- [Zero-shot Prompts](#zero-shot-prompts)
 - [Few-shot Prompts](#few-shot-prompts)
 - [Chain-of-Thought Prompting](#chain-of-thought-prompting)
 - [Zero-shot CoT](#zero-shot-cot)
