@@ -1,8 +1,8 @@
 # Prompt Engineering Guide
 
-Prompt Engineering is a relatively new discipline that helps to better understand the capabilities and limitations of large language models (LLMs). Researchers use prompt engineering to improve the capacity of LLMs on a wide range of common and complex tasks such as question answering and arithmetic reasoning. Developers use prompt engineering to design robust and effective prompting techniques that interface with LLMs and other tools.
+Prompt engineering is a relatively new discipline for developing and optimizing prompts to efficiently use language models (LMs) for a wide variety of applications and research topics. Prompt engineering skills help to better understand the capabilities and limitations of large language models (LLMs). Researchers use prompt engineering to improve the capacity of LLMs on a wide range of common and complex tasks such as question answering and arithmetic reasoning. Developers use prompt engineering to design robust and effective prompting techniques that interface with LLMs and other tools.
 
-Motivated by the high interest in developing with LLMs, we have created this new prompt engineering resource that contains all the latest papers, learning guides, lectures, and tools related to prompt engineering. 
+Motivated by the high interest in developing with LLMs, we have created this new prompt engineering guide that contains all the latest papers, learning guides, lectures, references, and tools related to prompt engineering. 
 
 Happy Prompting!
 
@@ -276,5 +276,16 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [What Is ChatGPT Doing … and Why Does It Work?](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/)
 
 ---
+If you are using the guide for your work, please cite us as follows:
 
-Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions.
+```
+@article{Saravia_Prompt_Engineering_Guide_2022,
+author = {Saravia, Elvis},
+journal = {https://github.com/dair-ai/Prompt-Engineering-Guide},
+month = {12},
+title = {{Prompt Engineering Guide}},
+year = {2022}
+}
+```
+
+Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
