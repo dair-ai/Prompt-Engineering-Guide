@@ -221,6 +221,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Extrapolating to Unnatural Language Processing with GPT-3's In-context Learning: The Good, the Bad, and the Mysterious](http://ai.stanford.edu/blog/in-context-learning)
 - [Generative AI with Cohere: Part 1 - Model Prompting](https://txt.cohere.ai/generative-ai-part-1)
 - [Giving GPT-3 a Turing Test](https://lacker.io/ai/2020/07/06/giving-gpt-3-a-turing-test.html)
+- [GPT-3 & Beyond](https://youtube.com/watch?v=-lnHHWRCDGk)
 - [GPT3 and Prompts: A quick primer](https://buildspace.so/notes/intro-to-gpt3-prompts)
 - [How to Draw Anything](https://andys.page/posts/how-to-draw)
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a)
