@@ -2,7 +2,7 @@
 
 In the previous guide, we introduced and gave a basic example of a prompt. 
 
-In this guide, we will provide more examples of how prompts are used and introduce key concepts that will be important for more the more advanced guides. 
+In this guide, we will provide more examples of how prompts are used and introduce key concepts that will be important for more advanced guides. 
 
 Often, the best way to learn concepts is by running through examples. Below we cover a few examples of how well-crafted prompts can be used to perform all types of interesting and different tasks.
 
@@ -78,7 +78,7 @@ Paragraph source: [ChatGPT: five priorities for research](https://www.nature.com
 ---
 ## Question Answering
 
-One of the best ways to get the model to respond specific answers is to improve the format of the prompt. As covered before, a prompt could combine instructions, context, input, and output indicator to get improved results. While not components are required, it becomes a good practice as the more specific you are with instruction, the better results you will get. Below is an example of how this would look following a more structured prompt.
+One of the best ways to get the model to respond specific answers is to improve the format of the prompt. As covered before, a prompt could combine instructions, context, input, and output indicator to get improved results. While these components are not required, it becomes a good practice as the more specific you are with instruction, the better results you will get. Below is an example of how this would look following a more structured prompt.
 
 *Prompt:*
 ```
@@ -118,7 +118,7 @@ Sentiment:
 Neutral
 ```
 
-We gave the instruction to classify the text and the model responded with `'Neutral'` which is correct. Nothing is wrong with this but let's say that what we really need is for the model to give the label in the exact format we want. So instead of `Neutral` we want it to return `neutral`. How do we achieve this. There are different ways to do this. We care about specificity here, so the more information we can provide the prompt the better results. We can try providing examples to specific the correct behavior. Let's try again:
+We gave the instruction to classify the text and the model responded with `'Neutral'` which is correct. Nothing is wrong with this but let's say that what we really need is for the model to give the label in the exact format we want. So instead of `Neutral` we want it to return `neutral`. How do we achieve this. There are different ways to do this. We care about specificity here, so the more information we can provide the prompt the better results. We can try providing examples to specify the correct behavior. Let's try again:
 
 *Prompt:*
 ```
@@ -197,7 +197,7 @@ I think we made some progress. You can continue improving it. I am sure if you a
 ---
 
 ## Code Generation
-One application where LLMs are quite effective at is code generation. Copilot is a great example of this. There is a vast number of code generation tasks you can perform with clever prompts. Let's look at a few examples below.
+One application where LLMs are quite effective at is code generation. Copilot is a great example of this. There are a vast number of code generation tasks you can perform with clever prompts. Let's look at a few examples below.
 
 First, let's try a simple program that greets the user. 
 
@@ -239,9 +239,9 @@ This is very impressive. In this case we provided data about the database schema
 ---
 
 ## Reasoning
-Perhaps one of the most difficult tasks for an LLM today is one that requires some form of reasoning. Reasoning is one the areas that I am most excited about due the types of complex applications that can emerge from LLMs. 
+Perhaps one of the most difficult tasks for an LLM today is one that requires some form of reasoning. Reasoning is one the areas that I am most excited about due to the types of complex applications that can emerge from LLMs. 
 
-There have been some improvements on tasks involving mathematical capabilities. That said, it's important to note that current LLMs struggle to perform reasoning tasks so this require even more advanced prompt engineering techniques. We will cover these advanced techniques in the next guide. For now, we will cover a few basic examples to show arithmetic capabilities.
+There have been some improvements on tasks involving mathematical capabilities. That said, it's important to note that current LLMs struggle to perform reasoning tasks so this requires even more advanced prompt engineering techniques. We will cover these advanced techniques in the next guide. For now, we will cover a few basic examples to show arithmetic capabilities.
 
 *Prompt:*
 ```
