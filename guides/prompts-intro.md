@@ -155,7 +155,7 @@ Not all the components are required for a prompt and the format depends on the t
 ---
 ## General Tips for Designing Prompts
 
-Here are few some tips to keep in mind while you are designing your prompts:
+Here are some tips to keep in mind while you are designing your prompts:
 
 ### The Instruction
 You can design effective prompts for various simple tasks by using commands to instruct the model what you want to achieve such as "Write", "Classify", "Summarize", "Translate", "Order", etc.
@@ -205,7 +205,7 @@ Input text is obtained from [this Nature article](https://www.nature.com/article
 
 Given the tips above about being detailed and improving format, it's easy to fall into the trap of wanting to be too clever about prompts and potentially creating imprecise descriptions. It's often better to be specific and direct. The analogy here is very similar to effective communication -- the more direct, the more effective the message gets across.
 
-For example, you might be interested in generating a list of products to buy to prepare a BBQ. You might try something like:
+For example, you might be interested in learning the concept of prompt engineering. You might try something like:
 
 ```
 Explain the concept prompt engineering. Keep the explanation short, only a few sentences, and don't be too descriptive.

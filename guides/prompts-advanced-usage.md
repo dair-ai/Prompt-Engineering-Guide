@@ -291,7 +291,7 @@ Computing for the final answer involves a few steps (check out the paper for the
 
 LLMs continue to be improved and one popular technique include the ability to incorporate knowledge or information to help the model make more accurate predictions. 
 
-Using a similar idea, can the model also be used to generate knowledge before making a prediction? That's what attempted in the paper by [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf) -- generate knowledge to be used as part of the prompt. In particular, how helpful is this for tasks such as commonsense reasoning?
+Using a similar idea, can the model also be used to generate knowledge before making a prediction? That's what is attempted in the paper by [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf) -- generate knowledge to be used as part of the prompt. In particular, how helpful is this for tasks such as commonsense reasoning?
 
 Let's try a simple prompt:
 
@@ -386,7 +386,7 @@ The first step involves a large language model (as inference model) that is give
 
 APE discovers a better zero-shot CoT prompt than the human engineered "Let's think step by step" prompt from (Kojima et al., 2022).
 
-The prompt "Let's work this out it a step by step way to be sure we have the right answer." elicits chain-of-though reasoning and improves performance on the MultiArith and GSM8K benchmarks:
+The prompt "Let's work this out it a step by step to be sure we have the right answer." elicits chain-of-though reasoning and improves performance on the MultiArith and GSM8K benchmarks:
 
 ![](../img/ape-zero-shot-cot.png)
 
