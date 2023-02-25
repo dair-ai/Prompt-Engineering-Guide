@@ -1,10 +1,11 @@
 # Miscellaneous Topics
 
-In this section, we discuss other miscellaneous but important topics in prompt engineering.
+In this section, we discuss other miscellaneous and uncategorized topics in prompt engineering. It includes relatively new ideas and approaches that will eventually be moved into the main guides as they become more widely adopted. This section of the guide is also useful to keep up with the latest research papers on prompt engineering.
 
-**Note that this section is under construction.**
+**Note that this section is under heavy construction.**
 
 Topic:
+- [Active Prompt]
 - [Directional Stimulus Prompting](#directional-stimulus-prompting)
 - [Program-Aided Language Models](#program-aided-language-models)
 - [ReAct](#react)
@@ -13,6 +14,15 @@ Topic:
 
 ---
 
+## Active-Prompt
+
+Chain-of-thought (CoT) methods rely on a fixed set of human-annotated exemplars. The problem with this is that the exemplars might not be the most effective examples for the different tasks. To address this, [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf) recently proposed a new prompting approach called Active-Prompt to adapt LLMs to different task-specific example prompts (annotated with human-designed CoT reasoning).
+
+Below is an illustration of the approach. The first step is to query the LLM with or without a few CoT examples. *k* possible answers are generated for a set of training questions. An uncertainty metric is calculated based on the *k* answers (disagreement used). The most uncertain questions are selected for annotation by humans. The new annotated exemplars are then used to infer each question. 
+
+![](../img/active-prompt.png)
+
+---
 ## Directional Stimulus Prompting
 [Li et al., (2023)](https://arxiv.org/abs/2302.11520) proposes a new prompting technique to better guide the LLM in generating the desired summary.
 

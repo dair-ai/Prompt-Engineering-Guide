@@ -4,7 +4,7 @@ In the previous guide, we introduced and gave a basic example of a prompt.
 
 In this guide, we will provide more examples of how prompts are used and introduce key concepts that will be important for more the more advanced guides. 
 
-Often, the best way to learn concepts is by running through examples. Here are a few examples of how prompt engineering can be used to achieve all types of interesting and different tasks. 
+Often, the best way to learn concepts is by running through examples. Below we cover a few examples of how well-crafted prompts can be used to perform all types of interesting and different tasks.
 
 Topics:
 - [Text Summarization](#text-summarization)
@@ -283,7 +283,9 @@ Sum: 41
 41 is an odd number.
 ```
 
-Much better, right? By the way, I tried this a couple of times and the system sometime fails. If you provide a better instruction combined with examples, it might help get more accurate results. 
+Much better, right? By the way, I tried this a couple of times and the system sometime fails. If you provide a better instruction combined with examples, it might help get more accurate results.
+
+We will continue to include more examples of common applications in this section of the guide.
 
 In the upcoming guides, we will cover even more advanced prompt engineering concepts for improving performance on all these and more difficult tasks.
 
