@@ -1,12 +1,18 @@
 # Prompt Engineering Guide
 
-This guide contains a set of recent papers, learning guides, and tools related to prompt engineering. The repo is intended as a research and educational reference for practitioners and developers.
+Prompt Engineering is a relatively new discipline that helps to better understand the capabilities and limitations of large language models (LLMs). Researchers use prompt engineering to improve the capacity of LLMs on a wide range of common and complex tasks such as question answering and arithmetic reasoning. Developers use prompt engineering to design robust and effective prompting techniques that interface with LLMs and other tools.
 
-Announcements:
+Motivated by the high interest in developing with LLMs, we have created this new prompt engineering resource that contains all the latest papers, learning guides, lectures, and tools related to prompt engineering. 
+
+Happy Prompting!
+
+---
+## Announcements / Updates
 
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
-- 🎉 Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
-- 📣 New set of deep tutorials coming soon
+- 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
+- 🎓 We're creating a set of comprehensive guides [here](#guides)
+- 📖 New set of deep tutorials coming soon!
 
 [Join our Discord](https://discord.gg/SKgkVT8BGJ)
 
