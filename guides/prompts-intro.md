@@ -155,7 +155,7 @@ Not all the components are required for a prompt and the format depends on the t
 ---
 ## General Tips for Designing Prompts
 
-Here are few some tips to keep in mind while you are designing your prompts:
+Here some tips to keep in mind while you are designing your prompts:
 
 ### The Instruction
 You can design effective prompts for various simple tasks by using commands to instruct the model what you want to achieve such as "Write", "Classify", "Summarize", "Translate", "Order", etc.
