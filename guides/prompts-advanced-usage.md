@@ -121,6 +121,8 @@ There is no consistency in the format above but the model still predicted the co
 
 Overall, it seems that providing examples is useful in some places. When zero-shot prompting and few-shot prompting are not sufficient, it might mean that the whatever was learned by the model isn't enough to do well at the task. From here it is recommended to start thinking about fine-tuning your own models.
 
+More recently, chain-of-thought (CoT) prompting has been popularized to address more complex arithmetic, commonsense, and symbolic reasoning tasks. So let's talk about CoT next and see if we can solve one of the above task.
+
 ---
 
 ## Chain-of-Thought Prompting
