@@ -77,7 +77,7 @@ A:
 The answer is True.
 ```
 
-That didn't work. It seems like basic standard prompting is not enough to get reliable responses for this type of reasoning problem. The example above provides basic information on the task, even with the examples. If you take a closer look at the task, it does involve more reasoning steps.
+That didn't work. It seems like basic standard prompting is not enough to get reliable responses for this type of reasoning problem. The example above provides basic information on the task, even with the examples. If you take a closer look at the task, it does involve more reasoning steps. 
 
 Following the findings from [Min et al. (2022)](https://arxiv.org/abs/2202.12837), here a few more tips about demonstrations/exemplars when doing few-shot:
 
@@ -120,8 +120,6 @@ Negative
 There is no consistency in the format above but the model still predicted the correct label. We have to conduct more thorough analysis to confirm if this holds true for different and more complex tasks, including different variations of prompts.
 
 Overall, it seems that providing examples is useful in some places. When zero-shot prompting and few-shot prompting are not sufficient, it might mean that the whatever was learned by the model isn't enough to do well at the task. From here it is recommended to start thinking about fine-tuning your own models.
-
-More recently, chain-of-thought (CoT) prompting has been popularized to address more complex arithmetic, commonsense, and symbolic reasoning tasks. So let's talk about CoT next and see if we can solve the above task.
 
 ---
 

@@ -17,7 +17,7 @@ Topics:
 ---
 
 ## Prompt Injection
-Prompt injection aims to hijack the model output by using clever prompts that change its behavior. These attacks could be harmful -- Simon Williams define it ["as a form of security exploit"](https://simonwillison.net/2022/Sep/12/prompt-injection/).    
+Prompt injection aims to hijack the model output by using clever prompts that change its behavior. These attacks could be harmful -- Simon Willison defined it ["as a form of security exploit"](https://simonwillison.net/2022/Sep/12/prompt-injection/).    
 
 Let's cover a basic example to demonstrate how prompt injection can be achieved. We will use a popular example shared by [Riley on Twitter](https://twitter.com/goodside/status/1569128808308957185?s=20). 
 
