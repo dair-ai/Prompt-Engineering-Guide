@@ -241,6 +241,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a)
 - [How to make LLMs say true things](https://evanjconrad.com/posts/world-models)
 - [How to write good prompts](https://andymatuschak.org/prompts)
+- [If I Was Starting Prompt Engineering in 2023: My 8 Insider Tips](https://youtube.com/watch?v=SirW7feTjh0&feature=shares)
 - [Introduction to Reinforcement Learning with Human Feedback](https://www.surgehq.ai/blog/introduction-to-reinforcement-learning-with-human-feedback-rlhf-series-part-1)
 - [In defense of prompt engineering](https://simonwillison.net/2023/Feb/21/in-defense-of-prompt-engineering/)
 - [Language Models and Prompt Engineering: Systematic Survey of Prompting Methods in NLP](https://youtube.com/watch?v=OsbUfL8w-mo&feature=shares)

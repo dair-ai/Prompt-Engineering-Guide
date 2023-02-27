@@ -2,9 +2,9 @@
 
 In the previous guide, we introduced and gave a basic example of a prompt. 
 
-In this guide, we will provide more examples of how prompts are used and introduce key concepts that will be important for more advanced guides. 
+In this guide, we will provide more examples of how prompts are used and introduce key concepts that will be important for the more advanced guides. 
 
-Often, the best way to learn concepts is by running through examples. Below we cover a few examples of how well-crafted prompts can be used to perform all types of interesting and different tasks.
+Often, the best way to learn concepts is by going through examples. Below we cover a few examples of how well-crafted prompts can be used to perform all types of interesting and different tasks.
 
 Topics:
 - [Text Summarization](#text-summarization)
