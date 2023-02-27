@@ -58,6 +58,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Augmented Language Models: a Survey](https://arxiv.org/abs/2302.07842) (Feb 2023)
   - [A Survey for In-context Learning](https://arxiv.org/abs/2301.00234) (Dec 2022)
   - [Towards Reasoning in Large Language Models: A Survey](https://arxiv.org/abs/2212.10403) (Dec 2022)
+  - [Reasoning with Language Model Prompting: A Survey](https://arxiv.org/abs/2212.09597) (Dec 2022)
   - [Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682) (Jun 2022)
   - [A Taxonomy of Prompt Modifiers for Text-To-Image Generation](https://arxiv.org/abs/2204.13988) (Apr 2022)
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
