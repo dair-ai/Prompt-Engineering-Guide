@@ -371,7 +371,7 @@ Explain and Answer:
 Yes, part of golf is trying to get a higher point total than others. Each player tries to complete the course with the lowest score, which is calculated by adding up the total number of strokes taken on each hole. The player with the lowest score wins the game.
 ```
 
-Some really interesting things happened with this example. In the first answer, the model was very confident but in the second not so much. I simplify the process for demonstration purposes but there are few more details to consider when arriving to the final answer. Check out the paper for more. 
+Some really interesting things happened with this example. In the first answer, the model was very confident but in the second not so much. I simplify the process for demonstration purposes but there are few more details to consider when arriving to the final answer. Check out the paper for more.
 
 ---
 
@@ -398,4 +398,4 @@ This paper touches on an important topic related to prompt engineering which is 
 ---
 [Previous Section (Basic Prompting)](./prompts-basic-usage.md)
 
-[Next Section (Adversarial Prompting)](./prompt-adversarial.md)
+[Next Section (Applications)](./prompts-applications.md)
