@@ -136,6 +136,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
   
+  - [SGL-PT: A Strong Graph Learner with Graph Prompt Tuning](https://arxiv.org/abs/2302.12449) (Feb 2023)
   - [Few-Shot Table-to-Text Generation with Prompt-based Adapter](https://arxiv.org/abs/2302.12468) (Feb 2023)
   - [Language Models Are Few-shot Learners for Prognostic Prediction](https://arxiv.org/abs/2302.12692) (Feb 2023)
   - [STA: Self-controlled Text Augmentation for Improving Text Classifications](https://arxiv.org/abs/2302.12784) (Feb 2023)
@@ -260,6 +261,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [OpenAI Cookbook](https://github.com/openai/openai-cookbook)
 - [OpenAI Prompt Examples for several applications](https://platform.openai.com/examples)
 - [Pretrain, Prompt, Predict -  A New Paradigm for NLP](http://pretrain.nlpedia.ai)
+- [Prompt Engineer: Tech's hottest job title?](https://www.peoplematters.in/article/talent-management/is-prompt-engineering-the-hottest-job-in-ai-today-37036)
 - [Prompt Engineering 101 - Introduction and resources](https://www.linkedin.com/pulse/prompt-engineering-101-introduction-resources-amatriain)
 - [Prompt Engineering 101: Autocomplete, Zero-shot, One-shot, and Few-shot prompting](https://youtube.com/watch?v=v2gD8BHOaX4&feature=shares)
 - [Prompt Engineering 101](https://humanloop.com/blog/prompt-engineering-101)
