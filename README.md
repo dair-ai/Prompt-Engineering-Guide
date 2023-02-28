@@ -192,6 +192,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Promptable](https://promptable.ai)
 - [PromptInject](https://github.com/agencyenterprise/PromptInject)
 - [Prompts.ai](https://github.com/sevazhidkov/prompts-ai)
+- [PromptPerfect](https://promptperfect.jina.ai/)
 - [Promptly](https://trypromptly.com/)
 - [PromptSource](https://github.com/bigscience-workshop/promptsource)
 - [Promptist](https://promptist.herokuapp.com/)
