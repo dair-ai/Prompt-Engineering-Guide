@@ -65,6 +65,8 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
   
+  - [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)
+  - [Automatic Prompt Augmentation and Selection with Chain-of-Thought from Labeled Data](https://arxiv.org/abs/2302.12822) (Feb 2023)
   - [Active Prompting with Chain-of-Thought for Large Language Models](https://arxiv.org/abs/2302.12246) (Feb 2023)
   - [More than you've asked for: A Comprehensive Analysis of Novel Prompt Injection Threats to Application-Integrated Large Language Models](https://arxiv.org/abs/2302.12173) (Feb 2023)
   - [Guiding Large Language Models via Directional Stimulus Prompting](https://arxiv.org/abs/2302.11520) (Feb 2023)
@@ -134,6 +136,10 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
   
+  - [Few-Shot Table-to-Text Generation with Prompt-based Adapter](https://arxiv.org/abs/2302.12468) (Feb 2023)
+  - [Language Models Are Few-shot Learners for Prognostic Prediction](https://arxiv.org/abs/2302.12692) (Feb 2023)
+  - [STA: Self-controlled Text Augmentation for Improving Text Classifications](https://arxiv.org/abs/2302.12784) (Feb 2023)
+  - [Check Your Facts and Try Again: Improving Large Language Models with External Knowledge and Automated Feedback](https://arxiv.org/abs/2302.12813) (Feb 2023)
   - [How Generative AI models such as ChatGPT can be (Mis)Used in SPC Practice, Education, and Research? An Exploratory Study](https://arxiv.org/abs/2302.10916) (Feb 2023) 
   - [Grimm in Wonderland: Prompt Engineering with Midjourney to Illustrate Fairytales](https://arxiv.org/abs/2302.08961) (Feb 2023)
   - [LabelPrompt: Effective Prompt-based Learning for Relation Classification](https://arxiv.org/abs/2302.08068) (Feb 2023)
@@ -285,6 +291,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Unleash Your Creativity with Generative AI: Learn How to Build Innovative Products!](https://youtube.com/watch?v=jqTkMpziGBU&feature=shares)
 - [Using GPT-Eliezer against ChatGPT Jailbreaking](https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/using-gpt-eliezer-against-chatgpt-jailbreaking)
 - [What Is ChatGPT Doing … and Why Does It Work?](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/)
+- [Why is ChatGPT so good?](https://scale.com/blog/chatgpt-reinforcement-learning)
 
 ---
 If you are using the guide for your work, please cite us as follows:

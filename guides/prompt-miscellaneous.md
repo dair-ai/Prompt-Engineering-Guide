@@ -54,6 +54,9 @@ The multimodal CoT model (1B) outperforms GPT-3.5 on the ScienceQA benchmark.
 
 ![](../img/multimodal-cot.png)
 
+Further reading:
+- [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)
+
 ---
 ## GraphPrompts
 
