@@ -65,6 +65,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
   
+  - [In-Context Instruction Learning](https://arxiv.org/abs/2302.14691) (Feb 2023)
   - [Chain of Hindsight Aligns Language Models with Feedback](https://arxiv.org/abs/2302.02676) (Feb 2023)
   - [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)
   - [Automatic Prompt Augmentation and Selection with Chain-of-Thought from Labeled Data](https://arxiv.org/abs/2302.12822) (Feb 2023)
@@ -137,6 +138,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
   
+  - [TabGenie: A Toolkit for Table-to-Text Generation](https://arxiv.org/abs/2302.14169) (Feb 2023)
   - [SGL-PT: A Strong Graph Learner with Graph Prompt Tuning](https://arxiv.org/abs/2302.12449) (Feb 2023)
   - [Few-Shot Table-to-Text Generation with Prompt-based Adapter](https://arxiv.org/abs/2302.12468) (Feb 2023)
   - [Language Models Are Few-shot Learners for Prognostic Prediction](https://arxiv.org/abs/2302.12692) (Feb 2023)
@@ -277,6 +279,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Prompt Engineering in GPT-3](https://www.analyticsvidhya.com/blog/2022/05/prompt-engineering-in-gpt-3)
 - [Prompt Engineering Template](https://docs.google.com/spreadsheets/d/1-snKDn38-KypoYCk9XLPg799bHcNFSBAVu2HVvFEAkA/edit#gid=0)
 - [Prompt Engineering Topic by GitHub](https://github.com/topics/prompt-engineering)
+- [Prompt Engineering: The Ultimate Guide 2023 [GPT-3 & ChatGPT]](https://businessolution.org/prompt-engineering/)
 - [Prompt Engineering: From Words to Art](https://www.saxifrage.xyz/post/prompt-engineering)
 - [Prompt Engineering with OpenAI's GPT-3 and other LLMs](https://youtube.com/watch?v=BP9fi_0XTlw&feature=shares)
 - [Prompt injection attacks against GPT-3](https://simonwillison.net/2022/Sep/12/prompt-injection)
