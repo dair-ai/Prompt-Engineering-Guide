@@ -65,6 +65,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
   
+  - [EvoPrompting: Language Models for Code-Level Neural Architecture Search](https://arxiv.org/abs/2302.14838) (Feb 2023)
   - [In-Context Instruction Learning](https://arxiv.org/abs/2302.14691) (Feb 2023)
   - [Chain of Hindsight Aligns Language Models with Feedback](https://arxiv.org/abs/2302.02676) (Feb 2023)
   - [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)
@@ -254,6 +255,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [How to perfect your prompt writing for AI generators](https://www.sydney.edu.au/news-opinion/news/2023/02/28/how-to-perfect-your-prompt-writing-for-ai-generators.html)
 - [How to write good prompts](https://andymatuschak.org/prompts)
 - [If I Was Starting Prompt Engineering in 2023: My 8 Insider Tips](https://youtube.com/watch?v=SirW7feTjh0&feature=shares)
+- [Indirect Prompt Injection on Bing Chat](https://greshake.github.io/)
 - [Introduction to Reinforcement Learning with Human Feedback](https://www.surgehq.ai/blog/introduction-to-reinforcement-learning-with-human-feedback-rlhf-series-part-1)
 - [In defense of prompt engineering](https://simonwillison.net/2023/Feb/21/in-defense-of-prompt-engineering/)
 - [Language Models and Prompt Engineering: Systematic Survey of Prompting Methods in NLP](https://youtube.com/watch?v=OsbUfL8w-mo&feature=shares)
