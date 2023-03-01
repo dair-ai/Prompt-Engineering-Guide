@@ -6,4 +6,5 @@ The following are a set of guides on prompt engineering developed by us (DAIR.AI
 - [Prompt Engineering - Advanced Prompting](/guides/prompts-advanced-usage.md)
 - [Prompt Engineering - Applications](/guides/prompts-applications.md)
 - [Prompt Engineering - Adversarial Prompting](/guides/prompt-adversarial.md)
+- [Prompt Engineering - Reliability](/guides/prompts-reliability.md)
 - [Prompt Engineering - Miscellaneous Topics](/guides/prompt-miscellaneous.md)

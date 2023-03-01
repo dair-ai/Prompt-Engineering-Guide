@@ -158,7 +158,7 @@ Not all the components are required for a prompt and the format depends on the t
 Here are some tips to keep in mind while you are designing your prompts:
 
 
-## Start Simple
+### Start Simple
 As you get started with designing prompts, you should keep in mind that it is really an iterative process that requires lot of experimentation to get optimal results. Using a simple playground like OpenAI's or Cohere's is a good starting point. 
 
 You can start with simple prompts and keep adding more elements and context as you aim for better results. Versioning your prompt along the way is vital for this reason. As we read the guide you will see many examples where specificity, simplicity, and conciseness will often give you better results.

@@ -81,9 +81,8 @@ That didn't work. It seems like basic standard prompting is not enough to get re
 
 Following the findings from [Min et al. (2022)](https://arxiv.org/abs/2202.12837), here a few more tips about demonstrations/exemplars when doing few-shot:
 
-- the label space and the distribution of the input text specified by the demonstrations are both key (regardless of whether the labels are correct
-for individual inputs).
-- the format you use also plays a key role in performance; Even if you just use random labels, this is much better than no labels at all.  
+- "the label space and the distribution of the input text specified by the demonstrations are both key (regardless of whether the labels are correct for individual inputs)"
+- the format you use also plays a key role in performance, even if you just use random labels, this is much better than no labels at all.  
 - additional results show that selecting random labels from a true distribution of labels (instead of a uniform distribution) also helps.
 
 Let's try out a few examples. Let's first try an example with random labels (meaning the labels Negative and Positive are randomly assigned to the inputs):

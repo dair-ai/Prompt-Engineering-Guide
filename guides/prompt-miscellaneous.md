@@ -2,7 +2,7 @@
 
 In this section, we discuss other miscellaneous and uncategorized topics in prompt engineering. It includes relatively new ideas and approaches that will eventually be moved into the main guides as they become more widely adopted. This section of the guide is also useful to keep up with the latest research papers on prompt engineering.
 
-**Note that this section is under heavy construction.**
+**Note that this section is under heavy development.**
 
 Topic:
 - [Active Prompt](#active-prompt)
@@ -11,6 +11,7 @@ Topic:
 - [ReAct](#react)
 - [Multimodal CoT Prompting](#multimodal-prompting)
 - [GraphPrompts](#graphprompts)
+- ...
 
 ---
 
