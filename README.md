@@ -257,6 +257,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [How to write good prompts](https://andymatuschak.org/prompts)
 - [If I Was Starting Prompt Engineering in 2023: My 8 Insider Tips](https://youtube.com/watch?v=SirW7feTjh0&feature=shares)
 - [Indirect Prompt Injection on Bing Chat](https://greshake.github.io/)
+- [Interactive guide to GPT-3 prompt parameters](https://sevazhidkov.com/interactive-guide-to-gpt-3-prompt-parameters)
 - [Introduction to Reinforcement Learning with Human Feedback](https://www.surgehq.ai/blog/introduction-to-reinforcement-learning-with-human-feedback-rlhf-series-part-1)
 - [In defense of prompt engineering](https://simonwillison.net/2023/Feb/21/in-defense-of-prompt-engineering/)
 - [Language Models and Prompt Engineering: Systematic Survey of Prompting Methods in NLP](https://youtube.com/watch?v=OsbUfL8w-mo&feature=shares)
