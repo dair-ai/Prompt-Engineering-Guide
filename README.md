@@ -65,6 +65,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
   
+  - [Chain of Hindsight Aligns Language Models with Feedback](https://arxiv.org/abs/2302.02676) (Feb 2023)
   - [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)
   - [Automatic Prompt Augmentation and Selection with Chain-of-Thought from Labeled Data](https://arxiv.org/abs/2302.12822) (Feb 2023)
   - [Active Prompting with Chain-of-Thought for Large Language Models](https://arxiv.org/abs/2302.12246) (Feb 2023)
@@ -248,6 +249,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [How to Draw Anything](https://andys.page/posts/how-to-draw)
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a)
 - [How to make LLMs say true things](https://evanjconrad.com/posts/world-models)
+- [How to perfect your prompt writing for AI generators](https://www.sydney.edu.au/news-opinion/news/2023/02/28/how-to-perfect-your-prompt-writing-for-ai-generators.html)
 - [How to write good prompts](https://andymatuschak.org/prompts)
 - [If I Was Starting Prompt Engineering in 2023: My 8 Insider Tips](https://youtube.com/watch?v=SirW7feTjh0&feature=shares)
 - [Introduction to Reinforcement Learning with Human Feedback](https://www.surgehq.ai/blog/introduction-to-reinforcement-learning-with-human-feedback-rlhf-series-part-1)
@@ -290,6 +292,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Tech’s hottest new job: AI whisperer. No coding required](https://www.washingtonpost.com/technology/2023/02/25/prompt-engineers-techs-next-big-job/)
 - [The Book - Fed Honeypot](https://fedhoneypot.notion.site/25fdbdb69e9e44c6877d79e18336fe05?v=1d2bf4143680451986fd2836a04afbf4)
 - [The ChatGPT Prompt Book](https://docs.google.com/presentation/d/17b_ocq-GL5lhV_bYSShzUgxL02mtWDoiw9xEroJ5m3Q/edit#slide=id.gc6f83aa91_0_79)
+- [The Most Important Job Skill of This Century](https://www.theatlantic.com/technology/archive/2023/02/openai-text-models-google-search-engine-bard-chatbot-chatgpt-prompt-writing/672991/)
 - [The Mirror of Language](https://deepfates.com/the-mirror-of-language)
 - [Unleash Your Creativity with Generative AI: Learn How to Build Innovative Products!](https://youtube.com/watch?v=jqTkMpziGBU&feature=shares)
 - [Using GPT-Eliezer against ChatGPT Jailbreaking](https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/using-gpt-eliezer-against-chatgpt-jailbreaking)
