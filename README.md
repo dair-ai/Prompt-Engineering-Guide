@@ -304,6 +304,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Using GPT-Eliezer against ChatGPT Jailbreaking](https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/using-gpt-eliezer-against-chatgpt-jailbreaking)
 - [What Is ChatGPT Doing … and Why Does It Work?](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/)
 - [Why is ChatGPT so good?](https://scale.com/blog/chatgpt-reinforcement-learning)
+- [Interactive guide to GPT-3 prompt parameters](https://sevazhidkov.com/interactive-guide-to-gpt-3-prompt-parameters)
 
 ---
 If you are using the guide for your work, please cite us as follows:
