@@ -9,14 +9,16 @@ Happy Prompting!
 ---
 ## Announcements / Updates
 
+- 💬 New ChatGPT prompt engineering guide coming soon!
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
 - 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
 - 🎓 We're creating a set of comprehensive guides [here](#guides)
-- 📖 New set of deep tutorials coming soon!
 
 [Join our Discord](https://discord.gg/SKgkVT8BGJ)
 
 [Follow us on Twitter](https://twitter.com/dair_ai)
+
+[Subscribe to our Newsletter](https://nlpnews.substack.com/)
 
 ---
 
