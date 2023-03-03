@@ -94,7 +94,9 @@ Negative
 
 There is no consistency in the format above but the model still predicted the correct label. We have to conduct more thorough analysis to confirm if this holds true for different and more complex tasks, including different variations of prompts.
 
-Few-shot prompting works well for many tasks but is still not a perfect technique especially when dealing with more complex reasoning tasks. Let's demonstrate why this is the case. Do you recall the previous example where we provided the following task:
+### Limitations of Few-shot Prompting
+
+Standard few-shot prompting works well for many tasks but is still not a perfect technique especially when dealing with more complex reasoning tasks. Let's demonstrate why this is the case. Do you recall the previous example where we provided the following task:
 
 ```
 The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
