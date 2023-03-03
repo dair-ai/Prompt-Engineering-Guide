@@ -5,8 +5,8 @@ While those examples were fun, let's cover a few concepts more formally before w
 
 Topics:
 
-- [Zero-shot Prompting](#zero-shot-prompts)
-- [Few-shot Prompting](#few-shot-prompts)
+- [Zero-shot Prompting](#zero-shot-prompting)
+- [Few-shot Prompting](#few-shot-prompting)
 - [Chain-of-Thought Prompting](#chain-of-thought-prompting)
 - [Zero-shot CoT](#zero-shot-cot)
 - [Self-Consistency](#self-consistency)
