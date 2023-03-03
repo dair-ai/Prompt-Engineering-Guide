@@ -117,6 +117,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [On the Advance of Making Language Models Better Reasoners](https://arxiv.org/abs/2206.02336) (June 2022)
   - [Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916) (May 2022)
   - [MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning](https://arxiv.org/abs/2205.00445) (May 2022)
+  - [PPT: Pre-trained Prompt Tuning for Few-shot Learning](https://aclanthology.org/2022.acl-long.576/) (Mqy 2022)
   - [Toxicity Detection with Generative Prompt-based Inference](https://arxiv.org/abs/2205.12390) (May 2022)
   - [Learning to Transfer Prompts for Text Generation](https://arxiv.org/abs/2205.01543) (May 2022)
   - [The Unreliability of Explanations in Few-shot Prompting for Textual Reasoning](https://arxiv.org/abs/2205.03401) (May 2022)

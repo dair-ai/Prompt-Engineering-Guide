@@ -5,8 +5,8 @@ While those examples were fun, let's cover a few concepts more formally before w
 
 Topics:
 
-- [Zero-shot Prompts](#zero-shot-prompts)
-- [Few-shot Prompts](#few-shot-prompts)
+- [Zero-shot Prompting](#zero-shot-prompts)
+- [Few-shot Prompting](#few-shot-prompts)
 - [Chain-of-Thought Prompting](#chain-of-thought-prompting)
 - [Zero-shot CoT](#zero-shot-cot)
 - [Self-Consistency](#self-consistency)
@@ -14,7 +14,7 @@ Topics:
 - [Automatic Prompt Engineer](#automatic-prompt-engineer-ape)
 
 ---
-## Zero-Shot Prompts
+## Zero-Shot Prompting
 LLMs today trained on large amounts of data and tuned to follow instructions, are capable of performing tasks zero-shot. We actually tried a few zero-shot examples in the previous section. Here is one of the examples we used:
 
 *Prompt:*
@@ -33,51 +33,27 @@ Neutral
 Note that in the prompt above we didn't provide the model any examples -- that's the zero-shot capabilities at work. When zero-shot doesn't work, it's recommended to provide demonstrations or examples in the prompt. Below we discuss the approach known as few-shot prompting.
 
 ---
-## Few-Shot Prompts
-Before jumping into more advanced concepts, let's review an example where we use few-shot prompts.
+## Few-Shot Prompting
 
-Do you recall the previous example where we provided the following task:
+While large-language models already demonstrate remarkable zero-shot capabilities, they still fall short on more complex tasks when using the zero-shot setting. To improve on this, few-shot prompting is used as a technique to enable in-context learning where we provide demonstrations in the prompt to steer the model to better performance. The demonstrations serve as conditioning for subsequent examples where we would like the model to generate a response. 
 
-```
-The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
-
-A: 
-```
-
-If we try this again, the model outputs the following:
-
-```
-Yes, the odd numbers in this group add up to 107, which is an even number.
-```
-
-Again, this is not the correct response, which not only highlights the limitations of these systems but that there is a need for more advanced prompt engineering. 
-
-Let's try to add some examples, to see if this improves the results.
+Let's demonstrate few-shot prompting via an example that was presented in [Brown et al. 2020](https://arxiv.org/abs/2005.14165). In the example, the task is to correctly use a new word in a sentence.
 
 *Prompt:*
 ```
-The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
-A: The answer is False.
-
-The odd numbers in this group add up to an even number: 17,  10, 19, 4, 8, 12, 24.
-A: The answer is True.
-
-The odd numbers in this group add up to an even number: 16,  11, 14, 4, 8, 13, 24.
-A: The answer is True.
-
-The odd numbers in this group add up to an even number: 17,  9, 10, 12, 13, 4, 2.
-A: The answer is False.
-
-The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
-A: 
+A "whatpu" is a small, furry animal native to Tanzania. An example of a sentence that uses
+the word whatpu is:
+We were traveling in Africa and we saw these very cute whatpus.
+To do a "farduddle" means to jump up and down really fast. An example of a sentence that uses
+the word farduddle is:
 ```
 
 *Output:*
 ```
-The answer is True.
+When we won the game, we all started to farduddle in celebration.
 ```
 
-That didn't work. It seems like basic standard prompting is not enough to get reliable responses for this type of reasoning problem. The example above provides basic information on the task, even with the examples. If you take a closer look at the task, it does involve more reasoning steps. 
+We can clearly observe that the model has somehow learned how to perform the task by providing it just one example (i.e., 1-shot). For more difficult tasks, we can experiment with increasing the demonstrations (e.g., 3-shot, 5-shot, 10-shot, etc.). 
 
 Following the findings from [Min et al. (2022)](https://arxiv.org/abs/2202.12837), here a few more tips about demonstrations/exemplars when doing few-shot:
 
@@ -118,9 +94,50 @@ Negative
 
 There is no consistency in the format above but the model still predicted the correct label. We have to conduct more thorough analysis to confirm if this holds true for different and more complex tasks, including different variations of prompts.
 
-Overall, it seems that providing examples is useful in some places. When zero-shot prompting and few-shot prompting are not sufficient, it might mean that the whatever was learned by the model isn't enough to do well at the task. From here it is recommended to start thinking about fine-tuning your own models.
+Few-shot prompting works well for many tasks but is still not a perfect technique especially when dealing with more complex reasoning tasks. Let's demonstrate why this is the case. Do you recall the previous example where we provided the following task:
 
-More recently, chain-of-thought (CoT) prompting has been popularized to address more complex arithmetic, commonsense, and symbolic reasoning tasks. So let's talk about CoT next and see if we can solve one of the above task.
+```
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
+
+A: 
+```
+
+If we try this again, the model outputs the following:
+
+```
+Yes, the odd numbers in this group add up to 107, which is an even number.
+```
+
+This is not the correct response, which not only highlights the limitations of these systems but that there is a need for more advanced prompt engineering. 
+
+Let's try to add some examples to see if few-shot prompting improves the results.
+
+*Prompt:*
+```
+The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
+A: The answer is False.
+
+The odd numbers in this group add up to an even number: 17,  10, 19, 4, 8, 12, 24.
+A: The answer is True.
+
+The odd numbers in this group add up to an even number: 16,  11, 14, 4, 8, 13, 24.
+A: The answer is True.
+
+The odd numbers in this group add up to an even number: 17,  9, 10, 12, 13, 4, 2.
+A: The answer is False.
+
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
+A: 
+```
+
+*Output:*
+```
+The answer is True.
+```
+
+That didn't work. It seems like few-shot prompting is not enough to get reliable responses for this type of reasoning problem. The example above provides basic information on the task. If you take a closer look, the type of task we have introduced involves a few more reasoning steps. In other words, it might help if we break the problem down into steps and demonstrate that to the model. More recently, [chain-of-thought (CoT) prompting](https://arxiv.org/abs/2201.11903) has been popularized to address more complex arithmetic, commonsense, and symbolic reasoning tasks.
+
+Overall, it seems that providing examples is useful for solving some tasks. When zero-shot prompting and few-shot prompting are not sufficient, it might mean that the whatever was learned by the model isn't enough to do well at the task. From here it is recommended to start thinking about fine-tuning your own models or experimenting with more advanced prompting techniques. Up next we talk about one of the popular prompting techniques called chain-of-thought prompting which has gained a lot of popularity. 
 
 ---
 
