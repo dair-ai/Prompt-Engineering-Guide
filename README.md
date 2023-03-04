@@ -69,6 +69,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
   
+  - [How Robust is GPT-3.5 to Predecessors? A Comprehensive Study on Language Understanding Tasks](https://arxiv.org/abs/2303.00293) (March 2023)
   - [EvoPrompting: Language Models for Code-Level Neural Architecture Search](https://arxiv.org/abs/2302.14838) (Feb 2023)
   - [In-Context Instruction Learning](https://arxiv.org/abs/2302.14691) (Feb 2023)
   - [Chain of Hindsight Aligns Language Models with Feedback](https://arxiv.org/abs/2302.02676) (Feb 2023)
@@ -144,6 +145,8 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
   
+  - [Soft Prompt Guided Joint Learning for Cross-Domain Sentiment Analysis](https://arxiv.org/abs/2303.00815) (March 2023)
+  - [SpeechPrompt v2: Prompt Tuning for Speech Classification Tasks](https://arxiv.org/abs/2303.00733) (March 2023)
   - [TabGenie: A Toolkit for Table-to-Text Generation](https://arxiv.org/abs/2302.14169) (Feb 2023)
   - [SGL-PT: A Strong Graph Learner with Graph Prompt Tuning](https://arxiv.org/abs/2302.12449) (Feb 2023)
   - [Few-Shot Table-to-Text Generation with Prompt-based Adapter](https://arxiv.org/abs/2302.12468) (Feb 2023)
