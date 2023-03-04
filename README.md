@@ -308,6 +308,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [The ChatGPT Prompt Book](https://docs.google.com/presentation/d/17b_ocq-GL5lhV_bYSShzUgxL02mtWDoiw9xEroJ5m3Q/edit#slide=id.gc6f83aa91_0_79)
 - [The Most Important Job Skill of This Century](https://www.theatlantic.com/technology/archive/2023/02/openai-text-models-google-search-engine-bard-chatbot-chatgpt-prompt-writing/672991/)
 - [The Mirror of Language](https://deepfates.com/the-mirror-of-language)
+- [Thoughts and impressions of AI-assisted search from Bing](https://simonwillison.net/2023/Feb/24/impressions-of-bing/)
 - [Unleash Your Creativity with Generative AI: Learn How to Build Innovative Products!](https://youtube.com/watch?v=jqTkMpziGBU&feature=shares)
 - [Using GPT-Eliezer against ChatGPT Jailbreaking](https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/using-gpt-eliezer-against-chatgpt-jailbreaking)
 - [What Is ChatGPT Doing … and Why Does It Work?](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/)
