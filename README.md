@@ -70,6 +70,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - Approaches/Techniques:
   
   - [How Robust is GPT-3.5 to Predecessors? A Comprehensive Study on Language Understanding Tasks](https://arxiv.org/abs/2303.00293) (March 2023)
+  - [Can ChatGPT Understand Too? A Comparative Study on ChatGPT and Fine-tuned BERT](https://arxiv.org/pdf/2302.10198.pdf) (Feb 2023)
   - [EvoPrompting: Language Models for Code-Level Neural Architecture Search](https://arxiv.org/abs/2302.14838) (Feb 2023)
   - [In-Context Instruction Learning](https://arxiv.org/abs/2302.14691) (Feb 2023)
   - [Chain of Hindsight Aligns Language Models with Feedback](https://arxiv.org/abs/2302.02676) (Feb 2023)
