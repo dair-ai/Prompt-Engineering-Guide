@@ -42,7 +42,9 @@ Big companies like Snap Inc. and Instacart are already integrating conversationa
 ## Conversation with ChatGPT
 To begin demonstrating the capabilities of ChatGPT, we will use the example above and discuss results. 
 
+....
 
+---
 Other use cases to cover:
 - More coming soon!
 
