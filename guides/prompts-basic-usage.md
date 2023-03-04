@@ -156,9 +156,9 @@ What is the problem here?
 ---
 
 ## Conversation
-Perhaps one of the more interesting things you can achieve with prompt engineering is telling the system how to behave, its intent, and identity. This is particularly useful when you are building conversational systems. 
+Perhaps one of the more interesting things you can achieve with prompt engineering is instructing the LLM system how to behave, its intent, and identity. This is particularly useful when you are building conversational systems like customer service chatbots. 
 
-For instance, let's create a conversational system that's able to give more technical and scientific responses to questions. Note how we are explicitly telling it how to behave through the instruction.
+For instance, let's create a conversational system that's able to generate more technical and scientific responses to questions. Note how we are explicitly telling it how to behave through the instruction. This is sometimes referred to as *role prompting*.
 
 *Prompt:*
 ```
