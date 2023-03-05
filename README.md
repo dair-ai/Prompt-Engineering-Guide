@@ -148,6 +148,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   
   - [Soft Prompt Guided Joint Learning for Cross-Domain Sentiment Analysis](https://arxiv.org/abs/2303.00815) (March 2023)
   - [SpeechPrompt v2: Prompt Tuning for Speech Classification Tasks](https://arxiv.org/abs/2303.00733) (March 2023)
+  - [Goal Driven Discovery of Distributional Differences via Language Descriptions](https://arxiv.org/abs/2302.14233) (Feb 2023)
   - [TabGenie: A Toolkit for Table-to-Text Generation](https://arxiv.org/abs/2302.14169) (Feb 2023)
   - [SGL-PT: A Strong Graph Learner with Graph Prompt Tuning](https://arxiv.org/abs/2302.12449) (Feb 2023)
   - [Few-Shot Table-to-Text Generation with Prompt-based Adapter](https://arxiv.org/abs/2302.12468) (Feb 2023)
