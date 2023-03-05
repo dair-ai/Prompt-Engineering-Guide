@@ -77,6 +77,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Automatic Prompt Augmentation and Selection with Chain-of-Thought from Labeled Data](https://arxiv.org/abs/2302.12822) (Feb 2023)
   - [Active Prompting with Chain-of-Thought for Large Language Models](https://arxiv.org/abs/2302.12246) (Feb 2023)
   - [More than you've asked for: A Comprehensive Analysis of Novel Prompt Injection Threats to Application-Integrated Large Language Models](https://arxiv.org/abs/2302.12173) (Feb 2023)
+  - [A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT](https://arxiv.org/abs/2302.11382) (Feb 2023)
   - [Guiding Large Language Models via Directional Stimulus Prompting](https://arxiv.org/abs/2302.11520) (Feb 2023)
   - [How Does In-Context Learning Help Prompt Tuning?](https://arxiv.org/abs/2302.11521) (Feb 2023)
   - [Scalable Prompt Generation for Semi-supervised Learning with Language Models](https://arxiv.org/abs/2302.09236) (Feb 2023)
