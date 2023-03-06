@@ -4,6 +4,11 @@ In this section, we cover the latest prompt engineering techniques for ChatGPT, 
 
 **Note that this section is under heavy development.**
 
+Topics:
+- [ChatGPT Introduction](#chatgpt-introduction)
+- [Reviewing The Conversation Task](#reviewing-the-conversation-task)
+- [Converstions with ChatGPT](#conversations-with-chatgpt)
+
 ---
 ## ChatGPT Introduction
 
@@ -14,7 +19,7 @@ ChatGPT is trained using Reinforcement Learning from Human Feedback (RLHF). Whil
 You can use the research preview of ChatGPT [here](chat.openai.com) but for the examples we will use the Chat mode on the OpenAI Playground.
 
 ---
-## Conversation
+## Reviewing The Conversation Task
 
 In one of the previous guides, we covered a bit about conversation capabilities and role prompting. We covered how to instruct the LLM to have a conversation in a specific style, with a specific intent, behavior, and identity.
 
@@ -74,7 +79,7 @@ openai.ChatCompletion.create(
     ]
 )
 ```
-
+In fact, the way developers interact with ChatGPT in the future is expected to be done via the [Chat Markup Language](https://github.com/openai/openai-python/blob/main/chatml.md) (ChatML for short).
 
 The chat format enables multi-turn conversations but it also supports single-turn tasks similar to what we used with `text-davinci-003`. This means we can use ChatGPT to perform similar tasks as what we have demonstrated for the original GPT models. For example, let's try to perform the following question answering task using ChatGPT:
 
@@ -113,13 +118,13 @@ More formally, this is the API call (I've only included the message component of
 ```
 
 ---
-Other use cases to cover:
-- More coming soon!
+
+More coming soon!
 
 
 
 ---
-### References
+## References
 
 - [UZH_CLyp at SemEval-2023 Task 9: Head-First Fine-Tuning and ChatGPT Data Generation for Cross-Lingual Learning in Tweet Intimacy Prediction](https://arxiv.org/abs/2303.01194) (Mar 2023)
 - [Can ChatGPT Assess Human Personalities? A General Evaluation Framework](https://arxiv.org/abs/2303.01248) (Mar 2023)
@@ -145,3 +150,8 @@ Other use cases to cover:
 - [Techniques to improve reliability - OpenAI Cookbook](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md)
 - [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Introducing ChatGPT](https://openai.com/blog/chatgpt) (Nov 2022)
+
+---
+[Previous Section (Applications)](./prompts-applications.md)
+
+[Next Section (Adversarial Prompting)](./prompts-adversarial.md)

@@ -166,3 +166,8 @@ Other upcoming topics:
 - [StereoSet: Measuring stereotypical bias in pretrained language models](https://aclanthology.org/2021.acl-long.416/) (Aug 2021)
 - [Calibrate Before Use: Improving Few-Shot Performance of Language Models](https://arxiv.org/abs/2102.09690v2) (Feb 2021)
 - [Techniques to improve reliability - OpenAI Cookbook](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md)
+
+---
+[Previous Section (Adversarial Prompting)](./prompt-adversarial.md)
+
+[Next Section (Miscellaneous)](./prompt-miscellaneous.md)

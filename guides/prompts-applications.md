@@ -164,6 +164,6 @@ See full notebook [here](../notebooks/pe-pal.ipynb)
 
 More examples coming soon!
 
-[Previous Section (Advanced Usage)](./prompts-advanced-usage.md)
+[Previous Section (Advanced Prompting)](./prompts-advanced-usage.md)
 
-[Next Section (Adversarial Prompting)](./prompt-adversarial.md)
+[Next Section (ChatGPT)](./prompts-chatgpt.md)

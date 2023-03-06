@@ -66,4 +66,4 @@ Further reading:
 More coming soon!
 
 ---
-[Previous Section (Adversarial Prompting)](./prompt-adversarial.md)
+[Previous Section (Reliability)](./prompts-reliability.md)

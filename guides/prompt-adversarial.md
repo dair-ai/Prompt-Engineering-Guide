@@ -184,6 +184,6 @@ And there are many other variations of this with the goal to make the model do s
 Models like ChatGPT and Claude have been aligned to avoid outputting content that for instance promote illegal behavior or unethical activities. So it's harder to jailbreak them but they still have flaws and we are learning new ones as people experiment with these systems.
 
 ---
-[Previous Section (Applications)](./prompts-applications.md)
+[Previous Section (ChatGPT)](./prompts-chatgpt.md)
 
-[Next Section (Miscellaneous Topics)](./prompt-miscellaneous.md)
+[Next Section (Reliability)](./prompts-reliability.md)
