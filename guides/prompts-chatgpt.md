@@ -39,10 +39,78 @@ The simple example above works well with the text completion APIs that uses `tex
 Big companies like Snap Inc. and Instacart are already integrating conversational features powered by ChatGPT on their products that range from personalized recommendations to open-ended shopping goals.
 
 ---
-## Conversation with ChatGPT
-To begin demonstrating the capabilities of ChatGPT, we will use the example above and discuss results. 
+## Conversations with ChatGPT
+To begin demonstrating the capabilities of ChatGPT, we will use the chatbot assistant example above and discuss results. Compared to `text-davinci-003`, the `gpt-3.5-turbo` model that powers ChatGPT uses a chat format as input. The model expects a series of messages as input, and uses those to generate a response. 
 
-....
+*Input:*
+```
+SYSTEM: You are an AI research assistant. You use a tone that is technical and scientific.
+USER: Hello, who are you?
+ASSISTANT: Greeting! I am an AI research assistant. How can I help you today?
+USER: Can you tell me about the creation of black holes?
+```
+
+*Output:*
+```
+ASSISTANT: Of course! Black holes are created when a massive star runs out of fuel and collapses under its own gravity. This collapse causes the star to become incredibly dense, with a gravitational field so strong that not even light can escape it. This point of no return is known as the event horizon. Once a star crosses the event horizon, it is considered a black hole...
+```
+
+Note that in the example above, I have simplified the input and output but the ChatGPT chat completion API requires messages to be in a specific format. I have added a snapshot below of how this example would look using the `Chat Mode` in the OpenAI Playground:
+
+![](../img/chatgpt-1.png)
+
+The more formal API call for our example would look something like the example below:
+
+```python
+import openai
+
+openai.ChatCompletion.create(
+  model="gpt-3.5-turbo",
+  messages=[
+        {"role": "system", "content": "You are an AI research assistant. You use a tone that is technical and scientific."},
+        {"role": "user", "content": "Hello, who are you?"},
+        {"role": "assistant", "content": "Greeting! I am an AI research assistant. How can I help you today?"},
+        {"role": "user", "content": "Can you tell me about the creation of black holes?"}
+    ]
+)
+```
+
+
+The chat format enables multi-turn conversations but it also supports single-turn tasks similar to what we used with `text-davinci-003`. This means we can use ChatGPT to perform similar tasks as what we have demonstrated for the original GPT models. For example, let's try to perform the following question answering task using ChatGPT:
+
+*Input:*
+```
+USER: Answer the question based on the context below. Keep the answer short and concise. Respond "Unsure about answer" if not sure about the answer.
+
+Context: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.
+
+Question: What was OKT3 originally sourced from?
+
+Answer:
+```
+
+*Output:*
+```
+ASSISTANT: Mice.
+```
+
+Keep in mind that I am adding the `USER` and `ASSISTANT` labels to better demonstrate how the task can be performed using ChatGPT. Here is the example using the Playground:
+
+![](../img/chatgpt-classic.png)
+
+More formally, this is the API call (I've only included the message component of the request):
+
+```python
+[
+  {“role”: “user”, “content”: 'Answer the question based on the context below. Keep the answer short and concise. Respond "Unsure about answer" if not sure about the answer.
+
+Context: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.
+
+Question: What was OKT3 originally sourced from?
+
+Answer:'}
+]
+```
 
 ---
 Other use cases to cover:
