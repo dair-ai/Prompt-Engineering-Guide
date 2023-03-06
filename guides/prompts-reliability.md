@@ -168,6 +168,6 @@ Other upcoming topics:
 - [Techniques to improve reliability - OpenAI Cookbook](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md)
 
 ---
-[Previous Section (Adversarial Prompting)](./prompt-adversarial.md)
+[Previous Section (Adversarial Prompting)](./prompts-adversarial.md)
 
-[Next Section (Miscellaneous)](./prompt-miscellaneous.md)
+[Next Section (Miscellaneous)](./prompts-miscellaneous.md)
