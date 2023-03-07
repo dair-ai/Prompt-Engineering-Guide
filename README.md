@@ -70,6 +70,10 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
   
+  - [OpenICL: An Open-Source Framework for In-context Learning](https://arxiv.org/abs/2303.02913) (March 2023)
+  - [Dynamic Prompting: A Unified Framework for Prompt Tuning](https://arxiv.org/abs/2303.02909) (March 2023)
+  - [Multitask Prompt Tuning Enables Parameter-Efficient Transfer Learning](https://arxiv.org/abs/2303.02861) (March 2023)
+  - [Effectiveness of Data Augmentation for Prefix Tuning with Limited Data](https://arxiv.org/abs/2303.02577) (March 2023)
   - [Mixture of Soft Prompts for Controllable Data Generation](https://arxiv.org/abs/2303.01580) (March 2023)
   - [Prompt, Generate, then Cache: Cascade of Foundation Models makes Strong Few-shot Learners](https://arxiv.org/abs/2303.02151) (March 2023)
   - [How Robust is GPT-3.5 to Predecessors? A Comprehensive Study on Language Understanding Tasks](https://arxiv.org/abs/2303.00293) (March 2023)
@@ -150,6 +154,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
   
+  - [Choice Over Control: How Users Write with Large Language Models using Diegetic and Non-Diegetic Prompting](https://arxiv.org/abs/2303.03199) (March 2023)
   - [Prompting Large Language Models with Answer Heuristics for Knowledge-based Visual Question Answering](https://arxiv.org/abs/2303.01903) (March 2023)
   - [Soft Prompt Guided Joint Learning for Cross-Domain Sentiment Analysis](https://arxiv.org/abs/2303.00815) (March 2023)
   - [SpeechPrompt v2: Prompt Tuning for Speech Classification Tasks](https://arxiv.org/abs/2303.00733) (March 2023)
@@ -202,6 +207,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [loom](https://github.com/socketteer/loom)
 - [Metaprompt](https://metaprompt.vercel.app/?task=gpt)
 - [OpenAI Playground](https://beta.openai.com/playground)
+- [OpenICL](https://github.com/Shark-NLP/OpenICL)
 - [OpenPrompt](https://github.com/thunlp/OpenPrompt)
 - [Playground](https://playgroundai.com)
 - [Prodia](https://app.prodia.com/#/)
@@ -249,6 +255,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Best 100+ Stable Diffusion Prompts](https://mpost.io/best-100-stable-diffusion-prompts-the-most-beautiful-ai-text-to-image-prompts)
 - [Best practices for prompt engineering with OpenAI API](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
 - [Building GPT-3 applications — beyond the prompt](https://medium.com/data-science-at-microsoft/building-gpt-3-applications-beyond-the-prompt-504140835560)
+- [Can AI really be protected from text-based attacks?](https://techcrunch.com/2023/02/24/can-language-models-really-be-protected-from-text-based-attacks/)
 - [ChatGPT, AI and GPT-3 Apps and use cases](https://gpt3demo.com)
 - [CMU Advanced NLP 2022: Prompting](https://youtube.com/watch?v=5ef83Wljm-M&feature=shares)
 - [Curtis64's set of prompt gists](https://gist.github.com/Curtis-64)
