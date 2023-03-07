@@ -8,6 +8,8 @@ When you are building LLMs, it's really important to protect against prompt atta
 
 Please note that it is possible that more robust models have been implemented to address some of the issues documented here. This means that some of the prompt attacks below might not be as effective anymore. 
 
+**Note that this section is under heavy development.**
+
 Topics:
 - [Prompt Injection](#prompt-injection)
 - [Prompt Injection Workarounds](#prompt-injection-workarounds)
