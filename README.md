@@ -106,6 +106,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [On Second Thought, Let's Not Think Step by Step! Bias and Toxicity in Zero-Shot Reasoning](https://arxiv.org/abs/2212.08061) (Dec 2022)
   - [Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/abs/2212.08073) (Dec 2022)
   - [Successive Prompting for Decomposing Complex Questions](https://arxiv.org/abs/2212.04092) (Dec 2022)
+  - [Large Language Models are reasoners with Self-Verification](https://arxiv.org/abs/2212.09561v1) (Dec 2022)
   - [Discovering Language Model Behaviors with Model-Written Evaluations](https://arxiv.org/abs/2212.09251) (Dec 2022)
   - [Structured Prompting: Scaling In-Context Learning to 1,000 Examples](https://arxiv.org/abs/2212.06713) (Dec 2022)
   - [PAL: Program-aided Language Models](https://arxiv.org/abs/2211.10435) (Nov 2022)
