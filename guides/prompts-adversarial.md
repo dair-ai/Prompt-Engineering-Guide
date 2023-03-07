@@ -12,9 +12,9 @@ Please note that it is possible that more robust models have been implemented to
 
 Topics:
 - [Prompt Injection](#prompt-injection)
-- [Prompt Injection Workarounds](#prompt-injection-workarounds)
 - [Prompt Leaking](#prompt-leaking)
 - [Jailbreaking](#jailbreaking)
+- [Defense Tactics](#defense-tactics)
 
 ---
 
@@ -244,12 +244,20 @@ This is an interesting solution as it involves defining a specific agent that wi
 
 We have prepared [this notebook](../notebooks/pe-chatgpt-adversarial.ipynb) for your play around with this strategy.
 
-### Filters and Moderation
-...
+### Model Type
+As suggested by Riley Goodside in [this twitter thread](https://twitter.com/goodside/status/1578278974526222336?s=20), one approach to avoid prompt injections is to not use instruction-tuned models in production. His recommendation is to either fine-tune a model or create a k-shot prompt for a non-instruct model. 
 
+The k-shot prompt solution, which discards the instructions, works well for general/common tasks that don't require too many examples in the context to get good performance. Keep in mind that even this version, which doesn't rely on instruction-based models, is still prone to prompt injection. All this [twitter user](https://twitter.com/goodside/status/1578291157670719488?s=20) had to do was disrupt the flow of the original prompt or mimic the example syntax. Riley suggests trying out some of the additional formatting options like escaping whitespaces and quoting inputs ([discussed here](#quotes-and-additional-formatting)) to make it more robust. Note that all these approaches are still brittle and a much more robust solution is needed.
 
-### Detecting Machine-Generated Text
-...
+For harder tasks, you might need a lot more examples in which case you might be constrained by context length. For these cases, fine-tuning a model on many examples (100s to a couple thousands) might be more ideal. As you build more robust and accurate fine-tuned models, you rely less on instruction-based models and can avoid prompt injections. Fine-tuned model might just be the approach we have for avoiding prompt injections. 
+
+More recently, ChatGPT came into the scene. For many of the attacks that we tried above, ChatGPT already contains some guardrails and it usually responds with a safety message when encountering a malicious or dangerous prompt. While ChatGPT prevents a lot of these adversarial prompting techniques, it's not perfect and there is still many new and effective adversarial prompts that breaks the model. One disadvantage with ChatGPT is that because the model has all of these guardrails, it might prevent certain behaviors that are desired but not possible given the constraints. There is a tradeoff with all these model types and the field is constantly evolving to better and more robust solutions.
+
+---
+Other upcoming topics:
+- Filters and Moderation
+- Detecting Machine-Generated Text
+- ...
 
 
 ---
