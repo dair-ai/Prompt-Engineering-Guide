@@ -271,6 +271,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Giving GPT-3 a Turing Test](https://lacker.io/ai/2020/07/06/giving-gpt-3-a-turing-test.html)
 - [GPT-3 & Beyond](https://youtube.com/watch?v=-lnHHWRCDGk)
 - [GPT3 and Prompts: A quick primer](https://buildspace.so/notes/intro-to-gpt3-prompts)
+- [Hands-on with Bing’s new ChatGPT-like features](https://techcrunch.com/2023/02/08/hands-on-with-the-new-bing/)
 - [How to Draw Anything](https://andys.page/posts/how-to-draw)
 - [How to get images that don't suck](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a)
 - [How to make LLMs say true things](https://evanjconrad.com/posts/world-models)

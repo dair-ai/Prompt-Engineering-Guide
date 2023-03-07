@@ -150,6 +150,7 @@ Other upcoming topics:
 - Spurious Correlation
 - Domain Shift
 - Toxicity
+- Hate speech / Offensive content
 - Stereotypical bias 
 - Gender bias
 - Coming soon!
