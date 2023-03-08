@@ -8,6 +8,7 @@ Topics:
 - [ChatGPT Introduction](#chatgpt-introduction)
 - [Reviewing The Conversation Task](#reviewing-the-conversation-task)
 - [Conversations with ChatGPT](#conversations-with-chatgpt)
+- [Python Notebooks](#python-notebooks)
 
 ---
 ## ChatGPT Introduction
@@ -135,8 +136,8 @@ According to the official OpenAI docs, snapshots of the `gpt-3.5-turbo` model wi
 
 The current recommendation for `gpt-3.5-turbo-0301` is to add instructions in the `user` message as opposed to the available `system` message. 
 
-## Notebooks
-
+---
+## Python Notebooks
 
 |Description|Notebook|
 |--|--|

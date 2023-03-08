@@ -253,11 +253,13 @@ For harder tasks, you might need a lot more examples in which case you might be 
 
 More recently, ChatGPT came into the scene. For many of the attacks that we tried above, ChatGPT already contains some guardrails and it usually responds with a safety message when encountering a malicious or dangerous prompt. While ChatGPT prevents a lot of these adversarial prompting techniques, it's not perfect and there is still many new and effective adversarial prompts that breaks the model. One disadvantage with ChatGPT is that because the model has all of these guardrails, it might prevent certain behaviors that are desired but not possible given the constraints. There is a tradeoff with all these model types and the field is constantly evolving to better and more robust solutions.
 
+
 ---
-Other upcoming topics:
-- Filters and Moderation
-- Detecting Machine-Generated Text
-- ...
+## Python Notebooks
+
+|Description|Notebook|
+|--|--|
+|Learn about adversarial prompting include defensive measures.|[Adversarial Prompt Engineering](../notebooks/pe-chatgpt-adversarial.ipynb)|
 
 
 ---

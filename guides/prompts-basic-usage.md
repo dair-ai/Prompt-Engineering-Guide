@@ -290,6 +290,13 @@ We will continue to include more examples of common applications in this section
 In the upcoming guides, we will cover even more advanced prompt engineering concepts for improving performance on all these and more difficult tasks.
 
 ---
+## Python Notebooks
+
+|Description|Notebook|
+|--|--|
+|Learn how to perform many different types of tasks using the `openai` and `LangChain` library|[Getting Started with Prompt Engineering](../notebooks/pe-lecture.ipynb)|
+
+---
 
 [Previous Section (Prompts Introduction)](./prompts-intro.md)
 

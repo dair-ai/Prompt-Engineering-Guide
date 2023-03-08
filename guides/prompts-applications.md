@@ -158,7 +158,12 @@ print(born)
 
 This will output the following: `02/27/1998`
 
-See full notebook [here](../notebooks/pe-pal.ipynb)
+---
+## Python Notebooks
+
+|Description|Notebook|
+|--|--|
+|Learn how to use code as reasoning for solving common tasks using the Python interpreter in combination with the language model.|[PAL: Code as Reasoning](../notebooks/pe-pal.ipynb)|
 
 ---
 
