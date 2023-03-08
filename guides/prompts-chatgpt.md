@@ -45,6 +45,9 @@ Big companies like Snap Inc. and Instacart are already integrating conversationa
 
 ---
 ## Conversations with ChatGPT
+
+### Multi-turn Conversations
+
 To begin demonstrating the capabilities of ChatGPT, we will use the chatbot assistant example above and discuss results. Compared to `text-davinci-003`, the `gpt-3.5-turbo` model that powers ChatGPT uses a chat format as input. The model expects a series of messages as input, and uses those to generate a response. 
 
 *Input:*
@@ -80,6 +83,8 @@ openai.ChatCompletion.create(
 )
 ```
 In fact, the way developers interact with ChatGPT in the future is expected to be done via the [Chat Markup Language](https://github.com/openai/openai-python/blob/main/chatml.md) (ChatML for short).
+
+### Single-turn tasks
 
 The chat format enables multi-turn conversations but it also supports single-turn tasks similar to what we used with `text-davinci-003`. This means we can use ChatGPT to perform similar tasks as what we have demonstrated for the original GPT models. For example, let's try to perform the following question answering task using ChatGPT:
 
@@ -124,13 +129,19 @@ response = openai.ChatCompletion.create(
 )
 ```
 
-You can try out [this notebook](../notebooks/pe-chatgpt-intro.ipynb) to learn more about how to make calls to the ChatGPT APIs using the `openai` library.
+### Instructing Chat Models
 
-You can also try out [this notebook](../notebooks/pe-chatgpt-langchain.ipynb) that provides an introduction of ChatGPT features available on the `LangChain` library. 
+According to the official OpenAI docs, snapshots of the `gpt-3.5-turbo` model will also be made available. For example, we can access the snapshot from March 1 `gpt-3.5-turbo-0301`. This allows developers to opt for specific model versions. This also means that the best practices for instructing models may change from version to version. 
 
----
+The current recommendation for `gpt-3.5-turbo-0301` is to add instructions in the `user` message as opposed to the available `system` message. 
 
-More coming soon!
+## Notebooks
+
+
+|Description|Notebook|
+|--|--|
+|Learn more about how to make calls to the ChatGPT APIs using the `openai` library.|[ChatGPT API Intro](../notebooks/pe-chatgpt-intro.ipynb)|
+|Learn how to use ChatGPT features using the `LangChain` library. |[ChatGPT API with LangChain](../notebooks/pe-chatgpt-langchain.ipynb)|
 
 ---
 ## References
