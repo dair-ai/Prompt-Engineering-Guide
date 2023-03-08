@@ -70,6 +70,9 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing](https://arxiv.org/abs/2107.13586) (Jul 2021)
 - Approaches/Techniques:
   
+  - [Structure Pretraining and Prompt Tuning for Knowledge Graph Transfer](https://arxiv.org/abs/2303.03922) (March 2023)
+  - [CoTEVer: Chain of Thought Prompting Annotation Toolkit for Explanation Verification](https://arxiv.org/abs/2303.03628) (March 2023)
+  - [Larger language models do in-context learning differently](https://arxiv.org/abs/2303.03846) (March 2023)
   - [OpenICL: An Open-Source Framework for In-context Learning](https://arxiv.org/abs/2303.02913) (March 2023)
   - [Dynamic Prompting: A Unified Framework for Prompt Tuning](https://arxiv.org/abs/2303.02909) (March 2023)
   - [Multitask Prompt Tuning Enables Parameter-Efficient Transfer Learning](https://arxiv.org/abs/2303.02861) (March 2023)
@@ -152,6 +155,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Prompt Programming for Large Language Models: Beyond the Few-Shot Paradigm](https://arxiv.org/abs/2102.07350) (Feb 2021)
   - [Calibrate Before Use: Improving Few-Shot Performance of Language Models](https://arxiv.org/abs/2102.09690) (Feb 2021)
   - [Prefix-Tuning: Optimizing Continuous Prompts for Generation](https://arxiv.org/abs/2101.00190) (Jan 2021)
+  - [Making Pre-trained Language Models Better Few-shot Learners](https://arxiv.org/abs/2012.15723) (Dec 2020)
   - [AutoPrompt: Eliciting Knowledge from Language Models with Automatically Generated Prompts](https://arxiv.org/abs/2010.15980) (Oct 2020)
   - [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) (May 2020)
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
@@ -314,6 +318,8 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [Prompt Engineering with OpenAI's GPT-3 and other LLMs](https://youtube.com/watch?v=BP9fi_0XTlw&feature=shares)
 - [Prompt injection attacks against GPT-3](https://simonwillison.net/2022/Sep/12/prompt-injection)
 - [Prompt injection to read out the secret OpenAI API key](https://twitter.com/ludwig_stumpp/status/1619701277419794435?s=20&t=GtoMlmYCSt-UmvjqJVbBSA)
+- [Prompting: Better Ways of Using Language Models for NLP Tasks](https://thegradient.pub/prompting/)
+- [Prompting for Few-shot Learning](https://www.cs.princeton.edu/courses/archive/fall22/cos597G/lectures/lec05.pdf)
 - [Prompting in NLP: Prompt-based zero-shot learning](https://savasy-22028.medium.com/prompting-in-nlp-prompt-based-zero-shot-learning-3f34bfdb2b72)
 - [Prompting Methods with Language Models and Their Applications to Weak Supervision](https://snorkel.ai/prompting-methods-with-language-models-nlp)
 - [Prompts as Programming by Gwern](https://www.gwern.net/GPT-3#prompts-as-programming)
