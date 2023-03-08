@@ -7,7 +7,7 @@ In this section, we cover the latest prompt engineering techniques for ChatGPT, 
 Topics:
 - [ChatGPT Introduction](#chatgpt-introduction)
 - [Reviewing The Conversation Task](#reviewing-the-conversation-task)
-- [Converstions with ChatGPT](#conversations-with-chatgpt)
+- [Conversations with ChatGPT](#conversations-with-chatgpt)
 
 ---
 ## ChatGPT Introduction
@@ -16,7 +16,7 @@ ChatGPT is a new model [trained by OpenAI](https://openai.com/blog/chatgpt) that
 
 ChatGPT is trained using Reinforcement Learning from Human Feedback (RLHF). While this model is a lot more capable than previous GPT iterations (and also trained to reduce harmful and untruthful outputs), it still comes with limitations. Let's cover some of the capabilities and limitations with concrete examples. 
 
-You can use the research preview of ChatGPT [here](chat.openai.com) but for the examples we will use the Chat mode on the OpenAI Playground.
+You can use the research preview of ChatGPT [here](chat.openai.com) but for the examples below we will use the `Chat` mode on the OpenAI Playground.
 
 ---
 ## Reviewing The Conversation Task
@@ -31,7 +31,7 @@ The following is a conversation with an AI research assistant. The assistant ton
 
 Human: Hello, who are you?
 AI: Greeting! I am an AI research assistant. How can I help you today?
-Human: Can you tell me about the creation of blackholes?
+Human: Can you tell me about the creation of black holes?
 AI:
 ```
 
@@ -124,7 +124,9 @@ response = openai.ChatCompletion.create(
 )
 ```
 
-You can try out [this notebook](../notebooks/pe-chatgpt-intro.ipynb) to learn more about how to make calls to the ChatGPT APIs. 
+You can try out [this notebook](../notebooks/pe-chatgpt-intro.ipynb) to learn more about how to make calls to the ChatGPT APIs using the `openai` library.
+
+You can also try out [this notebook](../notebooks/pe-chatgpt-langchain.ipynb) that provides an introduction of ChatGPT features available on the `LangChain` library. 
 
 ---
 
