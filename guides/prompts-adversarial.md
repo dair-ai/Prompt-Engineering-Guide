@@ -15,6 +15,7 @@ Topics:
 - [Prompt Leaking](#prompt-leaking)
 - [Jailbreaking](#jailbreaking)
 - [Defense Tactics](#defense-tactics)
+- [Python Notebooks](#python-notebooks)
 
 ---
 

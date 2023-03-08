@@ -6,7 +6,7 @@ In this guide we will cover some advanced and interesting ways we can use prompt
 Topics:
 - [Generating Data](#generating-data)
 - [Code as Reasoning](#pal-program-aided-language-models-code-as-reasoning)
-- ...
+- [Python Notebooks](#python-notebooks)
 
 
 ---

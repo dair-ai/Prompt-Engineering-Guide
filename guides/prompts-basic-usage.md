@@ -14,6 +14,7 @@ Topics:
 - [Conversation](#conversation)
 - [Code Generation](#code-generation)
 - [Reasoning](#reasoning)
+- [Python Notebooks](#python-notebooks)
 
 ---
 
@@ -294,7 +295,7 @@ In the upcoming guides, we will cover even more advanced prompt engineering conc
 
 |Description|Notebook|
 |--|--|
-|Learn how to perform many different types of tasks using the `openai` and `LangChain` library|[Getting Started with Prompt Engineering](../notebooks/pe-lecture.ipynb)|
+|Learn how to perform many different types of common tasks using the `openai` and `LangChain` library|[Getting Started with Prompt Engineering](../notebooks/pe-lecture.ipynb)|
 
 ---
 
