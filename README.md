@@ -167,6 +167,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [Soft Prompt Guided Joint Learning for Cross-Domain Sentiment Analysis](https://arxiv.org/abs/2303.00815) (March 2023)
   - [SpeechPrompt v2: Prompt Tuning for Speech Classification Tasks](https://arxiv.org/abs/2303.00733) (March 2023)
   - [Goal Driven Discovery of Distributional Differences via Language Descriptions](https://arxiv.org/abs/2302.14233) (Feb 2023)
+  - [Navigating the Grey Area: Expressions of Overconfidence and Uncertainty in Language Models](https://arxiv.org/abs/2302.13439) (Feb 2023)
   - [TabGenie: A Toolkit for Table-to-Text Generation](https://arxiv.org/abs/2302.14169) (Feb 2023)
   - [SGL-PT: A Strong Graph Learner with Graph Prompt Tuning](https://arxiv.org/abs/2302.12449) (Feb 2023)
   - [Few-Shot Table-to-Text Generation with Prompt-based Adapter](https://arxiv.org/abs/2302.12468) (Feb 2023)
@@ -201,6 +202,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 
 - [AI Test Kitchen](https://aitestkitchen.withgoogle.com)
 - [betterprompt](https://github.com/krrishdholakia/betterprompt)
+- [ClickPrompt](https://github.com/prompt-engineering/click-prompt)
 - [DreamStudio](https://beta.dreamstudio.ai)
 - [DUST](https://dust.tt)
 - [Dyno](https://trydyno.com)
@@ -217,6 +219,7 @@ The following are the latest papers (sorted by release date) on prompt engineeri
 - [OpenAI Playground](https://beta.openai.com/playground)
 - [OpenICL](https://github.com/Shark-NLP/OpenICL)
 - [OpenPrompt](https://github.com/thunlp/OpenPrompt)
+- [OpenPlayground](https://nat.dev/)
 - [Playground](https://playgroundai.com)
 - [Prodia](https://app.prodia.com/#/)
 - [Prompt Base](https://promptbase.com)
