@@ -162,6 +162,9 @@ The following are the latest papers (sorted by release date) on prompt engineeri
   - [How Can We Know What Language Models Know?](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00324/96460/How-Can-We-Know-What-Language-Models-Know) (July 2020)
 - Applications:
   
+  - [ICL-D3IE: In-Context Learning with Diverse Demonstrations Updating for Document Information Extraction](https://arxiv.org/abs/2303.05063) (March 2023)
+  - [MathPrompter: Mathematical Reasoning using Large Language Models](https://arxiv.org/abs/2303.05398) (March 2023)
+  - [Prompt-Based Learning for Thread Structure Prediction in Cybersecurity Forums](https://arxiv.org/abs/2303.05400) (March 2023)
   - [Choice Over Control: How Users Write with Large Language Models using Diegetic and Non-Diegetic Prompting](https://arxiv.org/abs/2303.03199) (March 2023)
   - [Prompting Large Language Models with Answer Heuristics for Knowledge-based Visual Question Answering](https://arxiv.org/abs/2303.01903) (March 2023)
   - [Soft Prompt Guided Joint Learning for Cross-Domain Sentiment Analysis](https://arxiv.org/abs/2303.00815) (March 2023)
