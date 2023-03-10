@@ -9,3 +9,7 @@ notebooks/__pycache__/
 notebooks/state_of_the_union.txt
 notebooks/chroma_logs.log
 notebooks/.chroma/
+
+# app
+.next
+node_modules
