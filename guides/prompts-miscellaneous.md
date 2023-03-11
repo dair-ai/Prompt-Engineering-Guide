@@ -7,7 +7,6 @@ In this section, we discuss other miscellaneous and uncategorized topics in prom
 Topic:
 - [Active Prompt](#active-prompt)
 - [Directional Stimulus Prompting](#directional-stimulus-prompting)
-- [Program-Aided Language Models](#program-aided-language-models)
 - [ReAct](#react)
 - [Multimodal CoT Prompting](#multimodal-prompting)
 - [GraphPrompts](#graphprompts)

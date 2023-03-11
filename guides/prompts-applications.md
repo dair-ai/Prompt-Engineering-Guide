@@ -5,7 +5,7 @@ In this guide we will cover some advanced and interesting ways we can use prompt
 **Note that this section is under heavy development.**
 Topics:
 - [Generating Data](#generating-data)
-- [Code as Reasoning](#pal-program-aided-language-models-code-as-reasoning)
+- [Program-Aided Language Models](#pal-program-aided-language-models)
 - [Python Notebooks](#python-notebooks)
 
 
@@ -57,7 +57,7 @@ This is very useful. We actually use this example for a different test in anothe
 
 ---
 
-## PAL (Program-Aided Language Models): Code as Reasoning
+## PAL (Program-Aided Language Models)
  
 [Gao et al., (2022)](https://arxiv.org/abs/2211.10435) presents a method that uses LLMs to read natural language problems and generate programs as the intermediate reasoning steps. Coined, program-aided language models (PAL), it differs from chain-of-thought prompting in that instead of using free-form text to obtain solution it offloads the solution step to a programmatic runtime such as a Python interpreter.
 

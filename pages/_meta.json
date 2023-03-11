@@ -1,7 +1,10 @@
 {
-  "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "index": "Preface",
+  "introduction": "Introduction",
+  "techniques": "Techniques",
+  "applications": "Applications",
+  "models": "Models",
+  "risks": "Risks & Misuses",
   "papers": "Papers",
   "tools": "Tools",
   "datasets": "Datasets",

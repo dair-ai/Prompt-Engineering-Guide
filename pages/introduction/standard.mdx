@@ -1,0 +1,64 @@
+# Standard Prompts
+
+We have tried a very simple prompt above. A standard prompt has the following format:
+
+```
+<Question>?
+```
+ 
+This can be formatted into a QA format, which is standard in a lot of QA dataset, as follows:
+
+```
+Q: <Question>?
+A: 
+```
+
+Given the standard format above, one popular and effective technique to prompting is referred to as few-shot prompting where we provide exemplars. Few-shot prompts can be formatted as follows:
+
+```
+<Question>?
+<Answer>
+
+<Question>?
+<Answer>
+
+<Question>?
+<Answer>
+
+<Question>?
+
+```
+
+
+And you can already guess that its QA format version would look like this:
+
+```
+Q: <Question>?
+A: <Answer>
+
+Q: <Question>?
+A: <Answer>
+
+Q: <Question>?
+A: <Answer>
+
+Q: <Question>?
+A:
+```
+
+Keep in mind that it's not required to use QA format. The format depends on the task at hand. For instance, you can perform a simple classification task and give exemplars that demonstrate the task as follows:
+
+*Prompt:*
+```
+This is awesome! // Positive
+This is bad! // Negative
+Wow that movie was rad! // Positive
+What a horrible show! //
+```
+
+*Output:*
+```
+Negative
+```
+
+Few-shot prompts enable in-context learning which is the ability of language models to learn tasks given only a few examples. We will see more of this in action in the upcoming guides.
