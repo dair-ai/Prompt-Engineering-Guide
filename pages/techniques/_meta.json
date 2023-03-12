@@ -1,5 +1,4 @@
 {
-    "introduction": "Introduction",
     "zeroshot": "Zero-shot Prompting",
     "fewshot": "Few-shot Prompting",
     "cot": "Chain-of-Thought Prompting",

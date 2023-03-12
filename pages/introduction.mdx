@@ -1,55 +1,42 @@
-# Prompt Engineering Guide
+# Introduction
 
 Prompt engineering is a relatively new discipline for developing and optimizing prompts to efficiently use language models (LMs) for a wide variety of applications and research topics. Prompt engineering skills help to better understand the capabilities and limitations of large language models (LLMs). Researchers use prompt engineering to improve the capacity of LLMs on a wide range of common and complex tasks such as question answering and arithmetic reasoning. Developers use prompt engineering to design robust and effective prompting techniques that interface with LLMs and other tools.
 
-Motivated by the high interest in developing with LLMs, we have created this new prompt engineering guide that contains all the latest papers, learning guides, lectures, references, and tools related to prompt engineering. 
+This guide covers the basics of standard prompts to provide a rough idea on how to use prompts to interact and instruct large language models (LLMs). 
+
+All examples are tested with `text-davinci-003` (using OpenAI's playground) unless otherwise specified. It uses the default configurations, e.g., `temperature=0.7` and `top-p=1`.
 
 import { Card, Cards } from 'nextra-theme-docs'
 
-<Cards num={9}>
+<Cards num={6}>
   <Card
     arrow
-    title="Introduction"
-    href="/introduction">
+    title="Basic Prompts"
+    href="/introduction/basics">
   </Card>
   <Card
     arrow
-    title="Techniques"
-    href="/techniques">
+    title="LLM Settings"
+    href="/introduction/settings">
   </Card>
   <Card
     arrow
-    title="Applications"
-    href="/applications">
+    title="Standard Prompts"
+    href="/introduction/standard">
   </Card>
   <Card
     arrow
-    title="Models"
-    href="/models">
+    title="Prompt Elements"
+    href="/introduction/elements">
   </Card>
   <Card
     arrow
-    title="Risks & Misuses"
-    href="/risks">
+    title="General Tips for Designing Prompts"
+    href="/introduction/tips">
   </Card>
   <Card
     arrow
-    title="Papers"
-    href="/papers">
-  </Card>
-  <Card
-    arrow
-    title="Tools"
-    href="/tools">
-  </Card>
-  <Card
-    arrow
-    title="Datasets"
-    href="/datasets">
-  </Card>
-  <Card
-    arrow
-    title="Additional Readings"
-    href="/readings">
+    title="Examples of Prompts"
+    href="/introduction/examples">
   </Card>
 </Cards>

@@ -1,5 +1,5 @@
 {
-  "index": "Preface",
+  "index": "Prompt Engineering",
   "introduction": "Introduction",
   "techniques": "Techniques",
   "applications": "Applications",
@@ -16,7 +16,7 @@
   "contact": {
     "title": "Contact ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://twitter.com/dair_ai",
     "newWindow": true
   }
 }
