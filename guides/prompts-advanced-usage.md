@@ -53,11 +53,11 @@ the word farduddle is:
 When we won the game, we all started to farduddle in celebration.
 ```
 
-We can observe that the model has somehow learned how to perform the task by providing it with just one example (i.e., 1 shot). For more difficult tasks, we can experiment with increasing the demonstrations (e.g., 3-shot, 5-shot, 10-shot, etc.). 
+We can observe that the model has somehow learned how to perform the task by providing it with just one example (i.e., 1-shot). For more difficult tasks, we can experiment with increasing the demonstrations (e.g., 3-shot, 5-shot, 10-shot, etc.). 
 
 Following the findings from [Min et al. (2022)](https://arxiv.org/abs/2202.12837), here are a few more tips about demonstrations/exemplars when doing few-shot:
 
-- "the label space and the distribution of the input text specified by the demonstrations are both keys (regardless of whether the labels are correct for individual inputs)"
+- "the label space and the distribution of the input text specified by the demonstrations are both important (regardless of whether the labels are correct for individual inputs)"
 - the format you use also plays a key role in performance, even if you just use random labels, this is much better than no labels at all.  
 - additional results show that selecting random labels from a true distribution of labels (instead of a uniform distribution) also helps.
 
@@ -324,7 +324,7 @@ Yes.
 
 This type of mistake reveals the limitations of LLMs to perform tasks that require more knowledge about the world. How do we improve this with knowledge generation?
 
-First, we generate a few "knowledge":
+First, we generate a few "knowledges":
 
 *Prompt:*
 ```
