@@ -7,7 +7,9 @@ import CHATGPTCLASSIC from '../../img/chatgpt-classic.png'
 
 In this section, we cover the latest prompt engineering techniques for ChatGPT, including tips, applications, limitations, papers, and additional reading materials.
 
-**Note that this section is under heavy development.**
+<Callout emoji="⚠️">
+  This section is under heavy development.
+</Callout>
 
 Topics:
 - [ChatGPT Introduction](#chatgpt-introduction)
@@ -17,7 +19,7 @@ Topics:
 ---
 ## ChatGPT Introduction
 
-ChatGPT is a new model [trained by OpenAI](https://openai.com/blog/chatgpt) that has the capability to interact in a conversational way. This model is trained to follow instructions in a prompt to provide appropriate responses in the context of a dialogue. ChatGPT can help with answering questions, suggest recipes, write lyrics in a certain style, generate code, and much more.
+ChatGPT is a new model [trained by OpenAI](https://openai.com/blog/chatgpt)  that has the capability to interact in a conversational way. This model is trained to follow instructions in a prompt to provide appropriate responses in the context of a dialogue. ChatGPT can help with answering questions, suggesting recipes, writing lyrics in a certain style, generating code, and much more.
 
 ChatGPT is trained using Reinforcement Learning from Human Feedback (RLHF). While this model is a lot more capable than previous GPT iterations (and also trained to reduce harmful and untruthful outputs), it still comes with limitations. Let's cover some of the capabilities and limitations with concrete examples. 
 
@@ -44,7 +46,7 @@ From the example above, you can see two important components:
 - the **intent** or explanation of what the chatbot is
 - the **identity** which instructs the style or tone the chatbot will use to respond
 
-The simple example above works well with the text completion APIs that uses `text-davinci-003`. More recently, OpenAI [announced the ChatGPT APIs](https://openai.com/blog/introducing-chatgpt-and-whisper-apis), which is a more powerful and cheaper model called `gpt-3.5-turbo` was specifically built for this type of functionality (chat completions). In fact, OpenAI recommends this is as their best model even for non-chat use cases.  Other benefits of using the ChatGPT APIs are the significant cost reduction (90%) and efficiency. 
+The simple example above works well with the text completion APIs that uses `text-davinci-003`. More recently, OpenAI [announced the ChatGPT APIs](https://openai.com/blog/introducing-chatgpt-and-whisper-apis), which is a more powerful and cheaper model called `gpt-3.5-turbo` was specifically built for this type of functionality (chat completions). In fact, OpenAI recommends this as their best model even for non-chat use cases. Other benefits of using the ChatGPT APIs are significant cost reduction (90%) and efficiency.
 
 Big companies like Snap Inc. and Instacart are already integrating conversational features powered by ChatGPT on their products that range from personalized recommendations to open-ended shopping goals.
 
@@ -53,7 +55,7 @@ Big companies like Snap Inc. and Instacart are already integrating conversationa
 
 ### Multi-turn Conversations
 
-To begin demonstrating the capabilities of ChatGPT, we will use the chatbot assistant example above and discuss results. Compared to `text-davinci-003`, the `gpt-3.5-turbo` model that powers ChatGPT uses a chat format as input. The model expects a series of messages as input, and uses those to generate a response. 
+To begin demonstrating the capabilities of ChatGPT, we will use the chatbot assistant example above and discuss the results. Compared to `text-davinci-003`, the `gpt-3.5-turbo` model that powers ChatGPT uses a chat format as input. The model expects a series of messages as input and uses those to generate a response.
 
 *Input:*
 ```

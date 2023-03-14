@@ -1,6 +1,6 @@
 # Generated Knowledge Prompting
 
-LLMs continue to be improved and one popular technique include the ability to incorporate knowledge or information to help the model make more accurate predictions. 
+LLMs continue to be improved and one popular technique includes the ability to incorporate knowledge or information to help the model make more accurate predictions. 
 
 Using a similar idea, can the model also be used to generate knowledge before making a prediction? That's what is attempted in the paper by [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf) -- generate knowledge to be used as part of the prompt. In particular, how helpful is this for tasks such as commonsense reasoning?
 
@@ -16,9 +16,9 @@ Part of golf is trying to get a higher point total than others. Yes or No?
 Yes.
 ```
 
-This type of mistakes reveal the limitations of LLMs to perform tasks that require more knowledge about the world. How do we improve this with knowledge generation?
+This type of mistake reveals the limitations of LLMs to perform tasks that require more knowledge about the world. How do we improve this with knowledge generation?
 
-First we generate a few "knowledges":
+First, we generate a few "knowledges":
 
 *Prompt:*
 ```
@@ -53,7 +53,7 @@ Golf is a precision club-and-ball sport in which competing players (or golfers) 
 
 We are using the prompt provided in the paper by [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf).
 
-Next step is to integrate the knowledge and get a prediction. I reformatted the question into QA format to guide the answer format.
+The next step is to integrate the knowledge and get a prediction. I reformatted the question into QA format to guide the answer format.
 
 *Prompt:*
 ```
@@ -69,7 +69,6 @@ Explain and Answer:
 No, the objective of golf is not to get a higher point total than others. Rather, the objective is to play a set of holes in the least number of strokes. The total number of strokes is used to determine the winner of the game, not the total number of points.
 ```
 
-
 ```
 Question: Part of golf is trying to get a higher point total than others. Yes or No?
 
@@ -83,4 +82,4 @@ Explain and Answer:
 Yes, part of golf is trying to get a higher point total than others. Each player tries to complete the course with the lowest score, which is calculated by adding up the total number of strokes taken on each hole. The player with the lowest score wins the game.
 ```
 
-Some really interesting things happened with this example. In the first answer, the model was very confident but in the second not so much. I simplify the process for demonstration purposes but there are few more details to consider when arriving to the final answer. Check out the paper for more.
+Some really interesting things happened with this example. In the first answer, the model was very confident but in the second not so much. I simplify the process for demonstration purposes but there are a few more details to consider when arriving at the final answer. Check out the paper for more.
