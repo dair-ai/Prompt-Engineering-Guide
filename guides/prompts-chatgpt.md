@@ -17,7 +17,7 @@ ChatGPT is a new model [trained by OpenAI](https://openai.com/blog/chatgpt) that
 
 ChatGPT is trained using Reinforcement Learning from Human Feedback (RLHF). While this model is a lot more capable than previous GPT iterations (and also trained to reduce harmful and untruthful outputs), it still comes with limitations. Let's cover some of the capabilities and limitations with concrete examples. 
 
-You can use the research preview of ChatGPT [here](chat.openai.com) but for the examples below we will use the `Chat` mode on the OpenAI Playground.
+You can use the research preview of ChatGPT [here](https://chat.openai.com) but for the examples below we will use the `Chat` mode on the OpenAI Playground.
 
 ---
 ## Reviewing The Conversation Task
