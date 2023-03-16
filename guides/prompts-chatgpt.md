@@ -22,7 +22,7 @@ You can use the research preview of ChatGPT [here](https://chat.openai.com) but 
 ---
 ## Reviewing The Conversation Task
 
-In one of the previous guides, we covered a bit about conversation capabilities and role prompting. We covered how to instruct the LLM to have a conversation in a specific style, with a specific intent, behavior, and identity.
+In one of the [previous guides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/guides/prompts-basic-usage.md#conversation), we covered a bit about conversation capabilities and role prompting. We covered how to instruct the LLM to have a conversation in a specific style, with a specific intent, behavior, and identity.
 
 Let's review our previous basic example where we created a conversational system that's able to generate more technical and scientific responses to questions. 
 
