@@ -163,7 +163,7 @@ This will output the following: `02/27/1998`
 
 |Description|Notebook|
 |--|--|
-|Learn how to use code as reasoning for solving common tasks using the Python interpreter in combination with the language model.|[PAL: Code as Reasoning](../notebooks/pe-pal.ipynb)|
+|Learn how to use the Python interpreter in combination with the language model to solve tasks.|[Program-Aided Language Models](../notebooks/pe-pal.ipynb)|
 
 ---
 
