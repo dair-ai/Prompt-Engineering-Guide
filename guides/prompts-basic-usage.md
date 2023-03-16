@@ -19,7 +19,7 @@ Topics:
 ---
 
 ## Text Summarization
-One of the standard tasks in natural language generation is text summarization. Text summarization can include many different flavors and domains. In fact, one of the most promising applications of language models is the ability to summarize articles and concepts into quick and easy to read summaries. Let's try a basic summarization task using prompts.
+One of the standard tasks in natural language generation is text summarization. Text summarization can include many different flavors and domains. One of the most promising applications of language models is the ability to summarize articles and concepts into quick and easy-to-read summaries. Let's try a basic summarization task using prompts.
 
 Let's say I am interested to learn about antibiotics, I could try a prompt like this:
 
@@ -35,7 +35,7 @@ A:
 Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.
 ```
 
-The "A:" is an explicit prompt format that's used in question answering. I used it here to tell the model that there is an expected further. In this example, it's not clear how this is useful vs not using it but we will leave it that for later examples. Let's just assume that this is too much information and want to summarize it further. In fact, we can instruct the model to summarize into one sentence like so:
+The "A:" is an explicit prompt format that's used in question answering. I used it here to tell the model that there is an expected further. In this example, it's not clear how this is useful vs not using it but we will leave it that for later examples. Let's just assume that this is too much information and want to summarize it further. We can instruct the model to summarize into one sentence like so:
 
 *Prompt:*
 ```
@@ -71,7 +71,7 @@ The large language model based product mentioned in the paragraph above is ChatG
 
 There are many ways we can improve the results above, but this is already very useful. 
 
-By now it should be obvious that you can ask the model to perform different tasks by simply instructing it what to do. That's a powerful capability that AI product builder are already using to build powerful products and experiences.
+By now it should be obvious that you can ask the model to perform different tasks by simply instructing it what to do. That's a powerful capability that AI product builders are already using to build powerful products and experiences.
 
 
 Paragraph source: [ChatGPT: five priorities for research](https://www.nature.com/articles/d41586-023-00288-7) 
@@ -79,11 +79,11 @@ Paragraph source: [ChatGPT: five priorities for research](https://www.nature.com
 ---
 ## Question Answering
 
-One of the best ways to get the model to respond specific answers is to improve the format of the prompt. As covered before, a prompt could combine instructions, context, input, and output indicator to get improved results. While these components are not required, it becomes a good practice as the more specific you are with instruction, the better results you will get. Below is an example of how this would look following a more structured prompt.
+One of the best ways to get the model to respond to specific answers is to improve the format of the prompt. As covered before, a prompt could combine instructions, context, input, and output indicators to get improved results. While these components are not required, it becomes a good practice as the more specific you are with instruction, the better results you will get. Below is an example of how this would look following a more structured prompt.
 
 *Prompt:*
 ```
-Answer the question based on the context below. Keep the answer short and concise. Respond "Unsure about answer" if not sure about the answer.
+Answer the question based on the context below. Keep the answer short. Respond "Unsure about answer" if not sure about the answer.
 
 Context: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.
 
@@ -157,7 +157,7 @@ What is the problem here?
 ---
 
 ## Conversation
-Perhaps one of the more interesting things you can achieve with prompt engineering is instructing the LLM system how to behave, its intent, and identity. This is particularly useful when you are building conversational systems like customer service chatbots. 
+Perhaps one of the more interesting things you can achieve with prompt engineering is instructing the LLM system on how to behave, its intent, and its identity. This is particularly useful when you are building conversational systems like customer service chatbots. 
 
 For instance, let's create a conversational system that's able to generate more technical and scientific responses to questions. Note how we are explicitly telling it how to behave through the instruction. This is sometimes referred to as *role prompting*.
 
@@ -198,7 +198,7 @@ I think we made some progress. You can continue improving it. I am sure if you a
 ---
 
 ## Code Generation
-One application where LLMs are quite effective at is code generation. Copilot is a great example of this. There are a vast number of code generation tasks you can perform with clever prompts. Let's look at a few examples below.
+One application where LLMs are quite effective is code generation. Copilot is a great example of this. There are a vast number of code-generation tasks you can perform with clever prompts. Let's look at a few examples below.
 
 First, let's try a simple program that greets the user. 
 
@@ -215,9 +215,9 @@ let name = prompt("What is your name?");
 console.log(`Hello, ${name}!`);
 ```
 
-You can see that we didn't even need to specify language to use. 
+You can see that we didn't even need to specify the language to use. 
 
-Let's switch levels a bit. I want to show you how powerful LLMs can be with a little more effort on designing the prompts.
+Let's switch levels a bit. I want to show you how powerful LLMs can be with a little more effort in designing the prompts.
 
 *Prompt:*
 ```
@@ -235,14 +235,14 @@ FROM students
 WHERE DepartmentId IN (SELECT DepartmentId FROM departments WHERE DepartmentName = 'Computer Science');
 ```
 
-This is very impressive. In this case we provided data about the database schema and asked it to generate a valid MySQL query. 
+This is very impressive. In this case, we provided data about the database schema and asked it to generate a valid MySQL query. 
 
 ---
 
 ## Reasoning
-Perhaps one of the most difficult tasks for an LLM today is one that requires some form of reasoning. Reasoning is one the areas that I am most excited about due to the types of complex applications that can emerge from LLMs. 
+Perhaps one of the most difficult tasks for an LLM today requires some form of reasoning. Reasoning is one of the areas that I am most excited about due to the types of complex applications that can emerge from LLMs. 
 
-There have been some improvements on tasks involving mathematical capabilities. That said, it's important to note that current LLMs struggle to perform reasoning tasks so this requires even more advanced prompt engineering techniques. We will cover these advanced techniques in the next guide. For now, we will cover a few basic examples to show arithmetic capabilities.
+There have been some improvements in tasks involving mathematical capabilities. That said, it's important to note that current LLMs struggle to perform reasoning tasks so this requires even more advanced prompt engineering techniques. We will cover these advanced techniques in the next guide. For now, we will cover a few basic examples to show arithmetic capabilities.
 
 *Prompt:*
 ```
@@ -284,7 +284,7 @@ Sum: 41
 41 is an odd number.
 ```
 
-Much better, right? By the way, I tried this a couple of times and the system sometime fails. If you provide a better instruction combined with examples, it might help get more accurate results.
+Much better, right? By the way, I tried this a couple of times and the system sometimes fails. If you provide better instruction combined with examples, it might help get more accurate results.
 
 We will continue to include more examples of common applications in this section of the guide.
 
