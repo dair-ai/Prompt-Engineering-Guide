@@ -9,6 +9,7 @@ Happy Prompting!
 ---
 ## Announcements / Updates
 
+- 🎉 We have launched new web version of the guide [here](https://www.promptingguide.ai/)
 - 🎓 Partnered with Sphere to deliver a new course on [Prompt Engineering for LLMs](https://www.getsphere.com/cohorts/prompt-engineering-for-llms?source=github)
 - 💬 New ChatGPT prompt engineering guide coming soon!
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
