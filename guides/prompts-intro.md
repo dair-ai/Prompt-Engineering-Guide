@@ -33,7 +33,7 @@ blue
 The sky is blue on a clear day. On a cloudy day, the sky may be gray or white.
 ```
 
-As you can see, the language model outputs a continuation of strings that make sense and give the context `"The sky is"`. The output might be unexpected or far from the task we want to accomplish. 
+As you can see, the language model outputs a continuation of strings that make sense given the context `"The sky is"`. The output might be unexpected or far from the task we want to accomplish. 
 
 This basic example also highlights the necessity to provide more context or instructions on what specifically we want to achieve.
 
