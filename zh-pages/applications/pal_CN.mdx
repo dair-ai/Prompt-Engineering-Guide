@@ -13,7 +13,7 @@ import PAL from '../../img/pal.png'
 
 具体来说，我们有兴趣创建一个功能，允许使用LLM回答需要日期理解的问题。我们将为LLM提供一个提示，其中包括一些示例，这些示例是从[这里](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py)采用的。
 
-这是我们需要的导入：
+这是我们需要导入的包：
 
 ```python
 import openai
@@ -24,7 +24,7 @@ from langchain.llms import OpenAI
 from dotenv import load_dotenv
 ```
 
-让我们先配置一些东西：
+让我们先配置一些环境：
 
 ```python
 load_dotenv()
