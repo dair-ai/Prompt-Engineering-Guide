@@ -1,0 +1,16 @@
+# 方向性刺激提示
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import DSP from '../../img/dsp.jpeg'
+
+[Li等人，（2023）](https://arxiv.org/abs/2302.11520)提出了一种新的提示技术，以更好地指导LLM生成所需的摘要。
+
+训练了一个可调节的策略LM来生成刺激/提示。越来越多地使用RL来优化LLM。
+
+下图显示了方向性刺激提示与标准提示的比较。策略LM可以很小，并且可以优化以生成指导黑盒冻结LLM的提示。
+
+<Screenshot src={DSP} alt="DSP" />
+图片来源：[Li等人，（2023）](https://arxiv.org/abs/2302.11520)
+
+完整示例即将推出！

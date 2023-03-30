@@ -1,0 +1,101 @@
+# ChatGPT提示工程
+
+在本节中，我们将介绍ChatGPT的最新提示工程技术，包括提示、应用、限制、论文和其他阅读材料。
+
+<Callout emoji="⚠️">
+  本节正在大力开发中。
+</Callout>
+
+主题：
+- [ChatGPT简介](#chatgpt-introduction)
+- [审查对话任务](#reviewing-the-conversation-task)
+- [与ChatGPT的对话](#conversations-with-chatgpt)
+
+---
+## ChatGPT简介
+
+ChatGPT是由OpenAI训练的一种新模型，具有交互式对话的能力。该模型经过训练，可以按照提示中的指示，在对话的上下文中提供适当的响应。ChatGPT可以帮助回答问题、建议食谱、以特定风格写歌词、生成代码等等。
+
+ChatGPT使用人类反馈的强化学习（RLHF）进行训练。虽然这个模型比以前的GPT迭代要强大得多（并且还经过了训练以减少有害和不真实的输出），但它仍然有一些限制。让我们通过具体的例子来了解一些能力和限制。
+
+您可以在[这里](chat.openai.com)使用ChatGPT的研究预览，但在下面的示例中，我们将使用OpenAI Playground上的“Chat”模式。
+
+---
+## 审查对话任务
+
+在之前的指南中，我们简要介绍了对话能力和角色提示。我们介绍了如何指示LLM以特定的风格、特定的意图、行为和身份进行对话。
+
+让我们回顾一下我们之前的基本示例，其中我们创建了一个对话系统，该系统能够对问题生成更多的技术和科学响应。
+
+*提示：*
+```
+以下是与AI研究助手的对话。助手的语气是技术和科学的。
+
+人：你好，你是谁？
+AI：问候！我是AI研究助手。我今天能帮你什么忙吗？
+人：你能告诉我黑洞的形成吗？
+AI：
+```
+
+从上面的例子中，您可以看到两个重要的组成部分：
+- **意图**或聊天机器人的解释
+- **身份**，指示聊天机器人将使用哪种风格或语气进行响应
+
+上面的简单示例适用于使用`text-davinci-003`的文本完成API。最近，OpenAI[宣布了ChatGPT API](https://openai.com/blog/introducing-chatgpt-and-whisper-apis)，这是一个更强大、更便宜的模型，称为`gpt-3.5-turbo`，专门为这种功能（聊天完成）而构建。事实上，OpenAI甚至推荐这个模型作为非聊天用例的最佳模型。使用ChatGPT API的其他好处包括显著降低成本（90%）和提高效率。
+
+像Snap Inc.和Instacart这样的大公司已经在其产品中集成了由ChatGPT提供支持的对话功能，这些产品从个性化推荐到开放式购物目标不等。
+
+---
+## 与ChatGPT的对话
+
+### 多轮对话
+
+为了开始展示ChatGPT的能力，我们将使用上面的聊天机器人助手示例并讨论结果。与`text-davinci-003`相比，驱动ChatGPT的`gpt-3.5-turbo`模型使用聊天格式作为输入。该模型期望一系列消息作为输入，并使用这些消息生成响应。
+
+*输入：*
+```
+系统：你是一个AI研究助手。你使用技术和科学的语气。
+用户：你好，你是谁？
+助手：问候！我是AI研究助手。我今天能帮你什么忙吗？
+用户：你能告诉我黑洞的形成吗？
+```
+
+*输出：*
+```
+助手：当一个巨大的恒星耗尽燃料并在自身的引力下坍塌时，就会形成黑洞。这种坍塌使星体变得极其密集，具有极强的引力场，甚至连光都无法逃脱。这个无法逆转的点被称为事件视界。一旦一颗恒星穿过事件视界，它就被认为是一个黑洞...
+```
+
+请注意，在上面的示例中，我简化了输入和输出，但ChatGPT聊天完成API要求消息以特定格式呈现。我在下面添加了一个快照，显示了在OpenAI Playground中使用“Chat Mode”时此示例的外观：
+
+<Screenshot src={CHATGPT1} alt="CHATGPT1" />
+
+我们示例的更正式API调用将类似于下面的示例：
+
+```python
+import openai
+
+openai.ChatCompletion.create(
+  model="gpt-3.5-turbo",
+  messages=[
+        {"role": "system", "content": "You are an AI research assistant. You use a tone that is technical and scientific."},
+        {"role": "user", "content": "Hello, who are you?"},
+        {"role": "assistant", "content": "Greeting! I am an AI research assistant. How can I help you today?"},
+        {"role": "user", "content": "Can you tell me about the creation of black holes?"}
+    ]
+)
+```
+事实上，未来开发人员与ChatGPT的交互方式预计将通过[聊天标记语言](https://github.com/openai/openai-python/blob/main/chatml.md)（简称ChatML）完成。
+
+### 单轮任务
+
+聊天格式支持多轮对话，但它也支持类似于我们使用`text-davinci-003`的单轮任务。这意味着我们可以使用ChatGPT执行与我们为原始GPT模型演示的类似任务。例如，让我们尝试使用ChatGPT执行以下问答任务：
+
+*输入：*
+```
+用户：根据下面的上下文回答问题。保持答案简短明了。如果不确定答案，请回答“不确定答案”。
+
+```ASSISTANT: Mice.- [会话型人工智能的政治意识形态：ChatGPT的亲环境、左倾自由主义倾向的证据汇总](https://arxiv.org/abs/2301.01768)（2023年1月）
+- [会话型人工智能的政治意识形态：ChatGPT的亲环境、左倾自由主义倾向的证据汇总](https://arxiv.org/abs/2301.01768)（2023年1月）
+- [提高可靠性的技术 - OpenAI Cookbook](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md)
+- [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
+- [介绍ChatGPT](https://openai.com/blog/chatgpt)（2022年11月）
