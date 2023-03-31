@@ -60,4 +60,9 @@ year = {2022}
 }
 ```
 
+## License
+
+[MIT License](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/LICENSE.md)
+
+
 Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
