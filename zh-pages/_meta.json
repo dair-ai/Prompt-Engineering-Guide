@@ -1,0 +1,23 @@
+{
+  "index": "Prompt Engineering",
+  "introduction": "Introduction",
+  "techniques": "Techniques",
+  "applications": "Applications",
+  "models": "Models",
+  "risks": "Risks & Misuses",
+  "papers": "Papers",
+  "tools": "Tools",
+  "notebooks": "Notebooks",
+  "datasets": "Datasets",
+  "readings": "Additional Readings",
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+  "contact": {
+    "title": "Contact ↗",
+    "type": "page",
+    "href": "https://twitter.com/dair_ai",
+    "newWindow": true
+  }
+}
