@@ -15,6 +15,10 @@ const config: DocsThemeConfig = {
       </span>
     </>
   ),
+  i18n: [
+    { locale: 'en', text: 'English' },
+    { locale: 'zh', text: '中文' }
+  ],
   head: function UseHead() {
     const { title } = useConfig()
     return (
