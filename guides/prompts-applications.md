@@ -55,6 +55,8 @@ A: Negative
 
 This is very useful. We use this example for a different test in another section of the guides.
 
+Here is another prompt example showing how to leverage the LLM for data labeling/augmentation task.
+
 *Prompt:*
 ```
 produce 3 wine reviews and label taste, flavor, aroma related token; present the result as a json file, in addition add the coordinate of each term for NER task
