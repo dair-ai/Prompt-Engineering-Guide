@@ -1,0 +1,44 @@
+# Gerando dados
+LLMs têm fortes capacidades para gerar texto coerente. O uso de estratégias de prompt eficazes pode orientar o modelo para produzir respostas melhores, consistentes e mais factuais. Os LLMs também podem ser especialmente úteis para gerar dados que são realmente úteis para executar todos os tipos de experimentos e avaliações. Por exemplo, podemos usá-lo para gerar amostras rápidas para um classificador de sentimento da seguinte forma:
+
+*Incitar:*
+```
+Produza 10 exemplares para análise de sentimento. Os exemplos são categorizados como positivos ou negativos. Produza 2 exemplos negativos e 8 exemplos positivos. Use este formato para os exemplos:
+P: <frase>
+A: <sentimento>
+```
+
+*Saída:*
+```
+Q: Acabei de receber a melhor notícia de todas!
+A: positivo
+
+Q: Acabamos de receber um aumento no trabalho!
+A: positivo
+
+Q: Estou muito orgulhoso do que realizei hoje.
+A: positivo
+
+Q: Estou tendo o melhor dia de todos!
+A: positivo
+
+Q: Estou realmente ansioso pelo fim de semana.
+A: positivo
+
+Q: Acabei de receber o melhor presente de todos!
+A: positivo
+
+Q: Estou tão feliz agora.
+A: positivo
+
+Q: Sou tão abençoado por ter uma família tão incrível.
+A: positivo
+
+Q: O tempo lá fora está tão sombrio.
+A: negativo
+
+Q: Acabei de receber uma notícia terrível.
+A: negativo
+```
+
+Isso é muito útil. Na verdade, usamos este exemplo para um teste diferente em outra seção dos guias.
