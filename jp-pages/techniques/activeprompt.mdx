@@ -1,0 +1,14 @@
+# アクティブプロンプト
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ACTIVE from '../../img/active-prompt.png'
+
+# Active-Prompt
+
+Chain-of-thought (CoT)メソッドは、固定された人間による注釈付きの例のセットに依存しています。これには、例が異なるタスクに対して最も効果的なものでない可能性があるという問題があります。[Diaoら(2023)](https://arxiv.org/pdf/2302.12246.pdf)は、最近、異なるタスク固有の例のプロンプト(人間によるCoT推論で注釈付けされたもの)に適応するための新しいプロンプトアプローチであるActive-Promptを提案しました。
+
+以下は、このアプローチの概要図です。最初のステップは、LLMに対してCoT例をいくつか含めて問い合わせます。一連のトレーニング質問に対して、*k*個の可能な回答が生成されます。*k*個の回答に基づいて不確実性メトリックが計算されます(不一致を使用)。最も不確実な質問が人間によって注釈付けされます。新しい注釈付きの例は、それぞれの質問の推論に使用されます。
+
+<Screenshot src={ACTIVE} alt="ACTIVE" />
+Image Source: [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf)

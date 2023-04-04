@@ -1,0 +1,14 @@
+{
+    "zeroshot": "Zero-shotプロンプティング",
+    "fewshot": "Few-shotプロンプティング",
+    "cot": "Chain-of-Thoughtプロンプティング",
+    "consistency": "自己整合性（Self-Consistency）",
+    "knowledge": "知識生成プロンプティング",
+    "ape": "自動プロンプトエンジニア",
+    "activeprompt": "アクティブプロンプト",
+    "dsp": "方向性刺激プロンプティング",
+    "react": "ReAct",
+    "multimodalcot": "マルチモーダルCoT",
+    "graph": "グラフプロンプト（GraphPrompts）"
+}
+  
