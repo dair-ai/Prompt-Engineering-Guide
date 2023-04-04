@@ -1,0 +1,92 @@
+# Cadeia-de-Pensamento Prompt
+
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+
+
+## Cadeia-de-Pensamento (CoT) Prompting
+
+<Screenshot src={COT} alt="COT" />
+
+Fonte da imagem: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+
+Introduzido em [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), a solicitação de cadeia de pensamento (CoT) permite recursos de raciocínio complexos por meio de etapas intermediárias de raciocínio. Você pode combiná-lo com prompts de poucos tiros para obter melhores resultados em tarefas mais complexas que exigem raciocínio antes de responder.
+
+*Prompt:*
+```
+Os números ímpares neste grupo somam um número par: 4, 8, 9, 15, 12, 2, 1.
+R: Somando todos os números ímpares (9, 15, 1) dá 25. A resposta é Falso.
+
+Os números ímpares neste grupo somam um número par: 17, 10, 19, 4, 8, 12, 24.
+R: Somando todos os números ímpares (17, 19) dá 36. A resposta é Verdadeiro.
+
+Os números ímpares neste grupo somam um número par: 16, 11, 14, 4, 8, 13, 24.
+R: Somando todos os números ímpares (11, 13) dá 24. A resposta é Verdadeiro.
+
+Os números ímpares neste grupo somam um número par: 17, 9, 10, 12, 13, 4, 2.
+R: Somando todos os números ímpares (17, 9, 13) dá 39. A resposta é Falso.
+
+Os números ímpares neste grupo somam um número par: 15, 32, 5, 13, 82, 7, 1.
+A:
+```
+
+*Saída:*
+```
+Somando todos os números ímpares (15, 5, 13, 7, 1) dá 41. A resposta é Falso.
+```
+
+Uau! Podemos ver um resultado perfeito quando fornecemos a etapa de raciocínio. Na verdade, podemos resolver essa tarefa fornecendo ainda menos exemplos, ou seja, apenas um exemplo parece suficiente:
+
+*Prompt:*
+```
+Os números ímpares neste grupo somam um número par: 4, 8, 9, 15, 12, 2, 1.
+R: Somando todos os números ímpares (9, 15, 1) dá 25. A resposta é Falso.
+
+Os números ímpares neste grupo somam um número par: 15, 32, 5, 13, 82, 7, 1.
+A:
+```
+
+*Saída:*
+```
+Somando todos os números ímpares (15, 5, 13, 7, 1) dá 41. A resposta é Falso.
+```
+
+Tenha em mente que os autores afirmam que esta é uma habilidade emergente que surge com modelos de linguagem suficientemente grandes.
+
+## Prompt COT Zero-Shot
+
+<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+
+Fonte da imagem: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+
+Uma ideia recente que surgiu mais recentemente é a ideia de [zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022) que envolve essencialmente adicionar "Vamos pensar passo a passo" para a solicitação original. Vamos tentar um problema simples e ver como o modelo funciona:
+
+*Prompt:*
+```
+Fui ao mercado e comprei 10 maçãs. Dei 2 maçãs ao vizinho e 2 ao reparador. Então fui comprar mais 5 maçãs e comi 1. Com quantas maçãs fiquei?
+```
+
+*Saída:*
+```
+11 maçãs
+```
+
+A resposta está incorreta! Agora vamos tentar com o prompt especial.
+
+*Prompt:*
+```
+Fui ao mercado e comprei 10 maçãs. Dei 2 maçãs ao vizinho e 2 ao reparador. Então fui comprar mais 5 maçãs e comi 1. Com quantas maçãs fiquei?
+
+Vamos pensar passo a passo.
+```
+
+*Saída:*
+```
+Primeiro, você começou com 10 maçãs.
+Você deu 2 maçãs para o vizinho e 2 para o reparador, então você tinha 6 maçãs sobrando.
+Então você comprou mais 5 maçãs, então agora você tinha 11 maçãs.
+Finalmente, você comeu 1 maçã, então ficaria com 10 maçãs.
+```
+
+É impressionante que esse prompt simples seja eficaz nessa tarefa. Isso é particularmente útil onde você não tem muitos exemplos para usar no prompt.

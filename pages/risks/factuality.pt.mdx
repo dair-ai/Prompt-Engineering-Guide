@@ -1,0 +1,34 @@
+# Factualidade
+
+Os LLMs tendem a gerar respostas que soam coerentes e convincentes, mas às vezes podem ser inventadas. Melhorar os prompts pode ajudar a melhorar o modelo para gerar respostas mais precisas/factuais e reduzir a probabilidade de gerar respostas inconsistentes e inventadas.
+
+Algumas soluções podem incluir:
+- fornecer informações básicas (por exemplo, parágrafo de artigo relacionado ou entrada da Wikipedia) como parte do contexto para reduzir a probabilidade de o modelo produzir texto inventado.
+- configurar o modelo para produzir respostas menos diversificadas diminuindo os parâmetros de probabilidade e instruindo-o a admitir (por exemplo, "não sei") quando não souber a resposta.
+- fornecer no prompt uma combinação de exemplos de perguntas e respostas que ele pode conhecer e não saber
+
+Vejamos um exemplo simples:
+
+*Prompt:*
+```
+Q: O que é um átomo?
+A: Um átomo é uma pequena partícula que compõe tudo.
+
+Q: Quem é Alvan Muntz?
+A: ?
+
+Q: O que é Kozar-09?
+A: ? P:
+
+Q: Quantas luas Marte tem?
+A: Dois, Fobos e Deimos.
+
+A: Quem é Neto Beto Roberto?
+```
+
+*Saída:*
+```
+A: ?
+```
+
+Inventei o nome "Neto Beto Roberto" para que o modelo fique correto neste caso. Tente mudar um pouco a pergunta e veja se consegue fazê-la funcionar. Existem diferentes maneiras de melhorar isso ainda mais com base em tudo o que você aprendeu até agora.

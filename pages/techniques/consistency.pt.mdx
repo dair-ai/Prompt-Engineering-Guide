@@ -1,0 +1,77 @@
+# Autoconsistência
+
+Talvez uma das técnicas mais avançadas disponíveis para engenharia imediata seja a autoconsistência. Proposto por [Wang et al. (2022)](https://arxiv.org/pdf/2203.11171.pdf), a autoconsistência visa "substituir a decodificação ingênua e gananciosa usada na solicitação de cadeia de pensamento". A ideia é experimentar caminhos de raciocínio múltiplos e diversos por meio de CoT de poucas tomadas e usar as gerações para selecionar a resposta mais consistente. Isso ajuda a aumentar o desempenho do prompt do CoT em tarefas que envolvem raciocínio aritmético e de bom senso.
+
+Vamos tentar o seguinte exemplo para raciocínio aritmético:
+
+*Prompt:*
+```
+Quando eu tinha 6 anos, minha irmã tinha metade da minha idade. Agora
+Tenho 70 anos, quantos anos tem minha irmã?
+```
+
+*Saída:*
+```
+35
+```
+
+A saída está errada! Como podemos melhorar isso com autoconsistência? Vamos experimentar. Usaremos os exemplares de poucos disparos de Wang et al. 2022 (Tabela 17):
+
+*Incitar:*
+```
+P: Há 15 árvores no bosque. Os trabalhadores do bosque plantarão árvores no bosque hoje. Depois que eles terminarem,
+haverá 21 árvores. Quantas árvores os trabalhadores do bosque plantaram hoje?
+R: Começamos com 15 árvores. Mais tarde, temos 21 árvores. A diferença deve ser o número de árvores que plantaram.
+Então, eles devem ter plantado 21 - 15 = 6 árvores. A resposta é 6.
+
+P: Se houver 3 carros no estacionamento e mais 2 carros chegarem, quantos carros haverá no estacionamento?
+R: Já existem 3 carros no estacionamento. mais 2 chegam. Agora são 3 + 2 = 5 carros. A resposta é 5.
+
+P: Leah comeu 32 chocolates e sua irmã 42. Se elas comeram 35, quantos pedaços sobraram no total?
+R: Leah tinha 32 chocolates e a irmã de Leah tinha 42. Isso significa que originalmente havia 32 + 42 = 74
+chocolates. 35 foram comidos. No total, eles ainda têm 74 - 35 = 39 chocolates. A resposta é 39.
+
+P: Jason tinha 20 pirulitos. Ele deu alguns pirulitos para Denny. Agora Jason tem 12 pirulitos. quantos pirulitos
+Jason deu a Denny?
+R: Jason tinha 20 pirulitos. Como ele só tem 12 agora, deve ter dado o resto para Denny. O número de
+pirulitos que ele deu a Denny devem ter sido 20 - 12 = 8 pirulitos. A resposta é 8.
+
+P: Shawn tem cinco brinquedos. No Natal, ele ganhou dois brinquedos de sua mãe e de seu pai. quantos brinquedos cabe
+ele tem agora?
+A: Ele tem 5 brinquedos. Ele ganhou 2 da mãe, então depois disso ele tem 5 + 2 = 7 brinquedos. Então ele ganhou mais 2 do pai, então
+no total ele tem 7 + 2 = 9 brinquedos. A resposta é 9.
+
+P: Havia nove computadores na sala do servidor. Mais cinco computadores foram instalados a cada dia, de
+segunda a quinta. Quantos computadores estão agora na sala do servidor?
+R: São 4 dias de segunda a quinta. 5 computadores foram adicionados a cada dia. Isso significa que no total 4 * 5 =
+20 computadores foram adicionados. No começo havia 9 computadores, então agora são 9 + 20 = 29 computadores.
+A resposta é 29.
+
+P: Michael tinha 58 bolas de golfe. Na terça-feira, ele perdeu 23 bolas de golfe. Na quarta-feira, ele perdeu mais 2. Quantos
+bolas de golfe ele tinha no final da quarta-feira?
+R: Michael inicialmente tinha 58 bolas. Ele perdeu 23 na terça-feira, então depois disso ele tem 58 - 23 = 35 bolas. Sobre
+Quarta-feira ele perdeu mais 2 então agora ele tem 35 - 2 = 33 bolas. A resposta é 33.
+
+P: Olivia tem $ 23. Ela comprou cinco bagels por US$ 3 cada. Quanto dinheiro ela tem sobrando?
+R: Ela comprou 5 bagels por US$ 3 cada. Isso significa que ela gastou 5
+
+P: Quando eu tinha 6 anos, minha irmã tinha metade da minha idade. Agora tenho 70 anos, quantos anos tem minha irmã?
+A:
+```
+
+*Saída 1:*
+```
+Quando eu tinha 6 anos, minha irmã tinha metade da minha idade, então ela tinha 3. Agora eu tenho 70, então ela tem 70 - 3 = 67. A resposta é 67.
+```
+
+*Saída 2:*
+```
+Quando o narrador tinha 6 anos, sua irmã tinha metade de sua idade, que é 3. Agora que o narrador tem 70 anos, sua irmã teria 70 - 3 = 67 anos. A resposta é 67.
+```
+
+*Saída 3:*
+```
+Quando eu tinha 6 anos, minha irmã tinha metade da minha idade, então ela tinha 3. Agora eu tenho 70, então ela tem 70/2 = 35. A resposta é 35.
+```
+
+O cálculo da resposta final envolve algumas etapas (confira o artigo para obter os detalhes), mas, para simplificar, podemos ver que já existe uma resposta majoritária emergindo, de modo que ela se tornaria essencialmente a resposta final.

@@ -1,0 +1,92 @@
+# Prompt de Conhecimento Gerado
+
+import {Screenshot} from 'components/screenshot'
+import GENKNOW from '../../img/gen-knowledge.png'
+
+<Screenshot src={GENKNOW} alt="GENKNOW" />
+
+Image Source: [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf)
+
+Os LLMs continuam a ser aprimorados e uma técnica popular inclui a capacidade de incorporar conhecimento ou informações para ajudar o modelo a fazer previsões mais precisas.
+
+Usando uma ideia semelhante, o modelo também pode ser usado para gerar conhecimento antes de fazer uma previsão? Isso é o que é tentado no artigo de [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf) -- gerar conhecimento para ser usado como parte do prompt. Em particular, quão útil isso é para tarefas como raciocínio de senso comum?
+
+Vamos tentar um prompt simples:
+
+*Prompt:*
+```
+Parte do golfe é tentar obter um total de pontos mais alto do que outros. Sim ou não?
+```
+
+*Saída:*
+```
+Sim.
+```
+
+Esse tipo de erro revela as limitações dos LLMs para realizar tarefas que exigem mais conhecimento sobre o mundo. Como melhoramos isso com a geração de conhecimento?
+
+Primeiro, geramos alguns "conhecimentos":
+
+*Prompt:*
+```
+Entrada: A Grécia é maior que o México.
+Conhecimento: A Grécia tem aproximadamente 131.957 quilômetros quadrados, enquanto o México tem aproximadamente 1.964.375 quilômetros quadrados, tornando o México 1.389% maior que a Grécia.
+
+Entrada: Os óculos sempre embaçam.
+Conhecimento: A condensação ocorre nas lentes dos óculos quando o vapor de água do seu suor, respiração e umidade ambiente atinge uma superfície fria, esfria e então se transforma em minúsculas gotas de líquido, formando uma película que você vê como névoa. Suas lentes estarão relativamente frias em comparação com sua respiração, especialmente quando o ar externo estiver frio.
+
+Entrada: Um peixe é capaz de pensar.
+Conhecimento: Os peixes são mais inteligentes do que parecem. Em muitas áreas, como a memória, seus poderes cognitivos igualam ou excedem os dos vertebrados “superiores”, incluindo primatas não humanos. As memórias de longo prazo dos peixes os ajudam a acompanhar as relações sociais complexas.
+
+Entrada: Um efeito comum de fumar muitos cigarros durante a vida é uma chance maior do que o normal de contrair câncer de pulmão.
+Conhecimento: Aqueles que consumiram consistentemente menos de um cigarro por dia ao longo da vida tiveram nove vezes mais risco de morrer de câncer de pulmão do que os que nunca fumaram. Entre as pessoas que fumavam entre um e 10 cigarros por dia, o risco de morrer de câncer de pulmão era quase 12 vezes maior do que entre os que nunca fumaram.
+
+Entrada: Uma pedra tem o mesmo tamanho de uma pedrinha.
+Conhecimento: Um seixo é um clastro de rocha com um tamanho de partícula de 4 a 64 milímetros com base na escala de sedimentologia Udden-Wentworth. Os seixos são geralmente considerados maiores que os grânulos (2 a 4 milímetros de diâmetro) e menores que os seixos (64 a 256 milímetros de diâmetro).
+
+Entrada: Parte do golfe é tentar obter um total de pontos mais alto do que outros.
+Conhecimento:
+```
+
+*Conhecimento 1:*
+```
+O objetivo do golfe é jogar uma série de buracos com o menor número de tacadas. Uma partida de golfe normalmente consiste em 18 buracos. Cada buraco é jogado uma vez na rodada em um campo de golfe padrão. Cada tacada é contada como um ponto, e o número total de tacadas é usado para determinar o vencedor do jogo.
+```
+
+*Conhecimento 2:*
+```
+O golfe é um esporte de precisão com tacos e bolas no qual os jogadores concorrentes (ou golfistas) usam muitos tipos de tacos para acertar as bolas em uma série de buracos em um campo usando o menor número de tacadas. O objetivo é completar o percurso com a menor pontuação, que é calculada somando o número total de tacadas dadas em cada buraco. O jogador com a pontuação mais baixa ganha o jogo.
+```
+
+Estamos usando o prompt fornecido no artigo de [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf).
+
+O próximo passo é integrar o conhecimento e obter uma previsão. Reformatei a pergunta no formato QA para orientar o formato da resposta.
+
+*Prompt:*
+```
+Pergunta: Parte do golfe é tentar obter um total de pontos mais alto do que outros. Sim ou não?
+
+Conhecimento: O objetivo do golfe é jogar uma série de buracos com o menor número de tacadas. Uma partida de golfe normalmente consiste em 18 buracos. Cada buraco é jogado uma vez na rodada em um campo de golfe padrão. Cada tacada é contada como um ponto, e o número total de tacadas é usado para determinar o vencedor do jogo.
+
+Explique e responda:
+```
+
+*Resposta 1 (confiança muito alta):*
+```
+Não, o objetivo do golfe não é obter um total de pontos mais alto do que os outros. Em vez disso, o objetivo é jogar uma série de buracos com o menor número de tacadas. O número total de tacadas é usado para determinar o vencedor do jogo, não o número total de pontos.
+```
+
+```
+Pergunta: Parte do golfe é tentar obter um total de pontos mais alto do que outros. Sim ou não?
+
+Conhecimento: O golfe é um esporte de precisão com taco e bola no qual os jogadores concorrentes (ou golfistas) usam muitos tipos de tacos para acertar as bolas em uma série de buracos em um campo usando o menor número de tacadas. O objetivo é completar o percurso com a menor pontuação, que é calculada somando o número total de tacadas dadas em cada buraco. O jogador com a pontuação mais baixa ganha o jogo.
+
+Explique e responda:
+```
+
+*Resposta 2 (a confiança é muito menor):*
+```
+Sim, parte do golfe é tentar obter um total de pontos mais alto do que outros. Cada jogador tenta completar o percurso com a menor pontuação, que é calculada somando o total número de tacadas dadas em cada buraco. O jogador com a pontuação mais baixa ganha o jogo.
+```
+
+Algumas coisas realmente interessantes aconteceram com este exemplo. Na primeira resposta a modelo estava muito confiante mas na segunda nem tanto. Simplifiquei o processo para fins de demonstração, mas há mais alguns detalhes a serem considerados ao chegar à resposta final. Confira o papel para mais.
