@@ -2,7 +2,7 @@
 
 Embora os modelos de linguagem grande demonstrem recursos notáveis de disparo zero, eles ainda ficam aquém em tarefas mais complexas ao usar a configuração de disparo zero. O prompt de poucos disparos pode ser usado como uma técnica para permitir o aprendizado no contexto, onde fornecemos demonstrações no prompt para direcionar o modelo para um melhor desempenho. As demonstrações servem de condicionamento para exemplos subsequentes onde gostaríamos que o modelo gerasse uma resposta.
 
-De acordo com [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) poucas propriedades de tiro apareceram pela primeira vez quando os modelos foram dimensionados para um tamanho suficiente [(Kaplan et al., 2020)](https://arxiv.org/abs /2001.08361).
+De acordo com [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) poucas propriedades de tiro apareceram pela primeira vez quando os modelos foram dimensionados para um tamanho suficiente [(Kaplan et al., 2020)](https://arxiv.org/abs/2001.08361).
 
 Vamos demonstrar a solicitação de poucos disparos por meio de um exemplo apresentado em [Brown et al. 2020](https://arxiv.org/abs/2005.14165). No exemplo, a tarefa é usar corretamente uma nova palavra em uma frase.
 
@@ -104,6 +104,6 @@ A:
 A resposta é verdadeira.
 ```
 
-Isso não funcionou. Parece que a solicitação de poucos disparos não é suficiente para obter respostas confiáveis para esse tipo de problema de raciocínio. O exemplo acima fornece informações básicas sobre a tarefa. Se você olhar mais de perto, o tipo de tarefa que introduzimos envolve mais algumas etapas de raciocínio. Em outras palavras, pode ajudar se dividirmos o problema em etapas e demonstrarmos isso ao modelo. Mais recentemente, [inserção de cadeia de pensamento (CoT)] (https://arxiv.org/abs/2201.11903) foi popularizada para abordar mais aritmética complexa, senso comum e tarefas de raciocínio simbólico.
+Isso não funcionou. Parece que a solicitação de poucos disparos não é suficiente para obter respostas confiáveis para esse tipo de problema de raciocínio. O exemplo acima fornece informações básicas sobre a tarefa. Se você olhar mais de perto, o tipo de tarefa que introduzimos envolve mais algumas etapas de raciocínio. Em outras palavras, pode ajudar se dividirmos o problema em etapas e demonstrarmos isso ao modelo. Mais recentemente, [inserção de cadeia de pensamento (CoT)](https://arxiv.org/abs/2201.11903) foi popularizada para abordar mais aritmética complexa, senso comum e tarefas de raciocínio simbólico.
 
 No geral, parece que fornecer exemplos é útil para resolver algumas tarefas. Quando a solicitação de disparo zero e a solicitação de poucos disparos não são suficientes, isso pode significar que tudo o que foi aprendido pelo modelo não é suficiente para se sair bem na tarefa. A partir daqui, é recomendável começar a pensar em ajustar seus modelos ou experimentar técnicas de solicitação mais avançadas. A seguir, falaremos sobre uma das técnicas populares de sugestão, chamada de sugestão em cadeia de pensamento, que ganhou muita popularidade.
