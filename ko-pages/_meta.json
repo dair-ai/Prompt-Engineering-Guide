@@ -1,0 +1,23 @@
+{
+  "index": "Prompt Engineering",
+  "introduction": "소개",
+  "techniques": "기술",
+  "applications": "어플리케이션",
+  "models": "모델",
+  "risks": "주의사항",
+  "papers": "논문",
+  "tools": "도구",
+  "notebooks": "노트북(예제)",
+  "datasets": "데이터셋",
+  "readings": "더 읽어볼 것",
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+  "contact": {
+    "title": "Contact ↗",
+    "type": "page",
+    "href": "https://twitter.com/dair_ai",
+    "newWindow": true
+  }
+}
