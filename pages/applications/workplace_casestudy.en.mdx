@@ -10,9 +10,9 @@ The key findings of their prompt engineering approach are:
 - The impact of the prompt on eliciting the correct reasoning is massive. Simply asking the model to classify a given job results in an F1 score of 65.6, whereas the post-prompt engineering model achieves an F1 score of 91.7.
 - Attempting to force the model to stick to a template lowers performance in all cases (this behaviour disappears in early testing with GPT-4, which are posterior to the paper).
 - Many small modifications have an outsized impact on performance.
- - The tables below show the full modifications tested.
- - Properly giving instructions and repeating the key points appears to be the biggest performance driver.
- - Something as simple as giving the model a (human) name and referring to it as such increased F1 score by 0.6pts.
+  - The tables below show the full modifications tested.
+  - Properly giving instructions and repeating the key points appears to be the biggest performance driver.
+  - Something as simple as giving the model a (human) name and referring to it as such increased F1 score by 0.6pts.
 
 ### Prompt Modifications Tested
 
@@ -53,4 +53,4 @@ The key findings of their prompt engineering approach are:
 | +bothinst+mock+reit+right+info+name    | 85.7          | 96.8          | 90.9          | 79%                    |
 | +bothinst+mock+reit+right+info+name+pos| **86.9**      | **97**        | **91.7**      | 81%                    |
 
-**Impact of the various prompt modifications.**
+Template stickiness refers to how frequently the model answers in the desired format. 
