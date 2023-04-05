@@ -55,6 +55,54 @@ A: Negative
 
 This is very useful. We use this example for a different test in another section of the guides.
 
+Here is another prompt example showing how to leverage the LLM for data labeling/augmentation task.
+
+*Prompt:*
+```
+produce 3 wine reviews and label taste, flavor, aroma related token; present the result as a json file, in addition add the coordinate of each term for NER task
+```
+
+*Output:*
+```
+[
+  {
+    "review": "This Chardonnay has a rich, creamy texture with notes of vanilla and buttery oak. The taste is smooth and well-balanced, with a hint of tropical fruit on the finish.",
+    "tokens": [
+      {"text": "rich", "label": "flavor", "start": 5, "end": 9},
+      {"text": "creamy", "label": "texture", "start": 10, "end": 16},
+      {"text": "vanilla", "label": "flavor", "start": 28, "end": 35},
+      {"text": "buttery", "label": "flavor", "start": 40, "end": 47},
+      {"text": "oak", "label": "aroma", "start": 48, "end": 51},
+      {"text": "smooth", "label": "taste", "start": 61, "end": 67},
+      {"text": "well-balanced", "label": "taste", "start": 68, "end": 81},
+      {"text": "hint", "label": "flavor", "start": 89, "end": 93},
+      {"text": "tropical fruit", "label": "flavor", "start": 98, "end": 112},
+      {"text": "finish", "label": "taste", "start": 116, "end": 122}
+    ]
+  },
+  {
+    "review": "This Cabernet Sauvignon has a bold, full-bodied flavor with notes of black cherry and dark chocolate. The aroma is rich and complex, with hints of tobacco and leather.",
+    "tokens": [
+      {"text": "bold", "label": "flavor", "start": 5, "end": 9},
+      {"text": "full-bodied", "label": "texture", "start": 10, "end": 21},
+      {"text": "black cherry", "label": "flavor", "start": 30, "end": 42},
+      {"text": "dark chocolate", "label": "flavor", "start": 47, "end": 60},
+      {"text": "rich", "label": "aroma", "start": 69, "end": 73},
+      {"text": "complex", "label": "aroma", "start": 78, "end": 85},
+      {"text": "hints", "label": "aroma", "start": 90, "end": 96},
+      {"text": "tobacco", "label": "aroma", "start": 101, "end": 108},
+      {"text": "leather", "label": "aroma", "start": 113, "end": 120}
+    ]
+  },
+  {
+    "review": "This Riesling has a crisp, refreshing taste with notes of green apple and honey. The aroma is floral and fruity, with a hint of citrus.",
+    "tokens": [
+      {"text": "crisp", "label": "texture", "start": 5, "end": 10},
+      {"text": "refreshing", "label": "texture", "start": 12, "end": 22},
+      {"text": "green apple", "label": "flavor", "start": 31, "end": 42},
+    ]
+  }
+```
 ---
 
 ## PAL (Program-Aided Language Models)
