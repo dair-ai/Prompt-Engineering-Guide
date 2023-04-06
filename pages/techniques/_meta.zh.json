@@ -1,14 +1,14 @@
 {
-    "zeroshot": "Zero-shot Prompting",
-    "fewshot": "Few-shot Prompting",
-    "cot": "Chain-of-Thought Prompting",
-    "consistency": "Self-Consistency",
-    "knowledge": "Generate Knowledge Prompting",
-    "ape": "Automatic Prompt Engineer",
+    "zeroshot": "零样本提示",
+    "fewshot": "少样本提示",
+    "cot": "链式思考（CoT）提示",
+    "consistency": "自我一致性",
+    "knowledge": "生成知识提示",
+    "ape": "自动提示工程师",
     "activeprompt": "Active-Prompt",
-    "dsp": "Directional Stimulus Prompting",
-    "react": "ReAct",
-    "multimodalcot": "Multimodal CoT",
-    "graph": "Graph Prompting"
+    "dsp": "方向性刺激提示",
+    "react": "ReAct框架",
+    "multimodalcot": "多模态思维链提示方法",
+    "graph": "基于图的提示"
 }
   
