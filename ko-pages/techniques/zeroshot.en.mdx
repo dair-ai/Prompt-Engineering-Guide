@@ -1,0 +1,21 @@
+# Zero-Shot Prompting
+LLMs today trained on large amounts of data and tuned to follow instructions, are capable of performing tasks zero-shot. We tried a few zero-shot examples in the previous section. Here is one of the examples we used:
+
+*Prompt:*
+```
+Classify the text into neutral, negative or positive. 
+
+Text: I think the vacation is okay.
+Sentiment:
+```
+
+*Output:*
+```
+Neutral
+```
+
+Note that in the prompt above we didn't provide the model with any examples -- that's the zero-shot capabilities at work. 
+
+Instruction tuning has shown to improve zero-shot learning [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). Instruction tuning is essentially the concept of finetuning models on datasets described via instructions. Furthermore, [RLHF](https://arxiv.org/abs/1706.03741) (reinforcement learning from human feedback) has been adopted to scale instruction tuning wherein the model is aligned to better fit human preferences. This recent development powers models like ChatGPT. We will discuss all these approaches and methods in upcoming sections.
+
+When zero-shot doesn't work, it's recommended to provide demonstrations or examples in the prompt which leads to few-shot prompting. In the next section, we demonstrate few-shot prompting.

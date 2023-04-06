@@ -1,0 +1,114 @@
+# Basics of Prompting
+
+## Basic Prompts
+
+You can achieve a lot with simple prompts, but the quality of results depends on how much information you provide it and how well-crafted it is. A prompt can contain information like the *instruction* or *question* you are passing to the model and including other details such as *context*, *inputs*, or *examples*. You can use these elements to instruct the model better and as a result get better results.
+
+Let's get started by going over a basic example of a simple prompt:
+
+*Prompt*
+```
+The sky is
+```
+
+*Output:*
+```
+blue
+
+The sky is blue on a clear day. On a cloudy day, the sky may be gray or white.
+```
+
+As you can see, the language model outputs a continuation of strings that make sense give the context `"The sky is"`. The output might be unexpected or far from the task we want to accomplish. 
+
+This basic example also highlights the necessity to provide more context or instructions on what specifically we want to achieve.
+
+Let's try to improve it a bit:
+
+*Prompt:*
+```
+Complete the sentence: 
+
+The sky is
+```
+
+*Output:*
+
+```
+so  beautiful today.
+```
+
+Is that better? Well, we told the model to complete the sentence so the result looks a lot better as it follows exactly what we told it to do ("complete the sentence"). This approach of designing optimal prompts to instruct the model to perform a task is what's referred to as **prompt engineering**. 
+
+The example above is a basic illustration of what's possible with LLMs today. Today's LLMs are able to perform all kinds of advanced tasks that range from text summarization to mathematical reasoning to code generation.
+
+## Prompt Formatting
+
+We have tried a very simple prompt above. A standard prompt has the following format:
+
+```
+<Question>?
+```
+
+or 
+
+```
+<Instruction>
+```
+ 
+This can be formatted into a question answering (QA) format, which is standard in a lot of QA datasets, as follows:
+
+```
+Q: <Question>?
+A: 
+```
+
+When prompting like the above, it's also referred to as *zero-shot prompting*, i.e., you are directly prompting the model for a response without any examples or demonstrations about the task you want it to achieve. Some large language models do have the ability to perform zero-shot prompting but it depends on the complexity and knowledge of the task at hand. 
+
+Given the standard format above, one popular and effective technique to prompting is referred to as *few-shot prompting* where we provide exemplars (i.e., demonstrations). Few-shot prompts can be formatted as follows:
+
+```
+<Question>?
+<Answer>
+
+<Question>?
+<Answer>
+
+<Question>?
+<Answer>
+
+<Question>?
+
+```
+
+The QA format version would look like this:
+
+```
+Q: <Question>?
+A: <Answer>
+
+Q: <Question>?
+A: <Answer>
+
+Q: <Question>?
+A: <Answer>
+
+Q: <Question>?
+A:
+```
+
+Keep in mind that it's not required to use QA format. The prompt format depends on the task at hand. For instance, you can perform a simple classification task and give exemplars that demonstrate the task as follows:
+
+*Prompt:*
+```
+This is awesome! // Positive
+This is bad! // Negative
+Wow that movie was rad! // Positive
+What a horrible show! //
+```
+
+*Output:*
+```
+Negative
+```
+
+Few-shot prompts enable in-context learning which is the ability of language models to learn tasks given a few demonstrations.
