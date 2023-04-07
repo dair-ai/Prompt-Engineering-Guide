@@ -60,6 +60,13 @@ year = {2022}
 }
 ```
 
+## Thanks to all contributors ❤
+
+ <a href = "https://github.com/dair-ai/Prompt-Engineering-Guide">
+   <img src = "https://contrib.rocks/image?repo=dair-ai/Prompt-Engineering-Guide"/>
+ </a>
+
+
 ## License
 
 [MIT License](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/LICENSE.md)
