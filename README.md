@@ -64,5 +64,4 @@ year = {2022}
 
 [MIT License](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/LICENSE.md)
 
-
-Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
+As a community-driven project, feedback and suggestions are always welcome in order to make this project even better. We encourage you to get involved and contribute to our efforts by opening an issue or even submitting a pull request if you think something is missing. We are always looking for ways to improve and appreciate any input you may have. Thank you for your support!
