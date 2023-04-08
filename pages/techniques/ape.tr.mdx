@@ -1,0 +1,26 @@
+# Otomatik Bilgi İstemi Mühendisi (APE)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import APE from '../../img/APE.png'
+import APECOT from '../../img/ape-zero-shot-cot.png'
+
+<Screenshot src={APE} alt="APE" />
+Resim Kaynağı: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+[Zhou et al., (2022)](https://arxiv.org/abs/2211.01910) otomatik yönerge oluşturma ve seçme için otomatik bilgi istemi mühendisliği (APE) çerçevesi önermek. Yönerge üretme problemi, aday çözümler üretmek ve üzerinde araştırma yapmak için LLM'leri kullanan bir kara kutu optimizasyon problemi olarak ele alınan doğal dil sentezi olarak çerçevelenir.
+
+İlk adım, bir görev için talimat adayları oluşturmak üzere çıktı gösterileri verilen büyük bir dil modelini (bir çıkarım modeli olarak) içerir. Bu aday çözümler, arama prosedürünü yönlendirecektir. Talimatlar bir hedef model kullanılarak yürütülür ve ardından hesaplanan değerlendirme puanlarına göre en uygun talimat seçilir.
+
+APE, insan tarafından tasarlanmış "Adım adım düşünelim" isteminden daha iyi bir sıfır vuruşlu CoT istemi keşfeder ([Kojima ve diğerleri, 2022](https://arxiv.org/abs/2205.11916)).
+
+"Doğru cevaba sahip olduğumuzdan emin olmak için bunu adım adım çözelim." zincirleme akıl yürütmeyi ortaya çıkarır ve MultiArith ve GSM8K kıyaslamalarında performansı artırır:
+
+<Screenshot src={APECOT} alt="APECOT" />
+Resim Kaynağı: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+Bu makale, bilgi istemlerini otomatik olarak optimize etme fikri olan bilgi istemi mühendisliği ile ilgili önemli bir konuya değinmektedir. Bu kılavuzda bu konuya derinlemesine girmesek de, konuyla ilgileniyorsanız işte birkaç önemli makale:
+
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - gradyan kılavuzlu aramaya dayalı olarak çeşitli görevler için istemleri otomatik olarak oluşturmaya yönelik bir yaklaşım önerir.
+- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - NLG görevleri için eğitilebilir bir sürekli ön ekin başına eklenen ince ayara hafif bir alternatif. 
+- [Prompt Tuning](https://arxiv.org/abs/2104.08691) - geri yayılım yoluyla yumuşak bilgi istemlerini öğrenmek için bir mekanizma önerir.
