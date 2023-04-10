@@ -12,9 +12,9 @@ Image Source: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
 
 The first step involves a large language model (as an inference model) that is given output demonstrations to generate instruction candidates for a task. These candidate solutions will guide the search procedure. The instructions are executed using a target model, and then the most appropriate instruction is selected based on computed evaluation scores. 
 
-APE discovers a better zero-shot CoT prompt than the human engineered "Let's think step by step" prompt (Kojima et al., 2022).
+APE discovers a better zero-shot CoT prompt than the human engineered "Let's think step by step" prompt ([Kojima et al., 2022](https://arxiv.org/abs/2205.11916)).
 
-The prompt "Let's work this out it a step by step to be sure we have the right answer." elicits chain-of-though reasoning and improves performance on the MultiArith and GSM8K benchmarks:
+The prompt "Let's work this out in a step by step way to be sure we have the right answer." elicits chain-of-though reasoning and improves performance on the MultiArith and GSM8K benchmarks:
 
 <Screenshot src={APECOT} alt="APECOT" />
 Image Source: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
