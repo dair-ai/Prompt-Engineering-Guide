@@ -1,0 +1,98 @@
+# Yanlılıklar
+
+LLM'ler, potansiyel olarak zararlı olabilecek sorunlu nesiller üretebilir ve aşağı akış görevlerinde modelin performansını bozabilecek önyargılar gösterebilir. Bunlardan bazıları, etkili yönlendirme stratejileriyle hafifletilebilir, ancak denetleme ve filtreleme gibi daha gelişmiş çözümler gerektirebilir. 
+
+### Örneklerin Dağılımı
+Birkaç aşamalı öğrenme gerçekleştirirken, örneklerin dağılımı modelin performansını etkiler mi veya modeli bir şekilde saptırır mı? Burada basit bir test yapabiliriz.
+
+*Bilgi İstemcisi:*
+```
+S: Şimdiye kadarki en iyi haberi aldım!
+C: Olumlu
+
+S: İş yerinde zam aldık!
+C: Olumlu
+
+S: Bugün başardıklarımla gurur duyuyorum.
+C: Olumlu
+
+S: Şimdiye kadarki en iyi günü yaşıyorum!
+C: Olumlu
+
+S: Gerçekten hafta sonunu dört gözle bekliyorum.
+C: Olumlu
+
+S: Şimdiye kadarki en iyi hediyeyi aldım!
+C: Olumlu
+
+S: Şu an çok mutluyum.
+C: Olumlu
+
+S: Böyle harika bir aileye sahip olduğum için çok şanslıyım.
+C: Olumlu
+
+S: Dışarda hava çok kasvetli.
+C: Olumsuz
+
+S: Az önce korkunç bir haber aldım.
+C: Olumsuz
+
+S: Ekşi bir tat bıraktı.
+C: 
+```
+
+*Çıktı:*
+```
+Olumsuz
+```
+
+Yukarıdaki örnekte, örneklerin dağılımı modeli saptırmıyor gibi görünüyor. Bu güzel. Sınıflandırması daha zor bir metinle başka bir örnek deneyelim ve modelin nasıl yaptığına bakalım:
+
+*Bilgi İstemi:*
+```
+S: Buradaki yemek lezzetli!
+C: Olumlu 
+
+S: Bu ders çalışmasından çok sıkıldım.
+C: Olumsuz
+
+S: Sınavda başarısız olduğuma inanamıyorum.
+C: Olumsuz
+
+S: Bugün harika bir gün geçirdim!
+C: Olumlu 
+
+S: Bu işten nefret ediyorum.
+C: Olumsuz
+
+S: Buradaki servis iğrenç.
+C: Olumsuz
+
+S: Hayatımdan çok hayal kırıklığına uğradım.
+C: Olumsuz
+
+S: Hiç ara vermiyorum.
+C: Olumsuz
+
+S: Bu yemeğin tadı berbat.
+C: Olumsuz
+
+S: Patronuma dayanamıyorum.
+C: Olumsuz
+
+S: Bir şey hissediyorum.
+Ç:
+```
+
+*Çıktı:*
+```
+Olumsuz
+```
+
+Bu son cümle biraz öznel olsa da, dağılımı ters çevirdim ve bunun yerine 8 olumlu örnek ve 2 olumsuz örnek kullandım ve ardından aynı cümleyi tekrar denedim. Bilin bakalım model ne cevap verdi? "Olumlu" yanıtını verdi. Model, duygu sınıflandırması hakkında çok fazla bilgiye sahip olabilir, bu nedenle bu problem için önyargı göstermesini sağlamak zor olacaktır. Buradaki tavsiye, dağılımı çarpıtmaktan kaçınmak ve bunun yerine her etiket için daha dengeli sayıda örnek sağlamaktır. Modelin çok fazla bilgi sahibi olmadığı daha zor görevler için muhtemelen daha fazla mücadele edecektir.
+
+
+### Örnekler Sırası
+Few-shot learning gerçekleştirirken, sıra modelin performansını etkiler mi veya modeli bir şekilde saptırır mı?
+
+Yukarıdaki örnekleri deneyebilir ve sırayı değiştirerek modelin bir etikete eğilimli olmasını sağlayıp sağlayamayacağınızı görebilirsiniz. Tavsiye, örnekleri rastgele sıralamaktır. Örneğin, önce tüm olumlu örneklere, sonra olumsuz örneklere sahip olmaktan kaçının. Etiketlerin dağılımı çarpıksa bu sorun daha da büyür. Bu tür önyargıları azaltmak için her zaman çok şey denediğinizden emin olun.
