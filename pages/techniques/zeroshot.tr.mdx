@@ -1,0 +1,21 @@
+# Zero-Shot Bilgi İstemi
+Günümüzde büyük miktarda veri üzerinde eğitilen ve talimatları takip edecek şekilde ayarlanan LLM'ler, görevleri sıfır atışla gerçekleştirme yeteneğine sahiptir. Önceki bölümde birkaç sıfır atış örneği denedik. İşte kullandığımız örneklerden biri:
+
+*Bilgi İstemi:*
+```
+Metni nötr, negatif veya pozitif olarak sınıflandırın.
+
+Metin: Bence tatil tamam.
+Duygusallık:
+```
+
+*Çıktı:*
+```
+Nötr
+```
+
+Yukarıdaki istemde, modele herhangi bir örnek vermediğimize dikkat edin -- bu, iş başındaki sıfır atış yetenekleridir.
+
+Talimat ayarlamanın sıfır vuruşlu öğrenmeyi iyileştirdiği gösterilmiştir [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). Talimat ayarlama, esas olarak, talimatlar aracılığıyla açıklanan veri kümeleri üzerindeki ince ayar modellerinin konseptidir. Ayrıca, [RLHF](https://arxiv.org/abs/1706.03741) (insan geri bildiriminden pekiştirmeli öğrenme), modelin insan tercihlerine daha iyi uyacak şekilde hizalandığı talimat ayarını ölçeklendirmek için benimsenmiştir. Bu son gelişme, ChatGPT gibi modellere güç vermektedir. Tüm bu yaklaşımları ve yöntemleri önümüzdeki bölümlerde tartışacağız.
+
+Zero-shot çalışmadığında, bilgi isteminde few-shot istemine yol açan gösteriler veya örnekler sağlamanız önerilir. Bir sonraki bölümde, few-shot yönlendirmeyi gösteriyoruz.
