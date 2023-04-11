@@ -9,7 +9,7 @@ Happy Prompting!
 ---
 ## Announcements / Updates
 
-- 🌐 We now support [中文](https://www.promptingguide.ai/zh) and [English](https://www.promptingguide.ai/). Welcoming more translations.
+- 🌐 We now support [中文](https://www.promptingguide.ai/zh), [日本語](https://www.promptingguide.ai/jp), [Português](https://www.promptingguide.ai/pt) and [English](https://www.promptingguide.ai/). Welcoming more translations.
 - 🎉 We have launched new web version of the guide [here](https://www.promptingguide.ai/)
 - 🎓 Partnered with Sphere to deliver a new course on [Prompt Engineering for LLMs](https://www.getsphere.com/cohorts/prompt-engineering-for-llms?source=github)
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023

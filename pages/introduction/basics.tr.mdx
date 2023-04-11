@@ -1,0 +1,114 @@
+# Bilgi İstemcisinin Temelleri
+
+## Temel İstemler
+
+Basit istemlerle çok şey başarabilirsiniz, ancak sonuçların kalitesi, ona ne kadar bilgi verdiğinize ve ne kadar iyi hazırlanmış olduğuna bağlıdır. Bilgi istemi, modele ilettiğiniz *talimat* veya *soru* gibi bilgileri ve *bağlam*, *girdiler* veya *örnekler* gibi diğer ayrıntıları içerebilir. Modeli daha iyi yönlendirmek ve sonuç olarak daha iyi sonuçlar almak için bu öğeleri kullanabilirsiniz.
+
+Basit bir bilgi isteminin temel bir örneğini gözden geçirerek başlayalım:
+
+*Bilgi İstemcisi*
+```
+Gökyüzü
+```
+
+*Çıktı:*
+```
+mavi
+
+Açık bir günde gökyüzü mavidir. Bulutlu bir günde gökyüzü gri veya beyaz olabilir.
+```
+
+Gördüğünüz gibi, dil modeli, `"Gökyüzü"' bağlamı göz önüne alındığında anlamlı olan dizelerin bir devamını çıkarır. Çıktı beklenmedik olabilir veya başarmak istediğimiz görevden uzak olabilir. 
+
+Bu temel örnek, özellikle neyi başarmak istediğimize dair daha fazla bağlam veya talimat sağlama gerekliliğini de vurgulamaktadır.
+
+Biraz geliştirmeye çalışalım:
+
+*Bilgi İstemcisi:*
+```
+Cümleyi tamamla: 
+
+Gökyüzü
+```
+
+*Çıktı:*
+
+```
+çok güzel bugün.
+```
+
+Bu daha mı iyi? Pekala, modele cümleyi tamamlamasını söyledik, böylece sonuç tam olarak yapmasını söylediğimiz şeyi takip ettiği için ("cümleyi tamamlayın") çok daha iyi görünüyor. Modele bir görevi gerçekleştirme talimatı vermek için en uygun bilgi istemlerini tasarlamaya yönelik bu yaklaşım, **hızlı mühendislik** olarak adlandırılır.
+
+Yukarıdaki örnek, bugün LLM'lerle neyin mümkün olduğunun temel bir örneğidir. Günümüzün LLM'leri, metin özetlemeden matematiksel akıl yürütmeye ve kod oluşturmaya kadar her türlü gelişmiş görevi gerçekleştirebilir.
+
+## Bilgi İstemcisi Formatı
+
+Yukarıda çok basit bir komut istemi denedik. Standart bir bilgi istemi aşağıdaki biçime sahiptir:
+
+```
+<Soru>?
+```
+
+ya da  
+
+```
+<Talimat>
+```
+ 
+Bu, birçok SoruCevap veri kümesinde standart olan bir soru yanıtlama (QA) biçimine şu şekilde biçimlendirilebilir:
+
+```
+S: <Soru>?
+C: 
+```
+
+Yukarıdaki gibi istemde bulunurken, aynı zamanda *sıfır vuruşlu istem* olarak da adlandırılır, yani, gerçekleştirmesini istediğiniz görevle ilgili herhangi bir örnek veya gösteri olmadan doğrudan modelden bir yanıt istemiş olursunuz. Bazı büyük dil modelleri, sıfır vuruşlu yönlendirme gerçekleştirme yeteneğine sahiptir, ancak bu, eldeki görevin karmaşıklığına ve bilgisine bağlıdır.
+
+Yukarıdaki standart biçim göz önüne alındığında, popüler ve etkili bir yönlendirme tekniği, örnekler (örn. gösteriler) sağladığımız durumlarda *few-shot prompting* olarak anılır. Few-shot prompts aşağıdaki şekilde gösterilebilir:
+
+```
+<Soru>?
+<Cevap>
+
+<Soru>?
+<Cevavp>
+
+<Soru>?
+<Cevap>
+
+<Soru>?
+
+```
+
+Soru Cevap sürümü şuna benzer:
+
+```
+S: <Soru>?
+C: <Cevap>
+
+S: <Soru>?
+C: <Cevap>
+
+S: <Soru>?
+C: <Cevap>
+
+S: <Soru>?
+C:
+```
+
+Soru cevap formatını kullanmanın gerekli olmadığını unutmayın. Bilgi istemi biçimi eldeki göreve bağlıdır. Örneğin, basit bir sınıflandırma görevi gerçekleştirebilir ve aşağıdaki gibi görevi gösteren örnekler verebilirsiniz:
+
+*Bilgi İstemcisi:*
+```
+Bu harika! // Olumlu
+Bu kötü! // Olumsuz
+Vay canına o film harikaydı! // Olumlu
+Ne kadar kötü bir film// Olumsuz
+```
+
+*Çıktı:*
+```
+Olumsuz
+```
+
+Few-shotbilgi istemleri, dil modellerinin birkaç gösterim verilen görevleri öğrenme yeteneği olan bağlam içi öğrenmeyi etkinleştirir.

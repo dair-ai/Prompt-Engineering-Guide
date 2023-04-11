@@ -1,0 +1,109 @@
+# Few-Shot Prompting
+
+Embora os modelos de linguagem grande demonstrem recursos notáveis de disparo zero, eles ainda ficam aquém em tarefas mais complexas ao usar a configuração de disparo zero. O prompt de poucos disparos pode ser usado como uma técnica para permitir o aprendizado no contexto, onde fornecemos demonstrações no prompt para direcionar o modelo para um melhor desempenho. As demonstrações servem de condicionamento para exemplos subsequentes onde gostaríamos que o modelo gerasse uma resposta.
+
+De acordo com [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) poucas propriedades de tiro apareceram pela primeira vez quando os modelos foram dimensionados para um tamanho suficiente [(Kaplan et al., 2020)](https://arxiv.org/abs/2001.08361).
+
+Vamos demonstrar a solicitação de poucos disparos por meio de um exemplo apresentado em [Brown et al. 2020](https://arxiv.org/abs/2005.14165). No exemplo, a tarefa é usar corretamente uma nova palavra em uma frase.
+
+*Prompt:*
+```
+Um "whatpu" é um pequeno animal peludo nativo da Tanzânia. Exemplo de frase que usa
+a palavra whatpu é:
+Estávamos viajando pela África e vimos esses whatpus muito fofos.
+Fazer um "farduddle" significa pular para cima e para baixo muito rápido. Exemplo de frase que usa
+a palavra farduddle é:
+```
+
+*Saída:*
+```
+Quando ganhamos o jogo, todos começamos a festejar.
+```
+
+Podemos observar que o modelo aprendeu de alguma forma como executar a tarefa fornecendo apenas um exemplo (ou seja, 1-shot). Para tarefas mais difíceis, podemos experimentar aumentar as demonstrações (por exemplo, 3 tiros, 5 tiros, 10 tiros, etc.).
+
+Seguindo as descobertas de [Min et al. (2022)](https://arxiv.org/abs/2202.12837), aqui estão mais algumas dicas sobre demonstrações/exemplares ao fazer poucos disparos:
+
+- "o espaço do rótulo e a distribuição do texto de entrada especificado pelas demonstrações são importantes (independentemente de os rótulos estarem corretos para entradas individuais)"
+- o formato que você usa também desempenha um papel fundamental no desempenho, mesmo que você use apenas rótulos aleatórios, isso é muito melhor do que nenhum rótulo.
+- resultados adicionais mostram que selecionar rótulos aleatórios de uma distribuição verdadeira de rótulos (em vez de uma distribuição uniforme) também ajuda.
+
+Vamos experimentar alguns exemplos. Vamos primeiro tentar um exemplo com rótulos aleatórios (o que significa que os rótulos Negativo e Positivo são atribuídos aleatoriamente às entradas):
+
+*Prompt:*
+```
+Isso é incrível! // Negativo
+Isto é mau! // Positivo
+Uau, esse filme foi rad! // Positivo
+Que espetáculo horrível! //
+```
+
+*Saída:*
+```
+Negativo
+```
+
+Ainda obtemos a resposta correta, mesmo que os rótulos tenham sido randomizados. Observe que também mantivemos o formato, o que também ajuda. Na verdade, com mais experimentação, parece que os modelos GPT mais recentes que estamos experimentando estão se tornando mais robustos até mesmo para formatos aleatórios. Exemplo:
+
+*Prompt:*
+```
+Positivo Isso é incrível!
+Isto é mau! Negativo
+Uau, esse filme foi rad!
+Positivo
+Que espetáculo horrível! --
+```
+
+*Saída:*
+```
+Negativo
+```
+
+Não há consistência no formato acima, mas o modelo ainda previu o rótulo correto. Temos que realizar uma análise mais completa para confirmar se isso vale para tarefas diferentes e mais complexas, incluindo diferentes variações de prompts.
+
+### Limitações da solicitação de poucos disparos
+
+O prompt padrão de poucos disparos funciona bem para muitas tarefas, mas ainda não é uma técnica perfeita, especialmente ao lidar com tarefas de raciocínio mais complexas. Vamos demonstrar por que esse é o caso. Você se lembra do exemplo anterior onde fornecemos a seguinte tarefa:
+
+```
+Os números ímpares neste grupo somam um número par: 15, 32, 5, 13, 82, 7, 1.
+
+A:
+```
+
+Se tentarmos isso novamente, o modelo produzirá o seguinte:
+
+```
+Sim, os números ímpares neste grupo somam 107, que é um número par.
+```
+
+Esta não é a resposta correta, o que não apenas destaca as limitações desses sistemas, mas também a necessidade de uma engenharia imediata mais avançada.
+
+Vamos tentar adicionar alguns exemplos para ver se a solicitação de poucos tiros melhora os resultados.
+
+*Prompt:*
+```
+Os números ímpares neste grupo somam um número par: 4, 8, 9, 15, 12, 2, 1.
+A: A resposta é Falsa.
+
+Os números ímpares neste grupo somam um número par: 17, 10, 19, 4, 8, 12, 24.
+A: A resposta é Verdadeira.
+
+Os números ímpares neste grupo somam um número par: 16, 11, 14, 4, 8, 13, 24.
+A: A resposta é Verdadeira.
+
+Os números ímpares neste grupo somam um número par: 17, 9, 10, 12, 13, 4, 2.
+A: A resposta é Falsa.
+
+Os números ímpares neste grupo somam um número par: 15, 32, 5, 13, 82, 7, 1.
+A:
+```
+
+*Saída:*
+```
+A resposta é verdadeira.
+```
+
+Isso não funcionou. Parece que a solicitação de poucos disparos não é suficiente para obter respostas confiáveis para esse tipo de problema de raciocínio. O exemplo acima fornece informações básicas sobre a tarefa. Se você olhar mais de perto, o tipo de tarefa que introduzimos envolve mais algumas etapas de raciocínio. Em outras palavras, pode ajudar se dividirmos o problema em etapas e demonstrarmos isso ao modelo. Mais recentemente, [inserção de cadeia de pensamento (CoT)](https://arxiv.org/abs/2201.11903) foi popularizada para abordar mais aritmética complexa, senso comum e tarefas de raciocínio simbólico.
+
+No geral, parece que fornecer exemplos é útil para resolver algumas tarefas. Quando a solicitação de disparo zero e a solicitação de poucos disparos não são suficientes, isso pode significar que tudo o que foi aprendido pelo modelo não é suficiente para se sair bem na tarefa. A partir daqui, é recomendável começar a pensar em ajustar seus modelos ou experimentar técnicas de solicitação mais avançadas. A seguir, falaremos sobre uma das técnicas populares de sugestão, chamada de sugestão em cadeia de pensamento, que ganhou muita popularidade.

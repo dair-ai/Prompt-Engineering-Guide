@@ -1,0 +1,26 @@
+# Engenheiro de Prompt Automático (APE)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import APE from '../../img/APE.png'
+import APECOT from '../../img/ape-zero-shot-cot.png'
+
+<Screenshot src={APE} alt="APE" />
+Fonte da imagem: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+[Zhou et al., (2022)](https://arxiv.org/abs/2211.01910) propõem um engenheiro de prompt automático (APE) uma estrutura para geração e seleção automática de instruções. O problema de geração de instruções é enquadrado como uma síntese de linguagem natural abordada como um problema de otimização de caixa preta usando LLMs para gerar e pesquisar soluções candidatas.
+
+A primeira etapa envolve um grande modelo de linguagem (como um modelo de inferência) que recebe demonstrações de saída para gerar candidatos de instrução para uma tarefa. Essas soluções candidatas guiarão o procedimento de busca. As instruções são executadas usando um modelo de destino e, em seguida, a instrução mais apropriada é selecionada com base nas pontuações de avaliação computadas.
+
+O APE descobre um prompt de CoT zero-shot melhor do que o prompt "Vamos pensar passo a passo" projetado por humanos ([Kojima et al., 2022](https://arxiv.org/abs/2205.11916)).
+
+O prompt "Vamos resolver isso passo a passo para ter certeza de que temos a resposta certa." provoca raciocínio em cadeia e melhora o desempenho nos benchmarks MultiArith e GSM8K:
+
+<Screenshot src={APECOT} alt="APECOT" />
+Fonte da imagem: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+Este artigo aborda um tópico importante relacionado à engenharia de prompts, que é a ideia de otimizar automaticamente os prompts. Embora não nos aprofundemos neste tópico neste guia, aqui estão alguns documentos importantes se você estiver interessado no tópico:
+
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - proposes an approach to automatically create prompts for a diverse set of tasks based on gradient-guided search.
+- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - a lightweight alternative to fine-tuning that prepends a trainable continuous prefix for NLG tasks. 
+- [Prompt Tuning](https://arxiv.org/abs/2104.08691) - proposes a mechanism for learning soft prompts through backpropagation.

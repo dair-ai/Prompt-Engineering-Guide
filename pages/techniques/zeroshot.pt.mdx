@@ -1,0 +1,21 @@
+# Zero-Shot Prompting
+Os LLMs hoje treinados em grandes quantidades de dados e sintonizados para seguir instruções são capazes de executar tarefas de tiro zero. Tentamos alguns exemplos de tiro zero na seção anterior. Aqui está um dos exemplos que usamos:
+
+*Prompt:*
+```
+Classifique o texto em neutro, negativo ou positivo.
+
+Texto: Acho que as férias estão boas.
+Sentimento:
+```
+
+*Saída:*
+```
+Neutro
+```
+
+Observe que no prompt acima não fornecemos nenhum exemplo ao modelo -- esses são os recursos de tiro zero em ação.
+
+O ajuste de instrução demonstrou melhorar o aprendizado de tiro zero [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). O ajuste de instrução é essencialmente o conceito de modelos de ajuste fino em conjuntos de dados descritos por meio de instruções. Além disso, [RLHF](https://arxiv.org/abs/1706.03741) (aprendizado por reforço a partir de feedback humano) foi adotado para escalar o ajuste de instruções em que o modelo é alinhado para melhor atender às preferências humanas. Este desenvolvimento recente alimenta modelos como o ChatGPT. Discutiremos todas essas abordagens e métodos nas próximas seções.
+
+Quando o tiro zero não funciona, é recomendável fornecer demonstrações ou exemplos no prompt que levam ao prompt de poucos tiros. Na próxima seção, demonstramos a solicitação de poucos disparos.
