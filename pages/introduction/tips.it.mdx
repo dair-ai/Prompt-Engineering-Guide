@@ -32,77 +32,75 @@ Testo: "ciao!"
 ¡Hola!
 ```
 
-### Specificity
-Be very specific about the instruction and task you want the model to perform. The more descriptive and detailed the prompt is, the better the results. This is particularly important when you have a desired outcome or style of generation you are seeking. There aren't specific tokens or keywords that lead to better results. It's more important to have a good format and descriptive prompt. In fact, providing examples in the prompt is very effective to get desired output in specific formats.
+### Specificità
+Siate molto specifici riguardo all'istruzione e al compito che volete che il modello esegua. Più la richiesta è descrittiva e dettagliata, migliori saranno i risultati. Questo è particolarmente importante quando si cerca un risultato o uno stile di generazione desiderato. Non esistono token o parole chiave specifiche che portano a risultati migliori. È più importante avere un buon formato e un prompt descrittivo. In effetti, fornire esempi nel prompt è molto efficace per ottenere i risultati desiderati in formati specifici.
 
-When designing prompts you should also keep in mind the length of the prompt as there are limitations regarding how long this can be. Thinking about how specific and detailed you should be is something to consider. Including too many unnecessary details is not necessarily a good approach. The details should be relevant and contribute to the task at hand. This is something you will need to experiment with a lot. We encourage a lot of experimentation and iteration to optimize prompts for your applications.
+Quando si progettano i prompt, si deve anche tenere presente la lunghezza del prompt, poiché ci sono dei limiti per quanto riguarda la sua lunghezza. Bisogna pensare a quanto sia necessario essere specifici e dettagliati. Includere troppi dettagli non necessari non è necessariamente un buon approccio. I dettagli devono essere pertinenti e contribuire al compito da svolgere. Questo è un aspetto che dovrete sperimentare molto. Incoraggiamo la sperimentazione e l'iterazione per ottimizzare i prompt per le vostre applicazioni.
 
-As an example, let's try a simple prompt to extract specific information from a piece of text.
+A titolo di esempio, proviamo un semplice prompt per estrarre informazioni specifiche da un testo.
 
 *Prompt:*
 ```
-Extract the name of places in the following text. 
+Estrarre il nome dei luoghi nel seguente testo. 
 
-Desired format:
-Place: <comma_separated_list_of_company_names>
+Formato desirato:
+Luogo: <lista_dei_nomi_delle_aiznede_separata_da_virgola>
 
-Input: "Although these developments are encouraging to researchers, much is still a mystery. “We often have a black box between the brain and the effect we see in the periphery,” says Henrique Veiga-Fernandes, a neuroimmunologist at the Champalimaud Centre for the Unknown in Lisbon. “If we want to use it in the therapeutic context, we actually need to understand the mechanism.""
+Input: "Sebbene questi sviluppi siano incoraggianti per i ricercatori, molto rimane ancora un mistero. "Spesso abbiamo una scatola nera tra il cervello e l'effetto che vediamo in periferia", dice Henrique Veiga-Fernandes, neuroimmunologo presso il Centro Champalimaud per l'ignoto di Lisbona. "Se vogliamo utilizzarla nel contesto terapeutico, dobbiamo effettivamente comprenderne il meccanismo"".
 ```
 
 *Output:*
 ```
-Place: Champalimaud Centre for the Unknown, Lisbon
+Luogo: Centro Champalimaud per l'ignoto, Lisbona".
 ```
 
-Input text is obtained from [this Nature article](https://www.nature.com/articles/d41586-023-00509-z).
+Il testo di input è ottenuto da [questo articolo di Nature](https://www.nature.com/articles/d41586-023-00509-z).
 
-### Avoid Impreciseness
+### Evitare l'imprecisione
 
-Given the tips above about being detailed and improving format, it's easy to fall into the trap of wanting to be too clever about prompts and potentially creating imprecise descriptions. It's often better to be specific and direct. The analogy here is very similar to effective communication -- the more direct, the more effective the message gets across.
+Alla luce dei suggerimenti precedenti sull'essere dettagliati e migliorare il formato, è facile cadere nella trappola di voler essere troppo intelligenti con i suggerimenti e creare descrizioni imprecise. Spesso è meglio essere specifici e diretti. L'analogia è molto simile a quella della comunicazione efficace: più è diretta, più il messaggio è efficace.
 
-For example, you might be interested in learning the concept of prompt engineering. You might try something like:
-
+Ad esempio, potreste essere interessati a conoscere il concetto di ingegneria del prompt. Potreste provare qualcosa come:
 ```
-Explain the concept prompt engineering. Keep the explanation short, only a few sentences, and don't be too descriptive.
-```
-
-It's not clear from the prompt above how many sentences to use and what style. You might still somewhat get good responses with the above prompts but the better prompt would be one that is very specific, concise, and to the point. Something like:
-
-```
-Use 2-3 sentences to explain the concept of prompt engineering to a high school student.
+Spiega il concetto di prompt engineering. Mantieni la spiegazione breve, solo poche frasi, e non essere troppo descrittivo.
 ```
 
-### To do or not to do?
-Another common tip when designing prompts is to avoid saying what not to do but say what to do instead. This encourages more specificity and focuses on the details that lead to good responses from the model.
+Non è chiaro dal prompt di cui sopra quante frasi usare e con quale stile. Potreste comunque ottenere delle buone risposte con i suggerimenti sopra, ma il suggerimento migliore sarebbe uno molto specifico, conciso e diretto. Qualcosa come:
+```
+Usa 2-3 frasi per spiegare il concetto di prompt engineering a uno studente di scuola superiore.
+```
 
-Here is an example of a movie recommendation chatbot failing at exactly what I don't want it to do because of how I wrote the instruction -- focusing on what not to do.
+### Fare o non fare?
+Un altro consiglio comune quando si progettano i prompt è quello di evitare di dire cosa non fare, ma di dire invece cosa fare. Questo incoraggia una maggiore specificità e si concentra sui dettagli che portano a buone risposte da parte del modello.
+
+Ecco un esempio di chatbot per la raccomandazione di film che non riesce a fare esattamente ciò che non voglio che faccia a causa del modo in cui ho scritto l'istruzione, concentrandomi su cosa non fare.
 
 *Prompt:*
 ```
-The following is an agent that recommends movies to a customer. DO NOT ASK FOR INTERESTS. DO NOT ASK FOR PERSONAL INFORMATION.
+Di seguito viene presentato un agente che consiglia dei film a un cliente. NON CHIEDERE INTERESSI. NON CHIEDERE INFORMAZIONI PERSONALI.
 
-Customer: Please recommend a movie based on my interests.
-Agent: 
+Cliente: Per favore, mi raccomandi un film basato sui miei interessi.
+Agente: 
 ```
 
 *Output:*
 ```
-Sure, I can recommend a movie based on your interests. What kind of movie would you like to watch? Do you prefer action, comedy, romance, or something else?
+Certo, posso consigliarle un film in base ai suoi interessi. Che tipo di film le piacerebbe vedere? Preferisce l'azione, la commedia, il romanticismo o altro?
 ```
 
-Here is a better prompt:
+Qui un prompt migliore
 
 *Prompt:*
 ```
-The following is an agent that recommends movies to a customer. The agent is responsible to recommend a movie from the top global trending movies. It should refrain from asking users for their preferences and avoid asking for personal information. If the agent doesn't have a movie to recommend, it should respond "Sorry, couldn't find a movie to recommend today.".
+Il seguente è un agente che raccomanda film a un cliente. L'agente ha il compito di consigliare un film tra quelli di maggiore tendenza a livello globale. Deve astenersi dal chiedere agli utenti le loro preferenze ed evitare di chiedere informazioni personali. Se l'agente non ha un film da raccomandare, deve rispondere "Spiacente, non è stato possibile trovare un film da raccomandare oggi".
 
-Customer: Please recommend a movie based on my interests.
-Agent:
+Cliente: Per favore, mi raccomandi un film basato sui miei interessi.
+Agente:
 ```
 
 *Output:*
 ```
-Sorry, I don't have any information about your interests. However, here's a list of the top global trending movies right now: [list of movies]. I hope you find something you like!
+Mi dispiace, non ho informazioni sui tuoi interessi. Tuttavia, ecco un elenco dei film di tendenza a livello globale in questo momento: [elenco dei film]. Spero che troviate qualcosa di vostro gradimento!
 ```
 
-Some of the examples above were adopted from the ["Best practices for prompt engineering with OpenAI API" article.](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
+Alcuni degli esempi sopra riportati sono stati adottati dall'articolo ["Best practices for prompt engineering with OpenAI API"].](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
