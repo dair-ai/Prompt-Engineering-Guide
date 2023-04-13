@@ -29,13 +29,13 @@ Texto: "olá!"
 
 *Saída:*
 ```
-Olá!
+¡Hola!
 ```
 
 ### Especificidade
 Seja muito específico sobre a instrução e a tarefa que deseja que o modelo execute. Quanto mais descritivo e detalhado for o prompt, melhores serão os resultados. Isso é particularmente importante quando você tem um resultado desejado ou estilo de geração que está buscando. Não há tokens ou palavras-chave específicas que levem a melhores resultados. É mais importante ter um bom formato e um prompt descritivo. Na verdade, fornecer exemplos no prompt é muito eficaz para obter a saída desejada em formatos específicos.
 
-Ao criar prompts, você também deve ter em mente o comprimento do prompt, pois há limitações em relação a quanto tempo isso pode durar. Pensar em quão específico e detalhado você deve ser é algo a se considerar. Incluir muitos detalhes desnecessários não é necessariamente uma boa abordagem. Os detalhes devem ser relevantes e contribuir para a tarefa em mãos. Isso é algo que você precisará experimentar muito. Incentivamos muita experimentação e iteração para otimizar os prompts de seus aplicativos.
+Ao criar prompts, você também deve ter em mente o tamanho do prompt, pois há limitações em relação a quão grande ele pode ser. Pensar em quão específico e detalhado você deve ser é algo a se considerar. Incluir muitos detalhes desnecessários não é necessariamente uma boa abordagem. Os detalhes devem ser relevantes e contribuir para a tarefa em mãos. Isso é algo que você precisará experimentar muito. Incentivamos muita experimentação e iteração para otimizar os prompts de seus aplicativos.
 
 Como exemplo, vamos tentar um prompt simples para extrair informações específicas de um texto.
 
@@ -44,9 +44,9 @@ Como exemplo, vamos tentar um prompt simples para extrair informações específ
 Extraia o nome dos lugares no texto a seguir.
 
 Formato desejado:
-Local: <comma_separated_list_of_company_names>
+Local: <lista_separada_por_vírgulas_de_nomes_de_empresas>
 
-Contribuição: "Embora estes desenvolvimentos sejam encorajadores para os investigadores, muito ainda é um mistério. “Muitas vezes temos uma caixa preta entre o cérebro e o efeito que vemos na periferia”, diz Henrique Veiga-Fernandes, neuroimunologista do Centro Champalimaud de o Desconhecido em Lisboa. “Se queremos utilizá-lo no contexto terapêutico, precisamos de facto de perceber o mecanismo.""
+Input: "Embora estes desenvolvimentos sejam encorajadores para os investigadores, muito ainda é um mistério. “Muitas vezes temos uma caixa preta entre o cérebro e o efeito que vemos na periferia”, diz Henrique Veiga-Fernandes, neuroimunologista do Centro Champalimaud para o Desconhecido em Lisboa. “Se queremos utilizá-lo no contexto terapêutico, precisamos de facto de perceber o mecanismo."
 ```
 
 *Saída:*
@@ -54,7 +54,7 @@ Contribuição: "Embora estes desenvolvimentos sejam encorajadores para os inves
 Local: Centro Champalimaud para o Desconhecido, Lisboa
 ```
 
-O texto de entrada é obtido de [este artigo da Nature](https://www.nature.com/articles/d41586-023-00509-z).
+O texto de entrada é obtido [neste artigo da Nature](https://www.nature.com/articles/d41586-023-00509-z).
 
 ### Evite Imprecisões
 
@@ -63,13 +63,13 @@ Dadas as dicas acima sobre como ser detalhado e melhorar o formato, é fácil ca
 Por exemplo, você pode estar interessado em aprender o conceito de engenharia de prompt. Você pode tentar algo como:
 
 ```
-Explique o conceito de engenharia imediata. Mantenha a explicação curta, apenas algumas frases, e não seja muito descritivo.
+Explique o conceito de engenharia de prompt. Mantenha a explicação curta, apenas algumas frases, e não seja muito descritivo.
 ```
 
-Não está claro no prompt acima quantas frases usar e qual estilo. Você ainda pode obter boas respostas com os prompts acima, mas o melhor prompt seria aquele que é muito específico, conciso e direto ao ponto. Algo como:
+Não está claro no prompt acima quantas frases usar e qual estilo. Você ainda pode obter uma boa resposta com o prompt acima, mas o melhor prompt seria aquele que é muito específico, conciso e direto ao ponto. Algo como:
 
 ```
-Use 2 a 3 frases para explicar o conceito de engenharia imediata a um aluno do ensino médio.
+Use 2 a 3 frases para explicar o conceito de engenharia de prompt a um aluno do ensino médio.
 ```
 
 ### Fazer ou não fazer?
@@ -79,7 +79,7 @@ Aqui está um exemplo de um chatbot de recomendação de filme falhando exatamen
 
 *Prompt:*
 ```
-O seguinte é um agente que recomenda filmes a um cliente. NÃO PEÇA INTERESSES. NÃO PEÇA INFORMAÇÕES PESSOAIS.
+O agente a seguir recomenda filmes para um cliente. NÃO PEÇA INTERESSES. NÃO PEÇA INFORMAÇÕES PESSOAIS.
 
 Cliente: Por favor, recomende um filme baseado nos meus interesses.
 Agente:
@@ -94,7 +94,7 @@ Aqui está um prompt melhor:
 
 *Prompt:*
 ```
-O seguinte é um agente que recomenda filmes a um cliente. O agente é responsável por recomendar um filme dos principais filmes de tendências globais. Deve abster-se de perguntar aos usuários sobre suas preferências e evitar pedir informações pessoais. Se o agente não tiver um filme para recomendar, ele deve responder "Desculpe, não foi possível encontrar um filme para recomendar hoje.".
+O agente a seguir recomenda filmes para um cliente. O agente é responsável por recomendar um filme dos principais filmes de tendências globais. Deve abster-se de perguntar aos usuários sobre suas preferências e evitar pedir informações pessoais. Se o agente não tiver um filme para recomendar, ele deve responder "Desculpe, não foi possível encontrar um filme para recomendar hoje.".
 
 Cliente: Por favor, recomende um filme baseado nos meus interesses.
 Agente:
