@@ -1,0 +1,326 @@
+# Ejemplos de prompts
+
+En la sección anterior, presentamos y dimos ejemplos básicos de cómo hacer prompting a LLMs.
+
+En esta sección, proporcionaremos más ejemplos de cómo se utilizan los prompts para lograr diferentes tareas e introduciremos conceptos clave en el camino. A menudo, la mejor manera de aprender conceptos es mediante ejemplos. A continuación, cubrimos algunos ejemplos de cómo los prompts bien diseñados se pueden utilizar para realizar diferentes tipos de tareas.
+
+Temas:
+- [Resumen de textos](#resumen-de-textos)
+- [Extracción de información](#information-extraction)
+- [Preguntas y respuestas](#preguntas-y-respuestas)
+- [Clasificación de texto](#clasificación-de-texto)
+- [Conversación](#conversación)
+- [Generación de código](#generación-de-código)
+- [Razonamiento](#razonamiento)
+
+---
+
+## Resumen de textos
+
+Uno de los trabajos estándar en la generación de lenguaje natural es el resumen de textos. El resumen de textos puede incluir muchas areas diferentes. De hecho, una de las aplicaciones más prometedoras de los modelos de lenguaje es la capacidad de resumir artículos y conceptos en resúmenes rápidos y fáciles de leer. Vamos a intentar una tarea básica de sumarización utilizando prompts.
+
+
+Digamos que estoy interesado en aprender acerca de los antibióticos, podría probar un prompt como este:
+
+*Prompt:*
+```
+Explica los antibióticos
+
+A:
+```
+
+*Resultado:*
+```
+Los antibióticos son un tipo de medicamento utilizado para tratar infecciones bacterianas.
+Funcionan matando las bacterias o impidiendo que se reproduzcan, permitiendo que el sistema
+inmunológico del cuerpo combata la infección. Los antibióticos suelen tomarse por vía oral
+en forma de píldoras, cápsulas o soluciones líquidas, o a veces se administran por vía
+intravenosa. No son efectivos contra infecciones virales y su uso inadecuado puede llevar
+a la resistencia a los antibióticos.
+```
+
+La "A:" es un formato de prompt explícito que se utiliza en la respuesta a preguntas. Lo usé aquí para decirle al modelo que esperamos una respuesta. En este ejemplo, no está claro cómo esto es útil en comparación con no usarlo, pero lo dejaremos para ejemplos posteriores. Supongamos que esto es demasiada información y queremos resumirla aún más. De hecho, podemos indicarle al modelo que la resuma en una sola oración así:
+
+*Prompt:*
+```
+Los antibióticos son un tipo de medicamento utilizado para tratar infecciones bacterianas.
+Funcionan matando las bacterias o impidiendo que se reproduzcan, permitiendo que el sistema
+inmunológico del cuerpo combata la infección. Los antibióticos suelen tomarse por vía oral
+en forma de píldoras, cápsulas o soluciones líquidas, o a veces se administran por vía
+intravenosa. No son efectivos contra infecciones virales y su uso inadecuado puede llevar
+a la resistencia a los antibióticos.
+
+Resume lo anterior en una sola oración:
+```
+
+*Salida:*
+```
+Los antibióticos son medicamentos utilizados para tratar infecciones bacterianas al matar
+o detener la reproducción de las bacterias, pero no son efectivos contra los virus y el
+uso excesivo puede llevar a la resistencia a los antibióticos.
+```
+
+Sin prestar demasiada atención a la precisión de la salida anterior, algo en lo que nos centraremos en una guía posterior, el modelo intentó resumir el párrafo en una sola oración. Podemos intentar ser más ingeniosos con las instrucciones, pero lo dejaremos para un capítulo posterior. Siéntete libre de pausar aquí y experimentar para ver si obtienes mejores resultados.
+
+---
+## Extracción de información
+
+Mientras que los modelos de lenguaje están entrenados para realizar la generación de lenguaje natural y otras tareas relacionadas, también son muy capaces de realizar clasificación y una serie de otras tareas de procesamiento de lenguaje natural (NLP).
+
+Aquí hay un ejemplo de un prompt que extrae información de un párrafo dado.
+
+*Prompt:*
+```
+Las declaraciones de contribución del autor y los agradecimientos en los documentos de
+investigación deben indicar claramente y específicamente si, y en qué medida, los autores
+utilizaron tecnologías de inteligencia artificial como ChatGPT en la preparación de su
+manuscrito y análisis. También deben indicar qué LLMs se utilizaron. Esto alertará a los
+editores y revisores para examinar los manuscritos con más cuidado en busca de posibles
+prejuicios, inexactitudes e improperios en la atribución de fuentes. De igual manera, las
+revistas científicas deben ser transparentes sobre su uso de LLM, por ejemplo, al seleccionar
+manuscritos enviados.
+
+Menciona el producto basado en el modelo de lenguaje grande mencionado en el párrafo anterior:
+```
+
+*Salida:*
+```
+El producto basado en el modelo de lenguaje grande mencionado en el párrafo anterior es ChatGPT.
+```
+
+Hay muchas formas en que podemos mejorar los resultados anteriores, pero esto ya es muy útil.
+
+A estas alturas, debería ser obvio que puedes pedirle al modelo que realice diferentes tareas simplemente instruyéndolo sobre qué hacer. Esa es una capacidad poderosa que los desarrolladores de productos de inteligencia artificial ya están utilizando para crear productos y experiencias poderosos.
+
+
+Fuente del párrafo: [ChatGPT: five priorities for research](https://www.nature.com/articles/d41586-023-00288-7)
+
+---
+## Preguntas y respuestas
+
+Una de las mejores formas de hacer que el modelo responda a preguntas específicas es mejorar el formato del prompt. Como se mencionó anteriormente, un prompot puede combinar instrucciones, contexto e indicadores de entrada y salida para obtener resultados mejorados. Si bien estos componentes no son obligatorios, son una buena práctica, ya que cuanto más específicas sean las instrucciones, mejores serán los resultados que obtendrá. A continuación se muestra un ejemplo siguiendo un prompt más estructurado.
+
+*Prompt:*
+```
+Responde la pregunta basándote en el contexto que aparece a continuación. Mantén la respuesta
+corta y concisa. Responde "No estoy seguro de la respuesta" si no estás seguro de la respuesta.
+
+Context: Teplizumab tiene sus raíces en una empresa farmacéutica de Nueva Jersey llamada Ortho
+Pharmaceutical. Allí, los científicos generaron una versión temprana del anticuerpo, apodado OKT3.
+Originalmente obtenido de ratones, la molécula era capaz de unirse a la superficie de las células T
+y limitar su potencial de matar células. En 1986, fue aprobado para ayudar a prevenir el rechazo
+de órganos después de los trasplantes de riñón, convirtiéndose en el primer anticuerpo terapéutico
+permitido para uso humano.
+
+Question: ¿De dónde se obtuvo originalmente el OKT3?
+
+Answer:
+```
+
+*Salida:*
+```
+Ratones.
+```
+
+Contexto obtenido de [Nature](https://www.nature.com/articles/d41586-023-00400-x).
+
+---
+
+## Clasificación de Texto
+
+
+Hasta ahora, hemos utilizado instrucciones simples para realizar una tarea. Como ingeniero de prompt, deberas mejorar la calidad de las instrucciones que proporcionas. ¡Pero eso no es todo! También descubriras que para casos de uso más difíciles, simplemente proporcionar instrucciones no será suficiente. Aquí es donde debes pensar más en el contexto y en los diferentes elementos que se pueden utilizar en un prompt. Otros elementos que pueden proporcionar son los datos de entrada (`input data`) o ejemplos (`examples`).
+
+So far, we have used simple instructions to perform a task. As a prompt engineer, you will need to get better at providing better instructions. But that's not all! You will also find that for harder use cases, just providing instructions won't be enough. This is where you need to think more about the context and the different elements you can use in a prompt. Other elements you can provide are `input data` or `examples`.
+
+Intentemos demostrar esto proporcionando un ejemplo de clasificación de texto.
+
+*Prompt:*
+```
+Clasifique el texto en neutral, negativo o positivo.
+
+Texto: Creo que la comida estuvo bien.
+Sentimiento:
+```
+
+*Salida:*
+```
+Neutral
+```
+
+Dimos la instrucción de clasificar el texto y el modelo respondió con `'Neutral'`, que es correcto. No hay nada malo en esto, pero digamos que lo que realmente necesitamos es que el modelo dé la etiqueta en el formato exacto que queremos. En lugar de `Neutral`, queremos que devuelva `neutral`. ¿Cómo lo logramos? Hay diferentes maneras de hacer esto. Nos preocupa la especificidad aquí, por lo que cuanto más información podamos proporcionar al prompt, mejores serán los resultados. Podemos intentar proporcionar ejemplos para especificar el comportamiento correcto. Intentémoslo de nuevo:
+
+*Prompt:*
+```
+Clasifique el texto en neutral, negativo o positivo.
+
+Texto: Creo que las vacaciones están bien.
+Sentimiento: neutral
+
+Texto: Creo que la comida estuvo bien.
+Sentimiento:
+```
+
+*Output:*
+```
+neutral
+```
+
+¡Perfecto! Esta vez el modelo devolvió `neutral`, que es la etiqueta específica que estaba buscando. Parece que el ejemplo proporcionado en el prompt ayudó al modelo a ser específico en su salida. Para resaltar por qué a veces la especificidad es importante, echa un vistazo a este ejemplo y detecta el problema:
+
+*Prompt:*
+```
+Clasifique el texto en nutral, negativo o positivo.
+
+Texto: Creo que las vacaciones están bien.
+Sentimiento:
+```
+
+*Output:*
+```
+Neutral
+```
+
+¿Cuál es el problema aquí?
+
+
+---
+
+## Conversación
+
+Quizás una de las cosas más interesantes que se pueden lograr con la ingenieria de prompt es enseñar al sistema LLM cómo comportarse, cuál es su intención y su identidad. Esto es particularmente útil cuando se construyen sistemas conversacionales como chatbots de atención al cliente.
+
+Por ejemplo, creemos un sistema conversacional que sea capaz de generar respuestas más técnicas y científicas a preguntas. Observa cómo le estamos diciendo explícitamente cómo comportarse a través de la instrucción. A veces se le llama *role prompting*.
+
+For instance, let's create a conversational system that's able to generate more technical and scientific responses to questions. Note how we are explicitly telling it how to behave through the instruction. This is sometimes referred to as *role prompting*.
+
+*Prompt:*
+```
+La siguiente es una conversación con un asistente de investigación de inteligencia artificial. El tono del asistente es técnico y científico.
+
+Humano: Hola, ¿quién eres?
+AI: ¡Saludos! Soy un asistente de investigación de inteligencia artificial. ¿En qué puedo ayudarte hoy?
+Humano: ¿Puedes contarme sobre la creación de los agujeros negros?
+AI:
+```
+
+*Output:*
+```
+¡Claro! Los agujeros negros son regiones del espacio-tiempo donde la fuerza gravitacional es tan fuerte que nada, ni siquiera la luz, puede escapar de ella. Se crean cuando una estrella muy masiva muere y su núcleo colapsa sobre sí mismo, formando una singularidad de densidad infinita. La intensa gravedad de la singularidad atrae toda la materia y radiación a su alrededor, creando el agujero negro.
+```
+
+¿Nuestro asistente de investigación de inteligencia artificial suena un poco técnico, no? De acuerdo, cambiemos este comportamiento e instruyamos al sistema para que dé respuestas más accesibles.
+
+*Prompt:*
+```
+La siguiente es una conversación con un asistente de investigación de inteligencia artificial. Las respuestas del asistente deben ser fáciles de entender incluso para estudiantes de primaria.
+
+Humano: Hola, ¿quién eres?
+AI: ¡Saludos! Soy un asistente de investigación de inteligencia artificial. ¿En qué puedo ayudarte hoy?
+Humano: ¿Puedes contarme sobre la creación de los agujeros negros?
+AI:
+```
+
+*Output:*
+```
+¡Claro! Los agujeros negros se crean cuando una estrella muy masiva se queda sin combustible y colapsa sobre sí misma. La gravedad de la estrella es tan fuerte que nada, ni siquiera la luz, puede escapar de su atracción. Esto crea un punto en el espacio-tiempo con una fuerza gravitatoria intensa llamado agujero negro.
+```
+
+Creo que hemos avanzado. Puedes seguir mejorándolo. Estoy seguro de que si agregas más ejemplos puedes obtener resultados aún mejores.
+
+---
+
+## Generación de código
+
+Una aplicación donde los LLM son muy efectivos es en la generación de código. Copilot es un gran ejemplo de esto. Hay una gran cantidad de tareas de generación de código que se pueden realizar con promts ingeniosos. Veamos algunos ejemplos a continuación.
+
+Primero, intentemos un programa simple que salude al usuario.
+
+*Prompt:*
+```
+/*
+Ask the user for their name and say "Hello"
+*/
+```
+
+*Salida:*
+```
+let name = prompt("What is your name?");
+console.log(`Hello, ${name}!`);
+```
+
+Puedes ver que ni siquiera necesitamos especificar el lenguaje a utilizar.
+
+Cambiamos de nivel un poco. Quiero mostrarte lo poderosos que pueden ser los LLMs con un poco más de esfuerzo en el diseño de los promts.
+
+*Prompt:*
+```
+"""
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a MySQL query for all students in the Computer Science Department
+"""
+```
+
+*Salida:*
+```
+SELECT StudentId, StudentName
+FROM students
+WHERE DepartmentId IN (SELECT DepartmentId FROM departments WHERE DepartmentName = 'Computer Science');
+```
+
+Esto es muy impresionante. En este caso, proporcionamos datos sobre el esquema de la base de datos y le pedimos que genere una consulta MySQL válida.
+
+---
+
+## Razonamiento
+
+Quizás una de las tareas más difíciles para un LLM hoy en día es aquella que requiere alguna forma de razonamiento. El razonamiento es una de las áreas que más me emociona debido a los tipos de aplicaciones complejas que pueden surgir de los LLM.
+
+Ha habido algunas mejoras en las tareas que involucran habilidades matemáticas. Dicho esto, es importante señalar que los LLM actuales tienen dificultades para realizar tareas de razonamiento, por lo que esto requiere técnicas más avanzadas de ingeniería de promoción. Cubriremos estas técnicas avanzadas en la próxima guía. Por ahora, cubriremos algunos ejemplos básicos para mostrar las capacidades aritméticas.
+
+*Prompt:*
+```
+¿Cuánto es 9.000 * 9.000?
+```
+
+*Salida:*
+```
+81.000.000
+```
+
+Intentemos algo más difícil.
+
+*Prompt:*
+```
+Los números impares en este grupo suman un número par: 15, 32, 5, 13, 82, 7, 1.
+
+A:
+```
+
+*Salida:*
+```
+No, los números impares en este grupo suman un número impar: 119.
+```
+
+¡Eso es incorrecto! Tratemos de mejorar esto mejorando la promoción.
+
+*Prompt:*
+```
+Los números impares en este grupo suman un número par: 15, 32, 5, 13, 82, 7, 1.
+
+Resuelva dividiendo el problema en pasos. Primero, identifique los números impares, añádalos e indique si el resultado es impar o par.
+```
+
+*Salida:*
+```
+Números impares: 15, 5, 13, 7, 1
+Suma: 41
+41 es un número impar.
+```
+
+¡Mucho mejor, ¿verdad? Por cierto, probé esto un par de veces y el sistema a veces falla. Si proporcionas mejores instrucciones combinadas con ejemplos, podría ayudar a obtener resultados más precisos.
+
+Continuaremos incluyendo más ejemplos de aplicaciones comunes en esta sección de la guía.
+
+En la próxima sección, cubriremos conceptos y técnicas más avanzados de ingeniería de prompt para mejorar el rendimiento en todas estas y más tareas difíciles.
