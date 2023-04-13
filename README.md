@@ -9,7 +9,7 @@ Happy Prompting!
 ---
 ## Announcements / Updates
 
-- 🌐 We now support [中文](https://www.promptingguide.ai/zh), [日本語](https://www.promptingguide.ai/jp), [Português](https://www.promptingguide.ai/pt) and [English](https://www.promptingguide.ai/). Welcoming more translations.
+- 🌐 We now support [中文](https://www.promptingguide.ai/zh), [日本語](https://www.promptingguide.ai/jp), [Português](https://www.promptingguide.ai/pt), [Turkish](https://www.promptingguide.ai/tr) and [English](https://www.promptingguide.ai/). Welcoming more translations.
 - 🎉 We have launched new web version of the guide [here](https://www.promptingguide.ai/)
 - 🎓 Partnered with Sphere to deliver a new course on [Prompt Engineering for LLMs](https://www.getsphere.com/cohorts/prompt-engineering-for-llms?source=github)
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
@@ -46,6 +46,15 @@ Please note that the guides below are now outdated. You can find the most up-to-
 - [Prompt Engineering - Tools](/pages/tools.en.mdx)
 - [Prompt Engineering - Datasets](/pages/datasets.en.mdx) 
 - [Prompt Engineering - Additional Readings](/pages/readings.en.mdx)
+
+---
+
+## Appearances
+Some places where we have been featured:
+- Wall Street Journal - [ChatGPT Can Give Great Answers. But Only If You Know How to Ask the Right Question](https://www.wsj.com/articles/chatgpt-ask-the-right-question-12d0f035)
+- Forbes - [Mom, Dad, I Want To Be A Prompt Engineer](https://www.forbes.com/sites/craigsmith/2023/04/05/mom-dad-i-want-to-be-a-prompt-engineer/?sh=7f1213159c8e)
+- Markettechpost - [Best Free Prompt Engineering Resources (2023)](https://www.marktechpost.com/2023/04/04/best-free-prompt-engineering-resources-2023/)
+
 
 ---
 If you are using the guide for your work, please cite us as follows:
