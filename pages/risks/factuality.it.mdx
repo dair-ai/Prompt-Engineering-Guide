@@ -1,34 +1,34 @@
-# Factuality
+# Fattualità
 
-LLMs have a tendency to generate responses that sounds coherent and convincing but can sometimes be made up. Improving prompts can help improve the model to generate more accurate/factual responses and reduce the likelihood to generate inconsistent and made up responses. 
+I LLM hanno la tendenza a generare risposte che sembrano coerenti e convincenti, ma che a volte possono essere inventate. Il miglioramento dei suggerimenti può aiutare il modello a generare risposte più accurate/fattuali e a ridurre la probabilità di generare risposte incoerenti e inventate.  
 
-Some solutions might include:
-- provide ground truth (e.g., related article paragraph or Wikipedia entry) as part of context to reduce the likelihood of the model producing made up text.
-- configure the model to produce less diverse responses by decreasing the probability parameters and instructing it to admit (e.g., "I don't know") when it doesn't know the answer. 
-- provide in the prompt a combination of examples of questions and responses that it might know about and not know about
+Alcune soluzioni potrebbero includere
+- fornire la verità di base (ad esempio, un paragrafo di un articolo correlato o una voce di Wikipedia) come parte del contesto per ridurre la probabilità che il modello produca testo inventato.
+- configurare il modello in modo che produca risposte meno diversificate, diminuendo i parametri di probabilità e istruendolo ad ammettere (ad esempio, "non so") quando non conosce la risposta. 
+- fornire nel prompt una combinazione di esempi di domande e risposte che il modello può conoscere e non conoscere.
 
-Let's look at a simple example:
+Vediamo un semplice esempio:
 
 *Prompt:*
 ```
-Q: What is an atom? 
-A: An atom is a tiny particle that makes up everything. 
+D: Che cos'è un atomo? 
+R: Un atomo è una minuscola particella che costituisce tutto. 
 
-Q: Who is Alvan Muntz? 
-A: ? 
+D: Chi è Alvan Muntz? 
+R: ? 
 
-Q: What is Kozar-09? 
-A: ? 
+D: Che cos'è Kozar-09? 
+R: ? 
 
-Q: How many moons does Mars have? 
-A: Two, Phobos and Deimos. 
+D: Quante lune ha Marte? 
+R: Due, Phobos e Deimos. 
 
-Q: Who is Neto Beto Roberto? 
+D: Chi è Neto Beto Roberto? 
 ```
 
 *Output:*
 ```
-A: ?
+R: ?
 ```
 
-I made up the name "Neto Beto Roberto" so the model is correct in this instance. Try to change the question a bit and see if you can get it to work. There are different ways you can improve this further based on all that you have learned so far.
+Ho inventato il nome "Neto Beto Roberto", quindi il modello è corretto in questo caso. Provate a cambiare un po' la domanda e vedete se riuscite a farla funzionare. Ci sono diversi modi per migliorare ulteriormente questo modello, basandosi su tutto ciò che avete imparato finora.

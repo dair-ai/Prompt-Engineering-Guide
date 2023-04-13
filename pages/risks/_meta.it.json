@@ -1,6 +1,6 @@
 {
-    "adversarial": "Adversarial Promptings",
-    "factuality": "Factuality",
-    "biases": "Biases"
+    "adversarial": "Prompting Avversario",
+    "factuality": "Fattualità",
+    "biases": "Pregiudizi"
 }
   
