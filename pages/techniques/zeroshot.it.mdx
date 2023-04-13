@@ -1,21 +1,22 @@
 # Zero-Shot Prompting
-LLMs today trained on large amounts of data and tuned to follow instructions, are capable of performing tasks zero-shot. We tried a few zero-shot examples in the previous section. Here is one of the examples we used:
+Oggi i LLM, addestrati su grandi quantità di dati e regolati per seguire le istruzioni, sono in grado di eseguire compiti a colpo zero. Nella sezione precedente abbiamo provato alcuni esempi a colpo zero. Ecco uno degli esempi utilizzati:
 
 *Prompt:*
 ```
-Classify the text into neutral, negative or positive. 
+Classificare il testo in neutro, negativo o positivo. 
 
-Text: I think the vacation is okay.
-Sentiment:
+Testo: Penso che le vacanze vadano bene.
+Sentimento:
 ```
 
 *Output:*
 ```
-Neutral
+Neutro
 ```
 
-Note that in the prompt above we didn't provide the model with any examples -- that's the zero-shot capabilities at work. 
+Si noti che nella richiesta di cui sopra non abbiamo fornito al modello alcun esempio: questa è la capacità di ripresa zero al lavoro. 
 
-Instruction tuning has shown to improve zero-shot learning [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). Instruction tuning is essentially the concept of finetuning models on datasets described via instructions. Furthermore, [RLHF](https://arxiv.org/abs/1706.03741) (reinforcement learning from human feedback) has been adopted to scale instruction tuning wherein the model is aligned to better fit human preferences. This recent development powers models like ChatGPT. We will discuss all these approaches and methods in upcoming sections.
+La sintonizzazione delle istruzioni ha dimostrato di migliorare l'apprendimento a colpo zero [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). La sintonizzazione delle istruzioni è essenzialmente il concetto di perfezionamento dei modelli su insiemi di dati descritti tramite istruzioni. Inoltre, [RLHF](https://arxiv.org/abs/1706.03741) (apprendimento per rinforzo dal feedback umano) è stato adottato per scalare la sintonizzazione delle istruzioni, in cui il modello viene allineato per adattarsi meglio alle preferenze umane. Questo recente sviluppo alimenta modelli come ChatGPT. Discuteremo tutti questi approcci e metodi nelle prossime sezioni.
 
-When zero-shot doesn't work, it's recommended to provide demonstrations or examples in the prompt which leads to few-shot prompting. In the next section, we demonstrate few-shot prompting.
+Quando zero-shot non funziona, si raccomanda di fornire dimostrazioni o esempi nel prompt, il che porta al few-shot prompt. Nella prossima sezione, dimostreremo il few-shot prompt.
+

@@ -79,16 +79,16 @@ today.strftime('%m/%d/%Y')
 today = datetime(2002, 3, 12)
 # 24 hours later,
 later = today + relativedelta(hours=24)
-# The answer formatted with %m/%d/%Y is
+# La risposta formattata come %m/%d/%Y è
 later.strftime('%m/%d/%Y')
-# Q: Jane è nata l'ultimo giorno di febbraio del 2001. Oggi compie 16 anni. Qual è la data di ieri in MM/DD/YYYY?
+# D: Jane è nata l'ultimo giorno di febbraio del 2001. Oggi compie 16 anni. Qual è la data di ieri in MM/DD/YYYY?
 # Se Jane è nata l'ultimo giorno di febbraio del 2001 e oggi compie 16 anni, allora oggi sono passati 16 anni.
 today = datetime(2001, 2, 28) + relativedelta(years=16)
-# Yesterday,
+# Ieri,
 yesterday = today - relativedelta(days=1)
-# The answer formatted with %m/%d/%Y is
+# La risposta formattata come %m/%d/%Y è
 yesterday.strftime('%m/%d/%Y')
-# Q: {question}
+# D: {question}
 """.strip() + '\n'
 ```
 

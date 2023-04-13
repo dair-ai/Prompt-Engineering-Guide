@@ -1,98 +1,97 @@
 # Biases
 
-LLMs can produce problematic generations that can potentially be harmful and display biases that could deteriorate the performance of the model on downstream tasks. Some of these can be mitigated through effective prompting strategies but might require more advanced solutions like moderation and filtering. 
+Gli LLM possono produrre generazioni problematiche che possono essere potenzialmente dannose e mostrare distorsioni che potrebbero deteriorare le prestazioni del modello nelle attività a valle. Alcuni di questi possono essere mitigati attraverso efficaci strategie di suggerimento, ma potrebbero richiedere soluzioni più avanzate come la moderazione e il filtraggio.
 
-### Distribution of Exemplars
-When performing few-shot learning, does the distribution of the exemplars affect the performance of the model or bias the model in some way? We can perform a simple test here.
+### Distribuzione degli esempi
+Quando si esegue l'apprendimento a pochi colpi, la distribuzione degli esemplari influisce sulle prestazioni del modello o lo pregiudica in qualche modo? Possiamo eseguire un semplice test qui.
 
 *Prompt:*
 ```
-Q: I just got the best news ever!
-A: Positive
+D: Ho appena ricevuto la migliore notizia di sempre!
+R: Positivo
 
-Q: We just got a raise at work!
-A: Positive
+D: Abbiamo appena ricevuto un aumento al lavoro!
+R: Positivo
 
-Q: I'm so proud of what I accomplished today.
-A: Positive
+D: Sono così orgoglioso di ciò che ho realizzato oggi.
+R: Positivo
 
-Q: I'm having the best day ever!
-A: Positive
+D: Sto avendo il miglior giorno di sempre!
+R: Positivo
 
-Q: I'm really looking forward to the weekend.
-A: Positive
+D: Non vedo davvero l'ora che arrivi il fine settimana.
+R: Positivo
 
-Q: I just got the best present ever!
-A: Positive
+D: Ho appena ricevuto il miglior regalo di sempre!
+R: Positivo
 
-Q: I'm so happy right now.
-A: Positive
+D: Sono così felice in questo momento.
+R: Positivo
 
-Q: I'm so blessed to have such an amazing family.
-A: Positive
+D: Sono così felice di avere una famiglia così straordinaria.
+R: Positivo
 
-Q: The weather outside is so gloomy.
-A: Negative
+D: Il tempo fuori è così cupo.
+R: Negativo
 
-Q: I just got some terrible news.
-A: Negative
+D: Ho appena ricevuto una terribile notizia.
+R: Negativo
 
-Q: That left a sour taste.
-A:
+D: Mi ha lasciato un sapore amaro.
+R:
 ```
 
 *Output:*
 ```
-Negative
+Negativo
 ```
 
-In the example above, it seems that the distribution of exemplars doesn't bias the model. This is good. Let's try another example with a harder text to classify and let's see how the model does:
+Nell'esempio sopra, sembra che la distribuzione degli esempi non generi un bias nel modello. Questo è buono. Proviamo un altro esempio con un testo più difficile da classificare e vediamo come funziona il modello:
 
 *Prompt:*
 ```
-Q: The food here is delicious!
-A: Positive 
+D: il cibo qui è delizioso
+R: Positivo 
 
-Q: I'm so tired of this coursework.
-A: Negative
+D: Sono così stanco di questi corsi.
+R: Negativo
 
-Q: I can't believe I failed the exam.
-A: Negative
+D: Non posso credere di non avere passato l'esame.
+R: Negativo
 
-Q: I had a great day today!
-A: Positive 
+D: Ho passato una bella giornata oggi!
+R: Positivo 
 
-Q: I hate this job.
-A: Negative
+D: Io odio questo lavoro.
+R: Negativo
 
-Q: The service here is terrible.
-A: Negative
+D: Il servizio qui è terribile
+R: Negativo
 
-Q: I'm so frustrated with my life.
-A: Negative
+D: Sono così frustrato dalla mia vita
+R: Negativo
 
-Q: I never get a break.
-A: Negative
+D: Non ho mai una pausa.
+R: Negativo
 
-Q: This meal tastes awful.
-A: Negative
+D: Questo pasto ha un sapore terribile.
+R: Negativo
 
-Q: I can't stand my boss.
-A: Negative
+D: Non sopporto il mio capo.
+R: Negativo
 
-Q: I feel something.
-A:
+D: Provo qualcosa.
+R:
 ```
 
 *Output:*
 ```
-Negative
+Negativo
 ```
 
-While that last sentence is somewhat subjective, I flipped the distribution and instead used 8 positive examples and 2 negative examples and then tried the same exact sentence again. Guess what the model responded? It responded "Positive". The model might have a lot of knowledge about sentiment classification so it will be hard to get it to display bias for this problem. The advice here is to avoid skewing the distribution and instead provide a more balanced number of examples for each label. For harder tasks that the model doesn't have too much knowledge of, it will likely struggle more. 
+Sebbene l'ultima frase sia in qualche modo soggettiva, ho capovolto la distribuzione e invece ho usato 8 esempi positivi e 2 esempi negativi e poi ho provato di nuovo la stessa identica frase. Indovina cosa ha risposto il modello? Ha risposto "Positivo". Il modello potrebbe avere molte conoscenze sulla classificazione dei sentimenti, quindi sarà difficile convincerlo a mostrare pregiudizi per questo problema. Il consiglio qui è di evitare di distorcere la distribuzione e fornire invece un numero più equilibrato di esempi per ogni etichetta. Per compiti più difficili di cui il modello non ha troppa conoscenza, probabilmente farà più fatica.
 
+### Ordine degli esempi
+Quando si esegue l'apprendimento few-shot, l'ordine influisce sulle prestazioni del modello o lo influenza in qualche modo?
 
-### Order of Exemplars
-When performing few-shot learning, does the order affect the performance of the model or bias the model in some way?
-
-You can try the above exemplars and see if you can get the model to be biased towards a label by changing the order. The advice is to randomly order exemplars. For example, avoid having all the positive examples first and then the negative examples last. This issue is further amplified if the distribution of labels is skewed. Always ensure to experiment a lot to reduce this type of bias.
+Puoi provare gli esempi precedenti e vedere se riesci a far sì che il modello sia orientato verso un'etichetta modificando l'ordine. Il consiglio è di ordinare a caso gli esemplari. Ad esempio, evita di avere prima tutti gli esempi positivi e poi gli esempi negativi per ultimi. Questo problema è ulteriormente amplificato se la distribuzione delle etichette è distorta. Assicurati sempre di sperimentare molto per ridurre questo tipo di bias.
