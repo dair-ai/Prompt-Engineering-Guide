@@ -1,0 +1,110 @@
+# Consejos generales para diseñar prompt
+
+
+Aquí hay algunos consejos a tener en cuenta mientras diseña sus prompts:
+
+
+### Comience simple
+Al empezar a diseñar tus prompt, debe tener en cuenta que es un proceso iterativo que requiere mucha experimentación para obtener resultados óptimos. Usar un lugar de pruebas simple como OpenAI o Cohere es un buen punto de partida.
+
+Puede comenzar con prompt simples y seguir agregando más elementos y contexto a medida que busca mejores resultados. La versión de su instrucción a lo largo del camino es vital por esta razón. A medida que lea la guía, verá muchos ejemplos en los que la especificidad, la simplicidad y la concisión a menudo le darán mejores resultados.
+
+Cuando tiene una gran tarea que involucra muchas sub-tareas diferentes, puede intentar descomponer la tarea en sub-tareas más simples y seguir construyendo a medida que obtiene mejores resultados. Esto evita agregar demasiada complejidad al proceso de diseño de la instrucción al principio.
+
+### La Instrucción
+Puede diseñar instrucciones efectivas para varias tareas simples mediante comandos para instruir al modelo en lo que desea lograr, como "Escribir", "Clasificar", "Resumir", "Traducir", "Ordenar", etc.
+
+Tenga en cuenta que también necesita experimentar mucho para ver qué funciona mejor. Pruebe diferentes instrucciones con diferentes palabras clave, contextos y datos, y vea qué funciona mejor para su caso de uso y tarea en particular. Por lo general, cuanto más específico y relevante sea el contexto para la tarea que está intentando realizar, mejor será. Abordaremos la importancia de muestreo y la adición de más contexto en las guías próximas.
+
+Otros recomiendan que las instrucciones se coloquen al principio de la instrucción. También se recomienda que se use un separador claro como "###" para separar la instrucción y el contexto.
+
+For instance:
+
+*Prompt:*
+```
+### Instrucción ###
+Traduzca el siguiente texto al español:
+
+Text: "hello!"
+```
+
+*Resultado:*
+```
+¡Hola!
+```
+
+### Especificidad
+Sea muy específico acerca de la instrucción y la tarea que desea que realice el modelo. Cuanto más descriptivo y detallado sea el conjunto de instrucciones, mejores serán los resultados. Esto es particularmente importante cuando tiene un resultado deseado o un estilo de generación que está buscando. No hay tokens o palabras clave específicas que conduzcan a mejores resultados. Es más importante tener un formato y un prompt descriptivo y claro. De hecho, proporcionar ejemplos en el prompt es muy efectivo para obtener la salida deseada en formatos específicos.
+
+Al diseñar prompts, también debe tener en cuenta la longitud de las mismas, ya que existen limitaciones con respecto a cuánto pueden ser. Pensar en cuán específico y detallado debe ser es algo a considerar. Incluir demasiados detalles innecesarios no es necesariamente una buena estrategia. Los detalles deben ser relevantes y contribuir a la tarea en cuestión. Esto es algo en lo que tendrá que experimentar mucho. Alentamos mucha experimentación e iteración para optimizar las instrucciones para sus aplicaciones.
+
+Como ejemplo, intentemos un prompt simple para extraer información específica de un fragmento de texto.
+
+*Prompt:*
+```
+Extraiga el nombre de los lugares del texto siguiente. 
+
+Formato deseado:
+Lugar: <lista_separada_por_comas_de_nombres_de_empresa>
+
+input: "Aunque estos avances son alentadores para los investigadores, muchas cosas siguen siendo un misterio. "A menudo tenemos una caja negra entre el cerebro y el efecto que vemos en la periferia", afirma Henrique Veiga-Fernandes, neuroinmunólogo del Centro Champalimaud para lo Desconocido de Lisboa. "Si queremos utilizarlo en el contexto terapéutico, tenemos que entender realmente el mecanismo".
+```
+
+*Salida:*
+```
+Lugar de celebración: Centro Champalimaud para lo Desconocido, Lisboa
+```
+
+El texto de entrada se obtiene de [este artículo de Nature](https://www.nature.com/articles/d41586-023-00509-z).
+
+### Evite la imprecisión
+
+Dadas las recomendaciones anteriores sobre ser detallado y mejorar el formato, es fácil caer en la trampa de querer ser demasiado ingenioso sobre las instrucciones y potencialmente crear descripciones imprecisas. A menudo es mejor ser específico y directo. La analogía aquí es muy similar a la comunicación efectiva: cuanto más directo, más efectivo es el mensaje transmitido.
+
+Por ejemplo, si estuviera interesado en aprender el concepto de ingeniería de "prompts", podría intentar algo como:
+
+```
+Explique el concepto de ingeniería de "prompts". Mantenga la explicación breve, solo unas pocas frases, y no sea demasiado descriptivo.
+```
+
+No está claro en la instrucción anterior cuántas frases usar y qué estilo. Todavía se podrían obtener respuestas adecuadas con las instrucciones anteriores, pero una instrucción mejor sería una que sea muy específica, concisa y directa. Algo como:
+
+```
+Use 2-3 frases para explicar el concepto de ingeniería de "prompts" a un estudiante de secundaria.
+
+```
+
+### ¿Hacer o no hacer?
+Otro consejo común al diseñar "prompts" es evitar decir qué no hacer y decir qué hacer en su lugar. Esto fomenta más especificidad y se enfoca en los detalles que conducen a buenas respuestas del modelo.
+
+Aquí hay un ejemplo de un chatbot de recomendaciones de películas que falla exactamente en lo que no quiero que haga debido a cómo escribí la instrucción: enfocándose en lo que no debe hacer.
+
+*Prompt:*
+```
+El siguiente es un agente que recomienda películas a un cliente. NO PIDA INTERESES. NO PIDA INFORMACIÓN PERSONAL.
+
+Cliente: Por favor, recomiéndeme una película basada en mis intereses.
+Agente: 
+```
+
+*Salida:*
+```
+Claro, puedo recomendar una película basada en sus intereses. ¿Qué tipo de película te gustaría ver? ¿Prefieres acción, comedia, romance o algo más?
+```
+
+Aquí hay un mejor prompt:
+
+*Prompt:*
+```
+El siguiente es un agente que recomienda películas a un cliente. El agente es responsable de recomendar una película de las películas más populares a nivel mundial. Debe abstenerse de pedir a los usuarios sus preferencias y evitar pedir información personal. Si el agente no tiene una película para recomendar, debe responder "Lo siento, no pude encontrar una película para recomendar hoy".
+
+Cliente: Por favor, recomiéndeme una película basada en mis intereses.
+Agente:
+```
+
+*Salida:*
+```
+Lo siento, no tengo información sobre tus intereses. Sin embargo, aquí está una lista de las películas más populares a nivel mundial en este momento: [lista de películas]. ¡Espero que encuentres algo que te guste!
+```
+
+Algunos de los ejemplos anteriores se adoptaron del artículo ["Mejores prácticas para la ingeniería de prompts con la API de OpenAI.](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)

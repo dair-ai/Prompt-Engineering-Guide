@@ -1,0 +1,116 @@
+# Fundamentos de la creación de promtps
+
+## Prompts básicos
+
+Puede lograr mucho con promtps simples, pero la calidad de los resultados depende de la cantidad de información que proporcione y de cómo esté diseñado. Un prompt puede contener información como la instrucción o pregunta que se está pasando al modelo, y también otros detalles como contexto, entradas, o ejemplos. Estos elementos pueden utilizarse para instruir mejor al modelo y, como resultado, obtener mejores resultados.
+
+Comencemos repasando un ejemplo básico de un prompt simple:
+
+
+*Prompt*
+```
+El cielo es
+
+```
+
+*Output:*
+```
+azul
+
+El cielo es azul en un día claro. En un día nublado, el cielo puede ser gris o blanco.
+```
+Como puede ver, el modelo de lenguaje produce una continuación de cadenas que tienen sentido dado el contexto `"El cielo es"`. El resultado puede ser inesperado o estar lejos de la tarea que queremos lograr.
+
+Este ejemplo básico también destaca la necesidad de proporcionar más contexto o instrucciones sobre lo que queremos lograr específicamente.
+
+Intentemos mejorarlo un poco:
+
+
+*Prompt:*
+```
+Completa la frase:
+
+El cielo es
+```
+
+*Output:*
+
+```
+tan hermoso hoy.
+```
+
+¿Es mejor? Bueno, le dijimos al modelo que completara la frase, por lo que el resultado se ve mucho mejor ya que sigue exactamente lo que le dijimos que hiciera ("completar la frase"). Este enfoque de diseñar prompts óptimos para instruir al modelo para realizar una tarea es lo que se conoce como **ingeniería de prompts.**. 
+
+El ejemplo anterior es una ilustración básica de lo que es posible con los LLMs (modelos de lenguaje a gran escala) hoy en día. Los LLMs actuales pueden realizar todo tipo de tareas avanzadas que van desde la resumen de textos hasta el razonamiento matemático y la generación de código.
+
+## Formato de los prompts
+
+Hemos probado un prompt muy simple anteriormente. Un prompt estándar tiene el siguiente formato:
+
+```
+<Pregunta>?
+```
+
+o 
+
+```
+<Instrucción>
+```
+ 
+Esto puede formatearse en un formato de pregunta y respuesta (QA), que es estándar en muchos conjuntos de datos de preguntas y respuestas, de la siguiente manera:
+
+```
+P: <Pregunta>?
+R: 
+```
+
+Cuando se utiliza un prompt como el anterior, también se le llama zero-shot prompting (solicitud sin entrenamiento), es decir, se solicita directamente al modelo una respuesta sin ejemplos ni demostraciones sobre la tarea que se desea realizar. Algunos modelos de lenguaje a gran escala sí tienen la capacidad de realizar zero-shot prompting, pero depende de la complejidad y el conocimiento de la tarea en cuestión.
+
+Dado el formato estándar anterior, una técnica popular y efectiva para la creación de prompts es la conocida como few-shot prompting (solicitud con pocos ejemplos), en la que se proporcionan ejemplos (es decir, demostraciones). Los prompts de few-shot se pueden formatear de la siguiente manera:
+
+```
+<Pregunta>?
+<Respuesta>
+
+<Pregunta>?
+<Respuesta>
+
+<Pregunta>?
+<Respuesta>
+
+<Pregunta>?
+
+```
+
+La versión de formato QA se vería así:
+
+```
+P: <Pregunta>?
+R: <Respuesta>
+
+P: <Pregunta>?
+R: <Respuesta>
+
+P: <Pregunta>?
+R: <Respuesta>
+
+P: <Pregunta>?
+R:
+```
+
+Tenga en cuenta que no es necesario utilizar el formato de pregunta y respuesta. El formato del prompt depende de la tarea en cuestión. Por ejemplo, se puede realizar una tarea de clasificación simple y proporcionar ejemplos que demuestren la tarea de la siguiente manera:
+
+*Prompt:*
+```
+Esto es genial! // Positivo
+Esto es malo! // Negativo
+¡Wow, esa película fue genial! // Positivo
+¡Qué horrible programa de televisión! //
+```
+
+*Output:*
+```
+Negativo
+```
+
+Los prompts de pocos disparos permiten el aprendizaje en contexto, que es la capacidad de los modelos de lenguaje para aprender tareas dadas unas pocas demostraciones.

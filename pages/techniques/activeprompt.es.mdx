@@ -1,0 +1,12 @@
+# Activo-Prompt
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ACTIVE from '../../img/active-prompt.png'
+
+Los métodos de cadena de pensamiento (CoT) dependen de un conjunto fijo de ejemplos anotados por humanos. El problema con esto es que los ejemplos pueden no ser los más efectivos para diferentes tareas. Para abordar esto, [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf) propusieron recientemente un nuevo enfoque de preguntas llamado Active-Prompt para adaptar los LLM a diferentes preguntas específicas de la tarea (anotadas con razonamiento CoT diseñado por humanos).
+
+A continuación se ilustra el enfoque. El primer paso es consultar al LLM con o sin algunos ejemplos de CoT. Se generan k posibles respuestas para un conjunto de preguntas de entrenamiento. Se calcula una métrica de incertidumbre basada en las k respuestas (se utiliza desacuerdo). Se seleccionan las preguntas más inciertas para ser anotadas por humanos. Los nuevos ejemplos anotados se utilizan entonces para inferir cada pregunta.
+
+<Screenshot src={ACTIVE} alt="ACTIVE" />
+Image Source: [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf)

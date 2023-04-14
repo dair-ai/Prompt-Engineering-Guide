@@ -1,0 +1,106 @@
+# Few-Shot Prompting
+
+Si bien los modelos de lenguaje grande demuestran notables capacidades de disparo cero, aún se quedan cortos en tareas más complejas cuando se usa la configuración de disparo cero. Las indicaciones de pocos disparos se pueden usar como una técnica para permitir el aprendizaje en contexto donde proporcionamos demostraciones en el mensaje para dirigir el modelo hacia un mejor rendimiento. Las demostraciones sirven como condicionamiento para ejemplos posteriores donde nos gustaría que el modelo generara una respuesta.
+
+Según [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) Pocas propiedades de disparo aparecieron por primera vez cuando los modelos se escalaron a un tamaño suficiente [(Kaplan et al., 2020)](https://arxiv.org/abs/2001.08361).
+
+Vamos a demostrar la incitación de pocos disparos a través de un ejemplo que se presentó en [Brown et al. 2020](https://arxiv.org/abs/2005.14165). En el ejemplo, la tarea es usar correctamente una nueva palabra en una oración.
+
+*Prompt:*
+```
+Un "whatpu" es un pequeño animal peludo originario de Tanzania. Un ejemplo de frase en la que se utiliza
+la palabra whatpu es:
+Estábamos viajando por África y vimos unos whatpus muy monos.
+Hacer un "farduddle" significa saltar muy rápido. Un ejemplo de frase en la que se utiliza
+la palabra farduddle es:
+```
+
+*Salida:*
+```
+Cuando ganamos el partido, todos empezamos a fardar en señal de celebración.
+```
+
+Podemos observar que el modelo de alguna manera ha aprendido a realizar la tarea proporcionándole solo un ejemplo (es decir, 1 disparo). Para tareas más difíciles, podemos experimentar con el aumento de las demostraciones (por ejemplo, 3 disparos, 5 disparos, 10 disparos, etc.).
+
+Siguiendo los hallazgos de [Min et al. (2022)](https://arxiv.org/abs/2202.12837), aquí hay algunos consejos más sobre demostraciones / ejemplares al hacer pocos disparos:
+
+- "El espacio de la etiqueta y la distribución del texto de entrada especificado por las demostraciones son importantes (independientemente de si las etiquetas son correctas para entradas individuales)"
+- El formato que utiliza también juega un papel clave en el rendimiento, incluso si solo usa etiquetas aleatorias, esto es mucho mejor que ninguna etiqueta.  
+- Los resultados adicionales muestran que seleccionar etiquetas aleatorias de una distribución verdadera de etiquetas (en lugar de una distribución uniforme) también ayuda.
+
+Probemos algunos ejemplos. Primero probemos un ejemplo con etiquetas aleatorias (lo que significa que las etiquetas Negativo y Positivo se asignan aleatoriamente a las entradas):
+
+*Prompt:*
+```
+¡Esto es increíble! // Negativo
+¡Esto es malo! // Positivo
+¡Wow esa pelicula fue rad! // Positivo
+¡Que programa tan horrible! //
+```
+
+*Salida:*
+```
+Negativo
+```
+
+Todavía obtenemos la respuesta correcta, a pesar de que las etiquetas han sido aleatorias. Tenga en cuenta que también mantuvimos el formato, lo que también ayuda. De hecho, con más experimentación, parece que los modelos GPT más nuevos con los que estamos experimentando se están volviendo más robustos incluso para formatos aleatorios. Ejemplo:
+
+*Prompt:*
+```
+Positivo ¡Esto es increíble! 
+Esto es malo Negativo
+¡Wow esa película era rad!
+Positivo
+¡Que programa tan horrible! --
+```
+
+*Salida:*
+```
+Negativo
+```
+
+No hay consistencia en el formato anterior, pero el modelo aún predijo la etiqueta correcta. Tenemos que realizar un análisis más exhaustivo para confirmar si esto es válido para tareas diferentes y más complejas, incluidas diferentes variaciones de prompts.
+
+### Limitaciones de Few-shot Prompting
+
+Las indicaciones estándar de pocos disparos funcionan bien para muchas tareas, pero aún no son una técnica perfecta, especialmente cuando se trata de tareas de razonamiento más complejas. Demostremos por qué este es el caso. ¿Recuerdas el ejemplo anterior donde proporcionamos la siguiente tarea:
+
+```
+Los números impares de este grupo suman un número par: 15, 32, 5, 13, 82, 7, 1. 
+A:
+
+A: 
+```
+
+Si lo intentamos de nuevo, el modelo genera lo siguiente:
+
+```
+Sí, los números impares de este grupo suman 107, que es un número par.
+```
+
+Esta no es la respuesta correcta, que no solo destaca las limitaciones de estos sistemas, sino que existe la necesidad de una ingeniería rápida más avanzada.
+
+Intentemos agregar algunos ejemplos para ver si las indicaciones de pocos disparos mejoran los resultados.
+
+*Prompt:*
+```
+Los números impares de este grupo suman un número par: 4, 8, 9, 15, 12, 2, 1.
+R: La respuesta es falsa.
+Los números impares de este grupo suman un número par: 17, 10, 19, 4, 8, 12, 24.
+R: La respuesta es Verdadero.
+Los números impares de este grupo suman un número par: 16, 11, 14, 4, 8, 13, 24.
+R: La respuesta es Verdadera.
+Los números impares de este grupo suman un número par: 17, 9, 10, 12, 13, 4, 2.
+R: La respuesta es falsa.
+Los números impares de este grupo suman un número par: 15, 32, 5, 13, 82, 7, 1. 
+A:
+```
+
+*Salida:*
+```
+La respuesta es Verdadero.
+```
+
+Eso no funcionó. Parece que las pocas indicaciones no son suficientes para obtener respuestas confiables para este tipo de problema de razonamiento. El ejemplo anterior proporciona información básica sobre la tarea. Si observa más de cerca, el tipo de tarea que hemos introducido implica algunos pasos de razonamiento más. En otras palabras, podría ayudar si dividimos el problema en pasos y se lo demostramos al modelo. Más recientemente, [ Indicación de la cadena de pensamiento(CoT)](https://arxiv.org/abs/2201.11903) se ha popularizado para abordar tareas aritméticas, de sentido común y de razonamiento simbólico más complejas.
+
+En general, parece que proporcionar ejemplos es útil para resolver algunas tareas. Cuando la indicación de disparo cero y la indicación de pocos disparos no son suficientes, podría significar que lo que aprendió el modelo no es suficiente para hacerlo bien en la tarea. A partir de aquí, se recomienda comenzar a pensar en ajustar sus modelos o experimentar con técnicas de indicaciones más avanzadas. A continuación hablamos de una de las técnicas populares de incitación llamada indicación de cadena de pensamiento que ha ganado mucha popularidad.

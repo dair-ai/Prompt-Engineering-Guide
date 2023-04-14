@@ -1,0 +1,11 @@
+# Configuración de LLM
+
+Al trabajar con prompts, interactuarás con LLM a través de una API o directamente. Puedes configurar algunos parámetros para obtener diferentes resultados en tus prompts.
+
+**Temperatura** - En resumen, cuanto menor sea la "temperatura", más determinísticos serán los resultados en el sentido de que siempre se elegirá el token siguiente más probable. Aumentar la temperatura podría conducir a una mayor aleatoriedad, fomentando producciones más diversas o creativas. Básicamente, estamos aumentando el peso de los otros tokens posibles. En términos de aplicación, podríamos querer utilizar un valor de temperatura más bajo para tareas como preguntas y respuestas basadas en hechos, para fomentar respuestas más factuales y concisas. Para la generación de poemas u otras tareas creativas, podría ser beneficioso aumentar el valor de la temperatura.
+
+**Top_p** - De manera similar, con `top_p`, una técnica de muestreo con temperatura llamada "nucleus sampling", puedes controlar qué tan determinista es el modelo al generar una respuesta. Si buscas respuestas exactas y factuales, mantén este valor bajo. Si buscas respuestas más diversas, aumenta el valor.
+
+La recomendación general es cambiar solo uno, no ambos.
+
+Antes de empezar con algunos ejemplos básicos, ten en cuenta que tus resultados pueden variar dependiendo de la versión de LLM que estés utilizando.

@@ -1,0 +1,85 @@
+# Generated Knowledge Prompting
+
+import {Screenshot} from 'components/screenshot'
+import GENKNOW from '../../img/gen-knowledge.png'
+
+<Screenshot src={GENKNOW} alt="GENKNOW" />
+
+Fuente de la imagen: [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf)
+
+Los LLM continúan mejorándose y una técnica popular incluye la capacidad de incorporar conocimiento o información para ayudar al modelo a hacer predicciones más precisas.
+
+Usando una idea similar, ¿se puede usar el modelo también para generar conocimiento antes de hacer una predicción? Eso es lo que se intenta en el documento por [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf) -- generar conocimiento para ser utilizado como parte del mensaje. En particular, ¿qué tan útil es esto para tareas como el razonamiento de sentido común?
+
+Probemos un mensaje simple:
+
+*Prompt:*
+```
+Parte del golf consiste en intentar conseguir un total de puntos superior al de los demás. ¿Sí o no?
+```
+
+*Salida:*
+```
+Si.
+```
+
+Este tipo de error revela las limitaciones de los LLM para realizar tareas que requieren más conocimiento sobre el mundo. ¿Cómo podemos mejorar esto con la generación de conocimiento?
+
+Primero, generamos algunos "conocimientos":
+
+*Prompt:*
+```
+Entrada: Grecia es más grande que México.
+Conocimiento: Grecia tiene aproximadamente 131,957 km2, mientras que México tiene aproximadamente 1,964,375 km2, por lo que México es 1,389% más grande que Grecia.
+Entrada: Las gafas siempre se empañan.
+Conocimiento: La condensación se produce en las lentes de las gafas cuando el vapor de agua de tu sudor, aliento y humedad ambiental cae sobre una superficie fría, se enfría y se convierte en pequeñas gotas de líquido, formando una película que ves como vaho. Tus lentes estarán relativamente frías en comparación con tu aliento, especialmente cuando el aire exterior es frío.
+Entrada: Un pez es capaz de pensar.
+Conocimiento: Los peces son más inteligentes de lo que parece. En muchas áreas, como la memoria, sus facultades cognitivas igualan o superan las de los vertebrados "superiores", incluidos los primates no humanos. La memoria a largo plazo de los peces les ayuda a seguir las complejas relaciones sociales.
+Entrada: Un efecto común de fumar muchos cigarrillos a lo largo de la vida es una probabilidad superior a la normal de contraer cáncer de pulmón.
+Conocimiento: Las personas que fumaron una media de menos de un cigarrillo al día durante toda su vida tenían nueve veces más riesgo de morir de cáncer de pulmón que los que nunca fumaron. Entre las personas que fumaban entre uno y 10 cigarrillos al día, el riesgo de morir de cáncer de pulmón era casi 12 veces mayor que el de los nunca fumadores.
+Entrada: Una roca tiene el mismo tamaño que un guijarro.
+Conocimiento: Un guijarro es un fragmento de roca con un tamaño de partícula de 4 a 64 milímetros según la escala Udden-Wentworth de sedimentología. Los guijarros se consideran generalmente más grandes que los gránulos (de 2 a 4 milímetros de diámetro) y más pequeños que los cantos rodados (de 64 a 256 milímetros de diámetro).
+Entrada: Parte del golf consiste en intentar conseguir un total de puntos superior al de los demás.
+Conocimiento:
+```
+
+*Conocimiento 1:*
+```
+El objetivo del golf es jugar un conjunto de hoyos en el menor número de golpes. Un partido de golf suele constar de 18 hoyos. Cada hoyo se juega una vez en la ronda en un campo de golf estándar. Cada golpe se cuenta como un punto, y el número total de golpes se utiliza para determinar el ganador de la partida.
+```
+
+*Conocimiento 2:*
+```
+El golf es un deporte de precisión con palos y pelotas en el que los jugadores (o golfistas) que compiten utilizan muchos tipos de palos para golpear pelotas en una serie de hoyos de un campo utilizando el menor número de golpes. El objetivo es completar el recorrido con la puntuación más baja, que se calcula sumando el número total de golpes realizados en cada hoyo. El jugador con la puntuación más baja gana la partida.
+```
+
+Estamos utilizando el paper proporcionado en el documento por [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf).
+
+El siguiente paso es integrar el conocimiento y obtener una predicción. Reformateé la pregunta en formato QA para guiar el formato de respuesta.
+
+*Prompt:*
+```
+Pregunta: Parte del golf consiste en intentar conseguir un total de puntos superior al de los demás. ¿Sí o no?
+Conocimientos: El objetivo del golf es jugar un conjunto de hoyos en el menor número de golpes. Una ronda de golf suele constar de 18 hoyos. Cada hoyo se juega una vez en la ronda en un campo de golf estándar. Cada golpe se cuenta como un punto, y el número total de golpes se utiliza para determinar el ganador de la partida.
+
+Explique y responda:
+```
+
+*Respuesta 1 (confianza muy alta):*
+```
+No, el objetivo del golf no es conseguir un total de puntos superior al de los demás. Más bien, el objetivo es jugar un conjunto de hoyos en el menor número de golpes. El número total de golpes se utiliza para determinar el ganador del juego, no el número total de puntos.
+```
+
+```
+Pregunta: Parte del golf consiste en intentar conseguir un total de puntos superior al de los demás. ¿Sí o no?
+Conocimientos: El golf es un deporte de precisión con palos y pelotas en el que los jugadores (o golfistas) que compiten utilizan muchos tipos de palos para golpear pelotas en una serie de hoyos de un campo utilizando el menor número de golpes. El objetivo es completar el recorrido con la puntuación más baja, que se calcula sumando el número total de golpes realizados en cada hoyo. El jugador con la puntuación más baja gana la partida.
+
+Explique y responda:
+```
+
+*Respuesta 2 (la confianza es mucho menor):*
+```
+Sí, parte del golf consiste en intentar conseguir un total de puntos superior al de los demás. Cada jugador intenta completar el recorrido con la puntuación más baja, que se calcula sumando el número total de golpes realizados en cada hoyo. El jugador con la puntuación más baja gana la partida.
+```
+
+Algunas cosas realmente interesantes sucedieron con este ejemplo. En la primera respuesta, el modelo tenía mucha confianza, pero en la segunda no tanto. Simplifico el proceso con fines de demostración, pero hay algunos detalles más a considerar al llegar a la respuesta final. Echa un vistazo al periódico para obtener más información.
