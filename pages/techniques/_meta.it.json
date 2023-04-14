@@ -1,14 +1,14 @@
 {
-    "zeroshot": "Zero-shot Prompting",
-    "fewshot": "Few-shot Prompting",
-    "cot": "Chain-of-Thought Prompting",
+    "zeroshot": "Prompt Zero-shot",
+    "fewshot": "Prompt Few-shot",
+    "cot": "Prompt Chain-of-Thought",
     "consistency": "Self-Consistency",
-    "knowledge": "Generate Knowledge Prompting",
+    "knowledge": "Prompt Generate Knowledge",
     "ape": "Automatic Prompt Engineer",
     "activeprompt": "Prompt Attivo",
-    "dsp": "Directional Stimulus Prompting",
+    "dsp": "Prompt Directional Stimulus",
     "react": "ReAct",
     "multimodalcot": "Multimodal CoT",
-    "graph": "Graph Prompting"
+    "graph": "Graph Prompt"
 }
   
