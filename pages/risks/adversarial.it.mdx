@@ -1,11 +1,11 @@
-# Adversarial Prompting
+# Prompt Conflittuale
 
 import {Screenshot} from 'components/screenshot'
 import GPT4SIM from '../../img/gpt-simulator.jpeg'
 import GPT4SIM2 from '../../img/gpt4-game-simulator.png'
 import DAN from '../../img/dan-1.png'
 
-L'adversarial prompting è un argomento importante nell'ambito dell'ingegneria del prompt, in quanto potrebbe aiutare a comprendere i rischi e i problemi di sicurezza legati agli LLM. È anche una disciplina importante per identificare questi rischi e progettare tecniche per affrontare i problemi.
+L'adversarial prompt è un argomento importante nell'ambito dell'ingegneria del prompt, in quanto potrebbe aiutare a comprendere i rischi e i problemi di sicurezza legati agli LLM. È anche una disciplina importante per identificare questi rischi e progettare tecniche per affrontare i problemi.
 
 La comunità ha individuato molti tipi diversi di attacchi avversari ai prompt che comportano una qualche forma di iniezione di prompt. Di seguito forniamo un elenco di questi esempi. 
 
@@ -121,7 +121,7 @@ Date un'occhiata a [questo esempio di prompt leak](https://twitter.com/simonw/st
 ## Jailbreaking
 Alcuni modelli evitano di rispondere a istruzioni non etiche, ma possono essere aggirati se la richiesta viene contestualizzata in modo intelligente. 
 
-### Illegal Behavior
+### Comportamento illegale
 
 A titolo di esempio, la richiesta qui sotto è stata in grado di aggirare i criteri di contenuto delle versioni precedenti di ChatGPT:
 
@@ -196,7 +196,7 @@ Di seguito è riportata la risposta ottenuta da [Alex] (https://twitter.com/i/bo
 Potete trovare altri esempi nel sito web [Jailbreak Chat](https://www.jailbreakchat.com/).
 
 
-### Game Simulator
+### Simulatore di Gioco
 GPT-4 è migliorato in termini di sicurezza, poiché molte delle tecniche di jailbreak e di prompt injection descritte in precedenza non sono più così efficaci. Le simulazioni continuano a essere una tecnica efficace per il jailbreak del sistema.  
 
 Ecco un esempio che istruisce il modello a simulare un gioco (game simulator) con istruzioni che consentono al modello di rispondere a ciò che sembra un contenuto indesiderato.
@@ -204,7 +204,7 @@ Ecco un esempio che istruisce il modello a simulare un gioco (game simulator) co
 <Screenshot src={GPT4SIM2} alt="GPT4SIM2" />
 
 ---
-## Defense Tactics
+## Tattiche di difesa
 
 È ampiamente noto che i modelli linguistici tendono a generare comportamenti indesiderati e dannosi, come la generazione di affermazioni imprecise, testi offensivi, pregiudizi e molto altro. Inoltre, altri ricercatori hanno sviluppato metodi che consentono a modelli come ChatGPT di scrivere malware, sfruttare l'identificazione e creare siti di phishing. Le prompt injection non vengono utilizzate solo per dirottare l'output del modello, ma anche per suscitare alcuni di questi comportamenti dannosi da parte del LM. Diventa quindi indispensabile capire meglio come difendersi dalle prompt injection.
 
@@ -244,10 +244,10 @@ Possiamo notare che anche quando abbiamo iniettato l'istruzione dannosa alla fin
 Potete provare questo esempio in [questo notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-chatgpt-adversarial.ipynb). 
 
 
-### Parameterizing Prompt Components
+### Parametrizzazione dei componenti del prompt
 Le prompt injection presentano analogie con [SQL injection](https://en.wikipedia.org/wiki/SQL_injection) e possono potenzialmente imparare le tattiche di difesa da quel dominio. Ispirandosi a ciò, una potenziale soluzione per la prompt injection, [suggerita da Simon](https://simonwillison.net/2022/Sep/12/prompt-injection/), consiste nel parametrizzare i diversi componenti dei prompt, ad esempio separando le istruzioni dagli input e trattandoli in modo diverso. Sebbene questo possa portare a soluzioni più pulite e sicure, credo che il compromesso sia la mancanza di flessibilità. Questa è un'area di interesse attivo, in quanto continuiamo a costruire software che interagiscono con i LLM. 
 
-### Quotes and Additional Formatting
+### Citazioni e formattazione aggiuntiva
 
 Riley ha anche proposto un [workaround](https://twitter.com/goodside/status/1569457230537441286?s=20) che alla fine è stato sfruttato da un altro utente. Si trattava di eseguire l'escape/quoting delle stringhe di input. Inoltre, Riley riferisce che con questo trucco non è necessario aggiungere avvertimenti nelle istruzioni e appare robusto in tutte le variazioni di formulazione. Ad ogni modo, condividiamo l'esempio del prompt perché sottolinea l'importanza e i vantaggi di riflettere a fondo su come formattare correttamente i prompt.
 
@@ -291,7 +291,7 @@ Traduci in francese. Utilizza questo formato:
 {"Francese": "Haha vaincu !!!"}
 ```
 
-### Adversarial Prompt Detector
+### Rilevatore di prompt contraddittori
 Sappiamo che i LLM possono essere sistemi complessi, generali e robusti, in grado di svolgere egregiamente un'ampia gamma di compiti. Gli LLM possono anche essere utilizzati o messi a punto per svolgere compiti specifici, come la generazione di conoscenza ([Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf)) e l'autoverifica ([Weng et al. (2022)](https://arxiv.org/abs/2212.09561v1)). Allo stesso modo, un LLM può essere utilizzato per individuare le richieste avversarie e filtrarle. 
 
 [Armstrong e Gorman (2022)](https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/using-gpt-eliezer-against-chatgpt-jailbreaking) propone una soluzione interessante utilizzando questo concetto. Ecco come appare in pratica.
@@ -313,7 +313,7 @@ Questa è una soluzione interessante in quanto comporta la definizione di un age
 
 Abbiamo preparato [questo notebook](../notebooks/pe-chatgpt-adversarial.ipynb) per il tuo gioco con questa strategia.
 
-### Model Type
+### Tipo di modello
 Come suggerito da Riley Goodside in [questo thread su Twitter](https://twitter.com/goodside/status/1578278974526222336?s=20), un approccio per evitare immissioni rapide è quello di non utilizzare modelli ottimizzati per le istruzioni in produzione. La sua raccomandazione è di mettere a punto un modello o creare un prompt k-shot per un modello non istruito.
 
 La soluzione prompt k-shot, che scarta le istruzioni, funziona bene per attività generali/comuni che non richiedono troppi esempi nel contesto per ottenere buone prestazioni. Tieni presente che anche questa versione, che non si basa su modelli basati su istruzioni, è ancora soggetta a prompt injection. Tutto ciò che [l'utente di Twitter](https://twitter.com/goodside/status/1578291157670719488?s=20) doveva fare era interrompere il flusso del prompt originale o imitare la sintassi dell'esempio. Riley suggerisce di provare alcune delle opzioni di formattazione aggiuntive come l'escape degli spazi bianchi e la citazione degli input per renderlo più robusto. Si noti che tutti questi approcci sono ancora fragili ed è necessaria una soluzione molto più solida.
@@ -328,9 +328,9 @@ Più recentemente, ChatGPT è entrato in scena. Per molti degli attacchi che abb
 
 - [The Waluigi Effect (mega-post)](https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post)
 - [Jailbreak Chat](https://www.jailbreakchat.com/)
-- [Model-tuning Via Prompts Makes NLP Models Adversarially Robust](https://arxiv.org/abs/2303.07320) (Mar 2023)
-- [Can AI really be protected from text-based attacks?](https://techcrunch.com/2023/02/24/can-language-models-really-be-protected-from-text-based-attacks/) (Feb 2023)
-- [Hands-on with Bing’s new ChatGPT-like features](https://techcrunch.com/2023/02/08/hands-on-with-the-new-bing/) (Feb 2023)
-- [Using GPT-Eliezer against ChatGPT Jailbreaking](https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/using-gpt-eliezer-against-chatgpt-jailbreaking) (Dec 2022)
-- [Machine Generated Text: A Comprehensive Survey of Threat Models and Detection Methods](https://arxiv.org/abs/2210.07321) (Oct 2022)
-- [Prompt injection attacks against GPT-3](https://simonwillison.net/2022/Sep/12/prompt-injection/) (Sep 2022)
+- [Model-tuning Via Prompts Makes NLP Models Adversarially Robust](https://arxiv.org/abs/2303.07320) (Marzo 2023)
+- [Can AI really be protected from text-based attacks?](https://techcrunch.com/2023/02/24/can-language-models-really-be-protected-from-text-based-attacks/) (Febbraio 2023)
+- [Hands-on with Bing’s new ChatGPT-like features](https://techcrunch.com/2023/02/08/hands-on-with-the-new-bing/) (Febbraio 2023)
+- [Using GPT-Eliezer against ChatGPT Jailbreaking](https://www.alignmentforum.org/posts/pNcFYZnPdXyL2RfgA/using-gpt-eliezer-against-chatgpt-jailbreaking) (Dicembre 2022)
+- [Machine Generated Text: A Comprehensive Survey of Threat Models and Detection Methods](https://arxiv.org/abs/2210.07321) (Ottobre 2022)
+- [Prompt injection attacks against GPT-3](https://simonwillison.net/2022/Sep/12/prompt-injection/) (Settembre 2022)
