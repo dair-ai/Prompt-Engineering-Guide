@@ -1,0 +1,68 @@
+# Self-Consistency
+
+Forse una delle tecniche più avanzate per l'ingegneria del prompt è l'autoconsistenza. Proposta da [Wang et al. (2022)](https://arxiv.org/pdf/2203.11171.pdf), l'autoconsistenza mira a "sostituire l'ingenua decodifica avida utilizzata nel prompt a catena di pensieri". L'idea è quella di campionare percorsi di ragionamento multipli e diversificati attraverso la CoT a pochi colpi e di utilizzare le generazioni per selezionare la risposta più coerente. Questo aiuta a migliorare le prestazioni della richiesta di CoT su compiti che coinvolgono l'aritmetica e il ragionamento di senso comune.
+
+Proviamo il seguente esempio di ragionamento aritmetico:
+
+*Prompt:*
+```
+Quando avevo 6 anni mia sorella aveva la metà dei miei anni. 
+Ora ho 70 anni, quanti ne ha mia sorella?
+```
+
+*Output:*
+```
+35
+```
+
+L'output è sbagliato! Come possiamo migliorare questo risultato con l'autoconsistenza? Proviamo. Utilizzeremo gli esempi di pochi scatti di Wang et al. 2022 (Tabella 17):
+
+*Prompt:*
+```
+D: Nel boschetto ci sono 15 alberi. Gli operai del boschetto pianteranno gli alberi oggi. Quando avranno finito,
+ci saranno 21 alberi. Quanti alberi hanno piantato oggi gli operai del boschetto?
+R: Iniziamo con 15 alberi. Successivamente abbiamo 21 alberi. La differenza deve essere il numero di alberi che hanno piantato. Quindi, devono aver piantato 21 - 15 = 6 alberi. La risposta è 6.
+
+D: Se ci sono 3 auto nel parcheggio e ne arrivano altre 2, quante auto ci sono nel parcheggio?
+R: Ci sono già 3 macchine nel parcheggio. Ne arrivano altre 2. Ora ci sono 3 + 2 = 5 auto. La risposta è 5.
+
+D: Leah aveva 32 cioccolatini e sua sorella 42. Se ne hanno mangiati 35, quanti pezzi sono rimasti in totale?
+R: Leah aveva 32 cioccolatini e la sorella di Leah ne aveva 42. Ciò significa che in origine c'erano 32 + 42 = 74
+cioccolatini. 35 sono stati mangiati. Quindi in totale hanno ancora 74 - 35 = 39 cioccolatini. La risposta è 39.
+
+D: Jason aveva 20 lecca-lecca. Ha dato a Denny alcuni lecca-lecca. Ora Jason ha 12 lecca-lecca. Quanti lecca-lecca Jason ha dato a Denny?
+R: Jason aveva 20 lecca-lecca. Poiché ora ne ha solo 12, deve aver dato il resto a Denny. Il numero di
+lecca-lecca che ha dato a Denny deve essere 20 - 12 = 8 lecca-lecca. La risposta è 8.
+
+D: Shawn ha cinque giocattoli. Per Natale ha ricevuto due giocattoli ciascuno da mamma e papà. Quanti giocattoli ha ora?
+R: Ha 5 giocattoli. Ne ha ricevuti 2 dalla mamma, quindi ha 5 + 2 = 7 giocattoli. Poi ne ha ricevuti altri 2 dal papà, quindi in totale ha 7 + 2 = 9 giocattoli. La risposta è 9.
+
+D: Nella sala server c'erano nove computer. Ogni giorno, da lunedì a giovedì, sono stati installati altri cinque computer. Quanti computer ci sono ora nella sala server?
+R: Ci sono 4 giorni da lunedì a giovedì. Ogni giorno sono stati aggiunti 5 computer. Ciò significa che in totale sono stati aggiunti 4 * 5 = 20 computer. All'inizio c'erano 9 computer, quindi ora ci sono 9 + 20 = 29 computer. La risposta è 29.
+
+D: Michael aveva 58 palline da golf. Martedì ha perso 23 palline da golf. Mercoledì ha perso altre 2 palline. Quante palline da golf alla fine di mercoledì?
+R: Michael aveva inizialmente 58 palline. Martedì ne ha perse 23, quindi ha 58 - 23 = 35 palline. Il mercoledì ne ha perse altre 2, quindi ora ha 35 - 2 = 33 palline. La risposta è 33.
+
+D: Olivia ha 23 euro e ha comprato cinque bagel a 3 euro l'uno. Quanti soldi le sono rimasti?
+R: Ha comprato 5 bagel a 3 euro l'uno. Ciò significa che ha speso 5
+
+D: Quando avevo 6 anni mia sorella aveva la metà dei miei anni. Ora che ho 70 anni, quanti ne ha mia sorella?
+R:
+```
+
+*Output 1:*
+```
+Quando avevo 6 anni mia sorella aveva la metà dei miei anni, quindi ne aveva 3. Ora ne ho 70, quindi lei ne ha 70 - 3 = 67. La risposta è 67.
+```
+
+*Output 2:*
+```
+Quando il narratore aveva 6 anni, sua sorella aveva la metà dei suoi anni, cioè 3. Ora che il narratore ha 70 anni, sua sorella avrebbe 70 - 3 = 67 anni. La risposta è 67.
+```
+
+*Output 3:*
+```
+Quando avevo 6 anni mia sorella aveva la metà dei miei anni, quindi ne aveva 3. Ora ne ho 70, quindi lei ne ha 70/2 = 35. La risposta è 35.
+```
+
+Il calcolo della risposta finale comporta alcuni passaggi (per i dettagli, consultare l'articolo scientifico), ma per semplicità possiamo vedere che è già emersa una risposta maggioritaria, che diventerà quindi essenzialmente la risposta finale. 
