@@ -13,71 +13,70 @@ import FLAN9 from '../../img/flan-9.png'
 import FLAN10 from '../../img/flan-10.png'
 import FLAN11 from '../../img/flan-11.png'
 
-## What's new?
+## Cosa c'è di nuovo?
 
 <Screenshot src={FLAN1} alt="FLAN1" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
-This paper explores the benefits scaling [instruction finetuning](https://arxiv.org/pdf/2109.01652.pdf) and how it improves performance on a variety of models (PaLM, T5), prompting setups (zero-shot, few-shot, CoT), and benchmarks (MMLU, TyDiQA). This is explored with the following aspects: scaling the number of tasks (1.8K tasks), scaling model size, and finetuning on chain-of-thought data (9 datasets used).
+Questo documento esplora i vantaggi del ridimensionamento [instruction finetuning](https://arxiv.org/pdf/2109.01652.pdf) e come migliora le prestazioni su una varietà di modelli (PaLM, T5), richiede configurazioni (zero-shot, few- shot, CoT) e benchmark (MMLU, TyDiQA). Questo viene esplorato con i seguenti aspetti: ridimensionamento del numero di attività (attività 1.8K), ridimensionamento delle dimensioni del modello e messa a punto dei dati della catena di pensiero (9 set di dati utilizzati).
 
-**Finetuning procedure:**
-- 1.8K tasks were phrased as instructions and used to finetune the model
-- Uses both with and without exemplars, and with and without CoT
+**Procedura di messa a punto:**
+- Le attività 1.8K sono state formulate come istruzioni e utilizzate per mettere a punto il modello
+- Utilizza sia con che senza esemplari, sia con e senza CoT
 
-Finetuning tasks and held out tasks shown below:
+Attività di messa a punto e attività trattenute mostrate di seguito:
 
 <Screenshot src={FLAN11} alt="FLAN11" />
 
-## Capabilities & Key Results
+## Capacità e risultati chiave
 
-- Instruction finetuning scales well with the number of tasks and the size of the model; this suggests the need for scaling number of tasks and size of model further
-- Adding CoT datasets into the finetuning enables good performance on reasoning tasks
-- Flan-PaLM has improved multilingual abilities; 14.9% improvement on one-shot TyDiQA; 8.1% improvement on arithmetic reasoning in under-represented languages
-- Plan-PaLM also performs well on open-ended generation questions, which is a good indicator for improved usability
-- Improves performance across responsible AI (RAI) benchmarks
-- Flan-T5 instruction tuned models demonstrate strong few-shot capabilities and outperforms public checkpoint such as T5
+- La messa a punto delle istruzioni si adatta bene al numero di compiti e alle dimensioni del modello; ciò suggerisce la necessità di ridimensionare ulteriormente il numero di attività e le dimensioni del modello
+- L'aggiunta di set di dati CoT nella messa a punto consente buone prestazioni nelle attività di ragionamento
+- Flan-PaLM ha migliorato le capacità multilingue; Miglioramento del 14,9% su TyDiQA one-shot; Miglioramento dell'8,1% sul ragionamento aritmetico nelle lingue sottorappresentate
+- Plan-PaLM funziona bene anche su domande di generazione a risposta aperta, che è un buon indicatore per una migliore usabilità
+- Migliora le prestazioni nei benchmark RAI (Responsible AI).
+- I modelli ottimizzati per le istruzioni Flan-T5 dimostrano forti capacità di pochi colpi e superano i checkpoint pubblici come T5
 
-
-**The results when scaling number of finetuning tasks and model size:** scaling both the size of the model and the number of finetuning tasks is expected to continue improving performance, although scaling the number of tasks has diminished returns.
+**I risultati quando si ridimensiona il numero di attività di fine tuning e la dimensione del modello:** si prevede che il ridimensionamento sia della dimensione del modello che del numero di attività di fine tuning continui a migliorare le prestazioni, sebbene il ridimensionamento del numero di attività abbia ridotto i rendimenti.
 
 <Screenshot src={FLAN2} alt="FLAN2" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
-**The results when finetuning with non-CoT and CoT data:** Jointly finetuning on non-CoT and CoT data improves performance on both evaluations, compared to finetuning on just one or the other.
+**I risultati della messa a punto con dati non-CoT e CoT:** la messa a punto congiunta di dati non-CoT e CoT migliora le prestazioni in entrambe le valutazioni, rispetto alla messa a punto solo di una o dell'altra.
 
 <Screenshot src={FLAN3} alt="FLAN3" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
-In addition, self-consistency combined with CoT achieves SoTA results on several benchmarks. CoT + self-consistency also significantly improves results on benchmarks involving math problems (e.g., MGSM, GSM8K).
+Inoltre, l'autocoerenza unita al CoT raggiunge risultati SoTA su diversi benchmark. L'autocoerenza CoT + migliora anche significativamente i risultati sui benchmark che coinvolgono problemi matematici (ad esempio, MGSM, GSM8K).
 
 <Screenshot src={FLAN4} alt="FLAN4" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
-CoT finetuning unlocks zero-shot reasoning, activated by the phrase "let's think step-by-step", on BIG-Bench tasks. In general, zero-shot CoT Flan-PaLM outperforms zero-shot CoT PaLM without finetuning.
+La messa a punto CoT sblocca il ragionamento zero-shot, attivato dalla frase "pensiamo passo dopo passo", sui compiti BIG-Bench. In generale, il CoT Flan-PaLM a zero-shot supera le prestazioni del CoT PaLM a zero-shot senza messa a punto.
 
 <Screenshot src={FLAN6} alt="FLAN6" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
-Below are some demonstrations of zero-shot CoT for PaLM and Flan-PaLM in unseen tasks.
+Di seguito sono riportate alcune dimostrazioni di CoT a zero-shot per PaLM e Flan-PaLM in attività invisibili.
 
 <Screenshot src={FLAN5} alt="FLAN5" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
-Below are more examples for zero-shot prompting. It shows how the PaLM model struggles with repetitions and not replying to instructions in the zero-shot setting where the Flan-PaLM is able to perform well. Few-shot exemplars can mitigate these errors. 
+Di seguito sono riportati altri esempi per il prompt a zero-shot. Mostra come il modello PaLM lotti con le ripetizioni e non risponda alle istruzioni nell'impostazione a zero-shot dove il Flan-PaLM è in grado di funzionare bene. Gli esemplari a few-shot possono mitigare questi errori.
 
 <Screenshot src={FLAN7} alt="FLAN7" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
-Below are some examples demonstrating more zero-shot capabilities of the Flan-PALM model on several different types of challenging open-ended questions:
+Di seguito sono riportati alcuni esempi che dimostrano più capacità zero-shot del modello Flan-PALM su diversi tipi di domande aperte impegnative:
 
 <Screenshot src={FLAN8} alt="FLAN8" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
 
 <Screenshot src={FLAN9} alt="FLAN9" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
 <Screenshot src={FLAN10} alt="FLAN10" />
-Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
 
-You can try [Flan-T5 models on the Hugging Face Hub](https://huggingface.co/google/flan-t5-xxl). 
+Puoi provare [i modelli Flan-T5 su Hugging Face Hub](https://huggingface.co/google/flan-t5-xxl).
