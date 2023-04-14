@@ -1,0 +1,13 @@
+{
+    "zeroshot": "Prompt sin entrenamiento previo (Zero-shot)",
+    "fewshot": "Prompt con pocas muestras (Few-shot)",
+    "cot": "Prompt cadena de pensamiento (CoT)",
+    "consistency": "Auto-consistencia",
+    "knowledge": "Prompt de conocimiento generado",
+    "ape": "Ingeniería de prompts automático (APE)",
+    "activeprompt": "Prompt activo",
+    "dsp": "Prompt de Estímulo direccional",
+    "react": "ReAct",
+    "multimodalcot": "Prompt CoT multimodal",
+    "graph": "Prompt de grafo"
+}
