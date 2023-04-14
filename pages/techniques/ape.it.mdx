@@ -1,0 +1,26 @@
+# Automatic Prompt Engineer (APE)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import APE from '../../img/APE.png'
+import APECOT from '../../img/ape-zero-shot-cot.png'
+
+<Screenshot src={APE} alt="APE" />
+sorgente immagine: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+[Zhou et al., (2022)](https://arxiv.org/abs/2211.01910) propone automatic prompt engineer (APE), un framework per la generazione e la selezione automatica delle istruzioni. Il problema della generazione delle istruzioni viene inquadrato come sintesi del linguaggio naturale e affrontato come un problema di ottimizzazione black-box che utilizza gli LLM per generare e ricercare le soluzioni candidate.
+
+La prima fase coinvolge un modello linguistico di grandi dimensioni (come modello di inferenza) a cui vengono fornite dimostrazioni in uscita per generare istruzioni candidate per un compito. Queste soluzioni candidate guidano la procedura di ricerca. Le istruzioni vengono eseguite utilizzando un modello di destinazione e poi viene selezionata l'istruzione più appropriata in base ai punteggi di valutazione calcolati.
+
+APE scopre un prompt di zero-shot CoT migliore del prompt "Pensiamo passo dopo passo", progettato manualmente ([Kojima et al., 2022](https://arxiv.org/abs/2205.11916)).
+
+Il prompt "Lavoriamo passo dopo passo per essere sicuri di avere la risposta giusta" suscita un ragionamento a catena e migliora le prestazioni nei benchmark MultiArith e GSM8K:
+
+<Screenshot src={APECOT} alt="APECOT" />
+sorgente immagine: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+Questa ricerca tratta un argomento importante legato al prompt engineering, ovvero l'idea di ottimizzare automaticamente i prompt. Anche se in questa guida non approfondiamo l'argomento, ecco alcuni documenti chiave se siete interessati all'argomento:
+
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - propone un approccio per la creazione automatica di suggerimenti per una serie di compiti diversi, basato sulla ricerca guidata dal gradiente.
+- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - un'alternativa leggera alla sintonizzazione fine che aggiunge un prefisso continuo addestrabile per i compiti NLG. 
+- [Prompt Tuning](https://arxiv.org/abs/2104.08691) - propone un meccanismo per l'apprendimento di suggerimenti morbidi attraverso la retropropagazione.

@@ -1,0 +1,92 @@
+# Prompt Chain-of-Thought
+
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+
+
+## Chain-of-Thought (CoT) Prompt
+
+<Screenshot src={COT} alt="COT" />
+
+sorgente immagine: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+
+Introdotto in [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), il prompt a catena di pensieri (CoT) consente di ottenere capacità di ragionamento complesse attraverso fasi di ragionamento intermedie. Si può combinare con il prompt few-shot per ottenere risultati migliori su compiti più complessi che richiedono un ragionamento prima di rispondere.
+
+*Prompt:*
+```
+La somma dei numeri dispari di questo gruppo corrisponde ad un numero pari: 4, 8, 9, 15, 12, 2, 1.
+R: Sommando tutti i numeri dispari (9, 15, 1) si ottiene 25. La risposta è Falsa.
+
+La somma dei numeri dispari di questo gruppo è un numero pari: 17, 10, 19, 4, 8, 12, 24.
+R: La somma di tutti i numeri dispari (17, 19) risulta 36. La risposta è Corretta.
+
+La somma dei numeri dispari di questo gruppo è un numero pari: 16,  11, 14, 4, 8, 13, 24.
+R: La somma di tutti i numeri dispari (11, 13) risulta 24. La risposta è Corretta.
+
+La somma dei numeri dispari di questo gruppo è un numero pari:: 17,  9, 10, 12, 13, 4, 2.
+R: La somma di tutti i numeri dispari (17, 9, 13) risulta 39. La risposta è Falsa.
+
+I numeri dispari di questo gruppo si sommano in un numero pari.: 15, 32, 5, 13, 82, 7, 1. 
+R:
+```
+
+*Output:*
+```
+La somma di numeri dispari (15, 5, 13, 7, 1) risulta 41. La risposta è Falsa.
+```
+
+Wow! Possiamo vedere un risultato perfetto quando abbiamo fornito la fase di ragionamento. In effetti, possiamo risolvere questo compito fornendo ancora meno esempi, cioè un solo esempio sembra sufficiente:
+
+*Prompt:*
+```
+La somma dei numeri dispari in questo gruppo è un numero pari: 4, 8, 9, 15, 12, 2, 1.
+R: Sommando tutti i numeri dispari (9, 15, 1) si ottiene 25. La risposta è Falsa.
+
+La somma dei numeri dispari in questo gruppo è un numero pari: 15, 32, 5, 13, 82, 7, 1. 
+R:
+```
+
+*Output:*
+```
+La somma dei numeri dispari (15, 5, 13, 7, 1) è 41. La risposta è Falsa.
+```
+
+Si tenga presente che gli autori sostengono che si tratta di una capacità emergente che si manifesta con modelli linguistici sufficientemente grandi.
+
+## Zero-shot COT Prompting
+
+<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+
+sorgente immagine: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+
+Un'idea emersa più di recente è quella della [zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022) che consiste essenzialmente nell'aggiungere "Pensiamo passo dopo passo" al prompt originale. Proviamo un problema semplice e vediamo come si comporta il modello:
+
+*Prompt:*
+```
+Sono andato al mercato e ho comprato 10 mele. Ho dato 2 mele al vicino e 2 al riparatore. Poi sono andato a comprare altre 5 mele e ne ho mangiata una. Quante mele mi sono rimaste?
+```
+
+*Output:*
+```
+11 mele
+```
+
+La risposta è errata! Proviamo ora con il prompt speciale. 
+
+*Prompt:*
+```
+Sono andato al mercato e ho comprato 10 mele. Ho dato 2 mele al vicino e 2 all'operaio. Poi sono andato a comprare altre 5 mele e ne ho mangiata una. Quante mele mi sono rimaste?
+
+Pensiamo passo dopo passo.
+```
+
+*Output:*
+```
+In primo luogo, si è partiti da 10 mele.
+Hai dato via 2 mele al vicino e 2 all'operaio, quindi ti sono rimaste 6 mele.
+Poi ha comprato altre 5 mele, per cui ora ne ha 11.
+Infine, avete mangiato 1 mela, quindi ti rimarranno 10 mele.
+```
+
+È impressionante come questo semplice prompt sia efficace nello svolgere questo compito. Dimostra di essere particolarmente utile quando non si hanno molti esempi da utilizzare nel prompt.

@@ -1,0 +1,12 @@
+# Prompt attivo
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ACTIVE from '../../img/active-prompt.png'
+
+I metodi della catena del pensiero (CoT) si basano su un insieme fisso di esempi annotati manualmente. Il problema è che gli esempi potrebbero non essere i più efficaci per i diversi compiti. Per ovviare a questo problema, [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf) hanno recentemente proposto un nuovo approccio di prompting, chiamato Active-Prompt, per adattare i LLM a diversi prompt di esempi specifici per i vari compiti (progettati manualmente con ragionamenti CoT).
+
+Di seguito viene illustrato l'approccio. Il primo passo consiste nell'interrogare l'LLM con o senza alcuni esempi di CoT. Vengono generate *k* possibili risposte per un insieme di domande di addestramento. Sulla base delle *k* risposte viene calcolata una metrica di incertezza (viene utilizzato il disaccordo). Le domande più incerte vengono selezionate manualmente per l'annotazione. I nuovi esemplari annotati vengono poi utilizzati per dedurre ogni domanda. 
+
+<Screenshot src={ACTIVE} alt="ACTIVE" />
+Sorgente immagine: [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf)

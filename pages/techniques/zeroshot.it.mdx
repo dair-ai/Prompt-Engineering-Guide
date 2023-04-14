@@ -1,0 +1,22 @@
+# Prompt Zero-Shot
+Oggi i LLM, addestrati su grandi quantità di dati e regolati per seguire le istruzioni, sono in grado di eseguire compiti a colpo zero. Nella sezione precedente abbiamo provato alcuni esempi a colpo zero. Ecco uno degli esempi utilizzati:
+
+*Prompt:*
+```
+Classificare il testo in neutro, negativo o positivo. 
+
+Testo: Penso che le vacanze vadano bene.
+Sentimento:
+```
+
+*Output:*
+```
+Neutro
+```
+
+Si noti che nella richiesta di cui sopra non abbiamo fornito al modello alcun esempio: questa è la capacità di ripresa zero al lavoro. 
+
+La sintonizzazione delle istruzioni ha dimostrato di migliorare l'apprendimento a colpo zero [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). La sintonizzazione delle istruzioni è essenzialmente il concetto di perfezionamento dei modelli su insiemi di dati descritti tramite istruzioni. Inoltre, [RLHF](https://arxiv.org/abs/1706.03741) (apprendimento per rinforzo dal feedback umano) è stato adottato per scalare la sintonizzazione delle istruzioni, in cui il modello viene allineato per adattarsi meglio alle preferenze umane. Questo recente sviluppo alimenta modelli come ChatGPT. Discuteremo tutti questi approcci e metodi nelle prossime sezioni.
+
+Quando zero-shot non funziona, si raccomanda di fornire dimostrazioni o esempi nel prompt, il che porta al few-shot prompt. Nella prossima sezione, dimostreremo il few-shot prompt.
+

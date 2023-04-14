@@ -1,0 +1,92 @@
+# Prompt Generated Knowledge
+
+import {Screenshot} from 'components/screenshot'
+import GENKNOW from '../../img/gen-knowledge.png'
+
+<Screenshot src={GENKNOW} alt="GENKNOW" />
+
+Fonte dell'immagine: [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf)
+
+I LLM continuano a essere migliorati ed una tecnica popolare include la capacità di incorporare conoscenze o informazioni per aiutare il modello a fare previsioni più accurate. 
+
+Utilizzando un'idea simile, è possibile utilizzare il modello anche per generare conoscenza prima di fare una previsione? È quello che si cerca di fare nell'articolo di [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf): generare conoscenza da utilizzare come parte del prompt. In particolare, quanto è utile per compiti come il ragionamento di senso compiuto?
+
+Proviamo con un semplice prompt:
+
+*Prompt:*
+```
+Una parte del golf consiste nel cercare di ottenere un totale di punti più alto degli altri. Sì o no?
+```
+
+*Output:*
+```
+Sì.
+```
+
+Questo tipo di errore rivela i limiti dei LLM nell'eseguire compiti che richiedono una maggiore conoscenza del mondo. Come possiamo migliorare questo aspetto con la generazione di conoscenza?
+
+Innanzitutto, generiamo alcune "conoscenze": 	
+
+*Prompt:*
+```
+Input: La Grecia è più grande del Messico.
+Conoscenza: La Grecia ha una superficie di circa 131.957 km², mentre il Messico ha una superficie di circa 1.964.375 km², il che rende il Messico più grande della Grecia del 1.389%.
+
+Input: Gli occhiali si appannano sempre.
+Conoscenza: La condensa si verifica sulle lenti degli occhiali quando il vapore acqueo prodotto dal sudore, dall'alito e dall'umidità ambientale si deposita su una superficie fredda, si raffredda e si trasforma in minuscole gocce di liquido, formando una pellicola che si presenta come nebbia. Le lenti saranno relativamente fresche rispetto al respiro, soprattutto quando l'aria esterna è fredda.
+
+Input: Un pesce è capace di pensare.
+Conoscenza: I pesci sono più intelligenti di quanto sembri. In molte aree, come la memoria, i loro poteri cognitivi corrispondono o superano quelli dei vertebrati "superiori", compresi i primati non umani. La memoria a lungo termine dei pesci li aiuta a tenere traccia di complesse relazioni sociali.
+
+Input: Un effetto comune del fumare molte sigarette nel corso della vita è una probabilità più alta del normale di ammalarsi di cancro ai polmoni.
+Conoscenza: Coloro che fumavano costantemente meno di una sigaretta al giorno nel corso della loro vita avevano un rischio nove volte superiore di morire di cancro ai polmoni rispetto ai non fumatori. Tra le persone che fumavano tra una e 10 sigarette al giorno, il rischio di morire di cancro ai polmoni era quasi 12 volte superiore a quello dei non fumatori.
+
+Input: Un sasso ha le stesse dimensioni di un sassolino.
+Knowledge: Un ciottolo è un clasto di roccia con una dimensione delle particelle compresa tra 4 e 64 millimetri secondo la scala Udden-Wentworth della sedimentologia. I ciottoli sono generalmente considerati più grandi dei granuli (da 2 a 4 millimetri di diametro) e più piccoli dei ciottoli (da 64 a 256 millimetri di diametro).
+
+Input: Una parte del golf consiste nel cercare di ottenere un totale di punti più alto degli altri.
+Conoscenza:
+```
+
+*Conoscenza 1:*
+```
+L'obiettivo del golf è giocare una serie di buche nel minor numero di colpi. Un round di golf consiste tipicamente in 18 buche. Ogni buca viene giocata una volta nel corso del round su un campo da golf standard. Ogni colpo viene conteggiato come un punto e il numero totale di colpi viene utilizzato per determinare il vincitore della partita.
+```
+
+*Conoscenza 2:*
+```
+Il golf è uno sport di precisione con bastoni e palline in cui i giocatori (o golfisti) usano diversi tipi di bastoni per colpire le palline in una serie di buche su un campo utilizzando il minor numero di colpi. L'obiettivo è completare il percorso con il punteggio più basso, calcolato sommando il numero totale di colpi effettuati su ogni buca. Il giocatore con il punteggio più basso vince la partita.
+```
+
+Utilizziamo il prompt fornito nel documento di [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf).
+
+Il passo successivo è integrare le conoscenze e ottenere una previsione. Ho riformattato la domanda in formato D/R per guidare il formato della risposta.
+
+*Prompt:*
+```
+Domanda: Una parte del golf consiste nel cercare di ottenere un totale di punti più alto degli altri. Sì o no?
+
+Conoscenza: L'obiettivo del golf è giocare una serie di buche nel minor numero di colpi. Un round di golf consiste tipicamente in 18 buche. Ogni buca viene giocata una volta nel corso del round su un campo da golf standard. Ogni colpo viene conteggiato come un punto e il numero totale di colpi viene utilizzato per determinare il vincitore della partita.
+
+Spiegazione e risposta:
+```
+
+*Risposta 1 (fiducia molto alta):*
+```
+No, l'obiettivo del golf non è ottenere un punteggio totale più alto degli altri. L'obiettivo è piuttosto quello di giocare una serie di buche nel minor numero di colpi. Il numero totale di colpi viene utilizzato per determinare il vincitore della partita, non il numero totale di punti.
+```
+
+```
+Domanda: Una parte del golf consiste nel cercare di ottenere un totale di punti più alto degli altri. Sì o no?
+
+Conoscenza: Il golf è uno sport di precisione con bastoni e palline in cui i giocatori (o golfisti) usano diversi tipi di bastoni per colpire le palline in una serie di buche su un campo utilizzando il minor numero di colpi. L'obiettivo è completare il percorso con il punteggio più basso, calcolato sommando il numero totale di colpi effettuati su ogni buca. Il giocatore con il punteggio più basso vince la partita.
+
+Spiegazione e risposta:
+```
+
+*Risposta 2 (la fiducia è molto più bassa):*
+```
+Sì, una parte del golf consiste nel cercare di ottenere un totale di punti più alto degli altri. Ogni giocatore cerca di completare il percorso con il punteggio più basso, che viene calcolato sommando il numero totale di colpi effettuati in ogni buca. Il giocatore con il punteggio più basso vince la partita.
+```
+
+Con questo esempio sono successe cose davvero interessanti. Nella prima risposta, il modello era molto sicuro di sé, ma nella seconda non tanto. Ho semplificato il processo a scopo dimostrativo, ma ci sono alcuni dettagli in più da considerare per arrivare alla risposta finale. Per saperne di più, consultate l'articolo scientifico.
