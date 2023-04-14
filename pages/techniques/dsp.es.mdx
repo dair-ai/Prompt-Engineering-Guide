@@ -1,0 +1,16 @@
+# Prompt de Estímulo direccional
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import DSP from '../../img/dsp.jpeg'
+
+[Li et al., (2023)](https://arxiv.org/abs/2302.11520) propone una nueva técnica de alineación para guiar mejor al LLM en la generación del resumen deseado.
+
+Se entrena un LM de política ajustable para generar el estímulo/pista. Se está viendo un mayor uso de RL para optimizar LLM.
+
+La figura a continuación muestra cómo el prompt de estímulo direccional se compara con el alineamiento estándar. El LM puede ser pequeño y optimizado para generar las pistas que guían a un LLM congelado de caja negra.
+
+<Screenshot src={DSP} alt="DSP" />
+Fuente de la imagen: [Li et al., (2023)](https://arxiv.org/abs/2302.11520)
+
+¡Un ejemplo completo próximamente!

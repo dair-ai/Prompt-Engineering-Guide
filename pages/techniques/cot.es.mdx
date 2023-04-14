@@ -1,0 +1,92 @@
+# Prompt cadena de pensamientos (CoT)
+
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+
+<Screenshot src={COT} alt="COT" />
+
+Fuente de la imagen: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+
+Introducido en [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), el prompt por cadena de pensamientos (CoT) permite capacidades de razonamiento complejas a través de pasos de razonamiento intermedios. Puedes combinarlo con prompts de pocas muestras (few-shot) para obtener mejores resultados en tareas más complejas que requieren razonamiento antes de responder.
+
+*Prompt:*
+```
+Los números impares en este grupo suman un número par: 4, 8, 9, 15, 12, 2, 1.
+A: Al sumar todos los números impares (9, 15, 1) se obtiene 25. La respuesta es Falsa.
+
+Los números impares en este grupo suman un número par: 17,  10, 19, 4, 8, 12, 24.
+A: Al sumar todos los números impares (17, 19) se obtiene 36. La respuesta es Verdadera.
+
+Los números impares en este grupo suman un número par: 16,  11, 14, 4, 8, 13, 24.
+A: Al sumar todos los números impares (11, 13) se obtiene 24. La respuesta es Verdadera.
+
+Los números impares en este grupo suman un número par: 17,  9, 10, 12, 13, 4, 2.
+A: Al sumar todos los números impares (17, 9, 13) se obtiene 39. La respuesta es Falsa.
+
+Los números impares en este grupo suman un número par: 15, 32, 5, 13, 82, 7, 1. 
+A:
+```
+
+*Salida:*
+```
+Al sumar todos los números impares (15, 5, 13, 7, 1) se obtiene 41. La respuesta es Falsa.
+```
+
+¡Wow! Podemos ver un resultado perfecto cuando proporcionamos el paso de razonamiento. De hecho, podemos resolver esta tarea proporcionando incluso menos ejemplos, es decir, solo un ejemplo parece ser suficiente:
+
+*Prompt:*
+```
+Los números impares en este grupo suman un número par: 4, 8, 9, 15, 12, 2, 1.
+A: Al sumar todos los números impares (9, 15, 1) se obtiene 25. La respuesta es Falsa.
+
+Los números impares en este grupo suman un número par: 15, 32, 5, 13, 82, 7, 1. 
+A:
+```
+
+*Salida:*
+```
+Al sumar todos los números impares (15, 5, 13, 7, 1) se obtiene 41. La respuesta es Falsa.
+```
+
+Tenga en cuenta que los autores afirman que esta es una habilidad emergente que surge con modelos de lenguaje lo suficientemente grandes.
+
+## Prompt CoT sin entrenamiento previo (Zero-shot)
+
+<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+
+Fuente de la imagen: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+
+Una idea reciente que surgió más recientemente es la idea de [CoT sin entrenamiento previo](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022) que esencialmente implica agregar "Pensemos paso a paso" al prompt original. Veamos cómo funciona el modelo con un problema simple:
+
+
+*Prompt:*
+```
+Fui al mercado y compré 10 manzanas. Regalé 2 manzanas al vecino y 2 al reparador. 
+Luego fui y compré 5 manzanas más y me comí 1. ¿Cuántas manzanas me quedan?
+```
+
+*Salida:*
+```
+11 manzanas
+```
+
+¡La respuesta es incorrecta! Ahora probemos con el prompt especial.
+
+*Prompt:*
+```
+Fui al mercado y compré 10 manzanas. Regalé 2 manzanas al vecino y 2 al reparador. 
+Luego fui y compré 5 manzanas más y me comí 1. ¿Cuántas manzanas me quedan?
+
+Pensemos paso a paso.
+```
+
+*Output:*
+```
+En primer lugar, comenzaste con 10 manzanas.
+Regalaste 2 manzanas al vecino y 2 al reparador, así que te quedaron 6 manzanas.
+Luego compraste 5 manzanas más, así que ahora tenías 11 manzanas.
+Finalmente, te comiste una manzana, por lo que te quedan 10 manzanas.
+```
+
+Es impresionante que este sencillo prompt sea efectivo para este tarea. Esto es particularmente útil cuando no tienes demasiados ejemplos para usar en el prompt.

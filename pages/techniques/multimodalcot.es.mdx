@@ -1,0 +1,15 @@
+# Prompt CoT multimodal
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import MCOT from '../../img/multimodal-cot.png'
+
+[Zhang et al. (2023)](https://arxiv.org/abs/2302.00923) propusieron recientemente un enfoque de generación de cadenas de pensamiento multimodales. El CoT tradicional se centra en la modalidad del lenguaje. En cambio, el CoT multimodal incorpora texto y visión en un marco de dos etapas. El primer paso implica la generación de razones basadas en información multimodal. Esto es seguido por la segunda fase, la inferencia de respuestas, que aprovecha las razones generadas informativas.
+
+El modelo CoT multimodal (1B) supera al GPT-3.5 en el banco de pruebas de ScienceQA.
+
+<Screenshot src={MCOT} alt="MCOT" />
+Fuente de imagen: [Zhang et al. (2023)](https://arxiv.org/abs/2302.00923)
+
+Lectura adicional:
+- [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)
