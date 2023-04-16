@@ -2,7 +2,7 @@
 
 Prompt engineering is a relatively new discipline for developing and optimizing prompts to efficiently use language models (LMs) for a wide variety of applications and research topics. Prompt engineering skills help to better understand the capabilities and limitations of large language models (LLMs). Researchers use prompt engineering to improve the capacity of LLMs on a wide range of common and complex tasks such as question answering and arithmetic reasoning. Developers use prompt engineering to design robust and effective prompting techniques that interface with LLMs and other tools.
 
-Motivated by the high interest in developing with LLMs, we have created this new prompt engineering guide that contains all the latest papers, learning guides, lectures, references, and tools related to prompt engineering. 
+Motivated by the high interest in developing with LLMs, we have created this new prompt engineering guide that contains all the latest papers, learning guides, lectures, references, and tools related to prompt engineering.
 
 Happy Prompting!
 
@@ -30,9 +30,20 @@ We have published a 1 hour lecture that provides a comprehensive overview of pro
 - [Slides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/lecture/Prompt-Engineering-Lecture-Elvis.pdf)
 
 ---
+## Running the guide locally
+
+To run the guide locally, for example to check the correct implementation of a new translation, you will need to:
+
+1. Install Node >=18.0.0
+1. Install `pnpm` if not present in your system. Check [here](https://pnpm.io/installation) for detailed instructions.
+1. Install the dependencies: `pnpm i next react react-dom nextra nextra-theme-docs`
+1. Boot the guide with `pnpm dev`
+2. Browse the guide at `http://localhost:3000/`
+
+---
 
 ## Guides
-Please note that the guides below are now outdated. You can find the most up-to-date guides on our new website [https://www.promptingguide.ai/](https://www.promptingguide.ai/). 
+Please note that the guides below are now outdated. You can find the most up-to-date guides on our new website [https://www.promptingguide.ai/](https://www.promptingguide.ai/).
 
 - [Prompt Engineering - Introduction](/guides/prompts-intro.md)
 - [Prompt Engineering - Basic Prompting](/guides/prompts-basic-usage.md)
@@ -44,7 +55,7 @@ Please note that the guides below are now outdated. You can find the most up-to-
 - [Prompt Engineering - Miscellaneous Topics](/guides/prompts-miscellaneous.md)
 - [Prompt Engineering - Papers](/pages/papers.en.mdx)
 - [Prompt Engineering - Tools](/pages/tools.en.mdx)
-- [Prompt Engineering - Datasets](/pages/datasets.en.mdx) 
+- [Prompt Engineering - Datasets](/pages/datasets.en.mdx)
 - [Prompt Engineering - Additional Readings](/pages/readings.en.mdx)
 
 ---
