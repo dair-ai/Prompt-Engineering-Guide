@@ -134,7 +134,9 @@ Sentiment:
 neutral
 ```
 
-Perfect! This time the model returned `neutral` which is the specific label I was looking for. It seems that the example provided in the prompt helped the model to be specific in its output. To highlight why sometimes being specific is important, check out this example and spot the problem:
+Perfect! This time the model returned `neutral` which is the specific label I was looking for. It seems that the example provided in the prompt helped the model to be specific in its output. 
+
+To highlight why sometimes being specific is important, check out the example below and spot the problem:
 
 *Prompt:*
 ```
@@ -149,7 +151,7 @@ Sentiment:
 Neutral
 ```
 
-What is the problem here?
+What is the problem here? As a hint, the made up `nutral` label is completely ignored by the model. Instead, the model outputs `Neutral` as it has some bias towards that label. But let's assume that what we really want is `nutral`. How would you fix this? Maybe you can try adding descriptions to the labels or add more examples to the prompt? If you are not sure, we will discuss a few ideas in the upcoming sections.
 
 ---
 
