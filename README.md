@@ -15,30 +15,11 @@ Happy Prompting!
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
 - 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
 
-[Join our Discord](https://discord.gg/SKgkVT8BGJ)
+[Join our Discord](https://discord.gg/FUyz9vPAwf)
 
 [Follow us on Twitter](https://twitter.com/dair_ai)
 
 [Subscribe to our Newsletter](https://nlpnews.substack.com/)
-
----
-## Lecture
-
-We have published a 1 hour lecture that provides a comprehensive overview of prompting techniques, applications, and tools.
-- [Video Lecture](https://youtu.be/dOxUroR57xs)
-- [Notebook with code](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb)
-- [Slides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/lecture/Prompt-Engineering-Lecture-Elvis.pdf)
-
----
-## Running the guide locally
-
-To run the guide locally, for example to check the correct implementation of a new translation, you will need to:
-
-1. Install Node >=18.0.0
-1. Install `pnpm` if not present in your system. Check [here](https://pnpm.io/installation) for detailed instructions.
-1. Install the dependencies: `pnpm i next react react-dom nextra nextra-theme-docs`
-1. Boot the guide with `pnpm dev`
-2. Browse the guide at `http://localhost:3000/`
 
 ---
 
@@ -58,8 +39,25 @@ Please note that the guides below are now outdated. You can find the most up-to-
 - [Prompt Engineering - Datasets](/pages/datasets.en.mdx)
 - [Prompt Engineering - Additional Readings](/pages/readings.en.mdx)
 
----
+## Lecture
 
+We have published a 1 hour lecture that provides a comprehensive overview of prompting techniques, applications, and tools.
+- [Video Lecture](https://youtu.be/dOxUroR57xs)
+- [Notebook with code](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb)
+- [Slides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/lecture/Prompt-Engineering-Lecture-Elvis.pdf)
+
+---
+## Running the guide locally
+
+To run the guide locally, for example to check the correct implementation of a new translation, you will need to:
+
+1. Install Node >=18.0.0
+1. Install `pnpm` if not present in your system. Check [here](https://pnpm.io/installation) for detailed instructions.
+1. Install the dependencies: `pnpm i next react react-dom nextra nextra-theme-docs`
+1. Boot the guide with `pnpm dev`
+2. Browse the guide at `http://localhost:3000/`
+
+---
 ## Appearances
 Some places where we have been featured:
 - Wall Street Journal - [ChatGPT Can Give Great Answers. But Only If You Know How to Ask the Right Question](https://www.wsj.com/articles/chatgpt-ask-the-right-question-12d0f035)
