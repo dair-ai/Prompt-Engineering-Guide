@@ -1,0 +1,82 @@
+# 지시에 따라 파인튜닝된(Instruction-Finetuned) 언어 모델 스케일링
+
+import {Screenshot} from 'components/screenshot'
+import FLAN1 from '../../img/flan-1.png'
+import FLAN2 from '../../img/flan-2.png'
+import FLAN3 from '../../img/flan-3.png'
+import FLAN4 from '../../img/flan-4.png'
+import FLAN5 from '../../img/flan-5.png'
+import FLAN6 from '../../img/flan-6.png'
+import FLAN7 from '../../img/flan-7.png'
+import FLAN8 from '../../img/flan-8.png'
+import FLAN9 from '../../img/flan-9.png'
+import FLAN10 from '../../img/flan-10.png'
+import FLAN11 from '../../img/flan-11.png'
+
+## What's new?
+
+<Screenshot src={FLAN1} alt="FLAN1" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+이 논문은 [지시에 따른 파인튜닝](https://arxiv.org/pdf/2109.01652.pdf)의 스케일링에서의 장점을 알아보며, 다양한 모델(PaLM, T5)과 프롬프트 셋업(zero-shot, few-shot, CoT), 벤치마크(MMLU, TyDiQA)에서 어떻게 성능을 개선하는지를 알아봅니다. 이는 다음 측면에서 실험되었습니다: 작업 수의 스케일링 (1.8K 작업), 모델 크기의 스케일링 및 사고 연쇄 데이터의 파인튜닝 (9개의 데이터 세트 사용).
+
+**파인튜닝 절차:**
+- 1.8K개의 작업이 명렁으로 구성되어 모델을 파인튜닝하는 데 사용되었습니다.
+- 예시가 있는 경우와 그렇지 않은 경우, CoT가 있는 경우와 그렇지 않은 경우 모두 사용되었습니다.
+
+파인튜닝된 작업과 유보된 작업이 아래에 나와있습니다:
+
+<Screenshot src={FLAN11} alt="FLAN11" />
+
+## 기능 및 주요 결과
+
+- 명령의 파인튜닝은 작업 개수와 모델의 크기에 따라 잘 확장될 수 있습니다; 이는 작업의 개수와 모델의 크기를 더 확장할 필요가 있다는 것을 의미합니다.
+- 파인튜닝을 할 때 CoT 데이터셋을 추가하면 추론 작업에서 좋은 성능을 보여줄 수 있습니다.
+- Flan-PaLM은 다국어 능력을 향상시켰습니다; one-shot TyDiQA에서 14.9%; 과소대표 언어로 작성된 산술 추론에서 8.1% 개선이 있었습니다.
+- Plan-PaLM은 또한 open-ended 생성 질문에서도 잘 수행되며, 이는 사용성이 향상된 것을 알 수 있는 좋은 지표입니다.
+- 책임 있는 AI (RAI) 벤치마크에서도 성능이 개선되었습니다.
+- Flan-T5 instruction tuned 모델은 강력한 퓨샷(few-shot) 성능을 보여주며, T5와 같은 공개 체크포인트보다 뛰어난 성능을 보여줍니다.
+
+**Finetuning하는 작업의 개수와 모델의 크기를 확장하는 경우 결과는 다음과 같습니다.** 모델 크기와 finetuning 작업 수 모두를 확장하면 성능이 계속해서 향상될 것으로 예상되지만, 작업 수를 계속해서 증가시키는 것은 점차적으로 성능 향상이 감소되었습니다.
+
+<Screenshot src={FLAN2} alt="FLAN2" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+**CoT 데이터와 비-CoT 데이터를 사용하여 finetuning하는 경우 결과는 다음과 같습니다:** 비-CoT 및 CoT 데이터를 공동으로 finetuning하면, 하나만 사용했을 때보다 양쪽 모두 사용했을 때의 평가 성능이 높았습니다.
+
+<Screenshot src={FLAN3} alt="FLAN3" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+또한, 자기 일관성(self-consistency)과 CoT를 결합하면 몇 가지 벤치마크에서 SoTA 결과를 달성합니다. CoT + 자기 일관성은 수학 문제를 포함하는 벤치마크(MGSM, GSM8K 등)에서 결과를 크게 향상시킵니다.
+
+<Screenshot src={FLAN4} alt="FLAN4" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+CoT finetuning을 추가함으로써 BIG-Bench 작업에서 제로샷 추론이 가능해졌습니다. 일반적으로, finetuning하지 않은 제로샷 CoT PaLM보다 제로샷 CoT Flan-PaLM의 성능이 우수합니다.
+
+<Screenshot src={FLAN6} alt="FLAN6" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+아래는 PaLM과 Flan-PalM 에서 제로샷 CoT에 대한 설명입니다.
+
+<Screenshot src={FLAN5} alt="FLAN5" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+아래는 제로샷(zero-shot) 프롬프팅에 대한 예시입니다. PaLM은 같은 질문을 반복하게 하거나 질문에 대답하지 못하지만 Flan-PaLM은 잘 동작합니다. Few-shot 예시를 사용하면 이러한 에러를 줄일 수 있습니다.
+
+<Screenshot src={FLAN7} alt="FLAN7" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+아래는 다양한 유형의 도전적인 open-ended 질문에서 Flan-PALM 모델의 더 많은 제로샷(zero-shot) 성능을 보여주는 몇 가지 예시입니다:
+
+<Screenshot src={FLAN8} alt="FLAN8" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+
+<Screenshot src={FLAN9} alt="FLAN9" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+<Screenshot src={FLAN10} alt="FLAN10" />
+이미지 출처: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+[Flan-T5 모델](https://huggingface.co/google/flan-t5-xxl)을 Hugging Face Hub에서 사용해보실 수 있습니다.
