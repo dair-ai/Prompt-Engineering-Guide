@@ -6,12 +6,13 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 Happy Prompting!
 
+Due to high demand, we've partnered with Sphere to deliver a [new course on Prompt Engineering for LLMs](https://www.getsphere.com/cohorts/prompt-engineering-for-llms?source=github). This includes a certificate of completion. [Elvis Saravia](https://www.linkedin.com/in/omarsar/), who has has years of experience in ML, NLP, and LLMs, will be the instructor of this course.
+
 ---
 ## Announcements / Updates
 
 - 🌐 We now support [中文](https://www.promptingguide.ai/zh), [日本語](https://www.promptingguide.ai/jp), [Português](https://www.promptingguide.ai/pt), [Turkish](https://www.promptingguide.ai/tr) and [English](https://www.promptingguide.ai/). Welcoming more translations.
 - 🎉 We have launched new web version of the guide [here](https://www.promptingguide.ai/)
-- 🎓 Partnered with Sphere to deliver a new course on [Prompt Engineering for LLMs](https://www.getsphere.com/cohorts/prompt-engineering-for-llms?source=github)
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
 - 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
 
@@ -39,6 +40,7 @@ Please note that the guides below are now outdated. You can find the most up-to-
 - [Prompt Engineering - Datasets](/pages/datasets.en.mdx)
 - [Prompt Engineering - Additional Readings](/pages/readings.en.mdx)
 
+---
 ## Lecture
 
 We have published a 1 hour lecture that provides a comprehensive overview of prompting techniques, applications, and tools.
