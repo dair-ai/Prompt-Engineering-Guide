@@ -1,0 +1,77 @@
+# Self-Consistency
+
+L'auto-cohérence (self-consistency) est peut-être l'une des techniques les plus avancées pour l'ingénierie rapide. Proposé par [Wang et al. (2022)] (https://arxiv.org/pdf/2203.11171.pdf), le self-consistency vise "à remplacer le décodage cupide naïf utilisé dans l'incitation à la chaîne de pensée". L'idée est d'échantillonner plusieurs chemins de raisonnement divers à travers un CoT à quelques prises de vue et d'utiliser les générations pour sélectionner la réponse la plus cohérente. Cela permet d'améliorer les performances de l'incitation CoT sur les tâches impliquant un raisonnement arithmétique et de bon sens.
+
+Essayons l'exemple suivant pour le raisonnement arithmétique :
+
+*Prompt:*
+```
+Quand j'avais 6 ans, ma sœur avait la moitié de mon âge. Maintenant
+J'ai 70 ans, quel âge a ma sœur ?
+```
+
+*Output:*
+```
+35
+```
+
+La sortie est fausse ! Comment pouvons-nous améliorer cela avec le self-consistency ? Essayons. Nous utiliserons les exemples à quelques clichés de Wang et al. 2022 (tableau 17) :
+
+*Prompt:*
+```
+Q : Il y a 15 arbres dans le bosquet. Les travailleurs de Grove planteront des arbres dans le bosquet aujourd'hui. Une fois qu'ils sont terminés,
+il y aura 21 arbres. Combien d'arbres les ouvriers du bosquet ont-ils plantés aujourd'hui ?
+R : Nous commençons avec 15 arbres. Plus tard, nous avons 21 arbres. La différence doit être le nombre d'arbres qu'ils ont plantés.
+Donc, ils doivent avoir planté 21 - 15 = 6 arbres. La réponse est 6.
+
+Q : S'il y a 3 voitures dans le parking et que 2 autres voitures arrivent, combien y a-t-il de voitures dans le parking ?
+R : Il y a déjà 3 voitures dans le parking. 2 autres arrivent. Maintenant, il y a 3 + 2 = 5 voitures. La réponse est 5.
+
+Q : Leah avait 32 chocolats et sa sœur en avait 42. S'ils en ont mangé 35, combien de morceaux leur reste-t-il au total ?
+R : Leah avait 32 chocolats et la sœur de Leah en avait 42. Cela signifie qu'il y avait à l'origine 32 + 42 = 74
+des chocolats. 35 ont été mangés. Donc au total ils ont encore 74 - 35 = 39 chocolats. La réponse est 39.
+
+Q : Jason avait 20 sucettes. Il a donné à Denny des sucettes. Jason a maintenant 12 sucettes. Combien de sucettes
+Jason a-t-il donné à Denny ?
+A : Jason avait 20 sucettes. Puisqu'il n'en a que 12 maintenant, il a dû donner le reste à Denny. Le nombre de
+les sucettes qu'il a données à Denny devaient être 20 - 12 = 8 sucettes. La réponse est 8.
+
+Q : Shawn a cinq jouets. Pour Noël, il a reçu deux jouets chacun de sa mère et de son père. Combien de jouets fait
+il a maintenant?
+R : Il a 5 jouets. Il en a eu 2 de maman, donc après ça il a 5 + 2 = 7 jouets. Puis il en a eu 2 autres de papa, alors
+au total, il a 7 + 2 = 9 jouets. La réponse est 9.
+
+Q : Il y avait neuf ordinateurs dans la salle des serveurs. Cinq ordinateurs supplémentaires ont été installés chaque jour, de
+lundi à jeudi. Combien y a-t-il d'ordinateurs dans la salle des serveurs ?
+R : Il y a 4 jours du lundi au jeudi. 5 ordinateurs ont été ajoutés chaque jour. Cela signifie au total 4 * 5 =
+20 ordinateurs ont été ajoutés. Il y avait 9 ordinateurs au début, alors maintenant il y a 9 + 20 = 29 ordinateurs.
+La réponse est 29.
+
+Q : Michael avait 58 balles de golf. Mardi, il a perdu 23 balles de golf. Mercredi, il en a perdu 2 de plus. Combien
+avait-il des balles de golf le mercredi en fin de journée ?
+R : Michael avait initialement 58 balles. Il en a perdu 23 mardi, donc après ça il a 58 - 23 = 35 balles. Sur
+Mercredi, il en a perdu 2 de plus alors maintenant il a 35 - 2 = 33 balles. La réponse est 33.
+
+Q : Olivia a 23 $. Elle a acheté cinq bagels pour 3 $ chacun. Combien d'argent lui reste-t-il ?
+R : Elle a acheté 5 bagels pour 3 $ chacun. Cela signifie qu'elle a passé 5
+
+Q : Quand j'avais 6 ans, ma sœur avait la moitié de mon âge. Maintenant j'ai 70 ans, quel âge a ma sœur ?
+R :
+```
+
+*Output 1:*
+```
+Quand j'avais 6 ans, ma sœur avait la moitié de mon âge, donc elle avait 3 ans. Maintenant j'ai 70 ans, donc elle a 70 ans - 3 = 67. La réponse est 67.
+```
+
+*Output 2:*
+```
+Quand le narrateur avait 6 ans, sa sœur avait la moitié de son âge, soit 3 ans. Maintenant que le narrateur a 70 ans, sa sœur aurait 70 - 3 = 67 ans. La réponse est 67.
+```
+
+*Output 3:*
+```
+Quand j'avais 6 ans, ma sœur avait la moitié de mon âge, donc elle avait 3 ans. Maintenant j'ai 70 ans, donc elle a 70/2 = 35. La réponse est 35.
+```
+
+Le calcul de la réponse finale implique quelques étapes (consultez l'article pour les détails) mais par souci de simplicité, nous pouvons voir qu'il existe déjà une réponse majoritaire qui deviendrait essentiellement la réponse finale.

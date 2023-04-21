@@ -1,0 +1,92 @@
+# Generated Knowledge Prompting
+
+import {Screenshot} from 'components/screenshot'
+import GENKNOW from '../../img/gen-knowledge.png'
+
+<Screenshot src={GENKNOW} alt="GENKNOW" />
+
+Image Source: [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf)
+
+Les LLM continuent d'être améliorés et une technique populaire inclut la capacité d'incorporer des connaissances ou des informations pour aider le modèle à faire des prédictions plus précises.
+
+En utilisant une idée similaire, le modèle peut-il également être utilisé pour générer des connaissances avant de faire une prédiction ? C'est ce qui est tenté dans l'article de [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf) -- générer des connaissances à utiliser dans le cadre de prompt. En particulier, dans quelle mesure cela est-il utile pour des tâches telles que le raisonnement de bon sens ?
+
+Essayons une simple prompt:
+
+*Prompt:*
+```
+Une partie du golf essaie d'obtenir un total de points plus élevé que d'autres. Oui ou non?
+```
+
+*Output:*
+```
+Oui.
+```
+
+Ce type d'erreur révèle les limites des LLMs pour effectuer des tâches qui nécessitent une connaissance plus approfondie du monde. Comment pouvons-nous améliorer cela avec la génération de connaissances ?
+
+Tout d'abord, nous générons quelques "connaissances":
+
+*Prompt:*
+```
+Entrée : la Grèce est plus grande que le Mexique.
+Connaissance : la Grèce s'étend sur environ 131 957 km², tandis que le Mexique s'étend sur environ 1 964 375 km², ce qui fait que le Mexique est 1 389 % plus grand que la Grèce.
+
+Entrée : Les verres s'embuent toujours.
+Connaissance : La condensation se produit sur les verres de lunettes lorsque la vapeur d'eau de votre sueur, de votre respiration et de l'humidité ambiante atterrit sur une surface froide, se refroidit, puis se transforme en minuscules gouttes de liquide, formant un film que vous voyez comme du brouillard. Vos lentilles seront relativement fraîches par rapport à votre respiration, surtout lorsque l'air extérieur est froid.
+
+Entrée : Un poisson est capable de penser.
+Connaissance : Les poissons sont plus intelligents qu'il n'y paraît. Dans de nombreux domaines, tels que la mémoire, leurs pouvoirs cognitifs égalent ou dépassent ceux des vertébrés «supérieurs», y compris les primates non humains. Les souvenirs à long terme des poissons les aident à garder une trace des relations sociales complexes.
+
+Entrée : Un effet commun de fumer beaucoup de cigarettes au cours de sa vie est un risque plus élevé que la normale de développer un cancer du poumon.
+Connaissance : Les personnes qui fumaient constamment en moyenne moins d'une cigarette par jour au cours de leur vie avaient neuf fois plus de risques de mourir d'un cancer du poumon que les personnes qui n'avaient jamais fumé. Parmi les personnes qui fumaient entre une et 10 cigarettes par jour, le risque de mourir d'un cancer du poumon était près de 12 fois plus élevé que celui des personnes n'ayant jamais fumé.
+
+Entrée : Une roche a la même taille qu'un caillou.
+Connaissances : Un caillou est un claste de roche dont la taille des particules varie de 4 à 64 millimètres selon l'échelle de sédimentologie d'Udden-Wentworth. Les cailloux sont généralement considérés comme plus gros que les granulés (2 à 4 millimètres de diamètre) et plus petits que les galets (64 à 256 millimètres de diamètre).
+
+Entrée : Une partie du golf essaie d'obtenir un total de points plus élevé que d'autres.
+Connaissance:
+```
+
+*Connaissance 1:*
+```
+L'objectif du golf est de jouer un ensemble de trous en utilisant le moins de coups possibles. Une partie de golf se compose généralement de 18 trous. Chaque trou est joué une fois dans la partie sur un parcours de golf standard. Chaque coup est compté comme un point, et le nombre total de coups est utilisé pour déterminer le vainqueur du jeu.
+```
+
+*Connaissance 2:*
+```
+Le golf est un sport de précision qui se joue avec une balle et des clubs. Les joueurs (ou golfeurs) utilisent différents types de clubs pour frapper les balles dans une série de trous sur un parcours en utilisant le moins de coups possible. Le but est de terminer le parcours avec le score le plus bas, qui est calculé en ajoutant le nombre total de coups pris sur chaque trou. Le joueur avec le score le plus bas remporte la partie.
+```
+
+Nous utilisons le prompt fourni dans lepaper par [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf).
+
+L'étape suivante consiste à intégrer les connaissances et à obtenir une prédiction. J'ai reformaté la question au format QA pour guider le format de réponse.
+
+*Prompt:*
+```
+Question : Une partie du golf consiste à essayer d'obtenir un total de points plus élevé que les autres. Oui ou non?
+
+Connaissance : L'objectif du golf est de jouer une série de trous en un minimum de coups. Une partie de golf se compose généralement de 18 trous. Chaque trou est joué une fois dans la ronde sur un parcours de golf standard. Chaque coup compte pour un point et le nombre total de coups est utilisé pour déterminer le vainqueur de la partie.
+
+Explique et répond :
+```
+
+*Réponse 1 (confiance très élevée) :*
+```
+Non, l'objectif du golf n'est pas d'obtenir un total de points plus élevé que les autres. L'objectif est plutôt de jouer une série de trous en un minimum de coups. Le nombre total de coups est utilisé pour déterminer le vainqueur du jeu, pas le nombre total de points.
+```
+
+```
+Question : Une partie du golf consiste à essayer d'obtenir un total de points plus élevé que les autres. Oui ou non?
+
+Connaissances : Le golf est un sport de précision avec club et balle dans lequel les joueurs (ou golfeurs) concurrents utilisent de nombreux types de clubs pour frapper des balles dans une série de trous sur un parcours en utilisant le moins de coups. L'objectif est de terminer le parcours avec le score le plus bas, qui est calculé en additionnant le nombre total de coups effectués sur chaque trou. Le joueur avec le score le plus bas remporte la partie.
+
+Expliquez et répondez :
+```
+
+*Réponse 2 (la confiance est beaucoup plus faible):*
+```
+Oui, une partie du golf essaie d'obtenir un total de points plus élevé que d'autres. Chaque joueur essaie de terminer le parcours avec le score le plus bas, qui est calculé en additionnant le nombre total de coups effectués sur chaque trou. Le joueur avec le score le plus bas remporte la partie.
+```
+
+Quelques choses très intéressantes se sont produites avec cet exemple. Dans la première réponse, le modèle était très confiant mais pas autant dans la seconde réponse. J'ai simplifié le processus à des fins de démonstration, mais il y a quelques détails supplémentaires à considérer pour arriver à la réponse finale. Consultez le paper pour en savoir plus.

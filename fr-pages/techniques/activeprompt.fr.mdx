@@ -1,0 +1,12 @@
+# Active-Prompt
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ACTIVE from '../../img/active-prompt.png'
+
+Les méthodes de chaîne de pensée (CoT) reposent sur un ensemble fixe d'exemplaires annotés par l'homme. Le problème avec cela est que les exemplaires peuvent ne pas être les exemples les plus efficaces pour les différentes tâches. Pour résoudre ce problème, [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf) ont récemment proposé une nouvelle approche d'incitation appelée Active-Prompt pour adapter les LLM à différents exemples d'invites spécifiques à une tâche ( annoté avec un raisonnement CoT conçu par l'homme).
+
+Vous trouverez ci-dessous une illustration de l'approche. La première étape consiste à interroger le LLM avec ou sans quelques exemples CoT. *k* réponses possibles sont générées pour un ensemble de questions de formation. Une métrique d'incertitude est calculée sur la base des *k* réponses (désaccord utilisé). Les questions les plus incertaines sont sélectionnées pour être annotées par des humains. Les nouveaux exemples annotés sont ensuite utilisés pour déduire chaque question.
+
+<Screenshot src={ACTIVE} alt="ACTIVE" />
+Image Source: [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf)

@@ -1,0 +1,109 @@
+# Few-Shot Prompting
+
+Les modèles de langage à grande échelle démontrent des capacités impressionnantes en mode zero-shot, mais ils restent limités sur des tâches plus complexes lorsqu'ils utilisent ce mode. Le few-shot prompting peut être utilisé comme une technique pour permettre un apprentissage en contexte où nous fournissons des démonstrations dans le prompt pour orienter le modèle vers de meilleures performances. Les démonstrations servent de conditionnement pour les exemples suivants où nous aimerions que le modèle génère une réponse.
+
+Selon [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) quelques propriétés de tir sont apparues pour la première fois lorsque les modèles ont été mis à l'échelle à une taille suffisante [(Kaplan et al., 2020)](https://arxiv.org/abs /2001.08361).
+
+Montrons comment fonctionne le few-shot prompting en utilisant un exemple présenté dans [Brown et al. 2020](https://arxiv.org/abs/2005.14165).  Dans cet exemple, la tâche consiste à utiliser correctement un nouveau mot dans une phrase.
+
+*Prompt:*
+```
+Un "whatpu" est un petit animal à fourrure originaire de Tanzanie. Un exemple de phrase qui utilise
+le mot whatpu est:
+Nous voyagions en Afrique et nous avons vu ces whatpus très mignons.
+Faire un "farduddle" signifie sauter de haut en bas très vite. Un exemple de phrase qui utilise
+le mot farduddle est :
+```
+
+*Output:*
+```
+Quand nous avons gagné le match, nous avons tous commencé à faire la fête.
+```
+
+Nous pouvons observer que le modèle a en quelque sorte appris à exécuter la tâche en lui fournissant un seul exemple (c'est-à-dire un coup). Pour les tâches plus difficiles, nous pouvons expérimenter en augmentant les démonstrations (par exemple, 3-shot, 5-shot, 10-shot, etc.).
+
+Suite aux découvertes de [Min et al. (2022)](https://arxiv.org/abs/2202.12837), voici quelques conseils supplémentaires sur les démonstrations/exemples lors de la réalisation de quelques prises :
+
+- "l'espace de label et la distribution du texte d'entrée spécifié par les démonstrations sont tous deux importants (indépendamment du fait que les labels soient correctes pour les entrées individuelles)"
+- le format que vous utilisez joue également un rôle clé dans les performances, même si vous n'utilisez que des labels aléatoires, c'est bien mieux que pas d'étiquettes du tout.
+- des résultats supplémentaires montrent que la sélection des labels aléatoires à partir d'une véritable distribution de labels (au lieu d'une distribution uniforme) aide également.
+
+Essayons quelques exemples. Essayons d'abord un exemple avec des labels aléatoires (ce qui signifie que les étiquettes Négatif et Positif sont attribuées au hasard aux entrées)
+
+*Prompt:*
+```
+C'est génial! // Négatif
+C'est mauvais! // Positif
+Wow ce film était rad! // Positif
+Quel horrible spectacle ! //
+```
+
+*Output:*
+```
+Negative
+```
+
+Nous obtenons toujours la bonne réponse, même si les labels ont été randomisées. Notez que nous avons également conservé le format, ce qui aide aussi. En fait, avec des expérimentations supplémentaires, il semble que les nouveaux modèles GPT avec lesquels nous expérimentons deviennent de plus en plus robustes même aux formats aléatoires. Exemple:
+
+*Prompt:*
+```
+Positif C'est génial !
+C'est mauvais! Négatif
+Wow ce film était rad!
+Positif
+Quel horrible spectacle ! --
+```
+
+*Output:*
+```
+Negatif
+```
+
+Il n'y a pas de cohérence dans le format ci-dessus, mais le modèle a quand même prédit la bonne label. Nous devons mener une analyse plus approfondie pour confirmer si cela est vrai pour des tâches différentes et plus complexes, y compris différentes variations de prompts.
+
+### Limitations du Few-shot Prompting
+
+La méthode de Few-shot prompting fonctionne bien pour de nombreuses tâches, mais ce n'est toujours pas une technique parfaite, surtout lorsqu'il s'agit de tâches de raisonnement plus complexes. Voyons pourquoi c'est le cas. Vous vous souvenez de l'exemple précédent où nous avons fourni la tâche suivante
+
+```
+La somme des nombres impairs de ce groupe donne un nombre pair : 15, 32, 5, 13, 82, 7, 1. 
+
+R : 
+```
+
+Si nous essayons à nouveau, le modèle affiche ce qui suit :
+
+```
+Oui, les nombres impairs de ce groupe totalisent 107, qui est un nombre pair.
+```
+
+Ce n'est pas la réponse correcte, ce qui souligne non seulement les limites de ces systèmes, mais également la nécessité d'une ingénierie de prompt plus avancée.
+
+Essayons d'ajouter quelques exemples pour voir si le few-shot prompting améliore les résultats.
+
+*Prompt:*
+```
+La somme des nombres impairs de ce groupe donne un nombre pair : 4, 8, 9, 15, 12, 2, 1.
+R : La réponse est Faux.
+
+La somme des nombres impairs de ce groupe donne un nombre pair : 17, 10, 19, 4, 8, 12, 24.
+R : La réponse est Vrai.
+
+La somme des nombres impairs de ce groupe donne un nombre pair : 16, 11, 14, 4, 8, 13, 24.
+R : La réponse est Vrai.
+
+La somme des nombres impairs de ce groupe donne un nombre pair : 17, 9, 10, 12, 13, 4, 2.
+R : La réponse est Faux.
+
+La somme des nombres impairs de ce groupe donne un nombre pair : 15, 32, 5, 13, 82, 7, 1.
+R :
+```
+
+*Output:*
+```
+La réponse est Vrai.
+```
+
+Cela n'a pas fonctionné. Il semble que le few-shot prompting ne soit pas suffisant pour obtenir des réponses fiables pour ce type de problème de raisonnement. L'exemple ci-dessus fournit des informations de base sur la tâche. Si vous regardez de plus près, le type de tâche que nous avons introduit implique quelques étapes de raisonnement supplémentaires. En d'autres termes, cela pourrait aider si nous décomposons le problème en étapes et le démontrons au modèle.  Plus récemment, le [chain-of-thought (CoT) prompting](https://arxiv.org/abs/2201.11903)  été popularisé pour aborder des tâches de raisonnement arithmétique, de bon sens et symbolique plus complexes.
+
+Globalement, il semble que fournir des exemples soit utile pour résoudre certains problèmes. Lorsque le prompting zéro-shot et le prompting few-shot ne sont pas suffisants, cela peut signifier que ce que le modèle a appris n'est pas suffisant pour bien performer sur la tâche. Dans ce cas, il est recommandé de commencer à réfléchir à la fine-tuning de vos modèles ou d'expérimenter avec des techniques de prompting plus avancées. Nous allons maintenant parler de l'une des techniques de prompting populaires appelée chain-of-thought prompting qui a gagné beaucoup de popularité.
