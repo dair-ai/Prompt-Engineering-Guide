@@ -1,3 +1,108 @@
-# General Tips for Designing Prompts
+# İstem Tasarlamak için Genel İpuçları
 
-Needs translation! Feel free to contribute a translating by clicking the `Edit this page` button on the right side.
+İşte istemlerinizi tasarlarken aklınızda bulundurmanız gereken bazı ipuçları:
+
+
+### Basit Başlangıç
+İstemleri tasarlamaya başlarken, bunun gerçekten de en iyi sonuçları elde etmek için çok fazla deneme gerektiren yinelemeli bir süreç olduğunu aklınızda bulundurmalısınız. OpenAI veya Cohere's gibi basit bir oyun alanı kullanmak iyi bir başlangıç noktasıdır.
+
+Basit itemlerle başlayabilir ve daha iyi sonuçlar hedefledikçe daha fazla unsur ve bağlam eklemeye devam edebilirsiniz. Bu nedenle, yol boyunca isteminizi versiyonlamak hayati önem taşır. Kılavuzu okurken, spesifiklik, basitlik ve özlülüğün genellikle size daha iyi sonuçlar vereceği birçok örnek göreceksiniz.
+
+Birçok farklı alt görev içeren büyük bir göreviniz olduğunda, görevi daha basit alt görevlere ayırmayı deneyebilir ve daha iyi sonuçlar elde ettikçe geliştirmeye devam edebilirsiniz. Bu, başlangıçta hızlı tasarım sürecine çok fazla karmaşıklık eklenmesini önler.
+
+### The Instruction
+"Yaz", "Sınıflandır", "Özetle", "Çevir", "Sırala", vb. gibi komutları kullanarak modele ne elde etmek istediğinizi bildirerek çeşitli basit görevler için etkili istemler tasarlayabilirsiniz.
+
+Neyin en iyi sonucu verdiğini görmek için çok sayıda deneme yapmanız gerektiğini de unutmayın. Farklı anahtar kelimeler, bağlamlar ve verilerle farklı talimatlar deneyin ve özel kullanım durumunuz ve göreviniz için en iyi sonucu neyin verdiğini görün. Genellikle, bağlam gerçekleştirmeye çalıştığınız görevle ne kadar spesifik ve alakalı olursa o kadar iyi olur. Örnekleme yapmanın ve daha fazla bağlam eklemenin önemine ilerleyen kılavuzlarda değineceğiz.
+
+Diğerleri talimatların komut isteminin başına yerleştirilmesini önermektedir. Ayrıca talimat ve içeriği ayırmak için "###" gibi net bir ayırıcı kullanılması önerilir.
+
+Mesela:
+
+*İstem:*
+```
+### Talimatlar ###
+Aşağıdaki metni İspanyolcaya çevirin:
+
+Text: "merhaba!"
+```
+
+*Çıktı:*
+```
+¡Hola!
+```
+
+### Özgünlük
+Modelin gerçekleştirmesini istediğiniz talimat ve görev hakkında çok spesifik olun. Yönerge ne kadar açıklayıcı ve ayrıntılı olursa sonuçlar da o kadar iyi olur. Bu, özellikle istediğiniz bir sonuç veya üretim tarzı olduğunda önemlidir. Daha iyi sonuçlara yol açan belirli belirteçler veya anahtar kelimeler yoktur. İyi bir format ve açıklayıcı bir istem olması daha önemlidir. Aslında, komut isteminde örnekler sunmak, belirli formatlarda istenen çıktıyı elde etmek için çok etkilidir.
+
+İstemleri tasarlarken istem uzunluğunu da göz önünde bulundurmalısınız çünkü bunun ne kadar uzun olabileceğine ilişkin sınırlamalar vardır. Ne kadar spesifik ve ayrıntılı olmanız gerektiğini düşünmek dikkate alınması gereken bir husustur. Çok fazla gereksiz ayrıntıya yer vermek iyi bir yaklaşım olmayabilir. Ayrıntılar konuyla ilgili olmalı ve eldeki göreve katkıda bulunmalıdır. Bu, çok fazla deneme yapmanız gereken bir konudur. Uygulamalarınız için istemleri optimize etmek amacıyla çok sayıda deneme ve yineleme yapılmasını teşvik ediyoruz.
+
+Örnek olarak, bir metin parçasından belirli bir bilgiyi çıkarmak için basit bir istem deneyelim.
+
+*Girdi:*
+```
+Aşağıdaki metinde geçen yer isimlerini çıkarınız. 
+
+İstenilen format:
+Yer: <sirket_adlarının_virgulle_ayrılmıs_listesi>
+
+Giriş: "Bu gelişmeler araştırmacılar için cesaret verici olsa da, pek çok şey hala gizemini koruyor. Lizbon'daki Champalimaud Bilinmeyenler Merkezi'nde nöroimmünolog olan Henrique Veiga-Fernandes, "Beyin ile periferde gördüğümüz etki arasında genellikle bir kara kutumuz var" diyor. "Bunu terapötik bağlamda kullanmak istiyorsak, aslında mekanizmayı anlamamız gerekiyor.""
+```
+
+*Çıktı:*
+```
+Yer ismi: Champalimaud Bilinmeyenler Merkezi, Lisbon
+```
+
+Girdi metni [bu Nature makalesinden](https://www.nature.com/articles/d41586-023-00509-z) elde edilmiştir.
+
+### Belirsizlikten Kaçının
+
+Yukarıdaki ayrıntılı olma ve formatı geliştirme ile ilgili istemleri göz önüne alındığında, istemler konusunda çok akıllıca davranmak ve potansiyel olarak kesin olmayan açıklamalar oluşturma tuzağına düşmek kolaydır. Spesifik ve doğrudan olmak genellikle daha iyidir. Buradaki benzetme etkili iletişime çok benzer -- ne kadar doğrudan olursa mesaj o kadar etkili bir şekilde iletilir.
+
+Örneğin, hızlı mühendislik kavramını öğrenmekle ilgileniyor olabilirsiniz. Şöyle bir şey deneyebilirsiniz:
+
+```
+Mühendislik kavramını açıklayın. Açıklamayı kısa tutun, sadece birkaç cümle ve çok açıklayıcı olmayın.
+```
+
+Yukarıdaki istemde kaç cümle kullanılacağı ve hangi tarzda yazılacağı açık değildir. Yukarıdaki itemlerle yine de bir şekilde iyi yanıtlar alabilirsiniz, ancak daha iyi bir item çok spesifik, kısa ve öz bir istem olacaktır. Şunun gibi bir şey:
+
+```
+Bir lise öğrencisine hızlı mühendislik kavramını açıklamak için 2-3 cümle kullanın.
+```
+
+### To do or not to do?
+İstemleri tasarlarken bir başka yaygın item de ne yapılmaması gerektiğini söylemekten kaçınmak, bunun yerine ne yapılması gerektiğini söylemektir. Bu, daha spesifik olmayı teşvik eder ve modelden iyi yanıtlar alınmasını sağlayan ayrıntılara odaklanır.
+
+İşte bir film önerisi sohbet robotunun, talimatı yazma şeklim nedeniyle tam olarak yapmasını istemediğim şeyde başarısız olmasının bir örneği -- ne yapılmaması gerektiğine odaklanmak.
+
+*Girdi:*
+```
+Aşağıda bir müşteriye film öneren bir temsilci yer almaktadır. İLGI ALANLARINI SORMAYIN. KIŞISEL BILGI ISTEMEYIN.
+
+Customer: Lütfen ilgi alanlarıma göre bir film önerin.
+Agent: 
+```
+
+*Çıktı:*
+```
+Elbette, ilgi alanlarınıza göre bir film önerebilirim. Ne tür bir film izlemek istersiniz? Aksiyon mu, komedi mi, romantik mi yoksa başka bir şey mi tercih edersiniz?
+```
+
+İşte daha iyi bir girdi:
+
+*Girdi:*
+```
+Aşağıda bir müşteriye film öneren bir temsilci yer almaktadır. Temsilci, en iyi küresel trend filmlerden bir film önermekle sorumludur. Kullanıcılara tercihlerini sormaktan kaçınmalı ve kişisel bilgi istemekten kaçınmalıdır. Temsilcinin önerecek bir filmi yoksa, "Üzgünüz, bugün önerecek bir film bulamadık." yanıtını vermelidir.
+
+Customer: Lütfen ilgi alanlarıma göre bir film önerin.
+Agent:
+```
+
+*Çıktı:*
+```
+Üzgünüm, ilgi alanlarınız hakkında herhangi bir bilgim yok. Ancak, işte şu anda en iyi küresel trend filmlerin bir listesi: [film listesi]. Umarım hoşunuza gidecek bir şeyler bulursunuz!
+```
+
+Yukarıdaki örneklerden bazıları ["OpenAI API ile hızlı mühendislik için en iyi uygulamalar" makalesinden](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api) uyarlanmıştır.
