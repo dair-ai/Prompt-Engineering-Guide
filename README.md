@@ -11,7 +11,7 @@ Due to high demand, we've partnered with Sphere to deliver a [new course on Prom
 ---
 ## Announcements / Updates
 
-- 🌐 We now support [中文](https://www.promptingguide.ai/zh), [日本語](https://www.promptingguide.ai/jp), [Português](https://www.promptingguide.ai/pt), [Turkish](https://www.promptingguide.ai/tr) and [English](https://www.promptingguide.ai/). Welcoming more translations.
+- 🌐 We now support [中文](https://www.promptingguide.ai/zh), [日本語](https://www.promptingguide.ai/jp), [한글](https://www.promptingguide.ai/kr), [Português](https://www.promptingguide.ai/pt), [Turkish](https://www.promptingguide.ai/tr) and [English](https://www.promptingguide.ai/). Welcoming more translations.
 - 🎉 We have launched new web version of the guide [here](https://www.promptingguide.ai/)
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
 - 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
