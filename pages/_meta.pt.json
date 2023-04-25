@@ -2,20 +2,20 @@
   "index": "Prompt Engineering",
   "introduction": "Introdução",
   "techniques": "Técnicas",
-  "applications": "Applications",
+  "applications": "Aplicações",
   "models": "Modelos",
   "risks": "Riscos e usos indevidos",
-  "papers": "Papers",
+  "papers": "Artigos",
   "tools": "Ferramentas",
   "notebooks": "Notebooks",
-  "datasets": "Datasets",
+  "datasets": "Conjuntos de dados",
   "readings": "Leituras Adicionais",
   "about": {
     "title": "Sobre",
     "type": "page"
   },
   "course":{
-    "title": "Prompt Engineering Course",
+    "title": "Curso de Engenharia Prompt",
     "type": "page"
   },
   "contact": {
