@@ -1,100 +1,104 @@
-# General Tips for Designing Prompts
+# Conseils Généraux Pour La Conception Des Prompts
 
-Here are some tips to keep in mind while you are designing your prompts:
+Voici quelques conseils à garder à l'esprit lorsque vous concevez vos prompts :
 
 
-### Start Simple
-As you get started with designing prompts, you should keep in mind that it is really an iterative process that requires a lot of experimentation to get optimal results. Using a simple playground like OpenAI or Cohere's is a good starting point.
+### Commencez Simplement
 
-You can start with simple prompts and keep adding more elements and context as you aim for better results. Versioning your prompt along the way is vital for this reason. As we read the guide you will see many examples where specificity, simplicity, and conciseness will often give you better results.
+Lorsque vous commencez à concevoir des prompts, vous devez garder à l'esprit qu'il s'agit d'un processus itératif qui nécessite beaucoup d'expérimentation afin d'obtenir des résultats optimaux. L'utilisation d'un terrain de jeu simple comme OpenAI ou Cohere est un bon point de départ.
 
-When you have a big task that involves many different subtasks, you can try to break down the task into simpler subtasks and keep building up as you get better results. This avoids adding too much complexity to the prompt design process at the beginning.
+Vous pouvez commencer par des messages simples et ajouter de plus en plus d'éléments et de contexte au fur et à mesure que vous cherchez à obtenir de meilleurs résultats. Pour cette raison, il est essentiel de modifier votre prompt en cours de route. En lisant le guide, vous verrez de nombreux exemples où la spécificité, la simplicité et la concision permettent souvent d'obtenir de meilleurs résultats.
 
-### The Instruction
-You can design effective prompts for various simple tasks by using commands to instruct the model what you want to achieve such as "Write", "Classify", "Summarize", "Translate", "Order", etc.
+Lorsque vous avez une tâche importante qui implique de nombreuses sous-tâches différentes, vous pouvez essayer de décomposer la tâche en sous-tâches plus simples et continuer à les développer au fur et à mesure que vous obtenez de meilleurs résultats. Cela permet d'éviter d'ajouter trop de complexité au processus de prompt design dès le début.
 
-Keep in mind that you also need to experiment a lot to see what works best. Try different instructions with different keywords, contexts, and data and see what works best for your particular use case and task. Usually, the more specific and relevant the context is to the task you are trying to perform, the better. We will touch on the importance of sampling and adding more context in the upcoming guides.
+### L'instruction  
 
-Others recommend that instructions are placed at the beginning of the prompt. It's also recommended that some clear separator like "###" is used to separate the instruction and context.
+Vous pouvez concevoir des prompts efficaces pour diverses tâches simples en utilisant des commandes pour indiquer au modèle ce que vous souhaitez réaliser, telles que "Écrire", "Classer", "Résumer", "Traduire", "Ordonner", etc.
 
-For instance:
+Gardez à l'esprit que vous devez également expérimenter beaucoup pour voir ce qui fonctionne le mieux. Essayez différentes instructions avec différents mots-clés, contextes et données et voyez ce qui fonctionne le mieux pour votre cas d'utilisation et votre tâche. En général, plus le contexte est spécifique et pertinent par rapport à la tâche que vous essayez d'accomplir, mieux c'est. Nous aborderons l'importance de l'échantillonnage et de l'ajout de contexte dans les prochains guides.
 
-*Prompt:*
+D'autres recommandent de placer les instructions au début de l'invite. Il est également recommandé d'utiliser un séparateur clair comme "###" pour séparer l'instruction du contexte.
+
+Par exemple :
+
+*Prompt :*
 ```
 ### Instruction ###
-Translate the text below to Spanish:
+Traduit le texte suivant en Espagnol:
 
-Text: "hello!"
+Texte: "hello!"
 ```
 
-*Output:*
+*Output :*
 ```
 ¡Hola!
 ```
 
-### Specificity
-Be very specific about the instruction and task you want the model to perform. The more descriptive and detailed the prompt is, the better the results. This is particularly important when you have a desired outcome or style of generation you are seeking. There aren't specific tokens or keywords that lead to better results. It's more important to have a good format and descriptive prompt. In fact, providing examples in the prompt is very effective to get desired output in specific formats.
+### Spécificité  
 
-When designing prompts you should also keep in mind the length of the prompt as there are limitations regarding how long this can be. Thinking about how specific and detailed you should be is something to consider. Including too many unnecessary details is not necessarily a good approach. The details should be relevant and contribute to the task at hand. This is something you will need to experiment with a lot. We encourage a lot of experimentation and iteration to optimize prompts for your applications.
+Soyez très précis quant à l'instruction et à la tâche que vous voulez que le modèle accomplisse. Plus la prompt est descriptive et détaillée, meilleurs sont les résultats. Ceci est particulièrement important lorsque vous recherchez un résultat ou un style de génération. Il n'y a pas de tokens ou de mots-clés spécifiques qui conduisent à de meilleurs résultats. Il est plus important d'avoir un bon format et une prompt descriptive. En fait, fournir des exemples dans la prompt est très efficace pour obtenir les résultats souhaités dans des formats spécifiques.
 
-As an example, let's try a simple prompt to extract specific information from a piece of text.
+Lors de la conception des prompts, vous devez également garder à l'esprit la longueur de la prompt, car il existe des limites à cette longueur. Il convient de réfléchir au degré de spécificité et de détail à apporter. Inclure trop de détails inutiles n'est pas nécessairement une bonne approche. Les détails doivent être pertinents et contribuer à la tâche à accomplir. C'est un point sur lequel vous devrez beaucoup expérimenter. Nous encourageons l'expérimentation et l'itération afin d'optimiser vos prompts pour vos applications.
 
-*Prompt:*
+À titre d'exemple, essayons une simple prompt pour extraire des informations spécifiques d'un texte : 
+
+*Prompt :*
 ```
-Extract the name of places in the following text. 
+Extrais le nom des lieux dans le texte suivant. 
 
-Desired format:
-Place: <comma_separated_list_of_company_names>
+Format voulu :
+Place : <comma_separated_list_of_company_names>
 
-Input: "Although these developments are encouraging to researchers, much is still a mystery. “We often have a black box between the brain and the effect we see in the periphery,” says Henrique Veiga-Fernandes, a neuroimmunologist at the Champalimaud Centre for the Unknown in Lisbon. “If we want to use it in the therapeutic context, we actually need to understand the mechanism.""
-```
-
-*Output:*
-```
-Place: Champalimaud Centre for the Unknown, Lisbon
+Input : "Bien que ces développements soient encourageants pour les chercheurs, beaucoup de choses restent encore mystérieuses. "Nous avons souvent une boîte noire entre le cerveau et l'effet que nous observons à la périphérie", explique Henrique Veiga-Fernandes, neuro-immunologiste au Centre Champalimaud pour l'Inconnu à Lisbonne. "Si nous voulons l'utiliser dans un contexte thérapeutique, nous devons comprendre le mécanisme.""
 ```
 
-Input text is obtained from [this Nature article](https://www.nature.com/articles/d41586-023-00509-z).
-
-### Avoid Impreciseness
-
-Given the tips above about being detailed and improving format, it's easy to fall into the trap of wanting to be too clever about prompts and potentially creating imprecise descriptions. It's often better to be specific and direct. The analogy here is very similar to effective communication -- the more direct, the more effective the message gets across.
-
-For example, you might be interested in learning the concept of prompt engineering. You might try something like:
-
+*Output :*
 ```
-Explain the concept prompt engineering. Keep the explanation short, only a few sentences, and don't be too descriptive.
+Place : Centre Champalimaud pour l'Inconnu, Lisbonne
 ```
 
-It's not clear from the prompt above how many sentences to use and what style. You might still somewhat get good responses with the above prompts but the better prompt would be one that is very specific, concise, and to the point. Something like:
+Le texte est obtenu à partir [de cet article de Nature](https://www.nature.com/articles/d41586-023-00509-z) et traduit en français.
+
+### Éviter les imprécisions
+
+Compte tenu des conseils ci-dessus concernant les détails et l'amélioration de la formulation, il est facile de tomber dans le piège de vouloir être trop astucieux et de risquer de créer des descriptions imprécises. Il est souvent préférable d'être précis et direct. L'analogie ici est très similaire à une communication efficace : plus le message est direct, plus il passe efficacement.
+
+Par exemple, vous pourriez être intéressé par l'apprentissage du prompt engineering. Vous pourriez essayer quelque chose comme :
 
 ```
-Use 2-3 sentences to explain the concept of prompt engineering to a high school student.
+Expliquez le concept de prompt engineering. L'explication doit être courte, quelques phrases seulement, et ne pas être trop descriptive.
 ```
 
-### To do or not to do?
-Another common tip when designing prompts is to avoid saying what not to do but say what to do instead. This encourages more specificity and focuses on the details that lead to good responses from the model.
+Le nombre de phrases à utiliser et le style à adopter ne sont pas clairement indiqués dans la prompt ci-dessus. Vous pourriez encore obtenir de bonnes réponses avec les prompts ci-dessus, mais la meilleure prompt serait très spécifique, concise et directe. Quelque chose comme :
 
-Here is an example of a movie recommendation chatbot failing at exactly what I don't want it to do because of how I wrote the instruction -- focusing on what not to do.
-
-*Prompt:*
 ```
-The following is an agent that recommends movies to a customer. DO NOT ASK FOR INTERESTS. DO NOT ASK FOR PERSONAL INFORMATION.
-
-Customer: Please recommend a movie based on my interests.
-Agent: 
+Expliquez en 2-3 phrases le concept d'ingénierie rapide à un lycéen.
 ```
 
-*Output:*
+### Faire ou ne pas faire ?  
+
+Un autre conseil courant lors de la conception de prompts est d'éviter de dire ce qu'il ne faut pas faire, mais de dire plutôt ce qu'il faut faire. Cela encourage une plus grande spécificité et met l'accent sur les détails qui conduisent à de bonnes réponses de la part du modèle.
+
+Voici un exemple d'un chatbot de recommandation de films qui échoue exactement dans ce que je ne veux pas qu'il fasse à cause de la façon dont j'ai rédigé l'instruction - en mettant l'accent sur ce qu'il ne faut pas faire.
+
+*Prompt :*
+```
+Voici un agent qui recommande des films à un client. NE PAS DEMANDER LES CENTRES D'INTÉRÊT. NE PAS DEMANDER D'INFORMATIONS PERSONNELLES.
+
+Client : Veuillez me recommander un film en fonction de mes centres d'intérêt.
+Agent : 
+```
+
+*Output :*
 ```
 Bien sûr, je peux vous recommander un film en fonction de vos centres d'intérêt. Quel genre de film aimeriez-vous regarder ? Préférez-vous les films d'action, de comédie, romantiques ou autre chose ?
 ```
 
 Voici une meilleure prompt:
 
-*Prompt:*
+*Prompt :*
 ```
-Le suivant est un agent qui recommande des films à un client. L'agent est responsable de recommander un film parmi les films tendances mondiaux les plus populaires. Il doit éviter de demander aux utilisateurs leurs préférences et de demander des informations personnelles. Si l'agent n'a pas de film à recommander, il doit répondre "Désolé, je n'ai pas pu trouver de film à recommander aujourd'hu
+Le suivant est un agent qui recommande des films à un client. L'agent est responsable de recommander un film parmi les films tendances mondiaux les plus populaires. Il doit éviter de demander aux utilisateurs leurs préférences et de demander des informations personnelles. Si l'agent n'a pas de film à recommander, il doit répondre "Désolé, je n'ai pas pu trouver de film à recommander aujourd'hui".
 
 Client : Recommander un film en fonction de mes centres d'intérêt.
 Agent:

@@ -1,8 +1,8 @@
 # Examples of Prompts
 
-In the previous section, we introduced and gave a basic examples of how to prompt LLMs. 
+The previous section introduced a basic example of how to prompt LLMs. 
 
-In this section, we will provide more examples of how prompts are used to achieve different tasks and introduce key concepts along the way. Often, the best way to learn concepts is by going through examples. Below we cover a few examples of how well-crafted prompts can be used to perform different types of tasks.
+This section will provide more examples of how to use prompts to achieve different tasks and introduce key concepts along the way. Often, the best way to learn concepts is by going through examples. The few examples below illustrate how you can use well-crafted prompts to perform different types of tasks.
 
 Topics:
 - [Text Summarization](#text-summarization)
@@ -18,7 +18,7 @@ Topics:
 ## Text Summarization
 One of the standard tasks in natural language generation is text summarization. Text summarization can include many different flavors and domains. In fact, one of the most promising applications of language models is the ability to summarize articles and concepts into quick and easy-to-read summaries. Let's try a basic summarization task using prompts.
 
-Let's say I am interested to learn about antibiotics, I could try a prompt like this:
+Let's say you are interested to learn about antibiotics, you could try a prompt like this:
 
 *Prompt:*
 ```
@@ -32,7 +32,7 @@ A:
 Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.
 ```
 
-The "A:" is an explicit prompt format that's used in question answering. I used it here to tell the model that there is an expected further. In this example, it's not clear how this is useful vs not using it but we will leave it that for later examples. Let's just assume that this is too much information and want to summarize it further. In fact, we can instruct the model to summarize into one sentence like so:
+The "A:" is an explicit prompt format that you use in question answering. You used it here to tell the model that there is an expected further. In this example, it's not clear how this is useful vs not using it but we will leave it that for later examples. Let's just assume that this is too much information and you want to summarize it further. In fact, you can instruct the model to summarize into one sentence like so:
 
 *Prompt:*
 ```
@@ -66,7 +66,7 @@ Mention the large language model based product mentioned in the paragraph above:
 The large language model based product mentioned in the paragraph above is ChatGPT.
 ```
 
-There are many ways we can improve the results above, but this is already very useful.
+There are many ways you can improve the results above, but this is already very useful.
 
 By now it should be obvious that you can ask the model to perform different tasks by simply instructing it what to do. That's a powerful capability that AI product developers are already using to build powerful products and experiences.
 
@@ -99,7 +99,7 @@ Context obtained from [Nature](https://www.nature.com/articles/d41586-023-00400-
 ---
 
 ## Text Classification
-So far, we have used simple instructions to perform a task. As a prompt engineer, you will need to get better at providing better instructions. But that's not all! You will also find that for harder use cases, just providing instructions won't be enough. This is where you need to think more about the context and the different elements you can use in a prompt. Other elements you can provide are `input data` or `examples`. 
+So far, you have used simple instructions to perform a task. As a prompt engineer, you need to get better at providing better instructions. But that's not all! You will also find that for harder use cases, just providing instructions won't be enough. This is where you need to think more about the context and the different elements you can use in a prompt. Other elements you can provide are `input data` or `examples`. 
 
 Let's try to demonstrate this by providing an example of text classification.
 
@@ -116,7 +116,7 @@ Sentiment:
 Neutral
 ```
 
-We gave the instruction to classify the text and the model responded with `'Neutral'` which is correct. Nothing is wrong with this but let's say that what we really need is for the model to give the label in the exact format we want. So instead of `Neutral` we want it to return `neutral`. How do we achieve this? There are different ways to do this. We care about specificity here, so the more information we can provide the prompt the better results. We can try providing examples to specify the correct behavior. Let's try again:
+You gave the instruction to classify the text and the model responded with `'Neutral'`, which is correct. Nothing is wrong with this but let's say that what you really need is for the model to give the label in the exact format you want. So instead of `Neutral`, you want it to return `neutral`. How do you achieve this? There are different ways to do this. You care about specificity here, so the more information you can provide the prompt, the better results. You can try providing examples to specify the correct behavior. Let's try again:
 
 *Prompt:*
 ```
@@ -134,7 +134,7 @@ Sentiment:
 neutral
 ```
 
-Perfect! This time the model returned `neutral` which is the specific label I was looking for. It seems that the example provided in the prompt helped the model to be specific in its output. 
+Perfect! This time the model returned `neutral` which is the specific label you were looking for. It seems that the example provided in the prompt helped the model to be specific in its output. 
 
 To highlight why sometimes being specific is important, check out the example below and spot the problem:
 
@@ -151,14 +151,14 @@ Sentiment:
 Neutral
 ```
 
-What is the problem here? As a hint, the made up `nutral` label is completely ignored by the model. Instead, the model outputs `Neutral` as it has some bias towards that label. But let's assume that what we really want is `nutral`. How would you fix this? Maybe you can try adding descriptions to the labels or add more examples to the prompt? If you are not sure, we will discuss a few ideas in the upcoming sections.
+What is the problem here? As a hint, the made-up `nutral` label is completely ignored by the model. Instead, the model outputs `Neutral` as it has some bias towards that label. But let's assume that what you really want is `nutral`. How would you fix this? Maybe you can try adding descriptions to the labels or add more examples to the prompt? If you are not sure, we will discuss a few ideas in the upcoming sections.
 
 ---
 
 ## Conversation
 Perhaps one of the more interesting things you can achieve with prompt engineering is instructing the LLM system on how to behave, its intent, and its identity. This is particularly useful when you are building conversational systems like customer service chatbots.
 
-For instance, let's create a conversational system that's able to generate more technical and scientific responses to questions. Note how we are explicitly telling it how to behave through the instruction. This is sometimes referred to as *role prompting*.
+For instance, let's create a conversational system that's able to generate more technical and scientific responses to questions. Note how you are explicitly telling it how to behave through the instruction. This is sometimes referred to as *role prompting*.
 
 *Prompt:*
 ```
@@ -192,7 +192,7 @@ AI:
 Sure! Black holes are created when a very massive star runs out of fuel and collapses in on itself. The gravity of the star is so strong that nothing, not even light, can escape its pull. This creates a point in space-time with an intense gravitational force called a black hole.
 ```
 
-I think we made some progress. You can continue improving it. I am sure if you add more examples you might get even better results. 
+You made some progress. You can continue improving it. If you add more examples, you might get even better results. 
 
 ---
 
@@ -214,9 +214,9 @@ let name = prompt("What is your name?");
 console.log(`Hello, ${name}!`);
 ```
 
-You can see that we didn't even need to specify the language to use.
+Notice that you didn't even need to specify the language to use.
 
-Let's switch levels a bit. I want to show you how powerful LLMs can be with a little more effort in designing the prompts.
+Let's switch levels a bit. The example below shows how powerful LLMs can be with a little more effort in designing the prompts.
 
 *Prompt:*
 ```
@@ -234,12 +234,12 @@ FROM students
 WHERE DepartmentId IN (SELECT DepartmentId FROM departments WHERE DepartmentName = 'Computer Science');
 ```
 
-This is very impressive. In this case, we provided data about the database schema and asked it to generate a valid MySQL query. 
+This is very impressive. In this case, you provided data about the database schema and asked it to generate a valid MySQL query. 
 
 ---
 
 ## Reasoning
-Perhaps one of the most difficult tasks for an LLM today is one that requires some form of reasoning. Reasoning is one of the areas that I am most excited about due to the types of complex applications that can emerge from LLMs.
+Perhaps one of the most difficult tasks for an LLM today is one that requires some form of reasoning. Reasoning is one of most interesting areas due to the types of complex applications that can emerge from LLMs.
 
 There have been some improvements in tasks involving mathematical capabilities. That said, it's important to note that current LLMs struggle to perform reasoning tasks so this requires even more advanced prompt engineering techniques. We will cover these advanced techniques in the next guide. For now, we will cover a few basic examples to show arithmetic capabilities.
 
