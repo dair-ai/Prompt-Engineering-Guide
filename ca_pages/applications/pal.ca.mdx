@@ -1,0 +1,65 @@
+# PAL (Models de llenguatge assistits per programa)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import PAL from '../../img/pal.png'
+
+[Gao et al., (2022)](https://arxiv.org/abs/2211.10435) presenta un mètode que utilitza LLMs per llegir problemes en llenguatge natural i generar programes com a passos intermedis de raonament. Anomenats models de llenguatge assistits per programa (PAL), difereix de l'encadenament de pensaments en el sentit que, en lloc d'utilitzar text de forma lliure per obtenir una solució, delega el pas de la solució a un temps d'execució programàtic, com un intèrpret de Python.
+
+<Screenshot src={PAL} alt="PAL" />
+Font de la imatge: [Gao et al., (2022)](https://arxiv.org/abs/2211.10435)
+
+Anem a veure un exemple utilitzant LangChain i OpenAI GPT-3. Estem interessats a desenvolupar una aplicació senzilla que sigui capaç d'interpretar la pregunta que es planteja i proporcionar una resposta aprofitant l'intèrpret de Python.
+
+Específicament, estem interessats a crear una funcionalitat que permeti l'ús de l'LLM per respondre preguntes que requereixin comprensió de dates. Proporcionarem a l'LLM un avís que inclogui alguns exemples adoptats d'[aquí](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py).
+
+Aquestes són les importacions que necessitem:
+
+```python
+import openai
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+import os
+from langchain.llms import OpenAI
+from dotenv import load_dotenv
+```
+
+Configurem primer algunes coses:
+
+```python
+load_dotenv()
+
+# Configuració de l'API
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# per a LangChain
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+```
+
+Configurar l'instància del model:
+
+```python
+llm = OpenAI(model_name='text-davinci-003', temperature=0)
+```
+
+Configurar el prompt + pregunta:
+
+```python
+question = "Avui és 27 de febrer de 2023. Vaig néixer exactament fa 25 anys. Quina és la data en què vaig néixer en MM/DD/YYYY?"
+
+DATE_UNDERSTANDING_PROMPT = """
+# (Rest of the prompt code, but translated to Catalan)
+""".strip() + '\n'
+```
+
+```python
+llm_out = llm(DATE_UNDERSTANDING_PROMPT.format(question=question))
+print(llm_out)
+```
+
+```python
+exec(llm_out)
+print(born)
+```
+
+Això produirà el següent resultat: `02/27/1998`

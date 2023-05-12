@@ -1,0 +1,26 @@
+# Enginyer automàtic de prompts (APE)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import APE from '../../img/APE.png'
+import APECOT from '../../img/ape-zero-shot-cot.png'
+
+<Screenshot src={APE} alt="APE" />
+Font de la imatge: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+[Zhou et al., (2022)](https://arxiv.org/abs/2211.01910) proposen un enginyer automàtic de prompts (APE), un marc per a la generació i selecció automàtica d'instruccions. El problema de generació d'instruccions es planteja com a síntesi de llenguatge natural i es tracta com a un problema d'optimització de caixa negra utilitzant LLMs per generar i buscar solucions candidates.
+
+El primer pas implica un model de llenguatge gran (com a model d'inferència) que rep demostracions de sortida per generar candidats d'instruccions per a una tasca. Aquestes solucions candidates guiaran el procediment de cerca. Les instruccions s'executen utilitzant un model objectiu i, a continuació, es selecciona la instrucció més apropiada en funció de les puntuacions d'avaluació calculades.
+
+APE descobreix un millor prompt de CoT de zero trets que el prompt creat per humans "Let's think step by step" (["Pensem pas a pas"]) ([Kojima et al., 2022](https://arxiv.org/abs/2205.11916)).
+
+El prompt "Treballem això de manera pas a pas per assegurar-nos que tenim la resposta correcta." provoca un raonament de cadena de pensament i millora el rendiment en els bancs de proves MultiArith i GSM8K:
+
+<Screenshot src={APECOT} alt="APECOT" />
+Font de la imatge: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+Aquest article tracta un tema important relacionat amb l'enginyeria de prompts, que és la idea d'optimitzar automàticament els prompts. Encara que no aprofundim en aquest tema en aquesta guia, aquí hi ha alguns articles clau si estàs interessat en el tema:
+
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - proposa un enfocament per crear automàticament prompts per a un conjunt divers de tasques basat en la cerca guiada per gradients.
+- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - una alternativa lleugera al fine-tuning que afegeix un prefix continu i entrenable per a tasques de generació de llenguatge natural (NLG).
+- [Prompt Tuning](https://arxiv.org/abs/2104.08691) - proposa un mecanisme per aprendre prompts suaus a través de la retropropagació.

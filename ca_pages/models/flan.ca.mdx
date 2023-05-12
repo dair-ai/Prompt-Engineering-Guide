@@ -1,0 +1,81 @@
+# Escalat de models de llenguatge amb ajust fi per instruccions
+
+import {Screenshot} from 'components/screenshot'
+import FLAN1 from '../../img/flan-1.png'
+import FLAN2 from '../../img/flan-2.png'
+import FLAN3 from '../../img/flan-3.png'
+import FLAN4 from '../../img/flan-4.png'
+import FLAN5 from '../../img/flan-5.png'
+import FLAN6 from '../../img/flan-6.png'
+import FLAN7 from '../../img/flan-7.png'
+import FLAN8 from '../../img/flan-8.png'
+import FLAN9 from '../../img/flan-9.png'
+import FLAN10 from '../../img/flan-10.png'
+import FLAN11 from '../../img/flan-11.png'
+
+## Què hi ha de nou?
+
+<Screenshot src={FLAN1} alt="FLAN1" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Aquest article explora els avantatges de l'escalat de l'[ajust fi per instruccions](https://arxiv.org/pdf/2109.01652.pdf) i com millora el rendiment en una varietat de models (PaLM, T5), configuracions de sol·licitud (zero-shot, few-shot, CoT) i avaluacions (MMLU, TyDiQA). Això s'explora amb els següents aspectes: escalat del nombre de tasques (1.8K tasques), escalat de la mida del model i ajust fi en dades de cadena de pensament (9 conjunts de dades utilitzats).
+
+**Procediment d'ajust fi:**
+- Es van formular 1.8K tasques com a instruccions i es van utilitzar per ajustar fi el model.
+- S'utilitzen amb i sense exemplars, i amb i sense CoT.
+
+A continuació es mostren les tasques d'ajust fi i les tasques retingudes:
+
+<Screenshot src={FLAN11} alt="FLAN11" />
+
+## Capacitats i resultats clau
+
+- L'ajust fi per instruccions escala bé amb el nombre de tasques i la mida del model; això suggereix la necessitat d'escalar encara més el nombre de tasques i la mida del model.
+- Afegir conjunts de dades CoT a l'ajust fi permet obtenir un bon rendiment en tasques de raonament.
+- Flan-PaLM té millorades habilitats multilingües; 14,9% de millora en TyDiQA amb un sol exemple; 8,1% de millora en raonament aritmètic en llengües poc representades.
+- El Plan-PaLM també funciona bé en preguntes de generació obertes, la qual cosa és un bon indicador de millora en la usabilitat.
+- Millora el rendiment en les avaluacions de IA responsable (RAI).
+- Els models Flan-T5 ajustats per instruccions demostren fortes capacitats de few-shot i superen els punts de control públics com T5.
+
+**Els resultats quan s'escala el nombre de tasques d'ajust fi i la mida del model:** s'espera que escalar tant la mida del model com el nombre de tasques d'ajust fi continuï millorant el rendiment, encara que escalar el nombre de tasques té rendiments decreixents.
+
+<Screenshot src={FLAN2} alt="FLAN2" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+**Els resultats quan s'ajusta fi amb dades no-CoT i CoT:** ajustar-se conjuntament en dades no-CoT i CoT millora el rendiment en ambdues avaluacions, en comparació amb ajustar-se només en una o l'altra.
+
+<Screenshot src={FLAN3} alt="FLAN3" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+A més, la consistència pròpia combinada amb CoT aconsegueix resultats SoTA en diversos avaluacions. CoT + autoconsistència també millora significativament els resultats en avaluacions que involucren problemes matemàtics (per exemple, MGSM, GSM8K).
+
+<Screenshot src={FLAN4} alt="FLAN4" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+L'ajust fi CoT desbloqueja el raonament en zero-shot, activat per la frase "anem a pensar pas a pas", en tasques BIG-Bench. En general, el Flan-PaLM zero-shot CoT supera el PaLM zero-shot CoT sense ajust fi.
+
+<Screenshot src={FLAN6} alt="FLAN6" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+A continuació es mostren algunes demostracions de CoT zero-shot per a PaLM i Flan-PaLM en tasques no vistes.
+
+<Screenshot src={FLAN5} alt="FLAN5" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+A continuació es mostren més exemples de sol·licitud zero-shot. Es mostra com el model PaLM té problemes amb les repeticions i no respon a les instruccions en l'entorn zero-shot, mentre que el Flan-PaLM és capaç de funcionar bé. Els exemplars de few-shot poden mitigar aquests errors.
+
+<Screenshot src={FLAN7} alt="FLAN7" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+A continuació es mostren alguns exemples que demostren més capacitats zero-shot del model Flan-PALM en diversos tipus de preguntes obertes i desafiantes:
+
+<Screenshot src={FLAN8} alt="FLAN8" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+<Screenshot src={FLAN9} alt="FLAN9" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+<Screenshot src={FLAN10} alt="FLAN10" />
+Font de la imatge: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Podeu provar els [models Flan-T5 a Hugging Face Hub](https://huggingface.co/google/flan-t5-xxl).

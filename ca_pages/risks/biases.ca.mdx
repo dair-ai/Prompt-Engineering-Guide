@@ -1,0 +1,99 @@
+# Parcialitats
+
+Els LLM poden produir generacions problemàtiques que poden ser potencialment perjudicials i mostrar parcialitats que podrien empitjorar el rendiment del model en tasques derivades. Algunes d'aquestes es poden mitigar mitjançant estratègies de prompts efectives, però podrien requerir solucions més avançades com la moderació i el filtratge.
+
+### Distribució d'exemplars
+Quan es realitza un aprenentatge amb poques mostres, afecta la distribució dels exemplars en el rendiment del model o en la parcialitat del model d'alguna manera? Podem realitzar una prova senzilla aquí.
+
+*Prompt:*
+```
+P: Acabo de rebre les millors notícies de la meva vida!
+R: Positiu
+
+P: Ens han pujat el sou a la feina!
+R: Positiu
+
+P: Estic molt orgullós del que he aconseguit avui.
+R: Positiu
+
+P: Estic tenint el millor dia de la meva vida!
+R: Positiu
+
+P: Estic desitjant que arribi el cap de setmana.
+R: Positiu
+
+P: Acabo de rebre el millor regal de la meva vida!
+R: Positiu
+
+P: Estic tan feliç ara mateix.
+R: Positiu
+
+P: Estic tan agraït de tenir una família tan increïble.
+R: Positiu
+
+P: El temps a fora és molt trist.
+R: Negatiu
+
+P: Acabo de rebre una notícia terrible.
+R: Negatiu
+
+P: Això m'ha deixat un mal gust de boca.
+R:
+```
+
+*Sortida:*
+```
+Negatiu
+```
+
+En l'exemple anterior, sembla que la distribució d'exemplars no genera parcialitat en el model. Això està bé. Provem un altre exemple amb un text més difícil de classificar i veiem com ho fa el model:
+
+*Prompt:*
+```
+P: El menjar d'aquí és deliciós!
+R: Positiu 
+
+P: Estic tan cansat d'aquest curs.
+R: Negatiu
+
+P: No puc creure que hagi suspès l'examen.
+R: Negatiu
+
+P: Avui he passat un dia genial!
+R: Positiu 
+
+P: Odio aquesta feina.
+R: Negatiu
+
+P: El servei d'aquí és terrible.
+R: Negatiu
+
+P: Estic molt frustrat amb la meva vida.
+R: Negatiu
+
+P: Mai tinc un descans.
+R: Negatiu
+
+P: Aquest plat té un gust horrible.
+R: Negatiu
+
+P: No suporto el meu cap.
+R: Negatiu
+
+P: Sento alguna cosa.
+R:
+```
+
+*Sortida:*
+```
+Negatiu
+```
+
+Encara que l'última frase és una mica subjectiva, vaig canviar la distribució i en lloc d'utilitzar 8 exemples positius i 2 negatius, vaig provar la mateixa frase exacta una altra vegada. Saps què va respondre el model?
+
+Va respondre "Positiu". El model podria tenir molts coneixements sobre la classificació del sentiment, de manera que serà difícil fer que mostri parcialitat per aquest problema. El consell aquí és evitar esbiaixar la distribució i en lloc d'això proporcionar un nombre més equilibrat d'exemples per a cada etiqueta. Per a tasques més difícils que el model no té massa coneixements, probablement lluitarà més.
+
+### Ordre dels exemplars
+Quan es realitza un aprenentatge amb poques mostres, l'ordre dels exemplars afecta el rendiment del model o genera parcialitat d'alguna manera?
+
+Podeu provar els exemplars anteriors i veure si podeu fer que el model estigui inclinat cap a una etiqueta canviant l'ordre. El consell és ordenar els exemplars de manera aleatòria. Per exemple, eviteu tenir tots els exemples positius primer i després els negatius al final. Aquest problema s'amplifica encara més si la distribució d'etiquetes és esbiaixada. Assegureu-vos sempre d'experimentar molt per reduir aquest tipus de parcialitat.
