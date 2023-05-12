@@ -1,3 +1,94 @@
-# Chain-of-Thought Prompting
+# Chain-of-Thought Çağırma Komutu
 
-Needs translation! Feel free to contribute a translating by clicking the `Edit this page` button on the right side.
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+
+
+## Chain-of-Thought Çağırma Komutu
+
+<Screenshot src={COT} alt="COT" />
+
+Resim Kaynağı: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+
+[Wei et al. (2022)](https://arxiv.org/abs/2201.11903) tarafından tanıtılan "Chain-of-thought (CoT)" yöntemi, ara düşünme adımlarıyla karmaşık akıl yürütme yetenekleri sağlar. Bu yöntemi, cevap vermeden önce akıl yürütme gerektiren daha karmaşık görevlerde daha iyi sonuçlar elde etmek için "few-shot prompting" ile birleştirebilirsiniz.
+
+*Bilgi İstemcisi:*
+
+Bu grup içindeki tek sayıların toplamı çift bir sayıdır: 4, 8, 9, 15, 12, 2, 1.
+A: Bu grup içindeki tek sayılar 9, 15 ve 1'dir. Bu sayıların toplamı 25'tir. Cevap Yanlış.
+
+Bu grup içindeki tek sayıların toplamı çift bir sayıdır: 17,  10, 19, 4, 8, 12, 24.
+A:  Bu grup içindeki tek sayılar 17 ve 19'dur. Bu sayıların toplamı 36'dır. Cevap Doğru.
+
+Bu grup içindeki tek sayıların toplamı çift bir sayıdır: 16,  11, 14, 4, 8, 13, 24.
+A:  Bu grup içindeki tek sayılar 11 ve 13'tür. Bu sayıların toplamı 24'tür. Cevap Doğru.
+
+Bu grup içindeki tek sayıların toplamı çift bir sayıdır: 17,  9, 10, 12, 13, 4, 2.
+A: Bu grup içindeki tek sayılar 17, 9 ve 13'tür. Bu sayıların toplamı 39'dur. Cevap Yanlış.
+
+Bu grup içindeki tek sayıların toplamı çift bir sayıdır: 15, 32, 5, 13, 82, 7, 1. 
+A:
+```
+
+*Çıktı:*
+```
+Bu grup içindeki tek sayılar 5, 15, 7, 1 ve 13'tür. Bu sayıların toplamı 41'dur. Cevap Yanlış.
+```
+
+Vay canına! Sebep-sonuç adımını sağladığımızda mükemmel bir sonuç görebiliyoruz. Aslında, sadece bir örnek vererek bu görevi daha az örnekle çözebiliriz, yani sadece bir örnek yeterli görünüyor:
+
+*Bilgi İstemcisi:*
+```
+Bu grup içindeki tek sayıların toplamı çift bir sayıdır: 4, 8, 9, 15, 12, 2, 1.
+A: Bu grup içindeki tek sayılar 9, 15 ve 1'dir. Bu sayıların toplamı 25'tir. Cevap Yanlış.
+
+Bu grup içindeki tek sayıların toplamı çift bir sayıdır: 15, 32, 5, 13, 82, 7, 1. 
+A:
+```
+
+*Çıktı:*
+```
+Bu grup içindeki tek sayılar 15, 5, 13, 7 ve 1'dir. Bu sayıların toplamı 41'dir. Cevap Yanlış.
+```
+
+Yazarlar, bunun yeterince büyük dil modelleriyle ortaya çıkan bir ortaya çıkma kabiliyeti olduğunu iddia ettiklerinden, bu konuda akılda tutulması gereken bir nokta.
+
+## Zero-shot COT Çağırma Komutu
+
+<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+
+Resim Kaynağı: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+
+Son zamanlarda daha da yenisi olan bir fikir, aslında ilk prompt'a "Adım adım düşünelim" ekleyerek [zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022). Basit bir problem deneyerek modelin performansına bakalım:
+
+*Bilgi İstemcisi:*
+```
+Markete gittim ve 10 elma aldım. 2 elmayı komşuya, 2 elmayı tamirciye verdim. Daha sonra 5 elma daha aldım ve 1 tane yedim. Kaç elma kaldı?
+```
+
+*Çıktı:*
+```
+11 elma
+```
+
+Cevap yanlış! Şimdi özel prompt ile deneyelim
+
+*Bilgi İstemcisi*
+```
+Markete gittim ve 10 elma aldım. 2 elmayı komşuya, 2 elmayı tamirciye verdim. Daha sonra 5 elma daha aldım ve 1 tane yedim. Kaç elma kaldı?
+
+Adım adım düşünelim.
+```
+
+
+*Çıktı:*
+```
+First, you started with 10 apples.
+İlk önce, 10 elma ile başladı.
+2 tane elmayı komşuya, 2 elmayı tamirciye verdin. Yani 6 tane elma kaldı.
+Sonra 5 tane daha elma aldın. Böylelikle senin 11 elman oldu.
+Son olarak, 1 tane elma yedin ve 10 tane elma kaldı.
+```
+
+Etkileyici olan, bu basit prompt'ın bu görevde etkili olmasıdır. Özellikle prompt'ta kullanacak çok sayıda örneğiniz yoksa, bu yöntem son derece yararlı olabilir.
