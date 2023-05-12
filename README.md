@@ -10,7 +10,7 @@ Due to high demand, we are partnering with Maven to deliver a new course on Prom
 
 ---
 ## Announcements / Updates
-- 🎓 New course on Prompt Engineering for LLMs coming soon! Join the [waitlist](ttps://maven.com/forms/4f11a9)!
+- 🎓 New course on Prompt Engineering for LLMs coming soon! Join the [waitlist](https://maven.com/forms/4f11a9)!
 - 🎉 We have launched new web version of the guide [here](https://www.promptingguide.ai/)
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
 - 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
