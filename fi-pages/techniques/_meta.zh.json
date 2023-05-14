@@ -1,0 +1,14 @@
+{
+    "zeroshot": "零样本提示",
+    "fewshot": "少样本提示",
+    "cot": "链式思考（CoT）提示",
+    "consistency": "自我一致性",
+    "knowledge": "生成知识提示",
+    "ape": "自动提示工程师",
+    "activeprompt": "Active-Prompt",
+    "dsp": "方向性刺激提示",
+    "react": "ReAct框架",
+    "multimodalcot": "多模态思维链提示方法",
+    "graph": "基于图的提示"
+}
+  

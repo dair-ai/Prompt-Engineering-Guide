@@ -1,0 +1,27 @@
+{
+    "index": "Prompt Engineering",
+    "introduction": "Introduction",
+    "techniques": "Techniques",
+    "applications": "Applications",
+    "models": "Models",
+    "risks": "Risques et Mésusages",
+    "papers": "Papers",
+    "tools": "Outils",
+    "notebooks": "Notebooks",
+    "datasets": "Datasets",
+    "readings": "Lectures supplémentaires",
+    "about": {
+      "title": "À propos",
+      "type": "page"
+    },
+    "course":{
+      "title": "Prompt Engineering Course",
+      "type": "page"
+    },
+    "contact": {
+      "title": "Contact ↗",
+      "type": "page",
+      "href": "https://twitter.com/dair_ai",
+      "newWindow": true
+    }
+  }
