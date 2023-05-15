@@ -1,6 +1,6 @@
 # Itsejohdonmukaisuus
 
-Ehkä yksi kehittyneimmistä kehotesuunnittelutekniikoista on itsejohdonmukaisuus. [Wang ym. (2022)](https://arxiv.org/pdf/2203.11171.pdf), ehdottama itsejohdonmukaisuus pyrkii "korvaamaan naiivin ahneen dekoodauksen, jota käytetään ajatusketjukehotteissa". Ajatuksena on ottaa näytteitä useista, erilaisista päättelypolkuista vähäisen ohjauksen CoT:lla ja käyttää tuotoksia johdonmukaisimman vastauksen valitsemiseen. Tämä auttaa parantamaan CoT-kehoteen suorituskykyä aritmetiikkaa ja maalaisjärkeä vaativissa tehtävissä.
+Itsejohdonmukaisuus on ehkä yksi kehittyneimmistä kehotesuunnittelutekniikoista. [Wang ym. (2022)](https://arxiv.org/pdf/2203.11171.pdf), ehdottama itsejohdonmukaisuus pyrkii "korvaamaan naiivin ahneen dekoodauksen, jota käytetään ajatusketjukehotteissa". Ajatus on ottaa näytteitä useista erilaisista päättelypoluista vähäisen ohjauksen CoT:lla ja valita tuotosten joukosta johdonmukaisin vastaus. Tämä auttaa parantamaan CoT-kehoteen suorituskykyä tehtävissä, jotka vaativat aritmetiikkaa ja maalaisjärkeä.
 
 Kokeillaan seuraavaa esimerkkiä aritmeettiselle päättelylle:
 
@@ -15,7 +15,7 @@ olen 70, kuinka vanha siskoni on?
 35
 ```
 
-Tulos on väärä! Kuinka voimme parantaa tätä itsejohdonmukaisuudella? Kokeillaan. Käytämme Wang ym. 2022:n (taulukko 17) vähäisen ohjauksen esimerkkejä:
+Tulos on väärä! Kuinka voimme parantaa tätä itsejohdonmukaisuudella? Kokeillaan. Käytämme Wang ym. (2022) -julkaisun vähäisen ohjauksen esimerkkejä (taulukko 17):
 
 *Kehote:*
 ```
@@ -62,4 +62,4 @@ V: Kun olit 6-vuotias, siskosi oli puolet eli 3 vuotta nuorempi. Nyt olet 70-vuo
 V: Kun olit 6-vuotias, siskosi oli 3-vuotias, koska hän oli puolet iästäsi. Nyt olet 70-vuotias, joten 70 / 2 = 35. Siskosi on nyt 35-vuotias.
 ```
 
-Laskeminen lopulliseen vastaukseen sisältää muutamia vaiheita (katso yksityiskohdat artikkelista), mutta voimme nähdä, että todennäköisin vastaus on jo muodostumassa, joten se tulisi käytännössä lopulliseksi vastaukseksi.
+Lopullisen vastauksen laskeminen sisältää muutamia vaiheita (katso yksityiskohdat artikkelista), mutta koska todennäköisin vastaus on jo muodostumassa, se tulisi käytännössä lopulliseksi vastaukseksi.

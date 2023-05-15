@@ -6,21 +6,21 @@ import REACT from '../../img/react.png'
 import REACT1 from '../../img/react/table1.png'
 import REACT2 from '../../img/react/alfworld.png'
 
-[Yao ym., 2022](https://arxiv.org/abs/2210.03629) esitteli ReAct-nimisen kehyksen, jossa LLM:ää käytetään sekä päättelyketjujen että tehtäväkohtaisten toimintojen tuottamiseen lomittain. 
+[Yao ym., 2022](https://arxiv.org/abs/2210.03629) esittelevät ReAct-nimisen kehyksen, jossa LLM:ää käytetään sekä päättelyketjujen että tehtäväkohtaisten toimintojen tuottamiseen lomittain. 
 
 Päättelyketjujen tuottaminen mahdollistaa mallin toimintasuunnitelmien induktion, seurannan ja päivittämisen sekä jopa poikkeusten käsittelyn. Toimintavaihe mahdollistaa tiedon keräämisen ulkoisista lähteistä, kuten tietokannoista tai muista ympäristöistä.
 
 ReAct-kehys voi mahdollistaa LLM:ien vuorovaikutuksen ulkoisten työkalujen kanssa lisätiedon hankkimiseksi, mikä johtaa luotettavampiin ja tosiasiallisempiin vastauksiin.
 
-Tulokset osoittavat, että ReAct pystyy suoriutumaan paremmin kuin useat huippuluokan vertailukohteet kielitehtävissä ja päätöksenteossa. ReAct myös parantaa LLM:ien ihmisten tulkittavuutta ja luotettavuutta. Kaiken kaikkiaan tutkijat havaitsivat, että paras lähestymistapa käyttää ReActia yhdessä ketjureaktion päättelyn (CoT) kanssa, mikä mahdollistaa sekä sisäisen tiedon että päättelyn aikana saatujen ulkoisten tietojen käytön.
+Tulokset osoittavat, että ReAct suoriutuu paremmin kuin useat huippuluokan vertailukohdat kielitehtävissä ja päätöksenteossa. ReAct parantaa myös ihmisten kykyä tulkita kielimalleja ja lisää ihmisten luottamusta tuloksiin. Kaiken kaikkiaan tutkijat havaitsivat, että paras lähestymistapa käyttää ReActia yhdessä ajatusketjupäättelyn (CoT) kanssa, mikä mahdollistaa sekä sisäisen tiedon että päättelyn aikana saatujen ulkoisten tietojen käytön.
 
 ## Miten se toimii?
 
-ReAct pohjautuu "toiminnan" ja "päättelyn" välisiin synergioihin, joiden avulla ihmiset voivat oppia uusia tehtäviä ja tehdä päätöksiä tai päättelyä.
+ReAct pohjautuu "toiminnan" ja "päättelyn" välisiin synergioihin, joiden avulla ihmiset voivat oppia uusia tehtäviä sekä tehdä päätöksiä ja päättelyä.
 
 Ajatusketju (CoT) -kehote on osoittanut suurten kielimallien (LLM) kyvyn suorittaa päätteluketjuja vastausten generoimiseksi kysymyksiin, jotka liittyvät esimerkiksi aritmetiikkaan ja arkijärkeen [(Wei ym., 2022)](https://arxiv.org/abs/2201.11903). Mutta sen puuttuva pääsy ulkoiseen maailmaan tai kyvyttömyys päivittää tietämystään voi johtaa ongelmiin, kuten faktahallusinaatioihin ja virheiden leviämiseen. 
 
-ReAct on yleinen paradigma, joka yhdistää päättelyn ja toiminnan suurten kielimallien kanssa. ReAct kehottaa LLM:ää tuottamaan verbaalisia päättelyketjuja ja toimia tehtävään. Tämä mahdollistaa dynaamisen päättelyn suorittamisen toimintasuunnitelmien luomiseen, ylläpitoon ja säätämiseen samalla, kun mahdollistetaan vuorovaikutus ulkoisiin ympäristöihin (esim. Wikipedia) lisätiedon sisällyttämiseksi päättelyyn. Alla oleva kuva näyttää esimerkin ReActista ja siihen liittyvistä vaiheista kysymyksiin vastaamiseksi.
+ReAct on yleinen paradigma, joka yhdistää päättelyn ja toiminnan suurten kielimallien kanssa. ReAct kehottaa LLM:ää tuottamaan verbaalisia päättelyketjuja ja suorittamaan tehtäviin liittyviä toimintoja. Tämä mahdollistaa dynaamisen päättelyn käytön toimintasuunnitelmien luomiseen, ylläpitoon ja säätämiseen sekä vuorovaikutuksen ulkoisiin ympäristöihin (esim. Wikipedia) lisätiedon sisällyttämiseksi päättelyyn. Alla oleva kuva näyttää esimerkin ReActista ja siihen liittyvistä vaiheista kysymyksiin vastaamiseksi.
 
 <Screenshot src={REACT} alt="REACT" />
 Kuvan lähde: [Yao ym., 2022](https://arxiv.org/abs/2210.03629)
@@ -31,12 +31,12 @@ Esimerkissä yllä esitämme kysymyksen [HotpotQA](https://hotpotqa.github.io/)-
 Aside from the Apple Remote, what other devices can control the program Apple Remote was originally designed to interact with?
 ```
 
-Huomaa, että kontekstissa olevia esimerkkejä lisätään myös kehotteeseen, mutta jätämme sen tässä yksinkertaisuuden vuoksi pois. Voimme nähdä, että malli luo tehtävänratkaisun kehityskaaria (ajatus, toiminta). Obs vastaa havaintoa ympäristöstä, jonka kanssa ollaan vuorovaikutuksessa (esim. Hakukone). Pohjimmiltaan ReAct voi hakea tietoa päättelyn tueksi, ja päättely auttaa kohdentamaan, mitä seuraavaksi hakea.
+Huomautettakoon, että myös kontekstiin liittyviä esimerkkejä lisätään kehotteeseen, mutta jätämme ne tässä yksinkertaisuuden vuoksi pois. Voimme nähdä, että malli luo tehtävänratkaisun kehityskaaria (ajatus, toiminta). Obs vastaa havaintoa ympäristöstä, jonka kanssa ollaan vuorovaikutuksessa (esim. Hakukone). Periaatteessa ReAct voi hakea tietoa päättelyn tueksi, ja päättely auttaa kohdentamaan, mitä seuraavaksi hakea.
 
 ## ReAct Kehottaminen
 Esitelläksemme, miten ReAct-kehote toimii, seuraamme esimerkkiä artikkelista.
 
-Ensimmäinen vaihe on valita tapauksia koulutusjoukosta (esim. HotPotQA) ja muodostaa ReAct-muotoisia kehityskaaria. Näitä käytetään vähäisen ohjauksen esimerkkeinä kehotteissa. Kehityskaaret koostuvat useista ajatus-toiminta-havainto -vaiheista, kuten yllä olevasta kuvasta käy ilmi. Vapaamuotoisia ajatuksia käytetään erilaisten tehtävien suorittamiseen, kuten kysymysten hajottamiseen, tietojen poimimiseen, arkijärjen/aritmeettisen päättelyn suorittamiseen, hakulausekkeen ohjaamiseen ja lopullisen vastauksen muodostamiseen.
+Ensimmäinen vaihe on valita tapauksia koulutusjoukosta (esim. HotPotQA) ja muodostaa ReAct-muotoisia kehityskaaria. Näitä käytetään vähäisen ohjauksen esimerkkeinä kehotteissa. Kehityskaaret koostuvat useista ajatus-toiminta-havainto -vaiheista, kuten yllä olevasta kuvasta käy ilmi. Vapaamuotoisia ajatuksia käytetään monenlaisten tehtävien suorittamiseen, kuten kysymysten hajottamiseen, tietojen poimimiseen, arkijärjen/aritmeettisen päättelyn suorittamiseen, hakulausekkeen ohjaamiseen ja lopullisen vastauksen muodostamiseen.
 
 Tässä on esimerkki siitä, miltä ReAct-kehote-esimerkit näyttävät (saatu artikkelista ja lyhennetty yhteen esimerkkiin yksinkertaisuuden vuoksi):
 
@@ -73,21 +73,21 @@ Kehotetulokset HotPotQA:ssa ja Feverissä erilaisten kehotemenetelmien avulla os
 Voimme myös havaita, että ReAct suoriutuu paremmin kuin CoT Feverissä ja jää jälkeen CoT:sta HotpotQA:ssa. Artikkelissa esitetään yksityiskohtainen virheanalyysi. Yhteenvetona:
 
 - CoT kärsii faktahallusinaatioista
-- ReActin rakenteellinen rajoite vähentää sen joustavuutta muotoilla päättelyvaiheita
+- ReActin rakenteelliset rajoitukset vähentävät sen joustavuutta muotoilla päättelyvaiheita
 - ReAct nojaa paljon hankkimaansa tietoon; ei-informatiiviset hakutulokset ohjaavat mallin päättelyä harhaan ja johtavat vaikeuksiin toipua ja uudelleenmuotoilla ajatuksia
 
 Kehotemenetelmät, jotka yhdistävät ja tukevat ReActin ja CoT+Itsejohdonmukaisuuden välillä vaihtamista, suoriutuvat yleensä paremmin kuin muut kehotemenetelmät.
 
 ## Tulokset Päätöksentekotehtävissä
 
-Julkaisussa raportoidaan myös tuloksia, jotka osoittavat ReActin suorituskyvyn päätöksentekotehtävissä. ReActia arvioidaan kahdella vertailukohteella, jotka ovat [ALFWorld](https://alfworld.github.io/) (tekstipohjainen peli) ja [WebShop](https://webshop-pnlp.github.io/) (verkkokaupan ympäristö). Molemmat sisältävät monimutkaisia ympäristöjä, jotka vaativat päättelyä tehokkaaseen toimintaan ja tutkimiseen. 
+Julkaisussa esitetään myös tuloksia, jotka osoittavat ReActin suorituskyvyn päätöksentekotehtävissä. ReActia arvioidaan kahdella vertailukohteella, jotka ovat [ALFWorld](https://alfworld.github.io/) (tekstipohjainen peli) ja [WebShop](https://webshop-pnlp.github.io/) (verkkokaupan ympäristö). Molemmat sisältävät monimutkaisia ympäristöjä, jotka vaativat päättelyä tulokselliseen toimintaan ja tutkimiseen. 
 
-Huomaa, että ReAct-kehote on suunniteltu eri tavalla näihin tehtäviin, mutta samalla yhdistetään päättely ja toiminta. Alla on esimerkki ALFWorld-ongelmasta, johon liittyy ReAct-kehote.
+Huomaa, että ReAct-kehote on suunniteltu eri tavoin näitä tehtäviä varten, mutta se yhdistää samalla tavalla päättelyn ja toiminnan. Alla on esimerkki ALFWorld-ongelmasta, johon liittyy ReAct-kehote.
 
 <Screenshot src={REACT2} alt="REACT2" />
 Kuvan lähde: [Yao ym., 2022](https://arxiv.org/abs/2210.03629)
 
-ReAct suoriutuu paremmin kuin Act sekä ALFWorldissa että Webshopissa. Act ei pysty ilman ajatuksia purkamaan tavoitteita alatavoitteiksi. Päättely näyttää olevan eduksi ReActille tämän tyyppisissä tehtävissä, mutta nykyiset kehoteperustaiset menetelmät ovat vielä kaukana asiantuntijaihmisten suorituskyvystä näissä tehtävissä.
+ReAct suoriutuu paremmin kuin Act sekä ALFWorldissa että Webshopissa. Act ei pysty ilman "ajatuksia" jakamaan tavoitteita alatavoitteisiin. Päättely näyttää olevan eduksi ReActille tämän tyyppisissä tehtävissä, mutta nykyiset kehoteperusteiset menetelmät ovat vielä kaukana asiantuntijaihmisten suorituskyvystä näissä tehtävissä.
 
 Tutustu julkaisuun saadaksesi yksityiskohtaisempia tuloksia.
 
@@ -120,7 +120,7 @@ os.environ["SERPAPI_API_KEY"] = os.getenv("SERPAPI_API_KEY")
 
 ```
 
-Nyt voimme määrittää LLM:n, käyttämämme työkalut ja agentin, joka mahdollistaa ReAct-kehikon hyödyntämisen yhdessä LLM:n ja työkalujen kanssa. Huomaa, että käytämme hakuliittymää ulkoisen tiedon etsimiseen ja LLM:ää matematiikkatyökaluna.
+Nyt voimme määrittää LLM:n, käyttämämme työkalut ja agentin, joka mahdollistaa ReAct-kehyksen hyödyntämisen yhdessä LLM:n ja työkalujen kanssa. Huomaa, että käytämme hakuliittymää ulkoisen tiedon etsimiseen ja LLM:ää matematiikkatyökaluna.
 
 ``` python
 llm = OpenAI(model_name="text-davinci-003" ,temperature=0)
@@ -128,13 +128,13 @@ tools = load_tools(["serpapi", "llm-math"], llm=llm)
 agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
 ```
 
-Kun tämä on määritetty, voimme nyt suorittaa agentin halutulla kyselyllä/kehotteella. Huomaa, että tässä ei odoteta meidän tarjoavan vähäisen ohjauksen esimerkkejä, kuten artikkelissa selitettiin.
+Nyt kun olemme määrittäneet LLM:n, käyttämämme työkalut ja agentin, joka mahdollistaa ReAct-kehikon hyödyntämisen yhdessä LLM:n ja työkalujen kanssa, voimme suorittaa agentin halutulla kyselyllä/kehotteella. Tässä yhteydessä ei tarvitse tarjota vähäisen ohjauksen esimerkkejä, kuten artikkelissa aiemmin selitettiin.
 
 ``` python
 agent.run("Who is Olivia Wilde's boyfriend? What is his current age raised to the 0.23 power?")
 ```
 
-Ketjun suoritus näyttää seuraavalta:
+Kun suoritamme ketjun, sen toiminta näyttää seuraavalta:
 
 ``` yaml
 > Entering new AgentExecutor chain...
@@ -157,7 +157,7 @@ Final Answer: Harry Styles, Olivia Wilde's boyfriend, is 29 years old and his ag
 > Finished chain.
 ```
 
-Saamamme tulos on seuraava:
+Suorituksen tuloksena saamme seuraavanlaisen tuloksen:
 
 ```
 "Harry Styles, Olivia Wilde's boyfriend, is 29 years old and his age raised to the 0.23 power is 2.169459462491557."

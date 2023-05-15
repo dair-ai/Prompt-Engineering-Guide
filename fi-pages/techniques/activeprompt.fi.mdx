@@ -4,7 +4,7 @@ import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
 import ACTIVE from '../../img/active-prompt.png'
 
-Ajatusketjuun (CoT) perustuvat menetelmät nojaavat tiettyyn joukkoon ihmisten tekemiä esimerkkejä. Ongelmana on, että esimerkit eivät välttämättä ole tehokkaimpia erilaisille tehtäville. Tämän ongelman ratkaisemiseksi, [Diao ym., (2023)](https://arxiv.org/pdf/2302.12246.pdf) ehdotti äskettäin uutta kehotetekniikkaa nimeltä Aktiivikehote (Active-Prompt), joka mukauttaa LLM:ää eri tehtäväkohtaisten esimerkkikehotteiden mukaan (ihmisten suodattamalla CoT-päättelyllä).
+Ajatusketjuun (CoT) perustuvat menetelmät perustuvat tiettyyn joukkoon ihmisten tekemiä esimerkkejä. Ongelmana on, että esimerkit eivät välttämättä ole tehokkaita erilaisissa tehtävissä. Tämän ongelman ratkaisemiseksi, [Diao ym., (2023)](https://arxiv.org/pdf/2302.12246.pdf) ehdottivat äskettäin uutta kehotetekniikkaa nimeltä Aktiiviohje (Active-Prompt), joka mukauttaa LLM:ää eri tehtävakohtaisten esimerkkiohjeiden mukaan (ihmisten suodattaman CoT-päättelyn avulla).
 
 Alla on esitys lähestymistavasta. Ensimmäinen vaihe on kysyä LLM:ltä joko muutamilla CoT-esimerkeillä tai ilman niitä. *k* mahdollista vastausta tuotetaan joukolle koulutuskysymyksiä. Epävarmuusmääre lasketaan perustuen *k* vastaukseen. Epävarmimmat kysymykset valitaan ihmisten annotointia varten. Uusia annotoituja esimerkkejä käytetään sitten kunkin kysymyksen päättelemiseen.
 

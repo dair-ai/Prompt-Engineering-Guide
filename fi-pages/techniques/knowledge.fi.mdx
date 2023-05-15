@@ -7,9 +7,9 @@ import GENKNOW from '../../img/gen-knowledge.png'
 
 Kuvan lähde: [Liu ym. 2022](https://arxiv.org/pdf/2110.08387.pdf)
 
-LLM:t jatkavat kehittymistään, ja yksi suosittu tekniikka sisältää kyvyn sisällyttää tietoa tai informaatiota, joka auttaa mallia tekemään tarkempia ennusteita.
+LLM:t kehittyvät jatkuvasti, ja yksi suosittu tekniikka on tietojen tai informaation sisällyttäminen, mikä auttaa mallia tekemään tarkempia ennusteita.
 
-Käyttämällä samankaltaista ideaa, voidaanko mallia käyttää myös tiedon tuottamiseen ennen ennusteen tekemistä? Tätä yritetään [Liu ym. 2022](https://arxiv.org/pdf/2110.08387.pdf)-artikkelissa --  tuottaa tietoa, jota käytetään osana kehotetta. Erityisesti keskityttiin siihen, kuinka hyödyllistä tämä on maalaisjärkeä vaativissa tehtävissä?
+Käyttäen samankaltaista ideaa, voisiko mallia käyttää myös tiedon tuottamiseen ennen ennusteen tekemistä? Tätä yritetään [Liu ym. 2022](https://arxiv.org/pdf/2110.08387.pdf)-artikkelissa -- tuottaa tietoa, jota käytetään osana kehotetta. Erityistä huomiota kiinnitettiin siihen, kuinka hyödyllistä tämä on tehtävissä, jotka vaativat maalaisjärkeä.
 
 Kokeillaan yksinkertaista kehotetta:
 
@@ -23,9 +23,9 @@ Onko golfin tavoitteena saada enemmän pisteitä kuin muilla? Kyllä vai ei?
 Kyllä, golfin tavoitteena on saada vähemmän pisteitä kuin muut pelaajat. Golfissa pelin voittaja on se pelaaja, jolla on vähiten lyöntejä reiän läpäisemiseen. Jokaisesta lyönnistä pelaajalle kertyy yksi piste, joten vähemmän lyöntejä tarkoittaa vähemmän pisteitä. Tämän vuoksi golfin tavoitteena onkin saada vähemmän pisteitä kuin muut pelaajat.
 ```
 
-Tämän tyyppinen virhe paljastaa LLM:ien rajoitukset tehtävien suorittamisessa, jotka vaativat enemmän tietoa maailmasta. Kuinka parannamme tätä tiedon tuottamisella?
+Tämäntyyppiset virheet paljastavat LLM:ien rajoitukset tehtävissä, jotka vaativat laajempaa tietoa maailmasta. Kuinka voimme parantaa tätä tiedon tuottamisen avulla?
 
-Ensinnäkin tuotamme muutamia "tietoja":
+Ensin tuotamme muutamia "tietoja":
 
 *Kehote:*
 ```
@@ -58,7 +58,7 @@ Golfin tavoitteena on saavuttaa mahdollisimman vähän lyöntejä pelikentän l�
 
 Käytämme [Liu ym. 2022](https://arxiv.org/pdf/2110.08387.pdf)-artikkelissa annettua kehotetta.
 
-Seuraava vaihe on integroida tieto ja saada ennuste. Kysymyksen on muutettu QA-muotoon ohjaamaan vastauksen muotoa.
+Seuraava vaihe on integroida tieto ja tehdä ennuste. Kysymys on muutettu QA-muotoon vastauksen muodon ohjaamiseksi.
 
 *Kehote:*
 ```
@@ -87,4 +87,4 @@ Selitä ja vastaa:
 Kyllä, osa golfista on yrittää saada enemmän pisteitä kuin muilla. Jokainen pelaaja yrittää suorittaa kentän alhaisimmalla tuloksella, joka lasketaan yhteen jokaisen reiän lyöntien kokonaismäärästä. Pelaaja, jolla on alhaisin tulos, voittaa pelin.
 ```
 
-Tässä esimerkissä tapahtui mielenkiintoisia asioita. Ensimmäisessä vastauksessa malli oli erittäin luottavainen, mutta toisessa ei niinkään. Lisätietoja löydät artikkelista.
+Tässä esimerkissä ilmeni mielenkiintoisia asioita. Ensimmäisessä vastauksessa malli oli erittäin luottavainen, mutta toisessa vähemmän. Lisätietoja saat artikkelista.

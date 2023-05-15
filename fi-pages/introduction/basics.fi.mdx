@@ -2,7 +2,7 @@
 
 ## Peruskehote
 
-Yksinkertaisilla kehotteilla voi saavuttaa paljon, mutta tulosten laatu riippuu siitä, kuinka paljon tietoa sisällytät ja kuinka hyvin se on muotoiltu. Kehote voi sisältää tietoa, kuten *ohjeen* tai *kysymyksen*, ja muita yksityiskohtia, kuten *kontekstia*, *tietosisältöä* tai *esimerkkejä*. Voit käyttää näitä elementtejä ohjeistamaan mallia paremmin ja saada parempia tuloksia.
+Yksinkertaisilla kehotteilla voi saavuttaa paljon, mutta tulosten laatu riippuu siitä, kuinka paljon tietoa sisällytät kehotteeseen ja kuinka hyvin se on muotoiltu. Kehote voi sisältää tietoa, kuten *ohjeen* tai *kysymyksen*, sekä muita yksityiskohtia, kuten *kontekstia*, *tietosisältöä* tai *esimerkkejä*. Voit käyttää näitä elementtejä ohjeistamaan mallia paremmin ja saada parempia tuloksia.
 
 Aloitetaan tarkastelemalla perusesimerkkiä yksinkertaisesta kehotteesta:
 
@@ -17,9 +17,9 @@ sininen. Taivas on sininen johtuen Rayleigh'n sirontailmiöstä. Auringonvalo ko
 
 ```
 
-Kuten näet, kielimalli tuottaa jatkumon merkkijonoja, jotka ovat järkeviä annetussa kontekstissa "Taivas on". Tulos saattaa olla odottamaton tai kaukana tehtävästä, jonka haluat saavuttaa.
+Kuten näet, kielimalli tuottaa jatkumon merkkijonoja, jotka ovat järkeviä annetussa kontekstissa "Taivas on". Tulos saattaa olla odottamaton tai kaukana siitä tehtävästä, jonka haluat saavuttaa.
 
-Tämä perusesimerkki korostaa myös tarvetta antaa enemmän kontekstia tai ohjeita siitä, mitä haluat erityisesti saavuttaa.
+Tämä perusesimerkki korostaa myös tarvetta antaa enemmän kontekstia tai tarkempia ohjeita siitä, mitä haluat tarkalleen saavuttaa.
 
 Kokeillaan parantaa sitä hieman:
 
@@ -36,13 +36,14 @@ Taivas on
 sininen ja pilvet leijailevat kevyesti tuulen mukana, luoden kauniin maiseman.
 ```
 
-Onko se parempi? No, kerroit mallille, että sen pitää täydentää lause, joten tulos näyttää paljon paremmalta, koska se noudattaa tarkalleen sitä, mitä kerroit sen tekevän ("täydennä lause"). Tämä optimaalisten kehotteiden suunnittelun lähestymistapa mallin ohjeistamiseksi tehtävän suorittamiseen on sitä, mitä kutsutaan **kehotesuunnitteluksi**.
+Onko se parempi? Kyllä, kerroit mallille, että sen pitää täydentää lause, joten tulos näyttää paljon paremmalta, koska se noudattaa tarkalleen sitä, mitä kerroit sen tekevän ("täydennä lause"). Tämä lähestymistapa, jossa mallia
+ohjeistetaan suorittamaan tehtävä optimaalisten kehotteiden avulla, on sitä, mitä kutsutaan **kehotesuunnitteluksi**.
 
-Edellä oleva esimerkki on peruskuvaus siitä, mitä LLM:illä on mahdollista saavuttaa tänään. Nykyiset LLM:t pystyvät suorittamaan monenlaisia kehittyneitä tehtäviä, jotka vaihtelevat tekstin tiivistämisestä matemaattiseen päättelyyn ja koodin luontiin.
+Edellä oleva esimerkki antaa peruskuvauksen siitä, mitä LLM:illä on mahdollista saavuttaa tänään. Nykyiset LLM:t pystyvät suorittamaan monenlaisia kehittyneitä tehtäviä, jotka vaihtelevat tekstin tiivistämisestä matemaattiseen päättelyyn ja koodin luomiseen.
 
 ## Kehotteen Muotoilu
 
-Edellisessä esimerkissä kokeiltiin erittäin yksinkertaista kehotetta. Tavallinen kehote on seuraavassa muodossa:
+Edellisessä esimerkissä kokeilimme erittäin yksinkertaista kehotetta. Tyypillinen kehote on seuraavassa muodossa:
 
 ```
 <Kysymys>?
@@ -54,16 +55,16 @@ tai
 <Ohje>
 ```
  
-Voit muotoilla tämän kysymyksen ja vastauksen (QA) muotoon, joka on standardi monissa QA-aineistoissa, seuraavasti:
+Voit muotoilla tämän kysymys-vastaus (QA) -muotoon, joka on standardi monissa QA-aineistoissa, seuraavasti:
 
 ```
 Q: <Kysymys>?
 A: 
 ```
 
-Kun käytät yllä olevan kaltaista kehotetta, sitä kutsutaan myös *nollaohjauskehotteeksi*, eli annat mallille suoraan kysymyksen, antamatta esimerkkejä tehtävästä, jonka haluat sen suorittavan. Jotkut suuret kielimallit pystyvät toteuttamaan nollaohjauskehotteita, mutta se riippuu tehtävän monimutkaisuudesta ja sen sisällöstä.
+Kun käytät yllä olevan kaltaista kehotetta, sitä kutsutaan myös *nollaohjauskehotteeksi*. Tällöin annat mallille suoraan kysymyksen, antamatta esimerkkejä tehtävästä, jonka haluat sen suorittavan. Jotkut suuret kielimallit pystyvät toteuttamaan nollaohjauskehotteita, mutta se riippuu tehtävän monimutkaisuudesta ja sen sisällöstä.
 
-Ottaen huomioon yllä olevan kehotteenn muotoilun, yksi suosittu ja tehokas kehotetekniikka on *vähäisen ohjauksen kehotteen* käyttö, jossa tarjoat esimerkkejä halutulle toiminnalle. Voit muotoilla muutaman vähäisen ohjauksen kehotteita seuraavasti:
+Ottaen huomioon yllä olevan kehotteenn muotoilun, yksi suosittu ja tehokas kehotetekniikka on *vähäisen ohjauksen kehotteen* käyttö, jossa tarjoat esimerkkejä halutulle toiminnalle. Voit muotoilla vähäisen ohjauksen kehotteita seuraavasti:
 
 ```
 <Kysymys>?
@@ -95,7 +96,7 @@ Q: <Kysymys>?
 A:
 ```
 
-Pidä mielessä että kysymys/vastaus-muotoilun käyttö ei ole ainoa tapa muotoilla kehotteita. Kehotteen muoto riippuu tehtävästä, johon haluat kielimallin keskittyvän. Esimerkiksi yksinkertaisen luokittelutehtävän suorittamiseksi voit antaa esimerkkejä, jotka havainnollistavat tehtävää seuraavasti:
+Pidä mielessä, että kysymys/vastaus-muotoilun käyttö ei ole ainoa tapa muotoilla kehotteita. Kehotteen muoto riippuu tehtävästä, johon haluat kielimallin keskittyvän. Esimerkiksi yksinkertaisen luokittelutehtävän suorittamiseksi voit antaa esimerkkejä, jotka havainnollistavat tehtävää seuraavasti:
 
 *Kehote:*
 ```
@@ -110,4 +111,4 @@ Mikä kamala esitys! //
 Negatiivinen
 ```
 
-Vähäisen ohjauksen kehotteet auttavat mallia oppimaan tehtävän kontekstista ja tuottamaan parempia tuloksia, koska ne tarjoavat mallille esimerkkejä siitä, mitä odotetaan. Tämänkaltainen kontekstin avulla oppiminen on yksi kielimallien keskeisistä ominaisuuksista, kun ne suorittavat erilaisia tehtäviä.
+Vähäisen ohjauksen kehotteet auttavat mallia oppimaan tehtävän kontekstista ja tuottamaan parempia tuloksia, koska ne tarjoavat mallille esimerkkejä siitä, mitä siltä odotetaan. Tämänkaltainen kontekstin avulla tapahtuva oppiminen on yksi kielimallien keskeisistä ominaisuuksista, kun ne suorittavat erilaisia tehtäviä.

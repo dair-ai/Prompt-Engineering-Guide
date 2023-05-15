@@ -1,9 +1,8 @@
 # Vähäisen ohjauksen kehottaminen
 
-Vaikka suurten kielimallien nollakehottamisen kyvyt ovat huomattavia, ne eivät vielä pärjää monimutkaisemmissa tehtävissä käyttäen vain nollakehottamista. Vähäisen ohjauksen kehotteiden avulla voidaan  mahdollistaa kontekstissa tapahtuva oppiminen, jossa tarjoamme kehotteessa esimerkkejä mallin suorituskyvyn parantamiseksi. Esimerkit toimivat ehtona seuraaville askelille, joiden mukaisesti haluamme mallin tuottavan vastauksen.
-While large-language models demonstrate remarkable zero-shot capabilities, they still fall short on more complex tasks when using the zero-shot setting. Few-shot prompting can be used as a technique to enable in-context learning where we provide demonstrations in the prompt to steer the model to better performance. The demonstrations serve as conditioning for subsequent examples where we would like the model to generate a response.
+Vaikka suurten kielimallien nollakehottamisen kyvyt ovat huomattavia, ne eivät vielä pärjää monimutkaisemmissa tehtävissä käyttäen vain nollakehottamista. Vähäisen ohjauksen kehotteiden avulla voidaan mahdollistaa kontekstissa tapahtuva oppiminen tarjoamalla kehotteessa esimerkkejä mallin suorituskyvyn parantamiseksi. Esimerkit toimivat ehtona seuraaville askelille, joiden mukaisesti haluamme mallin tuottavan vastauksen.
 
-[Touvron ym. 2023](https://arxiv.org/pdf/2302.13971.pdf) mukaan vähäisen ohjauksen ominaisuudet ilmestyivät ensimmäisen kerran, kun malleja skaalattiin riittävän suuriksi [(Kaplan ym., 2020)](https://arxiv.org/abs/2001.08361).
+[Touvron ym. 2023](https://arxiv.org/pdf/2302.13971.pdf) mukaan vähäisen ohjauksen ominaisuudet tulivat esiin ensimmäisen kerran, kun malleja skaalattiin riittävän suuriksi [(Kaplan ym., 2020)](https://arxiv.org/abs/2001.08361).
 
 Demonstroimme vähäisen ohjauksen oppimista esimerkin avulla, joka esiteltiin [Brown et al. 2020](https://arxiv.org/abs/2005.14165) julkaisussa. Esimerkissä tehtävänä on käyttää uutta sanaa oikein lauseessa.
 
@@ -29,7 +28,7 @@ Voimme havaita, että malli on jollakin tavalla oppinut suorittamaan tehtävän 
 - käyttämäsi muoto vaikuttaa myös suorituskykyyn, vaikka käyttäisit vain satunnaisia tunnisteita, tämä on paljon parempi kuin ei tunnisteita lainkaan.  
 - lisätulokset osoittavat, että satunnaisten tunnisteiden valitseminen todellisesta tunnisteiden jakaumasta (sen sijaan, että käytettäisiin yhtenäistä jakaumaa) auttaa myös.
 
-Kokeillaan muutamaa esimerkkiä. Kokeillaan ensin esimerkkiä, jossa on satunnaiset tunnisteet (eli tunnisteet Negative ja Positive on annettu syötteille satunnaisesti):
+Kokeillaan muutamaa esimerkkiä. Kokeillaan ensin esimerkkiä, jossa on satunnaiset tunnisteet (eli tunnisteet Negatiivinen ja Positiivinen on annettu syötteille satunnaisesti):
 
 *Kehote:*
 ```
@@ -44,7 +43,7 @@ Mikä kamala esitys! //
 Negatiivinen
 ```
 
-Saatamme silti oikean vastauksen, vaikka tunnisteet on annettu satunnaisesti. Huomaa, että säilytimme myös muodon, mikä auttaa myös. Itse asiassa lisäkokeilujen avulla vaikuttaa siltä, että uudemmat GPT-mallit, joita kokeilemme, ovat muuttumassa joustavammiksi jopa satunnaisten formaattien suhteen. Esimerkki:
+Saatamme silti saada oikean vastauksen, vaikka tunnisteet on annettu satunnaisesti. Huomaa, että säilytimme myös muodon, mikä auttaa myös. Itse asiassa lisäkokeilujemme perusteella näyttää siltä, että uudemmat GPT-mallit, joita kokeilemme, ovat joustavampia jopa satunnaisten formaattien suhteen. Esimerkki:
 
 *Kehote:*
 ```
@@ -65,7 +64,7 @@ Yllä olevassa formaatissa ei ole johdonmukaisuutta, mutta malli ennusti silti o
 
 ### Vähäisen Ohjauksen Kehotteiden Rajoitukset
 
-Tavanomainen vähäisen ohjauksen kehote toimii hyvin monissa tehtävissä, mutta se ei ole täydellinen tekniikka, erityisesti monimutkaisempien päättelytehtävien kohdalla. Havainnollistetaan, miksi näin on. Muistatko aiemman esimerkin, jossa annoimme seuraavan tehtävän:
+Vaikka tavanomainen vähäisen ohjauksen kehote toimii hyvin monissa tehtävissä, se ei ole täydellinen tekniikka, erityisesti monimutkaisempien päättelytehtävien kohdalla. Havainnollistetaan, miksi näin on. Muistatko aiemman esimerkin, jossa annoimme seuraavan tehtävän:
 
 ```
 Parittomat luvut tässä ryhmässä muodostavat parillisen summan: 15, 32, 5, 13, 82, 7, 1.
@@ -81,7 +80,7 @@ Kyllä, parittomat luvut tässä ryhmässä muodostavat 107, mikä on parillinen
 
 Tämä ei ole oikea vastaus, mikä korostaa paitsi järjestelmien rajoituksia myös tarvetta kehittyneemmälle kehotesuunnittelulle.
 
-Kokeillaan lisätä joitakin esimerkkejä ja nähdä, paraneeko vähäisen ohjauksen kehotteiden avulla saatu tulos.
+Kokeillaan lisäämällä joitakin esimerkkejä ja katsotaan, paraneeko vähäisen ohjauksen kehotteiden avulla saatu tulos.
 
 *Kehote:*
 ```
@@ -106,7 +105,7 @@ A:
 Vastaus on Tosi.
 ```
 
-Se ei toiminut. Näyttää siltä, että vähäisen ohjauksen kehotteet eivät riitä luotettavien vastausten saamiseksi tämäntyyppiseen päättelyongelmaan. Yllä oleva esimerkki antaa perustietoa tehtävästä. Tarkemmin tarkasteltuna esittelemämme tehtävätyyppi sisältää useita lisäpäättelyvaiheita. Toisin sanoen, ongelman jakaminen osiin ja sen osoittaminen mallille saattaa auttaa.
+Se ei toiminut. Vaikuttaa siltä, että vähäisen ohjauksen kehotteet eivät riitä luotettavien vastausten saamiseksi tämäntyyppiseen päättelyongelmaan. Yllä oleva esimerkki antaa perustietoa tehtävästä. Tarkemmin tarkasteltuna esittelemämme tehtävätyyppi sisältää useita lisäpäättelyvaiheita. Toisin sanoen, ongelman jakaminen osiin ja sen osoittaminen mallille saattaa auttaa.
 Ajatusketjua höydyntävä [chain-of-thought (CoT) kehottaminen](https://arxiv.org/abs/2201.11903) on saavuttanut suosiota ratkaisemaan monimutkaisempia laskennallisia, yleistä järkeä vaativia ja symbolisia päättelytehtäviä.
 
-Esimerkkien tarjoaminen on hyödyllistä joissakin tehtävissä. Kun nollakehottaminen ja vähäisen ohjauksen kehottaminen eivät riitä, se saattaa tarkoittaa, että mallin oppimat asiat eivät ole riittäviä tehtävän suorittamiseksi hyvin. Tässä vaiheessa on suositeltavaa alkaa harkita mallien asetusten hienosäätämistä tai kokeilla kehittyneempiä kehotesuunnittelutekniikoita. Seuraavaksi keskustelemme suositusta kehotesuunnittelutekniikasta, jota kutsutaan ajatusketjua hyödyntäväksi kehotesuunnitteluksi.
+Esimerkkien tarjoaminen on hyödyllistä joissakin tehtävissä. Kun nollakehottaminen ja vähäisen ohjauksen kehottaminen eivät riitä, se saattaa tarkoittaa, että mallin oppimat asiat eivät ole riittäviä tehtävän suorittamiseksi hyvin. Tässä vaiheessa on suositeltavaa alkaa harkita mallien asetusten hienosäätämistä tai kokeilla kehittyneempiä kehotesuunnittelutekniikoita. Seuraavaksi keskustelemme kehotesuunnittelutekniikasta, joka on saavuttanut suosiota. Sitä kutsutaan ajatusketjua hyödyntäväksi kehotesuunnitteluksi.
