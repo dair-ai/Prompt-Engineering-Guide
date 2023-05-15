@@ -1,20 +1,20 @@
 # Vastavalmistuneiden työluokittelun tapaustutkimus
 
-[Clavié ym., 2023](https://arxiv.org/abs/2303.07142)-julkaisussa tutkitaan kehotesuunnittelun soveltamista tekstin luokittelutehtävään tuotantojärjestelmässä. Tutkimuksessa luokitellaan onko työpaikka todellinen "lähtötason työ", joka sopii äskettäin valmistuneelle vai ei. He arvioivat kehotesuunnittelutekniikoiden sarjaa ja raportoivat tuloksensa GPT-3.5:llä (gpt-3.5-turbo)
+[Clavié ym., 2023](https://arxiv.org/abs/2303.07142)-julkaisussa tutkitaan kehotesuunnittelun soveltamista tekstin luokittelutehtävässä tuotantojärjestelmässä. Tutkimuksessa selvitetään, onko tarjolla oleva työpaikka todellinen "aloitustason työ", joka sopii äskettäin valmistuneelle. He testaavat useita kehotesuunnittelutekniikoita ja raportoivat tuloksensa käyttäen GPT-3.5-mallia (`gpt-3.5-turbo`)
 
-Tutkimus osoittaa, että LLM:t suoriutuvat paremmin kuin kaikki muut testatut mallit, mukaan lukien erittäin vahva vertailukohta DeBERTa-V3. `gpt-3.5-turbo` suoriutuu myös huomattavasti paremmin vanhempiin GPT3-variantteihin verrattuna kaikissa keskeisissä mittareissa, mutta vaatii enemmän tulosten jäsentämistä, koska sen kyky noudattaa mallipohjaa näyttää olevan heikompi kuin muiden varianttien.
+Tutkimus osoittaa, että LLM:t suoriutuvat paremmin kuin kaikki muut testatut mallit, mukaan lukien erittäin vahva vertailukohta DeBERTa-V3. `gpt-3.5-turbo` suoriutuu myös huomattavasti paremmin kuin vanhemmat GPT3-variantit kaikissa keskeisissä mittareissa, mutta sen tulosten jäsentämistä on tehostettava, koska sen kyky noudattaa mallipohjaa näyttää olevan heikompi kuin muiden varianttien.
 
 Julkaisun keskeiset kehotesuunnitteluun liittyvät havainnot ovat:
 
-- Tämänkaltaisissa tehtävissä joissa asiantuntijatietoa ei tarvita, Vähäisen ohjauksen CoT -kehote suoriutui huonommin kuin nollaoppimisen kehote kaikissa kokeissa.
-- Kehotteen vaikutus oikean perustelun saamiseen on valtava. Mallin pyytäminen luokittelemaan annettu työpaikka johtaa F1-pistemäärään 65,6, kun taas malli saavuttaa kehotesuunnittelun jälkeen F1-pistemäärän 91,7.
-- Mallin pakottaminen noudattamaan mallipohjaa heikentää suorituskykyä kaikissa tapauksissa (tämä käyttäytyminen häviää GPT-4:llä testatessa, joka on julkaistu tutkimuksen jälkeen).
-- Monilla pienillä muutoksilla on suuri vaikutus suorituskykyyn.
+- Tehtävissä, joissa ei tarvita asiantuntijatietoa, vähäisen ohjauksen CoT -kehote suoriutui huonommin kuin nollaoppimisen kehote kaikissa kokeissa.
+- Kehotteen vaikutus oikean perustelun saamiseen on merkittävä. Mallin pyytäminen luokittelemaan annettu työpaikka johtaa F1-pistemäärään 65,6, kun taas malli saavuttaa kehotesuunnittelun jälkeen F1-pistemäärän 91,7
+- Mallin pakottaminen noudattamaan mallipohjaa heikentää suorituskykyä kaikissa tapauksissa (tämä käyttäytyminen katoaa GPT-4:llä, joka on julkaistu tutkimuksen jälkeen).
+- Monet pienet muutokset vaikuttavat suuresti suorituskykyyn.
   - Alla olevat taulukot näyttävät kaikki testatut muutokset.
   - Oikeiden ohjeiden antaminen ja keskeisten kohtien toistaminen näyttää olevan suurin suorituskyvyn ajuri.
   - Ihmisen nimen antaminen mallille ja siihen viittaaminen lisäsi F1-pistemäärää 0,6 pisteellä.
 
-### Testatus kehotemuokkaukset
+### Testatut kehotemuokkaukset
 
 | Short name | Description                                                                |
 |------------|----------------------------------------------------------------------------|

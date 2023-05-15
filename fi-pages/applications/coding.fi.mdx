@@ -63,7 +63,7 @@ Generoitu koodi näyttää toimivalta koodilta. Kuitenkin tulosteesta puuttuu t�
 
 ## Funktion Täydentäminen
 
-Nämä LLM:t on myös osana työkaluja, kuten GitHub Copilot, mikä tekee niistä hyödyllisiä kehittäjille. Yksi hyödyllinen ominaisuus on mallin kyky täydentää funktioita.
+Nämä LLM:t ovat osana työkaluja, kuten GitHub Copilot, mikä tekee niistä hyödyllisiä kehittäjille. Eräs hyödyllinen ominaisuus on mallin kyky täydentää funktioita.
 
 *Kehote:*
 ```python
@@ -82,9 +82,9 @@ a, b):
 
 ## MySQL-kyselyiden Generointi
 
-Perustason koodin generointiesimerkin lisäksi voit käyttää mallia hyödyllisen koodin generointiin, jota voidaan käyttää ohjelmoinnin muissa osa-alueissa, kuten luomalla ja testaamalla MySQL-kyselyitä.
+Perustason koodin generointiesimerkkien lisäksi voit hyödyntää mallia monimutkaisemman koodin generoimiseen, jota voidaan käyttää ohjelmoinnin eri osa-alueissa, esimerkiksi luomalla ja testaamalla MySQL-kyselyitä.
 
-Oletetaan, että sinulla on tietojoukko, jossa on joitakin tietoja, jotka voit sisällyttää kehotteeseen ja sitten ohjeistaa sen generoimaan tietyn kyselyn. Esimerkiksi:
+Oletetaan, että sinulla on tietojoukko, joka sisältää joitakin tietoja. Voit sisällyttää nämä tiedot kehotteeseen ja antaa ohjeet tietyn kyselyn generoimiseksi. Esimerkiksi:
 
 ```
 """
@@ -104,7 +104,7 @@ WHERE d.DepartmentName = 'tietojenkäsittelytiede';
 Tämä kysely yhdistää departments- ja students-taulut niiden yhteisen DepartmentId-sarakkeen perusteella ja hakee ne opiskelijat, joiden osaston nimi (DepartmentName) on 'tietojenkäsittelytiede'.
 ```
 
-Malli luo kyselyn! Tässä esimerkissä keksimme tietokannan, joten meillä ei ole tietokantaa, jossa testata generoitua kyselyä. Jos testaat tätä esimerkkiä, voi olla hyödyllistä luoda tämä tietokanta. Onneksi voit käyttää ChatGPT:tä myös tämän luomiseen. Yksi lähestymistapa on käyttää muokattua versiota yllä olevasta kehotteesta hieman erilaisilla ohjeilla tietokantaskeeman generoimiseen:
+"Malli luo kyselyn! Tässä esimerkissä keksimme tietokannan, joten meillä ei ole oikeaa tietokantaa, jossa voimme testata generoitua kyselyä. Jos haluat testata tätä esimerkkiä, sinun voi olla hyödyllistä luoda tämä tietokanta. Onneksi voit käyttää ChatGPT:tä myös tämän luomiseen. Yksi lähestymistapa on muokata yllä olevaa kehotetta hieman erilaisilla ohjeilla tietokantaskeeman generoimiseksi:
 
 ```
 Table departments, columns = [DepartmentId, DepartmentName]
@@ -169,7 +169,7 @@ Nyt kun sinulla on tietokanta ja testitietoja, voit testata alkuperäisen kysely
 ## Koodin Selittäminen
 Jos opettelet ohjelmoimaan tietyllä kielellä, voi olla hyödyllistä pyytää mallia selittämään tiettyjä koodin osia. Käytetään uudelleen yllä luotua kyselyä ja pyydetään mallia selittämään se.
 
-Jos käytät samaa järjestelmäviestiä kuin aiemmin, ole varovainen ohjeiden antamisessa mallille. Esimerkiksi, jos käytämme seuraavaa esimerkkiä, malli valittaa, että se on koodiavustaja Pythonissa, mutta se silti tarjoaa selityksen. Joskus malli kieltäytyy tuottamasta sitä, mitä ohjeistat, koska se on suunniteltu noudattamaan järjestelmäviestiä.
+Jos käytät samaa järjestelmäviestiä kuin aiemmin, ole varovainen ohjeiden antamisessa mallille. Esimerkiksi, jos käytämme seuraavaa esimerkkiä, malli huomauttaa, että se on koodiavustaja Pythonissa, mutta se tarjoaa silti selityksen. Joskus malli saattaa kieltäytyä tuottamasta pyydettyä sisältöä, koska se on suunniteltu noudattamaan järjestelmäviestiä.
 
 *Kehote:*
 
@@ -188,7 +188,7 @@ Selitä yllä oleva SQL-lause.
 ```
 Tämä SQL-lause valitsee StudentId ja StudentName sarakkeet students taulusta, missä DepartmentName sarake departments taulussa on yhtä suuri kuin 'Tietojenkäsittelytiede'. Saavuttaakseen tämän, lause suorittaa sisäisen liitoksen DepartmentId sarakkeen välillä students ja departments tauluissa.
 
-Yksinkertaisemmin sanottuna se valitsee tietojenkäsittelytieteen opiskelijoiden nimet ja tunnukset.
+Yksinkertaisemmin sanottuna, se hakee tietojenkäsittelytieteen opiskelijoiden nimet ja tunnukset.
 ```
 
 ## Koodin Muokkaaminen
