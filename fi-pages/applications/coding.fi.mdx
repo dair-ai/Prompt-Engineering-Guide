@@ -8,11 +8,11 @@ import CODE1 from '../../img/code-generation/chat-mode.png'
   Tämä osio kehittyy jatkuvasti.
 </Callout>
 
-Suuret kielimallit, kuten ChatGPT, ovat erittäin tehokkaita koodin generoinnissa. Tässä osiossa käymme läpi monia esimerkkejä siitä, miten ChatGPT:tä voidaan käyttää koodin generointiin.
+Suuret kielimallit, kuten ChatGPT, ovat erittäin tehokkaita koodin generoinnissa. Tässä osiossa esittelemme useita esimerkkejä siitä, kuinka ChatGPT:tä voidaan hyödyntää koodin generointiin.
 
-Kaikki alla olevat esimerkit käyttävät OpenAI:n testiympäristöä (playground) (Chat Mode) ja gpt-3.5-turbo-mallia.
+Kaikki alla esitetyt esimerkit käyttävät OpenAI:n testiympäristöä (playground) Chat Mode-tilassa ja `gpt-3.5-turbo`-mallia.
 
-Kuten kaikissa OpenAI:n chat-malleissa, voit käyttää `järjestelmäviestiä` määrittelemään vastausten käyttäytymisen ja formaatin. Käytämme seuraavaa järjestelmäviestiä kehote-esimerkeissä:
+Kuten kaikissa OpenAI:n chat-malleissa, voit määrittää vastauksien käyttäytymisen ja muodon `järjestelmäviestin` avulla. Käytämme seuraavaa järjestelmäviestiä kehote-esimerkeissämme:
 
 ```
 Olet koodiavustaja, joka opettaa juniorikehittäjälle koodaamista. Käyttämäsi kieli on Python. Älä selitä koodia, vaan luo vain koodilohko itsessään.
@@ -20,7 +20,7 @@ Olet koodiavustaja, joka opettaa juniorikehittäjälle koodaamista. Käyttämäs
 
 ## Perusesimerkki
 
-`Käyttäjän viesti` sisältää kehotteen, jossa on ohjeet halutun koodin generoimiseksi mallilla. Alla on kuva ensimmäisestä peruskehote-esimerkistä. Huomaa, että lopullinen koodi generoitiin `koodiavustajan` toimesta.
+`Käyttäjän viesti` sisältää kehotteen, jossa annetaan ohjeet halutun koodin generoimiseksi mallilla. Alla on esimerkki ensimmäisestä peruskehoteesta. Huomaa, että lopullisen koodin generoi `koodiavustaja`.
 
 <Screenshot src={CODE1} alt="CODE1" />
 
@@ -32,7 +32,7 @@ Kirjoita koodia, joka kysyy käyttäjän nimen ja sanoo "Hei"
 
 ## Muuta Kommentit Koodiksi
 
-Voit myös käyttää näiden LLM:ien koodin generointikykyä luomaan koodia vain kommenteista. Katsotaan toista esimerkkiä, joka antaa ohjeet kommenttina:
+Voit myös hyödyntää LLM:ien kykyä generoida koodia suoraan kommenteista. Katsotaan toista esimerkkiä, jossa ohjeet annetaan kommenttina:
 
 *Kehote:*
 ```
@@ -59,7 +59,7 @@ json_objekti = json.dumps(elokuva_arvioinnit, indent=4)
 print(json_objekti)
 ```
 
-Generoitu koodi näyttää toimivalta koodilta. Kuitenkin tulosteesta puuttuu tärkeä `import`-lause, eli `import json`. Vaikka nämä mallit generoivat toimivaa koodia, sinun on kiinnitettävä huomiota pieniin yksityiskohtiin, kuten tähän, ja aina varmistettava koodin testaaminen.
+Generoitu koodi näyttää toimivalta koodilta. Kuitenkin tulosteesta puuttuu tärkeä `import`-lause, eli `import json`. Vaikka nämä mallit pystyvät generoimaan toimivaa koodia, on tärkeää kiinnittää huomiota pieniin yksityiskohtiin, kuten tähän, ja aina varmistaa koodin toimivuus testaamalla.
 
 ## Funktion Täydentäminen
 
