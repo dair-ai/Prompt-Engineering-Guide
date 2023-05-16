@@ -1,0 +1,24 @@
+-----
+# Zero-Shot Prompting
+Els grans LLMs d'avui dia, com GPT-3, estan ajustats per seguir instruccions i estan entrenats amb grans quantitats de dades; per tant, són capaços de realitzar algunes tasques de "zero-shot".
+
+Vam provar alguns exemples de zero-shot a la secció anterior. Aquí teniu un dels exemples que vam utilitzar:
+
+*Pregunta:*
+```
+Classifica el text en neutral, negatiu o positiu.
+
+Text: Crec que les vacances estan bé.
+Sentiment:
+```
+
+*Resposta:*
+```
+Neutral
+```
+
+Tingueu en compte que a la pregunta anterior no vam proporcionar al model cap exemple de text juntament amb les seves classificacions, l'LLM ja entén "sentiment" - aquestes són les capacitats de zero-shot en acció.
+
+L'ajust d'instruccions ha demostrat millorar l'aprenentatge de zero-shot [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). L'ajust d'instruccions és essencialment el concepte d'ajustar models en conjunts de dades descrits a través d'instruccions. A més, [RLHF](https://arxiv.org/abs/1706.03741) (aprenentatge per reforç de la retroacció humana) s'ha adoptat per escalar l'ajust d'instruccions en el qual el model s'aligna per ajustar-se millor a les preferències humanes. Aquest desenvolupament recent dóna suport a models com ChatGPT. Discutirem tots aquests enfocaments i mètodes en les properes seccions.
+
+Quan el zero-shot no funciona, es recomana proporcionar demostracions o exemples en la pregunta, la qual cosa porta a la pregunta de poques mostres. A la següent secció, mostrem la pregunta de poques mostres.

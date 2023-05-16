@@ -1,0 +1,16 @@
+# Estimulació d'Estímuls Directius
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import DSP from '../../img/dsp.jpeg'
+
+[Li et al., (2023)](https://arxiv.org/abs/2302.11520) proposen una nova tècnica d'estimulació per guiar millor el LLM en la generació del resum desitjat.
+
+Es forma un LM de política ajustable per generar l'estímul/suggeriment. S'observa un ús més ampli de RL per optimitzar els LLM.
+
+La figura de sota mostra com l'Estimulació d'Estímuls Directius es compara amb l'estimulació estàndard. El LM de política pot ser petit i optimitzat per generar les pistes que guien un LLM congelat de caixa negra.
+
+<Screenshot src={DSP} alt="DSP" />
+Font de la imatge: [Li et al., (2023)](https://arxiv.org/abs/2302.11520)
+
+Exemple complet properament!

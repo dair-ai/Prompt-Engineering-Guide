@@ -1,0 +1,196 @@
+# Generació de codi
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import CODE1 from '../../img/code-generation/chat-mode.png'
+
+<Callout emoji="⚠️">
+  Aquesta secció està en desenvolupament.
+</Callout>
+
+Els LLMs com ChatGPT són molt efectius en la generació de codi. En aquesta secció, tractarem molts exemples de com utilitzar ChatGPT per a la generació de codi.
+
+L'OpenAI's Playground (Mode de xat) i el model `gpt-3.5-turbo` s'utilitzen per a tots els exemples a continuació.
+
+Com amb tots els models de xat d'OpenAI, podeu utilitzar un `Missatge de sistema` per definir el comportament i el format de les respostes. Utilitzarem el següent Missatge de sistema per als exemples de prompts:
+
+```
+Ets un assistent de codi útil que pot ensenyar a un desenvolupador junior com programar. El teu llenguatge de preferència és Python. No cal que expliquis el codi, només genera el bloc de codi en si.
+```
+
+## Exemple bàsic
+
+El `Missatge de l'usuari` serà llavors el prompt en si amb les instruccions del codi específic que voleu que el model generi. A continuació, es mostra una instantània del primer prompt bàsic per a la generació de codi. Tingueu en compte que el codi final va ser generat pel `Assistent`.
+
+<Screenshot src={CODE1} alt="CODE1" />
+
+Aquí teniu el prompt si voleu provar-ho vosaltres mateixos:
+
+```
+Escriu un codi que demani el nom de l'usuari i digui "Hola"
+```
+
+## Convertir comentaris en codi
+
+També podeu utilitzar les capacitats de generació de codi d'aquests LLMs per generar codi a partir de comentaris solament. Vegem un altre exemple que passa les instruccions com a bloc de comentaris:
+
+*Prompt:*
+```
+"""
+1. Crea una llista de pel·lícules
+2. Crea una llista de qualificacions per a aquestes pel·lícules
+3. Combina-les per fer un objecte json de 10 pel·lícules amb les seves qualificacions.
+"""
+```
+
+*Sortida:*
+```python
+pel·lícules = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Schindler's List", "Pulp Fiction", "The Lord of the Rings: The Return of the King", "Forrest Gump", "Star Wars: Episode V - The Empire Strikes Back", "Inception", "The Silence of the Lambs"]
+
+qualificacions = [9.3, 9.2, 9.0, 8.9, 8.9, 8.9, 8.8, 8.7, 8.7, 8.6]
+
+qualificacions_pel·lícules = {}
+
+for i in range(len(pel·lícules)):
+    qualificacions_pel·lícules[pel·lícules[i]] = qualificacions[i]
+
+json_object = json.dumps(qualificacions_pel·lícules, indent=4)
+
+print(json_object)
+```
+
+El codi generat sembla un codi funcional. No obstant això, la sortida no conté una declaració `import` important, és a dir, `import json`. Encara que aquests models generen codi funcional, cal prestar molta atenció als petits detalls com aquest i sempre assegurar-se de provar el codi.
+
+## Funcions completes o línia següent
+
+Aquests LLMs també s'han incorporat en eines com GitHub Copilot, que els fa útils per als desenvolupadors. Una funció útil és la capacitat del model de completar funcions.
+
+*Prompt:*
+```python
+# funció per multiplicar dos números i afegir 75 a això
+
+def multiply(
+```
+
+*Sortida:*
+```python
+a, b):
+    result = a * b
+    result += 75
+    return result
+```
+
+## Generació de consultes MySQL
+
+A més de l'exemple de generació de codi bàsic de més amunt, podeu utilitzar el model per generar codi útil que es pugui utilitzar en altres aspectes de la programació, com ara crear i provar consultes MySQL.
+
+Suposem que teniu un conjunt de dades amb alguna informació que podeu incloure com a part del prompt i, a continuació, donar instruccions per generar una consulta específica. Per exemple:
+
+```
+"""
+Taula departments, columnes = [DepartmentId, DepartmentName]
+Taula students, columnes = [DepartmentId, StudentId, StudentName]
+Crea una consulta MySQL per a tots els estudiants del departament de Ciències de la Computació
+"""
+```
+
+*Sortida:*
+```
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+```
+
+El model genera una consulta! No obstant això, en aquest exemple hem inventat la base de dades, així que no tenim una base de dades per provar la consulta generada. Si esteu provant aquest exemple, podria ser útil tenir aquesta base de dades creada. Afortunadament, podeu utilitzar ChatGPT per generar-ho també. Una aproximació és utilitzar una versió modificada del prompt anterior amb instruccions lleugerament diferents per generar un esquema de base de dades:
+
+```
+Taula departments, columnes = [DepartmentId, DepartmentName]
+Taula students, columnes = [DepartmentId, StudentId, StudentName]
+Crea un esquema de base de dades vàlid amb les taules i columnes anteriors
+```
+
+El model va generar el següent esquema:
+
+```
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+```
+
+Podeu crear una base de dades temporal utilitzant alguna cosa com [sqliteonline.com](https://sqliteonline.com/).
+
+També necessitareu dades fictícies per provar si la consulta generada originalment era vàlida. Utilitzem ChatGPT també per a això! El prompt podria ser semblant al següent:
+
+```
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+
+Donat l'esquema de base de dades anterior, genera declaracions d'inserció vàlides que incloguin 4 files per a cada taula.
+```
+
+La sortida amb les declaracions d'inserció:
+
+```
+INSERT INTO departments (DepartmentId, DepartmentName)
+VALUES (1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics'), (4, 'Biology');
+
+INSERT INTO students (DepartmentId, StudentId, StudentName)
+VALUES (1, 101, 'John Doe'), (1, 102, 'Jane Doe'), (2, 201, 'Alice Smith'), (2, 202, 'Bob Johnson');
+```
+
+Ara que teniu la base de dades i les dades fictícies, podeu provar la consulta original. Segons les dades fictícies, el resultat hauria de ser dues files amb `Jane Doe` i `John Doe`.
+
+## Explicar codi
+Si esteu aprenent a programar en un determinat llenguatge, pot ser útil demanar al model que expliqui certs trossos de codi. Reutilitzem la consulta generada anteriorment i demanem al model que l'expliqui.
+
+Si esteu utilitzant el mateix Missatge de sistema que abans, tingueu cura de com esteu instruint el model. Per exemple, si utilitzem el següent exemple, el model es queixarà que és un assistent de codi en Python, però encara proporciona una explicació. A vegades, el model es nega a generar el que esteu instruint perquè està dissenyat per seguir el Missatge de sistema.
+
+*Prompt:*
+
+```
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+
+Explica l'afirmació SQL anterior.
+```
+
+*Sortida:*
+
+```
+Disculpa, com a assistent de codi en Python, no puc generar codi SQL. No obstant això, puc explicar la finalitat de l'afirmació SQL proporcionada.
+
+Aquesta declaració SQL selecciona les columnes `StudentId` i `StudentName` de la taula `students`, on la columna `DepartmentName` de la taula `departments` és igual a 'Computer Science'. Per aconseguir-ho, la declaració realitza una unió interna en la columna `DepartmentId` entre les taules `students` i `departments`.
+
+En termes més senzills, està seleccionant els noms i identificadors dels estudiants que estan matriculats en el departament de Ciències de la Computació.
+```
+
+## Edició de codi
+Exemple pròximament!
+
+## Depuració de codi
+Exemple pròximament!
+
+## Millors pràctiques
+Exemple pròximament!
