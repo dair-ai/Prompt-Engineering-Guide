@@ -19,16 +19,16 @@ Topics:
 ---
 ## ChatGPT-esittely
 
-ChatGPT on [OpenAI:n](https://openai.com/blog/chatgpt) kehittämä kielimalli, joka kanssa voi kommunikoida keskustelunomaisesti. Tämä malli on koulutettu noudattamaan kehotteita annetussa tehtävässä ja antamaan asianmukaisia vastauksia keskustelun kontekstissa. ChatGPT voi auttaa vastaamaan kysymyksiin, ehdottaa reseptejä, kirjoittaa sanoituksia tietyllä tyylillä, generoida koodia ja tehdä paljon muuta.
+ChatGPT on [OpenAI:n](https://openai.com/blog/chatgpt) kehittämä kielimalli, jonka kanssa voi kommunikoida keskustelunomaisesti. ChatGPT on koulutettu noudattamaan kehotteita annetussa tehtävässä ja antamaan asianmukaisia vastauksia keskustelun kontekstissa. ChatGPT voi auttaa vastaamaan kysymyksiin, ehdottaa reseptejä, kirjoittaa sanoituksia tietyllä tyylillä, generoida koodia ja tehdä paljon muuta.
 
-ChatGPT on koulutettu käyttäen vahvistusoppimista ihmispalautteesta (Reinforcement Learning from Human Feedback, RLHF). Vaikka tämä malli on paljon kyvykkäämpi kuin aiemmat GPT-versiot (ja myös koulutettu vähentämään haitallisia ja epätosia tuloksia), siihen liittyy edelleen rajoituksia. Käydään läpi joitakin kykyjä ja rajoituksia konkreettisten esimerkkien avulla.
+ChatGPT on koulutettu käyttäen vahvistusoppimista ihmispalautteesta (Reinforcement Learning from Human Feedback, RLHF). Vaikka tämä malli on paljon kyvykkäämpi kuin aiemmat GPT-versiot (ja myös koulutettu vähentämään haitallisia ja epätosia tuloksia), sillä on edelleen rajoituksia. Käydään läpi joitakin kykyjä ja rajoituksia konkreettisten esimerkkien avulla.
 
-Voit käyttää ChatGPT:n testiympäristöä [täällä](chat.openai.com). Alla olevissa esimerkeissä käytämme `Chat`-tilaa OpenAI:n testiympäristössä.
+Voit käyttää ChatGPT:n testiympäristöä [täällä](https://platform.openai.com/playground). Alla olevissa esimerkeissä käytämme `Chat`-tilaa OpenAI:n testiympäristössä.
 
 ---
-## Keskustelutehtävän kertaus
+## Keskusteluominaisuuksien kertaus
 
-Aiemmassa osassa opasta käsittelimme keskusteluominaisuuksia ja erilaisia "rooleja" joissa ChatGPT voi toimia.  Kävimme läpi, miten ohjeistaa LLM (Large Language Model) käymään keskustelua tietyllä tyylillä, tarkoituksella, käytöksellä ja identiteetillä.
+Aiemmassa osassa opasta käsittelimme keskusteluominaisuuksia ja erilaisia "rooleja", joissa ChatGPT voi toimia.  Kävimme läpi, miten ohjeistaa LLM (Large Language Model) käymään keskustelua tietyllä tyylillä, tarkoituksella, käytöksellä ja identiteetillä.
 
 Käydään läpi aikaisempi esimerkkimme, jossa loimme keskustelujärjestelmän, joka pystyy tuottamaan teknisiä ja tieteellisiä vastauksia kysymyksiin.
 
@@ -43,12 +43,12 @@ AI:
 ```
 
 Yllä olevasta esimerkistä näet kaksi tärkeää komponenttia::
-- chatbotin **tarkoitus** tai selitys siitä, mikä se on
+- chatbotin **tarkoitus** eli selitys siitä, mikä se on
 - **identiteetti** joka ohjeistaa tyylin tai sävyn, jolla chatbot vastaa
 
-Esimerkissä ilmenee `text-davinci-003`-mallin kyky täydentää tekstiä. OpenAI on hiljattain julkaissut [ChatGPT rajapinnat(API)](https://openai.com/blog/introducing-chatgpt-and-whisper-apis), ChatGPT on uusin ja tehokkain GPT-malli. ChatGPT käyttää `gpt-3.5-turbo`-mallia. Se on suunniteltu erityisesti chat-tyylisten tekstitäydennysten kaltaisiin tehtäviin. OpenAI pitää tätä mallia parhaana vaihtoehtona myös ei-chat-käyttötapauksissa. ChatGPT API:n käytön etuihin kuuluvat huomattavasti pienemmät kustannukset (90 %) ja parempi tehokkuus.
+Esimerkissä ilmenee, kuinka `text-davinci-003`-mallin täydentää tekstiä. OpenAI on hiljattain julkaissut [ChatGPT rajapinnat (API)](https://openai.com/blog/introducing-chatgpt-and-whisper-apis), ChatGPT on uusin ja tehokkain GPT-malli. ChatGPT käyttää `gpt-3.5-turbo`-mallia. Se on suunniteltu erityisesti chat-tyylisten tekstitäydennysten kaltaisiin tehtäviin. OpenAI pitää tätä mallia parhaana vaihtoehtona myös ei-chat-käyttötapauksissa. ChatGPT API:n käytön etuihin kuuluvat huomattavasti pienemmät kustannukset (90 %) ja parempi tehokkuus.
 
-Suuryritykset, kuten Snap Inc. ja Instacart, integroivat jo ChatGPT:n avulla toimivia keskustelutoiminnallisuuksia tuotteisiinsa. Toiminnallisuudet ovat mm. henkilökohtaisia suosituksia tai tukea ostoprosessissa.
+Suuryritykset, kuten Snap Inc. ja Instacart, integroivat jo ChatGPT:n avulla toimivia keskustelutoiminnallisuuksia tuotteisiinsa. Nämä toiminnallisuudet sisältävät mm. henkilökohtaisia suosituksia tai tukea ostoprosessissa.
 
 ---
 ## Keskustelut ChatGPT:n kanssa
@@ -71,7 +71,7 @@ Totta kai, mustien aukkojen synnystä on monia teorioita, mutta yleisesti hyväk
 
 ```
 
-Huomaa, että olen yksinkertaistanut yllä olevaa kehotetta ja tulosta, mutta ChatGPT-chat-täydennys-API vaatii viestien olevan tietyn muotoisia. Olen lisännyt alla olevan kuvakaappauksen siitä, miltä tämä esimerkki näyttäisi käyttäen Chat-tilaa OpenAI Playgroundissa:
+Huomaa, että olen yksinkertaistanut esitettyä kehotetta ja tulosta, mutta ChatGPT-chat-täydennys-API vaatii viestien olevan tietyn muotoisia. Olen lisännyt alla olevan kuvakaappauksen siitä, miltä tämä esimerkki näyttäisi käyttäen Chat-tilaa OpenAI Playgroundissa:
 
 <Screenshot src={CHATGPT1} alt="CHATGPT1" />
 
@@ -94,7 +94,7 @@ Itse asiassa odotetaan, että kehittäjät tulevat työskentelemään tulevaisuu
 
 ### Yksivaiheiset tehtävät
 
-Chat-muoto mahdollistaa monivaiheiset keskustelut, mutta se tukee myös yksivaiheisia tehtäviä, kuten `text-davinci-003`:lla toteutetut esimerkit . Tämä tarkoittaa, että voimme käyttää ChatGPT:tä suorittamaan samankaltaisia tehtäviä kuin mitä olemme esitelleet alkuperäisille GPT-malleille. Esimerkiksi, kokeillaan suorittaa seuraava kysymysten vastaamiseen liittyvä tehtävä ChatGPT:n avulla:
+Chat-muoto mahdollistaa monivaiheiset keskustelut, mutta se tukee myös yksivaiheisia tehtäviä, kuten `text-davinci-003`:lla toteutetut esimerkit. Tämä tarkoittaa, että voimme käyttää ChatGPT:tä suorittamaan samankaltaisia tehtäviä, kuin mitä olemme esitelleet alkuperäisille GPT-malleille. Esimerkiksi, kokeillaan suorittaa seuraava kysymysten vastaamiseen liittyvä tehtävä ChatGPT:n avulla:
 
 *Kehote:*
 ```

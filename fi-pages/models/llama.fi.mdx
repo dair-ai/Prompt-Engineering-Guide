@@ -16,11 +16,11 @@ Tämä julkaisu esittelee kokoelman peruskielimalleja, joiden koko vaihtelee 7 m
 
 Mallit on koulutettu biljoonilla tokeneilla julkisesti saatavilla olevista tietojoukoista.
 
-[(Hoffman ym. 2022)](https://arxiv.org/abs/2203.15556) artikkelissa todetaan, että pienemmät kielimallit voivat saavuttaa paremman suorituskyvyn suuriin kielimalleihin verrattuna, kun pienemmälle kielimallille annetaan enemmän dataa, ja jos laskentaan käytettävä budjetti on rajallinen. Tämä tutkimus suosittelee 10B mallien kouluttamista 200B tokenilla. LLaMA-julkaisussa havaitaan, että 7B mallin suorituskyky paranee edelleen jopa 1T (biljoonan) tokenin jälkeen. 
+[(Hoffman ym. 2022)](https://arxiv.org/abs/2203.15556) artikkelissa todetaan, että pienemmät kielimallit voivat saavuttaa paremman suorituskyvyn suuriin kielimalleihin verrattuna, kun pienemmälle kielimallille annetaan enemmän dataa, ja jos laskentaan käytettävä budjetti on rajallinen. Tämä tutkimus suosittelee 10B mallien kouluttamista 200B: tokenin datalla. LLaMA-julkaisussa havaitaan, että 7B mallin suorituskyky paranee edelleen jopa 1T (biljoonan) tokenin jälkeen. 
 
 <Screenshot src={LLAMA1} alt="LLAMA1" />
 
-Tässä artikkelissa keskitytään mallien (LLaMA) kouluttamiseen, jotka saavuttavat parhaan mahdollisen suorituskyvyn ottaen huomioon erilaiset budjettirajoitteet, käyttämällä suurempaa määrää koulutustokeneja.
+Tässä artikkelissa keskitytään LLaMA mallien kouluttamiseen, jotka saavuttavat parhaan mahdollisen suorituskyvyn ottaen huomioon erilaiset budjettirajoitteet, käyttämällä suurempaa määrää koulutustokeneja.
 
 
 ## Kyvykkyydet ja keskeiset tulokset
