@@ -1,9 +1,9 @@
 # Vääristymät
 
-Suuret kielimallit (LLM) voivat tuottaa ongelmallisia vastauksia, jotka saattavat olla haitallisia ja näyttää vääristymiä jotka voivat heikentää mallin suorituskykyä jatkotehtävissä. Joitakin näistä voidaan lieventää tehokkailla kehotestrategioilla, mutta ne saattavat vaatia kehittyneempiä ratkaisuja, kuten moderaatiota ja suodatusta.
+Suuret kielimallit (LLM) voivat tuottaa ongelmallisia vastauksia, jotka saattavat olla haitallisia ja sisältää vääristymiä, jotka voivat heikentää mallin suorituskykyä jatkotehtävissä. Joitakin näistä voidaan lieventää tehokkailla kehotestrategioilla, mutta ne saattavat vaatia kehittyneempiä ratkaisuja, kuten moderaatiota ja suodatusta.
 
 ### Esimerkkien jakautuminen
-Kun suoritetaan vähäisen ohjauksen oppimista, vaikuttaako esimerkkien jakautuminen mallin suorituskykyyn tai vääristääkö se mallia jollain tavalla? Suoritamme yksinkertaisen testin alla.
+Kun suoritetaan vähäisen ohjauksen oppimista, vaikuttaako esimerkkien jakautuminen mallin suorituskykyyn tai vääristääkö se mallia jollakin tavalla? Suoritamme yksinkertaisen testin alla.
 
 *Kehote:*
 ```
@@ -46,7 +46,7 @@ V:
 Negatiivinen
 ```
 
-Yllä olevassa esimerkissä näyttää siltä, että esimerkkien jakautuminen ei vinouta mallia. Hienoa! Kokeillaan toista esimerkkiä, jossa on vaikeammin luokiteltava teksti, ja katsotaan, miten malli toimii:
+Yllä olevassa esimerkissä vaikuttaa siltä, että esimerkkien jakautuminen ei vinouta mallia. Hienoa! Kokeillaan toista esimerkkiä, jossa on vaikeammin luokiteltava teksti, ja katsotaan, miten malli toimii:
 
 *Kehote:*
 ```
@@ -93,10 +93,10 @@ Tässä toisessa esimerkissä malli luokitteli tekstin "tunnen jotain" negatiivi
 
 On tärkeää huomata, että suuret kielimallit ovat edelleen alttiita vääristymille ja epätarkkuuksille, joten kehotteiden huolellinen muotoilu ja kontekstin tarjoaminen voivat auttaa parantamaan tuloksia. Lisäksi jatkuvasti parantuvat turvallisuus- ja suodatustoiminnot auttavat suojaamaan malleja ei-toivotulta sisällöltä ja vääristymiltä.
 
-Vaikka viimeinen lause onkin hieman subjektiivinen, muutin jakaumaa ja käytin sen sijaan 8 positiivista esimerkkiä ja 2 negatiivista esimerkkiä, ja kokeilin samaa lausetta uudelleen. Arvaatko mitä malli vastasi? Se vastasi "Positiivinen". Mallilla saattaa olla paljon tietoa tunnesävyjen luokittelusta, joten sen saaminen näyttämään vinoutumaa tähän ongelmaan on vaikeaa. Neuvo tässä on välttää jakauman vääristämistä ja sen sijaan tarjota tasapainoisempi määrä esimerkkejä kustakin luokasta. Malli todennäköisesti kamppailee enemmän vaikeammissa tehtävissä, joista sillä ei ole paljoa tietoa.
+Vaikka viimeinen lause onkin hieman subjektiivinen, muutin jakaumaa käyttämällä 8 positiivista esimerkkiä ja 2 negatiivista esimerkkiä, ja kokeilin samaa lausetta uudelleen. Arvaatko mitä malli vastasi? Se vastasi "Positiivinen". Mallilla saattaa olla paljon tietoa tunnesävyjen luokittelusta, joten sen saaminen näyttämään vinoutumaa tähän ongelmaan on vaikeaa. Neuvo tässä on välttää jakauman vääristämistä ja sen sijaan tarjota tasapainoisempi määrä esimerkkejä kustakin luokasta. Malli todennäköisesti kamppailee enemmän vaikeammissa tehtävissä, joista sillä ei ole paljoa tietoa.
 
 
 ### Esimerkkien järjestys
-Vaikuttaako järjestys mallin suorituskykyyn tai vinoutumiseen jollakin tavalla, kun suoritetaan vähäisen ohjauksen oppimista?
+Vaikuttaako esimerkkien järjestys mallin suorituskykyyn tai sen aiheuttamiin vinoutumiin vähäisen ohjauksen oppimisen yhteydessä?
 
-Voit kokeilla yllä olevia esimerkkejä ja nähdä, voitko saada mallin suosimaan tiettyä luokkaa muuttamalla järjestystä. Yleispätevä neuvo on järjestää esimerkit satunnaisesti. Vältä esimerkiksi sitä, että kaikki positiiviset esimerkit ovat ensin ja sitten negatiiviset esimerkit viimeisenä. Tämä ongelma korostuu entisestään, jos luokkien jakauma on vinoutunut. Varmista aina, että kokeilet paljon vähentääksesi tätä tyyppistä vinoutumaa.
+Voit kokeilla yllä olevia esimerkkejä ja nähdä, vaikuttaako järjestyksen muuttaminen siihen, suosiko malli tiettyä luokkaa. Yleinen suositus on järjestää esimerkit satunnaisesti. Vältä esimerkiksi sitä, että kaikki positiiviset esimerkit ovat ensin ja sitten negatiiviset esimerkit viimeisenä. Tämä ongelma korostuu entisestään, jos luokkien jakauma on vinoutunut. Varmista aina, että teet useita kokeiluja tämäntyyppisen vinoutuman vähentämiseksi.
