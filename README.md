@@ -33,7 +33,7 @@ You can also find the most up-to-date guides on our new website [https://www.pro
   - [Prompt Engineering - Basics of Prompting](https://www.promptingguide.ai/introduction/basics)
   - [Prompt Engineering - Prompt Elements](https://www.promptingguide.ai/introduction/elements)
   - [Prompt Engineering - General Tips for Designing Prompts](https://www.promptingguide.ai/introduction/tips)
-  - [Prompt Engineering - Examples of Prompts](https://www.promptingguide.ai/introduction/exampleshttps://www.promptingguide.ai/introduction/examples)
+  - [Prompt Engineering - Examples of Prompts](https://www.promptingguide.ai/introduction/examples)
 - [Prompt Engineering - Techniques](https://www.promptingguide.ai/techniques)
   - [Prompt Engineering - Zero-Shot Prompting](https://www.promptingguide.ai/techniques/zeroshot)
   - [Prompt Engineering - Few-Shot Prompting](https://www.promptingguide.ai/techniques/fewshot)
