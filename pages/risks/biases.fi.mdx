@@ -1,0 +1,102 @@
+# Vääristymät
+
+Suuret kielimallit (LLM) voivat tuottaa ongelmallisia vastauksia, jotka saattavat olla haitallisia ja sisältää vääristymiä, jotka voivat heikentää mallin suorituskykyä jatkotehtävissä. Joitakin näistä voidaan lieventää tehokkailla kehotestrategioilla, mutta ne saattavat vaatia kehittyneempiä ratkaisuja, kuten moderaatiota ja suodatusta.
+
+### Esimerkkien jakautuminen
+Kun suoritetaan vähäisen ohjauksen oppimista, vaikuttaako esimerkkien jakautuminen mallin suorituskykyyn tai vääristääkö se mallia jollakin tavalla? Suoritamme yksinkertaisen testin alla.
+
+*Kehote:*
+```
+K: Sain juuri parhaat uutiset ikinä!
+V: Positiivinen
+
+K: Saimme juuri palkankorotuksen töissä!
+V: Positiivinen
+
+K: Olen niin ylpeä siitä, mitä saavutin tänään.
+V: Positiivinen
+
+K: Minulla on paras päivä ikinä!
+V: Positiivinen
+
+K: Odotan todella innolla viikonloppua.
+V: Positiivinen
+
+K: Sain juuri parhaan lahjan ikinä!
+V: Positiivinen
+
+K: Olen niin onnellinen juuri nyt.
+V: Positiivinen
+
+K: Olen niin siunattu, kun minulla on näin uskomaton perhe.
+V: Positiivinen
+
+K: Sää ulkona on niin synkkä.
+V: Negatiivinen
+
+K: Sain juuri kauheita uutisia.
+V: Negatiivinen
+
+K: Se jätti huonon maun.
+V:
+```
+
+*Tulos:*
+```
+Negatiivinen
+```
+
+Yllä olevassa esimerkissä vaikuttaa siltä, että esimerkkien jakautuminen ei vinouta mallia. Hienoa! Kokeillaan toista esimerkkiä, jossa on vaikeammin luokiteltava teksti, ja katsotaan, miten malli toimii:
+
+*Kehote:*
+```
+K: Ruoka täällä on herkullista!
+V: Positiivinen
+
+K: Olen niin väsynyt tästä kurssityöstä.
+V: Negatiivinen
+
+K: En voi uskoa, että epäonnistuin tentissä.
+V: Negatiivinen
+
+K: Minulla oli upea päivä tänään!
+V: Positiivinen
+
+K: Inhoan tätä työtä.
+V: Negatiivinen
+
+K: Palvelu täällä on kamalaa.
+V: Negatiivinen
+
+K: Olen niin turhautunut elämääni.
+V: Negatiivinen
+
+K: Minulle käy aina huonosti.
+V: Negatiivinen
+
+K: Tämä ateria maistuu kamalalta.
+V: Negatiivinen
+
+K: En siedä pomoani.
+V: Negatiivinen
+
+K: Tunnen jotain.
+V:
+```
+
+*Tulos:*
+```
+Negatiivinen
+```
+
+Tässä toisessa esimerkissä malli luokitteli tekstin "tunnen jotain" negatiiviseksi, vaikka se on melko neutraali ilmaus. Tämä saattaa johtua siitä, että useimmat esimerkit, joita käytimme kehotteessa, olivat negatiivisia. Tästä huolimatta, vaikka esimerkkien jakautuminen voi vaikuttaa mallin suorituskykyyn, se ei välttämättä aina johda vääristymiin.
+
+On tärkeää huomata, että suuret kielimallit ovat edelleen alttiita vääristymille ja epätarkkuuksille, joten kehotteiden huolellinen muotoilu ja kontekstin tarjoaminen voivat auttaa parantamaan tuloksia. Lisäksi jatkuvasti parantuvat turvallisuus- ja suodatustoiminnot auttavat suojaamaan malleja ei-toivotulta sisällöltä ja vääristymiltä.
+
+Vaikka viimeinen lause onkin hieman subjektiivinen, muutin jakaumaa käyttämällä 8 positiivista esimerkkiä ja 2 negatiivista esimerkkiä, ja kokeilin samaa lausetta uudelleen. Arvaatko mitä malli vastasi? Se vastasi "Positiivinen". Mallilla saattaa olla paljon tietoa tunnesävyjen luokittelusta, joten sen saaminen näyttämään vinoutumaa tähän ongelmaan on vaikeaa. Neuvo tässä on välttää jakauman vääristämistä ja sen sijaan tarjota tasapainoisempi määrä esimerkkejä kustakin luokasta. Malli todennäköisesti kamppailee enemmän vaikeammissa tehtävissä, joista sillä ei ole paljoa tietoa.
+
+
+### Esimerkkien järjestys
+Vaikuttaako esimerkkien järjestys mallin suorituskykyyn tai sen aiheuttamiin vinoutumiin vähäisen ohjauksen oppimisen yhteydessä?
+
+Voit kokeilla yllä olevia esimerkkejä ja nähdä, vaikuttaako järjestyksen muuttaminen siihen, suosiko malli tiettyä luokkaa. Yleinen suositus on järjestää esimerkit satunnaisesti. Vältä esimerkiksi sitä, että kaikki positiiviset esimerkit ovat ensin ja sitten negatiiviset esimerkit viimeisenä. Tämä ongelma korostuu entisestään, jos luokkien jakauma on vinoutunut. Varmista aina, että teet useita kokeiluja tämäntyyppisen vinoutuman vähentämiseksi.

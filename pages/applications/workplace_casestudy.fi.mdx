@@ -1,0 +1,56 @@
+# Vastavalmistuneiden työluokittelun tapaustutkimus
+
+[Clavié ym., 2023](https://arxiv.org/abs/2303.07142)-julkaisussa tutkitaan kehotesuunnittelun soveltamista tekstin luokittelutehtävässä tuotantojärjestelmässä. Tutkimuksessa selvitetään, onko tarjolla oleva työpaikka todellinen "aloitustason työ", joka sopii äskettäin valmistuneelle. He testaavat useita kehotesuunnittelutekniikoita ja raportoivat tuloksensa käyttäen GPT-3.5-mallia (`gpt-3.5-turbo`)
+
+Tutkimus osoittaa, että LLM:t suoriutuvat paremmin kuin kaikki muut testatut mallit, mukaan lukien erittäin vahva vertailukohta DeBERTa-V3. `gpt-3.5-turbo` suoriutuu myös huomattavasti paremmin kuin vanhemmat GPT3-variantit kaikissa keskeisissä mittareissa, mutta sen tulosten jäsentämistä on tehostettava, koska sen kyky noudattaa mallipohjaa näyttää olevan heikompi kuin muiden varianttien.
+
+Julkaisun keskeiset kehotesuunnitteluun liittyvät havainnot ovat:
+
+- Tehtävissä, joissa ei tarvita asiantuntijatietoa, vähäisen ohjauksen CoT -kehote suoriutui huonommin kuin nollaoppimisen kehote kaikissa kokeissa.
+- Kehotteen vaikutus oikean perustelun saamiseen on merkittävä. Mallin pyytäminen luokittelemaan annettu työpaikka johtaa F1-pistemäärään 65,6, kun taas malli saavuttaa kehotesuunnittelun jälkeen F1-pistemäärän 91,7
+- Mallin pakottaminen noudattamaan mallipohjaa heikentää suorituskykyä kaikissa tapauksissa (tämä käyttäytyminen katoaa GPT-4:llä, joka on julkaistu tutkimuksen jälkeen).
+- Monet pienet muutokset vaikuttavat suuresti suorituskykyyn.
+  - Alla olevat taulukot näyttävät kaikki testatut muutokset.
+  - Oikeiden ohjeiden antaminen ja keskeisten kohtien toistaminen näyttää olevan suurin suorituskyvyn ajuri.
+  - Ihmisen nimen antaminen mallille ja siihen viittaaminen lisäsi F1-pistemäärää 0,6 pisteellä.
+
+### Testatut kehotemuokkaukset
+
+| Short name | Description                                                                |
+|------------|----------------------------------------------------------------------------|
+| Baseline   | Provide a a job posting and asking if it is fit for a graduate.            |
+| CoT        | Give a few examples of accurate classification before querying.            |
+| Zero-CoT   | Ask the model to reason step-by-step before providing its answer.          |
+| rawinst    | Give instructions about its role and the task by adding to the user msg.   |
+| sysinst    | Give instructions about its role and the task as a system msg.             |
+| bothinst   | Split instructions with role as a system msg and task as a user msg.       |
+| mock       | Give task instructions by mocking a discussion where it acknowledges them. |
+| reit       | Reinforce key elements in the instructions by repeating them.              |
+| strict     | Ask the model to answer by strictly following a given template.            |
+| loose      | Ask for just the final answer to be given following a given template.      |
+| right      | Asking the model to reach the right conclusion.                            |
+| info       | Provide additional information to address common reasoning failures.       |
+| name       | Give the model a name by which we refer to it in conversation.             |
+| pos        | Provide the model with positive feedback before querying it.               |
+
+
+### Kaikkien kehotemuokkausten suorituskykyvaikutus
+
+|                                        | Precision     | Recall        | F1            | Template Stickiness    |
+|----------------------------------------|---------------|---------------|---------------|------------------------|
+| _Baseline_                             | _61.2_        | _70.6_        | _65.6_        | _79%_                  |
+| _CoT_                                  | _72.6_        | _85.1_        | _78.4_        | _87%_                  |
+| _Zero-CoT_                             | _75.5_        | _88.3_        | _81.4_        | _65%_                  |
+| _+rawinst_                             | _80_          | _92.4_        | _85.8_        | _68%_                  |
+| _+sysinst_                             | _77.7_        | _90.9_        | _83.8_        | _69%_                  |
+| _+bothinst_                            | _81.9_        | _93.9_        | _87.5_        | _71%_                  |
+| +bothinst+mock                         | 83.3          | 95.1          | 88.8          | 74%                    |
+| +bothinst+mock+reit                    | 83.8          | 95.5          | 89.3          | 75%                    |
+| _+bothinst+mock+reit+strict_           | _79.9_        | _93.7_        | _86.3_        | _**98%**_              |
+| _+bothinst+mock+reit+loose_            | _80.5_        | _94.8_        | _87.1_        | _95%_                  |
+| +bothinst+mock+reit+right              | 84            | 95.9          | 89.6          | 77%                    |
+| +bothinst+mock+reit+right+info         | 84.9          | 96.5          | 90.3          | 77%                    |
+| +bothinst+mock+reit+right+info+name    | 85.7          | 96.8          | 90.9          | 79%                    |
+| +bothinst+mock+reit+right+info+name+pos| **86.9**      | **97**        | **91.7**      | 81%                    |
+
+Mallipohjan "stickiness" viittaa siihen, kuinka usein malli vastaa halutussa muodossa. 
