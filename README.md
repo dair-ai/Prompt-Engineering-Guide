@@ -10,6 +10,8 @@ Due to high demand, we are partnering with Maven to deliver a new course on Prom
 
 ---
 ## Announcements / Updates
+
+- 🌐 We now support [中文](https://www.promptingguide.ai/zh), [日本語](https://www.promptingguide.ai/jp), [한글](https://www.promptingguide.ai/kr), [Português](https://www.promptingguide.ai/pt), [Turkish](https://www.promptingguide.ai/tr) and [English](https://www.promptingguide.ai/). Welcoming more translations.
 - 🎓 New course on Prompt Engineering for LLMs coming soon! Join the [waitlist](ttps://maven.com/forms/4f11a9)!
 - 🎉 We have launched new web version of the guide [here](https://www.promptingguide.ai/)
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
