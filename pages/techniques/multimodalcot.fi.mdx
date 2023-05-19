@@ -1,0 +1,15 @@
+# Monimuotoinen CoT-kehottaminen
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import MCOT from '../../img/multimodal-cot.png'
+
+Perinteisen ajatusketjun sijaan, joka keskittyy kieli-ilmaisuun,[Zhang ym. (2023)](https://arxiv.org/abs/2302.00923) esittivät äskettäin monimuotoinen ajatusketjukehotteen lähestymistavan. Tämä yhdistää tekstin ja näköhavainnon kaksivaiheiseen kehykseen. Ensimmäinen vaihe sisältää järjellisten perustelujen tuottamisen monimuotoisen tiedon perusteella, minkä jälkeen seuraa toinen vaihe – vastauksen päätteleminen, jossa hyödynnetään tuotettuja informatiivisia perusteluja.
+
+Monimuotoinen CoT-malli (1B) on osoittautunut tehokkaammaksi kuin GPT-3.5, erityisesti ScienceQA-vertailussa, jossa se suoriutui paremmin.
+
+<Screenshot src={MCOT} alt="MCOT" />
+Kuvan lähde: [Zhang ym. (2023)](https://arxiv.org/abs/2302.00923)
+
+Lisää luettavaa:
+- [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)

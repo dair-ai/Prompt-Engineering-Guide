@@ -1,25 +1,25 @@
 {
   "index": "Prompt Engineering",
-  "introduction": "Introduction",
-  "techniques": "Techniques",
-  "applications": "Applications",
-  "models": "Models",
-  "risks": "Risks & Misuses",
-  "papers": "Papers",
-  "tools": "Tools",
+  "introduction": "Introdução",
+  "techniques": "Técnicas",
+  "applications": "Aplicações",
+  "models": "Modelos",
+  "risks": "Riscos e usos indevidos",
+  "papers": "Artigos",
+  "tools": "Ferramentas",
   "notebooks": "Notebooks",
-  "datasets": "Datasets",
-  "readings": "Additional Readings",
+  "datasets": "Conjuntos de dados",
+  "readings": "Leituras Adicionais",
   "about": {
-    "title": "About",
+    "title": "Sobre",
     "type": "page"
   },
   "course":{
-    "title": "Prompt Engineering Course",
+    "title": "Curso de Engenharia Prompt",
     "type": "page"
   },
   "contact": {
-    "title": "Contact ↗",
+    "title": "Contato ↗",
     "type": "page",
     "href": "https://twitter.com/dair_ai",
     "newWindow": true

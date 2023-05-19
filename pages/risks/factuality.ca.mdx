@@ -1,0 +1,34 @@
+# Factualitat
+
+Els LLM tenen la tendència de generar respostes que sonen coherents i convincent, però a vegades poden ser inventades. Millorar els prompts pot ajudar a millorar el model per generar respostes més precises i factuals i reduir la probabilitat de generar respostes incoherents i inventades.
+
+Algunes solucions podrien incloure:
+- proporcionar la veritat bàsica (per exemple, un paràgraf d'un article relacionat o una entrada a la Viquipèdia) com a part del context per reduir la probabilitat que el model produeixi text inventat.
+- configurar el model per produir respostes menys diverses disminuint els paràmetres de probabilitat i instruint-lo per admetre (per exemple, "No ho sé") quan no coneix la resposta.
+- proporcionar al prompt una combinació d'exemples de preguntes i respostes que pot conèixer i no conèixer
+
+Anem a veure un exemple senzill:
+
+*Prompt:*
+```
+Q: Què és un àtom?
+A: Un àtom és una partícula minúscula que forma tot.
+
+Q: Qui és Alvan Muntz?
+A: ?
+
+Q: Què és Kozar-09?
+A: ?
+
+Q: Quantes llunes té Mart?
+A: Dues, Fobos i Deimos.
+
+Q: Qui és Neto Beto Roberto?
+```
+
+*Output:*
+```
+A: ?
+```
+
+He inventat el nom "Neto Beto Roberto", així que el model és correcte en aquest cas. Proveu de canviar una mica la pregunta i vegeu si podeu fer-ho funcionar. Hi ha diferents maneres de millorar això encara més basant-se en tot el que heu après fins ara.
