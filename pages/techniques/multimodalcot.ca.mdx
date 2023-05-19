@@ -1,0 +1,15 @@
+# Prompting Multimodal CoT
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import MCOT from '../../img/multimodal-cot.png'
+
+[Zhang et al. (2023)](https://arxiv.org/abs/2302.00923) van proposar recentment una aproximació de prompt multimodal en cadena de pensament (CoT). El CoT tradicional es centra en la modalitat del llenguatge. En contrast, el CoT multimodal incorpora text i visió en un marc de treball de dos etapes. El primer pas implica la generació de raonaments basats en informació multimodal. Això és seguit per la segona fase, inferència de respostes, que aprofita els raonaments informatius generats.
+
+El model multimodal CoT (1B) supera el GPT-3.5 en el banc de proves ScienceQA.
+
+<Screenshot src={MCOT} alt="MCOT" />
+Font de la imatge: [Zhang et al. (2023)](https://arxiv.org/abs/2302.00923)
+
+Lectura addicional:
+- [El llenguatge no és tot el que necessites: alinear la percepció amb els models de llenguatge](https://arxiv.org/abs/2302.14045) (febrer de 2023)

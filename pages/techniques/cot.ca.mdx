@@ -1,0 +1,92 @@
+# Cadena de pensament (CoT) Prompting
+
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+
+
+## Cadena de pensament (CoT) Prompting
+
+<Screenshot src={COT} alt="COT" />
+
+Font de la imatge: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+
+Introduït a [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), la cadena de pensament (CoT) prompting permet habilitats de raonament complex a través de passos intermedis de raonament. Podeu combinar-ho amb el prompting de pocs exemples per obtenir resultats més precisos en tasques més complexes que requereixen raonament abans de respondre.
+
+*Prompt:*
+```
+Els números senars d'aquest grup sumen un número parell: 4, 8, 9, 15, 12, 2, 1.
+R: Afegint tots els números senars (9, 15, 1) dóna 25. La resposta és Fals.
+
+Els números senars d'aquest grup sumen un número parell: 17, 10, 19, 4, 8, 12, 24.
+R: Afegint tots els números senars (17, 19) dóna 36. La resposta és Cert.
+
+Els números senars d'aquest grup sumen un número parell: 16, 11, 14, 4, 8, 13, 24.
+R: Afegint tots els números senars (11, 13) dóna 24. La resposta és Cert.
+
+Els números senars d'aquest grup sumen un número parell: 17, 9, 10, 12, 13, 4, 2.
+R: Afegint tots els números senars (17, 9, 13) dóna 39. La resposta és Fals.
+
+Els números senars d'aquest grup sumen un número parell: 15, 32, 5, 13, 82, 7, 1. 
+R:
+```
+
+*Sortida:*
+```
+Afegint tots els números senars (15, 5, 13, 7, 1) dóna 41. La resposta és Fals.
+```
+
+Vaja! Podem veure un resultat perfecte quan vam proporcionar el pas de raonament. De fet, podem resoldre aquesta tasca proporcionant encara menys exemples, és a dir, només un exemple sembla suficient:
+
+*Prompt:*
+```
+Els números senars d'aquest grup sumen un número parell: 4, 8, 9, 15, 12, 2, 1.
+R: Afegint tots els números senars (9, 15, 1) dóna 25. La resposta és Fals.
+
+Els números senars d'aquest grup sumen un número parell: 15, 32, 5, 13, 82, 7, 1. 
+R:
+```
+
+*Sortida:*
+```
+Afegint tots els números senars (15, 5, 13, 7, 1) dóna 41. La resposta és Fals.
+```
+
+Tingueu en compte que els autors afirmen que aquesta és una habilitat emergent que sorgeix amb models de llenguatge prou grans.
+
+## Prompting de Cadena de pensament en Zero-shot
+
+<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+
+Font de la imatge: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+
+Una idea recent que ha sorgit més recentment és la idea de [CoT en zero-shot](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022) que essencialment implica afegir "Pensem pas a pas" a la indicació original. Provem un problema simple i veiem com es comporta el model:
+
+*Prompt:*
+```
+Vaig anar al mercat i vaig comprar 10 pomes. Vaig donar 2 pomes al veí i 2 al reparador. Després vaig anar a comprar 5 pomes més i em vaig menjar 1. Amb quantes pomes em vaig quedar?
+```
+
+*Sortida:*
+```
+11 pomes
+```
+
+La resposta és incorrecta! Ara provem amb l'indicació especial.
+
+*Prompt:*
+```
+Vaig anar al mercat i vaig comprar 10 pomes. Vaig donar 2 pomes al veí i 2 al reparador. Després vaig anar a comprar 5 pomes més i em vaig menjar 1. Amb quantes pomes em vaig quedar?
+
+Pensem pas a pas.
+```
+
+*Sortida:*
+```
+Primer, vas començar amb 10 pomes.
+Vas donar 2 pomes al veí i 2 al reparador, així que et van quedar 6 pomes.
+Després vas comprar 5 pomes més, així que ara tenies 11 pomes.
+Finalment, et vas menjar 1 poma, així que et quedarien 10 pomes.
+```
+
+És impressionant que aquesta simple indicació sigui eficaç en aquesta tasca. Això és particularment útil on no teniu massa exemples per utilitzar en la indicació.
