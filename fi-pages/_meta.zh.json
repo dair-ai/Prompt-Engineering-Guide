@@ -1,0 +1,27 @@
+{
+  "index": "提示工程指南",
+  "introduction": "提示工程简介",
+  "techniques": "提示技术",
+  "applications": "提示应用",
+  "models": "模型",
+  "risks": "风险和误用",
+  "papers": "论文",
+  "tools": "工具和库",
+  "notebooks": "Prompt Engineering 笔记本",
+  "datasets": "数据集",
+  "readings": "阅读推荐",
+  "about": {
+    "title": "关于",
+    "type": "page"
+  },
+  "course":{
+    "title": "提示工程课程",
+    "type": "page"
+  },
+  "contact": {
+    "title": "联系我们 ↗",
+    "type": "page",
+    "href": "https://twitter.com/dair_ai",
+    "newWindow": true
+  }
+}

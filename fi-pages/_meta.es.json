@@ -1,0 +1,27 @@
+{
+  "index": "Ingeniería de Prompt",
+  "introduction": "Introducción",
+  "techniques": "Técnicas",
+  "applications": "Aplicaciones",
+  "models": "Modelos",
+  "risks": "Riesgos y Malos Usos",
+  "papers": "Papers",
+  "tools": "Herramientas",
+  "notebooks": "Notebooks",
+  "datasets": "Datasets",
+  "readings": "Lecturas Adicionales",
+  "about": {
+    "title": "Acerca de",
+    "type": "page"
+  },
+  "course": {
+    "title": "Curso de Ingeniería de Prompt",
+    "type": "page"
+  },
+  "contact": {
+    "title": "Contactar ↗",
+    "type": "page",
+    "href": "https://twitter.com/dair_ai",
+    "newWindow": true
+  }
+}

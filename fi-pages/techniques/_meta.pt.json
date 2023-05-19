@@ -1,0 +1,14 @@
+{
+    "zeroshot": "Zero-shot Prompting",
+    "fewshot": "Few-shot Prompting",
+    "cot": "Chain-of-Thought Prompting",
+    "consistency": "Self-Consistency",
+    "knowledge": "Generate Knowledge Prompting",
+    "ape": "Automatic Prompt Engineer",
+    "activeprompt": "Active-Prompt",
+    "dsp": "Directional Stimulus Prompting",
+    "react": "ReAct",
+    "multimodalcot": "Multimodal CoT",
+    "graph": "Graph Prompting"
+}
+  
