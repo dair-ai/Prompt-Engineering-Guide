@@ -1,0 +1,82 @@
+# Ohjeistuksen avulla hienosäädettyjen kielimallien skaalaaminen
+
+import {Screenshot} from 'components/screenshot'
+import FLAN1 from '../../img/flan-1.png'
+import FLAN2 from '../../img/flan-2.png'
+import FLAN3 from '../../img/flan-3.png'
+import FLAN4 from '../../img/flan-4.png'
+import FLAN5 from '../../img/flan-5.png'
+import FLAN6 from '../../img/flan-6.png'
+import FLAN7 from '../../img/flan-7.png'
+import FLAN8 from '../../img/flan-8.png'
+import FLAN9 from '../../img/flan-9.png'
+import FLAN10 from '../../img/flan-10.png'
+import FLAN11 from '../../img/flan-11.png'
+
+
+<Screenshot src={FLAN1} alt="FLAN1" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Tämä tutkimus käsittelee [kielimallien hienosäätämistä ohjeistuksen avulla](https://arxiv.org/pdf/2109.01652.pdf) ja se tarkastelee suorituskyvyn ja skaalautuvuuden vaikutuksia useissa erilaisissa malleissa (kuten PaLM, T5), kehoteasetelmissa (nollakehote, vähäinen ohjaus, ajatusketju eli CoT) ja vertailukohteissa (MMLU, TyDiQA). Tämä tarkastelu tapahtuu seuraavilla osa-alueilla: tehtävien määrän skaalaaminen (1,8K tehtävää), mallin koon skaalaaminen ja ajatusketjun perusteella tapahtuva hienosäätö (käytetty 9 tietojoukkoa).
+
+**Hienosäätöprosessi:**
+- 1,800 tehtävää ilmaistiin ohjeina, joita käytettiin mallin hienosäätöön
+- Hienosäätö suoritettiin sekä esimerkkien kanssa että ilman niitä, sekä ajatusketjun kanssa että ilman sitä.
+
+Hienosäädettävät tehtävät ja jäävätyt tehtävät on esitetty alla:
+
+<Screenshot src={FLAN11} alt="FLAN11" />
+
+## Kyvyt & keskeiset tulokset
+
+- Ohjeistuksen avulla hienosäädetty malli skaalautuu hyvin sekä tehtävien määrän että mallin koon suhteen. Tämä viittaa siihen, että tehtävien määrän ja mallin koon skaalaamista tulisi jatkaa
+- Ajatusketju-tietojoukkojen lisääminen hienosäätöön mahdollistaa hyvän suorituskyvyn päättelytehtävissä
+- Flan-PaLM parantaa monikielisiä kykyjä; se saavuttaa 14,9 % parannuksen TyDiQA:n nollakehotteessa ja 8,1 % parannuksen aritmeettisessa päättelyssä aliedustetuilla kielillä.
+- Plan-PaLM suoriutuu hyvin myös avoimen päättelyn kysymyksissä, mikä on hyvä indikaattori parantuneelle käytettävyydelle
+- Malli parantaa suorituskykyä vastuullisen tekoälyn (RAI) vertailuarvoissa
+- Flan-T5-ohjeet, jotka on sovitettu malleihin, osoittavat vahvoja vähäisen ohjauksen kykyjä ja ylittävät julkiset viitearvot, kuten T5
+
+
+**Tulokset hienosäätötehtävien määrän ja mallin koon skaalaamisessa:** Mallin koon ja hienosäätötehtävien määrän skaalaaminen odotetaan jatkavan suorituskyvyn parantamista, mutta tehtävien määrän kasvattaminen johtaa hitaampaan kasvuun.
+
+<Screenshot src={FLAN2} alt="FLAN2" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+**Tulokset hienosäätäessä ilman CoT-dataa ja CoT-dataa käyttäen:** Yhteinen hienosäätö ilman CoT-dataa ja CoT-dataa käyttäen parantaa suorituskykyä molemmissa tapauksissa verrattuna hienosäätöön, jossa käytetään vain toista.
+
+<Screenshot src={FLAN3} alt="FLAN3" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Lisäksi, yhdistämällä CoT:n itsejohdonmukaisuuteen saavutetaan parhaat nykyiset tulokset useissa vertailukohteissa. CoT ja itsejohdonmukaisuus parantavat merkittävästi tuloksia vertailukohteissa, jotka sisältävät matemaattisia ongelmia (kuten MGSM, GSM8K).
+
+<Screenshot src={FLAN4} alt="FLAN4" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+CoT-hienosäätö mahdollistaa nollakehote päättelyn, joka aktivoidaan lauseella "ajatellaan vaihe vaiheelta" BIG-Bench-tehtävissä (huomaa, että suomenkielistä testidataa ei ole saatavilla). Yleisesti ottaen nollakehote CoT Flan-PaLM suoriutuu paremmin kuin nollakehote CoT PaLM ilman hienosäätöä.
+
+<Screenshot src={FLAN6} alt="FLAN6" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Alla on joitain esimerkkejä nollakehote CoT:sta PaLM- ja Flan-PaLM-tehtävissä, joita malli ei ole nähnyt aiemmin.
+
+<Screenshot src={FLAN5} alt="FLAN5" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Alla on lisää esimerkkejä nollakehotteista. Nämä esimerkit osoittavat, kuinka PaLM-malli kamppailee toistojen kanssa ja ei pysty vastaamaan ohjeisiin nollakehote-asetuksessa, kun taas Flan-PaLM suoriutuu näistä tehtävistä paremmin. Vähäisen ohjauksen esimerkit voivat auttaa lieventämään näitä virheitä.
+
+<Screenshot src={FLAN7} alt="FLAN7" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Lisäksi, alla on useita esimerkkejä, jotka osoittavat Flan-PALM-mallin kyvykkyyksiä nollakehote-asetuksissa monien erilaisten ja haastavien avoimen päättelyn kysymysten kanssa:
+
+<Screenshot src={FLAN8} alt="FLAN8" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+
+<Screenshot src={FLAN9} alt="FLAN9" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+<Screenshot src={FLAN10} alt="FLAN10" />
+Kuvan Lähde: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Voit testata [Flan-T5 malleja Hugging Face Hubissa](https://huggingface.co/google/flan-t5-xxl). 
