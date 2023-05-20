@@ -2,18 +2,28 @@
 
 Prompt engineering is a relatively new discipline for developing and optimizing prompts to efficiently use language models (LMs) for a wide variety of applications and research topics. Prompt engineering skills help to better understand the capabilities and limitations of large language models (LLMs). Researchers use prompt engineering to improve the capacity of LLMs on a wide range of common and complex tasks such as question answering and arithmetic reasoning. Developers use prompt engineering to design robust and effective prompting techniques that interface with LLMs and other tools.
 
-Motivated by the high interest in developing with LLMs, we have created this new prompt engineering guide that contains all the latest papers, learning guides, lectures, references, and tools related to prompt engineering.
+Motivated by the high interest in developing with LLMs, we have created this new prompt engineering guide that contains all the latest papers, learning guides, lectures, references, and tools related to prompt engineering for LLMs.
 
 Happy Prompting!
 
-Due to high demand, we are partnering with Maven to deliver a new course on Prompt Engineering for LLMs. If you are interested, [join the waitlist](https://maven.com/forms/4f11a9). [Elvis Saravia](https://www.linkedin.com/in/omarsar/), who has worked at companies like Meta AI and Elastic, and has years of experience in AI and LLMs, will be the instructor of this course.
+---
+## Prompt Engineering for LLMs Course
+
+Due to high demand, we are partnering with Maven to deliver a new course on Prompt Engineering for LLMs. If you are interested, [join the waitlist](https://maven.com/forms/4f11a9). 
+
+[Elvis Saravia](https://www.linkedin.com/in/omarsar/) (Cofounder of DAIR.AI and the creator of this guide), who has worked at companies like Meta AI and Elastic, and has years of experience in AI and LLMs, will be the instructor for this course.
+
+Our learners range from software engineers to the top AI researchers and practitioners in organizations like LinkedIn, Amazon, JPMorgan Chase & Co., Intuit, Fidelity Investments, Coinbase, Guru, and many others.
 
 ---
 ## Announcements / Updates
 
-- 🌐 We now support [中文](https://www.promptingguide.ai/zh), [日本語](https://www.promptingguide.ai/jp), [한글](https://www.promptingguide.ai/kr), [Português](https://www.promptingguide.ai/pt), [Turkish](https://www.promptingguide.ai/tr) and [English](https://www.promptingguide.ai/). Welcoming more translations.
-- 🎓 🎓 New course on Prompt Engineering for LLMs coming soon! Join the [waitlist](https://maven.com/forms/4f11a9)!
-- 🎉 We have launched new web version of the guide [here](https://www.promptingguide.ai/)
+- 🎓 New course on Prompt Engineering for LLMs coming soon! [Join the waitlist](https://maven.com/forms/4f11a9)!
+- 💼 We now offer several [services](https://www.promptingguide.ai/services) like professional training, consulting, and talks.
+- ✅ The official Prompt Engineering for LLMs Certification coming soon! [Join the waitlist](https://forms.gle/hZ5UZdYxLyb1SbyL9)! 
+- 🌐 We now support 11 languages! Welcoming more translations.
+- 👩‍🎓 We crossed 700K learners in May 2023!
+- 🎉 We have launched a new web version of the guide [here](https://www.promptingguide.ai/)
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
 - 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
 
