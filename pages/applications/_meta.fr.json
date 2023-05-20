@@ -2,5 +2,6 @@
     "pal": "Modèles de langage assistés par programme",
     "generating": "Génération de données",
     "coding": "Generating Code",
-    "workplace_casestudy": "Étude de cas sur la classification des emplois des diplômés"
+    "workplace_casestudy": "Étude de cas sur la classification des emplois des diplômés",
+    "pf": "Prompt Function"
 }
