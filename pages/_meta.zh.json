@@ -10,18 +10,16 @@
   "notebooks": "Prompt Engineering 笔记本",
   "datasets": "数据集",
   "readings": "阅读推荐",
-  "about": {
-    "title": "关于",
-    "type": "page"
-  },
   "course":{
     "title": "提示工程课程",
     "type": "page"
   },
-  "contact": {
-    "title": "联系我们 ↗",
-    "type": "page",
-    "href": "https://twitter.com/dair_ai",
-    "newWindow": true
+  "services": {
+    "title": "服务",
+    "type": "page"
+  },
+  "about": {
+    "title": "关于",
+    "type": "page"
   }
 }

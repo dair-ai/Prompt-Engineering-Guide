@@ -10,18 +10,16 @@
   "notebooks": "Notebooks",
   "datasets": "Conjuntos de dados",
   "readings": "Leituras Adicionais",
-  "about": {
-    "title": "Sobre",
-    "type": "page"
-  },
   "course":{
     "title": "Curso de Engenharia Prompt",
     "type": "page"
   },
-  "contact": {
-    "title": "Contato ↗",
-    "type": "page",
-    "href": "https://twitter.com/dair_ai",
-    "newWindow": true
+  "services": {
+    "title": "Serviços",
+    "type": "page"
+  },
+  "about": {
+    "title": "Sobre",
+    "type": "page"
   }
 }
