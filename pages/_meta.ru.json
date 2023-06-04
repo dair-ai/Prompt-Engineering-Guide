@@ -8,8 +8,8 @@
   "papers": "Статьи",
   "tools": "Инструменты",
   "notebooks": "Notebooks",
-  "datasets": "Наборы данных",
-  "readings": "Дополнительные чтения",
+  "datasets": "Datasets",
+  "readings": "Дополнительные статьи",
   "course": {
     "title": "Курс по инженерии промптов",
     "type": "page"
