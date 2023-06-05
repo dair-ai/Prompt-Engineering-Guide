@@ -1,0 +1,201 @@
+# Генерация кода
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import CODE1 from '../../img/code-generation/chat-mode.png'
+
+<Callout emoji="⚠️">
+  Этот раздел находится в разработке.
+</Callout>
+
+Языковые модели с программной помощью (Program-Aided Language Models), такие как ChatGPT, очень эффективны в генерации кода. В этом разделе мы рассмотрим множество примеров использования ChatGPT для генерации кода.
+
+Все примеры ниже используют OpenAI Playground (режим чата) и модель `gpt-3.5-turbo`.
+
+Как и все модели чатов от OpenAI, вы можете использовать «Системное сообщение» для определения поведения и формата ответов модели. Мы будем использовать следующее Системное сообщение для примеров промптов:
+
+```
+You are a helpful code assistant that can teach a junior developer how to code. Your language of choice is Python. Don't explain the code, just generate the code block itself.
+```
+
+## Основной пример
+
+`User Message` будет являться самим промптом с инструкцией о конкретном коде, который вы хотите, чтобы модель сгенерировала. Ниже приведен снимок экрана первого базового промпта для генерации кода. Обратите внимание, что финальный код был сгенерирован помощником (Assistant).
+
+<Screenshot src={CODE1} alt="CODE1" />
+
+Вот промпт, если вы хотите попробовать его самостоятельно:
+
+```
+Write code that asks the user for their name and say "Hello"
+```
+
+## Преобразование комментариев в код
+
+Вы также можете использовать возможности генерации кода этих моделей для создания кода только на основе комментариев. Рассмотрим еще один пример, в котором инструкции передаются в виде блока комментариев:
+
+*Промпт:*
+```
+"""
+1. Create a list of movies
+2. Create a list of ratings for these movies
+3. Combine them to make a json object of 10 movies with their ratings.
+"""
+```
+
+*Результат:*
+```python
+movies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Schindler's List", "Pulp Fiction", "The Lord of the Rings: The Return of the King", "Forrest Gump", "Star Wars: Episode V - The Empire Strikes Back", "Inception", "The Silence of the Lambs"]
+
+ratings = [9.3, 9.2, 9.0, 8.9, 8.9, 8.9, 8.8, 8.7, 8.7, 8.6]
+
+movie_ratings = {}
+
+for i in range(len(movies)):
+    movie_ratings[movies[i]] = ratings[i]
+
+json_object = json.dumps(movie_ratings, indent=4)
+
+print(json_object)
+```
+
+Сгенерированный код выглядит как работающий код. Однако в выводе отсутствует важное утверждение `import`, а именно `import json`. Несмотря на то, что эти модели генерируют работающий код, важно обратить внимание на такие мелкие детали и всегда тестировать свой код.
+
+## Полные функции или следующая строка
+
+Эти модели с программной помощью также внедрены в инструменты, такие как GitHub Copilot, что делает их полезными для разработчиков. Одна полезная функция - это возможность модели завершать функции.
+
+*Промпт:*
+```python
+# function to multiply two numbers and add 75 to it
+
+def multiply(
+```
+
+*Результат:*
+```python
+a, b):
+    result = a * b
+    result += 75
+    return result
+```
+
+## Генерация MySQL-запросов
+
+Помимо базового примера генерации кода выше, вы можете использовать модель для генерации полезного кода, который может использоваться в других аспектах программирования, например, для создания и тестирования MySQL-запросов.
+
+Предположим, у вас есть набор данных с некоторой информацией, которую вы можете включить в промпт, а затем указать модели сгенерировать конкретный запрос. Например:
+
+```
+"""
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a MySQL query for all students in the Computer Science department
+"""
+```
+
+*Результат:*
+```
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+```
+
+Модель генерирует запрос! Однако в этом примере мы придумали базу данных, поэтому у нас нет базы данных для проверки сгенерированного запроса. Если вы тестируете этот пример, может быть полезно создать эту базу данных. К счастью, вы можете использовать ChatGPT для генерации е
+
+е. Один из подходов - использовать модифицированную версию промпта выше с немного измененными инструкциями для генерации схемы базы данных:
+
+```
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a valid database schema with the above tables and columns
+```
+
+Модель сгенерировала следующую схему:
+
+```
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+```
+
+Вы можете создать временную базу данных, используя, например, [sqliteonline.com](https://sqliteonline.com/).
+
+Вам также понадобятся фиктивные данные, чтобы проверить, был ли сгенерированный исходный запрос действительным. Давайте также воспользуемся ChatGPT для этого! Промпт может выглядеть примерно следующим образом:
+
+```
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+
+Given the database schema above, generate valid insert statements include 4 rows for each table.
+```
+
+Вывод с операторами INSERT:
+
+```
+INSERT INTO departments (DepartmentId, DepartmentName)
+VALUES (1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics'), (4, 'Biology');
+
+INSERT INTO students (DepartmentId, StudentId, StudentName)
+VALUES (1, 101, 'John Doe'), (1, 102, 'Jane Doe'), (2, 201, 'Alice Smith'), (2, 202, 'Bob Johnson');
+```
+
+Теперь, когда у вас есть база данных и фиктивные данные, вы можете проверить исходный запрос. На основе фиктивных данных результатом должно быть две строки с именами `Jane Doe` и `John Doe`.
+
+## Объяснение кода
+
+Если вы изучаете программирование на определенном языке, может быть полезно попросить модель объяснить определенные части кода. Давайте воспользуемся сгенерированным выше запросом и попросим модель объяснить его.
+
+Если вы используете то же Системное сообщение, что и ранее, будьте осторожны с тем, как вы настраиваете модель. Например, если мы используем следующий пример, модель будет жаловаться, что она является помощником по код
+
+у на Python, но все равно предоставит объяснение. Иногда модель отказывается генерировать то, что вы ей указываете, потому что она рассчитана на выполнение инструкций из Системного сообщения.
+
+*Промпт:*
+
+```
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+
+Explain the above SQL statement.
+```
+
+*Результат:*
+
+```
+Sorry, as a code assistant in Python, I cannot generate SQL code. However, I can explain the purpose of the SQL statement provided. 
+
+This SQL statement selects the `StudentId` and `StudentName` columns from the `students` table, where the `DepartmentName` column in the `departments` table is equal to 'Computer Science'. To achieve this, the statement performs an inner join on the `DepartmentId` column between the `students` and `departments` tables. 
+
+In simpler terms, it is selecting the names and IDs of students who are enrolled in the Computer Science department.
+```
+
+## Редактирование кода
+Пример скоро будет доступен!
+
+## Отладка кода
+Пример скоро будет доступен!
+
+## Лучшие практики
+Скоро будет доступно!
