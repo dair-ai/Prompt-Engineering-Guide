@@ -1,0 +1,25 @@
+{
+  "index": "Промпт инжиниринг",
+  "introduction": "Введение",
+  "techniques": "Техники",
+  "applications": "Применение",
+  "models": "Модели",
+  "risks": "Риски и неправильное использование",
+  "papers": "Статьи",
+  "tools": "Инструменты",
+  "notebooks": "Notebooks",
+  "datasets": "Datasets",
+  "readings": "Дополнительные статьи",
+  "course": {
+    "title": "Курс по инженерии промптов",
+    "type": "page"
+  },
+  "services": {
+    "title": "Услуги",
+    "type": "page"
+  },
+  "about": {
+    "title": "О нас",
+    "type": "page"
+  }
+}

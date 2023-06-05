@@ -1,0 +1,44 @@
+# Генерация данных
+LLM-модели обладают сильными возможностями по генерации связного текста. Использование эффективных стратегий подсказок позволяет направить модель на создание более качественных, последовательных и фактически точных ответов. LLM также могут быть особенно полезны для генерации данных, которые действительно полезны для проведения различных экспериментов и оценок. Например, мы можем использовать их для генерации быстрых образцов для классификатора настроений следующим образом:
+
+*Промпт:*
+```
+Produce 10 exemplars for sentiment analysis. Examples are categorized as either positive or negative. Produce 2 negative examples and 8 positive examples. Use this format for the examples:
+Q: <sentence>
+A: <sentiment>
+```
+
+*Результат:*
+
+Q: I just got the best news ever!
+A: Positive
+
+Q: We just got a raise at work!
+A: Positive
+
+Q: I'm so proud of what I accomplished today.
+A: Positive
+
+Q: I'm having the best day ever!
+A: Positive
+
+Q: I'm really looking forward to the weekend.
+A: Positive
+
+Q: I just got the best present ever!
+A: Positive
+
+Q: I'm so happy right now.
+A: Positive
+
+Q: I'm so blessed to have such an amazing family.
+A: Positive
+
+Q: The weather outside is so gloomy.
+A: Negative
+
+Q: I just got some terrible news.
+A: Negative
+```
+
+Это очень полезно. Фактически, мы используем этот пример для другого теста в другом разделе руководства.
