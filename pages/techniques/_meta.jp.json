@@ -4,6 +4,8 @@
     "cot": "Chain-of-Thoughtプロンプティング",
     "consistency": "自己整合性（Self-Consistency）",
     "knowledge": "知識生成プロンプティング",
+    "tot": "Tree of Thoughts",
+    "art": "Automatic Reasoning and Tool-use",
     "ape": "自動プロンプトエンジニア",
     "activeprompt": "アクティブプロンプト",
     "dsp": "方向性刺激プロンプティング",

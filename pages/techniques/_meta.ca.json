@@ -4,6 +4,8 @@
     "cot": "Prompt cadena de pensament (CoT)",
     "consistency": "Autoconsistència",
     "knowledge": "Prompt de coneixement generat",
+    "tot": "Tree of Thoughts",
+    "art": "Automatic Reasoning and Tool-use",
     "ape": "Enginyeria de prompts automàtic (APE)",
     "activeprompt": "Prompt actiu",
     "dsp": "Prompt d'Estímul dirigit",

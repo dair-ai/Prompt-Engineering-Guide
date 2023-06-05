@@ -4,6 +4,8 @@
     "cot": "Prompt Chain-of-Thought",
     "consistency": "Self-Consistency",
     "knowledge": "Prompt Generate Knowledge",
+    "tot": "Tree of Thoughts",
+    "art": "Automatic Reasoning and Tool-use",
     "ape": "Automatic Prompt Engineer",
     "activeprompt": "Prompt Attivo",
     "dsp": "Prompt Directional Stimulus",

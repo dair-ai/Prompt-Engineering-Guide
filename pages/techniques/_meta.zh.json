@@ -4,6 +4,8 @@
     "cot": "链式思考（CoT）提示",
     "consistency": "自我一致性",
     "knowledge": "生成知识提示",
+    "tot": "Tree of Thoughts",
+    "art": "Automatic Reasoning and Tool-use",
     "ape": "自动提示工程师",
     "activeprompt": "Active-Prompt",
     "dsp": "方向性刺激提示",

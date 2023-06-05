@@ -3,6 +3,7 @@
 import {Screenshot} from 'components/screenshot'
 import COT from '../../img/cot.png'
 import ZEROCOT from '../../img/zero-cot.png'
+import AUTOCOT from '../../img/auto-cot.png'
 
 
 ## Chain-of-Thought (CoT) Prompting
@@ -90,3 +91,22 @@ Finally, you ate 1 apple, so you would remain with 10 apples.
 ```
 
 It's impressive that this simple prompt is effective at this task. This is particularly useful where you don't have too many examples to use in the prompt.
+
+## Automatic Chain-of-Thought (Auto-CoT)
+
+When applying chain-of-thought prompting with demonstrations, the process involves hand-crafting effective and diverse examples. This manual effort could lead to suboptimal solutions. [Zhang et al. (2022)](https://arxiv.org/abs/2210.03493) propose an approach to eliminate manual efforts by leveraging LLMs with "Let's think step by step" prompt to generate reasoning chains for demonstrations one by one. This automatic process can still end up with mistakes in generated chains. To mitigate the effects of the mistakes, the diversity of demonstrations matter. This works proposes Auto-CoT, which samples questions with diversity and generates reasoning chains to construct the demonstrations. 
+
+Auto-CoT consists of two main stages:
+
+- Stage 1): **question clustering**: partition questions of a given dataset into a few clusters
+- Stage 2): **demonstration sampling**: select a representative question from each cluster and generate its reasoning chain using Zero-Shot-CoT with simple heuristics
+
+The simple heuristics could be length of questions (e.g., 60 tokens) and number of steps in rationale (e.g., 5 reasoning steps). This encourages the model to use simple and accurate demonstrations.  
+
+The process is illustrated below:
+
+<Screenshot src={AUTOCOT} alt="AUTOCOT" />
+
+Image Source: [Zhang et al. (2022)](https://arxiv.org/abs/2210.03493)
+
+Code for Auto-CoT is available [here](https://github.com/amazon-science/auto-cot).
