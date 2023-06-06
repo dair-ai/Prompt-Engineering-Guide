@@ -82,7 +82,7 @@ a, b):
 
 ## MySQL Query Generation
 
-Besides the basic code generation example above, you can use the model to generated useful code that could be used in other aspects of programming like creating and testing MySQL queries. 
+Besides the basic code generation example above, you can use the model to generate useful code that could be used in other aspects of programming like creating and testing MySQL queries. 
 
 Let's say you have a dataset with some information which you can include as part of the prompt and then instruct it to generate a specific query. For example:
 
@@ -95,7 +95,7 @@ Create a MySQL query for all students in the Computer Science department
 ```
 
 *Output:*
-```
+```mysql
 SELECT students.StudentId, students.StudentName
 FROM students
 INNER JOIN departments
@@ -105,7 +105,7 @@ WHERE departments.DepartmentName = 'Computer Science';
 
 The model generates a query! However, in this example we made up the database so we don't have a database to test the generated query. If you are testing this example, it could be useful to have this database created. Fortunately, you can use ChatGPT to generate this for you as well. One approach is using a modified version of the prompt above with slightly different instructions to generate a database schema:
 
-```
+```mysql
 Table departments, columns = [DepartmentId, DepartmentName]
 Table students, columns = [DepartmentId, StudentId, StudentName]
 Create a valid database schema with the above tables and columns
@@ -113,7 +113,7 @@ Create a valid database schema with the above tables and columns
 
 The model generated the following schema:
 
-```
+```mysql
 CREATE TABLE departments (
   DepartmentId INT PRIMARY KEY,
   DepartmentName VARCHAR(50)
@@ -131,7 +131,7 @@ You can create a temporary database using something like [sqliteonline.com](http
 
 You will also need dummy data to test if the original generated query was valid. Let's use ChatGPT for this too! The prompt could look something like the following:
 
-```
+```mysql
 CREATE TABLE departments (
   DepartmentId INT PRIMARY KEY,
   DepartmentName VARCHAR(50)
@@ -149,7 +149,7 @@ Given the database schema above, generate valid insert statements include 4 rows
 
 The output with the insert statements:
 
-```
+```mysql
 INSERT INTO departments (DepartmentId, DepartmentName)
 VALUES (1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics'), (4, 'Biology');
 
@@ -166,7 +166,7 @@ If you are using the same System Message from before, be careful of how you are 
 
 *Prompt:*
 
-```
+```mysql
 SELECT students.StudentId, students.StudentName
 FROM students
 INNER JOIN departments
