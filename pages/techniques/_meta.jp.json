@@ -5,6 +5,7 @@
     "consistency": "自己整合性（Self-Consistency）",
     "knowledge": "知識生成プロンプティング",
     "tot": "Tree of Thoughts",
+    "rag": "Retrieval Augmented Generation",
     "art": "Automatic Reasoning and Tool-use",
     "ape": "自動プロンプトエンジニア",
     "activeprompt": "アクティブプロンプト",

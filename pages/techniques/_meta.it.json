@@ -5,6 +5,7 @@
     "consistency": "Self-Consistency",
     "knowledge": "Prompt Generate Knowledge",
     "tot": "Tree of Thoughts",
+    "rag": "Retrieval Augmented Generation",
     "art": "Automatic Reasoning and Tool-use",
     "ape": "Automatic Prompt Engineer",
     "activeprompt": "Prompt Attivo",
