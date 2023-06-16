@@ -5,7 +5,7 @@
     "consistency": "自我一致性",
     "knowledge": "生成知识提示",
     "tot": "Tree of Thoughts",
-    "rag": "Retrieval Augmented Generation",
+    "rag": "检索增强生成 (RAG)",
     "art": "Automatic Reasoning and Tool-use",
     "ape": "自动提示工程师",
     "activeprompt": "Active-Prompt",
