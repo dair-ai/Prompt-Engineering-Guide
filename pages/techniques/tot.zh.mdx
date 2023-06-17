@@ -1,3 +1,30 @@
-# Tree of Thoughts (ToT)
+# 思维树 (ToT)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import TOT from '../../img/TOT.png'
+import TOT2 from '../../img/TOT2.png'
+import TOT3 from '../../img/TOT3.png'
+
+对于需要探索或预判战略的复杂任务来说，传统或简单的提示技巧是不够的。最近，[Yao et el. (2023)](https://arxiv.org/abs/2305.10601) 提出了思维树（Tree of Thoughts，ToT）框架，该框架基于思维链提示进行了总结，引导语言模型探索把思维作为中间步骤来解决通用问题。
+
+ToT 维护着一棵思维树，思维由连贯的语言序列表示，这个序列就是解决问题的中间步骤。使用这种方法，LM 能够自己对严谨推理过程的中间思维进行评估。LM 将生成及评估思维的能力与搜索算法（如广度优先搜索和深度优先搜索）相结合，在系统性探索思维的时候可以向前验证和回溯。
+
+ToT 框架原理如下：
+
+<Screenshot src={TOT} alt="TOT" />
+图片援引自：[Yao et el. (2023)](https://arxiv.org/abs/2305.10601)
+
+ToT 需要针对不同的任务定义思维/步骤的数量以及每步的候选项数量。例如，论文中的“算 24 游戏”是一种数学推理任务，需要分成 3 个思维步骤，每一步都需要一个中间方程。而每个步骤保留最优的（best） 5 个候选项。
+
+ToT 完成算 24 的游戏任务要执行宽度优先搜索（BFS），每步思维的候选项都要求 LM 给出能否得到 24 的评估：“sure/maybe/impossible”（一定能/可能/不可能） 。作者讲到：“目的是得到经过少量向前尝试就可以验证正确（sure）的局部解，基于‘太大/太小’的常识消除那些不可能（impossible）的局部解，其余的局部解作为‘maybe’保留。”每步思维都要抽样得到 3 个评估结果。整个过程如下图所示：
+
+<Screenshot src={TOT2} alt="TOT2" />
+图片援引自：[Yao et el. (2023)](https://arxiv.org/abs/2305.10601)
+
+从下图中报告的结果来看，ToT 的表现大大超过了其他提示方法：
+
+<Screenshot src={TOT3} alt="TOT3" />
+图片援引自：[Yao et el. (2023)](https://arxiv.org/abs/2305.10601)
+
+代码示例在[这里](https://github.com/princeton-nlp/tree-of-thought-llm)。
