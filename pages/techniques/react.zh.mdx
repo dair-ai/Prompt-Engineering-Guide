@@ -116,7 +116,7 @@ load_dotenv()
 
 # 载入 API keys; 如果没有，你需要先获取。 
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-os.environ["SERPAPI_API_KEY"] = os.getenv("SERPAPI_API_KEY")
+os.environ["SERPER_API_KEY"] = os.getenv("SERPER_API_KEY")
 
 ```
 
@@ -124,7 +124,7 @@ os.environ["SERPAPI_API_KEY"] = os.getenv("SERPAPI_API_KEY")
 
 ``` python
 llm = OpenAI(model_name="text-davinci-003" ,temperature=0)
-tools = load_tools(["serpapi", "llm-math"], llm=llm)
+tools = load_tools(["google-serper", "llm-math"], llm=llm)
 agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
 ```
 
