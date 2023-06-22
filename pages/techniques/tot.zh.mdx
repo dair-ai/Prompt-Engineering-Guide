@@ -1,3 +1,43 @@
-# Tree of Thoughts (ToT)
+# 思想树 (ToT)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import TOT from '../../img/TOT.png'
+import TOT2 from '../../img/TOT2.png'
+import TOT3 from '../../img/TOT3.png'
+
+对于需要探索或战略前瞻的复杂任务，传统或简单的提示技术是不够的。[Yao 等人. (2023)](https://arxiv.org/abs/2305.10601) and [Long (2023)](https://arxiv.org/abs/2305.08291) 提出了思想树 (ToT), 这是一个在链式思考提示之上的泛化框架，鼓励在用语言模型解决一般问题时对中间步骤的思想进行探索。
+
+ToT保持树状思想链结构，其中思想代表着连贯的语言序列，可以作为解决一个问题的中间步骤。这种方法使语言模型能够通过深思熟虑的推理过程进行自我评价中间思想来解决问题。语言模型生成和评估思想的能力与搜索算法（如广度优先搜索和深度优先搜索）相结合，以实现对想法的系统性探索，并进行前瞻和回溯。
+
+ToT框架如下图所示：
+
+<Screenshot src={TOT} alt="TOT" />
+图片来源: [Yao 等人. (2023)](https://arxiv.org/abs/2305.10601) 
+
+在使用ToT时，不同的任务需要定义候选答案和思想/步骤的数量。例如，正如论文所展示的，"24点"被用作一项数学推理任务，它需要将思想分解成3个步骤，每个步骤都涉及一个中间方程。在每个步骤中，保留最好的5个候选答案 (b=5)。
+
+为了在"24点"任务中使用ToT时执行BFS，语言模型被提示对每个思想候选进行评估，结果包括 (确定/可能/不可能) 达到24。正如作者所说，"这个目的是促进部分正确的解决方案，这些解决方案可以在少数前瞻性试验中得到验证，并基于"过大/过小"的常识来消除部分不可能的解决方案，并保留其余的 "可能"的方案。每种思想的值被抽样3次。这个过程如下图所示:
+
+<Screenshot src={TOT2} alt="TOT2" />
+图片来源: [Yao 等人. (2023)](https://arxiv.org/abs/2305.10601) 
+
+从下图中报告的结果来看，ToT明显超过了其他提示方法：
+
+<Screenshot src={TOT3} alt="TOT3" />
+图片来源: [Yao 等人. (2023)](https://arxiv.org/abs/2305.10601) 
+
+可用代码 [1](https://github.com/princeton-nlp/tree-of-thought-llm) 和 [2](https://github.com/jieyilong/tree-of-thought-puzzle-solver)
+
+在高层次上，[Yao 等人. (2023)](https://arxiv.org/abs/2305.10601)和[Long (2023)](https://arxiv.org/abs/2305.08291)的主要思想是相似的。两者都通过多轮对话的树状搜索来增强LLM解决复杂问题的能力。主要区别之一是[Yao 等人.(2023)](https://arxiv.org/abs/2305.10601)利用DFS/BFS/beam搜索，而[Long (2023)](https://arxiv.org/abs/2305.08291)提出的树形搜索策略（即何时回溯和回溯多少级等）是由通过强化学习训练的"ToT控制器"驱动。DFS/BFS/Beam搜索是通用的搜索策略解决方案，不对具体问题进行特化。相比之下，通过强化学习训练的ToT控制器可能会从新的数据集或通过自我游戏来学习（AlphaGo与蛮力搜索），因此基于强化学习的ToT系统可以继续发展并学习新知识，甚至适用于固定参数的大语言模型。
+
+[Hulbert (2023)](https://github.com/dave1010/tree-of-thought-prompting) 提出了思想树提示法，它将ToT框架的主要概念作为一种简单的提示技术，让大语言模型在单次提示中评估中间思想。一个ToT提示例子如下:
+
+```
+想象一下，三个不同的专家正在回答这个问题。#Imagine three different experts are answering this question.
+所有专家将写下他们思考的1个步骤, #All experts will write down 1 step of their thinking,
+然后与小组分享。#then share it with the group.
+然后所有的专家都会进入下一个步骤，等等。#Then all experts will go on to the next step, etc.
+如果有专家意识到他们在某个时候有错误，那么他们就会离开。#If any expert realises they're wrong at any point then they leave.
+这个问题是... #The question is...
+```
