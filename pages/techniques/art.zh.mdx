@@ -1,3 +1,25 @@
-# Automatic Reasoning and Tool-use (ART)
+# 自动推理和工具运用 (ART)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ART from '../../img/ART.png'
+import ART2 from '../../img/ART2.png'
+
+用结合CoT提示和工具的方法使用大语言模型来解决许多任务展现了强大和稳健的性能。这些方法通常需要手动制作特定任务的示范，并结合精心编写的模型生成和工具使用的脚本。[Paranjape 等人，(2023)](https://arxiv.org/abs/2303.09014)提出了一个新的框架，使用固定参数的大语言模型程序来自动生成中间推理步骤。
+
+ART的工作方式如下：
+- 给定一个新任务，它从任务库中选择多步骤推理和工具使用的示范。
+- 在测试时，每当外部工具被调用时，它就暂停生成，并整合其输出再继续生成。
+
+ART鼓励模型从示范中归纳出一个新的任务，并以零样本的方式在适当的地方使用工具。
+此外，ART是可扩展的，它还能使人类通过简单地更新任务和工具库来修正推理步骤中的错误或增加新的工具。该过程演示如下：
+
+<Screenshot src={ART} alt="ART" />
+图片来源: [Paranjape 等人, (2023)](https://arxiv.org/abs/2303.09014)
+
+在BigBench和MMLU基准测试中，ART在未见任务上的表现大大超过了少量样本的提示和自动CoT，并且在接入人类反馈时，超过了手动制作的CoT提示的表现。
+
+下面的表格展示了ART在BigBench和MMLU任务上的表现：
+
+<Screenshot src={ART2} alt="ART2" />
+图片来源: [Paranjape 等人, (2023)](https://arxiv.org/abs/2303.09014)
