@@ -4,7 +4,7 @@
     "cot": "链式思考（CoT）提示",
     "consistency": "自我一致性",
     "knowledge": "生成知识提示",
-    "tot": "Tree of Thoughts",
+    "tot": "思维树（ToT）",
     "rag": "检索增强生成 (RAG)",
     "art": "自动推理并使用工具（ART）",
     "ape": "自动提示工程师",
