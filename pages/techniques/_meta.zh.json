@@ -6,7 +6,7 @@
     "knowledge": "生成知识提示",
     "tot": "Tree of Thoughts",
     "rag": "检索增强生成 (RAG)",
-    "art": "Automatic Reasoning and Tool-use",
+    "art": "自动推理并使用工具（ART）",
     "ape": "自动提示工程师",
     "activeprompt": "Active-Prompt",
     "dsp": "方向性刺激提示",
