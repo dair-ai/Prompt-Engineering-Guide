@@ -1,6 +1,5 @@
 # Tree of Thoughts (ToT)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
 import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
 import TOT from '../../img/TOT.png'
@@ -33,6 +32,7 @@ Image Source: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601)
 На высоком уровне основные идеи [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) и [Long (2023)](https://arxiv.org/abs/2305.08291) схожи. Обе они расширяют возможности LLM для решения сложных задач путем поиска поиск по дереву с помощью многоэтапного диалога. Одно из основных различий заключается в том, что в [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) используется DFS/BFS/beam поиск, в то время как стратегия поиска по дереву (т.е. возвращаться назад, на сколько уровней и т.д.), предложенная в [Long (2023)](https://arxiv.org/abs/2305.08291), управляется "контроллером ToT", обученным с помощью обучения с подкреплением. DFS/BFS/Beam search - это общие стратегии поиска решений без адаптации к конкретным задачам. Для сравнения, ToT-контроллер, обученный с помощью RL, может обучаться на новых наборах данных или в процессе самостоятельной игры (AlphaGo vs перебор), и, следовательно, система ToT на основе RL может продолжать развиваться и получать новые знания даже при фиксированной LLM.
 
 [Hulbert (2023)](https://github.com/dave1010/tree-of-thought-prompting) предложила метод Tree-of-Thought Prompting, который применяет основную концепцию из ToT-фреймворков в качестве простой техники промтинга, где LLM оценивает промежуточные мысли в единственном промте. Пример:
+
 ```
 Imagine three different experts are answering this question.
 All experts will write down 1 step of their thinking,
