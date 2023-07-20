@@ -1,3 +1,25 @@
 # Retrieval Augmented Generation (RAG)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import {Screenshot} from 'components/screenshot'
+import RAG from '../../img/rag.png'
+
+I modelli di linguaggio di uso generale possono essere perfezionati per svolgere diversi compiti comuni come l'analisi del sentimento e il riconoscimento delle entità nominate. Questi compiti generalmente non richiedono ulteriori conoscenze di base.
+
+Per compiti più complessi e che richiedono molte conoscenze, è possibile costruire un sistema basato su un modello di linguaggio che accede a fonti di conoscenza esterne per completare i compiti. Questo consente una maggiore coerenza dei fatti, migliora l'affidabilità delle risposte generate e aiuta a mitigare il problema dell'"allucinazione".
+
+I ricercatori di Meta AI hanno introdotto un metodo chiamato [Generazione aumentata dal recupero (RAG)](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) per affrontare tali compiti che richiedono molte conoscenze. RAG combina un componente di recupero delle informazioni con un modello generatore di testo. RAG può essere perfezionato e la sua conoscenza interna può essere modificata in modo efficiente e senza la necessità di riaddestrare l'intero modello.
+
+RAG prende un input e recupera un insieme di documenti rilevanti/supportativi dati una fonte (ad esempio, Wikipedia). I documenti vengono concatenati come contesto con il prompt di input originale e inviati al generatore di testo che produce l'output finale. Questo rende RAG adattivo per situazioni in cui i fatti potrebbero evolvere nel tempo. Questo è molto utile poiché la conoscenza parametrica dei LLM è statica. RAG consente ai modelli di linguaggio di bypassare la ri-formazione, consentendo l'accesso alle informazioni più recenti per generare output affidabili attraverso la generazione basata sul recupero.
+
+Lewis et al., (2021) hanno proposto una ricetta generale per il perfezionamento di RAG. Un modello seq2seq pre-addestrato viene utilizzato come memoria parametrica e un indice vettoriale denso di Wikipedia viene utilizzato come memoria non parametrica (accessibile tramite un recupero pre-addestrato neurale). Di seguito è riportata una panoramica di come funziona l'approccio:
+
+<Screenshot src={RAG} alt="RAG" />
+Fonte dell'immagine: [Lewis et al. (2021)](https://arxiv.org/pdf/2005.11401.pdf)
+
+RAG si comporta in modo forte su diversi benchmark come [Natural Questions](https://ai.google.com/research/NaturalQuestions), [WebQuestions](https://paperswithcode.com/dataset/webquestions), e CuratedTrec. RAG genera risposte che sono più fattuali, specifiche e diverse quando testate su domande MS-MARCO e Jeopardy. RAG migliora anche i risultati sulla verifica dei fatti FEVER.
+
+Questo mostra il potenziale di RAG come opzione valida per migliorare gli output dei modelli di linguaggio nei compiti che richiedono molte conoscenze.
+
+Più recentemente, questi approcci basati su recupero sono diventati più popolari e sono combinati con LLM popolari come ChatGPT per migliorare le capacità e la coerenza fattuale.
+
+Puoi trovare un [esempio semplice di come usare i recuperatori e i LLM per rispondere alle domande con le fonti](https://python.langchain.com/en/latest/modules/chains/index_examples/vector_db_qa_with_sources.html) dalla documentazione di LangChain.
