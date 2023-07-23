@@ -76,7 +76,7 @@ later = today + relativedelta(hours=24)
 # %m/%d/%Y ile biçimlendirilen yanıt:
 today.strftime('%m/%d/%Y')
 # S: Jane bugünün 11/3/2002 olduğunu düşündü, ama aslında bugün 12 Mart yani 1 gün sonra. AA/GG/YYYY cinsinden 24 saat sonraki tarih nedir?
-# Jane bugünün 11/3/2002 olduğunu düşündüyse ama aslında bugün 12 Mart ise, o zaman bugün 1/3/2002'dir.
+# Jane bugünün 11/3/2002 olduğunu düşündüyse ama aslında bugün 12 Mart ise, o zaman bugün 12/3/2002'dir.
 today = datetime(2002, 3, 12)
 # 24 saat sonra,
 later = today + relativedelta(hours=24)
