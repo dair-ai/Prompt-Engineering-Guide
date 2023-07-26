@@ -1,3 +1,49 @@
 # Tree of Thoughts (ToT)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import { Callout, FileTree } from "nextra-theme-docs";
+import { Screenshot } from "components/screenshot";
+import TOT from "../../img/TOT.png";
+import TOT2 from "../../img/TOT2.png";
+import TOT3 from "../../img/TOT3.png";
+
+탐구나 전략적인 예측이 필요한 복잡한 작업들을 해결하기 위해서는 기존의 단순한 프롬프팅 기법으로는 부족합니다. [Yao et el. (2023)](https://arxiv.org/abs/2305.10601)와 [Long (2023)](https://arxiv.org/abs/2305.08291)는 최근 Tree of Thoughts(ToT)의 개념을 제안했는데,  
+이 프레임워크는 '생각의 사슬(chain-of-thought)' 프롬프팅 기법을 일반화하며, 언어모델을 사용하여 일반적인 문제 해결을 위한 중간 단계 역할을 하는 생각에 대한 탐색을 촉진합니다.
+
+ToT는 생각의 나무를 유지하며, 여기서 생각은 문제 해결을 위한 중간 단계 역할을 하는 일관된 언어 시퀀스를 나타냅니다.
+이 접근 방식을 통해 언어모델은 의도적인 추론 프로세스를 통해 문제 해결을 위한 중간 사고의 진행 상황을 자체적으로 평가할 수 있습니다.
+생각을 생성하고 평가하는 언어모델의 능력은 검색 알고리즘(예: 너비 우선 검색 및 깊이 우선 검색)과 결합 되어 미리 보기 및 역추적을 통해 생각을 체계적으로 탐색할 수 있습니다.
+
+ToT 프레임워크는 다음과 같습니다:
+
+<Screenshot src={TOT} alt="TOT" />
+이미지 출처: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601){" "}
+
+When using ToT, different tasks requires defining the number of candidates and the number of thoughts/steps.
+For instance, as demonstrated in the paper, Game of 24 is used as a mathematical reasoning task which requires decomposing the thoughts into 3 steps, each involving an intermediate equation. At each step, the best b=5 candidates are kept.
+ToT를 이용할 때, 서로다른 작업들은 후보들의 수와 생각들(단계)의 수를 정의하는 것이 필요합니다.
+예를 들어 논문에 설명된 것처럼 24게임은
+
+To perform BFS in ToT for the Game of 24 task, the LM is prompted to evaluate each thought candidate as "sure/maybe/impossible" with regard to reaching 24. As stated by the authors, "the aim is to promote correct partial solutions that can be verdicted within few lookahead trials, and eliminate impossible partial solutions based on "too big/small" commonsense, and keep the rest "maybe"". Values are sampled 3 times for each thought. The process is illustrated below:
+
+<Screenshot src={TOT2} alt="TOT2" />
+이미지 출처: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601){" "}
+
+From the results reported in the figure below, ToT substantially outperforms the other prompting methods:
+
+<Screenshot src={TOT3} alt="TOT3" />
+이미지 출처: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601){" "}
+
+Code available [here](https://github.com/princeton-nlp/tree-of-thought-llm) and [here](https://github.com/jieyilong/tree-of-thought-puzzle-solver)
+
+At a high level, the main ideas of [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) and [Long (2023)](https://arxiv.org/abs/2305.08291) are similar. Both enhance LLM's capability for complex problem solving through tree search via a multi-round conversation. One of the main difference is that [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) leverages DFS/BFS/beam search, while the tree search strategy (i.e. when to backtrack and backtracking by how many levels, etc.) proposed in [Long (2023)](https://arxiv.org/abs/2305.08291) is driven by a "ToT Controller" trained through reinforcement learning. DFS/BFS/Beam search are generic solution search strategies with no adaptation to specific problems. In comparison, a ToT Controller trained through RL might be able learn from new data set or through self-play (AlphaGo vs brute force search), and hence the RL-based ToT system can continue to evolve and learn new knowledge even with a fixed LLM.
+
+[Hulbert (2023)](https://github.com/dave1010/tree-of-thought-prompting) has proposed Tree-of-Thought Prompting, which applies the main concept from ToT frameworks as a simple prompting technique, getting the LLM to evaluate intermediate thoughts in a single prompt. A sample ToT prompt is:
+
+```
+Imagine three different experts are answering this question.
+All experts will write down 1 step of their thinking,
+then share it with the group.
+Then all experts will go on to the next step, etc.
+If any expert realises they're wrong at any point then they leave.
+The question is...
+```
