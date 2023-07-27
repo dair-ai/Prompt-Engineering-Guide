@@ -97,6 +97,17 @@ llm_out = llm(DATE_UNDERSTANDING_PROMPT.format(question=question))
 print(llm_out)
 ```
 
+This will output the following:
+```
+# If today is 27 February 2023 and I was born exactly 25 years ago, then I was born 25 years before.
+today = datetime(2023, 2, 27)
+# I was born 25 years before,
+born = today - relativedelta(years=25)
+# The answer formatted with %m/%d/%Y is
+born.strftime('%m/%d/%Y')
+```
+
+The contents of `llm_out` are a Python code snippet. Below, the `exec` command is used to execute this Python code snippet.
 ```python
 exec(llm_out)
 print(born)
