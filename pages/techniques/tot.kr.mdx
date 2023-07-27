@@ -18,32 +18,40 @@ ToT 프레임워크는 다음과 같습니다:
 <Screenshot src={TOT} alt="TOT" />
 이미지 출처: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601){" "}
 
-When using ToT, different tasks requires defining the number of candidates and the number of thoughts/steps.
-For instance, as demonstrated in the paper, Game of 24 is used as a mathematical reasoning task which requires decomposing the thoughts into 3 steps, each involving an intermediate equation. At each step, the best b=5 candidates are kept.
 ToT를 이용할 때, 서로다른 작업들은 후보들의 수와 생각들(단계)의 수를 정의하는 것이 필요합니다.
-예를 들어 논문에 설명된 것처럼 24게임은
+예를 들어 논문에서 설명된 바와 같이 24게임은 사고를 3단계로 분해하는 수학적 추론 작업으로 사용되었습니다. 각 단계는 중간 방정식을 포함합니다. 각 단계에서 최상의 b=5 후보들이 유지됩니다.
 
-To perform BFS in ToT for the Game of 24 task, the LM is prompted to evaluate each thought candidate as "sure/maybe/impossible" with regard to reaching 24. As stated by the authors, "the aim is to promote correct partial solutions that can be verdicted within few lookahead trials, and eliminate impossible partial solutions based on "too big/small" commonsense, and keep the rest "maybe"". Values are sampled 3 times for each thought. The process is illustrated below:
+24의 게임 작업에 대한 ToT의 BFS를 수행하기 위해, LM은 각 사고 후보를 "확실함/아마/불가능"에 대해 24에 도달하는 것을 평가하도록 요구됩니다. 저자들이 말하길, "목표는 몇 번의 선제적 시행 내에서 판정할 수 있는 올바른 부분 해결책을 촉진하고, '너무 크거나/작은' 상식에 기반한 불가능한 부분 해결책을 제거하고, 나머지 '아마'를 유지하는 것입니다." 각 사고에 대해 값은 3번 샘플링됩니다. 아래에 과정이 그림으로 나타나 있습니다:
 
 <Screenshot src={TOT2} alt="TOT2" />
 이미지 출처: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601){" "}
 
-From the results reported in the figure below, ToT substantially outperforms the other prompting methods:
+아래 그림에서 보고된 결과에서 볼 수 있듯, ToT는 다른 프롬프팅 방법들에 비해 월등히 뛰어난 프롬프팅 방법입니다:
 
 <Screenshot src={TOT3} alt="TOT3" />
 이미지 출처: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601){" "}
 
-Code available [here](https://github.com/princeton-nlp/tree-of-thought-llm) and [here](https://github.com/jieyilong/tree-of-thought-puzzle-solver)
+이용가능한 코드 [여기](https://github.com/princeton-nlp/tree-of-thought-llm) 그리고 [여기](https://github.com/jieyilong/tree-of-thought-puzzle-solver)
 
-At a high level, the main ideas of [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) and [Long (2023)](https://arxiv.org/abs/2305.08291) are similar. Both enhance LLM's capability for complex problem solving through tree search via a multi-round conversation. One of the main difference is that [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) leverages DFS/BFS/beam search, while the tree search strategy (i.e. when to backtrack and backtracking by how many levels, etc.) proposed in [Long (2023)](https://arxiv.org/abs/2305.08291) is driven by a "ToT Controller" trained through reinforcement learning. DFS/BFS/Beam search are generic solution search strategies with no adaptation to specific problems. In comparison, a ToT Controller trained through RL might be able learn from new data set or through self-play (AlphaGo vs brute force search), and hence the RL-based ToT system can continue to evolve and learn new knowledge even with a fixed LLM.
+높은 수준에서 보면, [Yao et el. (2023)](https://arxiv.org/abs/2305.10601)와 [Long (2023)](https://arxiv.org/abs/2305.08291)의 주요 아이디어는 유사합니다. 
+두 연구 모두 다중 라운드 대화를 통한 트리 검색을 통해 대규모언어모델이 복잡한 문제를 해결할 수 있는 
+능력을 향상시킵니다. 주요 차이점 중 하나는 [Yao et el. (2023)](https://arxiv.org/abs/2305.10601)이
+DFS/BFS/Beam 검색을 활용하는 반면, [Long (2023)](https://arxiv.org/abs/2305.08291)에서 제안하는
+트리 검색 전략 (즉, 언제 백트래킹을 하고, 몇 단계로 백트래킹을 하는지 등)은 강화 학습을 통해 훈련된
+"ToT 컨트롤러"에 의해 주도됩니다. DFS/BFS/Beam 검색은 특정 문제에 대한 적응 없이 일반적인 해결책 검색
+전략입니다. 반면, RL을 통해 훈련된 ToT 컨트롤러는 새로운 데이터 세트나 자체 플레이를 통해 학습할 수 있을
+수 있습니다 (AlphaGo vs 무차별 검색), 따라서 RL 기반의 ToT 시스템은 고정된 LLM으로도 계속해서 발전하고
+새로운 지식을 배울 수 있습니다.
 
-[Hulbert (2023)](https://github.com/dave1010/tree-of-thought-prompting) has proposed Tree-of-Thought Prompting, which applies the main concept from ToT frameworks as a simple prompting technique, getting the LLM to evaluate intermediate thoughts in a single prompt. A sample ToT prompt is:
+[Hulbert (2023)](https://github.com/dave1010/tree-of-thought-prompting)은 Tree-of-Thought 프롬프팅을 제안했는데, 이는 ToT 프레임워크의 주요 개념을
+단순한 프롬프팅 기법으로 적용하여 LLM이 단일 프롬프트에서 중간 생각을 평가하게 합니다.
+샘플 ToT 프롬프트는 다음과 같습니다:
 
 ```
-Imagine three different experts are answering this question.
-All experts will write down 1 step of their thinking,
-then share it with the group.
-Then all experts will go on to the next step, etc.
-If any expert realises they're wrong at any point then they leave.
-The question is...
+세명의 서로 다른 전문가가 이 질문에 대답한다고 상상해보세요.
+모든 전문가들은 그들 생각의 첫 단계를 쓸 것입니다.
+그리고나서 그것을 그룹 사람들과 공유할 것입니다.
+그리고 모든 전문가들은 다음 단계로 넘아갈 것입니다, 등.
+만약 어떤 전문가가 그들이 어느 시점에서 자신이 틀렸다는 것을 알게 되고 그들은 떠나버린다면
+그 질문은...
 ```
