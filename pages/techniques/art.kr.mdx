@@ -10,8 +10,7 @@ import ART2 from '../../img/ART2.png'
 [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)은 프로그램으로 중간 추론 
 단계를 자동 생성하기 위해 frozen 대규모언어모델을 사용하는 새로운 프레임워크를 제안합니다.
 
-ART works as follows:
-ART는 다음과 같이 작동합니다.:
+ART는 다음과 같이 작동합니다:
 - 새로운 작업이 주어지면 작업 라이브러리에서 다단계의 추론 및 도구 사용 시연을 선택합니다.
 - 테스트시에는 외부도구가 호출될 때마다 생성을 일시 중단하고, 생성을 재개하기 전에 그 출력들을 통합합니다.
 
@@ -22,7 +21,7 @@ ART는 모델이 시연들로부터 일반화하여 새로운 작업을 분해�
 <Screenshot src={ART} alt="ART" />
 이미지 출처: [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)
 
-ART는 BigBench와 MMLU 벤치마크에서 보이지 않는 작업에 대해 소수의 샷 프롬프팅과 자동 CoT를 크게 향상시키며, 
+ART는 BigBench와 MMLU 벤치마크에서 보이지 않는 작업에 대해 퓨샷 프롬프팅과 자동 CoT를 크게 향상시키며, 
 사람의 피드백이 포함될 때 수작업으로 만든 CoT 프롬프트의 성능을 능가합니다.
 
 아래는 BigBench와 MMLU 작업에서 ART의 성능을 보여주는 표입니다:
