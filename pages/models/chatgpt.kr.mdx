@@ -5,11 +5,7 @@ import {Screenshot} from 'components/screenshot'
 import CHATGPT1 from '../../img/chatgpt-1.png'
 import CHATGPTCLASSIC from '../../img/chatgpt-classic.png'
 
-이 섹션에서는 ChatGPT의 최신 프롬프트 엔지니어링 기술에 대한 팁, 응용 프로그램, 제한 사항, 논문 및 추가 참고 자료를 다루고 있습니다.
-
-<Callout emoji="⚠️">
-  이 섹션은 현재 개발중에 있습니다.
-</Callout>
+이 섹션에서는 팁, 응용 프로그램, 제한 사항, 논문 및 추가 읽기 자료를 포함하여 ChatGPT에 대한 최신 프롬프트 엔지니어링 기술을 다룹니다.
 
 Topics:
 - [ChatGPT 소개](#ChatGPT 소개)
@@ -19,18 +15,18 @@ Topics:
 ---
 ## ChatGPT 소개
 
-ChatGPT는 [OpenAI에서 훈련](https://openai.com/blog/chatgpt)한 새로운 모델로, 대화 형식의 상호 작용이 가능합니다. 이 모델은 프롬프트에 따라 지시를 수행하고 대화 맥락에 따라 적절한 응답을 제공하도록 훈련되었습니다. ChatGPT는 질문에 답변하거나 레시피를 제안하거나 특정 스타일로 가사를 쓰거나 코드를 생성하는 등의 작업에 도움이 될 수 있습니다.
+ChatGPT는 대화 방식으로 상호 작용할 수 있는 기능을 갖춘 새로운 모델[OpenAI로 학습](https://openai.com/blog/chatgpt) 입니다. 이 모델은 프롬프트에 따라 지시를 수행하고 대화 맥락에 따라 적절한 응답을 제공하도록 훈련되었습니다. ChatGPT는 질문에 답변하거나, 레시피를 제안하거나, 특정 스타일로 가사를 쓰거나, 코드를 생성하는 등의 작업에 도움을 줄 수 있습니다.
 
 ChatGPT는 인간의 피드백을 통한 강화학습(Reinforcement Learning from Human Feedback, RLHF)에 의해 훈련됩니다. 이 모델은 이전의 GPT보다 낫지만 (또한, 부적절하고 신뢰하기 어려운 결과를 줄이기 위해 학습되었지만), 여전히 제한적인 부분이 있습니다. 이러한 장단점에 대해 구체적인 예를 들어 설명해 보겠습니다.
 
 ChatGPT의 연구는 [여기](chat.openai.com)에서 확인하실 수 있지만, 아래의 예에서는 OpenAI Playground의 'Chat' 모드를 사용합니다.
 
 ---
-## 대화 태스크 리뷰
+## 대화 작업 검토하기
 
-이전 가이드 중 하나에서 대화 능력 및 역할 프롬프트에 대해 다루었습니다. 해당 가이드에서는 특정 스타일, 의도, 행동, 아이덴티티를 가지고 LLM과의 대화를 지시하는 방법에 대해 설명했습니다.
+이전 가이드 중, 대화 역량과 역할 프롬프트에 대해 조금 다루었습니다. 해당 가이드에서는, 특정 의도, 행동, 아이덴티티를 가지고 특정 스타일로 대화를 하도록 LLM에 지시하는 방법을 다루었습니다.
 
-여기에서는 보다 기술적이고 과학적인 응답을 생성할 수 있는 대화 시스템을 만드는 예제를 다시 살펴보겠습니다.
+여기에서는 더 기술적이고 과학적인 응답을 생성할 수 있도록 대화 시스템을 만들었던 이전의 기본 예제를 다시 살펴보겠습니다.
 
 *프롬프트:*
 ```
@@ -43,20 +39,19 @@ AI:
 ```
 
 위 예제에서 아래의 두 가지 중요한 구성 요소를 확인할 수 있습니다:
-- 챗봇의 **의도**와 설명
-- 챗봇이 응답할 때의 스타일이나 톤을 지시하는 챗봇의 **아이덴티티**
+- 챗봇의 **의도** 또는 챗봇에 대한 설명
+- 챗봇이 응답할 때 사용할 스타일이나 어조를 지시하는 챗봇의 **아이덴티티**
 
-위의 간단한 예제는 'text-davinci-003'을 사용하는 텍스트 자동완성 API로 잘 작동합니다. 최근에 OpenAI는 챗봇 완성에 특화된 보다 강력하고 저렴한 모델인 gpt-3.5-turbo를 사용한 [ChatGPT API](https://openai.com/blog/introducing-chatgpt-and-whisper-apis)를 발표했습니다. OpenAI는 비대화형 사용 사례에도 이 모델을 권장합니다. ChatGPT API를 사용하는 다른 이점은 비용 절감(90%)과 효율성이 높다는 것입니다.
+위의 간단한 예제는 'text-davinci-003'을 사용하는 텍스트 자동완성 API로 잘 작동합니다. 최근에 OpenAI는 챗봇 완성에 특화된 더 강력하고 저렴한 모델인 `gpt-3.5-turbo`를 사용한 [ChatGPT API](https://openai.com/blog/introducing-chatgpt-and-whisper-apis)를 발표했습니다. 사실, 비대화형 사용 사례에도 이 모델을 권장합니다. ChatGPT API를 사용할 때 얻을 수 있는 다른 이점으로는 비용을 크게 절감(90%)하고 효율성이 높다는 것입니다.
 
-Snap Inc.나 Instacart와 같은 대기업들은 맞춤형 추천에서 자유로운 쇼핑 목표까지, 자사 제품에 ChatGPT를 활용한 대화 기능을 이미 적용하고 있습니다.
+Snap Inc. 나 Instacart와 같은 대기업들은 맞춤형 추천에서 자유로운 쇼핑 목표까지, 자사 제품에 ChatGPT를 활용한 대화 기능을 이미 적용하고 있습니다.
 
 ---
 ## ChatGPT와 대화하기
 
-### 멀티턴 대화
+### 멀티 턴(Multi-turn) 대화
 
-To begin demonstrating the capabilities of ChatGPT, we will use the chatbot assistant example above and discuss the results. Compared to `text-davinci-003`, the `gpt-3.5-turbo` model that powers ChatGPT uses a chat format as input. The model expects a series of messages as input and uses those to generate a response.
-ChatGPT의 기능을 보여주기 위해 위의 챗봇 어시스턴트 예제를 사용하여 그 결과에 대해 다루겠습니다. `text-davinci-003`에 비해 ChatGPT에 적용된 `gpt-3.5-turbo` 모델은 입력으로 채팅 형식을 사용합니다. 모델은 일련의 메시지를 입력으로 예상하고, 이를 사용하여 응답을 생성합니다.
+ChatGPT의 기능을 보여주기 위해 위의 챗봇 어시스턴트 예제를 사용하여 결과를 살펴보겠습니다. `text-davinci-003`에 비해 ChatGPT에 적용된 `gpt-3.5-turbo` 모델은 채팅 형식을 입력으로 사용합니다. 이 모델은 일련의 메시지를 입력으로 예상하고, 이를 사용하여 응답을 생성합니다.
 
 *입력:*
 ```
@@ -68,15 +63,14 @@ ChatGPT의 기능을 보여주기 위해 위의 챗봇 어시스턴트 예제를
 
 *출력:*
 ```
-어시스턴트: 물론입니다! 블랙홀은 거대한 별이 연료를 다 써서 자신의 중력으로 붕괴할 때 생기는 것입니다. 이 붕괴로 인해 별은 믿을 수 없을 만큼 높은 밀도가 되고, 빛조차도 탈출할 수 없을 만큼 강한 중력장이 만들어집니다. 이 돌이키지 않는 지점이 사건의 지평선이라고 불리며, 사건의 지평선을 넘어선 별은 블랙홀로 간주됩니다.
+어시스턴트: 물론이죠! 블랙홀은 거대한 별이 연료가 다 떨어져서 자체 중력에 의해 붕괴할 때 만들어집니다. 이 붕괴로 인해 별은 엄청나게 밀도가 높아져 빛조차도 빠져나갈 수 없을 정도로 강한 중력장을 갖게 됩니다. 이 돌아올 수 없는 지점을 사건의 지평선이라고 합니다. 별이 사건의 지평선을 넘으면 블랙홀로 간주합니다.
 ```
 
-Note that in the example above, I have simplified the input and output but the ChatGPT chat completion API requires messages to be in a specific format. I have added a snapshot below of how this example would look using the `Chat Mode` in the OpenAI Playground:
-위의 예제에서는 입력과 출력을 간단하게 만들었지만, ChatGPT 채팅 자동완성 API는 메시지를 특정한 형식으로 입력해야 합니다. 아래는 OpenAI Playground의 `Chat Mode`를 사용했을 때, 이 예제가 어떻게 보이는지에 대한 스냅샷입니다.
+위의 예제에서는 입력과 출력을 단순화했지만, ChatGPT 채팅 자동완성 API는 메시지를 특정한 형식으로 입력해야 한다는 것에 유의하셔야 합니다. 아래는 OpenAI Playground의 `Chat Mode`를 사용했을 때, 이 예제가 어떻게 보이는지 아래에 스냅샷을 추가했습니다:
 
 <Screenshot src={CHATGPT1} alt="CHATGPT1" />
 
-우리의 예제에 대한 보다 형식적인 API 호출은 아래의 예제와 같을 것입니다:
+우리의 예제에 대한 보다 공식적인 API 호출은 아래의 예제와 비슷합니다:
 
 ```python
 import openai
@@ -91,18 +85,17 @@ openai.ChatCompletion.create(
     ]
 )
 ```
-실제로, 개발자들은 미래에 ChatGPT와 [채팅 마크업 언어(ChatML)](https://github.com/openai/openai-python/blob/main/chatml.md)를 통해 상호작용할 것으로 예상됩니다.
+실제로 개발자들은 미래에 ChatGPT와 [채팅 마크업 언어(ChatML)](https://github.com/openai/openai-python/blob/main/chatml.md)를 통해 상호작용할 것으로 예상합니다.
 
-### 단일턴(Single-turn) 태스크
+### 단일 턴(Single-turn) 태스크
 
-The chat format enables multi-turn conversations but it also supports single-turn tasks similar to what we used with `text-davinci-003`. This means we can use ChatGPT to perform similar tasks as what we have demonstrated for the original GPT models. For example, let's try to perform the following question answering task using ChatGPT:
-채팅 형식은 멀티턴 대화 뿐만 아니라 `text-davinci-003`에서와 유사하게 단일턴 태스크도 지원합니다. 이는 ChatGPT를 사용하여 원래 GPT 모델과 유사한 작업을 수행할 수 있다는 것을 의미합니다. 예를 들어, ChatGPT를 사용하여 다음과 같은 대화의 응답 작업을 수행해 보겠습니다.
+채팅 형식은 멀티 턴 대화뿐만 아니라 `text-davinci-003`에서 사용한 것과 유사하게 단일 턴 작업도 지원합니다. 이는 ChatGPT를 사용하여 원래 GPT 모델과 유사한 작업을 수행할 수 있습니다. 예를 들어, ChatGPT를 사용하여 다음과 같은 대화의 질의응답 작업을 수행해 보겠습니다:
 
 *입력:*
 ```
-사용자: 아래 문맥을 기반으로 질문에 답해주세요. 답변은 간결하고 명료하게 작성해주세요. 만약 답변을 확신할 수 없다면 "답변을 잘 모르겠습니다"라고 대답해주세요.
+사용자: 아래 문맥에 따라 질문에 답하세요. 답변은 짧고 간결하게 작성하세요. 답변이 확실하지 않은 경우 "답변이 확실하지 않음"으로 응답하세요.
 
-맥락: 템플리주맙은 뉴저지의 제약 회사인 올토 제약에서 유래되었습니다. 거기에서 과학자들은 OKT3라는 이름의 초기 버전 항체를 개발했습니다. 원래 쥐로부터 유래된 이 분자는 T 세포의 표면에 결합하여 그들의 세포 죽음을 막을 수 있었습니다. 1986년에는 신장 이식 후 기관의 거부를 예방하는 데 도움이되도록 승인되어 인간 사용을 허용 된 최초의 치료 항체가 되었습니다.
+맥락: Teplizumab은 뉴저지의 제약 회사인 Ortho Pharmaceutical 제약에서 유래되었습니다. 거기에서 과학자들은 OKT3라는 이름의 초기 버전 항체를 개발했습니다. 원래 쥐로부터 유래된 이 분자는 T 세포의 표면에 결합하여 그들의 세포 죽음을 막을 수 있었습니다. 1986년에는 신장 이식 후 장기 거부반응을 예방하는 데 도움이 되도록 승인되어 인간이 사용하도록 허용된 최초의 치료 항체가 되었습니다.
 
 질문: OKT3는 어디에서 유래되었나요?
 
@@ -111,19 +104,19 @@ The chat format enables multi-turn conversations but it also supports single-tur
 
 *출력:*
 ```
-어시스턴트: 쥐 입니다.
+어시스턴트: 쥐입니다.
 ```
 
-ChatGPT를 사용하여 태스크를 수행하는 방법을 더 잘 보여주기 위해 `사용자`와 `어시스턴트` 라벨을 추가하였습니다. 다음은 Playground를 사용한 예시입니다:
+ChatGPT를 사용하여 작업을 수행하는 방법을 더 잘 보여주기 위해 `사용자`와 `어시스턴트` 라벨을 추가하였습니다. 다음은 Playground를 사용한 예시입니다:
 
 <Screenshot src={CHATGPTCLASSIC} alt="CHATGPTCLASSIC" />
 
-아래는 보다 형식적인 API 호출 예시입니다. (메시지 요소만 포함되어 있습니다)
+아래는 보다 공식적인 API 호출 예시입니다. (요청의 메시지 구성 요소만 포함했습니다.)
 
 ```python
-CONTENT = """아래 맥락을 기반으로 질문에 대한 대답을 해주세요. 대답은 짧고 간결하게 해주세요. 대답을 잘 모르겠을 경우, \"잘 모르겠습니다\" 라고 응답해주세요.
+CONTENT = """아래 문맥에 따라 질문에 답하세요. 답변은 짧고 간결하게 작성하세요. 답변이 확실하지 않은 경우 \"답변이 확실하지 않음\"으로 응답하세요.
 
-맥락: 템플리주맙은 뉴저지의 제약 회사인 올토 제약에서 유래되었습니다. 거기에서 과학자들은 OKT3라는 이름의 초기 버전 항체를 개발했습니다. 원래 쥐로부터 유래된 이 분자는 T 세포의 표면에 결합하여 그들의 세포 죽음을 막을 수 있었습니다. 1986년에는 신장 이식 후 기관의 거부를 예방하는 데 도움이되도록 승인되어 인간 사용을 허용 된 최초의 치료 항체가 되었습니다.
+맥락: Teplizumab은 뉴저지의 제약 회사인 Ortho Pharmaceutical 제약에서 유래되었습니다. 거기에서 과학자들은 OKT3라는 이름의 초기 버전 항체를 개발했습니다. 원래 쥐로부터 유래된 이 분자는 T 세포의 표면에 결합하여 그들의 세포 죽음을 막을 수 있었습니다. 1986년에는 신장 이식 후 장기 거부반응을 예방하는 데 도움이 되도록 승인되어 인간이 사용하도록 허용된 최초의 치료 항체가 되었습니다.
 
 질문: OKT3는 어디에서 유래되었나요?
 
@@ -139,14 +132,14 @@ response = openai.ChatCompletion.create(
 )
 ```
 
-### 챗 모델에게 지시하는 방법
+### 챗 모델에게 지시하기
 
-공식 OpenAI 문서에 따르면 `gpt-3.5-turbo` 모델의 스냅샷도 제공될 예정입니다. 예를 들어, 3월 1일 이후 스냅샷 gpt-3.5-turbo-0301에 접근할 수 있습니다. 이를 통해 개발자들은 원하는 버전을 선택할 수 있습니다. 또한 이는 모델에 지시하는 최상의 방법이 버전마다 달라질 수 있다는 것을 의미합니다.
+공식 OpenAI 문서에 따르면 `gpt-3.5-turbo` 모델의 스냅샷도 제공될 예정입니다. 예를 들어, 3월 1일 이후 `gpt-3.5-turbo-0301`스냅샷에 접근할 수 있습니다. 이를 통해 개발자들은 원하는 버전을 선택할 수 있습니다. 또한 이는 모델에 지시하는 모범 사례가 버전마다 달라질 수 있다는 것을 의미합니다.
 
 현재 `gpt-3.5-turbo-0301`의 권장 사항은 `system` 메시지가 아니라 `user` 메시지에 지시사항을 추가하는 것입니다.
 
 ---
-## References
+## 참조
 
 - [Is ChatGPT a Good Sentiment Analyzer? A Preliminary Study](https://arxiv.org/abs/2304.04339) (April 2023)
 - [A Preliminary Evaluation of ChatGPT for Zero-shot Dialogue Understanding](https://arxiv.org/abs/2304.04256) (April 2023)
