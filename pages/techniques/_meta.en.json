@@ -12,6 +12,7 @@
     "dsp": "Directional Stimulus Prompting",
     "react": "ReAct",
     "multimodalcot": "Multimodal CoT",
-    "graph": "Graph Prompting"
+    "graph": "Graph Prompting",
+    "aot": "Algorithm of Thoughts"
 }
   
