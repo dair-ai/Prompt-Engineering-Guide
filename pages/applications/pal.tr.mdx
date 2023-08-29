@@ -1,20 +1,19 @@
-# PAL (Program-Aided Language Models)
- 
+# PAL (Program Destekli Dil Modelleri)
+
 import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
 import PAL from '../../img/pal.png'
 
-[Gao et al., (2022)](https://arxiv.org/abs/2211.10435) doğal dil problemlerini okumak ve ara akıl yürütme adımları olarak programlar oluşturmak için LLM'leri kullanan bir yöntem sunar. 
-Türetilmiş, program destekli dil modelleri (PAL), çözüm elde etmek için serbest biçimli metin kullanmak yerine çözüm adımını Python yorumlayıcısı gibi programlı bir çalışma zamanına aktardığı için düşünce zinciri yönlendirmesinden farklıdır.
+[Gao ve ekibi, (2022)](https://arxiv.org/abs/2211.10435), doğal dil problemlerini okumak ve ara adım olarak önermeleri oluşturmak için LLM'leri kullanan bir metod sunmuştur. Program destekli dil modelleri (PAL) olarak adlandırılan bu yöntem, çözümü Python yorumlayıcısı gibi programlamaya dayalı bir çalışma zamanına devrederek, düşünce zinciri isteminin serbest formatta çözüm elde etme yönteminden farklıdır. 
 
 <Screenshot src={PAL} alt="PAL" />
-Resim Kaynağı: [Gao et al., (2022)](https://arxiv.org/abs/2211.10435)
+Resim Kaynağı: [Gao ve ekibi, (2022)](https://arxiv.org/abs/2211.10435)
 
-LangChain ve OpenAI GPT-3 kullanan bir örneğe bakalım. Sorulan soruyu yorumlayabilen ve Python yorumlayıcısından yararlanarak yanıt sağlayabilen basit bir uygulama geliştirmekle ilgileniyoruz.
+Bir örneği, LangChain ve OpenAI GPT-3 kullanarak inceleyelim. Python yorumlayıcısını kullanarak sorulan soruyu yorumlayabilen ve bir cevap sağlayabilen basit bir uygulama geliştirmek istiyoruz.
 
-Spesifik olarak, tarihin anlaşılmasını gerektiren soruları yanıtlamak için LLM kullanımına izin veren bir işlev oluşturmakla ilgileniyoruz. LLM'ye [buradan](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py) benimsenen birkaç örneği içeren bir bilgi istemi sağlayacağız.
+Özellikle, LLM'yi tarih anlama gerektiren soruları yanıtlamak için kullanabilen bir işlevsellik oluşturma ilgisi duyuyoruz. LLM'ye, [buradan](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py) alınan birkaç örnek içeren bir istem sunacağız.
 
-İhtiyacımız olan kütüphaneler:
+İhtiyacımız olan importlar şunlardır:
 
 ```python
 import openai
@@ -25,82 +24,93 @@ from langchain.llms import OpenAI
 from dotenv import load_dotenv
 ```
 
-Önce birkaç şeyi yapılandıralım:
+Öncelikle birkaç şeyi yapılandıralım:
 
 ```python
 load_dotenv()
 
-# API yapılandırma
+# API configuration
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# LangChain için
+# for LangChain
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 ```
 
-Kurulum modeli örneği:
+Model örneğini kurulmuş hali:
 
 ```python
 llm = OpenAI(model_name='text-davinci-003', temperature=0)
 ```
 
-Kurulum istemi + soru:
+İstem ve sorunun kurulumu: 
 
 ```python
-question = "Today is 27 February 2023. I was born exactly 25 years ago. What is the date I was born in MM/DD/YYYY?"
+question = "Bugün 27 Şubat 2023. Tam 25 yıl önce doğmuştum. Doğduğum tarih MM/DD/YYYY formatında neydi?"
 
 DATE_UNDERSTANDING_PROMPT = """
-# S: 36 saat sonra 2015 geliyor. AA/GG/YYYY olarak bugünden bir hafta sonraki tarih nedir?
-# 2015 yılı 36 saat sonra geliyorsa, bugün 36 saat öncesidir.
+# S: 2015 yılına 36 saat kaldı. Bir hafta sonra günün tarihi MM/DD/YYYY formatında ne olacak?
+# Eğer 2015 yılına 36 saat kaldıysa, bugün 36 saat öncesidir.
 today = datetime(2015, 1, 1) - relativedelta(hours=36)
-# Bugünden bir hafta sonra,
+# Bir hafta sonrası,
 one_week_from_today = today + relativedelta(weeks=1)
-# %m/%d/%Y ile biçimlendirilen yanıt:
+# Cevap %m/%d/%Y formatında
 one_week_from_today.strftime('%m/%d/%Y')
-# S: 2019'un ilk günü Salı ve bugün 2019'un ilk Pazartesi günü. Bugünün AA/GG/YYYY cinsinden tarihi nedir?
-# 2019'un ilk günü Salı günü olup bugün de 2019'un ilk Pazartesi günüyse, bugün 6 gün sonradır.
+# S: 2019'un ilk günü bir Salı’dır ve bugün 2019'un ilk Pazartesi'si. Bugünün tarihi MM/DD/YYYY formatında ne?
+# Eğer 2019’un ilk günü bir Salı ve bugün 2019’un ilk Pazartesi’si ise, bu, bugünün 6 gün sonrası olduğu anlamına gelir.
 today = datetime(2019, 1, 1) + relativedelta(days=6)
-# %m/%d/%Y ile biçimlendirilen yanıt:
+# Cevap %m/%d/%Y formatında
 today.strftime('%m/%d/%Y')
-# S: Konserin 01/06/1943 tarihinde yapılması planlanmıştı, ancak bir gün ertelenmiştir. AA/GG/YYYY cinsinden 10 gün önceki tarih nedir?
-# Konser 01/06/1943 tarihinde planlanmış, ancak bugüne bir gün ertelenmişse, bugün bir gün sonradır.
+# S: Konser 06/01/1943'te olması planlanıyordu, ancak bugüne bir gün ertelendi. 10 gün önceki tarih MM/DD/YYYY formatında neydi?
+# Eğer konser 06/01/1943’te olması planlanıyor ama bir günlük gecikmeyle bugüne denk geldiyse, o zaman bugün bir gün sonrasıdır.
 today = datetime(1943, 6, 1) + relativedelta(days=1)
 # 10 gün önce,
 ten_days_ago = today - relativedelta(days=10)
-# %m/%d/%Y ile biçimlendirilen yanıt:
+# Cevap %m/%d/%Y formatında
 ten_days_ago.strftime('%m/%d/%Y')
-# S: Bugün 19/4/1969. AA/GG/YYYY cinsinden 24 saat sonraki tarih nedir?
-# Bugün 19/4/1969.
+# S: Bugün 4/19/1969. 24 saat sonra tarih MM/DD/YYYY formatında ne olacak?
+# Bugün 4/19/1969.
 today = datetime(1969, 4, 19)
-# 24 hours later,
+# 24 saat sonra,
 later = today + relativedelta(hours=24)
-# %m/%d/%Y ile biçimlendirilen yanıt:
+# Cevap %m/%d/%Y formatında
 today.strftime('%m/%d/%Y')
-# S: Jane bugünün 11/3/2002 olduğunu düşündü, ama aslında bugün 12 Mart yani 1 gün sonra. AA/GG/YYYY cinsinden 24 saat sonraki tarih nedir?
-# Jane bugünün 11/3/2002 olduğunu düşündüyse ama aslında bugün 12 Mart ise, o zaman bugün 12/3/2002'dir.
+# S: Jane bugünün 3/11/2002 olduğunu düşündü, ancak bugün aslında 12 Mart, yani 1 gün sonrası. 24 saat sonrası tarih MM/DD/YYYY formatında ne olacak?
+# Eğer Jane bugünün 3/11/2002 olduğunu düşündü, ancak bugün aslında 12 Mart ise, o zaman bugün 3/12/2002’dir.
 today = datetime(2002, 3, 12)
 # 24 saat sonra,
 later = today + relativedelta(hours=24)
-# %m/%d/%Y ile biçimlendirilen yanıt:
+# Cevap %m/%d/%Y formatında
 later.strftime('%m/%d/%Y')
-# S: Jane, 2001'de Şubat ayının son gününde doğdu. Bugün onun 16.yaş günü. AA/GG/YYYY cinsinden dünkü tarih nedir?
-# Jane 2001'de Şubat ayının son gününde doğduysa ve bugün onun 16.yaş günü ise, o zaman bugün 16 yıl sonradır.
+# S: Jane, 2001'in Şubat ayının son gününde doğdu. Bugün onun 16. yaş günü. Dünkünün tarihi MM/DD/YYYY formatında neydi?
+# Eğer Jane 2001'in Şubat ayının son gününde doğdu ve bugün onun 16. yaşı ise, o zaman bugün 16 yıl sonrasıdır.
 today = datetime(2001, 2, 28) + relativedelta(years=16)
 # Dün,
 yesterday = today - relativedelta(days=1)
-# %m/%d/%Y ile biçimlendirilen yanıt:
+# Cevap %m/%d/%Y formatında
 yesterday.strftime('%m/%d/%Y')
 # S: {question}
 """.strip() + '\n'
 ```
 
 ```python
-llm_out = llm(DATE_UNDERSTANDING_PROMPT.format(question=question))
+llm_out = llm.execute(DATE_UNDERSTANDING_PROMPT.format(question=question))
 print(llm_out)
 ```
 
+Bu, aşağıdakini çıktı olarak verecektir:
+```
+# Eğer bugün 27 Şubat 2023 ve tam 25 yıl önce doğduysam, o zaman doğum tarihim 25 yıl öncesidir.
+today = datetime(2023, 2, 27)
+# Doğum tarihim 25 yıl öncesidir,
+born = today - relativedelta(years=25)
+# Cevap %m/%d/%Y formatında
+born.strftime('%m/%d/%Y')
+```
+
+`llm_out`'un içeriği bir Python kodu parçacığıdır. Aşağıda, bu Python kod parçacığını çalıştırmak için `exec` komutu kullanılmaktadır.
 ```python
 exec(llm_out)
 print(born)
 ```
 
-Aşağıdaki çıktıyı verecektir: `27/02/1998`
+Bu, aşağıdakini çıktı olarak verecektir: `02/27/1998`

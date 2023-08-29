@@ -1,17 +1,17 @@
 {
-    "zeroshot": "Zero-shot Prompting",
-    "fewshot": "Few-shot Prompting",
-    "cot": "Chain-of-Thought Prompting",
-    "consistency": "Self-Consistency",
-    "knowledge": "Generate Knowledge Prompting",
-    "tot": "Tree of Thoughts",
-    "rag": "Retrieval Augmented Generation",
-    "art": "Automatic Reasoning and Tool-use",
-    "ape": "Automatic Prompt Engineer",
-    "activeprompt": "Active-Prompt",
-    "dsp": "Directional Stimulus Prompting",
+    "zeroshot": "Sıfır-Örnekli İstem",
+    "fewshot": "Az-Örnekli İstem",
+    "cot": "Düşünce Zinciri İstemleri",
+    "consistency": "Öz-Tutarlılık",
+    "knowledge": "Üretilmiş Bilgi İstemleri",
+    "tot": "Düşünce Ağacı",
+    "rag": "Veri Alımı Artırılmış Üretim",
+    "art": "Otomatik Akıl Yürütme ve Araç Kullanımı",
+    "ape": "Otomatik İstem Mühendisi",
+    "activeprompt": "Aktif-İstem",
+    "dsp": "Yönlendirici Uyarı İstemi",
     "react": "ReAct",
-    "multimodalcot": "Multimodal CoT",
-    "graph": "Graph Prompting"
+    "multimodalcot": "Çok Modlu CoT İstemi",
+    "graph": "Grafik İstemi"
 }
   
