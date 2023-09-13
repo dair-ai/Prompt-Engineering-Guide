@@ -1,4 +1,4 @@
-# Otomatik Bilgi İstemi Mühendisi (APE)
+# Otomatik İstem Mühendisi (APE)
 
 import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
@@ -6,21 +6,21 @@ import APE from '../../img/APE.png'
 import APECOT from '../../img/ape-zero-shot-cot.png'
 
 <Screenshot src={APE} alt="APE" />
-Resim Kaynağı: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+Resim Kaynağı: [Zhou ve diğerleri, (2022)](https://arxiv.org/abs/2211.01910)
 
-[Zhou et al., (2022)](https://arxiv.org/abs/2211.01910) otomatik yönerge oluşturma ve seçme için otomatik bilgi istemi mühendisliği (APE) çerçevesi önermek. Yönerge üretme problemi, aday çözümler üretmek ve üzerinde araştırma yapmak için LLM'leri kullanan bir kara kutu optimizasyon problemi olarak ele alınan doğal dil sentezi olarak çerçevelenir.
+[Zhou ve diğerleri, (2022)](https://arxiv.org/abs/2211.01910) otomatik istem mühendisliğini (APE) otomatik talimat oluşturma ve seçim için bir çerçeve olarak önerir. Talimat oluşturma problemi, büyük dil modelini kullanarak aday çözümler üzerinde oluşturma ve arama yapılmasıyla ele alınan doğal dil oluşumu olarak çerçevelenir.
 
-İlk adım, bir görev için talimat adayları oluşturmak üzere çıktı gösterileri verilen büyük bir dil modelini (bir çıkarım modeli olarak) içerir. Bu aday çözümler, arama prosedürünü yönlendirecektir. Talimatlar bir hedef model kullanılarak yürütülür ve ardından hesaplanan değerlendirme puanlarına göre en uygun talimat seçilir.
+İlk adımda, bir görev için talimat adayları oluşturmak üzere çıktı gösterimleri verilmiş bir büyük dil modeli (bir çıkarım modeli olarak) kullanılır. Bu aday çözümler, arama işlemini yönlendirecektir. Talimatlar, bir hedef model kullanılarak uygulanır ve ardından en uygun talimat, hesaplanan değerlendirme puanlarına dayalı olarak seçilir.
 
-APE, insan tarafından tasarlanmış "Adım adım düşünelim" isteminden daha iyi bir sıfır vuruşlu CoT istemi keşfeder ([Kojima ve diğerleri, 2022](https://arxiv.org/abs/2205.11916)).
+APE, insan tarafından geliştirilmiş "Adım adım düşünelim" istemiinden ([Kojima ve ark., 2022](https://arxiv.org/abs/2205.11916)) daha iyi bir sıfır atış CoT istemi bulur.
 
-"Doğru cevaba sahip olduğumuzdan emin olmak için bunu adım adım çözelim." zincirleme akıl yürütmeyi ortaya çıkarır ve MultiArith ve GSM8K kıyaslamalarında performansı artırır:
+"Bu konuyu adım adım çözelim ki doğru yanıtı alalım." ifadesi, düşünme zinciri mantığını çağrıştırır ve MultiArith ve GSM8K referansları üzerindeki performansı iyileştirir:
 
 <Screenshot src={APECOT} alt="APECOT" />
-Resim Kaynağı: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+Resim Kaynağı: [Zhou ve diğerleri, (2022)](https://arxiv.org/abs/2211.01910)
 
-Bu makale, bilgi istemlerini otomatik olarak optimize etme fikri olan bilgi istemi mühendisliği ile ilgili önemli bir konuya değinmektedir. Bu kılavuzda bu konuya derinlemesine girmesek de, konuyla ilgileniyorsanız işte birkaç önemli makale:
+Bu makale, otomatik olarak istemleri optimize etme fikri ile ilgili önemli bir konuya değinir ki bu da istem mühendisliği ile ilgilidir. Bu rehberde bu konuya derinlemesine girmedik ancak konuyla ilgileniyorsanız aşağıda birkaç önemli makale bulabilirsiniz:
 
-- [AutoPrompt](https://arxiv.org/abs/2010.15980) - gradyan kılavuzlu aramaya dayalı olarak çeşitli görevler için istemleri otomatik olarak oluşturmaya yönelik bir yaklaşım önerir.
-- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - NLG görevleri için eğitilebilir bir sürekli ön ekin başına eklenen ince ayara hafif bir alternatif. 
-- [Prompt Tuning](https://arxiv.org/abs/2104.08691) - geri yayılım yoluyla yumuşak bilgi istemlerini öğrenmek için bir mekanizma önerir.
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - gradyan yönlendirmeli arama temelli bir yaklaşım önererek çeşitli görevler için otomatik olarak istem oluşturmayı önerir.
+- [Önek Ayarlama](https://arxiv.org/abs/2101.00190) - NLG görevleri için eğitilebilir sürekli bir önek ekleyerek ince ayarlamaya hafif bir alternatif sunar.
+- [İstem Ayarlama](https://arxiv.org/abs/2104.08691) - geriye yayılma yoluyla yumuşak istemler öğrenme mekanizması önerir.

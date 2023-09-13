@@ -1,40 +1,40 @@
-# Mezun İş Sınıflandırma Vaka Çalışması
+# Lisansüstü İş Sınıflandırması Vaka Çalışması
 
-[Clavié et al., 2023](https://arxiv.org/abs/2303.07142) bir üretim sisteminde orta ölçekli bir metin sınıflandırma kullanım durumuna uygulanan bilgi istemi mühendisliği üzerine bir örnek olay çalışması sağlayın. Bir işin gerçek bir "giriş seviyesi iş" olup olmadığını, yeni mezunlar için uygun olup olmadığını sınıflandırma görevini kullanarak, bir dizi hızlı mühendislik tekniğini değerlendirdiler ve sonuçlarını GPT-3.5 ('gpt-3.5-turbo) kullanarak raporladılar.').
+[Clavié ve diğerleri., 2023](https://arxiv.org/abs/2303.07142), bir üretim sistemine uygulanan orta ölçekli metin sınıflandırma kullanım durumu üzerinde istem mühendisliği uygulandığı bir vaka çalışması sunar. Bir işin gerçek bir "ilk seviye iş" olup olmadığını, yani yeni bir mezun için uygun olup olmadığını sınıflandırma görevini kullanarak, bir dizi istem mühendisliği tekniğini değerlendirdiler ve sonuçlarını GPT-3.5 (`gpt-3.5-turbo`) kullanarak raporladılar.
 
-Çalışma, LLM'lerin, DeBERTa-V3'teki son derece güçlü bir temel dahil, test edilen diğer tüm modellerden daha iyi performans gösterdiğini gösteriyor. "gpt-3.5-turbo" ayrıca tüm temel ölçümlerde eski GPT3 türevlerinden önemli ölçüde daha iyi performans gösterir, ancak bir şablona bağlı kalma yeteneği diğer değişkenlerden daha kötü göründüğü için ek çıktı ayrıştırması gerektirir.
+Çalışma, LLM'lerin test edilen diğer tüm modellerden, DeBERTa-V3 gibi son derece güçlü bir temel model de dahil olmak üzere, daha iyi performans gösterdiğini ortaya koymaktadır. `gpt-3.5-turbo` ayrıca eski GPT3 varyantlarına göre tüm ana metriklerde belirgin şekilde daha iyi performans gösterir, ancak bir şablonu takip etme yeteneği diğer varyantlardan daha kötü olduğu için ek çıktı çözümlemesi gerektirir.
 
-Hızlı mühendislik yaklaşımlarının temel bulguları şunlardır:
+İstem mühendisliği yaklaşımlarının önemli bulguları şunlardır:
 
-- Uzman bilgisinin gerekli olmadığı bunun gibi görevler için, Few-shot CoT yönlendirmesi, tüm deneylerde Zero-shot yönlendirmesinden daha kötü performans gösterdi.
-- İstemin doğru muhakemeyi ortaya çıkarma üzerindeki etkisi çok büyüktür. Modelden belirli bir işi sınıflandırmasını istemek, 65.6'lık bir F1 puanıyla sonuçlanırken, istem sonrası mühendislik modeli, 91.7'lik bir F1 puanı elde eder.
-- Modeli bir şablona bağlı kalmaya zorlamak her durumda performansı düşürür (bu davranış, kağıdın arkasında olan GPT-4 ile erken testlerde kaybolur).
-- Birçok küçük değişikliğin performans üzerinde çok büyük bir etkisi vardır.
-  - Aşağıdaki tablolar, test edilen tam değişiklikleri göstermektedir.
-  - Talimatları düzgün bir şekilde vermek ve kilit noktaları tekrarlamak en büyük performans faktörü gibi görünüyor.
-  - Modele bir (insan) adı vermek ve ona bu şekilde atıfta bulunmak kadar basit bir şey, F1 puanını 0,6 puan artırdı.
+- Bu gibi görevlerde, herhangi bir uzman bilgisine gerek olmadığı durumlarda, Az örnekli CoT istemlerinin tüm deneylerde Sıfır örnekli istemlerden daha kötü performans gösterdiği görülmüştür. 
+- İstenen akıl yürütmeyi harekete geçirme üzerinde istemin etkisi büyüktür. Modele belirli bir işi sınıflandırmasını basitçe sorulması, bir F1 skorunda 65.6 sonucunu verirken, istem mühendisliği sonrası model bir F1 skorunda 91.7 elde eder. 
+- Modelin bir şablona uymaya zorlanması tüm durumlarda performansı düşürür (bu davranış, makaleye sonrasında yapılan erken dönem GPT-4 testlerinde ortadan kalkar).
+- Birçok küçük değişiklik performans üzerinde anormal büyük bir etkiye sahip olabilir.
+  - Tablolar, test edilen tüm değişiklikleri göstermektedir.
+  - Talimatları düzgün vermekte ve kilit noktaları tekrar etmek en büyük performans sürücüsü gibi görünmektedir.
+  - Modele bir (insan) ismi vermek ve buna göre hitap etmek bile F1 skorunu 0.6 puan artırır.
 
-### Bilgi İstemi Değişiklikleri Test Edildi
+### Test Edilen İsteme Yapılan Değişiklikler
 
-| Kısa İsim  | Açıklama                                                                                             |
-|------------|------------------------------------------------------------------------------------------------------|
-| Baseline   | Bir iş ilanı verin ve bir mezun için uygun olup olmadığını sorun.                                    |
-| CoT        | Sorgulamadan önce birkaç doğru sınıflandırma örneği verin.                                           |
-| Zero-CoT   | Cevabını vermeden önce modelden adım adım akıl yürütmesini isteyin.                                  |
-| rawinst    | Kullanıcı mesajına ekleyerek rolü ve görevi hakkında talimatlar verin.                               |
-| sysinst    | Bir sistem mesajı olarak rolü ve görevi hakkında talimatlar verin.                                   |
-| bothinst   | Bir sistem mesajı olarak role ve bir kullanıcı mesajı olarak göreve sahip yönergeler bölünmüştür .   |
-| mock       | Bir tartışmayı kabul ettiği yerde alay ederek görev yönergeleri verin.                               |
-| reit       | Talimatlardaki temel unsurları tekrarlayarak güçlendirin.                                            |
-| strict     | Modelden belirli bir şablonu kesinlikle takip ederek yanıt vermesini isteyin.                        |
-| loose      | Belirli bir şablona göre verilecek nihai cevabı isteyin.                                             |
-| right      | Modelden doğru sonuca varmasını isteyin.                                                             |
-| info       | Yaygın muhakeme hatalarını ele almak için ek bilgiler sağlayın.                                      |
-| name       | Modele, konuşmada atıfta bulunduğumuz bir isim verin.                                                |
-| pos        | Modeli sorgulamadan önce olumlu geri bildirim sağlayın.                                              |
+| Kısa ad    | Açıklama                                                                   |
+|------------|----------------------------------------------------------------------------|
+| Baseline   | Bir iş ilanı verin ve bir mezun için uygun olup olmadığını sorun.          |
+| CoT        | Sorgulamadan önce birkaç doğru sınıflandırma örneği verin.                 |
+| Zero-CoT   | Modelden cevabını vermeden önce adım adım muhakeme etmesini isteyin.       |
+| rawinst    | Kullanıcı mesajına ekleyerek rolü ve görevi hakkında talimatlar verin.     |
+| sysinst    | Rolü ve görevi hakkındaki talimatları bir sistem mesajı olarak verin.      |
+| bothinst   | Talimatlarda rolu sistem mesajı ve görevi kullanıcı mesajı olarak ayırın.  |
+| mock       | Görev talimatlarını, onları doğrulayan bir tartışma taklidi yaparak verin. |
+| reit       | Talimatlardaki kilit unsurları tekrarlayarak pekiştirin.                   |
+| strict     | Modelden, belirtilen şablona kesinlikle uyarak cevap vermesini isteyin.    |
+| loose      | Verilen bir şablonu izleyerek sadece nihai cevabın verilmesini isteyin.    |
+| right      | Modelin doğru sonuca ulaşmasını isteyin.                                   |
+| info       | Yaygın mantık hatalarını gidermek için ek bilgiler sağlayın.               |
+| name       | Modele konuşma sırasında atıfta bulunacağınız bir isim verin.              |
+| pos        | Sorgulamadan önce modele olumlu geri bildirim sağlayın.                    |
 
 
-### Tüm Bilgi İstemi Değişikliklerinin Performans Etkisi
+### Tüm İstem Değişikliklerinin Performans Etkisi
 
 |                                        | Precision     | Recall        | F1            | Template Stickiness    |
 |----------------------------------------|---------------|---------------|---------------|------------------------|
@@ -53,5 +53,4 @@ Hızlı mühendislik yaklaşımlarının temel bulguları şunlardır:
 | +bothinst+mock+reit+right+info+name    | 85.7          | 96.8          | 90.9          | 79%                    |
 | +bothinst+mock+reit+right+info+name+pos| **86.9**      | **97**        | **91.7**      | 81%                    |
 
-Şablon yapışkanlığı, modelin istenen biçimde ne sıklıkta yanıt verdiğini ifade eder.
-
+Template stickiness, modelin istenen formatta ne sıklıkla yanıt verdiğini ifade eder. 

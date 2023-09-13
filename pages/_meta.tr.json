@@ -1,25 +1,25 @@
 {
-  "index": "Prompt Engineering",
-  "introduction": "Introduction",
-  "techniques": "Techniques",
-  "applications": "Applications",
-  "models": "Models",
-  "risks": "Risks & Misuses",
-  "papers": "Papers",
-  "tools": "Tools",
-  "notebooks": "Notebooks",
-  "datasets": "Datasets",
-  "readings": "Additional Readings",
+  "index": "İstem Mühendisliği",
+  "introduction": "Giriş",
+  "techniques": "Teknikler",
+  "applications": "Uygulamalar",
+  "models": "Modeller",
+  "risks": "Riskler ve Kötüye Kullanımlar",
+  "papers": "Makaleler",
+  "tools": "Araçlar",
+  "notebooks": "Notlar",
+  "datasets": "Veri Kümeleri",
+  "readings": "Ek Okumalar",
   "course":{
-    "title": "Prompt Engineering Course",
+    "title": "İstem Mühendisliği Kursu",
     "type": "page"
   },
   "services": {
-    "title": "Services",
+    "title": "Hizmetler",
     "type": "page"
   },
   "about": {
-    "title": "About",
+    "title": "Hakkında",
     "type": "page"
   }
 }

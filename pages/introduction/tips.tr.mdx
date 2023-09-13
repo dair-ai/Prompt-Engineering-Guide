@@ -1,108 +1,107 @@
-# İstem Tasarlamak için Genel İpuçları
+# İstem Tasarlamak İçin Genel İpuçları
 
 İşte istemlerinizi tasarlarken aklınızda bulundurmanız gereken bazı ipuçları:
 
 
-### Basit Başlangıç
-İstemleri tasarlamaya başlarken, bunun gerçekten de en iyi sonuçları elde etmek için çok fazla deneme gerektiren yinelemeli bir süreç olduğunu aklınızda bulundurmalısınız. OpenAI veya Cohere's gibi basit bir oyun alanı kullanmak iyi bir başlangıç noktasıdır.
+### Basit Başlayın
+İstem tasarlamaya yeni başladığınızda, en iyi sonuçları elde etmek için çok fazla deney yapmanız gereken bir yineleme süreci olduğunu unutmayın. OpenAI veya Cohere gibi basit bir oyun alanı, iyi bir başlangıç noktası olabilir.
 
-Basit itemlerle başlayabilir ve daha iyi sonuçlar hedefledikçe daha fazla unsur ve bağlam eklemeye devam edebilirsiniz. Bu nedenle, yol boyunca isteminizi versiyonlamak hayati önem taşır. Kılavuzu okurken, spesifiklik, basitlik ve özlülüğün genellikle size daha iyi sonuçlar vereceği birçok örnek göreceksiniz.
+Basit istemlerle başlayabilir ve daha iyi sonuçlar elde etmeyi hedeflerken daha fazla öğe ve bağlam eklemeye devam edebilirsiniz. Bu nedenle, yol boyunca isteminizi yinelemek çok önemlidir. Rehberi okuduğunuzda, belirginlik, basitlik ve özlülüğün genellikle daha iyi sonuçlar vereceğini göreceksiniz.
 
-Birçok farklı alt görev içeren büyük bir göreviniz olduğunda, görevi daha basit alt görevlere ayırmayı deneyebilir ve daha iyi sonuçlar elde ettikçe geliştirmeye devam edebilirsiniz. Bu, başlangıçta hızlı tasarım sürecine çok fazla karmaşıklık eklenmesini önler.
+Birçok farklı alt görevi içeren büyük bir göreviniz olduğunda, görevi daha basit alt görevlere ayırabilir ve daha iyi sonuçlar aldıkça inşa etmeye devam edebilirsiniz. Bu, başlangıçta istem tasarım sürecine fazla karmaşıklık eklemeyi önler.
 
-### The Instruction
-"Yaz", "Sınıflandır", "Özetle", "Çevir", "Sırala", vb. gibi komutları kullanarak modele ne elde etmek istediğinizi bildirerek çeşitli basit görevler için etkili istemler tasarlayabilirsiniz.
+### Yönergenin Verilmesi
+"Yaz", "Sınıflandır", "Özetle", "Çevir", "Sırala" vb. gibi komutlar kullanarak çeşitli basit görevler için etkili istemler tasarlayabilirsiniz.
 
-Neyin en iyi sonucu verdiğini görmek için çok sayıda deneme yapmanız gerektiğini de unutmayın. Farklı anahtar kelimeler, bağlamlar ve verilerle farklı talimatlar deneyin ve özel kullanım durumunuz ve göreviniz için en iyi sonucu neyin verdiğini görün. Genellikle, bağlam gerçekleştirmeye çalıştığınız görevle ne kadar spesifik ve alakalı olursa o kadar iyi olur. Örnekleme yapmanın ve daha fazla bağlam eklemenin önemine ilerleyen kılavuzlarda değineceğiz.
+En iyi sonucu verenin ne olduğunu görmek için çok fazla deney yapmanız gerektiğini unutmayın. Farklı yönergeleri, anahtar kelimeleri, bağlamları ve verileri deneyin ve belirli bir kullanım durumunuz ve göreviniz için en iyi olanı görün. Genellikle, bağlam ne kadar özel ve ilgiliyse, performansınız o kadar iyi olur. Örnekleme ve daha fazla bağlam eklemenin önemini yaklaşan rehberlerde ele alacağız.
 
-Diğerleri talimatların komut isteminin başına yerleştirilmesini önermektedir. Ayrıca talimat ve içeriği ayırmak için "###" gibi net bir ayırıcı kullanılması önerilir.
+Bazıları, yönergenin istemin başına konulmasını önermektedir. Başka bir öneri, yönergeyi ve bağlamı ayırmak için "###" gibi net bir ayrıcı kullanmaktır.
 
-Mesela:
+Örneğin:
 
 *İstem:*
 ```
-### Talimatlar ###
+### Yönerge ###
 Aşağıdaki metni İspanyolcaya çevirin:
 
-Text: "merhaba!"
+Metin: "Merhaba!"
 ```
 
-*Çıktı:*
+*Sonuç:*
 ```
 ¡Hola!
 ```
 
-### Özgünlük
-Modelin gerçekleştirmesini istediğiniz talimat ve görev hakkında çok spesifik olun. Yönerge ne kadar açıklayıcı ve ayrıntılı olursa sonuçlar da o kadar iyi olur. Bu, özellikle istediğiniz bir sonuç veya üretim tarzı olduğunda önemlidir. Daha iyi sonuçlara yol açan belirli belirteçler veya anahtar kelimeler yoktur. İyi bir format ve açıklayıcı bir istem olması daha önemlidir. Aslında, komut isteminde örnekler sunmak, belirli formatlarda istenen çıktıyı elde etmek için çok etkilidir.
+### Belirginlik
+Modelin gerçekleştirmesini istediğiniz yönerge ve görev konusunda çok belirgin olun. İstem ne kadar açıklayıcı ve ayrıntılı olursa, sonuçlar o kadar iyi olur. Bu özellikle, arzu ettiğiniz bir sonuç veya istediğiniz bir oluşturma stili varsa çok önemlidir. Daha iyi sonuçlara yol açan belirli jetonlar veya anahtar kelimeler yoktur. İyi bir formata ve açıklayıcı bir isteme sahip olmak daha önemlidir. Aslında, istemde örnekler sağlamak, belirli formatlarda arzu edilen çıktıyı elde etmek için çok etkilidir.
 
-İstemleri tasarlarken istem uzunluğunu da göz önünde bulundurmalısınız çünkü bunun ne kadar uzun olabileceğine ilişkin sınırlamalar vardır. Ne kadar spesifik ve ayrıntılı olmanız gerektiğini düşünmek dikkate alınması gereken bir husustur. Çok fazla gereksiz ayrıntıya yer vermek iyi bir yaklaşım olmayabilir. Ayrıntılar konuyla ilgili olmalı ve eldeki göreve katkıda bulunmalıdır. Bu, çok fazla deneme yapmanız gereken bir konudur. Uygulamalarınız için istemleri optimize etmek amacıyla çok sayıda deneme ve yineleme yapılmasını teşvik ediyoruz.
+İstemler tasarlarken, istemin ne kadar uzun olabileceği konusunda sınırlamalar olduğunu da aklınızda bulundurmalısınız. Ne kadar belirgin ve ayrıntılı olmanız gerektiği üzerine düşünün. Fazla gereksiz ayrıntı eklemek mutlaka iyi bir yaklaşım olmayabilir. Detaylar ilgili olmalı ve elinizdeki göreve katkıda bulunmalıdır. Bu, üzerinde çok deneme yapmanız gereken bir şeydir. Uygulamalarınız için istemleri optimize etmek için çok fazla deney ve tekrarlama teşvik ediyoruz.
 
-Örnek olarak, bir metin parçasından belirli bir bilgiyi çıkarmak için basit bir istem deneyelim.
+Bir örnek olarak, bir metinden belirli bilgileri çıkarmak için basit bir istem deneyelim.
 
-*Girdi:*
+*İstem:*
 ```
-Aşağıdaki metinde geçen yer isimlerini çıkarınız. 
+Aşağıdaki metindeki yerlerin isimlerini çıkarın.
 
-İstenilen format:
-Yer: <sirket_adlarının_virgulle_ayrılmıs_listesi>
+Arzu edilen format:
+Yer: <virgülle_ayrılmış_şirket_adları_listesi>
 
-Giriş: "Bu gelişmeler araştırmacılar için cesaret verici olsa da, pek çok şey hala gizemini koruyor. Lizbon'daki Champalimaud Bilinmeyenler Merkezi'nde nöroimmünolog olan Henrique Veiga-Fernandes, "Beyin ile periferde gördüğümüz etki arasında genellikle bir kara kutumuz var" diyor. "Bunu terapötik bağlamda kullanmak istiyorsak, aslında mekanizmayı anlamamız gerekiyor.""
-```
-
-*Çıktı:*
-```
-Yer ismi: Champalimaud Bilinmeyenler Merkezi, Lizbon
+Giriş: "Bu gelişmeler araştırmacıları cesaretlendirirken, hala çok şey bilinmiyor. “Beyinle periferde gördüğümüz etki arasında genellikle bir kara kutu var,” diyor Lisboa’daki Champalimaud Merkezi’nde nöroimmünolog Henrique Veiga-Fernandes. “Onu terapötik bağlamda kullanmak istiyorsak, mekanizmayı aslında anlamamız gerekiyor.""
 ```
 
-Girdi metni [bu Nature makalesinden](https://www.nature.com/articles/d41586-023-00509-z) elde edilmiştir.
-
-### Belirsizlikten Kaçının
-
-Yukarıdaki ayrıntılı olma ve formatı geliştirme ile ilgili istemleri göz önüne alındığında, istemler konusunda çok akıllıca davranmak ve potansiyel olarak kesin olmayan açıklamalar oluşturma tuzağına düşmek kolaydır. Spesifik ve doğrudan olmak genellikle daha iyidir. Buradaki benzetme etkili iletişime çok benzer -- ne kadar doğrudan olursa mesaj o kadar etkili bir şekilde iletilir.
-
-Örneğin, hızlı mühendislik kavramını öğrenmekle ilgileniyor olabilirsiniz. Şöyle bir şey deneyebilirsiniz:
-
+*Sonuç:*
 ```
-Mühendislik kavramını açıklayın. Açıklamayı kısa tutun, sadece birkaç cümle ve çok açıklayıcı olmayın.
+Yer: Champalimaud Merkezi, Lizbon
 ```
 
-Yukarıdaki istemde kaç cümle kullanılacağı ve hangi tarzda yazılacağı açık değildir. Yukarıdaki itemlerle yine de bir şekilde iyi yanıtlar alabilirsiniz, ancak daha iyi bir item çok spesifik, kısa ve öz bir istem olacaktır. Şunun gibi bir şey:
+Giriş metni, [bu Nature makalesinden](https://www.nature.com/articles/d41586-023-00509-z) alınmıştır.
+
+### Belirsizliğe Kaçmamak
+
+Yukarıdaki detaylandırma ve formatı iyileştirme ipuçları göz önüne alındığında, istemler hakkında aşırı derecede zeki olmak ve potansiyel olarak belirsiz tanımlar oluşturmak tuzağına düşmek kolaydır. Spesifik ve doğru olmak genellikle daha iyidir. Buradaki benzerlik, etkili iletişime çok benzer -- ne kadar doğrudan olunursa, mesaj o kadar etkili bir şekilde iletilir.
+
+Örneğin, istem mühendisliği kavramını öğrenmek isteyebilirsiniz. Şöyle bir şey deneyebilirsiniz:
 
 ```
-Bir lise öğrencisine hızlı mühendislik kavramını açıklamak için 2-3 cümle kullanın.
+İstem mühendisliği kavramını açıklayın. Açıklamanın kısa, sadece birkaç cümle olmasını ve aşırı açıklayıcı olmamasını sağlayın.
 ```
 
-### Yapmalı mı yapmamalı mı?
-İstemleri tasarlarken bir başka yaygın item de ne yapılmaması gerektiğini söylemekten kaçınmak, bunun yerine ne yapılması gerektiğini söylemektir. Bu, daha spesifik olmayı teşvik eder ve modelden iyi yanıtlar alınmasını sağlayan ayrıntılara odaklanır.
+Yukarıdaki istemden kaç cümle kullanılması ve hangi stilin kullanılacağı net değildir. Yukarıdaki istemlerle hala iyi yanıtlar alabilirsiniz ancak daha spesifik, özlü ve net bir istem daha iyidir. Örneğin:
 
-İşte bir film önerisi sohbet robotunun, talimatı yazma şeklim nedeniyle tam olarak yapmasını istemediğim şeyde başarısız olmasının bir örneği -- ne yapılmaması gerektiğine odaklanmak.
-
-*Girdi:*
 ```
-Aşağıda bir müşteriye film öneren bir temsilci yer almaktadır. İLGI ALANLARINI SORMAYIN. KIŞISEL BILGI ISTEMEYIN.
+Bir lise öğrencisine istem mühendisliği kavramını açıklamak için 2-3 cümle kullanın.
+```
 
-Müşteri: Lütfen ilgi alanlarıma göre bir film önerin.
+### Yapmak mı, Yapmamak mı?
+İstemlerin tasarlanması sırasında sıkça verilen bir başka ipucu, ne yapmamaları gerektiğini söylemek yerine ne yapmaları gerektiğini söylemektir. Bu, daha fazla belirginliği teşvik eder ve modele iyi yanıtlar vermeye yol açan ayrıntılara odaklanır.
+
+İşte tam da yapmamasını istediğim şeyi yapan bir film önerisi chatbot örneği. İnstrüksiyonu nasıl yazdığımdan dolayı başarısız oldu -- ne yapmaması gerektiğine odaklanıyordu.
+
+*İstem:*
+```
+Aşağıda, bir müşteriye film öneren bir ajan bulunmaktadır. İLGİLERİNİ SORMAYIN. KİŞİSEL BİLGİ SORMAYIN.
+
+Müşteri: Lütfen ilgilerime dayalı bir film önerin.
 Ajan: 
 ```
-
-*Çıktı:*
+*Sonuç:*
 ```
-Elbette, ilgi alanlarınıza göre bir film önerebilirim. Ne tür bir film izlemek istersiniz? Aksiyon mu, komedi mi, romantik mi yoksa başka bir şey mi tercih edersiniz?
-```
-
-İşte daha iyi bir girdi:
-
-*Girdi:*
-```
-Aşağıda bir müşteriye film öneren bir temsilci yer almaktadır. Temsilci, en iyi küresel trend filmlerden bir film önermekle sorumludur. Kullanıcılara tercihlerini sormaktan kaçınmalı ve kişisel bilgi istemekten kaçınmalıdır. Temsilcinin önerecek bir filmi yoksa, "Üzgünüz, bugün önerecek bir film bulamadık." yanıtını vermelidir.
-
-Customer: Lütfen ilgi alanlarıma göre bir film önerin.
-Agent:
+Tabii ki, ilgilerinize dayalı bir film önerabilirim. Ne tür bir film izlemek istersiniz? Aksiyon, komedi, romantik ya da başka bir şey tercih eder misiniz?
 ```
 
-*Çıktı:*
+İşte daha iyi bir istem:
+
+*İstem:*
 ```
-Üzgünüm, ilgi alanlarınız hakkında herhangi bir bilgim yok. Ancak, işte şu anda en iyi küresel trend filmlerin bir listesi: [film listesi]. Umarım hoşunuza gidecek bir şeyler bulursunuz!
+Aşağıda, bir müşteriye film öneren bir ajan bulunmaktadır. Ajanın görevi, en popüler global trend filmlerden birini önermektir. Ajan kullanıcılardan tercihlerini sormaktan kaçınmalı ve kişsel bilgi talep etmemelidir. Eğer ajan önerilecek bir film bulamazsa, "Üzgünüm, bugün önerilecek bir film bulamadım." şeklinde yanıt vermelidir.
+
+Müşteri: Lütfen ilgilerime dayalı bir film önerin.
+Ajan:
 ```
 
-Yukarıdaki örneklerden bazıları ["OpenAI API ile hızlı mühendislik için en iyi uygulamalar" makalesinden](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api) uyarlanmıştır.
+*Sonuç:*
+```
+Üzgünüm, ilgileriniz hakkında herhangi bir bilgim yok. Ancak, işte şu anda en popüler global trend filmlerin bir listesi: [film listesi]. Umarım hoşunuza giden bir şey bulursunuz!
+```
+
+Yukarıdaki bazı örnekler, ["OpenAI API ile İstem Mühendisliği için En İyi Uygulamalar" makalesinden](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api) alınmıştır.
