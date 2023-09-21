@@ -1,6 +1,9 @@
 # Generating Synthetic Dataset for RAG
 
 import {Screenshot} from 'components/screenshot'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+
 import IMG1 from '../../img/synthetic_rag/synthetic_rag_1.png'
 import IMG2 from '../../img/synthetic_rag/synthetic_rag_2.png'
 import IMG3 from '../../img/synthetic_rag/synthetic_rag_3.png'
@@ -56,7 +59,7 @@ punishment house would make fines relative income
 
 In general, such a prompt can be expressed as:
 
-$(e_{prompt}, e_{doc}(d_{1}), e_{query}(q_1), . . . , e_{doc}(d_k), e_{query}(q_k), e_{doc}(d))$$(e_{prompt}, e_{doc}(d_{1}), e_{query}(q_1), . . . , e_{doc}(d_k), e_{query}(q_k), e_{doc}(d))$
+$(e_{prompt}, e_{doc}(d_{1}), e_{query}(q_1), . . . , e_{doc}(d_k), e_{query}(q_k), e_{doc}(d))$
 
 , where $e_{doc}$ and $e_{query}$ are task-specific document, query descriptions respectively, $e_{prompt}$ is a task-specific prompt/instruction for ChatGPT/GPT-4, and $d$ is a new document, for which LLM will generate a query.
 
