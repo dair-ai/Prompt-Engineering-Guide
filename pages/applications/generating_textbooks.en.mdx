@@ -139,6 +139,6 @@ In total, the authors generated 1B tokens to augment the model's training set, a
 
 Image Source: [Gunasekar et al. (2023)](https://arxiv.org/abs/2306.11644)
 
-For your task, you probably don't need such a large amount of synthetic data (since the authors studied the pretraining, which requires significant resources). However, even as an estimate, at a price of $0.002/1k tokens (standard ChatGPT pricing), it would cost $2000 for the generated tokens and approximately the same amount for the prompts.
+For your task, you probably don't need such a large amount of synthetic data (since the authors studied the pretraining, which requires significant resources). However, even as an estimate, at a price of `$0.002` per 1k tokens (standard ChatGPT pricing), it would cost `$2000` for the generated tokens and approximately the same amount for the prompts.
 
 Keep in mind that fine-tuning on synthetic data becomes more valuable as the domain becomes more niche, especially if the language deviates from English (among other factors). Additionally, this method works well with [Chain-of-Thought (CoT)](https://www.promptingguide.ai/techniques/cot), helping the local model improve its reasoning capabilities. Other prompting techniques work, too. And don't forget that open-source models like Alpaca ([Taori et al., (2023)](https://crfm.stanford.edu/2023/03/13/alpaca.html)) and Vicuna ([Zheng et al., (2023)](https://lmsys.org/blog/2023-03-30-vicuna/)) excel through fine-tuning on synthetic data.
