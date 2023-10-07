@@ -72,6 +72,7 @@ You can also find the most up-to-date guides on our new website [https://www.pro
   - [Prompt Engineering - LLaMA](https://www.promptingguide.ai/models/llama)
   - [Prompt Engineering - GPT-4](https://www.promptingguide.ai/models/gpt-4)
   - [Prompt Engineering - Model Collection](https://www.promptingguide.ai/models/collection)
+  - [Prompt Engineering - YiVal](https://github.com/YiVal/YiVal) 
 - [Prompt Engineering - Risks and Misuses](https://www.promptingguide.ai/risks)
   - [Prompt Engineering - Adversarial Prompting](https://www.promptingguide.ai/risks/adversarial)
   - [Prompt Engineering - Factuality](https://www.promptingguide.ai/risks/factuality)
