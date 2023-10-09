@@ -82,7 +82,6 @@ You can also find the most up-to-date guides on our new website [https://www.pro
   - [Prompt Engineering - Applications](https://www.promptingguide.ai/papers#applications)
   - [Prompt Engineering - Collections](https://www.promptingguide.ai/papers#collections)
 - [Prompt Engineering - Tools](https://www.promptingguide.ai/tools)
-  - [Prompt Engineering - YiVal](https://github.com/YiVal/YiVal) 
 - [Prompt Engineering - Notebooks](https://www.promptingguide.ai/notebooks)
 - [Prompt Engineering - Datasets](https://www.promptingguide.ai/datasets)
 - [Prompt Engineering - Additional Readings](https://www.promptingguide.ai/readings)
