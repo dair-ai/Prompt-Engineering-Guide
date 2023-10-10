@@ -1,6 +1,7 @@
 import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 import { useConfig } from 'nextra-theme-docs'
+import { Pre } from './components/pre'
 
 const config: DocsThemeConfig = {
   logo: (
@@ -60,6 +61,12 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: 'https://github.com/dair-ai/Prompt-Engineering-Guide/tree/main/',
   footer: {
     text: 'Copyright © 2023 DAIR.AI',
+  },
+  search: {
+    placeholder: 'Search...',
+  },
+  components: {
+    pre: Pre,
   },
 }
 
