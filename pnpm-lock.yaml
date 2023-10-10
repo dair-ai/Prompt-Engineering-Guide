@@ -6,6 +6,7 @@ specifiers:
   '@fortawesome/react-fontawesome': ^0.2.0
   '@types/node': 18.11.10
   '@vercel/analytics': ^0.1.11
+  clsx: ^2.0.0
   next: ^13.0.6
   nextra: ^2.13.1
   nextra-theme-docs: ^2.13.1
@@ -18,6 +19,7 @@ dependencies:
   '@fortawesome/free-solid-svg-icons': 6.4.2
   '@fortawesome/react-fontawesome': 0.2.0_n6er2j2sfff3f2kho72l4xukey
   '@vercel/analytics': 0.1.11_react@18.2.0
+  clsx: 2.0.0
   next: 13.0.6_biqbaboplfbrettd7655fr4n2y
   nextra: 2.13.1_6jx7hpii6hgsrmhxgqrmo3277u
   nextra-theme-docs: 2.13.1_qowrbmzbzy42ohvx24k4xpi7qe
