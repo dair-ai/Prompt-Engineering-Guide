@@ -13,19 +13,19 @@ ToT maintains a tree of thoughts, where thoughts represent coherent language seq
 The ToT framework is illustrated below:
 
 <Screenshot src={TOT} alt="TOT" />
-Image Source: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) 
+Image Source: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601)
 
-When using ToT, different tasks requires defining the number of candidates and the number of thoughts/steps. For instance, as demonstrated in the paper, Game of 24 is used as a mathematical reasoning task which requires decomposing the thoughts into 3 steps, each involving an intermediate equation. At each step, the best b=5 candidates are kept. 
+When using ToT, different tasks requires defining the number of candidates and the number of thoughts/steps. For instance, as demonstrated in the paper, Game of 24 is used as a mathematical reasoning task which requires decomposing the thoughts into 3 steps, each involving an intermediate equation. At each step, the best b=5 candidates are kept.
 
 To perform BFS in ToT for the Game of 24 task, the LM is prompted to evaluate each thought candidate as "sure/maybe/impossible" with regard to reaching 24. As stated by the authors, "the aim is to promote correct partial solutions that can be verdicted within few lookahead trials, and eliminate impossible partial solutions based on "too big/small" commonsense, and keep the rest "maybe"". Values are sampled 3 times for each thought. The process is illustrated below:
 
 <Screenshot src={TOT2} alt="TOT2" />
-Image Source: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) 
+Image Source: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601)
 
 From the results reported in the figure below, ToT substantially outperforms the other prompting methods:
 
 <Screenshot src={TOT3} alt="TOT3" />
-Image Source: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601) 
+Image Source: [Yao et el. (2023)](https://arxiv.org/abs/2305.10601)
 
 Code available [here](https://github.com/princeton-nlp/tree-of-thought-llm) and [here](https://github.com/jieyilong/tree-of-thought-puzzle-solver)
 
@@ -41,3 +41,5 @@ Then all experts will go on to the next step, etc.
 If any expert realises they're wrong at any point then they leave.
 The question is...
 ```
+
+[Sun (2023)](https://github.com/holarissun/PanelGPT) benchmarked the Tree-of-Thought Prompting with large-scale experiments, and introduce PanelGPT --- an idea of prompting with Panel discussions among LLMs.
