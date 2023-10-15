@@ -1,3 +1,4 @@
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
@@ -16,8 +17,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 </Script>
 
       <Component {...pageProps} />
+     
       <Analytics />
     </>
+  
   );
 }
  

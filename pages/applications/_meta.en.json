@@ -1,6 +1,8 @@
 {
     "pal": "Program-Aided Language Models",
     "generating": "Generating Data",
+    "synthetic_rag": "Generating Synthetic Dataset for RAG",
+    "generating_textbooks": "Tackling Generated Datasets Diversity",
     "coding": "Generating Code",
     "workplace_casestudy": "Graduate Job Classification Case Study",
     "pf": "Prompt Function"

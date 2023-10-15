@@ -4,12 +4,12 @@ import { Callout, FileTree } from "nextra-theme-docs";
 import { Screenshot } from "components/screenshot";
 import PAL from "../../img/pal.png";
 
-[Gao et al., (2022)](https://arxiv.org/abs/2211.10435)는 LLM을 이용하여 자연어 문제를 읽고 중간 추론 단계로서의 프로그램을 생성하는 방법을 제시합니다. 그 방법은 프로그램지원언어모델(program-aided language models; PAL)이라고 이름 붙었으며, 해답을 얻기 위해 자유 형식 텍스트를 사용하는 대신 파이썬 인터프리터와 같은 프로그래밍 방식의 런타임을 통해 단계적으로 해결해 나간다는 점에서 생각의 사슬(chain-of-thought) 프롬프팅과 차이가 있습니다.
+[Gao et al., (2022)](https://arxiv.org/abs/2211.10435)는 LLM을 이용하여 자연어 문제를 읽고 중간 추론 단계로서의 프로그램을 생성하는 방법을 제시합니다. 그 방법은 프로그램지원언어모델(program-aided language models; PAL)이라고 이름 붙었으며, 해답을 얻기 위해 자유 형식 텍스트를 사용하는 대신 Python 인터프리터와 같은 프로그래밍 방식의 런타임을 통해 단계적으로 해결해 나간다는 점에서 생각의 사슬(chain-of-thought) 프롬프팅과 차이가 있습니다.
 
 <Screenshot src={PAL} alt="PAL" />
 이미지 출처: [Gao et al., (2022)](https://arxiv.org/abs/2211.10435)
 
-LangChain과 OpenAI GPT-3을 사용한 예시를 살펴보겠습니다. 우리는 파이썬 인터프리터를 활용하여 질문을 해석하고 답변을 제공하는 간단한 애플리케이션을 개발해야 하는 상황이라고 가정해 보겠습니다.
+LangChain과 OpenAI GPT-3을 사용한 예시를 살펴보겠습니다. 우리는 Python 인터프리터를 활용하여 질문을 해석하고 답변을 제공하는 간단한 애플리케이션을 개발해야 하는 상황이라고 가정해 보겠습니다.
 
 그중에서도 날짜에 대한 이해가 필요한 질문에 대해서 LLM을 이용하여 답할 수 있는 기능을 만들고자 합니다. LLM에 제공할 프롬프트의 예제 중 일부는 [여기](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py)에서 채택했습니다.
 

@@ -28,7 +28,7 @@ Our past learners range from software engineers to AI researchers and practition
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
 - 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
 
-[Join our Discord](https://discord.gg/FUyz9vPAwf)
+[Join our Discord](https://discord.com/invite/SKgkVT8BGJ)
 
 [Follow us on Twitter](https://twitter.com/dair_ai)
 
@@ -62,6 +62,8 @@ You can also find the most up-to-date guides on our new website [https://www.pro
 - [Prompt Engineering - Applications](https://www.promptingguide.ai/applications)
   - [Prompt Engineering - Program-Aided Language Models](https://www.promptingguide.ai/applications/pal)
   - [Prompt Engineering - Generating Data](https://www.promptingguide.ai/applications/generating)
+  - [Prompt Engineering - Generating Synthetic Dataset for RAG](https://www.promptingguide.ai/applications/synthetic_rag)
+  - [Prompt Engineering - Takling Generated Datasets Diversity](https://www.promptingguide.ai/applications/generating_textbooks)
   - [Prompt Engineering - Generating Code](https://www.promptingguide.ai/applications/coding)
   - [Prompt Engineering - Graduate Job Classification Case Study](https://www.promptingguide.ai/applications/workplace_casestudy)
 - [Prompt Engineering - Models](https://www.promptingguide.ai/models)
