@@ -14,7 +14,7 @@ Mistral 7B is a 7-billion-parameter language model [released by Mistral AI](http
 <Screenshot src={mistral7b1} alt="mistral7b1" />
 
 The model uses attention mechanisms like:
-- [grouped-query attention (GQA)](https://arxiv.org/abs/2305.13245v2) for faster inference and reduce memory requirements during decoding
+- [grouped-query attention (GQA)](https://arxiv.org/abs/2305.13245v2) for faster inference and reduced memory requirements during decoding
 - [sliding window attention (SWA)](https://arxiv.org/abs/1904.10509) for handling sequences of arbitrary length with a reduced inference cost. 
 
 The model is released under the Apache 2.0 license.
@@ -70,7 +70,7 @@ This will print `212.0`, which is the correct answer.
 
 ```
 
-Note that in the output above, we escaped the code segments by to display them properly.
+Note that in the output above, we escaped the code segments to display them properly.
 
 ## Mistral-7B-Instruct
 
@@ -88,7 +88,7 @@ It's important to note that to effectively prompt the Mistral 7B Instruct and ge
 
 We will be using [Fireworks.ai's hosted Mistral 7B Instruct model](https://app.fireworks.ai/models/fireworks/mistral-7b-instruct-4k) for the following examples that show how to prompt the instruction tuned Mistral 7B model.
 
-Let's start with a simple example and instruct the model to achieve a simple task based on an instruction.
+Let's start with a simple example and instruct the model to achieve a task based on an instruction.
 
 *Prompt*:
 ```
@@ -161,7 +161,7 @@ Here is another fun example:
 ## Limitations
 Like many other LLMs, Mistral 7B can hallucinate and is prone to the common issues such as prompt injections. While Mistral 7B has shown impressive performance in many areas, its limited parameter count also restricts the amount of knowledge it can store, especially when compared to larger models. 
 
-The model is prone to common prompt injections, here are some examples:
+The model is prone to common prompt injections; here are some examples:
 
 *Prompt*:
 ```
