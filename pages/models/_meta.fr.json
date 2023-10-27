@@ -3,6 +3,7 @@
     "chatgpt": "ChatGPT",
     "llama": "LLaMA",
     "gpt-4": "GPT-4",
+    "mistral-7b": "Mistral 7B",
     "collection": "Collection de modèles" 
 }
   
