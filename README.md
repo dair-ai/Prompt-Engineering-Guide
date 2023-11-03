@@ -6,13 +6,11 @@
 
 ***
 
-## Prompt Engineering for LLMs Course
+## LLMのためのプロンプトエンジニアリングコース
 
-Due to high demand, we've partnered with Maven to deliver a new [cohort-based course on Prompt Engineering for LLMs](https://maven.com/dair-ai/prompt-engineering-llms).
+このドキュメントは、ハヤシシュンスケによるプロンプトエンジニアリングコースです。
 
-[Elvis Saravia](https://www.linkedin.com/in/omarsar/), who has worked at companies like Meta AI and Elastic, and has years of experience in AI and LLMs, will be the instructor for this course.
-
-This hands-on course will cover prompt engineering techniques/tools, use cases, exercises, and projects for effectively working and building with large language models (LLMs).
+このコースでは、大規模言語モデル（LLM）を使いこなす為のプロンプトエンジニアリングを基礎から応用までステップバイステップで学ぶために構築されました。
 
 Our past learners range from software engineers to AI researchers and practitioners in organizations like LinkedIn, Amazon, JPMorgan Chase & Co., Intuit, Fidelity Investments, Coinbase, Guru, and many others.
 
