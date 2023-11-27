@@ -1,0 +1,15 @@
+# Multimodales CoT Prompting
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import MCOT from '../../img/multimodal-cot.png'
+
+[Zhang et al. (2023)](https://arxiv.org/abs/2302.00923) schlugen kürzlich einen multimodalen Ansatz für Chain-of-Thought (CoT) Prompting vor. Traditionelles CoT konzentriert sich auf die Sprachmodalität. Im Gegensatz dazu bezieht Multimodales CoT Text und Vision in einen zweistufigen Rahmen mit ein. Der erste Schritt beinhaltet die Generierung von Begründungen basierend auf multimodalen Informationen. Darauf folgt die zweite Phase, die Inferenz der Antwort, welche die informativen generierten Begründungen nutzt.
+
+Das multimodale CoT-Modell (1B) übertrifft GPT-3.5 im ScienceQA-Benchmark.
+
+<Screenshot src={MCOT} alt="MCOT" />
+Bildquelle: [Zhang et al. (2023)](https://arxiv.org/abs/2302.00923)
+
+Weiterführende Literatur:
+- [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)

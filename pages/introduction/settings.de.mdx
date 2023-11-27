@@ -1,0 +1,21 @@
+# LLM Einstellungen
+
+Beim Arbeiten mit Prompts interagieren Sie mit dem LLM über eine API oder direkt. Sie können einige Parameter konfigurieren, um unterschiedliche Ergebnisse für Ihre Prompts zu erhalten.
+
+**Temperature** - Kurz gesagt, je niedriger die `temperature`, desto deterministischer sind die Ergebnisse in dem Sinne, dass immer das wahrscheinlichste nächste Token gewählt wird. Eine Erhöhung der Temperatur kann zu mehr Zufälligkeit führen und damit vielfältigere oder kreativere Ausgaben fördern. Sie erhöhen im Grunde das Gewicht der anderen möglichen Tokens. Im Hinblick auf die Anwendung möchten Sie vielleicht einen niedrigeren Temperaturwert für Aufgaben wie faktenbasierte QA verwenden, um präzisere und knappere Antworten zu fördern. Für die Generierung von Gedichten oder andere kreative Aufgaben könnte es vorteilhaft sein, den Temperaturwert zu erhöhen.
+
+**Top_p** - Ähnlich ist es mit `top_p`, eine Stichprobentechnik mit Temperatur namens _nucleus sampling_. Hiermit können Sie steuern, wie deterministisch das Modell bei der Generierung einer Antwort ist. Wenn Sie nach exakten und faktischen Antworten suchen, halten Sie diesen Wert niedrig. Wenn Sie nach vielfältigeren Antworten suchen, erhöhen Sie ihn auf einen höheren Wert.
+
+Die allgemeine Empfehlung lautet, entweder die Temperatur oder top_p zu verändern, nicht beides.
+
+**Maximale Länge** - Sie können die Anzahl der vom Modell generierten Tokens steuern, indem Sie die 'maximale Länge' anpassen. Wenn Sie eine maximale Länge angeben, helfen Sie dabei, lange oder irrelevante Antworten zu verhindern und die Kosten zu kontrollieren.
+
+**Stop-Sequenzen** - Eine 'Stop-Sequenz' ist eine Zeichenfolge, die das Modell daran hindert, weitere Tokens zu generieren. Die Angabe von Stop-Sequenzen ist eine weitere Möglichkeit, die Länge und Struktur der Antwort des Modells zu kontrollieren. Sie können zum Beispiel dem Modell sagen, dass es Listen generieren soll, die nicht mehr als 10 Elemente haben, indem Sie "11" als Stop-Sequenz hinzufügen.
+
+**Häufigkeitsstrafe** - Die 'Häufigkeitsstrafe' wendet eine Strafe auf das nächste Token an, die proportional dazu ist, wie oft dieses Token bereits in der Antwort und im Prompt aufgetaucht ist. Je höher die Häufigkeitsstrafe, desto unwahrscheinlicher wird ein Wort erneut erscheinen. Diese Einstellung reduziert die Wiederholung von Wörtern in der Antwort des Modells, indem Tokens, die häufiger vorkommen, eine höhere Strafe bekommen.
+
+**Präsenzstrafe** - Die 'Präsenzstrafe' wendet auch eine Strafe auf wiederholte Tokens an, aber anders als bei der Häufigkeitsstrafe ist die Strafe für alle wiederholten Tokens gleich. Ein Token, das zweimal erscheint, und ein Token, das zehnmal erscheint, werden gleich bestraft. Diese Einstellung verhindert, dass das Modell Phrasen zu oft in seiner Antwort wiederholt. Wenn Sie möchten, dass das Modell vielfältigen oder kreativen Text generiert, möchten Sie vielleicht eine höhere Präsenzstrafe verwenden. Oder, wenn Sie möchten, dass das Modell fokussiert bleibt, versuchen Sie es mit einer niedrigeren Präsenzstrafe.
+
+Ähnlich wie bei Temperatur und top_p lautet die allgemeine Empfehlung, entweder die Häufigkeitsstrafe oder die Präsenzstrafe zu verändern, nicht beides.
+
+Bevor Sie mit einigen grundlegenden Beispielen beginnen, behalten Sie im Hinterkopf, dass Ihre Ergebnisse je nach Version des LLM, das Sie verwenden, variieren können.

@@ -1,0 +1,107 @@
+# Few-Shot Prompting
+
+Obwohl Großsprachmodelle bemerkenswerte Fähigkeiten im Zero-Shot-Setting demonstrieren, weisen sie dennoch bei komplexeren Aufgaben Schwächen auf, wenn sie im Zero-Shot-Modus verwendet werden. Few-Shot Prompting kann als Technik eingesetzt werden, um das Lernen im Kontext zu ermöglichen, indem wir Demonstrationen im Prompt bereitstellen, um das Modell zu einer besseren Leistung zu lenken. Die Demonstrationen dienen als Konditionierung für nachfolgende Beispiele, bei denen wir möchten, dass das Modell eine Antwort generiert.
+
+Gemäß [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) traten Few-Shot-Eigenschaften zum ersten Mal auf, als die Modelle auf eine ausreichende Größe skaliert wurden [(Kaplan et al., 2020)](https://arxiv.org/abs/2001.08361).
+
+Lassen Sie uns Few-Shot Prompting anhand eines Beispiels demonstrieren, das in [Brown et al. 2020](https://arxiv.org/abs/2005.14165) präsentiert wurde. In dem Beispiel geht es darum, ein neues Wort korrekt in einem Satz zu verwenden.
+
+*Prompt:*
+```
+Ein "Whatpu" ist ein kleines, pelziges Tier, das in Tansania heimisch ist. Ein Beispiel für einen Satz, der das Wort Whatpu verwendet, ist:
+Wir reisten in Afrika, und wir sahen diese sehr süßen Whatpus.
+"farduddeln" bedeutet, sehr schnell auf und ab zu springen. Ein Beispiel für einen Satz, der das Wort farduddeln verwendet, ist:
+```
+
+*Output:*
+```
+Als wir das Spiel gewannen, begannen wir alle zu farduddeln, um zu feiern.
+```
+
+Wir können beobachten, dass das Modell irgendwie gelernt hat, wie die Aufgabe auszuführen ist, indem es nur ein Beispiel gegeben bekommt (d. h. 1-Shot). Bei schwierigeren Aufgaben können wir damit experimentieren, die Demonstrationen zu erhöhen (z. B. 3-Shot, 5-Shot, 10-Shot usw.).
+
+Gemäß den Erkenntnissen von [Min et al. (2022)](https://arxiv.org/abs/2202.12837) hier noch einige Tipps zu Demonstrationen/Beispielen beim Few-Shot Prompting:
+
+- "der Label-Raum und die Verteilung des eingegebenen Texts, die durch die Demonstrationen spezifiziert werden, sind beide wichtig (unabhängig davon, ob die Labels für einzelne Eingaben korrekt sind)"
+- das Format, das Sie verwenden, spielt auch eine Schlüsselrolle bei der Leistung, selbst wenn Sie nur zufällige Labels verwenden, ist dies viel besser, als überhaupt keine Labels zu verwenden.
+- zusätzliche Ergebnisse zeigen, dass das Auswählen zufälliger Labels aus einer echten Labelverteilung (anstatt einer gleichförmigen Verteilung) ebenfalls hilfreich ist.
+
+Lassen Sie uns ein paar Beispiele ausprobieren. Beginnen wir mit einem Beispiel mit zufälligen Labels (was bedeutet, dass die Labels Negativ und Positiv zufällig den Eingaben zugeordnet sind):
+
+*Prompt:*
+```
+Das ist toll! // Negativ
+Das ist schlecht! // Positiv
+Wow, dieser Film war klasse! // Positiv
+Was für eine fürchterliche Vorstellung! //
+```
+
+*Output:*
+```
+Negativ
+```
+
+Wir erhalten immer noch die richtige Antwort, obwohl die Labels zufällig angeordnet wurden. Beachten Sie, dass wir auch das Format beibehalten haben, was ebenfalls hilft. Tatsächlich zeigen weitere Versuche, dass die neueren GPT-Modelle, mit denen wir experimentieren, selbst gegenüber zufälligen Formaten robuster werden. Beispiel:
+
+*Prompt:*
+```
+Positiv Das ist toll!
+Das ist schlecht! Negativ
+Wow, dieser Film war klasse!
+Positiv
+Was für eine fürchterliche Vorstellung! --
+```
+
+*Output:*
+```
+Negativ
+```
+
+Oben gibt es keine Konsistenz im Format, aber das Modell hat trotzdem das richtige Label vorhergesagt. Wir müssen eine umfassendere Analyse durchführen, um zu bestätigen, ob dies für verschiedene und komplexere Aufgaben gilt, einschließlich verschiedener Variationen von Prompts.
+
+### Limitationen des Few-Shot Prompting
+
+Standardmäßiges Few-Shot Prompting funktioniert gut für viele Aufgaben, ist aber immer noch nicht eine perfekte Technik, insbesondere wenn es um komplexere Denkaufgaben geht. Lassen Sie uns demonstrieren, warum das der Fall ist. Erinnern Sie sich an das vorherige Beispiel, bei dem wir folgende Aufgabe geliefert haben:
+
+```
+Die ungeraden Zahlen in dieser Gruppe addieren sich zu einer geraden Zahl: 15, 32, 5, 13, 82, 7, 1.
+
+A: 
+```
+
+Wenn wir dies noch einmal versuchen, gibt das Modell Folgendes aus:
+
+```
+Ja, die ungeraden Zahlen in dieser Gruppe addieren sich zu 107, was eine gerade Zahl ist.
+```
+
+Das ist nicht die richtige Antwort, was nicht nur die Grenzen dieser Systeme aufzeigt, sondern dass es eines Bedarfs an fortgeschrittenerem Prompt Engineering bedarf.
+
+Versuchen wir, einige Beispiele hinzuzufügen, um zu sehen, ob Few-Shot Prompting die Ergebnisse verbessert.
+
+*Prompt:*
+```
+Die ungeraden Zahlen in dieser Gruppe addieren sich zu einer geraden Zahl: 4, 8, 9, 15, 12, 2, 1.
+A: Die Antwort ist falsch.
+
+Die ungeraden Zahlen in dieser Gruppe addieren sich zu einer geraden Zahl: 17, 10, 19, 4, 8, 12, 24.
+A: Die Antwort ist wahr.
+
+Die ungeraden Zahlen in dieser Gruppe addieren sich zu einer geraden Zahl: 16, 11, 14, 4, 8, 13, 24.
+A: Die Antwort ist wahr.
+
+Die ungeraden Zahlen in dieser Gruppe addieren sich zu einer geraden Zahl: 17, 9, 10, 12, 13, 4, 2.
+A: Die Antwort ist falsch.
+
+Die ungeraden Zahlen in dieser Gruppe addieren sich zu einer geraden Zahl: 15, 32, 5, 13, 82, 7, 1.
+A: 
+```
+
+*Output:*
+```
+Die Antwort ist wahr.
+```
+
+Das hat nicht funktioniert. Es scheint, als wäre Few-Shot Prompting nicht ausreichend, um zuverlässige Antworten für diese Art von Denkproblem zu erhalten. Das obige Beispiel liefert grundlegende Informationen zur Aufgabe. Wenn Sie genauer hinsehen, wird deutlich, dass die von uns eingeführte Aufgabe ein paar weitere Denkschritte erfordert. Mit anderen Worten, es könnte helfen, wenn wir das Problem in Schritte aufteilen und das dem Modell demonstrieren. Neuerdings wurde das sogenannte [Chain-of-Thought (CoT) Prompting](https://arxiv.org/abs/2201.11903) populär, um komplexere arithmetische, alltagsbezogene und symbolische Denkaufgaben zu bewältigen.
+
+Insgesamt scheint es, dass das Bereitstellen von Beispielen nützlich ist, um einige Aufgaben zu lösen. Wenn Zero-Shot Prompting und Few-Shot Prompting nicht ausreichen, kann das bedeuten, dass das, was das Modell gelernt hat, nicht ausreichend ist, um bei der Aufgabe gut abzuschneiden. Von hier aus wird empfohlen, über das Fine-Tuning Ihrer Modelle nachzudenken oder mit fortgeschritteneren Prompting-Techniken zu experimentieren. Als Nächstes sprechen wir über eine der beliebten Prompting-Techniken namens Chain-of-Thought Prompting, die große Beliebtheit gewonnen hat.
