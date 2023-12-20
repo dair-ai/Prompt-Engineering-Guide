@@ -4,6 +4,7 @@
     "llama": "LLaMA",
     "gpt-4": "GPT-4",
     "mistral-7b": "Mistral 7B",
+    "gemini": "Gemini",
     "collection": "Model Collection" 
 }
   
