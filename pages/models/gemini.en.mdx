@@ -1,4 +1,4 @@
-# Gemini
+# Getting Started with Gemini
 
 import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
@@ -9,6 +9,7 @@ import GEMINI4 from '../../img/gemini/gemini-2.png'
 import GEMINI5 from '../../img/gemini/gemini-3.png'
 import GEMINI6 from '../../img/gemini/gemini-6.png'
 import GEMINI7 from '../../img/gemini/gemini-7.png'
+import GEMINI8 from '../../img/gemini/gemini-8.png'
 
 In this guide, we provide an overview of the Gemini models and how to effectively prompt and use them. The guide also includes capabilities, tips, applications, limitations, papers, and additional reading materials related to the Gemini models.
 
@@ -48,12 +49,52 @@ The Gemini models are trained on a sequence length of 32K and are found to retri
 
 The instruction-tuned Gemini models are consistently preferred by human evaluators on important capabilities such as instruction following, creative writing, and safety.
 
-
 ## Gemini Multimodal Reasoning Capabilities
 
 Gemini is trained natively multimodal and exhibits the ability to combine capabilities across modalities with the reasoning capabilities of the language model. Capabilities include but not limited to information extraction from tables, charts, and figures. Other interesting capabilities include discerning fine-grained details from inputs, aggregating context across space and time, and combining information across different modalities. 
 
 Gemini consistently outperforms existing approaches across image understanding tasks such as high-level object recognition, fine-grained transcription, chart understanding, and multimodal reasoning. Some of the image understanding and generation capabilities also transfer across a diverse set of global language (e.g., generating image descriptions using languages like Hindi and Romanian).
+
+
+### Text Summarization
+
+While Gemini is trained as a multimodal system it possess many of the capabilities present in modern large language models like GPT-3.5, Claude, and Llama. Below is an example of a simple text summarization task using Gemini Pro. We are using [Google AI Studio](https://ai.google.dev) for this example with a temperature value of 0.
+
+Prompt:
+```
+Your task is to summarize an abstract into one sentence. 
+
+Avoid technical jargon and explain it in the simplest of words.
+
+Abstract: Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.
+```
+
+Gemini Pro Output:
+
+```
+Antibiotics are medicines used to kill or stop the growth of bacteria causing infections, but they don't work against viruses.
+```
+
+Here is the screenshot of how the task and model response (highlighted) looks inside Google AI Studio. 
+
+<Screenshot src={GEMINI8} alt="GEMINI8" />
+
+### Information Extraction
+
+Here is another example of a task that analyzes a piece of text and extracts the desired information. Keep in mind that this is using zero-shot prompting so the result is not perfect but the model is performing relatively well. 
+
+Prompt:
+```
+Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\"model_name\"]. If you don't find model names in the abstract or you are not sure, return [\"NA\"]
+
+Abstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…
+```
+
+Gemini Pro Output:
+
+```
+[\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
+```
 
 ### Verifying and Correcting
 
@@ -85,10 +126,63 @@ The Gemini models also show the ability to process a sequence of audio and image
 
 <Screenshot src={GEMINI7} alt="GEMINI7" />
 
-## Gemini Generalist Coding Agent
+### Gemini Generalist Coding Agent
 
 Gemini is also used to build a generalist agent called [AlphaCode 2](https://storage.googleapis.com/deepmind-media/AlphaCode2/AlphaCode2_Tech_Report.pdf) that combines it's reasoning capabilities with search and tool-use to solve competitive programming problems. AlphaCode 2 ranks within the top 15% of entrants on the Codeforces competitive programming platform.
 
+## Library Usage
+
+Below is a simple example that demonstrates how to prompt the Gemini Pro model using the Gemini API. You need install the `google-generativeai` library and obtain an API Key from Google AI Studio. The example below is the code to run the same information extraction task used in the sections above. 
+
+```python
+"""
+At the command line, only need to run once to install the package via pip:
+
+$ pip install google-generativeai
+"""
+
+import google.generativeai as genai
+
+genai.configure(api_key="YOUR_API_KEY")
+
+# Set up the model
+generation_config = {
+  "temperature": 0,
+  "top_p": 1,
+  "top_k": 1,
+  "max_output_tokens": 2048,
+}
+
+safety_settings = [
+  {
+    "category": "HARM_CATEGORY_HARASSMENT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+  {
+    "category": "HARM_CATEGORY_HATE_SPEECH",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+  {
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+  {
+    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  }
+]
+
+model = genai.GenerativeModel(model_name="gemini-pro",
+                              generation_config=generation_config,
+                              safety_settings=safety_settings)
+
+prompt_parts = [
+  "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca… [\\\"LLMs\\\", \\\"ChatGPT\\\", \\\"GPT-4\\\", \\\"Chinese LLaMA\\\", \\\"Alpaca\\\"]",
+]
+
+response = model.generate_content(prompt_parts)
+print(response.text)
+```
 
 ## References
 
