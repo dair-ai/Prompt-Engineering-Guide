@@ -1,12 +1,12 @@
 # LLM Settings
 
-When working with prompts, you interact with the LLM via an API or directly. You can configure a few parameters to get different results for your prompts. 
+When designing and testing prompts, you typically interact with the LLM via an API. You can configure a few parameters to get different results for your prompts. Tweaking these settings are important to improve reliability and desirability of responses and it takes experimentation to figure out the proper settings for your use cases. Below are the common settings you will come across when using different LLM providers:
 
 **Temperature** - In short, the lower the `temperature`, the more deterministic the results in the sense that the highest probable next token is always picked. Increasing temperature could lead to more randomness, which encourages more diverse or creative outputs. You are essentially increasing the weights of the other possible tokens. In terms of application, you might want to use a lower temperature value for tasks like fact-based QA to encourage more factual and concise responses. For poem generation or other creative tasks, it might be beneficial to increase the temperature value.
 
 **Top_p** - Similarly, with `top_p`, a sampling technique with temperature called nucleus sampling, you can control how deterministic the model is at generating a response. If you are looking for exact and factual answers keep this low. If you are looking for more diverse responses, increase to a higher value. 
 
-The general recommendation is to alter temperature or top_p, not both.
+The general recommendation is to alter temperature or `top_p`, not both.
 
 **Max Length** - You can manage the number of tokens the model generates by adjusting the 'max length'. Specifying a max length helps you prevent long or irrelevant responses and control costs.
 
