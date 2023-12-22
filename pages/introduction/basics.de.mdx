@@ -1,0 +1,115 @@
+# Grundlagen des Promptings
+
+## Grundlegende Prompts
+
+Mit einfachen Prompts können Sie viel erreichen, aber die Qualität der Ergebnisse hängt davon ab, wie viele Informationen Sie bereitstellen und wie gut diese formuliert sind. Ein Prompt kann Informationen wie die *Anweisung* oder *Frage* enthalten, die Sie an das Modell weitergeben, und weitere Details wie *Kontext*, *Eingaben* oder *Beispiele* umfassen. Sie können diese Elemente nutzen, um das Modell besser zu instruieren und als Ergebnis bessere Resultate zu erzielen.
+
+Beginnen wir mit einem grundlegenden Beispiel für einen einfachen Prompt:
+
+*Prompt*
+
+```md
+Der Himmel ist
+```
+
+*Ausgabe:*
+```md
+blau
+
+Der Himmel ist blau an einem klaren Tag. An einem bewölktem Tag kann der Himmel grau oder weiß sein.
+```
+
+Wie Sie sehen können, produziert das Sprachmodell eine Fortsetzung der Zeichenkette, die angesichts des Kontextes `"Der Himmel ist"` Sinn macht. Die Ausgabe kann unerwartet oder weit entfernt von der Aufgabe sein, die Sie erreichen wollen.
+
+Dieses grundlegende Beispiel unterstreicht auch die Notwendigkeit, mehr Kontext oder Anweisungen darüber zu geben, was genau Sie erreichen möchten.
+
+Versuchen wir es ein wenig zu verbessern:
+
+*Prompt:*
+```
+Vervollständige diesen Satz:
+
+Der Himmel ist
+```
+
+*Ausgabe:*
+
+```
+heute so schön.
+```
+
+Ist das besser? Nun, Sie haben das Modell angewiesen, den Satz zu vervollständigen, also sieht das Ergebnis viel besser aus, da es genau dem folgt, was Sie ihm gesagt haben ("Vervollständige diesen Satz"). Dieser Ansatz, optimale Prompts zu gestalten, um das Modell zur Ausführung einer Aufgabe zu instruieren, wird als **Prompt Engineering** bezeichnet.
+
+Das oben gezeigte Beispiel ist eine grundlegende Veranschaulichung dessen, was heute mit LLMs möglich ist. Die heutigen LLMs sind in der Lage, alle Arten von fortgeschrittenen Aufgaben zu erfüllen, von der Textzusammenfassung über mathematische Argumentation bis hin zur Codegenerierung.
+
+## Prompt-Formatierung
+
+Sie haben oben bereits einen sehr einfachen Prompt ausprobiert. Ein Standard-Prompt hat das folgende Format:
+
+```
+<Frage>?
+```
+
+oder 
+
+```
+<Anweisung>
+```
+ 
+Sie können dies in ein Frage-Antwort-Format umformen, das in vielen QA-Datensätzen Standard ist, wie folgt:
+
+```
+Q: <Frage>?
+A: 
+```
+
+Wenn man so promptet, wie oben, wird es auch als *Zero-Shot Prompting* bezeichnet, d.h., Sie fordern das Modell direkt ohne jegliche Beispiele oder Demonstrationen für die Aufgabe auf, eine Antwort zu geben. Einige große Sprachmodelle haben die Fähigkeit, Zero-Shot Prompting durchzuführen, aber das hängt von der Komplexität und dem Wissen über die jeweilige Aufgabe ab.
+
+Angesichts des obigen Standardformats ist eine beliebte und effektive Technik beim Prompting als *Few-Shot Prompting* bekannt, bei der Sie Beispiele (d.h. Demonstrationen) bereitstellen. Sie können Few-Shot Prompts wie folgt formatieren:
+
+```
+<Frage>?
+<Antwort>
+
+<Frage>?
+<Antwort>
+
+<Frage>?
+<Antwort>
+
+<Frage>?
+
+```
+
+Die QA-Format-Version würde so aussehen:
+
+```
+Q: <Frage>?
+A: <Antwort>
+
+Q: <Frage>?
+A: <Antwort>
+
+Q: <Frage>?
+A: <Antwort>
+
+Q: <Frage>?
+A:
+```
+
+Beachten Sie, dass die QA-Formatierung nicht erforderlich ist. Das Format des Prompts hängt von der jeweiligen Aufgabe ab. Beispielsweise können Sie eine einfache Klassifizierungsaufgabe durchführen und Beispiele geben, die die Aufgabe veranschaulichen, wie folgt:
+
+*Prompt:*
+```
+Das ist toll! // Positiv
+Das ist schlecht! // Negativ
+Wow, der Film war klasse! // Positiv
+Was für eine fürchterliche Vorstellung! //
+```
+
+*Ausgabe:*
+```
+Negativ
+```
+
+Few-Shot Prompts ermöglichen das in-context learning, also die Fähigkeit von Sprachmodellen, Aufgaben anhand einiger Demonstrationen zu erlernen.

@@ -1,0 +1,111 @@
+# Chain-of-Thought Prompting
+
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+import AUTOCOT from '../../img/auto-cot.png'
+
+## Chain-of-Thought (CoT) Prompting
+
+<Screenshot src={COT} alt="CoT" />
+
+Bildquelle: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+
+Eingeführt in [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), ermöglicht Chain-of-Thought (CoT) Prompting komplexe Schlussfolgerungsfähigkeiten durch Zwischenschritte im Denkprozess. Sie können es mit Few-Shot-Prompting kombinieren, um bessere Ergebnisse bei komplexeren Aufgaben zu erzielen, die eine Schlussfolgerung vor der Beantwortung erfordern.
+
+*Prompt:*
+```
+Die ungeraden Zahlen in dieser Gruppe ergeben eine gerade Zahl: 4, 8, 9, 15, 12, 2, 1.
+A: Die Addition aller ungeraden Zahlen (9, 15, 1) ergibt 25. Die Antwort ist falsch.
+
+Die ungeraden Zahlen in dieser Gruppe ergeben eine gerade Zahl: 17,  10, 19, 4, 8, 12, 24.
+A: Die Addition aller ungeraden Zahlen (17, 19) ergibt 36. Die Antwort ist wahr.
+
+Die ungeraden Zahlen in dieser Gruppe ergeben eine gerade Zahl: 16,  11, 14, 4, 8, 13, 24.
+A: Die Addition aller ungeraden Zahlen (11, 13) ergibt 24. Die Antwort ist wahr.
+
+Die ungeraden Zahlen in dieser Gruppe ergeben eine gerade Zahl: 17,  9, 10, 12, 13, 4, 2.
+A: Die Addition aller ungeraden Zahlen (17, 9, 13) ergibt 39. Die Antwort ist falsch.
+
+Die ungeraden Zahlen in dieser Gruppe ergeben eine gerade Zahl: 15, 32, 5, 13, 82, 7, 1. 
+A:
+```
+
+*Ausgabe:*
+```
+Die Addition aller ungeraden Zahlen (15, 5, 13, 7, 1) ergibt 41. Die Antwort ist falsch.
+```
+
+Wow! Wir sehen ein perfektes Ergebnis, sobald wir den Denkprozessschritt bereitgestellt haben. Tatsächlich können wir diese Aufgabe lösen, indem wir noch weniger Beispiele geben, d. h. ein einziges Beispiel scheint auszureichen:
+
+*Prompt:*
+```
+Die ungeraden Zahlen in dieser Gruppe ergeben eine gerade Zahl: 4, 8, 9, 15, 12, 2, 1.
+A: Die Addition aller ungeraden Zahlen (9, 15, 1) ergibt 25. Die Antwort ist Falsch.
+
+Die ungeraden Zahlen in dieser Gruppe ergeben eine gerade Zahl: 15, 32, 5, 13, 82, 7, 1. 
+A:
+```
+
+*Ausgabe:*
+```
+Die Addition aller ungeraden Zahlen (15, 5, 13, 7, 1) ergibt 41. Die Antwort ist Falsch.
+```
+
+Behalten Sie im Hinterkopf, dass die Autoren behaupten, dass dies eine emergente Fähigkeit ist, die in ausreichend großen Sprachmodellen entsteht.
+
+## Zero-shot CoT Prompting
+
+<Screenshot src={ZEROCOT} alt="Zero-shot CoT" />
+
+Bildquelle: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+
+Eine kürzlich aufgekommene Idee ist die Idee des [Zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022), die im Wesentlichen das Hinzufügen von "Lass uns Schritt für Schritt denken" zum ursprünglichen Prompt umfasst. Versuchen wir ein einfaches Problem um zu sehen, wie das Modell abschneidet:
+
+*Prompt:*
+```
+Ich ging auf den Markt und kaufte 10 Äpfel. Ich gab 2 Äpfel an den Nachbarn und 2 an den Handwerker. Dann ging ich und kaufte 5 weitere Äpfel und aß 1. Wie viele Äpfel blieben mir übrig?
+```
+
+*Ausgabe:*
+```
+11 Äpfel
+```
+
+Die Antwort ist falsch! Jetzt versuchen wir es mit dem speziellen Prompt.
+
+*Prompt:*
+```
+Ich ging auf den Markt und kaufte 10 Äpfel. Ich gab 2 Äpfel an den Nachbarn und 2 an den Handwerker. Dann ging ich und kaufte 5 weitere Äpfel und aß 1. Wie viele Äpfel blieben mir übrig?
+
+Lass uns Schritt für Schritt denken.
+```
+
+*Ausgabe:*
+```
+Zuerst hatten Sie 10 Äpfel.
+Sie gaben 2 Äpfel an den Nachbarn und 2 an den Handwerker, also blieben Ihnen 6 Äpfel übrig.
+Dann kauften Sie 5 weitere Äpfel, also hatten Sie nun 11 Äpfel.
+Schließlich aßen Sie 1 Apfel, also würden Ihnen 10 Äpfel bleiben.
+```
+
+Es ist beeindruckend, dass dieser einfache Prompt bei dieser Aufgabe wirkungsvoll ist. Dies ist besonders nützlich, wenn Sie nicht zu viele Beispiele im Prompt verwenden können.
+
+## Automatisches Chain-of-Thought (Auto-CoT)
+
+Beim Anwenden von Chain-of-Thought-Prompting mit Demonstrationen beinhaltet der Prozess die handwerkliche Erstellung von effektiven und vielfältigen Beispielen. Diese manuelle Anstrengung könnte zu suboptimalen Lösungen führen. [Zhang et al. (2022)](https://arxiv.org/abs/2210.03493) schlagen einen Ansatz vor, um manuelle Anstrengungen zu eliminieren, indem LLMs mit dem Prompt "Lass uns Schritt für Schritt denken" verwendet werden, um Schlussfolgerungsketten für Demonstrationen nacheinander zu generieren. Dieser automatische Prozess kann immer noch mit Fehlern in generierten Ketten enden. Um die Auswirkungen der Fehler zu mildern, ist die Vielfalt der Demonstrationen wichtig. Dieses Werk schlägt Auto-CoT vor, was Fragen mit Vielfalt auswählt und Schlussfolgerungsketten generiert, um die Demonstrationen zu konstruieren.
+
+Auto-CoT besteht aus zwei Hauptphasen:
+
+- Phase 1): **Frageklassifizierung**: Einteilung der Fragen eines gegebenen Datensatzes in einige Cluster
+- Phase 2): **Demonstrationsauswahl**: Auswahl einer repräsentativen Frage aus jedem Cluster und Generierung ihrer Schlussfolgerungskette unter Verwendung von Zero-Shot-CoT mit einfachen Heuristiken
+
+Die einfachen Heuristiken könnten die Länge der Fragen (z. B. 60 Tokens) und die Anzahl der Schritte in der Begründung (z. B. 5 Schlussfolgerungsschritte) sein. Dies ermutigt das Modell, einfache und genaue Demonstrationen zu verwenden.
+
+Der Prozess wird unten veranschaulicht:
+
+<Screenshot src={AUTOCOT} alt="AUTOCOT" />
+
+Bildquelle: [Zhang et al. (2022)](https://arxiv.org/abs/2210.03493)
+
+Der Code für Auto-CoT ist verfügbar [hier](https://github.com/amazon-science/auto-cot).

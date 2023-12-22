@@ -1,0 +1,79 @@
+# Selbstkonsistenz
+
+Vielleicht ist eine der fortgeschrittensten Techniken im Bereich des Prompt-Engineerings die Selbstkonsistenz. Vorgeschlagen von [Wang et al. (2022)](https://arxiv.org/abs/2203.11171), zielt Selbstkonsistenz darauf ab, "das naive gierige Decoding, das beim Chain-of-Thought Prompting verwendet wird, zu ersetzen". Die Idee ist es, mehrere unterschiedliche Argumentationswege durch wenig-shot CoT zu erzeugen und die Generierungen zu nutzen, um die konsistenteste Antwort auszuwählen. Dies hilft dabei, die Leistung von CoT-Prompting bei Aufgaben zu erhöhen, die arithmetisches und alltagslogisches Denken erfordern.
+
+Versuchen wir das folgende Beispiel für arithmetisches Denken:
+
+*Prompt:*
+```
+Als ich 6 war, war meine Schwester halb so alt wie ich. Jetzt
+bin ich 70, wie alt ist meine Schwester?
+```
+
+*Output:*
+```
+35
+```
+
+Die Ausgabe ist falsch! Wie könnten wir das mit Selbstkonsistenz verbessern? Lassen Sie es uns ausprobieren. Wir werden die Exemplare aus Wang et al. 2022 (Tabelle 17) verwenden:
+
+*Prompt:*
+```
+Q: Es gibt 15 Bäume in der Plantage. Heute werden Plantagenarbeiter Bäume pflanzen. Danach werden es
+21 Bäume sein. Wie viele Bäume haben die Plantagenarbeiter heute gepflanzt?
+A: Wir starten mit 15 Bäumen. Später haben wir 21 Bäume. Die Differenz muss die Anzahl der gepflanzten
+Bäume sein. Also haben sie 21 - 15 = 6 Bäume gepflanzt. Die Antwort ist 6.
+
+Q: Wenn sich 3 Autos auf dem Parkplatz befinden und 2 weitere Autos ankommen, wie viele Autos sind jetzt
+auf dem Parkplatz?
+A: Auf dem Parkplatz sind bereits 3 Autos. 2 kommen dazu. Nun gibt es 3 + 2 = 5 Autos. Die Antwort ist 5.
+
+Q: Leah hatte 32 Pralinen und ihre Schwester 42. Wenn sie 35 essen, wie viele Stücke haben sie dann
+insgesamt noch?
+A: Leah hatte 32 Pralinen und Leahs Schwester 42. Das heißt, ursprünglich waren es 32 + 42 = 74
+Pralinen. 35 wurden gegessen. Also bleiben insgesamt noch 74 - 35 = 39 Pralinen übrig. Die Antwort ist 39.
+
+Q: Jason hatte 20 Lollipops. Er hat Denny einige Lollipops gegeben. Jetzt hat Jason noch 12 Lollipops. Wie viele
+Lollipops hat Jason an Denny gegeben?
+A: Jason hatte 20 Lollipops. Da er jetzt nur noch 12 hat, muss er den Rest Denny gegeben haben. Die Anzahl
+der Lollipops, die er Denny gegeben hat, muss also 20 - 12 = 8 Lollipops sein. Die Antwort ist 8.
+
+Q: Shawn hat fünf Spielzeuge. Zu Weihnachten bekam er von seiner Mutter und seinem Vater jeweils zwei
+Spielzeuge. Wie viele Spielzeuge hat er jetzt?
+A: Er hat 5 Spielzeuge. Er bekam 2 von der Mutter, also hat er danach 5 + 2 = 7 Spielzeuge. Dann bekam er
+noch 2 vom Vater, also hat er insgesamt 7 + 2 = 9 Spielzeuge. Die Antwort ist 9.
+
+Q: Im Serverraum waren neun Computer. Von Montag bis Donnerstag wurden jeden Tag fünf weitere
+Computer installiert. Wie viele Computer sind jetzt im Serverraum?
+A: Es gibt 4 Tage von Montag bis Donnerstag. Jeden Tag wurden 5 Computer hinzugefügt. Das bedeutet,
+insgesamt wurden 4 * 5 = 20 Computer hinzugefügt. Ursprünglich waren es 9 Computer, also gibt es jetzt 9 +
+20 = 29 Computer. Die Antwort ist 29.
+
+Q: Michael hatte 58 Golfbälle. Am Dienstag verlor er 23 Golfbälle. Am Mittwoch verlor er weitere 2. Wie viele
+Golfbälle hatte er am Ende des Mittwochs?
+A: Michael hatte ursprünglich 58 Bälle. Am Dienstag verlor er 23, also hatte er danach 58 - 23 = 35 Bälle. Am
+Mittwoch verlor er 2 weitere, also hat er nun 35 - 2 = 33 Bälle. Die Antwort ist 33.
+
+Q: Olivia hat 23 $. Sie kaufte fünf Bagels für je 3 $. Wie viel Geld bleibt ihr übrig?
+A: Sie kaufte 5 Bagels für je 3 $. Das bedeutet, sie gab 15 $ aus. Ihr bleiben 8 $ übrig.
+
+Q: Als ich 6 war, war meine Schwester halb so alt wie ich. Jetzt bin ich 70, wie alt ist meine Schwester?
+A:
+```
+
+*Output 1:*
+```
+Als ich 6 war, war meine Schwester halb so alt wie ich, also war sie 3. Jetzt bin ich 70, also ist sie 70 - 3 = 67. Die Antwort ist 67.
+```
+
+*Output 2:*
+```
+Als der Erzähler 6 war, war seine Schwester halb so alt, das heißt, sie war 3. Jetzt, da der Erzähler 70 ist, würde seine Schwester 70 - 3 = 67 Jahre alt sein. Die Antwort ist 67.
+```
+
+*Output 3:*
+```
+Als ich 6 war, war meine Schwester halb so alt wie ich, also war sie 3. Jetzt bin ich 70, also ist sie 70/2 = 35. Die Antwort ist 35.
+```
+
+Die Berechnung der endgültigen Antwort erfordert einige Schritte (weitere Details finden Sie in der Studie), aber für die Einfachheit können wir sehen, dass sich bereits eine Mehrheitsantwort abzeichnet, sodass dies im Wesentlichen die endgültige Antwort werden würde.
