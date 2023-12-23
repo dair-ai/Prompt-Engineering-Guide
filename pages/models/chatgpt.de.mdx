@@ -1,22 +1,20 @@
 # ChatGPT Prompt-Engineering
 
-import { Callout, FileTree } from 'nextra-theme-docs'
-import {Screenshot} from 'components/screenshot'
-import CHATGPT1 from '../../img/chatgpt-1.png'
-import CHATGPTCLASSIC from '../../img/chatgpt-classic.png'
+import { Callout, FileTree } from 'nextra-theme-docs';
+import { Screenshot } from 'components/screenshot';
+import CHATGPT1 from '../../img/chatgpt-1.png';
+import CHATGPTCLASSIC from '../../img/chatgpt-classic.png';
 
 In diesem Abschnitt behandeln wir die neuesten Techniken des Prompt-Engineerings für ChatGPT, einschließlich Tipps, Anwendungen, Grenzen, wissenschaftlichen Arbeiten und weiterführenden Lesestoffen.
 
-<Callout emoji="⚠️">
-  Dieser Abschnitt befindet sich noch in intensiver Entwicklung.
-</Callout>
-
 Themen:
+
 - [Einführung in ChatGPT](#chatgpt-introduction)
 - [Überprüfung der Konversationsaufgabe](#reviewing-the-conversation-task)
 - [Gespräche mit ChatGPT](#conversations-with-chatgpt)
 
 ---
+
 ## Einführung in ChatGPT
 
 ChatGPT ist ein neues Modell, [trainiert von OpenAI](https://openai.com/blog/chatgpt), das die Fähigkeit besitzt, auf konversationelle Weise zu interagieren. Dieses Modell wurde darauf trainiert, Anweisungen in einem Prompt zu folgen, um angemessene Antworten im Kontext eines Dialogs zu liefern. ChatGPT kann dabei helfen, Fragen zu beantworten, Rezeptvorschläge zu machen, Liedtexte in einem bestimmten Stil zu schreiben, Code zu generieren und vieles mehr.
@@ -26,13 +24,15 @@ ChatGPT wird mit Reinforcement Learning from Human Feedback (RLHF) trainiert. Ob
 Sie können die Forschungsvorschau von ChatGPT [hier](https://chat.openai.com) verwenden, aber für die nachfolgenden Beispiele werden wir den `Chat`-Modus im OpenAI Playground nutzen.
 
 ---
+
 ## Überprüfung der Konversationsaufgabe
 
 In einem der vorhergehenden Leitfäden haben wir ein wenig über die Konversationsfähigkeiten und das Role Prompting gesprochen. Wir haben erörtert, wie man das LLM anweist, ein Gespräch in einem bestimmten Stil, mit einer bestimmten Absicht, Verhalten und Identität zu führen.
 
 Lassen Sie uns unser vorheriges grundlegendes Beispiel überprüfen, in dem wir ein Konversationssystem erstellt haben, das in der Lage ist, auf Fragen technischere und wissenschaftlichere Antworten zu generieren.
 
-*Prompt:*
+_Prompt:_
+
 ```
 Das Folgende ist ein Gespräch mit einem KI-Forschungsassistenten. Der Assistententen ist technisch und wissenschaftlich.
 
@@ -43,6 +43,7 @@ KI:
 ```
 
 Anhand des obigen Beispiels können Sie zwei wichtige Komponenten erkennen:
+
 - die **Absicht** oder Erklärung, was der Chatbot ist
 - die **Identität**, welche den Stil oder Ton instruiert, den der Chatbot zur Beantwortung verwenden wird
 
@@ -51,13 +52,15 @@ Das einfache Beispiel oben funktioniert gut mit den Text-Completion-APIs, die `t
 Große Unternehmen wie Snap Inc. und Instacart integrieren bereits konversationelle Funktionen, die von ChatGPT angetrieben werden, in ihre Produkte, die von personalisierten Empfehlungen bis hin zu offenen Einkaufszielen reichen.
 
 ---
+
 ## Gespräche mit ChatGPT
 
 ### Mehrschrittige Konversationen
 
 Um die Fähigkeiten von ChatGPT zu demonstrieren, werden wir das Chatbot-Assistenten-Beispiel von oben verwenden und die Ergebnisse diskutieren. Im Vergleich zu `text-davinci-003` verwendet das `gpt-3.5-turbo` Modell, das ChatGPT antreibt, ein Chat-Format als Eingabe. Das Modell erwartet eine Reihe von Nachrichten als Eingabe und verwendet diese, um eine Antwort zu generieren.
 
-*Eingabe:*
+_Eingabe:_
+
 ```
 SYSTEM: Du bist ein KI-Forschungsassistent. Du verwendest einen Ton, der technisch und wissenschaftlich ist.
 BENUTZER: Hallo, wer bist du?
@@ -65,7 +68,8 @@ ASSISTENT: Grüße! Ich bin ein KI-Forschungsassistent. Wie kann ich Ihnen heute
 BENUTZER: Kannst du mir über die Entstehung von schwarzen Löchern berichten?
 ```
 
-*Ausgabe:*
+_Ausgabe:_
+
 ```
 ASSISTENT: Natürlich! Schwarze Löcher entstehen, wenn ein massiver Stern keinen Treibstoff mehr hat und unter seiner eigenen Gravitation kollabiert. Dieser Kollaps führt dazu, dass der Stern unglaublich dicht wird, mit einem Gravitationsfeld so stark, dass nicht einmal Licht ihm entkommen kann. Dieser Punkt ohne Wiederkehr ist als Ereignishorizont bekannt. Sobald ein Stern den Ereignishorizont überschreitet, wird er als schwarzes Loch betrachtet...
 ```
@@ -89,13 +93,15 @@ openai.ChatCompletion.create(
     ]
 )
 ```
+
 Tatsächlich wird erwartet, dass die Art und Weise, wie Entwickler in Zukunft mit ChatGPT interagieren, über die [Chat Markup Language](https://github.com/openai/openai-python/blob/main/chatml.md) (kurz ChatML) erfolgen wird.
 
 ### Einzelschritt-Aufgaben
 
 Das Chat-Format ermöglicht mehrschrittige Konversationen, aber es unterstützt auch Einzelschritt-Aufgaben, ähnlich wie wir es mit `text-davinci-003` verwendet haben. Das bedeutet, dass wir ChatGPT für ähnliche Aufgaben verwenden können, wie wir sie für die ursprünglichen GPT-Modelle demonstriert haben. Versuchen wir beispielsweise, die folgende Frage-Antwort-Aufgabe mithilfe von ChatGPT durchzuführen:
 
-*Eingabe:*
+_Eingabe:_
+
 ```
 BENUTZER: Beantworte die Frage basierend auf dem Kontext unten. Halte die Antwort kurz und prägnant. Antworte "Unsicher über Antwort", wenn du dir nicht sicher über die Antwort bist.
 
@@ -106,7 +112,8 @@ Frage: Woraus wurde OKT3 ursprünglich gewonnen?
 Antwort:
 ```
 
-*Ausgabe:*
+_Ausgabe:_
+
 ```
 ASSISTENT: Mäuse.
 ```
@@ -143,6 +150,7 @@ Laut der offiziellen OpenAI-Dokumentation werden auch Snapshots des `gpt-3.5-tur
 Die aktuelle Empfehlung für `gpt-3.5-turbo-0301` besteht darin, Anweisungen in der `user`-Nachricht hinzuzufügen, anstatt in der verfügbaren `system`-Nachricht.
 
 ---
+
 ## Referenzen
 
 - [Column Type Annotation using ChatGPT](https://arxiv.org/abs/2306.00745) (Juni 2023)
@@ -292,4 +300,3 @@ Die aktuelle Empfehlung für `gpt-3.5-turbo-0301` besteht darin, Anweisungen in 
 - [Techniques to improve reliability - OpenAI Cookbook](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md)
 - [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 - [Introducing ChatGPT](https://openai.com/blog/chatgpt) (Nov 2022)
-
