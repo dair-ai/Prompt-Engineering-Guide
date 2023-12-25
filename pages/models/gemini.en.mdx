@@ -10,6 +10,9 @@ import GEMINI5 from '../../img/gemini/gemini-3.png'
 import GEMINI6 from '../../img/gemini/gemini-6.png'
 import GEMINI7 from '../../img/gemini/gemini-7.png'
 import GEMINI8 from '../../img/gemini/gemini-8.png'
+import GEMINI9 from '../../img/gemini/pe-guide.png'
+import GEMINI10 from '../../img/gemini/prompt-webqa-1.png'
+import GEMINI11 from '../../img/gemini/prompt-webqa-2.png'
 
 In this guide, we provide an overview of the Gemini models and how to effectively prompt and use them. The guide also includes capabilities, tips, applications, limitations, papers, and additional reading materials related to the Gemini models.
 
@@ -96,6 +99,21 @@ Gemini Pro Output:
 [\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
 ```
 
+
+### Visual Question Answering
+
+Visual question answering involves asking the model questions about an image passed as input. The Gemini models show different multimodal reasoning capabilities for image understanding over charts, natural images, memes, and many other types of images. In the example below, we provide the model (Gemini Pro Vision accessed via Google AI Studio) a text instruction and an image which represents a snapshot of this prompt engineering guide. 
+
+The model responds "The title of the website is "Prompt Engineering Guide"." which seems like the correct answer based on the question given. 
+
+<Screenshot src={GEMINI10} alt="GEMINI10" />
+
+Here is another example with a different input question. Google AI Studio allows you to test with different inputs by click on the `{{}} Test input` option above. You can then add the prompts you are testing in the table below. 
+
+<Screenshot src={GEMINI11} alt="GEMINI11" />
+
+Feel free to experiment by uploading your own image and asking questions. It's reported that Gemini Ultra can do a lot better at these types of tasks. This is something we will experiment more with when the model is made available.
+
 ### Verifying and Correcting
 
 Gemini models display impressive crossmodal reasoning capabilities. For instance, the figure below demonstrates a solution to a physics problem drawn by a teacher (left). Gemini is then prompted to reason about the question and explain where the student went wrong in the solution if they did so. The model is also instructed to solve the problem and use LaTeX for the math parts. The response (right) is the solution provided by the model which explains the problem and solution with details. 
@@ -177,11 +195,16 @@ model = genai.GenerativeModel(model_name="gemini-pro",
                               safety_settings=safety_settings)
 
 prompt_parts = [
-  "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca… [\\\"LLMs\\\", \\\"ChatGPT\\\", \\\"GPT-4\\\", \\\"Chinese LLaMA\\\", \\\"Alpaca\\\"]",
+  "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…",
 ]
 
 response = model.generate_content(prompt_parts)
 print(response.text)
+```
+
+The output is the same as before:
+```
+[\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
 ```
 
 ## References
