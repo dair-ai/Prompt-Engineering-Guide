@@ -11,7 +11,7 @@ import GEMINI6 from '../../img/gemini/gemini-6.png'
 import GEMINI7 from '../../img/gemini/gemini-7.png'
 import GEMINI8 from '../../img/gemini/gemini-8.png'
 
-本章概述了Gemini模型和如何有效地编写提示词使用这些模型。本章也包括了有关Gemini模型的功能，技巧，应用，限制，论文和其他阅读材料。
+本章概述了Gemini模型和如何有效地编写提示使用这些模型。本章也包括了有关Gemini模型的功能，技巧，应用，限制，论文和其他阅读材料。
 
 ## Gemini简介
 
@@ -59,7 +59,7 @@ Gemini在图像理解任务，例如高级目标检测（high-level object recog
 
 虽然Gemini是作为多模态系统进行训练的，但它拥有现代大语言模型（如GPT-3.5、Claude和Llama）中存在的许多功能。以下是使用Gemini Pro实现简单文本摘要任务的示例。本例中我们使用[Google AI Studio](https://ai.google.dev)，温度值（temperature）为0。
 
-提示词:
+提示:
 ```
 Your task is to summarize an abstract into one sentence.
 
@@ -82,7 +82,7 @@ Google AI Studio里的任务和模型响应（高亮）截图
 
 接下来的示例是一个分析一段文本并提取所需信息的任务。注意，本例使用零样本提示，因此结果并不完美，但模型的性能相对较好。
 
-提示词:
+提示:
 ```
 Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\"model_name\"]. If you don't find model names in the abstract or you are not sure, return [\"NA\"]
 
@@ -103,7 +103,7 @@ Gemini模型展示了令人印象深刻的跨模态推理能力。例如，下�
 
 ### 重新排列图表 
 
-以下是技术报告中的另一个有趣的示例，展示了基于Gemini的多模态推理能力生成用于重新排列subplots的matplotlib代码。左上角展示的是多模态提示词，生成的代码显示在右侧，代码渲染显示在左下角。该模型利用多种功能来解决任务，例如，识别，代码生成，subplot位置的抽象推理以及按照指示以将subplot重新排列在所需位置。
+以下是技术报告中的另一个有趣的示例，展示了基于Gemini的多模态推理能力生成用于重新排列subplots的matplotlib代码。左上角展示的是多模态提示，生成的代码显示在右侧，代码渲染显示在左下角。该模型利用多种功能来解决任务，例如，识别，代码生成，subplot位置的抽象推理以及按照指示以将subplot重新排列在所需位置。
 
 <Screenshot src={GEMINI4} alt="GEMINI4" />
 
@@ -115,7 +115,7 @@ Gemini Ultra在各种少样本（few-shot）视频字幕生成任务和零样本
 
 ### 图像理解
 
-Gemini Ultra也可以基于少样本（few-shot）提示词生成图片。如下例所示，可以使用图像和文本交错的示例提示词，其中用户提供了有关两种颜色和图像建议的信息。然后，模型接受提示词中的最终指令，然后基于它看到的颜色和一些想法做出响应。
+Gemini Ultra也可以基于少样本（few-shot）提示生成图片。如下例所示，可以使用图像和文本交错的示例提示，其中用户提供了有关两种颜色和图像建议的信息。然后，模型接受提示中的最终指令，然后基于它看到的颜色和一些想法做出响应。
 
 <Screenshot src={GEMINI6} alt="GEMINI6" />
 
