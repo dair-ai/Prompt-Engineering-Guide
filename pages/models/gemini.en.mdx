@@ -13,6 +13,8 @@ import GEMINI8 from '../../img/gemini/gemini-8.png'
 import GEMINI9 from '../../img/gemini/pe-guide.png'
 import GEMINI10 from '../../img/gemini/prompt-webqa-1.png'
 import GEMINI11 from '../../img/gemini/prompt-webqa-2.png'
+import GEMINI12 from '../../img/gemini/gemini-few-shot.png'
+import GEMINI13 from '../../img/gemini/gemini-few-shot-2.png'
 
 In this guide, we provide an overview of the Gemini models and how to effectively prompt and use them. The guide also includes capabilities, tips, applications, limitations, papers, and additional reading materials related to the Gemini models.
 
@@ -148,6 +150,30 @@ The Gemini models also show the ability to process a sequence of audio and image
 
 Gemini is also used to build a generalist agent called [AlphaCode 2](https://storage.googleapis.com/deepmind-media/AlphaCode2/AlphaCode2_Tech_Report.pdf) that combines it's reasoning capabilities with search and tool-use to solve competitive programming problems. AlphaCode 2 ranks within the top 15% of entrants on the Codeforces competitive programming platform.
 
+## Few-Shot Prompting with Gemini
+Few-shot prompting is a prompting approach which is useful to indicate to the model the kind of output that you want. This is useful for various scenarios such as when you want the output in a specific format (e.g., JSON object) or style. Google AI Studio also enables this in the interface. Below is an example of how to use few-shot prompting with the Gemini models. 
+
+We are interested in building a simple emotion classifier using Gemini. The first step is to create a "Structured prompt" by clicking on "Create new" or "+". The few-shot prompt will combine your instructions (describing the task) and examples you have provided. The figure below shows the instruction (top) and examples we are passing to the model. You can set the INPUT text and OUTPUT text to have more descriptive indicators. The example below is using "Text:" as input and "Emotion:" as the input and output indicators, respectively. 
+
+<Screenshot src={GEMINI12} alt="GEMINI12" />
+
+The entire combined prompt is the following: 
+
+```
+Your task is to classify a piece of text, delimited by triple backticks, into the following emotion labels: ["anger", "fear", "joy", "love", "sadness", "surprise"]. Just output the label as a lowercase string.
+Text: I feel very angry today
+Emotion: anger
+Text: Feeling thrilled by the good news today.
+Emotion: joy
+Text: I am actually feeling good today.
+Emotion:
+```
+
+You can then test the prompt by adding inputs to under the "Test your prompt" section. We are using the "I am actually feeling good today." example as input and the model correctly outputs the "joy" label after clicking on "Run". See the example in the figure below:
+
+<Screenshot src={GEMINI13} alt="GEMINI13" />
+
+
 ## Library Usage
 
 Below is a simple example that demonstrates how to prompt the Gemini Pro model using the Gemini API. You need install the `google-generativeai` library and obtain an API Key from Google AI Studio. The example below is the code to run the same information extraction task used in the sections above. 
@@ -214,3 +240,5 @@ The output is the same as before:
 - [Welcome to the Gemini era](https://deepmind.google/technologies/gemini/#introduction)
 - [Gemini: A Family of Highly Capable Multimodal Models - Technical Report](https://storage.googleapis.com/deepmind-media/gemini/gemini_1_report.pdf)
 - [Fast Transformer Decoding: One Write-Head is All You Need](https://arxiv.org/abs/1911.02150)
+- [Google AI Studio quickstart](https://ai.google.dev/tutorials/ai-studio_quickstart)
+- [Multimodal Prompts](https://ai.google.dev/docs/multimodal_concepts)
