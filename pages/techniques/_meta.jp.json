@@ -10,6 +10,7 @@
     "ape": "自動プロンプトエンジニア",
     "activeprompt": "アクティブプロンプト",
     "dsp": "方向性刺激プロンプティング",
+    "pal": "Program-Aided Language Models",
     "react": "ReAct",
     "multimodalcot": "マルチモーダルCoT",
     "graph": "グラフプロンプト（GraphPrompts）"

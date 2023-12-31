@@ -10,6 +10,7 @@
     "ape": "Automatic Prompt Engineer",
     "activeprompt": "Active-Prompt",
     "dsp": "Directional Stimulus Prompting",
+    "pal": "Program-Aided Language Models",
     "react": "ReAct",
     "multimodalcot": "Multimodal CoT",
     "graph": "Graph Prompting"

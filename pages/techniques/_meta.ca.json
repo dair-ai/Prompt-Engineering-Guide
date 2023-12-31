@@ -10,6 +10,7 @@
     "ape": "Enginyeria de prompts automàtic (APE)",
     "activeprompt": "Prompt actiu",
     "dsp": "Prompt d'Estímul dirigit",
+    "pal": "Program-Aided Language Models",
     "react": "ReAct",
     "multimodalcot": "Prompt CoT multimodal",
     "graph": "Prompt de graf"

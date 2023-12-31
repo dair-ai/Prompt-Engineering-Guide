@@ -10,6 +10,7 @@
     "ape": "Otomatik İstem Mühendisi",
     "activeprompt": "Aktif-İstem",
     "dsp": "Yönlendirici Uyarı İstemi",
+    "pal": "Program-Aided Language Models",
     "react": "ReAct",
     "multimodalcot": "Çok Modlu CoT İstemi",
     "graph": "Grafik İstemi"
