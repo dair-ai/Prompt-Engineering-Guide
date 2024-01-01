@@ -10,6 +10,9 @@ import GEMINI5 from '../../img/gemini/gemini-3.png';
 import GEMINI6 from '../../img/gemini/gemini-6.png';
 import GEMINI7 from '../../img/gemini/gemini-7.png';
 import GEMINI8 from '../../img/gemini/gemini-8.png';
+import GEMINI9 from '../../img/gemini/pe-guide.png'
+import GEMINI10 from '../../img/gemini/prompt-webqa-1.png'
+import GEMINI11 from '../../img/gemini/prompt-webqa-2.png'
 
 In diesem Leitfaden geben wir Ihnen einen Überblick über die Gemini-Modelle und wie Sie sie effektiv nutzen können. Der Leitfaden beinhaltet auch Funktionen, Tipps, Anwendungen, Grenzen, wissenschaftliche Papiere und zusätzliches Lese- und Informationsmaterial zu den Gemini-Modellen.
 
@@ -97,6 +100,20 @@ Gemini Pro-Ausgabe:
 [\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
 ```
 
+### Visuelle Fragebeantwortung
+
+Visuelle Fragebeantwortung beinhaltet, dem Modell Fragen über ein Bild zu stellen, das als Eingabe übermittelt wird. Die Gemini-Modelle zeigen unterschiedliche multimodale Denkfähigkeiten für das Verständnis von Bildern über Diagramme, natürliche Bilder, Memes und viele andere Arten von Bildern. Im folgenden Beispiel stellen wir dem Modell (Gemini Pro Vision, zugegriffen über Google AI Studio) eine Textanweisung und ein Bild zur Verfügung, das eine Momentaufnahme dieses Leitfadens zum Prompt-Engineering darstellt.
+
+Das Modell antwortet "Der Titel der Webseite ist 'Prompt Engineering Guide'", was angesichts der gestellten Frage die richtige Antwort zu sein scheint.
+
+<Screenshot src={GEMINI10} alt="GEMINI10" />
+
+Hier ist ein weiteres Beispiel mit einer anderen Eingangsfrage. Google AI Studio ermöglicht es Ihnen, mit verschiedenen Eingaben zu experimentieren, indem Sie auf die Option `{{}} Testeingabe` oben klicken. Sie können dann die Prompts, die Sie testen, in der untenstehenden Tabelle hinzufügen.
+
+<Screenshot src={GEMINI11} alt="GEMINI11" />
+
+Fühlen Sie sich frei, zu experimentieren, indem Sie Ihr eigenes Bild hochladen und Fragen stellen. Es wird berichtet, dass Gemini Ultra bei diesen Arten von Aufgaben viel besser abschneiden kann. Dies ist etwas, womit wir weiterhin experimentieren werden, wenn das Modell verfügbar gemacht wird.
+
 ### Verifizierung und Korrektur
 
 Die Gemini-Modelle zeigen beeindruckende fächerübergreifende Denkfähigkeiten. Zum Beispiel zeigt die untenstehende Abbildung eine Lösung für ein physikalisches Problem, die von einem Lehrer gezeichnet wurde (links). Gemini wird dann dazu aufgefordert, über die Frage nachzudenken und zu erklären, wo der Schüler bei der Lösung einen Fehler gemacht hat, falls dies der Fall ist. Das Modell erhält außerdem die Anweisung, das Problem zu lösen und LaTeX für die mathematischen Teile zu verwenden. Die Antwort (rechts) ist die vom Modell bereitgestellte Lösung, welche das Problem und die Lösung detailreich erläutert.
@@ -178,11 +195,16 @@ model = genai.GenerativeModel(model_name="gemini-pro",
                               safety_settings=safety_settings)
 
 prompt_parts = [
-  "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca… [\\\"LLMs\\\", \\\"ChatGPT\\\", \\\"GPT-4\\\", \\\"Chinese LLaMA\\\", \\\"Alpaca\\\"]",
+  "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…",
 ]
 
 response = model.generate_content(prompt_parts)
 print(response.text)
+```
+
+Die Ausgabe ist die gleiche wie zuvor:
+```
+[\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
 ```
 
 ## Referenzen
