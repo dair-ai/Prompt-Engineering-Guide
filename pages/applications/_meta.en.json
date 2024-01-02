@@ -1,4 +1,5 @@
 {
+    "function_calling": "Function Calling",
     "generating": "Generating Data",
     "synthetic_rag": "Generating Synthetic Dataset for RAG",
     "generating_textbooks": "Tackling Generated Datasets Diversity",
