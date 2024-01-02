@@ -1,12 +1,12 @@
 # LLM Einstellungen
 
-Beim Arbeiten mit Prompts interagieren Sie mit dem LLM über eine API oder direkt. Sie können einige Parameter konfigurieren, um unterschiedliche Ergebnisse für Ihre Prompts zu erhalten.
+Beim Entwerfen und Testen von Prompts interagieren Sie normalerweise über eine API mit dem LLM. Sie können einige Parameter konfigurieren, um unterschiedliche Ergebnisse für Ihre Prompts zu erhalten. Das Anpassen dieser Einstellungen ist wichtig, um die Zuverlässigkeit und Erwünschtheit der Antworten zu verbessern, und es bedarf des Experimentierens, um die richtigen Einstellungen für Ihre Anwendungsfälle herauszufinden. Unten finden Sie die gängigen Einstellungen, auf die Sie bei der Verwendung verschiedener LLM-Anbieter stoßen werden:
 
 **Temperature** - Kurz gesagt, je niedriger die `temperature`, desto deterministischer sind die Ergebnisse in dem Sinne, dass immer das wahrscheinlichste nächste Token gewählt wird. Eine Erhöhung der Temperatur kann zu mehr Zufälligkeit führen und damit vielfältigere oder kreativere Ausgaben fördern. Sie erhöhen im Grunde das Gewicht der anderen möglichen Tokens. Im Hinblick auf die Anwendung möchten Sie vielleicht einen niedrigeren Temperaturwert für Aufgaben wie faktenbasierte QA verwenden, um präzisere und knappere Antworten zu fördern. Für die Generierung von Gedichten oder andere kreative Aufgaben könnte es vorteilhaft sein, den Temperaturwert zu erhöhen.
 
 **Top_p** - Ähnlich ist es mit `top_p`, eine Stichprobentechnik mit Temperatur namens _nucleus sampling_. Hiermit können Sie steuern, wie deterministisch das Modell bei der Generierung einer Antwort ist. Wenn Sie nach exakten und faktischen Antworten suchen, halten Sie diesen Wert niedrig. Wenn Sie nach vielfältigeren Antworten suchen, erhöhen Sie ihn auf einen höheren Wert.
 
-Die allgemeine Empfehlung lautet, entweder die Temperatur oder top_p zu verändern, nicht beides.
+Die allgemeine Empfehlung lautet, entweder die Temperatur oder `top_p` zu verändern, nicht beides.
 
 **Maximale Länge** - Sie können die Anzahl der vom Modell generierten Tokens steuern, indem Sie die 'maximale Länge' anpassen. Wenn Sie eine maximale Länge angeben, helfen Sie dabei, lange oder irrelevante Antworten zu verhindern und die Kosten zu kontrollieren.
 
