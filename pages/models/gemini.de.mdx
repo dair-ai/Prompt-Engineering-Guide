@@ -10,6 +10,11 @@ import GEMINI5 from '../../img/gemini/gemini-3.png';
 import GEMINI6 from '../../img/gemini/gemini-6.png';
 import GEMINI7 from '../../img/gemini/gemini-7.png';
 import GEMINI8 from '../../img/gemini/gemini-8.png';
+import GEMINI9 from '../../img/gemini/pe-guide.png'
+import GEMINI10 from '../../img/gemini/prompt-webqa-1.png'
+import GEMINI11 from '../../img/gemini/prompt-webqa-2.png'
+import GEMINI12 from '../../img/gemini/gemini-few-shot.png'
+import GEMINI13 from '../../img/gemini/gemini-few-shot-2.png'
 
 In diesem Leitfaden geben wir Ihnen einen Überblick über die Gemini-Modelle und wie Sie sie effektiv nutzen können. Der Leitfaden beinhaltet auch Funktionen, Tipps, Anwendungen, Grenzen, wissenschaftliche Papiere und zusätzliches Lese- und Informationsmaterial zu den Gemini-Modellen.
 
@@ -97,6 +102,20 @@ Gemini Pro-Ausgabe:
 [\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
 ```
 
+### Visuelle Fragebeantwortung
+
+Visuelle Fragebeantwortung beinhaltet, dem Modell Fragen über ein Bild zu stellen, das als Eingabe übermittelt wird. Die Gemini-Modelle zeigen unterschiedliche multimodale Denkfähigkeiten für das Verständnis von Bildern über Diagramme, natürliche Bilder, Memes und viele andere Arten von Bildern. Im folgenden Beispiel stellen wir dem Modell (Gemini Pro Vision, zugegriffen über Google AI Studio) eine Textanweisung und ein Bild zur Verfügung, das eine Momentaufnahme dieses Leitfadens zum Prompt-Engineering darstellt.
+
+Das Modell antwortet "Der Titel der Webseite ist 'Prompt Engineering Guide'", was angesichts der gestellten Frage die richtige Antwort zu sein scheint.
+
+<Screenshot src={GEMINI10} alt="GEMINI10" />
+
+Hier ist ein weiteres Beispiel mit einer anderen Eingangsfrage. Google AI Studio ermöglicht es Ihnen, mit verschiedenen Eingaben zu experimentieren, indem Sie auf die Option `{{}} Testeingabe` oben klicken. Sie können dann die Prompts, die Sie testen, in der untenstehenden Tabelle hinzufügen.
+
+<Screenshot src={GEMINI11} alt="GEMINI11" />
+
+Fühlen Sie sich frei, zu experimentieren, indem Sie Ihr eigenes Bild hochladen und Fragen stellen. Es wird berichtet, dass Gemini Ultra bei diesen Arten von Aufgaben viel besser abschneiden kann. Dies ist etwas, womit wir weiterhin experimentieren werden, wenn das Modell verfügbar gemacht wird.
+
 ### Verifizierung und Korrektur
 
 Die Gemini-Modelle zeigen beeindruckende fächerübergreifende Denkfähigkeiten. Zum Beispiel zeigt die untenstehende Abbildung eine Lösung für ein physikalisches Problem, die von einem Lehrer gezeichnet wurde (links). Gemini wird dann dazu aufgefordert, über die Frage nachzudenken und zu erklären, wo der Schüler bei der Lösung einen Fehler gemacht hat, falls dies der Fall ist. Das Modell erhält außerdem die Anweisung, das Problem zu lösen und LaTeX für die mathematischen Teile zu verwenden. Die Antwort (rechts) ist die vom Modell bereitgestellte Lösung, welche das Problem und die Lösung detailreich erläutert.
@@ -130,6 +149,30 @@ Die Gemini-Modelle zeigen auch die Fähigkeit, eine Folge von Audio- und Bildern
 ### Gemini als allgemeiner Programmieragent
 
 Gemini wird auch verwendet, um einen generalistischen Agenten namens [AlphaCode 2](https://storage.googleapis.com/deepmind-media/AlphaCode2/AlphaCode2_Tech_Report.pdf) aufzubauen, der seine Denkfähigkeiten mit Suche und Werkzeugnutzung kombiniert, um kompetitive Programmierprobleme zu lösen. AlphaCode 2 rangiert innerhalb der besten 15 % der Teilnehmer auf der Codeforces-Plattform für kompetitive Programmierproblemen.
+
+## Few-Shot-Prompting mit Gemini
+
+Few-Shot-Prompting ist ein Ansatz, der nützlich ist, um dem Modell die Art der gewünschten Ausgabe zu signalisieren. Dies ist nützlich für verschiedene Szenarien, wie wenn Sie die Ausgabe in einem bestimmten Format (z.B. JSON-Objekt) oder Stil möchten. Google AI Studio ermöglicht dies auch in der Benutzeroberfläche. Unten ist ein Beispiel dafür, wie man Few-Shot-Prompting mit den Gemini-Modellen verwendet.
+
+Wir sind daran interessiert, einen einfachen Emotionsklassifikator mit Gemini zu erstellen. Der erste Schritt ist die Erstellung eines "Strukturierten Prompts" durch Klicken auf "Create New" oder "+". Der Few-Shot-Prompt kombiniert Ihre Anweisungen (Beschreibung der Aufgabe) und die von Ihnen bereitgestellten Beispiele. Die untenstehende Abbildung zeigt die Anweisung (oben) und die Beispiele, die wir dem Modell übergeben. Sie können den INPUT-Text und den OUTPUT-Text verwenden, um aussagekräftigere Indikatoren zu haben. Das untenstehende Beispiel verwendet "Text:" als Eingabe und "Emotion:" als die Eingabe- und Ausgabeindikatoren.
+
+<Screenshot src={GEMINI12} alt="GEMINI12" />
+
+Das gesamte kombinierte Prompt lautet wie folgt:
+
+```
+Your task is to classify a piece of text, delimited by triple backticks, into the following emotion labels: ["anger", "fear", "joy", "love", "sadness", "surprise"]. Just output the label as a lowercase string.
+Text: I feel very angry today
+Emotion: anger
+Text: Feeling thrilled by the good news today.
+Emotion: joy
+Text: I am actually feeling good today.
+Emotion:
+```
+
+Sie können dann den Prompt testen, indem Sie Eingaben im Abschnitt "Test your prompt" hinzufügen. Wir verwenden das Beispiel "I am actually feeling good today" als Eingabe und das Modell gibt korrekt das Label "joy" aus, nachdem auf "Run" geklickt wurde. Siehe das Beispiel in der untenstehenden Abbildung:
+
+<Screenshot src={GEMINI13} alt="GEMINI13" />
 
 ## Bibliotheksverwendung
 
@@ -178,11 +221,16 @@ model = genai.GenerativeModel(model_name="gemini-pro",
                               safety_settings=safety_settings)
 
 prompt_parts = [
-  "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca… [\\\"LLMs\\\", \\\"ChatGPT\\\", \\\"GPT-4\\\", \\\"Chinese LLaMA\\\", \\\"Alpaca\\\"]",
+  "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…",
 ]
 
 response = model.generate_content(prompt_parts)
 print(response.text)
+```
+
+Die Ausgabe ist die gleiche wie zuvor:
+```
+[\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
 ```
 
 ## Referenzen
@@ -192,3 +240,7 @@ print(response.text)
 - [Welcome to the Gemini era](https://deepmind.google/technologies/gemini/#introduction)
 - [Gemini: A Family of Highly Capable Multimodal Models - Technical Report](https://storage.googleapis.com/deepmind-media/gemini/gemini_1_report.pdf)
 - [Fast Transformer Decoding: One Write-Head is All You Need](https://arxiv.org/abs/1911.02150)
+- [Google AI Studio quickstart](https://ai.google.dev/tutorials/ai-studio_quickstart)
+- [Multimodal Prompts](https://ai.google.dev/docs/multimodal_concepts)
+- [Gemini vs GPT-4V: A Preliminary Comparison and Combination of Vision-Language Models Through Qualitative Cases](https://arxiv.org/abs/2312.15011v1)
+- [A Challenger to GPT-4V? Early Explorations of Gemini in Visual Expertise](https://arxiv.org/abs/2312.12436v2)
