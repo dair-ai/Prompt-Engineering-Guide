@@ -1,24 +1,24 @@
 # Esempi di Prompt
 
-Nella sezione precedente, abbiamo introdotto e fornito esempi di base su come richiedere gli LLM.
+Nella sezione precedente, abbiamo introdotto un esempio di base su come fare prompt LLM.
 
 In questa sezione forniremo altri esempi di come i prompt vengono utilizzati per realizzare diversi compiti e introdurremo i concetti chiave lungo il percorso. Spesso, il modo migliore per imparare i concetti è attraverso gli esempi. Qui di seguito vengono illustrati alcuni esempi di come i prompt ben realizzati possano essere utilizzati per svolgere diversi tipi di compiti.
 
 Argomenti:
-- [Sintesi del testo](#text-summarization)
-- [Estrazione di informazioni](#information-extraction)
-- [Rispondere alle domande](#question-answering)
-- [Classificazione del testo](#text-classification)
-- [Conversazione](#conversation)
-- [Generazione di codice](#code-generation)
-- [Ragionamento](#reasoning)
+- [Riassunto del testo](#riassunto-del-testo)
+- [Estrazione di informazioni](#estrazione-di-informazioni)
+- [Risposta alle domande](#risposta-alle-domande)
+- [Classificazione del testo](#classificazione-del-testo)
+- [Conversazione](#conversazione)
+- [Generazione di codice](#generazione-di-codice)
+- [Ragionamento](#ragionamento)
 
 ---
 
-## Sintesi del testo
-Uno dei compiti standard nella generazione del linguaggio naturale è la sintesi del testo. Il riassunto del testo può includere molti aspetti e domini diversi. In effetti, una delle applicazioni più promettenti dei modelli linguistici è la capacità di riassumere articoli e concetti in sintesi rapide e di facile lettura. Proviamo a svolgere un compito di riassunto di base utilizzando i prompt.
+## Riassunto del testo
+Uno dei compiti standard nella generazione del linguaggio naturale è la sintesi del testo. Il riassunto del testo può includere molti aspetti e domini diversi. In effetti, una delle applicazioni più promettenti dei modelli linguistici è la capacità di riassumere articoli e concetti in sintesi rapide e di facile lettura. Proviamo a fare un semplice riassunto utilizzando i prompt.
 
-Supponiamo che io sia interessato a conoscere gli antibiotici, potrei provare un prompt come questo:
+Supponiamo di essere interessati a conoscere gli antibiotici, potremmo provare un prompt come questo:
 
 *Prompt:*
 ```
@@ -32,7 +32,7 @@ R:
 Gli antibiotici sono un tipo di farmaco utilizzato per trattare le infezioni batteriche. Agiscono uccidendo i batteri o impedendo loro di riprodursi, consentendo al sistema immunitario dell'organismo di combattere l'infezione. Gli antibiotici vengono solitamente assunti per via orale sotto forma di pillole, capsule o soluzioni liquide, o talvolta somministrati per via endovenosa. Non sono efficaci contro le infezioni virali e il loro uso inappropriato può portare alla resistenza agli antibiotici.
 ```
 
-"R:" è un formato di prompt esplicito che viene utilizzato nelle risposte alle domande. Qui l'ho usato per dire al modello che c'è un'ulteriore attesa. In questo esempio, non è chiaro in che modo sia utile rispetto a non usarlo, ma lo lasceremo per gli esempi successivi. Supponiamo che queste informazioni siano troppe e che si voglia riassumerle ulteriormente. In effetti, possiamo istruire il modello a riassumere in una frase come questa:
+"R:" è un formato di prompt esplicito che viene utilizzato nelle risposte alle domande. Qui è stato usato per dire al modello che ci si aspetta un'ulteriore risposta. In questo esempio, non è chiaro in che modo sia utile rispetto a non usarlo, ma lo lasceremo per gli esempi successivi. Supponiamo che queste informazioni siano troppe e che si voglia riassumerle ulteriormente. In effetti, possiamo istruire il modello a riassumere in una frase come questa:
 
 *Prompt:*
 ```
@@ -50,13 +50,13 @@ Senza prestare troppa attenzione all'accuratezza dell'output di cui sopra, che �
 
 ---
 ## Estrazione di informazioni
-Sebbene i modelli linguistici siano addestrati per eseguire la generazione del linguaggio naturale e i compiti correlati, sono anche in grado di eseguire la classificazione e una serie di altri compiti di elaborazione del linguaggio naturale (NLP). 
+Sebbene i modelli linguistici siano addestrati per eseguire la generazione del linguaggio naturale e i compiti correlati, sono anche in grado di eseguire la classificazione e una serie di altri compiti di elaborazione del linguaggio naturale (NLP, Natural Language Processing). 
 
 Ecco un esempio di prompt che estrae informazioni da un determinato paragrafo.
 
 *Prompt:*
 ```
-Le dichiarazioni di contributo degli autori e i ringraziamenti nei documenti di ricerca devono indicare chiaramente e specificamente se, e in che misura, gli autori hanno utilizzato tecnologie di IA come ChatGPT nella preparazione del manoscritto e dell'analisi. Dovrebbero anche indicare quali LLM sono state utilizzate. In questo modo i redattori e i revisori saranno in grado di esaminare più attentamente i manoscritti per individuare potenziali pregiudizi, imprecisioni e accreditamenti impropri delle fonti. Allo stesso modo, le riviste scientifiche dovrebbero essere trasparenti sull'uso dei LLM, ad esempio nella selezione dei manoscritti presentati.
+Le dichiarazioni di contributo degli autori e i ringraziamenti nei documenti di ricerca devono indicare chiaramente e specificamente se, e in che misura, gli autori hanno utilizzato tecnologie di IA come ChatGPT nella preparazione del manoscritto e dell'analisi. Dovrebbero anche indicare quali LLM sono stati utilizzati. In questo modo i redattori e i revisori saranno in grado di esaminare più attentamente i manoscritti per individuare potenziali pregiudizi, imprecisioni e accreditamenti impropri delle fonti. Allo stesso modo, le riviste scientifiche dovrebbero essere trasparenti sull'uso dei LLM, ad esempio nella selezione dei manoscritti presentati.
 
 Cita il prodotto basato su un modello linguistico di grandi dimensioni menzionato nel paragrafo precedente:
 ```
@@ -73,13 +73,13 @@ A questo punto dovrebbe essere ovvio che si può chiedere al modello di eseguire
 Fonte del paragrafo: [ChatGPT: cinque priorità per la ricerca](https://www.nature.com/articles/d41586-023-00288-7) 
 
 ---
-## Rispondere alle domande
+## Risposta alle domande
 
-Uno dei modi migliori per far sì che il modello risponda a risposte specifiche è migliorare il formato del prompt. Come già detto, un prompt può combinare istruzioni, contesto, indicatori di input e output per ottenere risultati migliori. Anche se questi componenti non sono obbligatori, si tratta di una buona pratica, poiché quanto più specifiche sono le istruzioni, tanto migliori saranno i risultati. Di seguito è riportato un esempio di come potrebbe apparire un prompt più strutturato.
+Uno dei modi migliori per far sì che il modello risponda a prompt specifici è migliorare il formato del prompt. Come già detto, un prompt può combinare istruzioni, contesto, indicatori di input e output per ottenere risultati migliori. Anche se questi componenti non sono obbligatori, si tratta di una buona pratica, poiché quanto più specifiche sono le istruzioni, tanto migliori saranno i risultati. Di seguito è riportato un esempio di come potrebbe apparire un prompt più strutturato.
 
 *Prompt:*
 ```
-Rispondi alla domanda basandoti sul contesto sottostante. Rispondi in modo breve e conciso. Rispondi "Incertezza sulla risposta" se non si è sicuri della risposta.
+Rispondi alla domanda basandoti sul contesto sottostante. Rispondi in modo breve e conciso. Rispondi "Incerto sulla risposta" se non sei sicuro della risposta.
 
 Contesto: Il teplizumab affonda le sue radici in un'azienda farmaceutica del New Jersey, la Ortho Pharmaceutical. Qui gli scienziati hanno generato una prima versione dell'anticorpo, denominata OKT3. Originariamente ottenuta dai topi, la molecola era in grado di legarsi alla superficie delle cellule T e di limitarne il potenziale di uccisione. Nel 1986 è stato approvato per aiutare a prevenire il rigetto degli organi dopo il trapianto di rene, diventando così il primo anticorpo terapeutico autorizzato per uso umano.
 
@@ -98,15 +98,15 @@ Contesto ottenuto da [Nature](https://www.nature.com/articles/d41586-023-00400-x
 ---
 
 ## Classificazione del testo
-Finora abbiamo usato istruzioni semplici per eseguire un compito. Come ingegnere del prompt, dovrete migliorare nel fornire istruzioni più precise. Ma non è tutto! Scoprirete anche che per i casi d'uso più difficili, fornire solo istruzioni non sarà sufficiente. È qui che bisogna pensare di più al contesto e ai diversi elementi che si possono usare in un prompt. Altri elementi che si possono fornire sono i `dati di input' o gli `esempi'. 
+Finora abbiamo usato istruzioni semplici per eseguire un compito. Come ingegnere del prompt, dovrete migliorare nel fornire istruzioni più precise. Ma non è tutto! Scoprirete anche che per i casi d'uso più difficili, fornire solo istruzioni non sarà sufficiente. È qui che bisogna pensare di più al contesto e ai diversi elementi che si possono usare in un prompt. Altri elementi che si possono fornire sono i `dati di input` o gli `esempi`. 
 
-Proviamo a dimostrarlo fornendo un esempio di classificazione del testo.
+Proviamo a mostrarlo fornendo un esempio di classificazione del testo.
 
 *Prompt:*
 ```
 Classificare il testo in neutro, negativo o positivo. 
 
-Testo: Penso che il cibo fosse buono. 
+Testo: Penso che il cibo sia ok. 
 Sentimento:
 ```
 
@@ -115,16 +115,16 @@ Sentimento:
 Neutro
 ```
 
-Abbiamo dato l'istruzione di classificare il testo e il modello ha risposto con `'Neutro'', che è corretto. Non c'è nulla di male in questo, ma diciamo che ciò di cui abbiamo bisogno è che il modello fornisca l'etichetta nel formato esatto che vogliamo. Quindi, invece di `Neutro` vogliamo che restituisca `neutrale`. Come possiamo ottenere questo risultato? Ci sono diversi modi per farlo. Ci interessa la specificità, quindi più informazioni possiamo fornire al prompt e migliori saranno i risultati. Possiamo provare a fornire degli esempi per specificare il comportamento corretto. Proviamo di nuovo:
+Abbiamo dato l'istruzione di classificare il testo e il modello ha risposto con `'Neutro'`, che è corretto. Non c'è nulla di male in questo, ma diciamo che ciò di cui abbiamo bisogno è che il modello fornisca l'etichetta nel formato esatto che vogliamo. Quindi, invece di `Neutro` vogliamo che restituisca `neutrale`. Come possiamo ottenere questo risultato? Ci sono diversi modi per farlo. Ci interessa la specificità, quindi più informazioni possiamo fornire al prompt e migliori saranno i risultati. Possiamo provare a fornire degli esempi per specificare il comportamento corretto. Proviamo di nuovo:
 
 *Prompt:*
 ```
 Classificare il testo in neutrale, negativo o positivo. 
 
-Testo: Penso che la vacanza vada bene.
+Testo: Penso che la vacanza è ok.
 Sentimento: neutrale
 
-Testo: Penso che il cibo fosse buono. 
+Testo: Penso che il cibo fosse ok. 
 Sentimento:
 ```
 
@@ -148,21 +148,21 @@ Sentimento:
 Neutro
 ```
 
-Dove è il problema?
+Dove è il problema? Come suggerimento, l'etichetta inventata `nutritivo` viene completamente ignorata dal modello. Al contrario, il modello produce `Neutro` in quanto ha una certa inclinazione verso quell'etichetta. Ma supponiamo che ciò che si vuole veramente sia `nutritivo`. Come si potrebbe risolvere questo problema? Forse si può provare ad aggiungere descrizioni alle etichette o ad aggiungere altri esempi al prompt? Se non siete sicuri, discuteremo alcune idee nelle prossime sezioni.
 
 ---
 
 ## Conversazione
 Forse una delle cose più interessanti che si possono ottenere con il prompt engineering è istruire il sistema LLM su come comportarsi, sulle sue intenzioni e sulla sua identità. Questo è particolarmente utile quando si costruiscono sistemi conversazionali come i chatbot del servizio clienti.
 
-Per esempio, creiamo un sistema conversazionale in grado di generare risposte più tecniche e scientifiche alle domande. Notate come gli stiamo dicendo esplicitamente come comportarsi attraverso le istruzioni. Questo viene a volte definito "prompting di ruolo".
+Per esempio, creiamo un sistema conversazionale in grado di generare risposte più tecniche e scientifiche alle domande. Notate come gli stiamo dicendo esplicitamente come comportarsi attraverso le istruzioni. Questo viene a volte definito *role prompting* (prompting di ruolo o anche, impersonificazione del ruolo).
 
 *Prompt:*
 ```
 La seguente è una conversazione con un assistente di ricerca di intelligenza artificiale (AI). Il tono dell'assistente è tecnico e scientifico.
 
 Persona: Ciao, chi sei?
-IA: Saluto! Sono un assistente di ricerca AI. Come posso aiutarla oggi?
+IA: Salve! Sono un assistente virtuale basato sull'intelligenza artificiale. Come posso aiutarla oggi?
 Persona: Puoi parlarmi della creazione dei buchi neri?
 IA:
 ```
@@ -189,7 +189,7 @@ IA:
 Certo! I buchi neri si formano quando una stella molto massiccia esaurisce il suo carburante e collassa su se stessa. La gravità della stella è così forte che nulla, nemmeno la luce, può sfuggire alla sua attrazione. Si crea così un punto nello spazio-tempo con un'intensa forza gravitazionale, chiamato buco nero.
 ```
 
-Penso che abbiamo fatto dei progressi. Puoi continuare a migliorarlo. Sono sicuro che se aggiungeremo altri esempi potrete ottenere risultati ancora migliori. 
+Avete fatto dei progressi. Potete continuare a migliorarlo. Aggiungendo altri esempi potreste ottenere risultati ancora migliori.
 
 ---
 
@@ -213,14 +213,14 @@ console.log(`Ciao, ${name}!`);
 
 Si può notare che non è stato necessario specificare la lingua da utilizzare.
 
-Cambiamo un po' livello. Voglio mostrarvi quanto possano essere potenti gli LLM con un po' più di impegno nella progettazione dei prompt.
+Cambiamo un po' livello. L'esempio seguente mostra quanto possano essere potenti gli LLM con un po' più di impegno nella progettazione dei prompt.
 
 *Prompt:*
 ```
 """
-Tabella reparti, colonne = [DepartmentId, DepartmentName]
-Tabella studenti, colonne = [DepartmentId, StudentId, StudentName]
-Creare una query MySQL per tutti gli studenti del dipartimento di Informatica.
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Crea una query MySQL per tutti gli studenti del dipartimento di Informatica.
 """
 ```
 
@@ -242,7 +242,7 @@ Ci sono stati alcuni miglioramenti nei compiti che richiedono capacità matemati
 
 *Prompt:*
 ```
-Cosa fa 9.000 * 9.000?
+Quanto fa 9.000 * 9.000?
 ```
 
 *Output:*
@@ -280,8 +280,8 @@ Somma: 41
 41 è un numero dispari.
 ```
 
-Molto meglio, no? A proposito, ho provato a farlo un paio di volte e il sistema a volte fallisce. Se si fornissero istruzioni migliori e esempi, si potrebbero ottenere risultati più precisi.
+Molto meglio, no? A proposito, provando a farlo un paio di volte il sistema a volte fallisce. Se si fornissero istruzioni migliori ed esempi, si potrebbero ottenere risultati più precisi.
 
 Continueremo a includere altri esempi di applicazioni comuni in questa sezione della guida.
 
-Nella prossima sezione tratteremo concetti e tecniche di prompt engineering ancora più avanzati per migliorare le prestazioni di questi e di altri compiti più difficili.
+Nella prossima sezione tratteremo concetti e tecniche di prompt engineering ancora più avanzate per migliorare le prestazioni di questi e di altri compiti più difficili.
