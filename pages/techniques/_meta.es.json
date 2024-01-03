@@ -4,6 +4,7 @@
     "cot": "Prompt cadena de pensamiento (CoT)",
     "consistency": "Auto-consistencia",
     "knowledge": "Prompt de conocimiento generado",
+    "prompt_chaining": "Prompt Chaining",
     "tot": "Tree of Thoughts",
     "rag": "Retrieval Augmented Generation",
     "art": "Automatic Reasoning and Tool-use",

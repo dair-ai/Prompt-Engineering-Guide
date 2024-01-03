@@ -4,6 +4,7 @@
     "cot": "Chain-of-Thoughtプロンプティング",
     "consistency": "自己整合性（Self-Consistency）",
     "knowledge": "知識生成プロンプティング",
+    "prompt_chaining": "Prompt Chaining",
     "tot": "Tree of Thoughts",
     "rag": "Retrieval Augmented Generation",
     "art": "Automatic Reasoning and Tool-use",
