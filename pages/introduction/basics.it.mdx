@@ -1,32 +1,39 @@
 # I fondamentali del Prompt
 
+import {Screenshot} from 'components/screenshot'
+import INTRO1 from '../../img/introduction/sky.png'
+
 ## Prompt di base
 
-Si può ottenere molto con semplici prompt, ma la qualità dei risultati dipende da quante informazioni vengono fornite e da quanto sono ben fatte. Un prompt può contenere informazioni come l'*istruzione* o la *domanda* che si sta passando al modello e includere altri dettagli come *contesto*, *ingressi* o *esempi*. Si possono usare questi elementi per istruire meglio il modello e di conseguenza ottenere risultati migliori.
+Si può ottenere molto con semplici prompt, ma la qualità dei risultati dipende da quante informazioni vengono fornite e da quanto è ben fatto il prompt. Un prompt può contenere informazioni come l'*istruzione* o la *domanda* che si sta passando al modello e includere altri dettagli come *contesto*, *input* o *esempi*. Si possono usare questi elementi per istruire meglio il modello e di conseguenza ottenere risultati migliori.
 
 Cominciamo con un esempio di base di un semplice prompt:
 
 *Prompt*
-```
+
+```md
 Il cielo è
 ```
 
 *Output:*
-```
+
+```md
 blu
-
-Il cielo è blu nelle giornate serene. In una giornata nuvolosa, il cielo può essere grigio o bianco.
 ```
 
-Come si può vedere, il modello linguistico produce una serie di stringhe che hanno senso in base al contesto "Il cielo è". L'output potrebbe essere inaspettato o lontano dal compito che vogliamo svolgere. 
+Se si utilizza OpenAI Playground o qualsiasi altro playground LLM, è possibile inviare un comando al modello come mostrato nello screenshot seguente:
 
-Questo esempio di base evidenzia anche la necessità di fornire un contesto più ampio o istruzioni su ciò che si vuole ottenere nello specifico.
+<Screenshot src={INTRO1} alt="INTRO1" />
+
+Una cosa da notare è che quando si utilizzano i modelli di chat di OpenAI come `gtp-3.5-turbo` o `gpt-4`, è possibile strutturare il prompt utilizzando tre diversi ruoli: `system`, `assistant` e `user`. Il prompt nel ruolo di system non è necessario, ma aiuta a impostare il comportamento generale del ruolo assistant. L'esempio precedente include un prompt solo nel ruolo user che può essere usato per fare richieste direttamente al modello. Per semplicità tutti gli esempi, tranne quando è esplicitamente indicato, useranno solo il ruolo `user` per fare richieste al modello `gpt-3.5-turbo`. Il messaggio di `assistant` nell'esempio precedente corrisponde alla risposta del modello. Si può anche definire il messaggio di assistant passandogli esempi del comportamento desiderato. È possibile saperne di più su come lavorare con i modelli di chat [qui](https://www.promptingguide.ai/it/models/chatgpt).
+
+Si può osservare dall'esempio del prompt di cui sopra che il modello linguistico risponde con una sequenza di token che hanno senso dato il contesto "Il cielo è". L'output potrebbe essere inaspettato o lontano dal compito che si vuole svolgere. In effetti, questo esempio di base evidenzia la necessità di fornire un contesto più ampio o istruzioni su ciò che si vuole ottenere specificamente con il sistema. Questo è ciò di cui tratta il prompt engineering, l'ingegneria dei prompt.
 
 Cerchiamo di migliorarlo un po':
 
 *Prompt:*
 ```
-Completare la frase: 
+Completare la frase:
 
 Il cielo è
 ```
@@ -34,37 +41,51 @@ Il cielo è
 *Output:*
 
 ```
-così bello oggi.
+blu di giorno e scuro di notte.
 ```
 
-È meglio? Beh, abbiamo detto al modello di completare la frase, quindi il risultato è molto migliore perché segue esattamente ciò che gli abbiamo detto di fare ("completare la frase"). Questo approccio, che consiste nel progettare prompt ottimali per istruire il modello a eseguire un compito, è definito **prompt engineering** (ingegneria dei prompt).
+Così va meglio? Con il prompt sopra si sta istruendo il modello a completare la frase, per cui il risultato appare molto migliore poiché segue esattamente ciò che gli si è detto di fare ("completare la frase"). Questo approccio, che consiste nel progettare prompt efficaci per istruire il modello a eseguire un compito desiderato, viene definito in questa guida **prompt engineering** o ingegneria dei prompt.
 
-L'esempio precedente è un'illustrazione di base di ciò che è possibile fare oggi con gli LLM. Gli LLM di oggi sono in grado di eseguire tutti i tipi di compiti avanzati, dalla sintesi del testo al ragionamento matematico alla generazione di codice.	
+L'esempio precedente è un esempio base di ciò che è possibile fare oggi con gli LLM. Gli LLM di oggi sono in grado di eseguire tutti i tipi di compiti avanzati, dalla sintesi del testo al ragionamento matematico alla generazione di codice.
 
-## Formattazione del Prompt
+## Prompt Formatting
 
-Abbiamo provato un prompt molto semplice. Un prompt standard ha il seguente formato:
+Prima abbiamo provato un prompt molto semplice. Un prompt standard ha il seguente formato:
 
 ```
 <Domanda>?
 ```
 
-oppure
+oppure 
 
 ```
 <Istruzione>
 ```
  
-Questo può essere formattato in un formato di risposta alle domande (QA), che è standard in molti set di dati QA, come segue:
+Questo può essere formattato in un formato di Domande e Risposte (QA, Questions and Answers), che è standard in molti set di dati QA, come segue:
 
 ```
 D: <Domanda>?
 R: 
 ```
 
-Quando si esegue un prompt come quello descritto sopra, si parla anche di *zero-shot* prompt (a colpo zero), cioè si sollecita direttamente il modello a dare una risposta senza alcun esempio o dimostrazione del compito che si vuole fargli svolgere. Alcuni modelli linguistici di grandi dimensioni sono in grado di eseguire zero-shot prompt, ma dipende dalla complessità e dalla conoscenza del compito da svolgere.
+Quando si esegue un prompt come quello descritto sopra, si parla anche di *zero-shot prompting* (prompt a colpo zero), cioè si sollecita direttamente il modello a dare una risposta senza alcun esempio o dimostrazione del compito che si vuole fargli svolgere. Alcuni modelli linguistici di grandi dimensioni sono in grado di eseguire lo zero-shot prompting, ma ciò dipende dalla complessità e dalla conoscenza del compito da svolgere e dai compiti per i quali il modello è stato addestrato.
 
-Dato il formato standard di cui sopra, una tecnica popolare ed efficace di stimolo è quella denominata *few-shot* (a pochi colpi) prompt, in cui vengono forniti degli esempi (es. dimostrazioni). Le richieste few-shot possono essere formattate come segue:
+Un esempio concreto di prompt è il seguente:
+
+*Prompt*
+```
+D: Che cos'è il prompt engineering?
+```
+
+Con alcuni dei modelli più recenti è possibile saltare "D:", essa è implicita e compresa dal modello come compito di risposta a una domanda in base a come è composta la sequenza. In altre parole, il prompt potrebbe essere semplificato come segue:
+
+*Prompt*
+```
+Che cos'è il prompt engineering?
+```
+
+Dato il formato standard di cui sopra, una tecnica popolare ed efficace di prompting è quella denominata *few-shot prompting* (prompting con pochi esempi), in cui si forniscono esempi (es. dimostrazioni). È possibile formattare i prompt a pochi esempi come segue:
 
 ```
 <Domanda>?
@@ -80,7 +101,7 @@ Dato il formato standard di cui sopra, una tecnica popolare ed efficace di stimo
 
 ```
 
-La versione del formato QA avrebbe il seguente aspetto:
+La versione in formato QA si presenterebbe così:
 
 ```
 Q: <Domanda>?
@@ -100,7 +121,7 @@ Tenete presente che non è obbligatorio utilizzare il formato QA. Il formato del
 
 *Prompt:*
 ```
-È fantastico! // Positivo
+Questo è fantastico! // Positivo
 Questo è brutto! // Negativo
 Wow, quel film era fantastico! // Positivo
 Che spettacolo orribile! //
@@ -111,4 +132,4 @@ Che spettacolo orribile! //
 Negativo
 ```
 
-I prompt few-shot consentono l'apprendimento in contesto, ovvero la capacità dei modelli linguistici di apprendere compiti con poche dimostrazioni.
+I prompt few-shot consentono l'apprendimento in contesto, cioè la capacità dei modelli linguistici di apprendere compiti con poche dimostrazioni. Nelle prossime sezioni discuteremo in modo più approfondito il zero-shot prompting ed il few-shot prompting.
