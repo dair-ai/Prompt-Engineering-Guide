@@ -5,6 +5,7 @@
     "gpt-4": "GPT-4",
     "mistral-7b": "Mistral 7B",
     "gemini": "Gemini",
+    "phi-2": "Phi-2",
     "collection": "LLM Collection" 
 }
   
