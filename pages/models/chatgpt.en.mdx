@@ -4,6 +4,8 @@ import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
 import CHATGPT1 from '../../img/chatgpt-1.png'
 import CHATGPTCLASSIC from '../../img/chatgpt-classic.png'
+import {Cards, Card} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
 
 In this section, we cover the latest prompt engineering techniques for ChatGPT, including tips, applications, limitations, papers, and additional reading materials.
 
@@ -137,6 +139,23 @@ response = openai.ChatCompletion.create(
 According to the official OpenAI docs, snapshots of the `gpt-3.5-turbo` model will also be made available. For example, we can access the snapshot from March 1 `gpt-3.5-turbo-0301`. This allows developers to opt for specific model versions. This also means that the best practices for instructing models may change from version to version. 
 
 The current recommendation for `gpt-3.5-turbo-0301` is to add instructions in the `user` message as opposed to the available `system` message. 
+
+
+## Notebooks
+Here is a notebook to learn more about how to make calls to the ChatGPT APIs using the official `openai` library:
+
+<Cards>
+    <Card 
+        icon={<CodeIcon />}
+        title="Introduction to The ChatGPT APIs"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-chatgpt-intro.ipynb"
+    />
+    <Card 
+        icon={<CodeIcon />}
+        title="ChatGPT with LangChain"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-chatgpt-langchain.ipynb"
+    />
+</Cards>
 
 ---
 ## References

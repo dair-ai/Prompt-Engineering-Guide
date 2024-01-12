@@ -1,5 +1,8 @@
 # Function Calling with LLMs
 
+import {Cards, Card} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+
 ## Getting Started with Function Calling
 
 Function calling is the ability to reliably connect LLMs to external tools to enable effective tool usage and interaction with external APIs. 
@@ -99,14 +102,34 @@ In particular, the `arguments` object contains the important arguments extracted
 
 You can then choose to call an external weather API for the actual weather. Once you have the weather information available you can pass it back to the model to summarize a final response given the original user question.
 
-Here is a [notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb) with a simple example that demonstrates how to use function calling with the OpenAI APIs.
+## Notebooks
+
+Here is a notebook with a simple example that demonstrates how to use function calling with the OpenAI APIs:
+
+<Cards>
+    <Card 
+        icon={<CodeIcon />}
+        title="Function Calling with OpenAI APIs"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb"
+    />
+</Cards>
 
 ## Function Calling with Open-Source LLMs
-More notes on function calling with open-source LLMs coming soon...
+More notes on function calling with open-source LLMs coming soon.
 
 ## Function Calling Use Cases
-More function calling use cases coming soon...
 
+Below is a list of use cases that can benefit from the function calling capability of LLMs:
+
+- **Conversational Agents**: Function calling can be used to create complex conversational agents or chatbots that answer complex questions by calling external APIs or external knowledge base and providing more relevant and useful responses.
+
+- **Natural Language Understanding**: It can convert natural language into structured JSON data, extract structured data from text, and perform tasks like named entity recognition, sentiment analysis, and keyword extraction.
+
+- **Math Problem Solving**: Function calling can be used to define custom functions to solve complex mathematical problems that require multiple steps and different types of advanced calculations.
+
+- **API Integration**: It can be used to effectively integrate LLMs with external APIs to fetch data or perform actions based on the input. This could be helpful to build either a QA system or creative assistant. In general, function calling can convert natural language into valid API calls. 
+
+- **Information Extraction**: Function calling be effectively used to extract specific information from a given input, such as retrieving relevant news stories or references from an article.
 
 
 ## References
@@ -117,3 +140,4 @@ More function calling use cases coming soon...
 - [OpenAI's Function Calling](https://platform.openai.com/docs/guides/function-calling)
 - [How to call functions with chat models](https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models)
 - [Pushing ChatGPT's Structured Data Support To Its Limits](https://minimaxir.com/2023/12/chatgpt-structured-data/)
+- [Math Problem Solving with Function Calling](https://github.com/svpino/openai-function-calling/blob/main/sample.ipynb)
