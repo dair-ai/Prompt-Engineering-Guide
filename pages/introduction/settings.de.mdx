@@ -6,8 +6,6 @@ Beim Entwerfen und Testen von Prompts interagieren Sie normalerweise über eine 
 
 **Top P** - Eine Stichprobentechnik mit Temperatur, bekannt als Nucleus Sampling, bei der Sie steuern können, wie deterministisch das Modell ist. Wenn Sie nach exakten und faktischen Antworten suchen, halten Sie diesen Wert niedrig. Wenn Sie nach vielfältigeren Antworten suchen, erhöhen Sie ihn auf einen höheren Wert. Wenn Sie Top P verwenden, bedeutet das, dass nur die Token berücksichtigt werden, die die `top_p` Wahrscheinlichkeitsmasse bilden, sodass ein niedriger `top_p` Wert die selbstsichersten Antworten auswählt. Dies bedeutet, dass ein hoher `top_p` Wert es dem Modell ermöglicht, mehr mögliche Wörter zu betrachten, einschließlich unwahrscheinlicher, was zu vielfältigeren Ausgaben führt. Die allgemeine Empfehlung ist, entweder die Temperatur oder Top P zu ändern, aber nicht beides.
 
-Die allgemeine Empfehlung lautet, entweder die Temperatur oder `top_p` zu verändern, nicht beides.
-
 **Maximale Länge (`max length`)** - Sie können die Anzahl der vom Modell generierten Tokens steuern, indem Sie `max length` anpassen. Wenn Sie eine maximale Länge angeben, helfen Sie dabei, lange oder irrelevante Antworten zu verhindern und die Kosten zu kontrollieren.
 
 **Stop-Sequenzen (`stop sequence`)** - Eine `stop sequence` ist eine Zeichenfolge, die das Modell daran hindert, weitere Tokens zu generieren. Die Angabe von Stop-Sequenzen ist eine weitere Möglichkeit, die Länge und Struktur der Antwort des Modells zu kontrollieren. Sie können zum Beispiel dem Modell sagen, dass es Listen generieren soll, die nicht mehr als 10 Elemente haben, indem Sie "11" als Stop-Sequenz hinzufügen.
