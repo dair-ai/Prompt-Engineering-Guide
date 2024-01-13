@@ -1,15 +1,16 @@
 # Prompt Chain-of-Thought
 
+import { Callout } from 'nextra/components'
 import {Screenshot} from 'components/screenshot'
 import COT from '../../img/cot.png'
 import ZEROCOT from '../../img/zero-cot.png'
+import AUTOCOT from '../../img/auto-cot.png'
 
+## Prompt Chain-of-Thought (CoT)
 
-## Chain-of-Thought (CoT) Prompt
+<Screenshot src={COT} alt="CoT" />
 
-<Screenshot src={COT} alt="COT" />
-
-sorgente immagine: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+Fonte immagine: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
 
 Introdotto in [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), il prompt a catena di pensieri (CoT) consente di ottenere capacità di ragionamento complesse attraverso fasi di ragionamento intermedie. Si può combinare con il prompt few-shot per ottenere risultati migliori su compiti più complessi che richiedono un ragionamento prima di rispondere.
 
@@ -54,13 +55,13 @@ La somma dei numeri dispari (15, 5, 13, 7, 1) è 41. La risposta è Falsa.
 
 Si tenga presente che gli autori sostengono che si tratta di una capacità emergente che si manifesta con modelli linguistici sufficientemente grandi.
 
-## Zero-shot COT Prompting
+## Prompt Zero-shot CoT
 
-<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+<Screenshot src={ZEROCOT} alt="Zero-shot CoT" />
 
-sorgente immagine: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+Fonte immagine: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
 
-Un'idea emersa più di recente è quella della [zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022) che consiste essenzialmente nell'aggiungere "Pensiamo passo dopo passo" al prompt originale. Proviamo un problema semplice e vediamo come si comporta il modello:
+Un'idea emersa più di recente è quella della [zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022) che consiste essenzialmente nell'aggiungere la frase "Pensiamo passo dopo passo" al prompt originale. Proviamo un problema semplice e vediamo come si comporta il modello:
 
 *Prompt:*
 ```
@@ -83,10 +84,29 @@ Pensiamo passo dopo passo.
 
 *Output:*
 ```
-In primo luogo, si è partiti da 10 mele.
+Innanzitutto, si è partiti da 10 mele.
 Hai dato via 2 mele al vicino e 2 all'operaio, quindi ti sono rimaste 6 mele.
-Poi ha comprato altre 5 mele, per cui ora ne ha 11.
-Infine, avete mangiato 1 mela, quindi ti rimarranno 10 mele.
+Poi hai comprato altre 5 mele, per cui ora ne hai 11.
+Infine, hai mangiato 1 mela, quindi ti sono rimaste 10 mele.
 ```
 
 È impressionante come questo semplice prompt sia efficace nello svolgere questo compito. Dimostra di essere particolarmente utile quando non si hanno molti esempi da utilizzare nel prompt.
+
+## Chain-of-Thought automatico (Auto-CoT)
+
+Quando si applica il prompt a catena di pensieri tramite spiegazioni, il processo comporta la creazione manuale di esempi efficaci e diversi. Questo sforzo manuale potrebbe portare a soluzioni non ottimali. [Zhang et al. (2022)](https://arxiv.org/abs/2210.03493) propongono un approccio per eliminare gli sforzi manuali sfruttando gli LLM con il prompt "Pensiamo passo dopo passo" per generare catene di ragionamento per le dimostrazioni una per una. Questo processo automatico può comunque portare a errori nelle catene generate. Per mitigare gli effetti degli errori, è importante la diversità delle spiegazioni. Questo lavoro propone Auto-CoT, che campiona domande diverse e genera catene di ragionamento per costruire le spiegazioni. 
+
+L'Auto-CoT si compone di due fasi principali:
+
+- Fase 1): **suddivisione (clustering) delle domande**: suddividere le domande di un dato insieme di dati in gruppi (cluster)
+- Fase 2): **campionamento**: selezionare una domanda rappresentativa da ogni cluster e generare la relativa catena di ragionamento utilizzando Zero-Shot-CoT con semplici euristiche
+
+Semplici euristiche potrebbero essere la lunghezza delle domande (ad esempio, 60 token) e il numero di fasi del ragionamento (ad esempio, 5 fasi del ragionamento). Questo incoraggia il modello a utilizzare dimostrazioni semplici e accurate. 
+
+Il processo è illustrato qui di seguito:
+
+<Screenshot src={AUTOCOT} alt="AUTOCOT" />
+
+Fonte immagine: [Zhang et al. (2022)](https://arxiv.org/abs/2210.03493)
+
+Il codice di Auto-CoT è disponibile [qui].(https://github.com/amazon-science/auto-cot).
