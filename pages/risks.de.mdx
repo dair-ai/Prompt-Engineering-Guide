@@ -1,11 +1,27 @@
 # Risiken & Missbrauch
 
-import { Callout } from 'nextra-theme-docs'
+import { Callout } from 'nextra-theme-docs';
+import { Cards, Card } from 'nextra-theme-docs';
+import { FilesIcon } from 'components/icons';
 
-Wir haben bereits gesehen, wie effektiv gut gestaltete Prompts für verschiedene Aufgaben sein können, die Techniken wie Few-Shot-Learning und Chain-of-Thought-Prompting verwenden. Wenn wir darüber nachdenken, auf der Basis von LLMs reale Anwendungen zu entwickeln, wird es entscheidend, über den Missbrauch, Risiken und Sicherheitspraktiken im Umgang mit Sprachmodellen nachzudenken.
+Gut formulierte Prompts können zu effektivem Einsatz von LLMs für verschiedene Aufgaben unter Verwendung von Techniken wie Few-Shot-Learning und Chain-of-Thought-Prompts führen. Sobald Sie darüber nachdenken, reale Anwendungen auf Basis von LLMs zu entwickeln, wird es auch entscheidend, über Missbräuche, Risiken und Sicherheitspraktiken im Zusammenhang mit Sprachmodellen nachzudenken.
 
-Dieser Abschnitt konzentriert sich darauf, einige der Risiken und Missbräuche von LLMs durch Techniken wie Prompt-Injektionen hervorzuheben. Er beleuchtet auch schädliche Verhaltensweisen und wie man sie möglicherweise durch effektive Prompting-Techniken abmildern kann. Andere interessante Themen umfassen Allgemeingültigkeit, Kalibrierung, Voreingenommenheiten, soziale Verzerrungen und Faktualität, um nur einige zu nennen.
+Dieser Abschnitt konzentriert sich darauf, einige der Risiken und Missbräuche von LLMs mittels Techniken wie Prompt-Injektionen hervorzuheben. Es beleuchtet auch schädliche Verhaltensweisen und wie diese möglicherweise durch effektive Prompting-Techniken und Tools wie Moderations-APIs gemildert werden können. Andere interessante Themen umfassen Allgemeingültigkeit, Kalibrierung, Voreingenommenheiten, soziale Verzerrungen und Faktentreue, um nur einige zu nennen.
 
-<Callout emoji="⚠️">
-  Dieser Abschnitt befindet sich in intensiver Entwicklung.
-</Callout>
+<Cards>
+  <Card
+    icon={<FilesIcon />}
+    title="Adversariales Prompting"
+    href="/risks/adversarial"
+  />
+  <Card
+    icon={<FilesIcon />}
+    title="Faktentreue"
+    href="/risks/factuality"
+  />
+  <Card
+    icon={<FilesIcon />}
+    title="Verzerrungen (biases)"
+    href="/risks/biases"
+  />
+</Cards>

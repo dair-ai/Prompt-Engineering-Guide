@@ -1,7 +1,11 @@
 # Retrieval Augmented Generation (RAG)
 
+import {Cards, Card} from 'nextra-theme-docs'
+import {TerminalIcon} from 'components/icons'
+import {CodeIcon} from 'components/icons'
 import {Screenshot} from 'components/screenshot'
 import RAG from '../../img/rag.png'
+import { Callout } from 'nextra/components'
 
 General-purpose language models can be fine-tuned to achieve several common tasks such as sentiment analysis and named entity recognition. These tasks generally don't require additional background knowledge.
 
@@ -22,4 +26,23 @@ This shows the potential of RAG as a viable option for enhancing outputs of lang
 
 More recently, these retriever-based approaches have become more popular and are combined with popular LLMs like ChatGPT to improve capabilities and factual consistency.
 
-You can find a [simple example of how to use retrievers and LLMs for question answering with sources](https://python.langchain.com/docs/use_cases/question_answering/how_to/vector_db_qa) from the LangChain documentation.
+## RAG Use Case: Generating Friendly ML Paper Titles
+
+Below, we have prepared a notebook tutorial showcasing the use of open-source LLMs to build a RAG system for generating short and concise machine learning paper titles:
+
+<Cards>
+    <Card
+    icon={<CodeIcon />}
+    title="Getting Started with RAG"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-rag.ipynb"
+    />
+</Cards>
+
+<Callout type= "info" emoji="🎓">
+  Want to learn more about RAG? Check out our [new cohort-based course](https://maven.com/dair-ai/prompt-engineering-llms?cohortSlug=). Use promo code MAVENAI20 for a 20% discount.
+</Callout>
+
+## References
+
+- [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997) (Dec 2023)
+- [Retrieval Augmented Generation: Streamlining the creation of intelligent natural language processing models](https://ai.meta.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) (Sep 2020)
