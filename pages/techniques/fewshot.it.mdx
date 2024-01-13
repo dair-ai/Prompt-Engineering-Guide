@@ -4,7 +4,7 @@ Sebbene i modelli di grandi dimensioni dimostrino notevoli capacità di apprendi
 
 Secondo [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) l'uso di poche proprietà appaiono per la prima volta quando i modelli vengono scalati a una dimensione sufficiente [(Kaplan et al., 2020)](https://arxiv.org/abs/2001.08361).
 
-Dimostriamo il prompt a pochi colpi con un esempio presentato da [Brown et al. 2020](https://arxiv.org/abs/2005.14165). Nell'esempio, il compito consiste nell'utilizzare correttamente una nuova parola in una frase.
+Mostriamo il prompt few-shot con un esempio presentato da [Brown et al. 2020](https://arxiv.org/abs/2005.14165). Nell'esempio, il compito consiste nell'utilizzare correttamente una nuova parola in una frase.
 
 *Prompt:*
 ```
@@ -16,18 +16,18 @@ Un esempio di frase che usa la parola farduddle è:
 
 *Output:*
 ```
-Quando abbiamo vinto la partita, abbiamo iniziato a festeggiare tutti insieme.
+Quando abbiamo vinto la partita, abbiamo iniziato a fare farduddle tutti insieme.
 ```
 
 Possiamo osservare che il modello ha in qualche modo imparato a svolgere il compito fornendogli un solo esempio (cioè, 1-shot). Per compiti più difficili, possiamo sperimentare l'aumento delle dimostrazioni (ad esempio, 3-shot, 5-shot, 10-shot, ecc.).
 
-Seguendo i risultati di [Min et al. (2022)](https://arxiv.org/abs/2202.12837), ecco qualche altro consiglio sulle dimostrazioni/esempi quando si fanno pochi shot:
+Seguendo i risultati di [Min et al. (2022)](https://arxiv.org/abs/2202.12837), ecco qualche altro consiglio sulle dimostrazioni/esempi quando si fa few-shot:
 
 - "lo spazio delle etichette e la distribuzione del testo di input specificato dalle dimostrazioni sono entrambi importanti (indipendentemente dal fatto che le etichette siano corrette per i singoli input)".
 - anche il formato utilizzato gioca un ruolo fondamentale nelle prestazioni, anche se si utilizzano solo etichette casuali, è molto meglio che non averne affatto.  
 - ulteriori risultati mostrano che anche la selezione di etichette casuali da una vera distribuzione di etichette aiuta (invece che da una distribuzione uniforme).
 
-Proviamo alcuni esempi. Partiamo innanzitutto un esempio con etichette casuali (cioè le etichette Negativo e Positivo assegnate in modo casuale agli ingressi):
+Proviamo alcuni esempi. Proviamo innanzitutto un esempio con etichette casuali (cioè le etichette Negativo e Positivo sono assegnate in modo casuale agli input):
 
 *Prompt:*
 ```
@@ -60,9 +60,9 @@ Negativo
 
 Non c'è coerenza nel formato di cui sopra, ma il modello ha comunque previsto l'etichetta corretta. Dobbiamo condurre un'analisi più approfondita per confermare se questo vale per compiti diversi e più complessi, comprese diverse varianti di prompt.
 
-### Limiti di un Few-shot Prompting
+### Limiti di un prompt Few-shot
 
-Il prompt standard di few-shot funziona bene per molti compiti, ma non è ancora una tecnica perfetta, soprattutto quando si tratta di compiti di ragionamento più complessi. Dimostriamo perché questo è il caso. Ricordate l'esempio precedente in cui abbiamo fornito il seguente compito:
+Il prompt standard few-shot funziona bene per molti compiti, ma non è ancora una tecnica perfetta, soprattutto quando si tratta di compiti di ragionamento più complessi. Mostriamo perché questo è il caso. Ricordate l'esempio precedente in cui abbiamo fornito il seguente compito:
 
 ```
 La somma dei numeri dispari di questo gruppo è un numero pari: 15, 32, 5, 13, 82, 7, 1. 
@@ -103,6 +103,6 @@ R:
 La risposta è Corretta
 ```
 
-Non ha funzionato. Sembra che un prompt di few-shot non sia sufficiente per ottenere risposte affidabili per questo tipo di problemi di ragionamento. L'esempio precedente fornisce informazioni di base sul compito. Se si guarda più da vicino, il tipo di compito che abbiamo introdotto comporta alcune fasi di ragionamento in più. In altre parole, potrebbe essere utile scomporre il problema in fasi e dimostrarlo al modello. Più recentemente, il [chain-of-thought (CoT) prompting] (https://arxiv.org/abs/2201.11903) è stato diffuso per affrontare compiti più complessi di ragionamento aritmetico, di senso comune e simbolico.
+Non ha funzionato. Sembra che un prompt few-shot non sia sufficiente per ottenere risposte affidabili per questo tipo di problemi di ragionamento. L'esempio precedente fornisce informazioni di base sul compito. Se si guarda più da vicino, il tipo di compito che abbiamo introdotto comporta alcune fasi di ragionamento in più. In altre parole, potrebbe essere utile scomporre il problema in fasi e mostrarlo al modello. Più recentemente, il [chain-of-thought (CoT) prompting] (https://arxiv.org/abs/2201.11903) è stato diffuso per affrontare compiti più complessi di ragionamento aritmetico, di senso comune e simbolico.
 
-Nel complesso, sembra che fornire esempi sia utile per risolvere alcuni compiti. Quando il prompt zero-shot e quello a few-shot non sono sufficienti, potrebbe significare che quanto appreso dal modello non è sufficiente per svolgere bene il compito. Da qui si consiglia di iniziare a pensare a una messa a punto dei modelli o a sperimentare tecniche di prompt più avanzate. A seguire parleremo di una delle tecniche di prompting più diffuse, chiamata prompting a catena di pensieri (chain of thought), che ha guadagnato molta popolarità.
+Nel complesso, sembra che fornire esempi sia utile per risolvere alcuni compiti. Quando il prompt zero-shot e quello few-shot non sono sufficienti, potrebbe significare che quanto appreso dal modello non è sufficiente per svolgere bene il compito. Da qui si consiglia di iniziare a pensare a una messa a punto dei modelli o a sperimentare tecniche di prompt più avanzate. A seguire parleremo di una delle tecniche di prompting più diffuse, chiamata prompt a catena di pensieri (chain of thought), che ha guadagnato molta popolarità.
