@@ -20,7 +20,10 @@ const ContentFileNames = ({ section = 'research', lang = 'en' }) => {
           icon={<FilesIcon />}
           title={title}
           href={`/${section}/${slug}`}
-        />
+        >
+          {/* Add your desired content here, or an empty fragment if no content is needed */}
+          <></>
+        </Card>
       ))}
     </Cards>
   );
