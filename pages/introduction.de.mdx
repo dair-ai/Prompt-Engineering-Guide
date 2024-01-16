@@ -7,6 +7,8 @@ import {
   WarningIcon,
   FilesIcon,
 } from 'components/icons';
+import ContentFileNames from 'components/ContentFileNames'
+
 
 Prompt-Engineering ist eine relativ neue Disziplin, die sich mit der Entwicklung und Optimierung von Prompts beschäftigt, um große Sprachmodelle (LLMs) effizient für eine Vielzahl von Anwendungen und Einsatzmöglichkeiten zu nutzen und zu entwickeln.
 
@@ -16,30 +18,4 @@ Dieser umfassende Leitfaden behandelt die Theorie und praktischen Aspekte des Pr
 
 Alle Beispiele wurden mit `gpt-3.5-turbo` unter Verwendung von [OpenAIs Playground](https://platform.openai.com/playground) getestet, sofern nicht anders angegeben. Das Modell verwendet die Standardeinstellungen, d.h., `temperature=0.7` und `top-p=1`. Die Prompts sollten auch mit anderen Modellen funktionieren, die ähnliche Fähigkeiten wie `gpt-3.5-turbo` haben, aber es könnten sich vollkommen andere Ergebnisse ergeben.
 
-<Cards>
-  <Card
-    icon={<FilesIcon />}
-    title="LLM Einstellungen"
-    href="/introduction/settings"
-  />
-  <Card
-    icon={<FilesIcon />}
-    title="Grundlagen des Promptings"
-    href="/introduction/basics"
-  />
-  <Card
-    icon={<FilesIcon />}
-    title="Elemente eines Prompts"
-    href="/introduction/elements"
-  />
-  <Card
-    icon={<FilesIcon />}
-    title="Allgemeine Tipps für das Entwerfen von Prompts"
-    href="/introduction/tips"
-  />
-  <Card
-    icon={<FilesIcon />}
-    title="Beispiel für Prompts"
-    href="/introduction/examples"
-  />
-</Cards>
+<ContentFileNames section="introduction" lang="de"/>

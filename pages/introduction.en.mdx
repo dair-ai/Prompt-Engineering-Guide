@@ -2,6 +2,7 @@
 
 import {Cards, Card} from 'nextra-theme-docs'
 import { CardsIcon, OneIcon, WarningIcon, FilesIcon} from 'components/icons'
+import ContentFileNames from 'components/ContentFileNames'
 
 Prompt engineering is a relatively new discipline for developing and optimizing prompts to efficiently apply and build with large language models (LLMs) for a wide variety of applications and use cases.
 
@@ -11,31 +12,4 @@ This comprehensive guide covers the theory and practical aspects of prompt engin
 
 All examples are tested with `gpt-3.5-turbo` using the [OpenAI's Playground](https://platform.openai.com/playground) unless otherwise specified. The model uses the default configurations, i.e., `temperature=1` and `top_p=1`. The prompts should also work with other models that have similar capabilities as `gpt-3.5-turbo` but the model responses may vary.
 
-
-<Cards>
-  <Card
-    icon={<FilesIcon />}
-    title="LLM Settings"
-    href="/introduction/settings"
-  />
-  <Card
-    icon={<FilesIcon />}
-    title="Basics of Prompting"
-    href="/introduction/basics"
-  />
-  <Card
-    icon={<FilesIcon />}
-    title="Prompt Elements"
-    href="/introduction/elements"
-  />
-  <Card
-    icon={<FilesIcon />}
-    title="General Tips for Designing Prompts"
-    href="/introduction/tips"
-  />
-  <Card
-    icon={<FilesIcon />}
-    title="Examples of Prompts"
-    href="/introduction/examples"
-  />
-</Cards>
+<ContentFileNames section="introduction" lang="en"/>
