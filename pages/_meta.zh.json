@@ -3,6 +3,7 @@
   "introduction": "提示工程简介",
   "techniques": "提示技术",
   "applications": "提示应用",
+  "prompts": "Prompt Hub",
   "models": "模型",
   "risks": "风险和误用",
   "research": "LLM Research Findings",
