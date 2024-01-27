@@ -1,3 +1,123 @@
 # Phi-2
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import {Screenshot} from 'components/screenshot'
+import PHI2 from '../../img/phi-2/phi-2-benchmark.png'
+import PHI2SAFETY from '../../img/phi-2/phi-2-safety.png'
+import PHI2PERFORMANCE from '../../img/phi-2/phi-2-performance.png'
+import PHI2PHYSICS from '../../img/phi-2/phi-2-physics.png'
+import PHI2CORRECTING from '../../img/phi-2/phi-2-correcting.png'
+
+在本指南中，我们将概述Phi-2 (一个拥有27亿参数的语言模型)，以及如何对Phi-2进行提示以及其能力。本指南还包括与Phi-2语言模型相关的技巧、应用、局限性、重要参考文献以及额外的阅读材料。
+
+## Phi-2的介绍
+
+
+Phi-2 是由微软研究院发布的最新小型语言模型（SLM）。Phi-2继承了之前的Phi-1模型和Phi-1.5模型。
+
+Phi-1 是一个拥有13亿参数的模型，使用来自网络的“教科书质量”数据（6B tokens）以及使用GPT-3.5（1B tokens）合成生成的教科书和练习进行训练 [Gunasekar等人，2023](https://arxiv.org/abs/2306.11644)。Phi-1 在Python代码生成任务上表现出色。
+
+[Phi-1.5](https://arxiv.org/abs/2309.05463) 在前一模型的基础上进行了改进，并专注于常识推理和语言理解能力。Phi-1.5 能够执行复杂的推理任务，如小学数学和基本编码任务，并且在性能上可与和它大约5倍大小的模型相媲美。
+
+Phi-2 是一个拥有27亿参数的模型，提高了推理和语言理解能力。Phi-2 的性能超过了大约25倍大小的模型，并且现在具有MIT许可证，使其在商业环境中可用。
+
+## 关于Phi-2的洞见与评估
+
+LLM（小型语言模型）研究人员渴望探索小型语言模型是否具有类似于其大型对应物的新兴能力，以及是否存在培训技术可以帮助实现这一点。
+
+该模型使用“教科书质量”的数据进行训练（包括1.4万亿个token，并且存在多次传递），其中包括合成数据集，帮助模型学习常识推理和常规知识，并且数据还被教育相关和高质量的网络内容增强。Phi-2 在 96 个 A100 GPU 上进行了为期 14 天的训练。没有应用额外的 RLHF 或指令调整。
+
+Phi-1.5 的知识被转移至 Phi-2，这有助于模型在多个基准测试上的融合和性能提升。下图展示了 Phi-2（2.7B）和 Phi-1.5（1.3B）在常识推理、数学推理、代码生成以及其他语言理解基准测试上的性能比较。重要的是要注意，所有任务都是使用 0-shot（零样本提示） 进行评估，除了 BBH 和 MMLU，它们分别使用 3-shot CoT（3样本链式思考提示） 和 5-shot 进行评估（5样本提示）。
+
+<Screenshot src={PHI2} alt="Phi-2 LLM Performance & Benchmarks" />
+
+虽然该模型没有采用像 RLHF（来自人类反馈的强化学习）这样的特殊技术，但据报道，就有害性和偏见而言，与之对齐的开源 Llama2-7b 相比，该模型更安全, 作者将这归因于数据策划的努力。
+
+<Screenshot src={PHI2SAFETY} alt="Phi-2 Safety Performance" />
+
+正如下图所示，Phi-2 在各种基准测试上均优于 Mistral 7B 和 Llama 2（13B）。Phi-2 甚至在多步推理任务上超过了 Llama-2-70B 模型。Phi-2 还在性能上超越了谷歌的 [Gemini Nano 2] (https://www.promptingguide.ai/models/gemini)。
+
+<Screenshot src={PHI2PERFORMANCE} alt="Phi-2 Performance Comparison" />
+
+在下面，我们提供几个提示示例，展示了 Phi-2 模型在多个任务上的能力。
+
+### 解决物理问题
+
+以下示例演示了 Phi-2 解决物理问题的能力：
+
+<Screenshot src={PHI2PHYSICS} alt="Phi-2 Physics Problem Solving" />
+
+### 发现错误
+
+以下示例演示了 Phi-2 辨别学生在解物理问题时计算错误的能力：
+
+<Screenshot src={PHI2CORRECTING} alt="Phi-2 Verifying and Correcting" />
+
+## 使用Phi-2
+
+根据[模型页面](https://huggingface.co/microsoft/phi-2)的描述，Phi-2 可以通过问答格式、聊天格式和代码格式进行提示。以下是使用这些提示模板的不同场景的有效演示：
+
+### 问题与答案的格式
+
+问题与答案的格式对于您向模型提问并希望得到简明回答的场景非常有用。
+
+您可以使用以下提示模板：
+
+```markdown
+Instruct: {{prompt}}
+Output:
+```
+
+这里是一个例子：
+
+*Prompt:*
+```
+Instruct: 数据和信息之间有什么区别？
+Output:
+```
+
+*Output:*
+```
+很棒的问题！数据指的是未经分析或处理成有意义上下文的原始事实、统计数据或数字。另一方面，信息是经过组织、分析和解释的数据，以便人们可以做出明智的决策或采取行动。换句话说，数据是原材料，而信息则是经过处理的、有用的知识。
+```
+
+### 对话格式
+Phi-2 使用的聊天格式是一个标准的格式，以下是一个简单的例子：
+
+*Prompt:*
+```
+Human: 你好，你是谁？
+AI: 问候！我是一个AI研究助手。今天我能帮助你什么呢？
+Human: 你能告诉我黑洞是如何形成的吗？
+AI:
+```
+
+*Output:*
+```
+黑洞形成于当一颗巨大的恒星耗尽燃料并在自身的引力作用下坍缩时。所形成的物体如此密集，以至于它扭曲了周围的时空，导致任何靠近的物体都会被巨大的引力拉进去。这包括光，因为光无法逃脱黑洞的引力，使得它无法......
+```
+
+### 代码格式
+以下是一个代码生成提示模板，模版向模型提供了函数的名称：
+
+*Prompt:*
+```
+def multiply(a,b):\n
+```
+
+请注意，模型在有限的Python代码示例和库上进行了训练，因此在代码生成能力和语言支持方面存在一定的限制。如果您有具体的代码生成需求，可以尝试提供更详细的上下文或指导，以便模型更好地满足您的要求。
+
+## Phi-2 的局限性
+以下是作者报告的 Phi-2 的一些限制的总结：
+
+- 与其他模型类似，Phi-2 可能生成不准确的代码和陈述。
+- Phi-2 没有像其他模型那样进行指令调整，可能难以遵循指令。
+- 训练数据主要是标准英语；因此，该模型可能在俚语和其他语言的指令理解方面遇到困难。
+- Phi-2 也可能产生社会偏见和有害的内容。
+- Phi-2 没有进行调整，往往会生成冗长的回应，有时甚至产生不相关的额外文本。作者提出这可能是由于主要来源于教科书的训练数据的性质所致。
+
+
+*图片来源: [Microsoft Research](https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/)*
+
+## 引用
+- [Textbooks Are All You Need](https://arxiv.org/abs/2306.11644)
+- [Phi-1.5](https://arxiv.org/abs/2309.05463)
