@@ -1,3 +1,101 @@
-# Prompt Chaining
+# Encadeamento de prompts
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+## Introdução ao Encadeamento de Prompts
+
+Para melhorar a confiabilidade e o desempenho dos LLMs, uma das técnicas importantes de engenharia de prompts é dividir as tarefas em suas subtarefas. Uma vez que essas subtarefas tenham sido identificadas, o LLM é acionado com uma subtarefa e, em seguida, sua resposta é usada como entrada para outro prompt. Isso é o que se chama de encadeamento de prompts, em que uma tarefa é dividida em subtarefas com a ideia de criar uma cadeia de operações de prompts.
+
+O encadeamento de prompts é útil para realizar tarefas complexas que um LLM pode ter dificuldade de resolver se for submetido a um prompt muito detalhado. No encadeamento de prompts, os prompts em cadeia realizam transformações ou processos adicionais nas respostas geradas antes de chegar a um estado final desejado.
+
+Além de obter melhor desempenho, o encadeamento imediato ajuda a aumentar a transparência da aplicação do LLM, aumentando a capacidade de controle e a confiabilidade. Isso significa que você pode corrigir problemas de respostas de modelos com muito mais facilidade, analisar e melhorar o desempenho nos diferentes estágios que precisam de aprimoramento.
+
+O encadeamento de prompts é especialmente útil na criação de assistentes de conversa com LLM e no aprimoramento da personalização e da experiência do usuário dos seus aplicativos.
+
+## Casos de uso para encadeamento de prompts
+
+### Encadeamento de prompts para controle de qualidade de documentos
+
+O encadeamento de prompts pode ser usado em diferentes cenários que podem envolver várias operações ou transformações. Por exemplo, um caso de uso comum de LLMs envolve responder a perguntas sobre um grande documento de texto. É útil se você criar dois prompts diferentes, em que o primeiro prompt é responsável por extrair citações relevantes para responder a uma pergunta e um segundo prompt recebe como entrada as citações e o documento original para responder a uma determinada pergunta. Em outras palavras, você criará dois prompts diferentes para executar a tarefa de responder a uma pergunta com base em um documento.
+
+O primeiro prompt abaixo extrai as citações relevantes do documento fornecido de acordo com a pergunta. Observe que, para simplificar, adicionamos um espaço reservado para o documento `{{document}}`. Para testar o prompt, você pode copiar e colar um artigo da Wikipedia, como esta página para [prompt engineering] (https://en.wikipedia.org/wiki/Prompt_engineering). Devido ao contexto maior usado para essa tarefa, estamos usando o modelo `gpt-4-1106-preview` da OpenAI. Você pode usar o prompt com outros LLMs de contexto longo, como o Claude.
+
+Prompt 1:
+```
+You are a helpful assistant. Your task is to help answer a question given a document. The first step is to extract quotes relevant to the question from the document, delimited by ####. Please output the list of quotes using <quotes></quotes>. Respond with "No relevant quotes found!" if no relevant quotes were found.
+
+
+####
+{{document}}
+####
+```
+
+Aqui está uma imagem de todo o prompt, incluindo a pergunta que é passada usando a função `user`.
+
+<Screenshot src={PC1} alt="Prompt Chaining Part 1" />
+
+Saída do Prompt 1:
+```
+<quotes>
+- Prompt de cadeia de pensamento (CoT)[27]
+- Prompt de conhecimento gerado[37]
+- Prompt do menor para o maior[38]
+- Decodificação de autoconsistência[39]
+- Prompting baseado em complexidade[41]
+- Auto-refinamento[42]
+- Prompting de árvore de pensamento[43]
+- Prompt maiêutica[45]
+- Prompt de estímulo direcional[46]
+- Inversão textual e embeddings[59]
+- Uso de descida de gradiente para pesquisar prompts[61][62][63][64]
+- Injeção de prompts[65][66][67]
+</quotes>
+```
+As citações que foram retornadas no primeiro prompt agora podem ser usadas como entrada para o segundo prompt abaixo. Observe que é possível deixar as citações um pouco mais organizadas, ou seja, remover as menções. Essas referências podem ser removidas ou utilizadas como parte de outro prompt na cadeia, mas isso deve ser ignorado por enquanto. O segundo prompt, então, pega as citações relevantes extraídas pelo prompt 1 e prepara uma resposta útil para a pergunta, com base no documento e nas citações extraídas. O segundo prompt pode ser o seguinte:
+
+Prompt 2:
+```
+Considerando um conjunto de citações relevantes (delimitadas por <quotes></quotes>) extraídas de um documento e o documento original (delimitado por ####), escreva uma resposta à pergunta. Certifique-se de que a resposta seja precisa, tenha um tom amigável e pareça útil.
+
+####
+{{document}}
+####
+
+<quotes>
+- Prompt de cadeia de pensamento (CoT)[27]
+- Prompt de conhecimento gerado[37]
+- Prompt do menor para o maior[38]
+- Decodificação de autoconsistência[39]
+- Prompt baseado em complexidade[41]
+- Auto-refinamento[42]
+- Prompt de árvore de pensamento[43]
+- Prompt maiêutica[45]
+- Prompt de estímulo direcional[46]
+- Inversão textual e embeddings[59]
+- Uso de descida de gradiente para pesquisar prompts[61][62][63][64]
+- Injeção de prompts[65][66][67]
+</quotes>
+```
+
+Saída of Prompt 2:
+
+```
+As técnicas de prompt mencionadas no documento incluem:
+
+1. Prompt de cadeia de pensamento (CoT)[27]
+2. Prompt de conhecimento gerado[37]
+3. Prompt do menor para o maior[38]
+4. Decodificação de autoconsistência[39]
+5. Prompt baseado em complexidade[41]
+6. Auto-refinamento[42]
+7. Prompt de árvore de pensamento[43]
+8. Prompt maiêutica[45]
+9. Estímulo direcional[46]
+10. Inversão textual e embeddings[59]
+11. Uso de descida de gradiente para pesquisar prompts[61][62][63][64]
+12. Injeção de prompts[65][66][67]
+
+Cada uma dessas técnicas emprega estratégias exclusivas para aprimorar ou especificar as interações com grandes modelos de linguagem para produzir os resultados desejados.
+```
+
+Como você pode ver, simplificar e criar cadeias de prompts é uma abordagem útil de prompts quando as respostas precisam passar por várias operações ou transformações. Como exercício, sinta-se à vontade para criar um prompt que remova as citações (por exemplo, [27]) da resposta antes de enviá-la como resposta final ao usuário do seu aplicativo.
+
+Você também pode encontrar mais exemplos de encadeamento de prompts nesta [documentação] (https://docs.anthropic.com/claude/docs/prompt-chaining) que aproveita o Claude LLM. Nosso exemplo é inspirado e adotado a partir desses exemplos.
