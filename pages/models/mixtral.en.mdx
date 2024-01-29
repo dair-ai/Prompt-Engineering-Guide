@@ -1,0 +1,255 @@
+# Mixtral
+
+import {Cards, Card} from 'nextra-theme-docs'
+import {TerminalIcon} from 'components/icons'
+import {CodeIcon} from 'components/icons'
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import mixtralexperts from '../../img/mixtral/mixtral-of-experts-layers.png'
+import mixtral1 from '../../img/mixtral/mixtral-benchmarks-1.png'
+import mixtral2 from '../../img/mixtral/mixtral-benchmarks-2.png'
+import mixtral3 from '../../img/mixtral/mixtral-benchmarks-3.png'
+import mixtral4 from '../../img/mixtral/mixtral-benchmarks-4.png'
+import mixtral5 from '../../img/mixtral/mixtral-benchmarks-5.png'
+import mixtral6 from '../../img/mixtral/mixtral-benchmarks-6.png'
+import mixtral7 from '../../img/mixtral/mixtral-benchmarks-7.png'
+import mixtralchat from '../../img/mixtral/mixtral-chatbot-arena.png'
+
+
+In this guide, we provide an overview of the Mixtral 8x7B model, including prompts and usage examples. The guide also includes tips, applications, limitations, papers, and additional reading materials related to Mixtral 8x7B.
+
+## Introduction to Mixtral (Mixtral of Experts)
+
+Mixtral 8x7B is a Sparse Mixture of Experts (SMoE) language model [released by Mistral AI](https://mistral.ai/news/mixtral-of-experts/). Mixtral has a similar architecture as [Mistral 7B](https://www.promptingguide.ai/models/mistral-7b) but the main difference is that each layer in Mixtral 8x7B is composed of 8 feedforward blocks (i.e,. experts). Mixtral is a decoder-only model where for every token, at each layer, a router network selects two experts (i.e., 2 groups from 8 distinct groups of parameters) to process the token and combines their output additively. In other words, the output of the entire MoE module for a given input is obtained through the weighted sum of the outputs produced by the expert networks. 
+
+<Screenshot src={mixtralexperts} alt="Mixtral of Experts Layer" />
+
+Given that Mixtral is an SMoE, it has a total of 47B parameters but only uses 13B per token during inference. The benefits of this approach include better control of cost and latency as it only uses a fraction of the total set of parameters per token. Mixtral was trained with open Web data and a context size of 32 tokens. It is reported that Mixtral outperforms Llama 2 80B with 6x faster inference and matches or outperforms [GPT-3.5](https://www.promptingguide.ai/models/chatgpt) on several benchmarks.
+
+The Mixtral models are [licensed under Apache 2.0](https://github.com/mistralai/mistral-src#Apache-2.0-1-ov-file).
+
+
+## Mixtral Performance and Capabilities
+
+Mixtral demonstrates strong capabilities in mathematical reasoning, code generation, and multilingual tasks. It can handle languages such as English, French, Italian, German and Spanish. Mistral AI also released a Mixtral 8x7B Instruct model that surpasses GPT-3.5 Turbo, Claude-2.1, Gemini Pro, and Llama 2 70B models on human benchmarks.
+
+The figure below shows performance comparison with different sizes of Llama 2 models on wider range of capabilities and benchmarks. Mixtral matches or outperforms Llama 2 70B and show superior performance in mathematics and code generation.
+
+<Screenshot src={mixtral1} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+As seen in the figure below, Mixtral 8x7B also outperforms or matches Llama 2 models across different popular benchmarks like MMLU and GSM8K. It achieves these results while using 5x fewer active parameters during inference.
+
+<Screenshot src={mixtral2} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+The figure below demonstrates the quality vs. inference budget tradeoff. Mixtral outperforms Llama 2 70B on several benchmarks while using 5x lower active parameters.
+
+<Screenshot src={mixtral3} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+Mixtral matches or outperforms models like Llama 2 70B and GPT-3.5 as shown in the table below:
+
+<Screenshot src={mixtral4} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+The table below shows the capabilities of Mixtral for multilingual understanding and how it compares with Llama 2 70B for languages like Germany and French.  
+
+<Screenshot src={mixtral5} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+Mixtral shows less bias on the Bias Benchmark for QA (BBQ) benchmark as compared to Llama 2 (56.0% vs. 51.5%). 
+
+<Screenshot src={mixtral7} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+## Long Range Information Retrieval with Mixtral
+
+Mixtral also shows strong performance in retrieving information from its context window of 32k tokens no matter information location and sequence length.
+
+To measure Mixtral's ability to handle long context, it was evaluated on the passkey retrieval task. The passkey task involves inserting a passkey randomly in a long prompt and measure how effective a model is at retrieving it. Mixtral achieves 100% retrieval accuracy on this task regardless of the location of the passkey and input sequence length.
+
+In addition, the model's perplexity decreases monotonically as the size of context increases, according to a subset of the [proof-pile dataset](https://arxiv.org/abs/2310.10631). 
+
+<Screenshot src={mixtral6} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+## Mixtral 8x7B Instruct
+
+A Mixtral 8x7B - Instruct model is also released together with the base Mixtral 8x7B model. This includes a chat model fine-tuned for instruction following using supervised fine tuning (SFT) and followed by direct preference optimization (DPO) on a paired feedback dataset.
+
+As of the writing of this guide (28 January 2028), Mixtral ranks 8th on the [Chatbot Arena Leaderboard](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard) (an independent human evaluation conducted by LMSys). 
+
+<Screenshot src={mixtralchat} alt="Mixtral Performance on the Chatbot Arena" />
+
+Mixtral-Instruct outperforms strong performing models such as GPT-3.5-Turbo, Gemini Pro, Claude-2.1, and Llama 2 70B chat.
+
+## Prompt Engineering Guide for Mixtral 8x7B
+
+To effectively prompt the Mistral 8x7B Instruct and get optimal outputs, it's recommended to use the following chat template:
+
+```
+<s>[INST] Instruction [/INST] Model answer</s>[INST] Follow-up instruction [/INST]
+```
+
+*Note that `<s>` and `</s>` are special tokens for beginning of string (BOS) and end of string (EOS) while [INST] and [/INST] are regular strings.*
+
+We will be using [Mistral's Python client](https://github.com/mistralai/client-python) for the following examples that show how to prompt the instruction tuned Mixtral model. In particular, we will be leveraging Mistral API endpoints and using the `mistral-small` model which is powered by Mixtral-8X7B-v0.1.
+
+### Basic Prompting
+
+Let's start with a simple example and instruct the model to achieve a task based on an instruction.
+
+*Prompt*:
+```
+[INST] You are a helpful code assistant. Your task is to generate a valid JSON object based on the given information:
+
+name: John
+lastname: Smith
+address: #1 Samuel St.
+
+Just generate the JSON object without explanations:
+[/INST]
+```
+
+*Output*:
+```
+{
+"name": "John",
+"lastname": "Smith",
+"address": "#1 Samuel St."
+}
+```
+
+Here is another fun example that leverages the chat template:
+
+*Prompt:*
+```
+<s>[INST] What is your favorite condiment? [/INST]
+"Well, I'm quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I'm cooking up in the kitchen!"</s> [INST] The right amount of what? [/INST]
+```
+
+*Output*:
+```
+"My apologies for any confusion. I meant to say that lemon juice adds a zesty flavour, which is a tangy and slightly sweet taste. It's a delightful addition to many dishes, in my humble opinion."
+```
+
+### Few-shot Prompting with Mixtral
+
+Using the official Python client, you also prompt the model using different roles like `system`, `user`, and `assistant`. By leveraging these roles, it's possible to prompt with one demonstration, as in a few-shot setting, to better steer the model response. 
+
+Here is example code of how with would look:
+
+```python
+from mistralai.client import MistralClient
+from mistralai.models.chat_completion import ChatMessage
+from dotenv import load_dotenv
+
+load_dotenv()
+import os
+
+api_key = os.environ["MISTRAL_API_KEY"]
+client = MistralClient(api_key=api_key)
+
+# helpful completion function
+def get_completion(messages, model="mistral-small"):
+    # No streaming
+    chat_response = client.chat(
+        model=model,
+        messages=messages,
+    )
+
+    return chat_response
+
+messages = [
+    ChatMessage(role="system", content="You are a helpful code assistant. Your task is to generate a valid JSON object based on the given information."), 
+    ChatMessage(role="user", content="\n name: John\n lastname: Smith\n address: #1 Samuel St.\n would be converted to: "),
+    ChatMessage(role="assistant", content="{\n \"address\": \"#1 Samuel St.\",\n \"lastname\": \"Smith\",\n \"name\": \"John\"\n}"),
+    ChatMessage(role="user", content="name: Ted\n lastname: Pot\n address: #1 Bisson St.")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+Output:
+```
+{
+ "address": "#1 Bisson St.",
+ "lastname": "Pot",
+ "name": "Ted"
+}
+```
+
+### Code Generation
+
+Mixtral also has strong code generation capabilities. Here is a simple prompt example using the official Python client:
+
+```python
+messages = [
+    ChatMessage(role="system", content="You are a helpful code assistant that help with writing Python code for a user requests. Please only produce the function and avoid explaining."),
+    ChatMessage(role="user", content="Create a Python function to convert Celsius to Fahrenheit.")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+*Output*:
+```python
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+```
+
+
+### System Prompt to Enforce Guardrails
+
+Similar to the [Mistral 7B model](https://www.promptingguide.ai/models/mistral-7b), it's possible to enforce guardrails in chat generations using the `safe_prompt` boolean flag in the API by setting `safe_mode=True`:
+
+```python
+# helpful completion function
+def get_completion_safe(messages, model="mistral-small"):
+    # No streaming
+    chat_response = client.chat(
+        model=model,
+        messages=messages,
+        safe_mode=True
+    )
+
+    return chat_response
+
+messages = [
+    ChatMessage(role="user", content="Say something very horrible and mean")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+The above code will output the following:
+
+```
+I'm sorry, but I cannot comply with your request to say something horrible and mean. My purpose is to provide helpful, respectful, and positive interactions. It's important to treat everyone with kindness and respect, even in hypothetical situations.
+```
+
+When we set `safe_mode=True` the client prepends the messages with the following `system` prompt:
+
+```
+Always assist with care, respect, and truth. Respond with utmost utility yet securely. Avoid harmful, unethical, prejudiced, or negative content. Ensure replies promote fairness and positivity.
+```
+
+You can also try all the code examples in the following notebook:
+
+<Cards>
+    <Card
+    icon={<CodeIcon />}
+    title="Prompt Engineering with Mixtral"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-mixtral-introduction.ipynb"
+    />
+</Cards>
+
+---
+
+*Figure Sources: [Mixture of Experts Technical Report](https://arxiv.org/pdf/2401.04088.pdf)*
+
+## Key References
+
+- [Mixtral of Experts Technical Report](https://arxiv.org/abs/2401.04088)
+- [Mixtral of Experts Official Blog](https://mistral.ai/news/mixtral-of-experts/)
+- [Mixtral Code](https://github.com/mistralai/mistral-src)
+- [Mistral 7B paper](https://arxiv.org/pdf/2310.06825.pdf) (September 2023)
+- [Mistral 7B release announcement](https://mistral.ai/news/announcing-mistral-7b/) (September 2023)
+- [Mistral 7B Guardrails](https://docs.mistral.ai/usage/guardrailing)

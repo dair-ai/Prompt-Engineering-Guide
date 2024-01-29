@@ -6,5 +6,6 @@
     "mistral-7b": "Mistral 7B",
     "gemini": "Gemini",
     "phi-2": "Phi-2",
+    "mixtral": "Mixtral",
     "collection": "Col·lecció de Models"
 }
