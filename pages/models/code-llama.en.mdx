@@ -20,6 +20,7 @@ For all the prompt examples below, we will be using [Code Llama 70B Instruct](ht
 - [Unit Tests](#unit-tests)
 - [Text-to-SQL Generation](#text-to-sql-generation)
 - [Few-shot Prompting with Code Llama](#few-shot-prompting-with-code-llama)
+- [Function Calling](#function-calling)
 - [Safety Guardrails](#safety-guardrails)
 - [Notebook](#full-notebook)
 - [References](#additional-references)
@@ -371,6 +372,53 @@ result = students_df[(students_df['GPA'] >= 3.5) & (students_df['GPA'] <= 3.8)]
 ```
 
 For the pandas dataframe prompts and examples, we got inspiration from the recent work of [Ye et al. 2024](https://arxiv.org/abs/2401.15463). 
+
+## Function Calling
+
+You can also use the Code Llama models for function calling. However, the Code Llama 70B Instruct model provided via the together.ai APIs currently don't support this feature. So for now we went ahead and provided an example with the Code Llama 34B Instruct model instead. 
+
+```python
+tools = [
+  {
+    "type": "function",
+    "function": {
+      "name": "get_current_weather",
+      "description": "Get the current weather in a given location",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "The city and state, e.g. San Francisco, CA"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "celsius",
+              "fahrenheit"
+            ]
+          }
+        }
+      }
+    }
+  }
+]
+
+messages = [
+    {"role": "system", "content": "You are a helpful assistant that can access external functions. The responses from these function calls will be appended to this dialogue. Please provide responses based on the information from these function calls."},
+    {"role": "user", "content": "What is the current temperature of New York, San Francisco and Chicago?"}
+]
+    
+response = client.chat.completions.create(
+    model="togethercomputer/CodeLlama-34b-Instruct",
+    messages=messages,
+    tools=tools,
+    tool_choice="auto",
+)
+
+print(json.dumps(response.choices[0].message.model_dump()['tool_calls'], indent=2))
+```
+
 
 ## Safety Guardrails
 
