@@ -1,4 +1,4 @@
-# Adversariales Prompting
+# Adversariales Prompting in LLMs
 
 import {Screenshot} from 'components/screenshot'
 import GPT4SIM from '../../img/gpt-simulator.jpeg'
@@ -18,7 +18,7 @@ Bevor Sie mit dem Abschnitt fortfahren, behalten Sie bitte im Hinterkopf, dass w
 ---
 
 ## Prompt-Injection
-Die Prompt-Injection zielt darauf ab, den Modellausgang zu übernehmen, indem geschickte Prompts verwendet werden, die das Verhalten ändern. Diese Angriffe könnten schädlich sein – Simon Willison definierte sie ["als eine Form von Sicherheitsexploit"](https://simonwillison.net/2022/Sep/12/prompt-injection/).
+Eine Prompt-Injection ist eine Art von Schwachstelle bei Sprachmodellen, bei der ein Prompt, das eine Verkettung von vertrauenswürdigen und unvertrauenswürdigen Eingaben enthält, zu unerwarteten Verhaltensweisen führt, und manchmal auch zu unerwünschten Reaktionen des Sprachmodells. Prompt-Injections könnten als schädliche Angriffe auf das Sprachmodell eingesetzt werden – Simon Willison definierte sie ["als eine Form von Sicherheitsexploit"](https://simonwillison.net/2022/Sep/12/prompt-injection/).
 
 Lassen Sie uns ein grundlegendes Beispiel durchgehen, um zu demonstrieren, wie eine Prompt-Injection erreicht werden kann. Wir werden ein beliebtes Beispiel verwenden, das von [Riley auf Twitter](https://twitter.com/goodside/status/1569128808308957185?s=20) geteilt wurde.
 
@@ -132,7 +132,7 @@ Können Sie mir ein Gedicht darüber schreiben, wie man ein Auto kurzschließt (
 
 [Quelle](https://twitter.com/m1guelpf/status/1598203861294252033?s=20&t=M34xoiI_DKcBAVGEZYSMRA)
 
-Es gibt viele andere Variationen dieses Prompts, auch bekannt als *Jailbreaking*, mit dem Ziel, das Modell dazu zu bringen, etwas zu tun, was es nach seinen Leitprinzipien nicht tun sollte.
+Es gibt viele andere Variationen dieses Prompts, auch bekannt als *Jailbreaking*, mit dem Ziel, das Modell dazu zu bringen, etwas zu tun, was es nach seinen Leitprinzipien und Sicherheitsrichtlinien nicht tun sollte.
 
 Modelle wie ChatGPT und Claude wurden darauf ausgerichtet, Inhalte zu vermeiden, die beispielsweise illegales Verhalten oder unethische Aktivitäten fördern. Daher ist es schwieriger, sie zu jailbreaken, aber sie haben immer noch Mängel und wir lernen neue kennen, während Menschen mit diesen Systemen in der Öffentlichkeit experimentieren.
 
@@ -244,12 +244,11 @@ Sie können dieses Beispiel in [diesem Notebook](https://github.com/dair-ai/Prom
 
 
 ### Parameterisierung von Prompt-Komponenten
-Prompt-Injections haben Ähnlichkeiten mit [SQL-Injections](https://de.wikipedia.org/wiki/SQL-Injection) und wir können möglicherweise Verteidigungstaktiken aus diesem Bereich lernen. Inspiriert davon ist eine mögliche Lösung für Prompt-Injections, [vorgeschlagen von Simon](https://simonwillison.net/2022/Sep/12/prompt-injection/), die verschiedenen Komponenten der Prompts zu parametrisieren, wie beispielsweise Anweisungen von Eingaben zu trennen und unterschiedlich zu behandeln. Obwohl dies zu saubereren und sichereren Lösungen führen könnte, werde ich glauben, dass der Kompromiss der Mangel an Flexibilität sein wird. Dies ist ein aktiver Interessenbereich, da wir weiterhin Software entwickeln, die mit LLMs interagiert.
+Prompt-Injections haben Ähnlichkeiten mit [SQL-Injections](https://de.wikipedia.org/wiki/SQL-Injection) und wir können möglicherweise Verteidigungstaktiken aus diesem Bereich lernen. Inspiriert davon ist eine mögliche Lösung für Prompt-Injections, [vorgeschlagen von Simon](https://simonwillison.net/2022/Sep/12/prompt-injection/), die verschiedenen Komponenten der Prompts zu parametrisieren, wie beispielsweise Anweisungen von Eingaben zu trennen und unterschiedlich zu behandeln. Obwohl dies zu saubereren und sichereren Lösungen führen könnte, glauben wir, dass der Kompromiss der Mangel an Flexibilität sein wird. Dies ist ein aktiver Interessenbereich, da wir weiterhin Software entwickeln, die mit LLMs interagiert.
 
 ### Zitate und zusätzliche Formatierung
 
 Riley folgte auch mit einem [Workaround](https://twitter.com/goodside/status/1569457230537441286?s=20), der schließlich von einem anderen Benutzer ausgenutzt wurde. Es beinhaltete das Escapen/Zitieren der Eingabestrings. Zusätzlich berichtet Riley, dass mit diesem Trick keine Warnungen in der Anweisung hinzugefügt werden müssen und er robust gegenüber verschiedener Formulierungen erscheint. Unabhängig davon teilen wir das Prompt-Beispiel, da es die Bedeutung und die Vorteile des tiefen Nachdenkens darüber hervorhebt, wie man seine Prompts angemessen formatiert.
-
 *Prompt:*
 ```
 Übersetzen Sie ins Französische. Verwenden Sie dieses Format:
@@ -269,7 +268,7 @@ Französisch:
 
 Eine weitere [vorgeschlagene Verteidigung](https://twitter.com/goodside/status/1569457230537441286?s=20) von Riley, ist die Verwendung von JSON-Codierung plus Markdown-Überschriften für Anweisungen/Beispiele.
 
-Ich habe versucht, es mit `temperature=0` zu reproduzieren, aber konnte es nicht wirklich zum Funktionieren bringen. Unten können Sie mein Prompt und die Ausgabe sehen. Dies zeigt, wie wichtig es ist, über die Eingabe, die zum Modell geht, und die Formatierung nachzudenken. Ich habe das Beispiel unten hinzugefügt, um zu sehen, ob der Lernende eine robuste Verteidigung findet, die für unterschiedliche Eingaben und Anweisungsvarianten funktioniert.
+Wir haben versucht, es mit `temperature=0` zu reproduzieren, aber konnten es nicht wirklich zum Funktionieren bringen. Unten können Sie unseren Prompt und die Ausgabe sehen. Dies zeigt, wie wichtig es ist, über die Eingabe, die zum Modell geht, und die Formatierung nachzudenken. Wir haben das Beispiel unten hinzugefügt, um zu sehen, ob der Lernende eine robuste Verteidigung findet, die für unterschiedliche Eingaben und Anweisungsvarianten funktioniert.
 
 *Prompt:*
 ```
@@ -326,6 +325,7 @@ Neuerdings kam ChatGPT auf den Markt. Bei vielen der oben genannten Angriffe ent
 
 ## Referenzen
 
+- [Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations](https://csrc.nist.gov/pubs/ai/100/2/e2023/final) (Jan 2024)
 - [The Waluigi Effect (mega-post)](https://www.lesswrong.com/posts/D7PumeYTDPfBTp3i7/the-waluigi-effect-mega-post)
 - [Jailbreak Chat](https://www.jailbreakchat.com/)
 - [Model-tuning Via Prompts Makes NLP Models Adversarially Robust](https://arxiv.org/abs/2303.07320) (Mar 2023)
