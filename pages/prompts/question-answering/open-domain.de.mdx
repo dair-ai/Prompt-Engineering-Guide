@@ -1,0 +1,82 @@
+# Offene Domänen-Fragenbeantwortung mit LLMs
+
+import { Tabs, Tab } from 'nextra/components';
+import { Callout } from 'nextra/components';
+
+## Hintergrund
+
+Der folgende Prompt testet die Fähigkeiten eines LLMs, offene Domänenfragen zu beantworten, was das Beantworten von Faktenfragen ohne jegliche Beweisführung beinhaltet.
+
+<Callout type="warning" emoji="⚠️">
+  Beachten Sie, dass aufgrund der herausfordernden Natur der Aufgabe
+  die LLMs wahrscheinlich Halluzinationen haben werden, wenn sie keine
+  Kenntnisse bezüglich der Frage haben.
+</Callout>
+
+## Prompt
+
+```markdown
+In diesem Gespräch zwischen einem Menschen und dem AI ist das AI hilfsbereit und freundlich, und wenn es die Antwort nicht kennt, sagt es "Ich weiß es nicht".
+
+AI: Hallo, wie kann ich Ihnen helfen?
+Mensch: Kann ich im SeaTac Flughafen McDonalds bekommen?
+```
+
+## Code / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+        "role": "user",
+        "content": "In this conversation between a human and the AI, the AI is helpful and friendly, and when it does not know the answer it says \"I don’t know\".\n\nAI: Hi, how can I help you?\nHuman: Can I get McDonalds at the SeaTac airport?"
+        }
+    ],
+    temperature=1,
+    max_tokens=250,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "In this conversation between a human and the AI, the AI is helpful and friendly, and when it does not know the answer it says \"I don’t know\".\n\nAI: Hi, how can I help you?\nHuman: Can I get McDonalds at the SeaTac airport?",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+</Tabs>
+
+## Referenz
+
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13. April 2023)
