@@ -6,7 +6,7 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 🌐 [Prompt Engineering Guide (Web Version)](https://www.promptingguide.ai/)
 
-🎓 [Avanced Prompt Engineering for LLMs (Cohort-based Course)]((https://maven.com/dair-ai/prompt-engineering-llms))
+🎓 [Advanced Prompt Engineering for LLMs (Cohort-based Course)](https://maven.com/dair-ai/prompt-engineering-llms)
 
 Happy Prompting!
 
