@@ -43,7 +43,7 @@ const config: DocsThemeConfig = {
       <meta property="og:description" content="A Comprehensive Overview of Prompt Engineering" />
       <meta
           name="og:title"
-          content={title ? title + ' | Prompt Engineering Guide' : 'Prompt Engineering Guide'}
+          content={pageTitle}
         />
       <link rel="icon" href="/144-favicon.svg" type="image/svg+xml" />
 
