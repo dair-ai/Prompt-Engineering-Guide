@@ -1,17 +1,17 @@
-# PAL (Programma-Assistito di Modelli Linguistici)
+# PAL (Modelli linguistici assistiti da programmi)
  
 import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
 import PAL from '../../img/pal.png'
 
-[Gao et al., (2022)](https://arxiv.org/abs/2211.10435) presenta un metodo che utilizza gli LLM per leggere problemi in linguaggio naturale e generare programmi come fasi intermedie del ragionamento. Denominato PAL (Program-Aided Language Model), si differenzia dal prompt della catena di pensiero perché, invece di utilizzare il testo in forma libera per ottenere la soluzione, scarica la fase di soluzione su un runtime programmatico, come un interprete Python.
+[Gao et al., (2022)](https://arxiv.org/abs/2211.10435) presenta un metodo che utilizza gli LLM per leggere problemi in linguaggio naturale e generare programmi come passaggi di ragionamento intermedi. Denominato PAL (Program-Aided Language Model), si differenzia dal prompt a catena di pensiero (CoT) perché, invece di utilizzare testo in forma libera per ottenere la soluzione, delega il passo della soluzione a un runtime programmatico come un interprete Python.
 
 <Screenshot src={PAL} alt="PAL" />
-fonte immagine: [Gao et al., (2022)](https://arxiv.org/abs/2211.10435)
+Fonte immagine: [Gao et al., (2022)](https://arxiv.org/abs/2211.10435)
 
 Vediamo un esempio che utilizza LangChain e OpenAI GPT-3. Siamo interessati a sviluppare una semplice applicazione che sia in grado di interpretare la domanda posta e fornire una risposta sfruttando l'interprete Python. 
 
-In particolare, siamo interessati a creare una funzionalità che consenta di utilizzare il LLM per rispondere a domande che richiedono la comprensione dei dati. Forniremo al LLM un prompt che include alcuni esempi adottati da [qui](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py).  
+In particolare, siamo interessati a creare una funzionalità che permetta l'uso dell'LLM per rispondere a domande che richiedono la comprensione delle date. Forniremo all'LLM un prompt che include alcuni esempi adottati da [qui](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py).
 
 Questi sono gli import necessari:
 
@@ -97,6 +97,18 @@ llm_out = llm(DATE_UNDERSTANDING_PROMPT.format(question=question))
 print(llm_out)
 ```
 
+Si otterrà il seguente risultato:
+```
+# Se oggi è il 27 febbraio 2023 e io sono nato esattamente 25 anni fa, allora sono nato 25 anni prima.
+today = datetime(2023, 2, 27)
+# Sono nato 25 anni prima,
+born = today - relativedelta(years=25)
+# La risposta formattata con %m/%d/%Y è
+born.strftime('%m/%d/%Y')
+```
+
+
+Il contenuto di `llm_out` è un frammento di codice Python. Di seguito, il comando `exec` viene utilizzato per eseguire questo frammento di codice Python.
 ```python
 exec(llm_out)
 print(born)
