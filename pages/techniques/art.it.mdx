@@ -1,3 +1,24 @@
-# Automatic Reasoning and Tool-use (ART)
+# Ragionamento automatico e utilizzo di strumenti (Automatic Reasoning and Tool-use - ART)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ART from '../../img/ART.png'
+import ART2 from '../../img/ART2.png'
+
+Combinare il prompting Chain of Thought (CoT) e l'uso di strumenti in modo alternato si è dimostrato un approccio forte e robusto per affrontare molti compiti con gli LLM. Questi approcci richiedono tipicamente la creazione manuale di dimostrazioni specifiche per il compito ed una programmazione attenta della combinazione dei modelli generativi con l'uso di strumenti. [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014) propongono un nuovo framework che utilizza un LLM congelato per generare automaticamente passaggi di ragionamento intermedi sotto forma di programma.
+
+ART funziona nel modo seguente:
+- dato un nuovo compito, seleziona dimostrazioni di ragionamento a più passi e l'uso di strumenti da una libreria di compiti
+- al momento del test, sospende la generazione ogni volta che vengono chiamati strumenti esterni, e integra il loro output prima di riprendere la generazione
+
+ART incoraggia il modello a generalizzare a partire dalle dimostrazioni per decomporre un nuovo compito e utilizzare strumenti nei punti appropriati, in modalità zero-shot. In aggiunta, ART è estensibile in quanto permette anche agli umani di correggere errori nei passaggi di ragionamento o aggiungere nuovi strumenti semplicemente aggiornando le librerie di compiti e strumenti. Il processo è mostrato di seguito:
+
+<Screenshot src={ART} alt="ART" />
+Fonte immagine: [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)
+
+ART migliora sostanzialmente rispetto al prompting few-shot ed al CoT automatico su compiti non visti in precedenza nei benchmark BigBench e MMLU, e supera le prestazioni di prompt CoT creati manualmente quando viene incorporato il feedback umano.
+
+Di seguito è riportata una tabella che mostra le prestazioni di ART sui compiti di BigBench e MMLU:
+
+<Screenshot src={ART2} alt="ART2" />
+Fonte immagine: [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)

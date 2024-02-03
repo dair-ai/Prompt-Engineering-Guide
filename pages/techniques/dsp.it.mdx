@@ -4,13 +4,13 @@ import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
 import DSP from '../../img/dsp.jpeg'
 
-[Li et al., (2023)](https://arxiv.org/abs/2302.11520) propone una nuova tecnica di prompting per guidare meglio il LLM nella generazione della sintesi desiderata.
+[Li et al., (2023)](https://arxiv.org/abs/2302.11520) propone una nuova tecnica di prompting per guidare meglio il LLM nella generazione del riassunto desiderato.
 
-Per generare lo stimolo/il suggerimento viene addestrata una politica LM sintonizzabile. Si vede un maggiore uso di RL per ottimizzare i LLM.
+Un LM con linea di condotta regolabile viene addestrato per generare lo stimolo/suggerimento. Si vede un maggiore uso di RL per ottimizzare gli LLM.
 
-La figura seguente mostra come il Directional Stimulus Prompting si confronta con il prompt standard. La politica LM può essere piccola e ottimizzata per generare i suggerimenti che guidano un LLM congelato black-box.
+La figura seguente mostra come il Directional Stimulus Prompting (Prompt di Stimolo Direzionale) si confronta con il prompt standard. Un LM con linea di condotta può essere piccolo e ottimizzato per generare i suggerimenti che guidano un LLM congelato black-box.
 
 <Screenshot src={DSP} alt="DSP" />
-Sorgente immagine: [Li et al., (2023)](https://arxiv.org/abs/2302.11520)
+Fonte immagine: [Li et al., (2023)](https://arxiv.org/abs/2302.11520)
 
 Esempio completo in arrivo!
