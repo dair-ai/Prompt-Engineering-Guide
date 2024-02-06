@@ -1,0 +1,185 @@
+# Retrieval Augmented Generation (RAG) for LLMs
+
+There are many challenges when working with LLMs such as domain knowledge gaps, factuality issues, and hallucination. Retrieval Augmented Generation (RAG) provides a solution to mitigate some of these issues by augmenting LLMs with external knowledge such as databases. RAG is particularly useful in knowledge-intensive scenarios or domain-specific applications that require knowledge that's continually updating. A key advantage of RAG over other approaches is that the LLM doesn't need to be retrained for task-specific applications. RAG has been popularized recently with its application in conversational agents. 
+
+In this summary, we highlight the main findings and practical insights from the recent survey titled [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997) (Gao et al., 2023). In particular, we focus on the existing approaches, state-of-the-art RAG, evaluation, applications and technologies surrounding the different components that make up a RAG system (retrieval, generation, and augmentation techniques). 
+
+## Introduction to RAG
+
+!["RAG Framework"](../../img/rag/rag-framework.png)
+
+As better introduced [here](https://www.promptingguide.ai/techniques/rag), RAG can be defined as:
+
+> RAG takes input and retrieves a set of relevant/supporting documents given a source (e.g., Wikipedia). The documents are concatenated as context with the original input prompt and fed to the text generator which produces the final output. This makes RAG adaptive for situations where facts could evolve over time. This is very useful as LLMs's parametric knowledge is static. RAG allows language models to bypass retraining, enabling access to the latest information for generating reliable outputs via retrieval-based generation.
+
+In short, the retrieved evidence obtained in RAG can serve as a way to enhance the accuracy, controllability, and relevancy of the LLM's response. This is why RAG can help reduce issues of hallucination or performance when addressing problems in a highly evolving environment.
+
+While RAG has also involved the optimization of pre-training methods, current approaches have largely shifted to combining the strengths of RAG and powerful fine-tuned models like [ChatGPT](https://www.promptingguide.ai/models/chatgpt) and [Mixtral](https://www.promptingguide.ai/models/mixtral). The chart below shows the evolution of RAG-related research:
+
+!["RAG Framework"](../../img/rag/rag-evolution.png)
+
+Below is a typical RAG application workflow:
+
+!["RAG Framework"](../../img/rag/rag-process.png)
+
+We can explain the different steps/components as follows:
+- **Input:** The question to which the LLM system responds is referred to as the input. If no RAG is used, the LLM is directly used to respond to the question. 
+- **Indexing:** If RAG is used, then a series of related documents are indexed by chunking them first, generating embeddings of the chunks, and indexing them into a vector store. At inference, the query is also embedded in a similar way.
+- **Retrieval:** The relevant documents are obtained by comparing the query against the indexed vectors, also denoted as "Relevant Documents".
+- **Generation:** The relevant documents are combined with the original prompt as additional context. The combined text and prompt are then passed to the model for response generation which is then prepared as the final output of the system to the user. 
+
+In the example provided, using the model directly fails to respond to the question due to a lack of knowledge of current events. On the other hand, when using RAG, the system can pull the relevant information needed for the model to answer the question appropriately.
+
+
+## RAG Frameworks
+
+Over the past few years, RAG systems have evolved from Naive RAG to Advanced RAG and Modular RAG. This evolution has occurred to address certain limitations around performance, cost, and efficiency. 
+
+!["RAG Framework"](../../img/rag/rag-paradigms.png)
+
+### Naive RAG
+Naive RAG follows the traditional aforementioned process of indexing, retrieval, and generation. In short, a user input is used to query relevant documents which are then combined with a prompt and passed to the model to generate a final response. Conversational history can be integrated into the prompt if the application involves multi-turn dialogue interactions.
+
+Naive RAG has limitations such as low precision (misaligned retrieved chunks) and low recall (failure to retrieve all relevant chunks). It's also possible that the LLM is passed outdated information which is one of the main issues that a RAG system should initially aim to solve. This leads to hallucination issues and poor and inaccurate responses. 
+
+When augmentation is applied, there could also be issues with redundancy and repetition. When using multiple retrieved passages, ranking and reconciling style/tone are also key. Another challenge is ensuring that the generation task doesn't overly depend on the augmented information which can lead to the model just reiterating the retrieved content.
+
+### Advanced RAG
+
+Advanced RAG helps deal with issues present in Naive RAG such as improving retrieval quality that could involve optimizing the pre-retrieval, retrieval, and post-retrieval processes.
+
+The pre-retrieval process involves optimizing data indexing which aims to enhance the quality of the data being indexed through five stages: enhancing data granularity, optimizing index structures, adding metadata, alignment optimization, and mixed retrieval.
+
+The retrieval stage can be further improved by optimizing the embedding model itself which directly impacts the quality of the chunks that make up the context. This can be done by fine-tuning the embedding to optimize retrieval relevance or employing dynamic embeddings that better capture contextual understanding (e.g., OpenAI’s embeddings-ada-02 model).
+
+Optimizing post-retrieval focuses on avoiding context window limits and dealing with noisy or potentially distracting information. A common approach to address these issues is re-ranking which could involve approaches such as relocation of relevant context to the edges of the prompt or recalculating the semantic similarity between the query and relevant text chunks. Prompt compression may also help in dealing with these issues. 
+
+### Modular RAG
+
+As the name implies, Modular RAG enhances functional modules such as incorporating a search module for similarity retrieval and applying fine-tuning in the retriever. Both Naive RAG and Advanced RAG are special cases of Modular RAG and are made up of fixed modules. Extended RAG modules include search, memory, fusion, routing, predict, and task adapter which solve different problems. These modules can be rearranged to suit specific problem contexts. Therefore, Modular RAG benefits from greater diversity and flexibility in that you can add or replace modules or adjust the flow between modules based on task requirements. 
+
+
+Given the increased flexibility in building RAG systems, other important optimization techniques have been proposed to optimize RAG pipelines including:
+
+- **Hybrid Search Exploration:** This approach leverages a combination of search techniques like keyword-based search and semantic search to retrieve relevant and context-rich information; this is useful when dealing with different query types and information needs.
+- **Recursive Retrieval and Query Engine:** Involves a recursive retrieval process that might start with small semantic chunks and subsequently retrieve larger chunks that enrich the context; this is useful to balance efficiency and context-rich information.
+- **StepBack-prompt:** [A prompting technique](https://arxiv.org/abs/2310.06117) that enables LLMs to perform abstraction that produces concepts and principles that guide reasoning; this leads to better-grounded responses when adopted to a RAG framework because the LLM moves away from specific instances and is allowed to reason more broadly if needed. 
+- **Sub-Queries:** There are different query strategies such as tree queries or sequential querying of chunks that can be used for different scenarios. LlamaIndex offers a [sub question query engine](https://docs.llamaindex.ai/en/latest/understanding/putting_it_all_together/agents.html#) that allows a query to be broken down into several questions that use different relevant data sources.
+- **Hypothetical Document Embeddings:** [HyDE](https://arxiv.org/abs/2212.10496) generates a hypothetical answer to a query, embeds it, and uses it to retrieve documents similar to the hypothetical answer as opposed to using the query directly.
+
+
+## RAG Framework
+In this section, we summarize the key developments of the components of a RAG system, which include Retrieval, Generation, and Augmentation.
+
+### Retrieval
+Retrieval is the component of RAG that deals with retrieving highly relevant context from a retriever. A retriever can be enhanced in many ways, including:
+
+**Enhancing Semantic Representations** 
+
+This process involves directly improving the semantic representations that power the retriever. Here are a few considerations:
+
+- **Chunking:** One important step is choosing the right chunking strategy which depends on the content you are dealing with and the application you are generating responses for. Different models also display different strengths on varying block sizes. Sentence transformers will perform better on single sentences but text-embedding-ada-002 will perform better with blocks containing 256 or 512 tokens. Other aspects to consider include the length of user questions, application, and token limits but it's common to experiment with different chunking strategies to help optimize retrieval in your RAG system.
+- **Fine-tuned Embedding Models:** Once you have determined an effective chunking strategy, it may be required to fine-tune the embedding model if you are working with a specialized domain. Otherwise, it's possible that the user queries will be completely misunderstood in your application. You can fine-tune on broad domain knowledge (i.e., domain knowledge fine-tuning) and for specific downstream tasks.
+
+**Aligning Queries and Documents**
+
+This process deals with aligning user's queries to those of documents in the semantic space. This may be needed when a user's query may lack semantic information or contain imprecise phrasing. Here are some approaches:
+
+- **Query Rewriting:** Focuses on rewriting queries using a variety of techniques such as [Query2Doc](https://arxiv.org/abs/2303.07678), [ITER-RETGEN](https://arxiv.org/abs/2305.15294), and HyDE. 
+- **Embedding Transformation:** Optimizes the representation of query embeddings and align them to a latent space that is more closely aligned with a task. 
+
+**Aligning Retriever and LLM**
+
+This process deals with aligning the retriever outputs with the preferences of the LLMs. 
+
+- **Fine-tuning Retrievers:** Uses an LLM's feedback signals to refine the retrieval models. Examples include augmentation adapted retriever ([AAR](https://arxiv.org/abs/2305.17331)), [REPLUG](https://arxiv.org/abs/2301.12652), and [UPRISE](https://arxiv.org/abs/2303.08518), to name a few. 
+- **Adapters:** Incorporates external adapters to help with the alignment process. Examples include [PRCA](https://aclanthology.org/2023.emnlp-main.326/), [RECOMP](https://arxiv.org/abs/2310.04408), and [PKG](https://arxiv.org/abs/2305.04757).
+
+
+### Generation
+
+The generator in a RAG system is responsible for converting retrieved information into a coherent text that will form the final output of the model. This process involves diverse input data which sometimes require efforts to refine the adaptation of the language model to the input data derived from queries and documents. This can be addressed using post-retrieval process and fine-tuning:
+
+- **Post-retrieval with Frozen LLM:** Post-retrieval processing leaves the LLM untouched and instead focuses on enhancing the quality of retrieval results through operations like information compression and result reranking. Information compression helps with reducing noise, addressing an LLM's context length restrictions, and enhancing generation effects. Reranking aims at reordering documents to prioritize the most relevant items at the top.
+- **Fine-tuning LLM for RAG:** To improve the RAG system, the generator can be further optimized or fine-tuned to ensure that the generated text is natural and effectively leverages the retrieved documents.
+
+### Augmentation
+Augmentation involves the process of effectively integrating context from retrieved passages with the current generation task. Before discussing more on the augmentation process, augmentation stages, and augmentation data, here is a taxonomy of RAG's core components:
+
+!["RAG Taxonomy"](../../img/rag/rag-taxonomy.png)
+
+Retrieval augmentation can be applied in many different stages such as pre-training, fine-tuning, and inference. 
+
+- **Augmentation Stages:** [RETRO](https://arxiv.org/abs/2112.04426) is an example of a system that leverages retrieval augmentation for large-scale pre-training from scratch; it uses an additional encoder built on top of external knowledge. Fine-tuning can also be combined with RAG to help develop and improve the effectiveness of RAG systems. At the inference stage, many techniques are applied to effectively incorporate retrieved content to meet specific task demands and further refine the RAG process. 
+
+- **Augmentation Source:** A RAG model's effectiveness is heavily impacted by the choice of augmentation data source. Data can be categorized into unstructured, structured, and LLM-generated data. 
+
+- **Augmentation Process:** For many problems (e.g., multi-step reasoning), a single retrieval isn't enough so a few methods have been proposed: 
+    - **Iterative retrieval** enables the model to perform multiple retrieval cycles to enhance the depth and relevance of information. Notable approaches that leverage this method include [RETRO](https://arxiv.org/abs/2112.04426) and [GAR-meets-RAG](https://arxiv.org/abs/2310.20158).
+    - **Recursive retrieval** recursively iterates on the output of one retrieval step as the input to another retrieval step; this enables delving deeper into relevant information for complex and multi-step queries (e.g., academic research and legal case analysis). Notable approaches that leverage this method include [IRCoT](https://arxiv.org/abs/2212.10509) and [Tree of Clarifications](https://arxiv.org/abs/2310.14696).
+    - **Adaptive retrieval** tailors the retrieval process to specific demands by determining optimal moments and content for retrieval.  Notable approaches that leverage this method include [FLARE](https://arxiv.org/abs/2305.06983) and [Self-RAG](https://arxiv.org/abs/2310.11511).
+
+
+The figure below depicts a detailed representation of RAG research with different augmentation aspects, including the augmentation stages, source, and process.
+
+!["RAG Augmentation Aspects"](../../img/rag/rag-augmentation.png)
+
+
+### RAG vs. Fine-tuning
+There are a lot of open discussions about the difference between RAG and fine-tuning and in which scenarios each is appropriate. Research in these two areas suggests that RAG is useful for integrating new knowledge while fine-tuning can be used to improve model performance and efficiency through improving internal knowledge, output format, and teaching complex instruction following. These approaches are not mutually exclusive and can compliment each other in an iterative process that aims to improve the use of LLMs for a complex knowledge-intensive and scalable application that requires access to quickly-evolving knowledge and customized responses that follow a certain format, tone, and style. In addition, Prompting Engineering can also help to optimize results by leveraging the inherent capabilities of the model. Below is a figure showing the different characteristics of RAG compared with other model optimization methods: 
+
+!["RAG Optimization"](../../img/rag/rag-optimization.png)
+
+Here is table from the survey paper that compares the features between RAG and fine-tuned models:
+
+!["RAG Augmentation Aspects"](../../img/rag/rag-vs-finetuning.png)
+
+
+## RAG Evaluation
+
+Similar to measuring the performance of LLMs on different aspects, evaluation plays a key role in understanding and optimizing the performance of RAG models across diverse application scenarios. Traditionally, RAG systems have been assessed based on the performance of the downstream tasks using task-specific metrics like F1 and EM. [RaLLe](https://arxiv.org/abs/2308.10633v2) is a notable example of a framework used to evaluate retrieval-augmented large language models for knowledge-intensive tasks.
+
+RAG evaluation targets are determined for both retrieval and generation where the goal is to evaluate both the quality of the context retrieved and the quality of the content generated. To evaluate retrieval quality, metrics used in other knowledge-intensive domains like recommendation systems and information retrieval are used such as NDCG and Hit Rate. To evaluate generation quality, you can evaluate different aspects like relevance and harmfulness if it's unlabeled content or accuracy for labeled content. Overall, RAG evaluation can involve either manual or automatic evaluation methods.
+
+Evaluating a RAG framework focuses on three primary quality scores and four abilities. Quality scores include measuring context relevance (i.e., the precision and specificity of retrieved context), answer faithfulness (i.e., the faithfulness of answers to the retrieved context), and answer relevance (i.e., the relevance of answers to posed questions). In addition, there are four abilities that help measure the adaptability and efficiency of a RAG system: noise robustness, negative rejection, information integration, and counterfactual robustness. Below is a summary of metrics used for evaluating different aspects of a RAG system:
+
+!["RAG Augmentation Aspects"](../../img/rag/rag-metrics.png)
+
+Several benchmarks like [RGB](https://arxiv.org/abs/2309.01431) and [RECALL](https://arxiv.org/abs/2311.08147) are used to evaluate RAG models. Many tools like [RAGAS](https://arxiv.org/abs/2309.15217), [ARES](https://arxiv.org/abs/2311.09476), and [TruLens](https://www.trulens.org/trulens_eval/core_concepts_rag_triad/) have been developed to automate the process of evaluating RAG systems. Some of the systems rely on LLMs to determine some of the quality scores defined above. 
+
+## Challenges & Future of RAG
+
+In this overview, we discussed several research aspects of RAG research and different approaches for enhancing retrieval, augmentation, and generation of a RAG system. Here are several challenges emphasized by [Gao et al., 2023](https://arxiv.org/abs/2312.10997) as we continue developing and improving RAG systems:
+
+- **Context length:** LLMs continue to extend context window size which presents challenges to how RAG needs to be adapted to ensure highly relevant and important context is captured.
+- **Robustness:** Dealing with counterfactual and adversarial information is important to measure and improve in RAG.
+- **Hybrid approaches:** There is an ongoing research effort to better understand how to best optimize the use of both RAG and fine-tuned models. 
+- **Expanding LLM roles:** Increasing the role and capabilities of LLMs to further enhance RAG systems is of high interest. 
+- **Scaling laws:** Investigation of LLM scaling laws and how they apply to RAG systems are still not properly understood.
+- **Production-ready RAG:** Production-grade RAG systems demand engineering excellence across performance, efficiency, data security, privacy, and more.
+- **Multimodal RAG:** While there have been lots of research efforts around RAG systems, they have been mostly centered around text-based tasks. There is increasing interest in extending modalities for a RAG system to support tackling problems in more domains such as image, audio and video, code, and more. 
+- **Evaluation:** The interest in building complex applications with RAG requires special attention to develop nuanced metrics and assessment tools that can more reliably assess different aspects such as contextual relevance, creativity, content diversity, factuality, and more. In addition, there is also a need for better interpretability research and tools for RAG.
+
+## RAG Tools
+
+Some popular comprehensive tools to build RAG systems include [LangChain](https://www.langchain.com/) and [LlamaIndex](https://www.llamaindex.ai/). There are also a range of specialized tools that serve different purposes such as [Flowise AI](https://flowiseai.com/) that offers a low-code solution for building RAG applications. Other notables technologies include [HayStack](https://haystack.deepset.ai/), [Meltano](https://meltano.com/), [Cohere Coral](https://cohere.com/coral), and others. Software and cloud service providers are also including RAG-centric services. For instance, Verba from Weaviate is useful for building personal assistant applications and Amazon's Kendra offers intelligent enterprise search services. 
+
+## Conclusion
+
+In conclusion, RAG systems have evolved rapidly including the development of more advanced paradigms that enable customization and further the performance and utility of RAG across a wide range of domains. There is a huge demand for RAG applications, which has accelerated the development of methods to improve the different components of a RAG system. From hybrid methodologies to self-retrieval, these are some of the currently explored research areas of modern RAG models. There is also increasing demand for better evaluation tools and metrics. The figure above provides a recap of the RAG ecosystem, techniques to enhance RAG, challenges, and other related aspects covered in this overview:
+
+
+!["RAG Ecosystem"](../../img/rag/rag-metrics.png)
+
+---
+
+*Figures Source: [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997)*
+
+## References
+
+- [A Survey on Hallucination in Large Language Models: Principles,Taxonomy, Challenges, and Open Questions](https://arxiv.org/abs/2311.05232)
+- [Take a Step Back: Evoking Reasoning via Abstraction in Large Language Models](https://arxiv.org/abs/2310.06117)
+- [Precise Zero-Shot Dense Retrieval without Relevance Labels](https://arxiv.org/abs/2212.10496)
+- [Query2Doc](https://arxiv.org/abs/2303.07678)
+- [ITER-RETGEN](https://arxiv.org/abs/2305.15294)
+- [HyDE](https://arxiv.org/abs/2212.10496)
