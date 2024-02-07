@@ -1,3 +1,178 @@
-# Retrieval Augmented Generation (RAG) for LLMs
+# Retrieval Augmented Generation (RAG) für LLMs
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right.
+Es gibt zahlreiche Herausforderungen beim Arbeiten mit LLMs wie Wissenslücken in bestimmten Domänen, Faktizitätsfragen und Halluzinationen. Retrieval Augmented Generation (RAG) bietet eine Lösung, um einige dieser Probleme zu mildern, indem LLMs mit externem Wissen wie Datenbanken angereichert werden. RAG ist besonders nützlich in wissensintensiven Szenarien oder domänenspezifischen Anwendungen, die kontinuierlich aktualisiertes Wissen erfordern. Ein Schlüsselvorteil von RAG gegenüber anderen Ansätzen ist, dass das LLM nicht für anwendungsspezifische Aufgaben neu trainiert werden muss. RAG wurde kürzlich mit seiner Anwendung bei Konversationsagenten populär gemacht.
+
+In dieser Zusammenfassung heben wir die wichtigsten Erkenntnisse und praktischen Einblicke aus der jüngsten Umfrage mit dem Titel [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997) (Gao et al., 2023) hervor. Insbesondere konzentrieren wir uns auf die bestehenden Ansätze, den neuesten Stand bei RAG, Evaluierung, Anwendungen und Technologien rund um die verschiedenen Komponenten, die ein RAG-System ausmachen (Retrieval, Generierung und Augmentierungstechniken).
+
+## Einführung in RAG
+
+!["RAG Framework"](../../img/rag/rag-framework.png)
+
+Wie [hier](https://www.promptingguide.ai/techniques/rag) besser eingeführt, kann RAG definiert werden als:
+
+> RAG nimmt eine Eingabe und holt eine Menge relevanter/unterstützender Dokumente von einer Quelle (z.B. Wikipedia) ab. Die Dokumente werden als Kontext mit dem ursprünglichen Eingabe-Prompt zusammengefügt und an den Textgenerator übergeben, der den endgültigen Ausgangstext produziert. Dies macht RAG anpassungsfähig für Situationen, in denen sich Fakten im Laufe der Zeit entwickeln könnten. Dies ist sehr nützlich, da das parametrische Wissen der LLMs statisch ist. RAG ermöglicht es Sprachmodellen, ein Neutraining zu umgehen und über eine abrufbasierte Generation Zugang zu den neuesten Informationen zu erhalten, um verlässliche Ausgaben zu generieren.
+
+Kurz gesagt, die bei RAG abgerufenen Belege können als eine Möglichkeit dienen, die Genauigkeit, Kontrollierbarkeit und Relevanz der Antwort des LLMs zu verbessern. Aus diesem Grund kann RAG dabei helfen, Probleme der Halluzination oder Leistung beim Ansprechen von Problemen in einer sich stark entwickelnden Umgebung zu reduzieren.
+
+Während RAG auch die Optimierung von Vortrainingsmethoden involviert hat, haben aktuelle Ansätze sich größtenteils darauf verlagert, die Stärken von RAG und leistungsfähigen feinabgestimmten Modellen wie [ChatGPT](https://www.promptingguide.ai/models/chatgpt) und [Mixtral](https://www.promptingguide.ai/models/mixtral) zu kombinieren. Das folgende Diagramm zeigt die Entwicklung der RAG-bezogenen Forschung:
+
+!["RAG Framework"](../../img/rag/rag-evolution.png)
+
+Unten ist ein typischer RAG-Anwendungsworkflow dargestellt:
+
+!["RAG Framework"](../../img/rag/rag-process.png)
+
+Wir können die verschiedenen Schritte/Komponenten wie folgt erklären:
+- **Input:** Die Frage, auf die das LLM-System antwortet, wird als Eingabe bezeichnet. Wenn kein RAG verwendet wird, wird das LLM direkt verwendet, um auf die Frage zu antworten.
+- **Indizierung:** Wenn RAG verwendet wird, werden dann eine Reihe von verwandten Dokumenten indiziert, indem sie zunächst in Stücke geteilt, Embeddings der Stücke generiert und in einen Vektor-Speicher indiziert werden. Bei der Inferenz wird die Anfrage auf ähnliche Weise eingebettet.
+- **Retrieval:** Die relevanten Dokumente werden durch Vergleich der Anfrage mit den indizierten Vektoren erhalten, auch bezeichnet als "Relevante Dokumente".
+- **Generierung:** Die relevanten Dokumente werden mit dem ursprünglichen Prompt als zusätzlicher Kontext kombiniert. Der kombinierte Text und Prompt werden dann dem Modell zur Generierung der Antwort übergeben, die dann als das endgültige Ergebnis des Systems für den Benutzer vorbereitet wird.
+
+Im gezeigten Beispiel scheitert die direkte Verwendung des Modells daran, auf die Frage zu antworten, da es kein Wissen über aktuelle Ereignisse hat. Andererseits kann das System beim Einsatz von RAG die relevanten Informationen abrufen, die das Modell benötigt, um die Frage angemessen zu beantworten.
+
+## RAG-Frameworks
+
+In den letzten Jahren haben sich RAG-Systeme von Naive RAG zu Advanced RAG und Modular RAG entwickelt. Diese Entwicklung fand statt, um bestimmte Einschränkungen bezüglich der Leistung, der Kosten und der Effizienz zu adressieren.
+
+!["RAG Framework"](../../img/rag/rag-paradigms.png)
+
+### Naive RAG
+Naive RAG folgt dem traditionellen zuvor erwähnten Prozess der Indizierung, des Retrievals und der Generierung. Kurz gesagt, eine Benutzereingabe wird verwendet, um relevante Dokumente abzufragen, die dann mit einem Prompt kombiniert und dem Modell übergeben werden, um eine endgültige Antwort zu generieren. Konversationshistorie kann in den Prompt integriert werden, wenn die Anwendung Interaktionen in mehreren Schritten umfasst.
+
+Naive RAG hat Limitationen wie eine geringe Präzision (nicht zutreffende abgerufene Abschnitte) und eine geringe Trefferquote (Versagen, alle relevanten Abschnitte abzurufen). Es ist auch möglich, dass dem LLM veraltete Informationen übergeben werden, was eines der Hauptprobleme ist, die ein RAG-System zunächst lösen sollte. Dies führt zu Halluzinationsproblemen und schlechten sowie ungenauen Antworten.
+
+Bei der Anwendung der Augmentierung könnte es auch zu Problemen mit Redundanz und Wiederholungen kommen. Bei der Verwendung mehrerer abgerufener Passagen sind auch Rangfolge und Abstimmung von Stil/Ton wichtig. Eine weitere Herausforderung besteht darin, sicherzustellen, dass die Generierungsaufgabe nicht zu stark von den augmentierten Informationen abhängt, was dazu führen kann, dass das Modell nur den abgerufenen Inhalt wiederholt.
+
+### Advanced RAG
+
+Advanced RAG hilft, Probleme, die bei Naive RAG auftreten, wie die Verbesserung der Abfragequalität zu lösen, die das Optimieren der Vorabfrage-, Abfrage- und Nachabfrageprozesse umfassen könnte.
+
+Der Vorabfrageprozess beinhaltet die Optimierung der Datenindizierung, die darauf abzielt, die Qualität der zu indizierenden Daten zu verbessern, durch fünf Stufen: Verbesserung der Datengranularität, Optimierung der Indexstrukturen, Hinzufügen von Metadaten, Ausrichtungsoptimierung und gemischtes Retrieval.
+
+Die Abfragestufe kann weiter verbessert werden, indem das Einbettungsmodell selbst optimiert wird, was direkt die Qualität der Kontextabschnitte beeinflusst. Dies kann durch Feinabstimmung der Einbettung zur Optimierung der Abfragerelvanz oder durch Verwendung dynamischer Einbettungen, die ein besseres kontextuelles Verständnis erfassen (z. B. das embeddings-ada-02-Modell von OpenAI), erreicht werden.
+
+Die Optimierung der Nachabfrage konzentriert sich auf die Vermeidung von Kontextfensterlimits und den Umgang mit störenden oder potenziell ablenkenden Informationen. Ein gängiger Ansatz zur Bewältigung dieser Probleme ist das Neurangieren, das Ansätze wie das Verlegen relevanter Kontexte an die Ränder des Prompts oder das Neuberechnen der semantischen Ähnlichkeit zwischen der Anfrage und relevanten Textabschnitten beinhalten könnte. Die Komprimierung des Prompts kann auch dabei helfen, diese Probleme zu bewältigen.
+
+### Modular RAG
+
+Wie der Name andeutet, verbessert Modular RAG funktionale Module, wie das Einbeziehen eines Suchmoduls für Ähnlichkeitsabfragen und die Anwendung von Feinabstimmung im Retriever. Sowohl Naive RAG als auch Advanced RAG sind Spezialfälle von Modular RAG und bestehen aus festen Modulen. Erweiterte RAG-Module umfassen Suche, Speicher, Fusion, Routing, Vorhersage und Task-Adapter, die unterschiedliche Probleme lösen. Diese Module können neu angeordnet werden, um spezifischen Problemkontexten zu entsprechen. Daher profitiert Modular RAG von einer größeren Vielfalt und Flexibilität, da Sie Module hinzufügen oder ersetzen oder den Fluss zwischen den Modulen basierend auf den Aufgabenanforderungen anpassen können.
+
+Angesichts der erhöhten Flexibilität beim Aufbau von RAG-Systemen wurden andere wichtige Optimierungstechniken vorgeschlagen, um RAG-Pipelines zu optimieren, einschließlich:
+
+- **Hybride Suchexploration:** Dieser Ansatz nutzt eine Kombination von Suchtechniken wie Keyword-basierte Suche und semantische Suche, um relevante und kontextreiche Informationen abzurufen; dies ist nützlich beim Umgang mit verschiedenen Anfragetypen und Informationsbedürfnissen.
+- **Rekursive Abfrage und Query-Engine:** Beinhaltet einen rekursiven Abfrageprozess, der mit kleinen semantischen Abschnitten beginnen könnte und anschließend größere Abschnitte abruft, die den Kontext bereichern; dies ist nützlich, um Effizienz und kontextreiche Informationen auszugleichen.
+- **StepBack-prompt:** [Eine Prompting-Technik](https://arxiv.org/abs/2310.06117), die LLMs ermöglicht, Abstraktion zu vollziehen, die Konzepte und Prinzipien hervorbringt, die das Denken leiten; dies führt zu besser fundierten Antworten, wenn sie in einem RAG-Framework eingesetzt wird, da das LLM von spezifischen Instanzen abweicht und bei Bedarf breiter argumentieren kann.
+- **Sub-Queries:** Es gibt verschiedene Abfragestrategien wie Baumabfragen oder sequenzielles Abfragen von Abschnitten, die für verschiedene Szenarien verwendet werden können. LlamaIndex bietet eine [Sub-Question-Query-Engine](https://docs.llamaindex.ai/en/latest/understanding/putting_it_all_together/agents.html#), die es ermöglicht, eine Anfrage in mehrere Fragen aufzuteilen, die verschiedene relevante Datenquellen nutzen.
+- **Hypothetische Dokumentembeddings:** [HyDE](https://arxiv.org/abs/2212.10496) generiert eine hypothetische Antwort auf eine Anfrage, bettet sie ein und verwendet sie, um Dokumente abzurufen, die der hypothetischen Antwort ähneln, anstatt die Anfrage direkt zu verwenden.
+
+## RAG-Framework
+In diesem Abschnitt fassen wir die wichtigsten Entwicklungen der Komponenten eines RAG-Systems zusammen, darunter Abfrage, Generierung und Augmentierung.
+
+### Abfrage
+Abfrage ist die Komponente von RAG, die sich mit der Abfrage hochgradig relevanter Kontexte aus einem Retriever befasst. Ein Retriever kann auf viele Arten verbessert werden, einschließlich:
+
+**Verbesserung semantischer Darstellungen**
+
+Dieser Prozess beinhaltet die direkte Verbesserung der semantischen Repräsentationen, die den Retriever antreiben. Hier einige Überlegungen:
+
+- **Chunking:** Ein wichtiger Schritt ist die Wahl der richtigen Chunking-Strategie, die von dem von Ihnen behandelten Inhalt und der Anwendung, für die Sie Antworten generieren, abhängt. Verschiedene Modelle zeigen auch unterschiedliche Stärken bei verschiedenen Blockgrößen. Sentence Transformers funktionieren besser bei einzelnen Sätzen, aber text-embedding-ada-002 funktioniert besser mit Blöcken, die 256 oder 512 Tokens enthalten. Andere Aspekte, die zu berücksichtigen sind, umfassen die Länge der Benutzerfragen, Anwendung und Token-Limits, aber es ist üblich, mit verschiedenen Chunking-Strategien zu experimentieren, um die Abfrage in Ihrem RAG-System zu optimieren.
+- **Feinabgestimmte Einbettungsmodelle:** Sobald Sie eine wirksame Chunking-Strategie festgelegt haben, ist es möglicherweise erforderlich, das Einbettungsmodell zu feinabstimmen, wenn Sie mit einem spezialisierten Bereich arbeiten. Andernfalls ist es möglich, dass die Benutzeranfragen in Ihrer Anwendung völlig missverstanden werden. Sie können auf breites Domänenwissen (d. h. Domänenwissens-Feinabstimmung) und für spezifische Aufgabenabwärts feinabstimmen.
+
+**Ausrichtung von Anfragen und Dokumenten**
+
+Dieser Prozess befasst sich mit der Ausrichtung der Anfragen der Benutzer auf die der Dokumente im semantischen Raum. Dies kann erforderlich sein, wenn die Anfrage eines Benutzers möglicherweise semantische Informationen fehlen oder ungenaue Formulierungen enthalten. Hier einige Ansätze:
+
+- **Anfrage-Umschreiben:** Konzentriert sich auf das Umschreiben von Anfragen unter Verwendung einer Vielzahl von Techniken wie [Query2Doc](https://arxiv.org/abs/2303.07678), [ITER-RETGEN](https://arxiv.org/abs/2305.15294) und HyDE.
+- **Einbettungstransformation:** Optimiert die Darstellung von Anfrageeinbettungen und richtet sie an einen latenten Raum aus, der stärker mit einer Aufgabe übereinstimmt.
+
+**Ausrichtung von Retriever und LLM**
+
+Dieser Prozess befasst sich mit der Ausrichtung der Ausgaben des Retrievers auf die Präferenzen der LLMs.
+
+- **Feinabstimmung von Retrievern:** Verwendet Feedbacksignale eines LLMs, um die Abfragemodelle zu verfeinern. Beispiele hierfür sind der an die Augmentierung angepasste Retriever ([AAR](https://arxiv.org/abs/2305.17331)), [REPLUG](https://arxiv.org/abs/2301.12652) und [UPRISE](https://arxiv.org/abs/2303.08518), um nur einige zu nennen.
+- **Adapter:** Beinhaltet externe Adapter, um beim Ausrichtungsprozess zu helfen. Beispiele hierfür sind [PRCA](https://aclanthology.org/2023.emnlp-main.326/), [RECOMP](https://arxiv.org/abs/2310.04408) und [PKG](https://arxiv.org/abs/2305.04757).
+
+### Generierung
+
+Der Generator in einem RAG-System ist für die Umwandlung abgerufener Informationen in einen kohärenten Text verantwortlich, der die endgültige Ausgabe des Modells bildet. Dieser Prozess beinhaltet diverse Eingabedaten, die manchmal Anstrengungen erfordern, um die Anpassung des Sprachmodells an die aus Anfragen und Dokumenten abgeleiteten Eingabedaten zu verfeinern. Dies kann mit einer Nachabfrageverarbeitung und Feinabstimmung angegangen werden:
+
+- **Nachabfrage mit unverändertem LLM:** Die Nachabfrageverarbeitung belässt das LLM unverändert und konzentriert sich stattdessen darauf, die Qualität der Abfrageergebnisse durch Operationen wie Informationskompression und Neurangierung zu verbessern. Informationskompression hilft bei der Reduzierung von Rauschen, der Berücksichtigung von Kontextlängenbeschränkungen eines LLMs und der Verbesserung der Generierungseffekte. Neurangierung zielt darauf ab, Dokumente neu zu ordnen, um die relevantesten Elemente oben zu priorisieren.
+- **Feinabstimmung des LLM für RAG:** Um das RAG-System zu verbessern, kann der Generator weiter optimiert oder feinabgestimmt werden, um sicherzustellen, dass der generierte Text natürlich ist und effektiv die abgerufenen Dokumente nutzt.
+
+### Augmentierung
+Augmentierung beinhaltet den Prozess der effektiven Integration von Kontext aus abgerufenen Passagen mit der aktuellen Generierungsaufgabe. Bevor wir näher auf den Augmentierungsprozess, die Augmentierungsstufen und die Augmentierungsdaten eingehen, hier ist eine Taxonomie von RAGs Kernkomponenten:
+
+!["RAG Taxonomy"](../../img/rag/rag-taxonomy.png)
+
+Retrieval Augmentation kann in vielen verschiedenen Phasen wie Vor-Training, Fine-Tuning und Inferenz angewandt werden.
+
+- **Augmentierungsphasen:** [RETRO](https://arxiv.org/abs/2112.04426) ist ein Beispiel für ein System, das Retrieval Augmentation für großangelegtes Vor-Training von Grund auf nutzt; es verwendet einen zusätzlichen Encoder, der auf externem Wissen aufbaut. Fine-Tuning kann auch kombiniert mit RAG verwendet werden, um die Effektivität von RAG-Systemen zu entwickeln und zu verbessern. Im Inferenzstadium werden viele Techniken angewandt, um abgerufene Inhalte effektiv zu integrieren, um spezifischen Aufgabenanforderungen zu entsprechen und den RAG-Prozess weiter zu verfeinern.
+
+- **Augmentierungsquelle:** Die Wirksamkeit eines RAG-Modells wird stark von der Wahl der Augmentierungsdatenquelle beeinflusst. Daten können in unstrukturierte, strukturierte und von LLMs generierte Daten kategorisiert werden.
+
+- **Augmentierungsprozess:** Für viele Probleme (z.B. mehrstufiges Reasoning) reicht eine einzelne Abfrage nicht aus, daher wurden einige Methoden vorgeschlagen:
+    - **Iterative Abfrage** ermöglicht dem Modell, mehrere Abfragezyklen durchzuführen, um die Tiefe und Relevanz der Informationen zu erhöhen. Bemerkenswerte Ansätze, die diese Methode nutzen, umfassen [RETRO](https://arxiv.org/abs/2112.04426) und [GAR-meets-RAG](https://arxiv.org/abs/2310.20158).
+    - **Rekursive Abfrage** iteriert rekursiv auf der Ausgabe eines Abfrageschritts als Eingabe für einen weiteren Abfrageschritt; dies ermöglicht ein tieferes Eintauchen in relevante Informationen für komplexe und mehrstufige Abfragen (z.B. akademische Forschung und Analyse von Rechtsfällen). Bemerkenswerte Ansätze, die diese Methode nutzen, umfassen [IRCoT](https://arxiv.org/abs/2212.10509) und [Tree of Clarifications](https://arxiv.org/abs/2310.14696).
+    - **Adaptive Abfrage** passt den Abfrageprozess an spezifische Anforderungen an, indem optimale Momente und Inhalte für die Abfrage bestimmt werden. Bemerkenswerte Ansätze, die diese Methode nutzen, umfassen [FLARE](https://arxiv.org/abs/2305.06983) und [Self-RAG](https://arxiv.org/abs/2310.11511).
+
+Die folgende Abbildung zeigt eine detaillierte Darstellung der RAG-Forschung mit verschiedenen Augmentierungsaspekten, einschließlich der Augmentierungsphasen, -quelle und -prozess.
+
+!["RAG Augmentierungsaspekte"](../../img/rag/rag-augmentation.png)
+
+### RAG vs. Fine-Tuning
+Es gibt viele offene Diskussionen über den Unterschied zwischen RAG und Fine-Tuning und in welchen Szenarien jedes angemessen ist. Forschungen in diesen beiden Bereichen deuten darauf hin, dass RAG nützlich ist, um neues Wissen zu integrieren, während Fine-Tuning verwendet werden kann, um die Leistung und Effizienz des Modells durch Verbesserung des internen Wissens, des Ausgabeformats und des Lehrens komplexer Befehlsfolgen zu verbessern. Diese Ansätze schließen sich nicht gegenseitig aus und können sich in einem iterativen Prozess, der darauf abzielt, die Nutzung von LLMs für komplexe wissensintensive und skalierbare Anwendungen zu verbessern, ergänzen, die Zugang zu schnell entwickelndem Wissen erfordern und angepasste Antworten liefern, die ein bestimmtes Format, einen Ton und Stil befolgen. Zudem kann auch das Engineering von Prompts helfen, Ergebnisse durch Nutzung der inhärenten Fähigkeiten des Modells zu optimieren. Unten ist eine Abbildung, die die verschiedenen Charakteristiken von RAG im Vergleich zu anderen Modell-Optimierungsmethoden zeigt:
+
+!["RAG Optimierung"](../../img/rag/rag-optimization.png)
+
+Hier ist eine Tabelle aus dem Survey-Paper, das die Merkmale zwischen RAG- und feinabgestimmten Modellen vergleicht:
+
+!["RAG Augmentierungsaspekte"](../../img/rag/rag-vs-finetuning.png)
+
+## RAG Bewertung
+
+Ähnlich wie bei der Messung der Leistung von LLMs in verschiedenen Aspekten spielt die Bewertung eine Schlüsselrolle beim Verständnis und bei der Optimierung der Leistung von RAG-Modellen in verschiedenen Anwendungsszenarien. Traditionell wurden RAG-Systeme basierend auf der Leistung der nachgelagerten Aufgaben mithilfe aufgabenspezifischer Metriken wie F1 und EM bewertet. [RaLLe](https://arxiv.org/abs/2308.10633v2) ist ein bemerkenswertes Beispiel für ein Framework zur Bewertung von retrieval-augmentierten großen Sprachmodellen für wissensintensive Aufgaben.
+
+Ziele der RAG-Bewertung werden sowohl für das Abrufen als auch für die Generierung festgelegt, wobei das Ziel darin besteht, sowohl die Qualität des abgerufenen Kontexts als auch die Qualität des generierten Inhalts zu bewerten. Zur Bewertung der Abfragequalität werden Metriken verwendet, die in anderen wissensintensiven Bereichen wie Empfehlungssystemen und Informationsabruf verwendet werden, wie z.B. NDCG und Hit Rate. Zur Bewertung der Generierungsqualität können Sie verschiedene Aspekte wie Relevanz und Schädlichkeit bei nicht gekennzeichnetem Inhalt oder Genauigkeit für gekennzeichneten Inhalt bewerten. Insgesamt kann die RAG-Bewertung entweder manuelle oder automatische Bewertungsmethoden beinhalten.
+
+Die Bewertung eines RAG-Frameworks konzentriert sich auf drei primäre Qualitätsscores und vier Fähigkeiten. Qualitätsscores umfassen das Messen der Kontextrelevanz (d.h. die Präzision und Spezifität des abgerufenen Kontexts), Antworttreue (d.h. die Treue der Antworten zum abgerufenen Kontext) und Antwortrelevanz (d.h. die Relevanz der Antworten auf gestellte Fragen). Zusätzlich gibt es vier Fähigkeiten, die helfen, die Anpassungsfähigkeit und Effizienz eines RAG-Systems zu messen: Geräuschrobustheit, Ablehnung negativer Informationen, Informationsintegration und kontrafaktische Robustheit. Unten ist eine Zusammenfassung der Metriken, die für die Bewertung verschiedener Aspekte eines RAG-Systems verwendet werden:
+
+!["RAG Augmentierungsaspekte"](../../img/rag/rag-metrics.png)
+
+Mehrere Benchmarks wie [RGB](https://arxiv.org/abs/2309.01431) und [RECALL](https://arxiv.org/abs/2311.08147) werden verwendet, um RAG-Modelle zu bewerten. Viele Tools wie [RAGAS](https://arxiv.org/abs/2309.15217), [ARES](https://arxiv.org/abs/2311.09476) und [TruLens](https://www.trulens.org/trulens_eval/core_concepts_rag_triad/) wurden entwickelt, um den Prozess der Bewertung von RAG-Systemen zu automatisieren. Einige der Systeme verlassen sich auf LLMs, um einige der oben definierten Qualitätsscores zu bestimmen.
+
+## Herausforderungen & Zukunft von RAG
+
+In dieser Übersicht haben wir mehrere Forschungsaspekte der RAG-Forschung und verschiedene Ansätze zur Verbesserung von Retrieval, Augmentation und Generation eines RAG-Systems diskutiert. Hier sind mehrere Herausforderungen, die von [Gao et al., 2023](https://arxiv.org/abs/2312.10997) hervorgehoben wurden, während wir die Entwicklung und Verbesserung von RAG-Systemen weiter vorantreiben:
+
+- **Kontextlänge:** LLMs erweitern weiterhin die Größe des Kontextfensters, was Herausforderungen darstellt, wie RAG angepasst werden muss, um sicherzustellen, dass hochrelevanten und wichtigen Kontext erfasst wird.
+- **Robustheit:** Der Umgang mit kontrafaktischen und adversarialen Informationen ist wichtig, um zu messen und in RAG zu verbessern.
+- **Hybridansätze:** Es gibt eine laufende Forschungsbemühung, besser zu verstehen, wie man den Einsatz von sowohl RAG als auch feinabgestimmten Modellen am besten optimieren kann.
+- **Erweiterung der LLM-Rollen:** Das Vergrößern der Rolle und der Fähigkeiten von LLMs, um RAG-Systeme weiter zu verbessern, ist von hohem Interesse.
+- **Skalierungsgesetze:** Die Untersuchung von LLM-Skalierungsgesetzen und wie diese auf RAG-Systeme angewendet werden, ist immer noch nicht richtig verstanden.
+- **Einsatzbereites RAG:** Einsatzfähige RAG-Systeme erfordern technische Exzellenz in Bezug auf Leistung, Effizienz, Datensicherheit, Datenschutz und mehr.
+- **Multimodales RAG:** Obwohl es viele Forschungsbemühungen rund um RAG-Systeme gegeben hat, waren diese meist auf textbasierte Aufgaben zentriert. Es gibt ein zunehmendes Interesse daran, Modalitäten für ein RAG-System zu erweitern, um Probleme in mehr Bereichen wie Bildern, Audio und Video, Code und mehr anzugehen.
+- **Evaluierung:** Das Interesse, komplexe Anwendungen mit RAG zu bauen, erfordert besondere Aufmerksamkeit, um nuancierte Metriken und Bewertungsinstrumente zu entwickeln, die verschiedene Aspekte wie kontextuelle Relevanz, Kreativität, Inhaltsdiversität, Faktualität und mehr zuverlässiger bewerten können. Zusätzlich besteht auch ein Bedarf an besserer Interpretierbarkeitsforschung und -werkzeuge für RAG.
+
+## RAG-Werkzeuge
+
+Einige beliebte umfassende Werkzeuge zum Aufbau von RAG-Systemen sind [LangChain](https://www.langchain.com/) und [LlamaIndex](https://www.llamaindex.ai/). Es gibt auch eine Reihe von spezialisierten Werkzeugen, die unterschiedlichen Zwecken dienen, wie z.B. [Flowise AI](https://flowiseai.com/), das eine Low-Code-Lösung für den Aufbau von RAG-Anwendungen bietet. Weitere nennenswerte Technologien sind [HayStack](https://haystack.deepset.ai/), [Meltano](https://meltano.com/), [Cohere Coral](https://cohere.com/coral) und andere. Software- und Clouddienstanbieter beinhalten auch RAG-zentrische Dienstleistungen. Beispielsweise ist Verba von Weaviate nützlich für den Aufbau von persönlichen Assistentenanwendungen und Amazons Kendra bietet intelligente Unternehmenssuchdienste.
+
+## Schlussfolgerung
+
+Abschließend haben sich RAG-Systeme schnell entwickelt, einschließlich der Entwicklung von fortschrittlicheren Paradigmen, die Anpassungen ermöglichen und die Leistung und den Nutzen von RAG in einer breiten Palette von Bereichen weiter erhöhen. Es gibt eine enorme Nachfrage nach RAG-Anwendungen, was die Entwicklung von Methoden zur Verbesserung der verschiedenen Komponenten eines RAG-Systems beschleunigt hat. Von Hybridmethodologien bis zu Selbst-Retrieval sind dies einige der derzeit erforschten Forschungsgebiete moderner RAG-Modelle. Es besteht auch eine zunehmende Nachfrage nach besseren Evaluierungswerkzeugen und -metriken. Die obige Abbildung bietet eine Zusammenfassung des RAG-Ökosystems, Techniken zur Verbesserung von RAG, Herausforderungen und anderen verwandten Aspekten, die in dieser Übersicht behandelt wurden:
+
+
+!["RAG Ecosystem"](../../img/rag/rag-metrics.png)
+
+---
+
+*Quellen der Abbildungen: [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997)*
+
+## Referenzen
+
+- [A Survey on Hallucination in Large Language Models: Principles,Taxonomy, Challenges, and Open Questions](https://arxiv.org/abs/2311.05232)
+- [Take a Step Back: Evoking Reasoning via Abstraction in Large Language Models](https://arxiv.org/abs/2310.06117)
+- [Precise Zero-Shot Dense Retrieval without Relevance Labels](https://arxiv.org/abs/2212.10496)
+- [Query2Doc](https://arxiv.org/abs/2303.07678)
+- [ITER-RETGEN](https://arxiv.org/abs/2305.15294)
+- [HyDE](https://arxiv.org/abs/2212.10496)
