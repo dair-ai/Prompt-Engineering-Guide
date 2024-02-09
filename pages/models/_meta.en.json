@@ -3,6 +3,7 @@
     "code-llama": "Code Llama",
     "flan": "Flan",
     "gemini": "Gemini",
+    "gemini-advanced": "Gemini Advanced",
     "gpt-4": "GPT-4",
     "llama": "LLaMA",
     "mistral-7b": "Mistral 7B",
