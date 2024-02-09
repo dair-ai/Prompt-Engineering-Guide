@@ -55,6 +55,16 @@ Here is how the website renders:
 
 Functionally wise, it works as expected by taking the search term, adds "opossum" to it, and redirects to Google Search. However, you can see that the image doesn't render properly because it's probably made up. You will need to change that link manually or try to improve the prompt to see if Gemini can generate a valid URL to an existing image.
 
+## Chart Understanding
+
+It's not clear from the documentation whether the model performing image understanding and generation, under the hood, is Gemini Ultra. However, we tested a few image understanding capabilities with Gemini Advanced and noticed huge potential for useful tasks like chart understanding. Below is an example analyzing a chart:
+
+!["Gemini for Chart Understanding"](../../img/gemini-advanced/chart.png)
+
+The figure below is a continuation of what the model generated. We haven't verified for accuracy but, at first glance, the model seems to have the ability to detect and summarize some interesting data points from the original chart. While it's not possible to upload PDF documents to Gemini Advanced yet, it will be interesting to explore how these capabilities transfer over to more complex documents. 
+
+!["Gemini Chart Understanding"](../../img/gemini-advanced/chart-explanation.png)
+
 ## Interleaved Image and Text Generation
 
 An interesting capability of Gemini Advanced is that it can generate interleaved images and text. As an example, we prompted the following:
