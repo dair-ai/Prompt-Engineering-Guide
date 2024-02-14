@@ -1,4 +1,5 @@
 {
+    "llm-agents": "LLM Agents",
     "rag": "RAG für LLMs",
     "trustworthiness-in-llms": "Vertrauenswürdigkeit in LLMs"
 }
