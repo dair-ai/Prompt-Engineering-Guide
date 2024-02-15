@@ -10,6 +10,7 @@
     "mixtral": "Mixtral",
     "olmo": "OLMo",    
     "phi-2": "Phi-2",
+    "sora": "Sora",
     "collection": "LLM Collection" 
 }
   

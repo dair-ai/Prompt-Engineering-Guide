@@ -10,6 +10,7 @@
     "mixtral": "Mixtral",
     "code-llama": "Code Llama",
     "olmo": "OLMo",
+    "sora": "Sora",
     "collection": "Коллекция LLM"
 }
   
