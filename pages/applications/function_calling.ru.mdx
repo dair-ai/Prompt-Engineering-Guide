@@ -59,3 +59,46 @@ tools = [
 ]
 ```
 
+Функция `get_current_weather` возвращает текущую погоду в заданном месте. Когда вы передаете это определение функции как часть запроса, оно фактически не выполняет функцию, а просто возвращает JSON  объект, содержащий аргументы, необходимые для вызова функции. Вот несколько фрагментов кода, как этого добиться.
+
+Вы могли бы определить функцию завершения следующим образом:
+
+```python
+def get_completion(messages, model="gpt-3.5-turbo-1106", temperature=0, max_tokens=300, tools=None):
+    response = openai.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        tools=tools
+    )
+    return response.choices[0].message
+```
+
+Вот как вы могли бы составить вопрос пользователя:
+
+```python
+messages = [
+    {
+        "role": "user",
+        "content": "What is the weather like in London?"
+    }
+]
+```
+
+Наконец, вы можете вызвать метод `get_completion` выше и передать как `сообщения`, так и `инструменты`:
+
+```python
+response = get_completion(messages, tools=tools)
+```
+
+Объект `response` содержит следующее:
+
+```python
+ChatCompletionMessage(content=None, role='assistant', function_call=None, tool_calls=[ChatCompletionMessageToolCall(id='...', function=Function(arguments='{"location":"London","unit":"celsius"}', name='get_current_weather'), type='function')])
+```
+
+В частности, объект «аргументы» содержит важные аргументы, извлеченные моделью и необходимые для выполнения запроса.
+
+Затем вы можете вызвать внешний API погоды для получения фактической погоды. Получив информацию о погоде, вы можете передать ее обратно в модель, чтобы обобщить окончательный ответ с учетом исходного вопроса пользователя
+
