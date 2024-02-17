@@ -98,7 +98,47 @@ response = get_completion(messages, tools=tools)
 ChatCompletionMessage(content=None, role='assistant', function_call=None, tool_calls=[ChatCompletionMessageToolCall(id='...', function=Function(arguments='{"location":"London","unit":"celsius"}', name='get_current_weather'), type='function')])
 ```
 
-В частности, объект «аргументы» содержит важные аргументы, извлеченные моделью и необходимые для выполнения запроса.
+В частности, объект `аргументы` содержит важные аргументы, извлеченные моделью и необходимые для выполнения запроса.
 
 Затем вы можете вызвать внешний API погоды для получения фактической погоды. Получив информацию о погоде, вы можете передать ее обратно в модель, чтобы обобщить окончательный ответ с учетом исходного вопроса пользователя
+
+## Блокноты
+
+Вот блокнот с простым примером, демонстрирующим, как использовать вызов функций с OpenAI API:
+
+<Cards>
+    <Card 
+        icon={<CodeIcon />}
+        title="Function Calling with OpenAI APIs"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb"
+    />
+</Cards>
+
+## Вызов функций с помощью LLM с открытым исходным кодом
+Дополнительные заметки о вызове функций с помощью LLM с открытым исходным кодом появятся скоро.
+
+## Варианты использования вызова функций
+
+Ниже приведен список случаев использования, которые могут извлечь выгоду из возможности вызова функций LLM:
+
+- **Диалоговые агенты**: вызов функций можно использовать для создания сложных диалоговых агентов или чат-ботов, которые отвечают на сложные вопросы, вызывая внешние API или внешнюю базу знаний и предоставляя более релевантные и полезные ответы.
+
+- **Понимание естественного языка**: он может преобразовывать естественный язык в структурированные данные JSON, извлекать структурированные данные из текста и выполнять такие задачи, как распознавание именованных объектов, анализ настроений и извлечение ключевых слов.
+
+- **Решение математических задач**: вызовы функций можно использовать для определения пользовательских функций для решения сложных математических задач, требующих нескольких шагов и различных типов сложных вычислений.
+
+- **Интеграция API**: его можно использовать для эффективной интеграции LLM с внешними API для получения данных или выполнения действий на основе входных данных. Это может быть полезно для создания системы контроля качества или творческого помощника. В общем, вызов функций может преобразовать естественный язык в действительные вызовы API.
+
+- **Извлечение информации**: вызовы функций можно эффективно использовать для извлечения конкретной информации из заданных входных данных, например для получения соответствующих новостей или ссылок из статьи.
+
+
+## Использованная литература
+- [Fireworks Raises the Quality Bar with Function Calling Model and API Release](https://blog.fireworks.ai/fireworks-raises-the-quality-bar-with-function-calling-model-and-api-release-e7f49d1e98e9)
+- [Benchmarking Agent Tool Use and Function Calling](https://blog.langchain.dev/benchmarking-agent-tool-use/)
+- [Function Calling](https://ai.google.dev/docs/function_calling)
+- [Interacting with APIs](https://python.langchain.com/docs/use_cases/apis)
+- [OpenAI's Function Calling](https://platform.openai.com/docs/guides/function-calling)
+- [How to call functions with chat models](https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models)
+- [Pushing ChatGPT's Structured Data Support To Its Limits](https://minimaxir.com/2023/12/chatgpt-structured-data/)
+- [Math Problem Solving with Function Calling](https://github.com/svpino/openai-function-calling/blob/main/sample.ipynb)
 
