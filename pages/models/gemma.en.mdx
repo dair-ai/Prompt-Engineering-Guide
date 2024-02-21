@@ -1,12 +1,12 @@
 # Gemma
 
-Google DeepMind releases Gemma, a series of open language models inspired by the same research and technology used to create Gemini. The Gemma model release includes 2B (trained on 2T tokens) and 7B (trained on 6T tokens) models including base and instruction tuned checkpoints. The models are trained on a context length of 8192 tokens and generally outperform Llama 2 7B and Mistral 7B models on several benchmarks. 
+Google DeepMind releases Gemma, a series of open language models inspired by the same research and technology used to create Gemini. The Gemma model release includes 2B (trained on 2T tokens) and 7B (trained on 6T tokens) models including base and instruction-tuned checkpoints. The models are trained on a context length of 8192 tokens and generally outperform Llama 2 7B and Mistral 7B models on several benchmarks. 
 
 The Gemma model architecture is based on the transformer decoder with improvements including [multi-query attention](http://arxiv.org/abs/1911.02150) (used by the 2B model), multi-head attention (used by 7B model), [RoPE embeddings](https://arxiv.org/abs/2104.09864), [GeGLU activations](https://arxiv.org/abs/2002.05202), and [normalizer location](http://arxiv.org/abs/1910.07467).
 
 According to the [technical report](https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf), Gemma 2B and 7B are trained on 2T and 6T tokens mainly consisting of web documents, mathematics, and code. Unlike Gemini, these models are not explicitly trained to support multilingual or multimodal capabilities. The vocabulary size is 256K tokens and uses a subset of the SentencePiece tokenize of Gemini, preserves whitespace in splits digits, and relies on byte-level encodings for unknown tokens.
 
-The instruction tuned models are tuned using supervised fine-tuning on a mix of text-only synthetic and human-generated prompt response pairs and reinforcement learning from human feedback (RLHF) with the reward model trained on labelled preference data and the policy based on a set of high-quality prompts. Note that all the datasets used are English only. As shown in the table below, the instruction tuned models also use specific formatting control tokens to indicate roles and turns in a conversation.
+The instruction-tuned models are tuned using supervised fine-tuning on a mix of text-only synthetic and human-generated prompt response pairs and reinforcement learning from human feedback (RLHF) with the reward model trained on labeled preference data and the policy based on a set of high-quality prompts. Note that all the datasets used are English only. As shown in the table below, the instruction-tuned models also use specific formatting control tokens to indicate roles and turns in a conversation.
 
 !["Gemma Control Tokens"](../../img/gemma/control-tokens.png)
 
@@ -18,7 +18,7 @@ As shown in the figure below, the Gemma 7B model demonstrates strong performance
 
 Gemma 7B outperforms Llama 2 7B and Mistral 7B on various academic benchmarks with notable performance on HumanEval, GSM8K, MATH, and AGIEval and improved performance on reasoning, dialogue, mathematics, and code.
 
-!["Gemma Safety"](../../img/gemma/safety.png)
+!["Gemma Safety"](../../img/gemma/benchmarks.png)
 
 The Gemma 7B instruction tuned models also outperform the Mistral-7B v0.2 Instruct model on safety and instruction following as evaluated by humans.
 
@@ -28,6 +28,28 @@ Gemma is also evaluated on several safety academic benchmarks and compared with 
 
 !["Gemma Safety"](../../img/gemma/safety-2.png)
 
+## Gemma 7B Prompt Template
+
+The Gemma base models don't use any specific prompt format but can be prompted to perform tasks through zero-shot/few-shot prompting. The Gemma Instruct models use the following format:
+
+```markdown
+<start_of_turn>user
+knock knock<end_of_turn>
+<start_of_turn>model
+who is there<end_of_turn>
+<start_of_turn>user
+Gemma<end_of_turn>
+<start_of_turn>model
+Gemma who?<end_of_turn>
+```
+
+As an example, if you wanted to prompt the instruct model to generate a Python function that multiplies two numbers it would be as follows:
+
+```
+<start_of_turn>user
+Generate a Python function that multiplies two numbers <end_of_turn>
+<start_of_turn>model
+```
 
 ## Resources and Integrations
 
