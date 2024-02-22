@@ -19,4 +19,8 @@ import mixtralchat from '../../img/mixtral/mixtral-chatbot-arena.png'
 
 ## Введение в Mixtral (Mixtral of Experts)
 
+Mixtral 8x7B представляет собой языковую модель Sparse Mixture of Experts (SMoE). [выпущенную Mistral AI](https://mistral.ai/news/mixtral-of-experts/). Mixtral имеет схожую архитектуру с [Mistral 7B](https://www.promptingguide.ai/models/mistral-7b) но главное ращличие в том, что каждый слой в Mixtral 8x7B состоит из 8 блоков прямой связи (экспертов). Mixtral — это модель только для декодирования, в которой для каждого токена на каждом уровне сеть маршрутизаторов выбирает двух экспертов. (тоесть 2 группы из 8 различных групп параметров) для обработки токена объединяет их выходные данные путем сложения. Другими словами, выходные данные всего модуля MoE для данного входного сигнала получаются через взвешенную сумму выходных данных, произведенных экспертными сетями.
+
+<Screenshot src={mixtralexperts} alt="Mixtral of Experts Layer" />
+
 This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
