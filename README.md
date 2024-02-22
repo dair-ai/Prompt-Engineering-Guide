@@ -4,26 +4,23 @@ Prompt engineering is a relatively new discipline for developing and optimizing 
 
 Motivated by the high interest in developing with LLMs, we have created this new prompt engineering guide that contains all the latest papers, learning guides, lectures, references, and tools related to prompt engineering for LLMs.
 
+🌐 [Prompt Engineering Guide (Web Version)](https://www.promptingguide.ai/)
+
+We've partnered with Maven to deliver the following live cohort-based courses on prompt engineering:
+
+- [LLMs for Everyone ](https://maven.com/dair-ai/llms-for-everyone) (Beginner) - learn about the latest prompt engineering techniques and how to effectively apply them to real-world use cases.
+
+- [Prompt Engineering for LLMs ](https://maven.com/dair-ai/prompt-engineering-llms) (Advanced) - learn advanced prompt engineering techniques to build complex use cases and applications with LLMs.
+
 Happy Prompting!
-
----
-## Prompt Engineering for LLMs Course
-
-Due to high demand, we've partnered with Maven to deliver a new [cohort-based course on Prompt Engineering for LLMs](https://maven.com/dair-ai/prompt-engineering-llms).
-
-[Elvis Saravia](https://www.linkedin.com/in/omarsar/), who has worked at companies like Meta AI and Elastic, and has years of experience in AI and LLMs, will be the instructor for this course.
-
-This hands-on course will cover prompt engineering techniques/tools, use cases, exercises, and projects for effectively working and building with large language models (LLMs).
-
-Our past learners range from software engineers to AI researchers and practitioners in organizations like LinkedIn, Amazon, JPMorgan Chase & Co., Intuit, Fidelity Investments, Coinbase, Guru, and many others.
 
 ---
 ## Announcements / Updates
 
 - 🎓 New course on Prompt Engineering for LLMs announced! [Enroll here](https://maven.com/dair-ai/prompt-engineering-llms)!
-- 💼 We now offer several [services](https://www.promptingguide.ai/services) like professional training, consulting, and talks.
-- 🌐 We now support 12 languages! Welcoming more translations.
-- 👩‍🎓 We crossed 800K learners in June 2023!
+- 💼 We now offer several [services](https://www.promptingguide.ai/services) like corporate training, consulting, and talks.
+- 🌐 We now support 13 languages! Welcoming more translations.
+- 👩‍🎓 We crossed 3 million learners in January 2024!
 - 🎉 We have launched a new web version of the guide [here](https://www.promptingguide.ai/)
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
 - 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
@@ -51,7 +48,9 @@ You can also find the most up-to-date guides on our new website [https://www.pro
   - [Prompt Engineering - Chain-of-Thought Prompting](https://www.promptingguide.ai/techniques/cot)
   - [Prompt Engineering - Self-Consistency](https://www.promptingguide.ai/techniques/consistency)
   - [Prompt Engineering - Generate Knowledge Prompting](https://www.promptingguide.ai/techniques/knowledge)
+  - [Prompt Engineering - Prompt Chaining](https://www.promptingguide.ai/techniques/prompt_chaining)
   - [Prompt Engineering - Tree of Thoughts (ToT)](https://www.promptingguide.ai/techniques/tot)
+  - [Prompt Engineering - Retrieval Augmented Generation](https://www.promptingguide.ai/techniques/rag)
   - [Prompt Engineering - Automatic Reasoning and Tool-use (ART)](https://www.promptingguide.ai/techniques/art)
   - [Prompt Engineering - Automatic Prompt Engineer](https://www.promptingguide.ai/techniques/ape)
   - [Prompt Engineering - Active-Prompt](https://www.promptingguide.ai/techniques/activeprompt)
@@ -61,16 +60,36 @@ You can also find the most up-to-date guides on our new website [https://www.pro
   - [Prompt Engineering - Multimodal CoT Prompting](https://www.promptingguide.ai/techniques/multimodalcot)
   - [Prompt Engineering - Graph Prompting](https://www.promptingguide.ai/techniques/graph)
 - [Prompt Engineering - Applications](https://www.promptingguide.ai/applications)
+  - [Prompt Engineering - Function Calling](https://www.promptingguide.ai/applications/function_calling)
   - [Prompt Engineering - Generating Data](https://www.promptingguide.ai/applications/generating)
   - [Prompt Engineering - Generating Synthetic Dataset for RAG](https://www.promptingguide.ai/applications/synthetic_rag)
   - [Prompt Engineering - Takling Generated Datasets Diversity](https://www.promptingguide.ai/applications/generating_textbooks)
   - [Prompt Engineering - Generating Code](https://www.promptingguide.ai/applications/coding)
   - [Prompt Engineering - Graduate Job Classification Case Study](https://www.promptingguide.ai/applications/workplace_casestudy)
+- [Prompt Engineering - Prompt Hub](https://www.promptingguide.ai/prompts)
+  - [Prompt Engineering - Classification](https://www.promptingguide.ai/prompts/classification)
+  - [Prompt Engineering - Coding](https://www.promptingguide.ai/prompts/coding)
+  - [Prompt Engineering - Creativity](https://www.promptingguide.ai/prompts/creativity)
+  - [Prompt Engineering - Evaluation](https://www.promptingguide.ai/prompts/evaluation)
+  - [Prompt Engineering - Information Extraction](https://www.promptingguide.ai/prompts/information-extraction)
+  - [Prompt Engineering - Image Generation](https://www.promptingguide.ai/prompts/image-generation)
+  - [Prompt Engineering - Mathematics](https://www.promptingguide.ai/prompts/mathematics)
+  - [Prompt Engineering - Question Answering](https://www.promptingguide.ai/prompts/question-answering)
+  - [Prompt Engineering - Reasoning](https://www.promptingguide.ai/prompts/reasoning)
+  - [Prompt Engineering - Text Summarization](https://www.promptingguide.ai/prompts/text-summarization)
+  - [Prompt Engineering - Truthfulness](https://www.promptingguide.ai/prompts/truthfulness)
+  - [Prompt Engineering - Adversarial Prompting](https://www.promptingguide.ai/prompts/adversarial-prompting)
 - [Prompt Engineering - Models](https://www.promptingguide.ai/models)
-  - [Prompt Engineering - Flan](https://www.promptingguide.ai/models/flan)
   - [Prompt Engineering - ChatGPT](https://www.promptingguide.ai/models/chatgpt)
-  - [Prompt Engineering - LLaMA](https://www.promptingguide.ai/models/llama)
+  - [Prompt Engineering - Code Llama](https://www.promptingguide.ai/models/code-llama)
+  - [Prompt Engineering - Flan](https://www.promptingguide.ai/models/flan)
+  - [Prompt Engineering - Gemini](https://www.promptingguide.ai/models/gemini)
   - [Prompt Engineering - GPT-4](https://www.promptingguide.ai/models/gpt-4)
+  - [Prompt Engineering - LLaMA](https://www.promptingguide.ai/models/llama)
+  - [Prompt Engineering - Mistral 7B](https://www.promptingguide.ai/models/mistral-7b)
+  - [Prompt Engineering - Mixtral](https://www.promptingguide.ai/models/mixtral)
+  - [Prompt Engineering - OLMo](https://www.promptingguide.ai/models/olmo)
+  - [Prompt Engineering - Phi-2](https://www.promptingguide.ai/models/phi-2)
   - [Prompt Engineering - Model Collection](https://www.promptingguide.ai/models/collection)
 - [Prompt Engineering - Risks and Misuses](https://www.promptingguide.ai/risks)
   - [Prompt Engineering - Adversarial Prompting](https://www.promptingguide.ai/risks/adversarial)
@@ -115,7 +134,7 @@ Some places where we have been featured:
 
 
 ---
-If you are using the guide for your work, please cite us as follows:
+If you are using the guide for your work or research, please cite us as follows:
 
 ```
 @article{Saravia_Prompt_Engineering_Guide_2022,

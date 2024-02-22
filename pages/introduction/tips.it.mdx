@@ -1,14 +1,14 @@
 # Suggerimenti generali per la progettazione di Prompt
 
-Ecco alcuni suggerimenti da tenere a mente durante la progettazione dei tuoi prompt:
+Ecco alcuni suggerimenti da tenere a mente durante la progettazione dei prompt:
 
 
 ### Inizio semplice
 Quando si inizia a progettare i prompt, bisogna tenere presente che si tratta di un processo iterativo che richiede molta sperimentazione per ottenere risultati ottimali. L'utilizzo di una semplice strumento come OpenAI o Cohere è un buon punto di partenza.
 
-Si può iniziare con prompt semplici e aggiungere altri elementi e contesti man mano che si punta a ottenere risultati migliori. Per questo motivo è fondamentale modificare i suggerimenti durante il percorso. Leggendo la guida, vedrete molti esempi in cui la specificità, la semplicità e la concisione vi daranno spesso risultati migliori.
+Si può iniziare con prompt semplici e aggiungere altri elementi e contesti man mano che si punta a ottenere risultati migliori. Per questo motivo è fondamentale modificare i prompt durante il percorso. Leggendo la guida, vedrete molti esempi in cui la specificità, la semplicità e la concisione vi daranno spesso risultati migliori.
 
-Quando si ha un compito importante che coinvolge molte sottoattività diverse, si può cercare di suddividere il compito in sottoattività più semplici e continuare ad aumentare man mano che si ottengono risultati migliori. In questo modo si evita di aggiungere troppa complessità al processo di progettazione del prompt all'inizio.
+Quando si ha un compito grande che coinvolge molti sottocompiti differenti, si può cercare di suddividere il compito in sottocompiti più semplici e continuare a costruirci sopra man mano che si ottengono risultati migliori. Questo evita di aggiungere troppa complessità all'inizio del processo di progettazione del prompt.
 
 ### Le istruzioni
 È possibile progettare prompt efficaci per vari compiti semplici, utilizzando comandi per indicare al modello ciò che si desidera ottenere, come "Scrivi", "Classifica", "Riassumi", "Traduci", "Ordina", ecc.
@@ -35,7 +35,7 @@ Testo: "ciao!"
 ### Specificità
 Siate molto specifici riguardo all'istruzione e al compito che volete che il modello esegua. Più la richiesta è descrittiva e dettagliata, migliori saranno i risultati. Questo è particolarmente importante quando si cerca un risultato o uno stile di generazione desiderato. Non esistono token o parole chiave specifiche che portano a risultati migliori. È più importante avere un buon formato e un prompt descrittivo. In effetti, fornire esempi nel prompt è molto efficace per ottenere i risultati desiderati in formati specifici.
 
-Quando si progettano i prompt, si deve anche tenere presente la lunghezza del prompt, poiché ci sono dei limiti per quanto riguarda la sua lunghezza. Bisogna pensare a quanto sia necessario essere specifici e dettagliati. Includere troppi dettagli non necessari non è necessariamente un buon approccio. I dettagli devono essere pertinenti e contribuire al compito da svolgere. Questo è un aspetto che dovrete sperimentare molto. Incoraggiamo la sperimentazione e l'iterazione per ottimizzare i prompt per le vostre applicazioni.
+Quando si progettano i prompt si deve tenere presente anche la loro lunghezza, poiché ci sono dei limiti riguardo a quanto possono esserlo. Bisogna pensare a quanto sia necessario essere specifici e dettagliati. Includere troppi dettagli non necessari non è necessariamente un buon approccio. I dettagli devono essere pertinenti e contribuire al compito da svolgere. Questo è un aspetto che dovrete sperimentare molto. Incoraggiamo la sperimentazione e l'iterazione per ottimizzare i prompt per le vostre applicazioni.
 
 A titolo di esempio, proviamo un semplice prompt per estrarre informazioni specifiche da un testo.
 
@@ -43,29 +43,29 @@ A titolo di esempio, proviamo un semplice prompt per estrarre informazioni speci
 ```
 Estrarre il nome dei luoghi nel seguente testo. 
 
-Formato desirato:
-Luogo: <lista_dei_nomi_delle_aiznede_separata_da_virgola>
+Formato desiderato:
+Luogo: <lista_dei_nomi_delle_aziende_separata_da_virgola>
 
-Input: "Sebbene questi sviluppi siano incoraggianti per i ricercatori, molto rimane ancora un mistero. "Spesso abbiamo una scatola nera tra il cervello e l'effetto che vediamo in periferia", dice Henrique Veiga-Fernandes, neuroimmunologo presso il Centro Champalimaud per l'ignoto di Lisbona. "Se vogliamo utilizzarla nel contesto terapeutico, dobbiamo effettivamente comprenderne il meccanismo"".
+Input: Input: "Sebbene questi sviluppi siano incoraggianti per i ricercatori, molto rimane ancora un mistero. “Spesso abbiamo una scatola nera tra il cervello e l'effetto che vediamo in periferia”, dice Henrique Veiga-Fernandes, neuroimmunologo presso il Centro Champalimaud per l'Ignoto di Lisbona. “Se vogliamo utilizzarla nel contesto terapeutico, dobbiamo effettivamente comprenderne il meccanismo”".
 ```
 
 *Output:*
 ```
-Luogo: Centro Champalimaud per l'ignoto, Lisbona".
+Luogo: Centro Champalimaud per l'Ignoto, Lisbona".
 ```
 
 Il testo di input è ottenuto da [questo articolo di Nature](https://www.nature.com/articles/d41586-023-00509-z).
 
 ### Evitare l'imprecisione
 
-Alla luce dei suggerimenti precedenti sull'essere dettagliati e migliorare il formato, è facile cadere nella trappola di voler essere troppo intelligenti con i suggerimenti e creare descrizioni imprecise. Spesso è meglio essere specifici e diretti. L'analogia è molto simile a quella della comunicazione efficace: più è diretta, più il messaggio è efficace.
+Alla luce dei suggerimenti precedenti sull'essere dettagliati e migliorare il formato, è facile cadere nella trappola di voler essere troppo intelligenti con i prompt e creare descrizioni imprecise. Spesso è meglio essere specifici e diretti. L'analogia è molto simile a quella della comunicazione efficace: più è diretta, più il messaggio è efficace.
 
 Ad esempio, potreste essere interessati a conoscere il concetto di ingegneria del prompt. Potreste provare qualcosa come:
 ```
 Spiega il concetto di prompt engineering. Mantieni la spiegazione breve, solo poche frasi, e non essere troppo descrittivo.
 ```
 
-Non è chiaro dal prompt di cui sopra quante frasi usare e con quale stile. Potreste comunque ottenere delle buone risposte con i suggerimenti sopra, ma il suggerimento migliore sarebbe uno molto specifico, conciso e diretto. Qualcosa come:
+Non è chiaro dal prompt di cui sopra quante frasi usare e con quale stile. Potreste comunque ottenere delle buone risposte con il prompt sopra, ma il prompt migliore sarebbe uno molto specifico, conciso e diretto. Qualcosa come:
 ```
 Usa 2-3 frasi per spiegare il concetto di prompt engineering a uno studente di scuola superiore.
 ```
@@ -73,13 +73,13 @@ Usa 2-3 frasi per spiegare il concetto di prompt engineering a uno studente di s
 ### Fare o non fare?
 Un altro consiglio comune quando si progettano i prompt è quello di evitare di dire cosa non fare, ma di dire invece cosa fare. Questo incoraggia una maggiore specificità e si concentra sui dettagli che portano a buone risposte da parte del modello.
 
-Ecco un esempio di chatbot per la raccomandazione di film che non riesce a fare esattamente ciò che non voglio che faccia a causa del modo in cui ho scritto l'istruzione, concentrandomi su cosa non fare.
+Ecco un esempio di chatbot per la raccomandazione di film che non riesce a fare esattamente ciò che non vogliamo che faccia a causa del modo in cui abbiamo scritto l'istruzione, concentrandoci su cosa non fare.
 
 *Prompt:*
 ```
 Di seguito viene presentato un agente che consiglia dei film a un cliente. NON CHIEDERE INTERESSI. NON CHIEDERE INFORMAZIONI PERSONALI.
 
-Cliente: Per favore, mi raccomandi un film basato sui miei interessi.
+Cliente: Per favore, raccomandami un film basato sui miei interessi.
 Agente: 
 ```
 
@@ -88,7 +88,7 @@ Agente:
 Certo, posso consigliarle un film in base ai suoi interessi. Che tipo di film le piacerebbe vedere? Preferisce l'azione, la commedia, il romanticismo o altro?
 ```
 
-Qui un prompt migliore
+Qui un prompt migliore:
 
 *Prompt:*
 ```
@@ -103,4 +103,4 @@ Agente:
 Mi dispiace, non ho informazioni sui tuoi interessi. Tuttavia, ecco un elenco dei film di tendenza a livello globale in questo momento: [elenco dei film]. Spero che troviate qualcosa di vostro gradimento!
 ```
 
-Alcuni degli esempi sopra riportati sono stati adottati dall'articolo ["Best practices for prompt engineering with OpenAI API"].](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
+Alcuni degli esempi sopra riportati sono stati ripresi dall'articolo ["Best practices for prompt engineering with OpenAI API" article.](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)

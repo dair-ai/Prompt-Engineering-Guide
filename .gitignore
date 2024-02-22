@@ -9,7 +9,9 @@ notebooks/__pycache__/
 notebooks/state_of_the_union.txt
 notebooks/chroma_logs.log
 notebooks/.chroma/
+notebooks/local_notebooks/
 notebooks/.env
+pages/research/local_research/
 .DS_Store
 .vscode
 
