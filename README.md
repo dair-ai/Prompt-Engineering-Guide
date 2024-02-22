@@ -6,7 +6,11 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 🌐 [Prompt Engineering Guide (Web Version)](https://www.promptingguide.ai/)
 
-🎓 [Advanced Prompt Engineering for LLMs (Cohort-based Course)](https://maven.com/dair-ai/prompt-engineering-llms)
+We've partnered with Maven to deliver the following live cohort-based courses on prompt engineering:
+
+- [LLMs for Everyone ](https://maven.com/dair-ai/llms-for-everyone) (Beginner) - learn about the latest prompt engineering techniques and how to effectively apply them to real-world use cases.
+
+- [Prompt Engineering for LLMs ](https://maven.com/dair-ai/prompt-engineering-llms) (Advanced) - learn advanced prompt engineering techniques to build complex use cases and applications with LLMs.
 
 Happy Prompting!
 

@@ -2,14 +2,17 @@
     "chatgpt": "ChatGPT",
     "code-llama": "Code Llama",
     "flan": "Flan",
+    "gemma": "Gemma",
     "gemini": "Gemini",
     "gemini-advanced": "Gemini Advanced",
+    "gemini-pro": "Gemini 1.5 Pro",
     "gpt-4": "GPT-4",
     "llama": "LLaMA",
     "mistral-7b": "Mistral 7B",
     "mixtral": "Mixtral",
     "olmo": "OLMo",    
     "phi-2": "Phi-2",
+    "sora": "Sora",
     "collection": "LLM Collection" 
 }
   
