@@ -28,9 +28,27 @@ Gemma is also evaluated on several safety academic benchmarks and compared with 
 
 !["Gemma Safety"](../../img/gemma/safety-2.png)
 
-## Gemma 7B Prompt Template
+## Gemma 7B Prompt Format
 
-The Gemma base models don't use any specific prompt format but can be prompted to perform tasks through zero-shot/few-shot prompting. The Gemma Instruct models use the following format:
+The Gemma base models don't use any specific prompt format but can be prompted to perform tasks through zero-shot/few-shot prompting. The Gemma Instruct model uses the following format:
+
+```
+<start_of_turn>user
+Generate a Python function that multiplies two numbers <end_of_turn>
+<start_of_turn>model
+```
+
+Here is a table showing the relevant formatting control tokens available in Gemma:
+
+| Context                         | Relevant Token     |
+|---------------------------------|--------------------|
+| User turn                       | `user`             |
+| Model turn                      | `model`            |
+| Start of conversation turn      | `<start_of_turn>`  |
+| End of conversation turn        | `<end_of_turn>`    |
+
+
+You can also use the special control tokens in the context of a multi-turn user prompt as follows:
 
 ```markdown
 <start_of_turn>user
@@ -42,14 +60,93 @@ What can I do in California?<end_of_turn>
 <start_of_turn>model
 ```
 
-Here is another simple example if you wanted to prompt the instruct model to generate a Python function that multiplies two numbers it would be as follows:
+## How to Prompt Gemma 7B
+Prompting Gemma 7B effectively requires being able to use the prompt template properly. In the following examples, we will cover a few examples that demonstrate the use effective use of the prompt template of Gemma 7B Instruct for various tasks. 
 
-```
+### Zero-shot Prompting
+As with any model, you can leverage Gemma's zero-shot capabilities by simply prompting it as follows:
+
+```markdown
 <start_of_turn>user
-Generate a Python function that multiplies two numbers <end_of_turn>
+Explain why the sky is blue<end_of_turn>
+<start_of_turn>model
+```
+### Zero-shot Prompting with System Prompt
+Adding a system role or system prompt helps to steer LLMs better. While there is no explicit system role in Gemma, you can add additional instructions as part of the prompt as follows:
+
+```markdown
+<start_of_turn>user
+Answer the following question in a concise and informative manner:
+
+Explain why the sky is blue<end_of_turn>
 <start_of_turn>model
 ```
 
+In the example above, we added `"Answer the following question in a concise and informative manner:"` as an additional instruction or system prompt to steer the model better. 
+
+
+### Role Playing
+We can also test Gemma for role-playing capabilities, which is a useful ability to not only personalize model responses but also to build more complex domain-specific [LLM agents](https://www.promptingguide.ai/research/llm-agents).
+
+Prompt:
+```
+<start_of_turn>user
+You are a helpful 2nd-grade teacher. Help a 2nd grader to answer questions in a short and clear manner.
+
+Explain why the sky is blue<end_of_turn>
+<start_of_turn>model
+```
+
+Model response:
+```
+Sure, here is an explanation for why the sky is blue:
+
+The sky appears blue because of a phenomenon called Rayleigh Scattering.
+
+Here's the science behind it:
+
+Sunlight is made up of different colors of light, like red, green, blue, and violet.
+When sunlight hits the Earth's atmosphere, the different colors of light scatter in different directions.
+Blue light scatters more easily than other colors because it has shorter wavelengths.
+The scattered blue light travels in all directions, including towards your eyes.
+That's why we see the sky as blue.
+It's important to note that this explanation is simplified and does not account for all scientific details. However, it gives you a good understanding of the basic science behind why the sky appears blue.
+```
+
+Note that we haven't checked the response for accuracy or whether it's suitable for a 2nd grader. However, you can compare the above response with the response obtained from the chain-of-thought prompt that follows.
+
+### Reasoning
+You can elicit Gemma's reasoning capabilities by using [zero-shot chain-of-thought prompting](https://www.promptingguide.ai/techniques/cot#zero-shot-cot-prompting) as follows:
+
+Prompt:
+```markdown
+<start_of_turn>user
+Think and write your step-by-step reasoning before responding.
+
+Explain why the sky is blue.<end_of_turn>
+<start_of_turn>model
+```
+
+Model response (truncated for brevity):
+```
+Step 1: Scattering of Light
+
+The sky appears blue due to the phenomenon of scattering of light. When sunlight hits the Earth's atmosphere, it interacts with the particles of air, primarily nitrogen and oxygen molecules.
+
+Step 2: Rayleigh Scattering
+
+Rayleigh scattering is the specific scattering mechanism that occurs when light interacts with particles much smaller than the wavelength of light. In this process, shorter wavelengths (blue light) are scattered more effectively than longer wavelengths (red light).
+
+Step 3: Blue Scattered Light Travels in All Directions
+
+...
+
+Conclusion
+
+The sky appears blue due to the scattering of light, specifically Rayleigh scattering. Shorter wavelengths of light are scattered more effectively, and this scattered light travels in all directions, with the scattered light that travels opposite to the sun's rays being most visible to our eyes.
+```
+
+Something to note about the Gemma model is that it can output markdown format automatically. We have edited the text format a bit for demonstration and simplicity purposes but the content is exactly what the model responded with. Note that we also didn't assess the accuracy of the response or if the model hallucinates.
 
 ## Resources and Integrations
 
