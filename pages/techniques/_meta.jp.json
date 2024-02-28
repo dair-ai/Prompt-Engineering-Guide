@@ -13,6 +13,7 @@
     "dsp": "方向性刺激プロンプティング",
     "pal": "Program-Aided Language Models",
     "react": "ReAct",
+    "reflexion": "Reflexion",
     "multimodalcot": "マルチモーダルCoT",
     "graph": "グラフプロンプト（GraphPrompts）"
 }

@@ -13,6 +13,7 @@
     "dsp": "方向性刺激提示",
     "pal": "Program-Aided Language Models",
     "react": "ReAct框架",
+    "reflexion": "Reflexion",
     "multimodalcot": "多模态思维链提示方法",
     "graph": "基于图的提示"
 }

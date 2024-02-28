@@ -14,6 +14,7 @@
     "dsp": "Directional Stimulus Prompting",
     "pal": "Program-Aided Language Models",
     "react": "ReAct",
+    "reflexion": "Reflexion",
     "multimodalcot": "Multimodal CoT",
     "graph": "Graph-Prompting"
 }

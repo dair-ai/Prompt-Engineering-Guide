@@ -13,6 +13,7 @@
     "dsp": "Prompt d'Estímul dirigit",
     "pal": "Program-Aided Language Models",
     "react": "ReAct",
+    "reflexion": "Reflexion",
     "multimodalcot": "Prompt CoT multimodal",
     "graph": "Prompt de graf"
 }
