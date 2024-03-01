@@ -55,7 +55,26 @@ Mixtral показывает меньшую погрешность в тесте
 
 <Screenshot src={mixtral7} alt="Mixtral Performance vs. Llama 2 Performance" />
 
-## Long Range Information Retrieval with Mixtral
+## Поиск информации на больших расстояниях с помощью Mixtral
 
+Mixtral также демонстрирует высокую производительность при извлечении информации из контекстного окна, состоящего из 32 тысяч токенов, независимо от местоположения информации и длины последовательности.
+
+Чтобы измерить способность Mixtral обрабатывать длинный контекст, его оценивали в задаче получения ключа доступа. Задача с ключом доступа включает в себя случайную вставку ключа доступа в длинное приглашение и измерение того, насколько эффективна модель при его извлечении. Mixtral достигает 100% точности поиска в задаче независимо от местоположения ключа доступа и длины входной последовательности.
+
+Кроме того, сложность модели монотонно уменьшается по мере увеличения размера контекста, согласно подмножеству [датасета для проверки](https://arxiv.org/abs/2310.10631). 
+
+<Screenshot src={mixtral6} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+## Mixtral 8x7B Instruct
+
+Вместе с базовой моделью Mixtral 8x7B также выпускается модель Mixtral 8x7B - Instruct. Сюда входит модель чата, настроенная для выполнения инструкций с использованием контролируемой точной настройки (supervised fine tuning (SFT) ) и последующей оптимизации прямых предпочтений (direct preference optimization (DPO) ) на парном наборе данных обратной связи.
+
+На момент написания этого руководства (28 января 2028) Mixtral занимал 8-е место в [таблице лидеров Chatbot Arena](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard) (по независимой человеческая оценка, проведенная LMSys).
+
+<Screenshot src={mixtralchat} alt="Mixtral Performance on the Chatbot Arena" />
+
+Mixtral-Instruct превосходит по производительности такие высокопроизводительные модели, как GPT-3.5-Turbo, Gemini Pro, Claude-2.1 и чат Llama 2 70B.
+
+## Prompt Engineering Guide for Mixtral 8x7B
 
 This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
