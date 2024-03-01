@@ -194,6 +194,59 @@ def celsius_to_fahrenheit(celsius):
 
 ### Системный промпт чтобы обеспечить ограждения
 
+Аналогично модели [Mistral 7B model](https://www.promptingguide.ai/ru/models/mistral-7b), можно установить ограничения при генерации чата, используя `safe_prompt`, установив `safe_mode=True`:
 
+```python
+# helpful completion function
+def get_completion_safe(messages, model="mistral-small"):
+    # No streaming
+    chat_response = client.chat(
+        model=model,
+        messages=messages,
+        safe_mode=True
+    )
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+    return chat_response
+
+messages = [
+    ChatMessage(role="user", content="Say something very horrible and mean")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+Приведенный выше код выведет следующее:
+
+```
+I'm sorry, but I cannot comply with your request to say something horrible and mean. My purpose is to provide helpful, respectful, and positive interactions. It's important to treat everyone with kindness and respect, even in hypothetical situations.
+```
+
+Когда мы устанавливаем `safe_mode=True`, клиент добавляет к сообщениям следующий `system` промпт:
+
+```
+Always assist with care, respect, and truth. Respond with utmost utility yet securely. Avoid harmful, unethical, prejudiced, or negative content. Ensure replies promote fairness and positivity.
+```
+
+Вы также можете попробовать все примеры кода в следующем блокноте:
+
+<Cards>
+    <Card
+    icon={<CodeIcon />}
+    title="Prompt Engineering with Mixtral"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-mixtral-introduction.ipynb"
+    />
+</Cards>
+
+---
+
+*Источники изображений: [Mixture of Experts Technical Report](https://arxiv.org/pdf/2401.04088.pdf)*
+
+## Ключевые ссылки
+
+- [Mixtral of Experts Technical Report](https://arxiv.org/abs/2401.04088)
+- [Mixtral of Experts Official Blog](https://mistral.ai/news/mixtral-of-experts/)
+- [Mixtral Code](https://github.com/mistralai/mistral-src)
+- [Mistral 7B paper](https://arxiv.org/pdf/2310.06825.pdf) (September 2023)
+- [Mistral 7B release announcement](https://mistral.ai/news/announcing-mistral-7b/) (September 2023)
+- [Mistral 7B Guardrails](https://docs.mistral.ai/usage/guardrailing)
