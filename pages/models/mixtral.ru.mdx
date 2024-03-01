@@ -77,4 +77,123 @@ Mixtral-Instruct превосходит по производительност�
 
 ## Prompt Engineering Guide for Mixtral 8x7B
 
+Чтобы эффективно запрашивать инструкции Mistral 8x7B и получать оптимальные результаты, рекомендуется использовать следующий шаблон чата:
+
+```
+<s>[INST] Instruction [/INST] Model answer</s>[INST] Follow-up instruction [/INST]
+```
+*Обратите внимание, что `<s>` и `</s>` — это специальные токены для начала строки и конца строки , тогда как [INST] и [/INST] — обычные строки.*
+
+Мы будем использовать [клиент Mistral Python] (https://github.com/mistralai/client-python) для следующих примеров, показывающих, как вызвать настроенную с помощью инструкций модель Mixtral. В частности, мы будем использовать конечные точки Mistral API и использовать модель «mistral-small», основанную на Mixtral-8X7B-v0.1.
+
+### Базовое составление промптов
+
+Начнем с простого примера и поручим модели выполнить задачу на основе инструкции.
+
+Let's start with a simple example and instruct the model to achieve a task based on an instruction.
+
+*Prompt*:
+```
+[INST] You are a helpful code assistant. Your task is to generate a valid JSON object based on the given information:
+
+name: John
+lastname: Smith
+address: #1 Samuel St.
+
+Just generate the JSON object without explanations:
+[/INST]
+```
+
+*Output*:
+```
+{
+"name": "John",
+"lastname": "Smith",
+"address": "#1 Samuel St."
+}
+```
+
+Вот еще один забавный пример, в котором используется шаблон чата:
+
+*Prompt:*
+```
+<s>[INST] What is your favorite condiment? [/INST]
+"Well, I'm quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I'm cooking up in the kitchen!"</s> [INST] The right amount of what? [/INST]
+```
+
+*Output*:
+```
+"My apologies for any confusion. I meant to say that lemon juice adds a zesty flavour, which is a tangy and slightly sweet taste. It's a delightful addition to many dishes, in my humble opinion."
+```
+
+### Few-shot Prompting с Mixtral
+
+Используя официальный клиент Python, вы также составляете промпт для модели, используя различные роли, такие как «система», «пользователь» и «помощник». Используя эти роли, можно создать промпт с помощью одной демонстрации, как в случае с few-shot setting, чтобы лучше управлять реакцией модели.
+
+Вот пример кода того, как будет выглядеть:
+
+```python
+from mistralai.client import MistralClient
+from mistralai.models.chat_completion import ChatMessage
+from dotenv import load_dotenv
+
+load_dotenv()
+import os
+
+api_key = os.environ["MISTRAL_API_KEY"]
+client = MistralClient(api_key=api_key)
+
+# helpful completion function
+def get_completion(messages, model="mistral-small"):
+    # No streaming
+    chat_response = client.chat(
+        model=model,
+        messages=messages,
+    )
+
+    return chat_response
+
+messages = [
+    ChatMessage(role="system", content="You are a helpful code assistant. Your task is to generate a valid JSON object based on the given information."), 
+    ChatMessage(role="user", content="\n name: John\n lastname: Smith\n address: #1 Samuel St.\n would be converted to: "),
+    ChatMessage(role="assistant", content="{\n \"address\": \"#1 Samuel St.\",\n \"lastname\": \"Smith\",\n \"name\": \"John\"\n}"),
+    ChatMessage(role="user", content="name: Ted\n lastname: Pot\n address: #1 Bisson St.")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+Вывод:
+```
+{
+ "address": "#1 Bisson St.",
+ "lastname": "Pot",
+ "name": "Ted"
+}
+```
+
+### Генерация Кода
+
+Mixtral также обладает мощными возможностями генерации кода. Вот простой пример использования официального клиента Python:
+
+```python
+messages = [
+    ChatMessage(role="system", content="You are a helpful code assistant that help with writing Python code for a user requests. Please only produce the function and avoid explaining."),
+    ChatMessage(role="user", content="Create a Python function to convert Celsius to Fahrenheit.")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+*Вывод*:
+```python
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+```
+
+### Системный промпт чтобы обеспечить ограждения
+
+
+
 This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
