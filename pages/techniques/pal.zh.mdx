@@ -4,14 +4,14 @@ import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
 import PAL from '../../img/pal.png'
 
-[Gao等人（2022）](https://arxiv.org/abs/2211.10435)提出了一种使用LLMs读取自然语言问题并生成程序作为中间推理步骤的方法。被称为程序辅助语言模型（PAL），它与思维链提示不同，因为它不是使用自由形式文本来获得解决方案，而是将解决步骤卸载到类似Python解释器的编程运行时中。
+[Gao 等人（2022）](https://arxiv.org/abs/2211.10435)提出了一种使用 LLMs 读取自然语言问题并生成程序作为中间推理步骤的方法。被称为程序辅助语言模型（PAL），它与思维链提示不同，因为它不是使用自由形式文本来获得解决方案，而是将解决步骤卸载到类似 Python 解释器的编程运行时中。
 
 <Screenshot src={PAL} alt="PAL" />
-图片来源：[Gao等人（2022）](https://arxiv.org/abs/2211.10435)
+图片来源：[Gao 等人（2022）](https://arxiv.org/abs/2211.10435)
 
-让我们以LangChain和OpenAI GPT-3为例。我们有兴趣开发一个简单的应用程序，它能够解释所提出的问题，并利用Python解释器提供答案。
+让我们以 LangChain 和 OpenAI GPT-3 为例。我们有兴趣开发一个简单的应用程序，它能够解释所提出的问题，并利用 Python 解释器提供答案。
 
-具体来说，我们有兴趣创建一个功能，允许使用LLM回答需要日期理解的问题。我们将为LLM提供一个提示，其中包括一些示例，这些示例是从[这里](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py)采用的。
+具体来说，我们有兴趣创建一个功能，允许使用 LLM 回答需要日期理解的问题。我们将为 LLM 提供一个提示，其中包括一些示例，这些示例是从[这里](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py)采用的。
 
 这是我们需要导入的包：
 
@@ -96,6 +96,18 @@ yesterday.strftime('%m/%d/%Y')
 llm_out = llm(DATE_UNDERSTANDING_PROMPT.format(question=question))
 print(llm_out)
 ```
+
+这将输出以下内容：
+```
+# If today is 27 February 2023 and I was born exactly 25 years ago, then I was born 25 years before.
+today = datetime(2023, 2, 27)
+# I was born 25 years before,
+born = today - relativedelta(years=25)
+# The answer formatted with %m/%d/%Y is
+born.strftime('%m/%d/%Y')
+```
+
+`llm_out` 是一段 `python` 代码，我们可以使用 `exec` 执行它：
 
 ```python
 exec(llm_out)
