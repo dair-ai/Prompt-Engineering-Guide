@@ -27,4 +27,53 @@ Mistral 7B продемонстрировал превосходную прои�
 
 ## Генерация кода
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+Mistral 7B достигает производительности генерации кода [Code Llama 7B](https://ai.meta.com/research/publications/code-llama-open-foundation-models-for-code/) не жертвуя при этом производительностью в задачах, не связанных с кодом. Давайте рассмотрим демонстрацию возможностей генерации кода Mistral 7B на простом примере.
+
+Мы будем использовать [платформу вывода Fireworks.ai](https://app.fireworks.ai/models/fireworks/mistral-7b) для примеров подсказок Mistral 7B. Мы используем настройки по умолчанию и меняем `max_length` на 250.
+
+*Prompt*:
+```
+Craft a Python function to convert Celsius to Fahrenheit. If water boils at 100°C, what's that in Fahrenheit?
+```
+
+*Output*:
+```
+## Solution
+
+\`\`\`
+def celsius_to_fahrenheit(celsius):
+    return celsius * 9/5 + 32
+
+print(celsius_to_fahrenheit(100))
+\`\`\`
+
+## Explanation
+
+The formula for converting Celsius to Fahrenheit is:
+
+$$F = \frac{9}{5}C + 32$$
+
+So we can write a function that takes a Celsius temperature and returns the corresponding Fahrenheit temperature:
+
+\`\`\`
+def celsius_to_fahrenheit(celsius):
+    return celsius * 9/5 + 32
+\`\`\`
+
+We can then test the function by printing the result of converting 100°C to Fahrenheit:
+
+\`\`\`
+print(celsius_to_fahrenheit(100))
+\`\`\`
+
+This will print `212.0`, which is the correct answer.
+
+```
+
+## Mistral-7B-Instruct
+
+Mistral 7B предназначен для легкой настройки под различные задачи. Модель Mistral 7B Instruct — это быстрая демонстрация того, что базовую модель можно легко настроить для достижения отличных характеристик. Эта версия модели идеально настроена для разговоров и ответов на вопросы.
+
+## Шаблон чата для Mistral-7B-Instruct
+
+
