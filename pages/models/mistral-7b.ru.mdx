@@ -1,3 +1,30 @@
 # Mistral 7B LLM
 
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import mistral7b1 from '../../img/mistral-7B-1.png'
+import mistral7b2 from '../../img/mistral-7B-2.png'
+
+В этом руководстве мы даем обзор Mistral 7B LLM и способы промптинга с моделью. Руководство также включает советы, приложения, ограничения, статьи и дополнительные материалы для чтения, относящиеся к Mistral 7B и finetuned моделям.
+
+## Mistral-7B Введение
+
+Mistral 7B — языковая модель с 7 миллиардами параметров, [выпущенная Mistral AI](https://github.com/mistralai/mistral-src). Mistral 7B — это тщательно продумманая языковая модель, обеспечивающая эффективность и высокую производительность для реализации реальных приложений. Благодаря повышению эффективности модель подходит для приложений реального времени, где важны быстрые ответы. На момент выпуска Mistral 7B превзошел лучшую модель 13B с открытым исходным кодом (Llama 2) во всех оцениваемых тестах.
+
+<Screenshot src={mistral7b1} alt="mistral7b1" />
+
+Модель использует механизмы внимания, такие как:
+- [grouped-query attention (GQA)](https://arxiv.org/abs/2305.13245v2) for faster inference and reduced memory requirements during decoding
+- [sliding window attention (SWA)](https://arxiv.org/abs/1904.10509) for handling sequences of arbitrary length with a reduced inference cost. 
+
+Модель выпущена под лицензией Apache 2.0.
+
+## Возможности
+
+Mistral 7B продемонстрировал превосходную производительность в различных тестах, превосходя даже модели у которы количеством параметров больше. Он превосходит в таких областях, как математика, генерация кода и рассуждение. Ниже приведены результаты выполнения нескольких задач, таких как математическое рассуждение, знание мира и здравое рассуждение:
+
+<Screenshot src={mistral7b2} alt="mistral7b2" />
+
+## Генерация кода
+
 This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
