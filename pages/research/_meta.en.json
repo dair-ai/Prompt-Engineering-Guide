@@ -1,6 +1,7 @@
 {
     "llm-agents": "LLM Agents",
     "rag": "RAG for LLMs",
+    "llm-reasoning": "LLM Reasoning",
     "trustworthiness-in-llms": "Trustworthiness in LLMs",
     "llm-tokenization": "LLM Tokenization",
     "groq": "What is Groq?"
