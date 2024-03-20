@@ -8,19 +8,21 @@ import APECOT from '../../img/ape-zero-shot-cot.png'
 <Screenshot src={APE} alt="APE" />
 图片来源：[Zhou等人，（2022）](https://arxiv.org/abs/2211.01910)
 
-[Zhou等人，（2022）](https://arxiv.org/abs/2211.01910) 提出了自动提示工程师（APE），这是一个用于自动指令生成和选择的框架。指令生成问题被构建为自然语言合成问题，使用LLMs作为黑盒优化问题的解决方案来生成和搜索候选解。
+[Zhou等人，（2022）](https://arxiv.org/abs/2211.01910) 提出了自动提示工程师 （APE），这是一个用于自动指令生成和选择的框架。指令生成问题被构建为自然语言合成问题，使用 LLMs 作为黑盒优化问题的解决方案来生成和搜索候选解。
 
 第一步涉及一个大型语言模型（作为推理模型），该模型接收输出演示以生成任务的指令候选项。这些候选解将指导搜索过程。使用目标模型执行指令，然后根据计算的评估分数选择最合适的指令。
 
-APE发现了一个比人工设计的“让我们一步一步地思考”提示更好的零样本CoT提示（[Kojima等人，2022](https://arxiv.org/abs/2205.11916)）。
+APE 发现了一个比人工设计的“让我们一步一步地思考”提示更好的零样本 CoT 提示 （[Kojima 等人，2022](https://arxiv.org/abs/2205.11916)）。
 
-提示“让我们一步一步地解决这个问题，以确保我们有正确的答案。”引发了思维链的推理，并提高了MultiArith和GSM8K基准测试的性能：
+提示“让我们一步一步地解决这个问题，以确保我们有正确的答案。”引发了思维链的推理，并提高了 MultiArith 和 GSM8K 基准测试的性能：
 
 <Screenshot src={APECOT} alt="APECOT" />
 图片来源：[Zhou等人，（2022）](https://arxiv.org/abs/2211.01910)
 
 本文涉及与提示工程相关的重要主题，即自动优化提示的想法。虽然我们在本指南中没有深入探讨这个主题，但如果您对此主题感兴趣，以下是一些关键论文：
 
+- [Prompt-OIRL](https://arxiv.org/abs/2309.06553) - 使用离线逆强化学习来生成与查询相关的提示。
+- [OPRO](https://arxiv.org/abs/2309.03409) - 引入使用 LLMs 优化提示的思想：让 LLMs “深呼吸”提高数学问题的表现。
 - [AutoPrompt](https://arxiv.org/abs/2010.15980) - 提出了一种基于梯度引导搜索的方法，用于自动创建各种任务的提示。
-- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - 是一种轻量级的fine-tuning替代方案，为NLG任务添加可训练的连续前缀。
+- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - 是一种轻量级的 fine-tuning 替代方案，为 NLG 任务添加可训练的连续前缀。
 - [Prompt Tuning](https://arxiv.org/abs/2104.08691) - 提出了一种通过反向传播学习软提示的机制。
