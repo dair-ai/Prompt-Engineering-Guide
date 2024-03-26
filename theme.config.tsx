@@ -33,15 +33,17 @@ const config: DocsThemeConfig = {
   ],
   head: function UseHead() {
     const { title } = useConfig()
+    const pageTitle = title ? `${title} | Prompt Engineering Guide` : 'Prompt Engineering Guide';
+
     return (
     <>
-      <title>{title ? title + ' | Prompt Engineering Guide': 'Prompt Engineering Guide'} </title>
+      <title>{pageTitle}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta property="og:title" content="Prompt Engineering Guide" />
       <meta property="og:description" content="A Comprehensive Overview of Prompt Engineering" />
       <meta
           name="og:title"
-          content={title ? title + ' | Prompt Engineering Guide' : 'Prompt Engineering Guide'}
+          content={pageTitle}
         />
       <link rel="icon" href="/144-favicon.svg" type="image/svg+xml" />
 
