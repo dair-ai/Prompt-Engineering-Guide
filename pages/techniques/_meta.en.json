@@ -15,6 +15,7 @@
     "react": "ReAct",
     "reflexion": "Reflexion",
     "multimodalcot": "Multimodal CoT",
-    "graph": "Graph Prompting"
+    "graph": "Graph Prompting",
+    "aot": "Algorithm of Thoughts"
 }
   
