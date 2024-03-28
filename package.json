@@ -24,7 +24,7 @@
     "@svgr/webpack": "^8.1.0",
     "@vercel/analytics": "^0.1.11",
     "clsx": "^2.1.0",
-    "next": "^13.5.6",
+    "next": "^13.4.19",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
     "react": "^18.2.0",
