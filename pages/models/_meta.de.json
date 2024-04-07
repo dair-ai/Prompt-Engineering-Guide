@@ -1,5 +1,6 @@
 {
   "chatgpt": "ChatGPT",
+  "claude-3": "Claude 3",
   "code-llama": "Code Llama",
   "flan": "Flan",
   "gemini": "Gemini",
