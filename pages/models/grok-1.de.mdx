@@ -1,0 +1,28 @@
+# Grok-1
+
+Grok-1 ist ein Large Language Model (LLM) mit einer Mischung aus Experten (MoE) und 314B Parametern, welches die offene Veröffentlichung der Gewichte des Basis-Modells und der Netzwerkarchitektur beinhaltet.
+
+Grok-1 wird von xAI trainiert und besteht aus einem MoE-Modell, das 25% der Gewichte für ein gegebenes Token zur Inferenzzeit aktiviert. Das Vortrainings-Cutoff-Datum für Grok-1 ist Oktober 2023.
+
+Wie in der [offiziellen Ankündigung](https://x.ai/blog/grok-os) festgestellt, ist Grok-1 der Roh-Checkpoint des Basis-Modells aus der Vortrainingsphase, was bedeutet, dass es noch nicht für eine spezifische Anwendung wie Konversations-Agenten feinabgestimmt wurde.
+
+Das Modell wurde unter der Apache 2.0 Lizenz [veröffentlicht](https://github.com/xai-org/grok-1).
+
+## Ergebnisse und Fähigkeiten
+
+Laut initialer [Ankündigung](https://x.ai/blog/grok) hat Grok-1 starke Fähigkeiten in den Bereichen Reasoning und Programmieren demonstriert. Die letzte öffentlich verfügbare Ergebnisse zeigen, dass Grok-1 63,2% beim HumanEval-Programmieraufgabe und 73% bei MMLU erreicht. Es übertrifft im Allgemeinen ChatGPT-3.5 und Inflection-1, bleibt jedoch hinter verbesserten Modellen wie GPT-4 zurück.
+
+!["Grok-1 Benchmark Results"](../../img/grok/grok-reasoning.png)
+
+Es wurde auch berichtet, dass Grok-1 ein C (59%) im Vergleich zu einem B (68%) von GPT-4 bei den ungarischen nationalen Abiturprüfungen in Mathematik erreicht hat.
+
+!["Grok-1 Benchmark Results"](../../img/grok/grok-math.png)
+
+Das Modell finden Sie hier: https://github.com/xai-org/grok-1
+
+Aufgrund der Größe von Grok-1 (314B Parameter) empfiehlt xAI eine Multi-GPU-Maschine zum Testen des Modells.
+
+## Referenzen
+
+- [Open Release of Grok-1](https://x.ai/blog/grok-os)
+- [Announcing Grok](https://x.ai/blog/grok)
