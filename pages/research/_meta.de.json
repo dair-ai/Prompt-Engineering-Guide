@@ -2,6 +2,7 @@
     "llm-agents": "LLM Agenten",
     "rag": "RAG für LLMs",
     "llm-reasoning": "LLM Reasoning",
+    "guided-cot": "LM-geführtes CoT",
     "trustworthiness-in-llms": "Vertrauenswürdigkeit in LLMs",
     "llm-tokenization": "LLM Tokenisierung",
     "groq": "Was ist Groq?"
