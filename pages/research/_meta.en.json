@@ -2,6 +2,8 @@
     "llm-agents": "LLM Agents",
     "rag": "RAG for LLMs",
     "llm-reasoning": "LLM Reasoning",
+    "thoughtsculpt": "ThoughtSculpt",
+    "infini-attention": "Infini-Attention",
     "guided-cot": "LM-Guided CoT",
     "trustworthiness-in-llms": "Trustworthiness in LLMs",
     "llm-tokenization": "LLM Tokenization",
