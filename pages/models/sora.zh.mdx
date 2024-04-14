@@ -1,3 +1,68 @@
 # Sora
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import { Bleed } from 'nextra-theme-docs'
+
+OpenAI 推出新的文本到视频人工智能模型 Sora。Sora 可以根据文字指令制作长达一分钟的逼真而富有想象力的场景视频。
+
+OpenAI 报告称，其愿景是建立人工智能系统，以理解和模拟运动中的物理世界，并训练模型来解决需要真实世界交互的问题。
+
+## 能力
+
+Sora 能够生成保持高视觉质量并且忠实于用户提示的视频。Sora 还能生成包含多个角色、不同运动类型和背景的复杂场景，并理解它们之间的关联。其他能力包括在单个视频中创建多个镜头，同时保持角色和视觉风格的持续性。以下是一些由 Sora 生成的视频示例：
+
+提示:
+```
+一位时尚的女士穿行在东京的街道上，街道上有温暖的霓虹灯和动态的城市标志。她穿着黑色皮夹克、长红裙和黑靴，携带着黑色手提包。她戴着太阳镜和红色口红，走得自信而又随意。街道潮湿且具有反射性，营造出彩色灯光的镜面效果。许多行人在街上走动。
+```
+
+<Bleed >
+  <iframe
+    src="https://cdn.openai.com/sora/videos/tokyo-walk.mp4"
+    width="100%"
+    height="300px"
+    title="SWR-States"
+  />
+</Bleed>
+
+提示:
+
+```
+一部电影预告，展示一位30岁的太空人的冒险，他戴着红色羊毛编织的摩托车头盔，蓝天，盐土荒漠，电影风格，使用35mm胶片拍摄，色彩鲜艳。
+```
+
+<Bleed >
+  <iframe
+    src="https://cdn.openai.com/sora/videos/mitten-astronaut.mp4"
+    width="100%"
+    height="300px"
+    title="SWR-States"
+  />
+</Bleed>
+
+*视频来源: https://openai.com/sora*
+
+## Methods
+Sora 是一个扩散模型，能够生成完整的视频或延伸已生成的视频。它还使用了 Transformer 架构带来可伸缩性能。视频和图像被表示为类似于 GPT 中的 tokens 的补丁，这促成了一个统一的视频生成系统，使得视频的持续时间、分辨率和长宽比得到提高。他们使用了在 DALL·E 3 中使用的重新标记技术，使得 Sora 能更紧密地遵循文本指令。Sora 也能从给定的图片生成视频，这使得系统可以精确地动画化图片。
+
+## 限制与安全
+
+Sora 的已知限制包括模拟物理现象和缺乏因果关系。在提示中描述的空间细节和事件（例如，摄影机轨迹）有时也会被 Sora 误解。OpenAI 报告称他们正在将 Sora 提供给安全团队和创作者，以评估潜在的危害和能力。
+
+提示:
+
+```
+提示: 一个人在跑步的步印场景，电影风格，使用35mm胶片拍摄。
+```
+
+<Bleed >
+  <iframe
+    src="https://cdn.openai.com/sora/videos/backward-jogger.mp4"
+    width="100%"
+    height="300px"
+    title="SWR-States"
+  />
+</Bleed>
+
+*视频来源: https://openai.com/sora*
+
+在这里查看更多由 Sora 模型生成的视频示例: https://openai.com/sora
