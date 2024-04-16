@@ -2,6 +2,8 @@
     "llm-agents": "LLM Agents",
     "rag": "RAG for LLMs",
     "llm-reasoning": "LLM Reasoning",
+    "rag_hallucinations": "RAG Reduces Hallucination",
+    "synthetic_data": "Synthetic Data",
     "thoughtsculpt": "ThoughtSculpt",
     "infini-attention": "Infini-Attention",
     "guided-cot": "LM-Guided CoT",
