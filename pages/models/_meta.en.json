@@ -13,6 +13,7 @@
     "mistral-7b": "Mistral 7B",
     "mistral-large": "Mistral Large",
     "mixtral": "Mixtral",
+    "mixtral-8x22b": "Mixtral 8x22B",
     "olmo": "OLMo",    
     "phi-2": "Phi-2",
     "sora": "Sora",
