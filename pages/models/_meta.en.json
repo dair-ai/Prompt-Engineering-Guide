@@ -10,6 +10,7 @@
     "gpt-4": "GPT-4",
     "grok-1": "Grok-1",
     "llama": "LLaMA",
+    "llama-3": "Llama 3",
     "mistral-7b": "Mistral 7B",
     "mistral-large": "Mistral Large",
     "mixtral": "Mixtral",
