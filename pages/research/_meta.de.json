@@ -3,6 +3,8 @@
     "rag": "RAG für LLMs",
     "llm-reasoning": "LLM Reasoning",
     "guided-cot": "LM-geführtes CoT",
+    "thoughtsculpt": "ThoughtSculpt",
+    "infini-attention": "Infini-Attention",
     "trustworthiness-in-llms": "Vertrauenswürdigkeit in LLMs",
     "llm-tokenization": "LLM Tokenisierung",
     "groq": "Was ist Groq?"
