@@ -2,6 +2,7 @@
     "llm-agents": "LLM Agents",
     "rag": "RAG for LLMs",
     "llm-reasoning": "LLM Reasoning",
+    "rag-faithfulness": "RAG Faithfulness",
     "llm-recall": "LLM In-Context Recall",
     "rag_hallucinations": "RAG Reduces Hallucination",
     "synthetic_data": "Synthetic Data",
