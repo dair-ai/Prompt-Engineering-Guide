@@ -1,5 +1,15 @@
 # LLM Einstellungen
 
+import {Bleed} from 'nextra-theme-docs'
+
+<Bleed>
+  <iframe width="100%"
+    height="415px"
+    src="https://www.youtube.com/embed/CB0H7esOl68?si=OECAnvgnvJHy0qZ2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+    />
+</Bleed>
+
 Beim Entwerfen und Testen von Prompts interagieren Sie normalerweise über eine API mit dem LLM. Sie können einige Parameter konfigurieren, um unterschiedliche Ergebnisse für Ihre Prompts zu erhalten. Das Anpassen dieser Einstellungen ist wichtig, um die Zuverlässigkeit und Erwünschtheit der Antworten zu verbessern, und es bedarf des Experimentierens, um die richtigen Einstellungen für Ihre Anwendungsfälle herauszufinden. Unten finden Sie die gängigen Einstellungen, auf die Sie bei der Verwendung verschiedener LLM-Anbieter stoßen werden:
 
 **Temperatur** - Kurz gesagt, je niedriger die `temperature`, desto deterministischer sind die Ergebnisse in dem Sinne, dass immer das wahrscheinlichste nächste Token gewählt wird. Eine Erhöhung der Temperatur kann zu mehr Zufälligkeit führen und damit vielfältigere oder kreativere Ausgaben fördern. Sie erhöhen im Grunde das Gewicht der anderen möglichen Tokens. Im Hinblick auf die Anwendung möchten Sie vielleicht einen niedrigeren Temperaturwert für Aufgaben wie faktenbasierte QA verwenden, um präzisere und knappere Antworten zu fördern. Für die Generierung von Gedichten oder andere kreative Aufgaben könnte es vorteilhaft sein, den Temperaturwert zu erhöhen.
