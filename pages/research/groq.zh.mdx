@@ -1,0 +1,21 @@
+# Groq 是什么？
+
+[Groq](https://groq.com/) 最近因其作为当今最快的大型语言模型（LLM）推理解决方案之一而广受关注。LLM 实践者对于降低LLM响应的延迟非常感兴趣，因为延迟是一个重要的性能指标，它需要被优化以支持实时人工智能应用。目前，许多公司都在LLM推理领域展开竞争。
+
+Groq 是那些声称在 [Anyscale 的 LLMPerf 排行榜](https://github.com/ray-project/llmperf-leaderboard)上，比其他顶尖的基于云的服务提供商快 18 倍的公司之一。Groq 目前通过其 API 提供了 Meta AI 的 Llama 2 70B 和 Mixtral 8x7B 等模型。这些模型由 Groq LPU™ 推理引擎驱动，该引擎是基于他们为运行 LLM 特别设计的定制硬件——语言处理单元（LPUs）构建的。
+
+根据 Groq 的常见问题解答，LPU 有助于减少每个单词的计算时间，从而加快文本序列的生成。您可以在他们获得 ISCA 奖项的 [2020 年](https://wow.groq.com/groq-isca-paper-2020/)和 [2022 年](https://wow.groq.com/isca-2022-paper/) 的论文中，阅读有关 LPU 技术细节及其优势的更多信息。
+
+以下是一张展示了他们模型的速度和定价的图表：
+
+!["Groq 定价"](../../img/research/groq.png)
+
+下面的图表比较了输出词元吞吐量（Output Tokens Throughput，词元/秒），这是衡量每秒返回的平均输出词元数的指标。图表中的数字代表了基于 150 个请求的 Llama 2 70B 模型上，LLM 推理服务提供商的平均输出词元吞吐量。
+
+!["LLMPerf 排行榜"](https://github.com/ray-project/llmperf-leaderboard/blob/main/.assets/output_tokens_per_s.jpg?raw=true)
+
+对于流媒体应用而言，LLM 推理的另一个重要因素是首个词元时间（Time to First Token，TTFT），它指的是 LLM 返回第一个词元所需的时间。以下图表展示了不同 LLM 推理服务提供商在这方面的表现：
+
+!["首个词元时间（秒）"](https://github.com/ray-project/llmperf-leaderboard/blob/main/.assets/ttft.jpg?raw=true)
+
+您可以在[此处](https://wow.groq.com/groq-lpu-inference-engine-crushes-first-public-llm-benchmark/) 阅读有关 Groq 在 Anyscale 的 LLMPerf 排行榜上的 LLM 推理性能的更多信息。
