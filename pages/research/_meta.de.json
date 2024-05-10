@@ -4,6 +4,8 @@
     "llm-reasoning": "LLM Reasoning",
     "rag_hallucinations": "RAG Reduziert Halluzination",
     "synthetic_data": "Synthetische Daten",
+    "rag-faithfulness": "RAG Zuverlässigkeit",
+    "llm-recall": "LLM In-Context Recall",
     "thoughtsculpt": "ThoughtSculpt",
     "infini-attention": "Infini-Attention",
     "trustworthiness-in-llms": "Vertrauenswürdigkeit in LLMs",
