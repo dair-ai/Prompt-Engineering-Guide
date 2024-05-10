@@ -116,14 +116,14 @@ Sentiment:
 Neutre
 ```
 
-Nous avons donné l'instruction de classer le texte et le modèle a répondu avec `'Neutral'` qui est correct. Rien ne va pas avec cela, mais disons que ce dont nous avons vraiment besoin est que le modèle donne l'étiquette dans le format exact que nous voulons. Donc, au lieu de `Neutral`, nous voulons qu'il retourne `Neutral`. Comment y parvenir ? Il existe différentes façons de le faire. Nous nous soucions de la spécificité ici, donc plus nous pouvons fournir d'informations à la demande, meilleurs seront les résultats. Nous pouvons essayer de fournir des exemples pour spécifier le comportement correct. Essayons à nouveau :
+Nous avons donné l'instruction de classer le texte et le modèle a répondu avec `'Neutre'` qui est correct. Rien ne va pas avec cela, mais disons que ce dont nous avons vraiment besoin est que le modèle donne l'étiquette dans le format exact que nous voulons. Donc, au lieu de `Neutre`, nous voulons qu'il retourne `neutre`. Comment y parvenir ? Il existe différentes façons de le faire. Nous nous soucions de la spécificité ici, donc plus nous pouvons fournir d'informations à la demande, meilleurs seront les résultats. Nous pouvons essayer de fournir des exemples pour spécifier le comportement correct. Essayons à nouveau :
 
 *Prompt:*
 ```
 Classez le texte en neutre, négatif ou positif.
 
 Text: Je pense que les vacances vont bien.
-Sentiment: neutral 
+Sentiment: neutre 
 
 Text: Je pense que la nourriture était correcte.. 
 Sentiment:
@@ -131,10 +131,10 @@ Sentiment:
 
 *Output:*
 ```
-neutral
+neutre
 ```
 
-Parfait ! Cette fois-ci, le modèle a retourné `neutral`, qui est l'étiquette spécifique que je cherchais. Il semble que l'exemple fourni dans l'instruction ait aidé le modèle à être spécifique dans sa sortie. Pour souligner pourquoi parfois être précis est important, jetez un coup d'œil à cet exemple et repérez le problème :
+Parfait ! Cette fois-ci, le modèle a retourné `neutre`, qui est l'étiquette spécifique que je cherchais. Il semble que l'exemple fourni dans l'instruction ait aidé le modèle à être spécifique dans sa sortie. Pour souligner pourquoi parfois être précis est important, jetez un coup d'œil à cet exemple et repérez le problème :
 
 *Prompt:*
 ```
@@ -146,7 +146,7 @@ Sentiment:
 
 *Output:*
 ```
-Neutral
+Neutre
 ```
 
 Quel est le problème ici?
@@ -212,7 +212,7 @@ let name = prompt("What is your name?");
 console.log(`Hello, ${name}!`);
 ```
 
-Vous pouvez voir que nous n'avons même pas eu besoin de spécifier la langue à utiliser.
+Vous pouvez voir que nous n'avons même pas eu besoin de spécifier le langage à utiliser.
 
 Changeons un peu de niveau. Je veux vous montrer à quel point les LLM peuvent être puissants avec un peu plus d'effort dans la conception des instructions.
 

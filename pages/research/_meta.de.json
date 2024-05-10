@@ -3,6 +3,8 @@
     "rag": "RAG für LLMs",
     "llm-reasoning": "LLM Reasoning",
     "guided-cot": "LM-geführtes CoT",
+    "rag-faithfulness": "RAG Zuverlässigkeit",
+    "llm-recall": "LLM In-Context Recall",
     "thoughtsculpt": "ThoughtSculpt",
     "infini-attention": "Infini-Attention",
     "trustworthiness-in-llms": "Vertrauenswürdigkeit in LLMs",
