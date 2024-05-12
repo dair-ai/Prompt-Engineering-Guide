@@ -1,7 +1,7 @@
 # LLMs의 Function Calling
 
-import {Cards, Card} from 'nextra-theme-docs'
-import {CodeIcon} from 'components/icons'
+import { Cards, Card } from "nextra-theme-docs";
+import { CodeIcon } from "components/icons";
 
 ## Function Calling 시작하기
 
@@ -25,7 +25,6 @@ Functional calling을 통해 개발자는 다음을 만들 수 있습니다:
 간단한 예시로, 모델에게 주어진 위치의 날씨를 조회하도록 요청했다고 가정해 보겠습니다.
 
 LLM만으로는 컷오프 포인트가 있는 데이터 세트로 훈련을 했기때문에 이 요청에 응답할 수 없습니다. 이를 해결하는 방법은 LLM을 외부 툴과 결합하는 것입니다. 모델의 함수 호출 기능을 활용하여 인수와 함께 호출할 외부 함수를 결정한 다음 최종 응답을 반환하도록 할 수 있습니다. 다음은 OpenAI API를 사용하여 이를 달성하는 방법에 대한 간단한 예입니다.
-Let's say a user is asking the following question to the model:
 
 ```
 서울의 날씨는 어때?
@@ -48,17 +47,17 @@ tools = [
                         "description": "도시와 지역구, e.g. 서울특별시, 관악구",
                     },
                     "unit": {
-                        "type": "string", 
+                        "type": "string",
                         "enum": ["섭씨", "화씨"]},
                 },
                 "required": ["location"],
             },
-        },   
+        },
     }
 ]
 ```
 
-위의 `get_current_weather` 주어진 위치에 따라 그 지역의 날씨를 반환합니다. 이 함수의 정의를 요청의 일부로 전달하면 실제로 함수를 실행하지는 않고 함수를 호출하는 데 필요한 인수가 포함된 JSON 객체만 반환합니다. 다음은 이를 달성하는 방법에 대한 몇 가지 코드 스니펫입니다. 
+위의 `get_current_weather` 주어진 위치에 따라 그 지역의 날씨를 반환합니다. 이 함수의 정의를 요청의 일부로 전달하면 실제로 함수를 실행하지는 않고 함수를 호출하는 데 필요한 인수가 포함된 JSON 객체만 반환합니다. 다음은 이를 달성하는 방법에 대한 몇 가지 코드 스니펫입니다.
 
 다음과 같은 함수를 정의할 수도 있겠지요:
 
@@ -106,14 +105,15 @@ ChatCompletionMessage(content=None, role='assistant', function_call=None, tool_c
 다음은 OpenAI API를 사용하여 Function Calling을 사용하는 방법을 보여주는 간단한 예가 있는 Notebook입니다:
 
 <Cards>
-    <Card 
-        icon={<CodeIcon />}
-        title="Function Calling with OpenAI APIs"
-        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb"
-    />
+  <Card
+    icon={<CodeIcon />}
+    title="Function Calling with OpenAI APIs"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb"
+  />
 </Cards>
 
 ## 오픈 소스 LLM의 Function Calling
+
 오픈 소스 LLM을 사용한 Function Calling에 대한 더 많은 내용을 곧 공개할 예정입니다.
 
 ## Function Calling 유스케이스
@@ -130,8 +130,8 @@ ChatCompletionMessage(content=None, role='assistant', function_call=None, tool_c
 
 - **정보 추출**: 기사에서 관련 뉴스 기사나 참고문헌을 검색하는 등 주어진 입력에서 특정 정보를 추출하는 기능 호출을 효과적으로 사용합니다.
 
-
 ## 참고문헌
+
 - [Fireworks Raises the Quality Bar with Function Calling Model and API Release](https://blog.fireworks.ai/fireworks-raises-the-quality-bar-with-function-calling-model-and-api-release-e7f49d1e98e9)
 - [Benchmarking Agent Tool Use and Function Calling](https://blog.langchain.dev/benchmarking-agent-tool-use/)
 - [Function Calling](https://ai.google.dev/docs/function_calling)
