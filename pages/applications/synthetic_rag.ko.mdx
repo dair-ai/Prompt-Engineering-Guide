@@ -1,0 +1,94 @@
+# 검색 증강 생성(RAG)용 합성 데이터셋 생성
+
+import {Screenshot} from 'components/screenshot'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+
+import IMG1 from '../../img/synthetic_rag/synthetic_rag_1.png'
+import IMG2 from '../../img/synthetic_rag/synthetic_rag_2.png'
+import IMG3 from '../../img/synthetic_rag/synthetic_rag_3.png'
+import IMG4 from '../../img/synthetic_rag/synthetic_rag_4.png'
+
+## 검색 증강 생성(RAG)용 합성 데이터셋 세팅하기
+
+아쉽게도, 머신러닝 엔지니어는 늘 라벨링 데이터가 부족하거나 거의 없는 경우가 많습니다. 대체로 이 사실을 깨닫게 될 쯤에는 프로젝트는 이미 오랜 기간을 필요로하는 데이터 수집과 라벨링을 시작했을테지요. 그렇게 수개월을 소모한 뒤에야 비로소 개발에 착수할 수 있을겁니다.
+
+하지만 LLM의 등장으로 일부 프로덕트에서 패러다임이 바뀌었습니다. 이제는 LLM의 일반화 능력에 의존하여 아이디어를 테스트하거나 AI 기반 기능을 거의 즉시 개발할 수 있습니다. 의도한 대로 어느 정도 작동하는 것이 증명되면 일반적인 개발 과정이 시작될 수 있습니다.
+
+<Screenshot src={IMG1} alt="인공지능 기반 프로덕트의 패러다임 변화" />
+
+이미지 출처: [The Rise of the AI Engineer, by S. Wang](https://www.latent.space/p/ai-engineer)
+
+최근 떠오르는 접근법 중 하나는 [검색 증강 생성 (Retrieval Augmented Generation 이하 RAG)](https://www.promptingguide.ai/techniques/rag)이 있습니다. 모델의 지식에만 의존할 수 없는 복잡한 작업에 사용됩니다. RAG는 정보 검색 컴포넌트와 텍스트 생성 모델과 결합합니다. 이 접근법에 대한 더 자세한 내용은 [이 가이드의 관련 섹션](https://www.promptingguide.ai/techniques/rag)을 살펴보세요.
+
+관련 문서를 식별하고 추가 처리를 위해 LLM에 전달하는 검색 모델이 RAG의 핵심 요소입니다. 검색 모델의 성능이 우수할수록 프로덕트나 기능 또한 우수한 결과를 보여줍니다. 이상적으로, 검색(Retrieval)은 즉시 잘 작동하지만, 특정 언어나 도메인에서 성능이 떨어지는 경우가 종종 있습니다.
+
+체코의 법률과 법률 관행(물론 체코어로 쓰인)을 기반으로 질문에 답하는 챗봇을 만들어야 한다고 가정해봅시다. 또는 인도 시장에 맞춘 세무 어시스턴트(GPT-4 발표 시 OpenAI가 사용한 유스케이스)를 설계해야한다고 상상해보세요. 검색 모델은 관련성 높은 문서를 누락하는 경우가 잦아 전반적으로 시스템이 잘 수행되지 않고 이는 결국 품질에 제한을 겁니다.
+
+하지만 이에 대한 해결책이 있습니다. 기존 데이터 합성 LLM을 활용해서 새로운 LLM/검색/다른 모델을 트레이닝하는 방식이 주목받고 있습니다. 이 프로세스는 마치 프롬프트 기반 쿼리 생성을 통해 LLM을 스탠다드 사이즈 인코더로 변환하는 방식입니다. 이러한 변환 작업은 컴퓨팅 자원을 크게 소모한다는 단점이 있지만 추론(inference) 비용을 크게 절감하고 특히 리소스가 적은 언어나 전문 영역에서 성능을 크게 향상시킬 수 있습니다.
+
+이번 가이드에서는, ChatGPT와 GPT-4 같은 최신 텍스트 생성 모덜을 기반으로하여 지침(instructions)에 따라 방대한 양의 합성 콘텐츠를 생성할 예정입니다. [Dai et al. (2022)](https://arxiv.org/abs/2209.11755)은 한땀한땀 라벨링 된 8개의 예제와 라벨링 되지않은 대규모 데이터 전집(예: 모든 구문이 분석된 법률 검색 문서)만을 이용해서 최첨단 성능을 구현하는 방법을 보여줍니다. 기존의 데이터 부족으로 인해 특정(supervised) 도메인 내 파인튜닝이 복잡한 작업별(task-specific) 검색 트레이닝과 비교하여 이 연구를 통해 합성적으로(synthetically) 생성된 데이터가 도움을 준다는 것을 밝혀냈습니다.
+
+## 도메인별(Domain-Specific) 데이터셋 생성
+
+LLM을 활용하려면 간단한 설명과 수동으로 라벨링한 몇 가지 예시를 제시해야합니다. 검색 작업마다 검색 의도가 다르며, 이는 "관련성(relevance)"에 대한 정의가 다르다는 것을 인지하는 것은 중요합니다. 즉, 동일한 쌍(Query, Document)의 경우 검색 의도에 따라 관련성(relevance)이 완전히 다를 수 있다는 뜻입니다. 예를 들어, 인수(argument) 검색 태스크는 지원 인수를 찾을 수 있는 반면 다른 작업은 카운터 인수들(counter-arguments)을 필요로 하는 것 처럼 말이지요. ([ArgangAna datastates](https://aclanthology.org/P18-1023/))에서 좀 더 자세히 살펴볼 수 있습니다.
+
+아래의 예시를 살펴보겠습니다. 비록 영어로 작성되었지만, ChatGPT/GPT-4는 리소스가 적은 언어도 효율적으로 처리하므로 데이터는 영어가 아닌 다른 언어도 지원한다는 것을 알아주세요.
+
+_프롬프트:_
+
+```
+Task: Identify a counter-argument for the given argument.
+
+Argument #1: {insert passage X1 here}
+
+A concise counter-argument query related to the argument #1: {insert manually prepared query Y1 here}
+
+Argument #2: {insert passage X2 here}
+A concise counter-argument query related to the argument #2: {insert manually prepared query Y2 here}
+
+<- paste your examples here ->
+
+Argument N: Even if a fine is made proportional to income, you will not get the equality of impact you desire. This is because the impact is not proportional simply to income, but must take into account a number of other factors. For example, someone supporting a family will face a greater impact than someone who is not, because they have a smaller disposable income. Further, a fine based on income ignores overall wealth (i.e. how much money someone actually has: someone might have a lot of assets but not have a high income). The proposition does not cater for these inequalities, which may well have a much greater skewing effect, and therefore the argument is being applied inconsistently.
+
+A concise counter-argument query related to the argument #N:
+```
+
+_결과물:_
+
+```
+punishment house would make fines relative income
+```
+
+일반적으로 이런 프롬프트는 다음과 같이 표현할 수 있습니다:
+
+$(e_{prompt}, e_{doc}(d_{1}), e_{query}(q_1), . . . , e_{doc}(d_k), e_{query}(q_k), e_{doc}(d))$
+
+, $e_{doc}$ 과 $e_{query}$ 는 태스크가 명확한(task-specific) 문서이고, 쿼리는 각각에 대해 명확하게 설명하며, $e_{prompt}$ 는 ChatGPT/GPT-4에 입력 할 태스크가 명확한 프롬프트/지시이며 $d$ 는 LLM이 쿼리를 생성할 새 문서입니다.
+
+이 프롬프트를 통해, 마지막 문서인 $d$ 과 생성된 쿼리만을 앞으로 진행될 로컬 모델에 사용할 예정입니다. 이러한 접근법은 검색 말뭉치(corpus)인 $D$ 가 주어진다는 전제하에 적용할 수 있습니다. 하지만 새로운 태스크에 어노테이션이 달린 쿼리 문서 쌍(query-document pairs)의 수는 제한적이죠.
+
+전체 파이프라인의 개요는 아래와 같습니다:
+
+<Screenshot
+  src={IMG2}
+  alt="PROMPTGATOR 데이터셋 생성과 트레이닝 개요"
+/>
+
+이미지 출처: [Dai et al. (2022)](https://arxiv.org/abs/2209.11755)
+
+매뉴얼 어노테이션의 예시를 다루는 것은 책임감을 필요로하는 중요한 일입니다. 이를 테면 20개 정도의 프롬프트를 준비하고 그 중 무작위로 2~8개 정도를 선택하는 것이 좋은 방법입니다. 이를 통해 어노테이션에 오랜 시간과 비용의 낭비를 줄이면서 생성 데이터의 다양성을 다룰 수 있습니다. 하지만 이러한 예시는 대표적이고 올바른 형식으로 작성해야 하며 타겟 쿼리의 길이나 톤과 같은 세부 사항까지 고려해야합니다. 예시와 지시가 더 명확 할수록 Retriever 트레이닝에 더 적합한 합성 데이터가 될 것입니다. 저품질의 few-shot 예제는 학습 모델 결과의 품질에 부정적인 영향을 미칠 수 있습니다.
+
+대부분의 경우 ChatGPT 같은 저렴한 모델을 사용하는 것만으로도 충분합니다, 특이한 도메인이나 영어가 아닌 다른 언어에서도 괜찮은 성능을 보여주기 때문입니다. 약 700개의 토큰을 잡아먹는 지시와 4-5개의 예제가 주어진 프롬프트와 (Retriever 제약(constraints)으로 인해 각 구절의 토큰이 128개 넘지않는다는 전제) 생성에 25개의 토큰을 필요로 한다고 가정해봅시다. 따라서, 로컬 모델에 파인튜닝을 실시하기 위해 50,000개의 말뭉치 문서의 합성 데이터를 생성하는 것은 다음과 같은 비용을 필요로 합니다: `50,000 * (700 * 0.001 * $0.0015 + 25 * 0.001 * $0.002) = 55`, 여기서 `$0.0015` 와 `$0.002`는 GPT-3.5 Turbo API 기준으로 1,000 토큰 당 발생하는 비용입니다. 심지어 동일한 문서에 대해 2-4 쿼리 예제를 생성하는 것도 가능합니다. 하지만, 영어로 뉴스 검색하기 같은 일반 도메인이 아닌 특정 도메인(예: 앞서 언급된 체코 법률)을 위해 Retriever를 사용하는 경우, 추가 트레이닝은 큰 도움이 됩니다.
+
+50,000이라는 수는 무작위가 아닙니다. [Dai et al. (2022)](https://arxiv.org/abs/2209.11755)의 연구에 따르면, 모델이 합성 데이터으로 훈련된 모델의 품질과 동등해지는데 필요한 일일히 라벨링 된 데이터의 수라고 합니다. 당신의 프로덕트를 런칭하기 전 최소 10,000개의 예제를 모아야한다고 상상해보세요! 적어도 한 달 이상의 시간이 걸릴것이고 인건비는 가뿐히 수 백만원을 초과하겠죠. 고로 합성 데이터와 로컬 Retriever 모델 트레이닝 비용보다 훨씬 더 많은 자원이 필요할 것이라는 뜻입니다. 이제 오늘 당신이 배운 이 기법으로, 수일 내로 수십배의 이득을 달성해보세요!
+
+<Screenshot src={IMG3} alt="합성 데이터셋 VS 일일히 라벨링 된 데이터셋" />
+
+이미지 출처: [Dai et al. (2022)](https://arxiv.org/abs/2209.11755)
+
+다음은 BeIR 벤치마크의 일부 데이터셋에 대한 동일 논문의 프롬프트 템플릿입니다.
+
+<Screenshot src={IMG4} alt="PROMPTGATOR 논문의 프롬프트 템플릿." />
+
+이미지 출처: [Dai et al. (2022)](https://arxiv.org/abs/2209.11755)
