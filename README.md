@@ -59,6 +59,7 @@ You can also find the most up-to-date guides on our new website [https://www.pro
   - [Prompt Engineering - ReAct Prompting](https://www.promptingguide.ai/techniques/react)
   - [Prompt Engineering - Multimodal CoT Prompting](https://www.promptingguide.ai/techniques/multimodalcot)
   - [Prompt Engineering - Graph Prompting](https://www.promptingguide.ai/techniques/graph)
+  - [Prompt Engineering - Deterministic Induction Limit](https://www.promptingguide.ai/techniques/dil) [Source](https://medium.com/@AltamiranoAriel/deterministic-induction-limit-dil-a-novel-llm-prompting-technique-to-predict-future-events-1af6d72dd4de)
 - [Prompt Engineering - Applications](https://www.promptingguide.ai/applications)
   - [Prompt Engineering - Function Calling](https://www.promptingguide.ai/applications/function_calling)
   - [Prompt Engineering - Generating Data](https://www.promptingguide.ai/applications/generating)
