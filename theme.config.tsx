@@ -30,6 +30,7 @@ const config: DocsThemeConfig = {
     { locale: 'fi', text: 'Finnish' },
     { locale: 'ru', text: 'Русский' },
     { locale: 'de', text: 'Deutsch' },
+    { locale: 'ar', text: 'العربية' },
   ],
   head: function UseHead() {
     const { title } = useConfig()
