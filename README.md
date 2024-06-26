@@ -5,6 +5,7 @@ Prompt engineering is a relatively new discipline for developing and optimizing 
 Motivated by the high interest in developing with LLMs, we have created this new prompt engineering guide that contains all the latest papers, learning guides, lectures, references, and tools related to prompt engineering for LLMs.
 
 🌐 [Prompt Engineering Guide (Web Version)](https://www.promptingguide.ai/)
+📺 [YouTube Mini Lectures on Prompting Engineering](https://www.youtube.com/playlist?list=PLGSHbNsNO4Vha1jB0wMtuYYEVO4laSo0m)
 
 We've partnered with Maven to deliver the following live cohort-based courses on prompt engineering:
 
@@ -23,11 +24,13 @@ Happy Prompting!
 - 👩‍🎓 We crossed 3 million learners in January 2024!
 - 🎉 We have launched a new web version of the guide [here](https://www.promptingguide.ai/)
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
-- 🎉 The Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
+- 🎉 The First Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
 
 [Join our Discord](https://discord.com/invite/SKgkVT8BGJ)
 
 [Follow us on Twitter](https://twitter.com/dair_ai)
+
+[Subscribe to our YouTube](https://www.youtube.com/channel/UCyna_OxOWL7IEuOwb7WhmxQ)
 
 [Subscribe to our Newsletter](https://nlpnews.substack.com/)
 
