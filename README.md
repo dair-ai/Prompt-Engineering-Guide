@@ -5,6 +5,7 @@ Prompt engineering is a relatively new discipline for developing and optimizing 
 Motivated by the high interest in developing with LLMs, we have created this new prompt engineering guide that contains all the latest papers, learning guides, lectures, references, and tools related to prompt engineering for LLMs.
 
 🌐 [Prompt Engineering Guide (Web Version)](https://www.promptingguide.ai/)
+
 📺 [YouTube Mini Lectures on Prompting Engineering](https://www.youtube.com/playlist?list=PLGSHbNsNO4Vha1jB0wMtuYYEVO4laSo0m)
 
 We've partnered with Maven to deliver the following live cohort-based courses on prompt engineering:
