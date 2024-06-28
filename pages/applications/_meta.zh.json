@@ -5,6 +5,6 @@
     "workplace_casestudy": "毕业生工作分类案例研究",
     "pf": "提示函数",
     "context-caching": "使用 Gemini 1.5 Flash 进行上下文缓存",
-    "synthetic_rag": "为 RAG 生成综合数据集",
+    "synthetic_rag": "使用 LLM 生成数据以训练新一代的 LLM / 检索器 / 其他模型",
     "function_calling": "LLM 中自定义函数的调用"
 }
