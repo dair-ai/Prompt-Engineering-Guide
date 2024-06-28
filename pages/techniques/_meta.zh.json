@@ -4,7 +4,7 @@
     "cot": "链式思考（CoT）提示",
     "consistency": "自我一致性",
     "knowledge": "生成知识提示",
-    "prompt_chaining": "Prompt Chaining",
+    "prompt_chaining": "链式提示 (Prompt Chaining)",
     "tot": "思维树（ToT）",
     "rag": "检索增强生成 (RAG)",
     "art": "自动推理并使用工具（ART）",
