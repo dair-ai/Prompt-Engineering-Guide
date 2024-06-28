@@ -9,11 +9,11 @@
     "rag": "检索增强生成 (RAG)",
     "art": "自动推理并使用工具（ART）",
     "ape": "自动提示工程师",
-    "activeprompt": "Active-Prompt",
+    "activeprompt": "主动提示 (Active-Prompt)",
     "dsp": "方向性刺激提示",
-    "pal": "Program-Aided Language Models",
-    "react": "ReAct框架",
-    "reflexion": "Reflexion",
+    "pal": "程序辅助语言模型 (PAL)",
+    "react": "ReAct 框架",
+    "reflexion": "自我反思 (Reflexion)",
     "multimodalcot": "多模态思维链提示方法",
     "graph": "基于图的提示"
 }

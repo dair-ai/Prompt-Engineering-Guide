@@ -8,4 +8,14 @@ Ao trabalhar com prompts, você estará interagindo com o LLM diretamente ou por
 
 A recomendação geral é alterar um, não ambos.
 
-Antes de começar com alguns exemplos básicos, lembre-se de que seus resultados podem variar dependendo da versão do LLM que você está usando.
+**Longitud Máxima** - Puede gestionar el número de tokens que genera el modelo ajustando el `longitud máxima`. Especificar una longitud máxima ayuda a prevenir respuestas largas o irrelevantes y controlar los costos.
+
+**Secuencias de Parada** - Una `secuencia de parada` es una cadena que impide que el modelo genere tokens. Especificar secuencias de parada es otra forma de controlar el tamaño y la estructura de la respuesta del modelo. Por ejemplo, puede decirle al modelo que genere listas que no tengan más de 10 elementos agregando "11" como secuencia de parada.
+
+**Penalidade de Frecuencia** - La `penalidade de frecuencia` aplica una penalidad al próximo token proporcional a la frecuencia con que ese token ya apareció en la respuesta y en el prompt. Cuanto mayor la penalidade de frecuencia, menos probable que una palavra apareça novamente. Este ajuste reduce la repetición de palavras en la resposta del modelo, aumentando a penalidade para tokens que aparecem mais.
+
+**Penalidade de Presença** - La `penalidade de presença` también aplica una penalidade en tokens repetidos, pero, a diferencia de la penalidade de frecuencia, la penalidade es la misma para todos los tokens repetidos. Un token que aparece duas vezes y un token que aparece 10 veces son penalizados de la misma forma. Este ajuste evita que el modelo repita frases demasiado a menudo en su respuesta. Si desea que el modelo genere texto diverso o criativo, puede utilizar una penalidade de presença más alta. O si desea que el modelo se mantenga concentrado, intente utilizar una penalidade de presença más baja.
+
+Del mismo modo que `temperatura` y `top_p`, la recomendación general es ajustar la penalidad de frecuencia o presença, pero no ambos.
+
+Antes de comenzar con algunos ejemplos básicos, recuerde que sus resultados pueden variar según la versión del LLM que use.
