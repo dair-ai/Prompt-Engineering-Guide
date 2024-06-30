@@ -23,18 +23,18 @@ Löse das Problem, indem du es in Schritte unterteilen. Identifiziere zuerst die
         client = OpenAI()
 
         response = client.chat.completions.create(
-        model="gpt-4",
-        messages=[
-            {
-            "role": "user",
-            "content": "The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. \nSolve by breaking the problem into steps. First, identify the odd numbers, add them, and indicate whether the result is odd or even."
-            }
-        ],
-        temperature=1,
-        max_tokens=256,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+            model="gpt-4",
+            messages=[
+                {
+                "role": "user",
+                "content": "The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. \nSolve by breaking the problem into steps. First, identify the odd numbers, add them, and indicate whether the result is odd or even."
+                }
+            ],
+            temperature=1,
+            max_tokens=256,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
         )
         ```
     </Tab>

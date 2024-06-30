@@ -1,14 +1,13 @@
-# Auswertung zusammengesetzter Funktionen
+# 计算复合函数
 
-import { Tabs, Tab } from 'nextra/components';
+import { Tabs, Tab } from 'nextra/components'
 
-## Hintergrund
+## 背景
+这个提示词通过要求评估给定的复合函数来测试大型语言模型（LLM）的数学能力。
 
-Dieser Prompt testet die mathematischen Fähigkeiten eines LLM, indem er es auffordert, eine gegebene zusammengesetzte Funktion auszuwerten.
+## 提示词
 
-## Prompt
-
-Angenommen $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$$, was ist $$f(f(f(6)))$$?
+Suppose $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$$ what is $$f(f(f(6)))$$?
 
 ## Code / API
 
@@ -63,8 +62,8 @@ Angenommen $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$
         ```
     </Tab>
 
+
 </Tabs>
 
-## Referenz
-
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13. April 2023)
+## 参考
+- [通用人工智能的曙光：GPT-4 的早期实验](https://arxiv.org/abs/2303.12712) (13 April 2023)

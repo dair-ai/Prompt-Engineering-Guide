@@ -1,14 +1,16 @@
-# Auswertung zusammengesetzter Funktionen
+# 奇数相加
 
-import { Tabs, Tab } from 'nextra/components';
+import { Tabs, Tab } from 'nextra/components'
 
-## Hintergrund
+## 背景
+这个提示词通过要求检查奇数相加是否得出偶数来测试大型语言模型（LLM）的数学能力。在这个例子中，我们还将利用链式思维提示词。
 
-Dieser Prompt testet die mathematischen Fähigkeiten eines LLM, indem er es auffordert, eine gegebene zusammengesetzte Funktion auszuwerten.
+## 提示词
 
-## Prompt
-
-Angenommen $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$$, was ist $$f(f(f(6)))$$?
+```markdown
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
+Solve by breaking the problem into steps. First, identify the odd numbers, add them, and indicate whether the result is odd or even. 
+```
 
 ## Code / API
 
@@ -20,11 +22,11 @@ Angenommen $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$
         client = OpenAI()
 
         response = client.chat.completions.create(
-            model="gpt-4",
+        model="gpt-4",
             messages=[
                 {
                 "role": "user",
-                "content": "Suppose  g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6 what is f(f(f(6)))?\n"
+                "content": "The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. \nSolve by breaking the problem into steps. First, identify the odd numbers, add them, and indicate whether the result is odd or even."
                 }
             ],
             temperature=1,
@@ -45,7 +47,7 @@ Angenommen $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$
             messages=[
                 {
                 "role": "user",
-                "content": "Suppose  g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6 what is f(f(f(6)))?",
+                "content": "The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. \nSolve by breaking the problem into steps. First, identify the odd numbers, add them, and indicate whether the result is odd or even.",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -63,8 +65,8 @@ Angenommen $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$
         ```
     </Tab>
 
+
 </Tabs>
 
-## Referenz
-
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13. April 2023)
+## 参考
+- [通用人工智能的曙光：GPT-4 的早期实验](https://www.promptingguide.ai/introduction/examples#reasoning) (13 April 2023)
