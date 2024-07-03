@@ -1,0 +1,28 @@
+# Grok-1
+
+Grok-1 是一个包含 3140 亿参数的混合专家 (MoE) 大型语言模型 (LLM)，包括基础模型权重和网络架构的开放发布。
+
+Grok-1 由 xAI 训练，包含的 MoE 模型在推理时会激活给定令牌的 25% 权重。Grok-1 的预训练截止日期为 2023 年 10 月。
+
+如 [官方公告](https://x.ai/blog/grok-os) 中所述，Grok-1 是预训练阶段的原始基础模型检查点，这意味着它尚未针对任何特定应用进行微调，如对话代理。
+
+该模型已根据 Apache 2.0 许可证 [发布](https://github.com/xai-org/grok-1)。
+
+## 结果和能力
+
+根据最初的[公告](https://x.ai/blog/grok)，Grok-1 在推理和编码任务方面表现出强大的能力。最新公开的结果显示，Grok-1 在 HumanEval 编码任务中达到 63.2%，在 MMLU 中达到 73%。它通常优于 ChatGPT-3.5 和 Inflection-1，但仍落后于改进模型如 GPT-4。
+
+![Grok-1 Benchmark Results](../../img/grok/grok-reasoning.png)
+
+据报道，Grok-1 在匈牙利高中数学期末考试中得分为 C (59%)，而 GPT-4 得分为 B (68%)。
+
+![Grok-1 Benchmark Results](../../img/grok/grok-math.png)
+
+在此查看模型：https://github.com/xai-org/grok-1
+
+由于 Grok-1 的规模（3140 亿参数），xAI 建议使用多 GPU 机器来测试该模型。
+
+## 参考文献
+
+- [Grok-1 的开放发布](https://x.ai/blog/grok-os)
+- [宣布 Grok](https://x.ai/blog/grok)

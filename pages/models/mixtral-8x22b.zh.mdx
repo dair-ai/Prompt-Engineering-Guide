@@ -1,0 +1,28 @@
+# Mixtral 8x22B
+
+Mixtral 8x22B 是 Mistral AI 发布的一个新的开源大语言模型（LLM）。Mixtral 8x22B 被描述为一个稀疏专家混合模型，具有 141B 参数，其中 39B 是活跃参数。
+
+## 能力
+
+Mixtral 8x22B 被训练为一个具有成本效益的模型，具有多语言理解、数学推理、代码生成、本地函数调用支持和受限输出支持等能力。该模型支持 64K tokens 的上下文窗口大小，从而在处理大文档时实现高效的信息回忆。
+
+Mistral AI 声称，Mixtral 8x22B 提供了社区模型中最佳的性能与成本比，并且由于其稀疏激活特性，速度显著加快。
+
+!["Mixtral 8x22B 性能"](../../img/mixtral/mixtral-8-cost.png)
+* 来源: [Mistral AI 博客](https://mistral.ai/news/mixtral-8x22b/)*
+
+## 结果
+
+根据 [官方报告的结果](https://mistral.ai/news/mixtral-8x22b/)，Mixtral 8x22B（具有 39B 活跃参数）在多个推理和知识基准测试上，如 MMLU、HellaS、TriQA、NaturalQA 等，优于最先进的开源模型如 Command R + 和 Llama 2 70B。
+
+!["Mixtral 8x22B 推理和知识性能"](../../img/mixtral/mixtral-8-reasoning.png)
+* 来源: [Mistral AI 博客](https://mistral.ai/news/mixtral-8x22b/)*
+
+Mixtral 8x22B 在代码和数学任务上的表现优于所有开源模型，在 GSM8K、HumanEval 和 Math 等基准测试中表现尤为突出。据报道，Mixtral 8x22B Instruct 在 GSM8K（maj@8）上取得了 90% 的得分。
+
+!["Mixtral 8x22B 数学性能"](../../img/mixtral/mixtral-8-maths.png)
+* 来源: [Mistral AI 博客](https://mistral.ai/news/mixtral-8x22b/)*
+
+更多关于 Mixtral 8x22B 的信息及使用方法，请访问: https://docs.mistral.ai/getting-started/open_weight_models/#operation/listModels
+
+该模型以 Apache 2.0 许可证发布。

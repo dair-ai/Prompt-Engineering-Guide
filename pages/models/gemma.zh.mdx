@@ -1,0 +1,174 @@
+# Gemma
+
+Google DeepMind 发布了 Gemma，这是一个系列的开源语言模型，灵感来自创建 Gemini 的研究和技术。Gemma 模型发布包括 2B（训练于 2T tokens）和 7B（训练于 6T tokens）模型，包括基础和指令微调的检查点。这些模型在 8192 tokens 的上下文长度上训练，且在多个基准测试中通常优于 Llama 2 7B 和 Mistral 7B 模型。
+
+Gemma 模型架构基于 Transformer 解码器，并进行了改进，包括 [多查询注意力](http://arxiv.org/abs/1911.02150)（用于 2B 模型）、多头注意力（用于 7B 模型）、[RoPE 嵌入](https://arxiv.org/abs/2104.09864)、[GeGLU 激活](https://arxiv.org/abs/2002.05202) 和 [标准化位置](http://arxiv.org/abs/1910.07467)。
+
+根据 [技术报告](https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf)，Gemma 2B 和 7B 分别在 2T 和 6T tokens 上进行训练，主要由网页文档、数学和代码组成。与 Gemini 不同，这些模型没有明确训练来支持多语言或多模态功能。词汇量为 256K tokens，使用 Gemini 的 SentencePiece 分词的一个子集，保留分词中的空格，分割数字，并依赖字节级编码处理未知的 tokens。
+
+指令微调模型通过在混合文本中进行监督微调，包括合成的和人工生成的提示 - 响应对，并通过人类反馈的强化学习（RLHF）进行微调，奖励模型基于标记的偏好数据，策略基于一组高质量提示。注意所有使用的数据集仅为英文。如下面的表格所示，指令微调模型还使用特定的格式控制 tokens 来表示对话中的角色和轮次。
+
+!["Gemma 控制 tokens"](../../img/gemma/control-tokens.png)
+
+## 结果
+
+如下图所示，Gemma 7B 模型在数学、科学和代码相关任务上表现出强劲性能。分数对应于按能力分组的学术基准评估的平均分数。
+
+!["Gemma 能力"](../../img/gemma/capabilities.png)
+
+Gemma 7B 在各种学术基准测试中优于 Llama 2 7B 和 Mistral 7B，在 HumanEval、GSM8K、MATH 和 AGIEval 上表现尤其突出，并在推理、对话、数学和代码方面有所提升。
+
+!["Gemma 基准测试"](../../img/gemma/benchmarks.png)
+
+Gemma 7B 指令微调模型在人类评估的安全性和指令遵循上也优于 Mistral-7B v0.2 Instruct 模型。
+
+!["Gemma 安全性"](../../img/gemma/safety.png)
+
+Gemma 还在多个安全性学术基准测试中进行了评估，并与 Mistral 进行了比较。技术报告还提到了使用去偏见技术和红队测试来潜在地减轻与大语言模型（LLMs）相关的常见风险。你可以在 [模型卡](https://ai.google.dev/gemma/docs/model_card) 和 [负责任生成 AI 工具包](https://ai.google.dev/responsible) 中找到有关如何负责任地开发 Gemma 的更多信息。
+
+!["Gemma 安全性"](../../img/gemma/safety-2.png)
+
+## Gemma 7B 提示格式
+
+Gemma 基础模型不使用任何特定的提示格式，但可以通过零样本 / 少样本提示来执行任务。Gemma Instruct 模型使用以下格式：
+
+```
+<start_of_turn>user
+Generate a Python function that multiplies two numbers <end_of_turn>
+<start_of_turn>model
+```
+
+以下是 Gemma 中可用的相关格式控制 tokens 表：
+
+| Context                         | Relevant Token     |
+|---------------------------------|--------------------|
+| User turn                       | `user`             |
+| Model turn                      | `model`            |
+| Start of conversation turn      | `<start_of_turn>`  |
+| End of conversation turn        | `<end_of_turn>`    |
+
+你还可以在多轮用户提示的上下文中使用特殊控制 tokens，如下所示：
+
+```markdown
+<start_of_turn>user
+What is a good place for travel in the US?<end_of_turn>
+<start_of_turn>model
+California.<end_of_turn>
+<start_of_turn>user
+What can I do in California?<end_of_turn>
+<start_of_turn>model
+```
+
+## 如何提示 Gemma 7B
+
+有效提示 Gemma 7B 需要能够正确使用提示模板。在以下示例中，我们将介绍一些示例，展示如何有效使用 Gemma 7B Instruct 的提示模板来完成各种任务。
+
+### 零样本提示
+与任何模型一样，你可以通过如下简单提示利用 Gemma 的零样本能力：
+
+```markdown
+<start_of_turn>user
+Explain why the sky is blue<end_of_turn>
+<start_of_turn>model
+```
+
+### 零样本提示与系统提示
+添加系统角色或系统提示有助于更好地引导 LLMs。虽然 Gemma 中没有明确的系统角色，你可以如下在提示中添加额外说明：
+
+```markdown
+<start_of_turn>user
+Answer the following question in a concise and informative manner:
+
+Explain why the sky is blue<end_of_turn>
+<start_of_turn>model
+```
+
+在上述示例中，我们添加了 “Answer the following question in a concise and informative manner:” 作为额外说明或系统提示，以更好地引导模型。
+
+### 角色扮演
+我们还可以测试 Gemma 的角色扮演能力，这是不仅个性化模型响应的有用功能，还可以构建更复杂的特定领域 [LLM 代理](https://www.promptingguide.ai/research/llm-agents)。
+
+提示：
+```
+<start_of_turn>user
+You are a helpful 2nd-grade teacher. Help a 2nd grader to answer questions in a short and clear manner.
+
+Explain why the sky is blue<end_of_turn>
+<start_of_turn>model
+```
+
+模型响应：
+```
+Sure, here is an explanation for why the sky is blue:
+
+The sky appears blue because of a phenomenon called Rayleigh Scattering.
+
+Here's the science behind it:
+
+Sunlight is made up of different colors of light, like red, green, blue, and violet.
+When sunlight hits the Earth's atmosphere, the different colors of light scatter in different directions.
+Blue light scatters more easily than other colors because it has shorter wavelengths.
+The scattered blue light travels in all directions, including towards your eyes.
+That's why we see the sky as blue.
+It's important to note that this explanation is simplified and does not account for all scientific details. However, it gives you a good understanding of the basic science behind why the sky appears blue.
+```
+
+注意我们没有检查响应的准确性或其是否适合 2 年级学生。然而，你可以将上述响应与后续链式思维提示获得的响应进行比较。
+
+### 推理
+你可以通过使用 [零样本链式思维提示](https://www.promptingguide.ai/techniques/cot#zero-shot-cot-prompting) 来引出 Gemma 的推理能力，如下所示：
+
+提示：
+```markdown
+<start_of_turn>user
+Think and write your step-by-step reasoning before responding.
+
+Explain why the sky is blue.<end_of_turn>
+<start_of_turn>model
+```
+
+模型响应（为简洁起见截断）：
+```
+Step 1: Scattering of Light
+
+The sky appears blue due to the phenomenon of scattering of light. When sunlight hits the Earth's atmosphere, it interacts with the particles of air, primarily nitrogen and oxygen molecules.
+
+Step 2: Rayleigh Scattering
+
+Rayleigh scattering is the specific scattering mechanism that occurs when light interacts with particles much smaller than the wavelength of light. In this process, shorter wavelengths (blue light) are scattered more effectively than longer wavelengths (red light).
+
+Step 3: Blue Scattered Light Travels in All Directions
+
+...
+
+Conclusion
+
+The sky appears blue due to the scattering of light, specifically Rayleigh scattering. Shorter wavelengths of light are scattered more effectively, and this scattered light travels in all directions, with the scattered light that travels opposite to the sun's rays being most visible to our eyes.
+```
+
+需要注意的是，Gemma 模型可以自动输出 markdown 格式。为了演示和简化，我们对文本格式进行了一些编辑，但内容完全是模型的响应。注意我们也没有评估响应的准确性或模型是否出现幻觉。
+
+## 资源和集成
+
+以下是 Gemma 发布的一些资源和集成：
+
+- [Colab](https://ai.google.dev/gemma/docs/get_started) 和 [Kaggle](https://www.kaggle.com/models/google/gemma/code) 笔记本
+- [Hugging Face 模型](https://huggingface.co/collections/google/gemma-release-65d5efbccdbb8c4202ec078b)
+- [MaxText](https://github.com/google/maxtext)
+- [NVIDIA NeMo](https://github.com/NVIDIA/GenerativeAIExamples/tree/main/models/Gemma)
+- [TensorRT-LLM](https://developer.nvidia.com/blog/nvidia-tensorrt-llm-revs
+
+-up-inference-for-google-gemma/)
+- Gemma 7B 可在 [NVIDIA AI Playground](https://catalog.ngc.nvidia.com/orgs/nvidia/teams/ai-foundation/models/gemma-7b) 中获取
+
+根据官方 [博客发布](https://blog.google/technology/developers/gemma-open-models/)，[使用条款](https://www.kaggle.com/models/google/gemma/license/consent) 允许所有组织负责任地进行商业使用和分发，无论其规模如何。
+
+## 参考文献
+
+- [Gemma: Introducing new state-of-the-art open models](https://blog.google/technology/developers/gemma-open-models/)
+- [Gemma: Open Models Based on Gemini Research and Technology](https://storage.googleapis.com/deepmind-media/gemma/gemma-report.pdf)
+- [Responsible Generative AI Toolkit](https://ai.google.dev/responsible)
+- [Fast Transformer Decoding: One Write-Head is All You Need](https://arxiv.org/abs/1911.02150)
+- [Roformer: Enhanced transformer with rotary position embedding](https://arxiv.org/abs/2104.09864)
+- [GLU variants improve transformer](https://arxiv.org/abs/2002.05202)
+- [Root mean square layer normalization](http://arxiv.org/abs/1910.07467)

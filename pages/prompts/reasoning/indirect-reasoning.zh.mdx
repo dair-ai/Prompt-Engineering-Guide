@@ -1,0 +1,117 @@
+# 使用 LLMs 进行间接推理
+
+import {Tabs, Tab} from 'nextra/components'
+
+## 背景
+[Zhang et al. (2024)](https://arxiv.org/abs/2402.03667) 最近提出了一种间接推理方法，以增强 LLMs 的推理能力。该方法采用反例和矛盾的逻辑来解决事实推理和数学证明等 IR 任务。它包括两个关键步骤：1）通过增加数据和规则（即反例的逻辑等价）来增强 LLMs 的理解能力，2）设计提示模板以激发 LLMs 基于矛盾证明进行间接推理。
+
+在 GPT-3.5-turbo 和 Gemini-pro 等 LLMs 上的实验表明，与传统的直接推理方法相比，该方法将事实推理的总体准确率提高了 27.33%，数学证明的准确率提高了 31.43%。
+
+下面是一个用于矛盾证明的零样本模板示例。
+
+## 提示
+
+输入：
+
+```markdown
+如果 a+|a|=0，试图证明 a<0。
+
+步骤 1：列出原命题中的条件和问题。
+
+步骤 2：将步骤 1 中列出的条件合并为一个集合，将其定义为 wj。
+
+步骤 3：让我们一步步思考。请考虑所有可能性。如果 wj（在步骤 2 中定义）与问题的否定在至少一种可能性中有交集，则原命题为假。否则，原命题为真。
+
+回答：
+```
+
+输出：
+```
+为了证明如果 \( a + |a| = 0 \)，则 \( a < 0 \)，我们可以按照以下步骤进行逻辑推理：
+
+### 步骤 1：列出原命题中的条件和问题
+
+条件：\( a + |a| = 0 \)
+
+问题：证明 \( a < 0 \)
+
+### 步骤 2：将步骤 1 中列出的条件合并为一个集合，将其定义为 wj
+
+合并条件： \( wj = \{ a + |a| = 0 \} \)
+
+### 步骤 3：让我们一步步思考。请考虑所有可能性。如果 wj（在步骤 2 中定义）与问题的否定在至少一种可能性中有交集，则原命题为假。否则，原命题为真。
+
+考虑两个可能性： \( a \ge 0 \) 和 \( a < 0 \)。
+
+1. **情况 1：\( a \ge 0 \)**
+    - 如果 \( a \ge 0 \)，则 \( |a| = a \)。
+    - 代入条件 \( a + |a| = 0 \)，得到 \( a + a = 0 \)，即 \( 2a = 0 \)。
+    - 解得 \( a = 0 \)。
+    - 但如果 \( a = 0 \)，则 \( a \ge 0 \)，与 \( a < 0 \) 矛盾。
+
+2. **情况 2：\( a < 0 \)**
+    - 如果 \( a < 0 \)，则 \( |a| = -a \)。
+    - 代入条件 \( a + |a| = 0 \)，得到 \( a + (-a) = 0 \)，即 \( 0 = 0 \)。
+    - 这个条件始终为真，没有矛盾。
+
+通过以上两种情况的分析，我们可以看到，当 \( a \ge 0 \) 时会出现矛盾，而当 \( a < 0 \) 时不会出现矛盾。因此，可以得出结论：
+
+回答：原命题为真，即 \( a < 0 \)。
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI ()
+
+    response = client.chat.completions.create (
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "如果 a+|a|=0，试图证明 a<0。\n\n 步骤 1：列出原命题中的条件和问题。\n\n 步骤 2：将步骤 1 中列出的条件合并为一个。将其定义为 wj。\n\n 步骤 3：让我们一步步思考。请考虑所有可能性。如果 wj（在步骤 2 中定义）与问题的否定在至少一种可能性中有交集，则原命题为假。否则，原命题为真。\n\n 回答："
+            }
+        ],
+        temperature=0,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create (
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                    "role": "user",
+                    "content": "如果 a+|a|=0，试图证明 a<0。\n\n 步骤 1：列出原命题中的条件和问题。\n\n 步骤 2：将步骤 1 中列出的条件合并为一个。将其定义为 wj。\n\n 步骤 3：让我们一步步思考。请考虑所有可能性。如果 wj（在步骤 2 中定义）与问题的否定在至少一种可能性中有交集，则原命题为假。否则，原命题为真。\n\n 回答：",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+</Tabs>
+
+## 参考
+- [将大型语言模型作为间接推理者：反例和矛盾用于自动推理](https://arxiv.org/abs/2402.03667) (2024 年 2 月 6 日)

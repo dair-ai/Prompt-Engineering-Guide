@@ -1,0 +1,83 @@
+# 使用字母画一个人
+
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## 背景
+以下提示测试了 LLM 处理视觉概念的能力，尽管它仅在文本上进行训练。这是一个具有挑战性的任务，因此需要多次迭代。在下面的示例中，用户首先请求所需的视觉效果，然后提供反馈以及修改和补充。后续的指令将取决于 LLM 在任务中的进展。请注意，这个任务要求生成 TikZ 代码，然后用户需要手动编译这些代码。
+
+## 提示
+
+提示迭代 1:
+```markdown
+生成一个由字母组成的人物的 TikZ 代码。手臂和躯干可以使用字母 Y，脸部可以用字母 O（添加一些面部特征），腿部可以使用字母 H 的腿部。可以添加其他特征。
+```
+
+提示迭代 2:
+```markdown
+躯干有点长，手臂太短，而且右臂看起来在支撑脸部，而不是脸部在躯干正上方。请纠正一下好吗？
+```
+
+提示迭代 3:
+```markdown
+请添加一件衬衫和裤子。
+```
+
+## Code / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "制作 TikZ 代码，用字母表中的字母画出一个人。手臂和躯干可以是字母 Y，脸部可以是字母 O（添加一些面部特征），腿部可以是字母 H 的腿。"
+            }
+        ],
+        temperature=1,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                    "role": "user",
+                    "content": "生成 TikZ 代码，绘制由字母表中的字母组成的人。手臂和躯干可以是字母 Y，脸可以是字母 O（添加一些面部特征），腿可以是字母 H 的腿。随意添加其他特征。",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 参考
+- [通用人工智能的曙光：GPT-4 的早期实验](https://arxiv.org/abs/2303.12712) (13 April 2023)

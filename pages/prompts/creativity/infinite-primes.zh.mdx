@@ -1,31 +1,31 @@
-# Interdisciplinary Tasks with LLMs
+# 用莎士比亚风格证明素数无限性的证明
 
-import { Tabs, Tab } from 'nextra/components'
+import {Tabs, Tab} from 'nextra/components'
 import {Callout} from 'nextra/components'
 
-## Background
-The following prompt tests an LLM's capabilities to perform interdisciplinary tasks and showcase it's ability to generate creative and novel text.
+## 背景
+以下提示测试了 LLM 在用莎士比亚戏剧风格写出素数无限性证明的能力。
 
-## Prompt
+## 提示
 ```markdown
-Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle as a US presidential candidate by Mahatma Gandhi.
+Write a proof of the fact that there are infinitely many primes; do it in the style of a Shakespeare play through a dialogue between two parties arguing over the proof.
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
   
     ```python
     from openai import OpenAI
-    client = OpenAI()
+    client = OpenAI ()
 
-    response = client.chat.completions.create(
+    response = client.chat.completions.create (
         model="gpt-4",
         messages=[
             {
             "role": "user",
-            "content": "Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle as a US presidential candidate by Mahatma Gandhi."
+            "content": "Write a proof of the fact that there are infinitely many primes; do it in the style of a Shakespeare play through a dialogue between two parties arguing over the proof."
             }
         ],
         temperature=1,
@@ -41,12 +41,12 @@ Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle 
         ```python
         import fireworks.client
         fireworks.client.api_key = "<FIREWORKS_API_KEY>"
-        completion = fireworks.client.ChatCompletion.create(
+        completion = fireworks.client.ChatCompletion.create (
             model="accounts/fireworks/models/mixtral-8x7b-instruct",
             messages=[
                 {
                 "role": "user",
-                "content": "Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle as a US presidential candidate by Mahatma Gandhi.",
+                "content": "Write a proof of the fact that there are infinitely many primes; do it in the style of a Shakespeare play through a dialogue between two parties arguing over the proof.",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -67,5 +67,5 @@ Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle 
 
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考
+- [通用人工智能的曙光：GPT-4 的早期实验](https://arxiv.org/abs/2303.12712) (13 April 2023)

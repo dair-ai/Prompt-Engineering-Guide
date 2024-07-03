@@ -1,13 +1,25 @@
-# Rhyming with Proofs
+# 评估柏拉图的对话
 
 import { Tabs, Tab } from 'nextra/components'
 
-## Background
-This prompt tests an LLM's natural language and creative capabilities by prompting it to write a proof of infinitude of primes in the form of a poem.
+## 背景
+以下提示测试了 LLM 在评估两个不同模型输出方面的能力，要求其像老师一样进行评估。
 
-## Prompt
+首先，使用以下提示对两个模型（例如，ChatGPT 和 GPT-4）进行提示：
+
 ```
-Can you write a proof that there are infinitely many primes, with every line that rhymes?
+Plato’s Gorgias 是对修辞学和诡辩演讲的批评，其中他指出，这不仅不是一种真正的艺术形式，而且修辞和演讲的使用往往可能是有害和恶意的。你能写一个柏拉图的对话，在其中他批评自回归语言模型的使用吗？
+```
+
+然后，使用下面的评估提示对这些输出进行评估。
+
+## 提示
+```
+能否像老师一样比较以下两个输出？
+
+ChatGPT 的输出：{output 1}
+
+GPT-4 的输出：{output 2}
 ```
 
 ## Code / API
@@ -24,11 +36,11 @@ Can you write a proof that there are infinitely many primes, with every line tha
         messages=[
             {
             "role": "user",
-            "content": "Can you write a proof that there are infinitely many primes, with every line that rhymes?"
+            "content": "能否像老师一样比较以下两个输出？\n\nOutput from ChatGPT:\n{output 1}\n\nOutput from GPT-4:\n{output 2}"
             }
         ],
         temperature=1,
-        max_tokens=256,
+        max_tokens=1500,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0
@@ -45,7 +57,7 @@ Can you write a proof that there are infinitely many primes, with every line tha
             messages=[
                 {
                 "role": "user",
-                "content": "Can you write a proof that there are infinitely many primes, with every line that rhymes?",
+                "content": "能否像老师一样比较以下两个输出？\n\nOutput from ChatGPT:\n{output 1}\n\nOutput from GPT-4:\n{output 2}",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -66,5 +78,5 @@ Can you write a proof that there are infinitely many primes, with every line tha
 
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考
+- [通用人工智能的曙光：GPT-4 的早期实验](https://arxiv.org/abs/2303.12712) (13 April 2023)

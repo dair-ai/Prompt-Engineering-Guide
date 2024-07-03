@@ -20,18 +20,18 @@ Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how t
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-        "role": "user",
-        "content": "Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how to stack them onto each other in a stable manner."
-        }
-    ],
-    temperature=1,
-    max_tokens=500,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how to stack them onto each other in a stable manner."
+            }
+        ],
+        temperature=1,
+        max_tokens=500,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>
@@ -44,8 +44,8 @@ Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how t
             model="accounts/fireworks/models/mixtral-8x7b-instruct",
             messages=[
                 {
-                "role": "user",
-                "content": "Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how to stack them onto each other in a stable manner.",
+                    "role": "user",
+                    "content": "Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how to stack them onto each other in a stable manner.",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],

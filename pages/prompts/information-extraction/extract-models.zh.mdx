@@ -1,0 +1,84 @@
+# 从论文中提取模型名称
+
+import {Tabs, Tab} from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## 背景
+以下提示测试了 LLM 执行信息提取任务的能力，该任务涉及从机器学习论文的摘要中提取模型名称。
+
+## 提示
+
+```markdown
+你的任务是从机器学习论文的摘要中提取模型名称。你的回答是一个模型名称的数组，格式为 [\"model_name\"]。如果在摘要中没有找到模型名称或不确定，请返回 [\"NA\"]
+
+摘要：Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…
+```
+
+这个摘要的翻译是（下面的代码中直接使用英文）：大型语言模型（LLMs），如 ChatGPT 和 GPT-4，已经革新了自然语言处理研究，并在人工通用智能（AGI）中展示了潜力。然而，LLMs 的高昂训练和部署成本对透明和开放的学术研究提出了挑战。为了解决这些问题，本项目将中文 LLaMA 和 Alpaca 开源……
+
+## 提示模板
+
+```markdown
+你的任务是从机器学习论文的摘要中提取模型名称。你的回答是一个模型名称的数组，格式为 [\"model_name\"]。如果在摘要中没有找到模型名称或不确定，请返回 [\"NA\"]
+
+摘要：{input}
+```
+
+## Code / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI ()
+
+    response = client.chat.completions.create (
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…"
+            }
+        ],
+        temperature=1,
+        max_tokens=250,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create (
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 参考
+- [Prompt Engineering Guide](https://www.promptingguide.ai/introduction/examples#information-extraction) (16 March 2023)
