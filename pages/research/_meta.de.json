@@ -2,6 +2,7 @@
     "llm-agents": "LLM Agenten",
     "rag": "RAG für LLMs",
     "llm-reasoning": "LLM Reasoning",
+    "guided-cot": "LM-geführtes CoT",
     "rag_hallucinations": "RAG Reduziert Halluzination",
     "synthetic_data": "Synthetische Daten",
     "rag-faithfulness": "RAG Zuverlässigkeit",
