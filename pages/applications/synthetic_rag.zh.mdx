@@ -1,0 +1,87 @@
+# 使用 LLM 生成数据以训练新一代的 LLM / 检索器 / 其他模型
+
+import {Screenshot} from 'components/screenshot'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+
+import IMG1 from '../../img/synthetic_rag/synthetic_rag_1.png'
+import IMG2 from '../../img/synthetic_rag/synthetic_rag_2.png'
+import IMG3 from '../../img/synthetic_rag/synthetic_rag_3.png'
+import IMG4 from '../../img/synthetic_rag/synthetic_rag_4.png'
+
+## RAG 设置的合成数据
+不幸的是，在机器学习工程师的工作中，经常缺乏标记数据或这些数据非常少。通常在意识到这一点后，项目会开始一个漫长的数据收集和标记过程。只有在几个月后，才能开始开发解决方案。
+
+然而，随着大型语言模型（LLM）的出现，这种范式在一些产品中发生了变化：现在可以依靠 LLM 的泛化能力，几乎立即测试一个想法或开发一个 AI 驱动的功能。如果它能按预期（几乎）工作，那么传统的开发过程就可以开始了。
+
+<Screenshot src={IMG1} alt="AI 驱动产品的范式转变。" />
+
+图片来源：[AI 工程师的崛起，S. Wang](https://www.latent.space/p/ai-engineer)
+
+一种新兴的方法是 [检索增强生成（RAG）](https://www.promptingguide.ai/techniques/rag)。它用于知识密集型任务，在这些任务中你不能仅依赖模型的知识。RAG 将信息检索组件与文本生成模型结合起来。要了解更多关于这种方法的信息，请参阅 [RAG 部分](https://www.promptingguide.ai/zh/techniques/rag)。
+
+RAG 的关键组件是一个检索模型，它识别相关文档并将它们传递给 LLM 进行进一步处理。检索模型的性能越好，产品或功能的结果就越好。理想情况下，检索效果应该开箱即用。然而，它的性能在不同语言或特定领域中往往会下降。
+
+想象一下：你需要创建一个基于捷克法律的回答问题的聊天机器人。或者设计一个为印度市场量身定制的税务助手（这是 OpenAI 在 GPT-4 演示中提出的一个用例）。你很可能会发现检索模型经常遗漏最相关的文档，总体表现不佳，从而限制了系统的质量。
+
+但有一个解决方案。一个新兴的趋势是使用现有的 LLM 来合成数据，以训练新一代的 LLM / 检索器 / 其他模型。这个过程可以看作是通过基于提示的查询生成，将 LLM 蒸馏成标准尺寸的编码器。虽然蒸馏计算量很大，但它大大降低了推理成本，并且可能显著提高性能，特别是在资源稀缺的语言或专业领域。
+
+在本指南中，我们将依靠最新的文本生成模型，如 ChatGPT 和 GPT-4，它们可以根据指示生成大量合成内容。[Dai 等人（2022）](https://arxiv.org/abs/2209.11755) 提出了一种方法，只需 8 个手动标记的示例和一个大型未标记数据语料库（用于检索的文档，例如所有解析的法律），就能实现接近最先进的性能。该研究证实，合成生成的数据可以促进特定任务检索器的训练，在由于数据稀缺而难以进行监督域内微调的任务中尤其如此。
+
+## 领域特定数据集生成
+提供简短描述和示例很重要。不同检索任务有不同的搜索意图，因此（查询、文档）对在检索任务中可能具有不同的相关性。例如，论证检索可能会寻找支持性论证，而其他任务可能需要反驳论证。（如 [ArguAna 数据集](https://aclanthology.org/P18-1023/) 所示）。
+
+考虑下面的例子。虽然是用英文写的以便理解，但请记住数据可以是任何语言的，因为 ChatGPT/GPT-4 能够高效处理即使是资源稀缺的语言。
+
+*提示：*
+```
+Task: Identify a counter-argument for the given argument.
+
+Argument #1: {insert passage X1 here}
+
+A concise counter-argument query related to the argument #1: {insert manually prepared query Y1 here}
+
+Argument #2: {insert passage X2 here}
+A concise counter-argument query related to the argument #2: {insert manually prepared query Y2 here}
+
+<- paste your examples here ->
+
+Argument N: Even if a fine is made proportional to income, you will not get the equality of impact you desire. This is because the impact is not proportional simply to income, but must take into account a number of other factors. For example, someone supporting a family will face a greater impact than someone who is not, because they have a smaller disposable income. Further, a fine based on income ignores overall wealth (i.e. how much money someone actually has: someone might have a lot of assets but not have a high income). The proposition does not cater for these inequalities, which may well have a much greater skewing effect, and therefore the argument is being applied inconsistently.
+
+A concise counter-argument query related to the argument #N:
+```
+
+*输出：*
+```
+punishment house would make fines relative income
+```
+
+一般来说，这样的提示可以表示为：
+
+$(e_{prompt}, e_{doc}(d_{1}), e_{query}(q_1), . . . , e_{doc}(d_k), e_{query}(q_k), e_{doc}(d))$
+
+其中 $e_{doc}$ 和 $e_{query}$ 是特定任务的文档和查询描述，$e_{prompt}$ 是ChatGPT/GPT-4的特定任务提示/指令，$d$ 是一个新文档，LLM 将为其生成一个查询。
+
+从这个提示中，只有最后的文档 $d$ 和生成的查询将用于本地模型的进一步训练。这种方法可以在目标检索语料库 $D$ 可用但新任务的标注查询-文档对数量有限的情况下应用。
+
+整个管道概述：
+
+<Screenshot src={IMG2} alt="PROMPTGATOR 数据集生成和训练概述。" />
+
+图片来源：[Dai 等人（2022）](https://arxiv.org/abs/2209.11755)
+
+负责地处理示例的手动注释至关重要。 **最好准备更多（例如 20 个），并随机选择 2-8 个放入提示中。这增加了生成数据的多样性，而不会显著增加注释时间成本。然而，这些示例应该具有代表性，格式正确，甚至包含如目标查询长度或语气等细节。示例和指令越精确，生成的合成数据用于训练检索器的效果就越好。低质量的少样本示例可能会对训练模型的结果质量产生负面影响。** 
+
+在大多数情况下，使用像 ChatGPT 这样的更实惠的模型就足够了，因为它在处理非英语语言和不常见领域时表现良好。假设一个包含指令和 4-5 个示例的提示通常占用 700 个 token（假设每个段落不超过 128 个 token，因为检索器有约束）并生成 25 个 token。因此，为本地模型微调生成一个包含 50,000 个文档的合成数据集的成本将是：`50,000 * (700 * 0.001 * $0.0015 + 25 * 0.001 * $0.002) = 55`，其中 `$0.0015` 和 `$0.002` 是 GPT-3.5 Turbo API 中每千个 token 的成本。甚至可以为同一个文档生成 2-4 个查询示例。然而，进一步训练的好处通常是值得的，特别是如果你使用的检索器不是用于通用领域（如英语新闻检索），而是用于特定领域（如前面提到的捷克法律）。
+
+50,000 这个数字并不是随机的。在 [Dai 等人（2022）](https://arxiv.org/abs/2209.11755) 的研究中，提到这大约是一个模型需要的手动标注数据量，以匹配一个用合成数据训练的模型的质量。想象一下，在启动产品之前至少需要收集 10,000 个示例！这将花费不少于一个月的时间，劳动力成本肯定会超过一千美元，远远超过生成合成数据并训练本地检索器模型的成本。现在，通过你今天学到的技术，你可以在短短几天内实现两位数的指标增长！
+
+<Screenshot src={IMG3} alt="合成数据集与手动标注数据集对比" />
+
+图片来源：[Dai et al. (2022)](https://arxiv.org/abs/2209.11755)
+
+以下是来自同一篇论文的 BeIR 基准测试中某些数据集的提示模板。
+
+<Screenshot src={IMG4} alt="合成数据集与手动标注数据集对比" />
+
+图片来源：[Dai et al. (2022)](https://arxiv.org/abs/2209.11755)

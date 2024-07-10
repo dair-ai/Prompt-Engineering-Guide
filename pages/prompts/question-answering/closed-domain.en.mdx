@@ -32,18 +32,18 @@ Please rewrite the data above into a medical note, using exclusively the informa
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-        "role": "user",
-        "content": "Patient’s facts:\n- 20 year old female\n- with a history of anerxia nervosa and depression\n- blood pressure 100/50, pulse 50, height 5’5’’\n- referred by her nutrionist but is in denial of her illness\n- reports eating fine but is severely underweight\n\nPlease rewrite the data above into a medical note, using exclusively the information above."
-        }
-    ],
-    temperature=1,
-    max_tokens=500,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "Patient’s facts:\n- 20 year old female\n- with a history of anerxia nervosa and depression\n- blood pressure 100/50, pulse 50, height 5’5’’\n- referred by her nutrionist but is in denial of her illness\n- reports eating fine but is severely underweight\n\nPlease rewrite the data above into a medical note, using exclusively the information above."
+            }
+        ],
+        temperature=1,
+        max_tokens=500,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>
@@ -56,8 +56,8 @@ Please rewrite the data above into a medical note, using exclusively the informa
             model="accounts/fireworks/models/mixtral-8x7b-instruct",
             messages=[
                 {
-                "role": "user",
-                "content": "Patient’s facts:\n- 20 year old female\n- with a history of anerxia nervosa and depression\n- blood pressure 100/50, pulse 50, height 5’5’’\n- referred by her nutrionist but is in denial of her illness\n- reports eating fine but is severely underweight\n\nPlease rewrite the data above into a medical note, using exclusively the information above.",
+                    "role": "user",
+                    "content": "Patient’s facts:\n- 20 year old female\n- with a history of anerxia nervosa and depression\n- blood pressure 100/50, pulse 50, height 5’5’’\n- referred by her nutrionist but is in denial of her illness\n- reports eating fine but is severely underweight\n\nPlease rewrite the data above into a medical note, using exclusively the information above.",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],

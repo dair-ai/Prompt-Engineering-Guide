@@ -28,18 +28,18 @@ Antwort:
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-        "role": "user",
-        "content": "Answer the question based on the context below. Keep the answer short and concise. Respond \"Unsure about answer\" if not sure about the answer.\n\nContext: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.\n\nQuestion: What was OKT3 originally sourced from?\nAnswer:"
-        }
-    ],
-    temperature=1,
-    max_tokens=250,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "Answer the question based on the context below. Keep the answer short and concise. Respond \"Unsure about answer\" if not sure about the answer.\n\nContext: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.\n\nQuestion: What was OKT3 originally sourced from?\nAnswer:"
+            }
+        ],
+        temperature=1,
+        max_tokens=250,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>
@@ -52,8 +52,8 @@ Antwort:
             model="accounts/fireworks/models/mixtral-8x7b-instruct",
             messages=[
                 {
-                "role": "user",
-                "content": "Answer the question based on the context below. Keep the answer short and concise. Respond \"Unsure about answer\" if not sure about the answer.\n\nContext: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.\n\nQuestion: What was OKT3 originally sourced from?\nAnswer:",
+                    "role": "user",
+                    "content": "Answer the question based on the context below. Keep the answer short and concise. Respond \"Unsure about answer\" if not sure about the answer.\n\nContext: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.\n\nQuestion: What was OKT3 originally sourced from?\nAnswer:",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],

@@ -1,0 +1,95 @@
+# 使用 LLMs 进行物理推理
+
+import {Tabs, Tab} from 'nextra/components'
+
+## 背景
+此提示通过要求 LLM 对一组物体进行操作来测试其物理推理能力。
+
+## 提示
+
+输入：
+
+```markdown
+这里有一本书、9 个鸡蛋、一台笔记本电脑、一瓶子和一颗钉子。请告诉我如何将它们稳定地堆叠在一起。
+```
+
+输出：
+
+```
+要将一本书、9 个鸡蛋、一台笔记本电脑、一瓶子和一颗钉子稳定地堆叠在一起，可以考虑以下步骤：
+
+1. ** 底部：书 **
+   - 将书平放在底部，作为基础。书的平整和坚固性质使其成为理想的基础。
+
+2. ** 第二层：鸡蛋 **
+   - 将 9 个鸡蛋分成三组，每组 3 个鸡蛋。小心地将鸡蛋放在书上，使其形成一个稳定的三角形结构。这样可以增加鸡蛋的承重能力。
+
+3. ** 第三层：笔记本电脑 **
+   - 将笔记本电脑水平放置在鸡蛋上。由于鸡蛋的分布和笔记本电脑的重量相对较轻，这样可以使其保持稳定。
+
+4. ** 第四层：瓶子 **
+   - 将瓶子放在笔记本电脑的中间位置。确保瓶子竖直放置，以减少倾斜的风险。
+
+5. ** 顶层：钉子 **
+   - 最后，将钉子轻轻地放在瓶子的瓶盖上。由于钉子重量轻且体积小，放置在顶部不会影响整体的稳定性。
+
+需要非常小心地操作，确保每一层都平衡良好，以避免任何一部分倒塌。
+```
+
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI ()
+
+    response = client.chat.completions.create (
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "这里有一本书、9 个鸡蛋、一台笔记本电脑、一瓶子和一颗钉子。请告诉我如何将它们稳定地堆叠在一起。"
+            }
+        ],
+        temperature=1,
+        max_tokens=500,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create (
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                    "role": "user",
+                    "content": "这里有一本书、9 个鸡蛋、一台笔记本电脑、一瓶子和一颗钉子。请告诉我如何将它们稳定地堆叠在一起。",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,          
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+</Tabs>
+
+## 参考
+- [人工通用智能的曙光：GPT-4 的早期实验](https://arxiv.org/abs/2303.12712) (2023 年 4 月 13 日)

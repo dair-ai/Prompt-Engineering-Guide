@@ -25,18 +25,18 @@ Erkläre das oben Gesagte in einem Satz:
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-        "role": "user",
-        "content": "Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.\n\nExplain the above in one sentence:"
-        }
-    ],
-    temperature=1,
-    max_tokens=250,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.\n\nExplain the above in one sentence:"
+            }
+        ],
+        temperature=1,
+        max_tokens=250,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>
@@ -49,8 +49,8 @@ Erkläre das oben Gesagte in einem Satz:
             model="accounts/fireworks/models/mixtral-8x7b-instruct",
             messages=[
                 {
-                "role": "user",
-                "content": "Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.\n\nExplain the above in one sentence:",
+                    "role": "user",
+                    "content": "Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.\n\nExplain the above in one sentence:",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],

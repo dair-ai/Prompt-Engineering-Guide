@@ -4,14 +4,14 @@ import { Callout, FileTree } from 'nextra-theme-docs'
 import {Screenshot} from 'components/screenshot'
 import PAL from '../../img/pal.png'
 
-[Gao 等人（2022）](https://arxiv.org/abs/2211.10435)提出了一种使用 LLMs 读取自然语言问题并生成程序作为中间推理步骤的方法。被称为程序辅助语言模型（PAL），它与思维链提示不同，因为它不是使用自由形式文本来获得解决方案，而是将解决步骤卸载到类似 Python 解释器的编程运行时中。
+[Gao 等人（2022）](https://arxiv.org/abs/2211.10435)提出了一种使用 LLMs 读取自然语言问题并生成程序作为中间推理步骤的方法。被称为程序辅助语言模型（PAL, Program-Aided Language Models），它与思维链提示不同，因为它不是使用自由形式文本来获得解决方案，而是将解决步骤卸载到类似 Python 解释器的编程运行时中。
 
 <Screenshot src={PAL} alt="PAL" />
 图片来源：[Gao 等人（2022）](https://arxiv.org/abs/2211.10435)
 
 让我们以 LangChain 和 OpenAI GPT-3 为例。我们有兴趣开发一个简单的应用程序，它能够解释所提出的问题，并利用 Python 解释器提供答案。
 
-具体来说，我们有兴趣创建一个功能，允许使用 LLM 回答需要日期理解的问题。我们将为 LLM 提供一个提示，其中包括一些示例，这些示例是从[这里](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py)采用的。
+具体来说，我们有兴趣创建一个功能，允许使用 LLM 回答需要日期理解的问题。我们将为 LLM 提供一个提示，其中包括一些示例，这些示例是从 [这里](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py) 采用的。
 
 这是我们需要导入的包：
 
@@ -42,7 +42,7 @@ os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 llm = OpenAI(model_name='text-davinci-003', temperature=0)
 ```
 
-设置提示+问题：
+设置提示 + 问题：
 
 ```python
 question = "Today is 27 February 2023. I was born exactly 25 years ago. What is the date I was born in MM/DD/YYYY?"

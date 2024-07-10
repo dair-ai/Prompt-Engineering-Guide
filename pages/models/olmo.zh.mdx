@@ -1,3 +1,54 @@
-# OLMo 
+# OLMo
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+在本指南中，我们提供了关于 Open Language Model（OLMo）的概述，包括提示和使用示例。该指南还包括与 OLMo 相关的提示、应用、限制、论文和额外的阅读材料。
+
+## OLMo 简介
+
+Allen Institute of AI [发布](https://blog.allenai.org/olmo-open-language-model-87ccfc95f580) 了一种新的开放语言模型和框架，称为 OLMo。此举旨在提供全面访问数据、训练代码、模型、评估代码，以加速集体语言模型的研究。
+
+他们的首次发布包括四个 7B 参数规模的变体和一个 1B 规模的模型，所有模型都在至少 2T tokens 上进行了训练。这标志着许多发布的第一次，其中还包括即将发布的 65B OLMo 模型。
+
+!["OLMo Models"](../../img/olmo/olmo-models.png)
+
+这些发布包括：
+
+- 全部训练数据，包括生成数据的 [代码](https://github.com/allenai/dolma)
+- 全部模型权重、[训练代码](https://github.com/allenai/OLMo)、日志、指标和推理代码
+- 每个模型的多个检查点
+- [评估代码](https://github.com/allenai/OLMo-Eval)
+- 微调代码
+
+所有代码、权重和中间检查点均根据 [Apache 2.0 许可证](https://github.com/allenai/OLMo#Apache-2.0-1-ov-file) 发布。
+
+## OLMo-7B
+
+OLMo-7B 和 OLMo-1B 模型都采用仅解码器的 transformer 架构。它遵循了 PaLM 和 Llama 等其他模型的改进：
+
+- 无偏差
+- 非参数层归一化
+- SwiGLU 激活函数
+- 旋转位置嵌入（RoPE）
+- 50,280 的词汇表
+
+## Dolma 数据集
+
+此次发布还包括一个名为 [Dolma](https://github.com/allenai/dolma) 的预训练数据集的发布 —— 一个来自 7 种不同数据源的 3 万亿 token 的多样化、多源语料库，覆盖 5B 文档。Dolma 的创建涉及语言过滤、质量过滤、内容过滤、去重、多源混合和分词等步骤。
+
+!["Dolma Dataset"](../../img/olmo/dolma-dataset.png)
+
+训练数据集包括从 Dolma 中抽取的 2T-token 样本。tokens 在每个文档末尾附加一个特殊的 `EOS` token 后被串联在一起。训练实例包括一组连续的 2048 个 tokens 块，这些块也被打乱。
+
+更多训练细节和训练模型的硬件规格可以在论文中找到。
+
+## 结果
+
+这些模型使用 [Catwalk](https://github.com/allenai/catwalk) 在下游任务上进行评估。OLMo 模型与其他几个公开可用的模型（如 Falcon 和 Llama 2）进行了比较。具体来说，该模型在一组旨在衡量模型常识推理能力的任务上进行了评估。下游评估套件包括 `piqa` 和 `hellaswag` 等数据集。作者使用排名分类进行零样本评估（即，根据可能性对补全进行排名）并报告准确性。OLMo-7B 在 2 个终端任务上表现优于所有其他模型，并在 8/9 个终端任务中保持前三名。请参阅下图中的结果摘要。
+
+!["OLMo Results"](../../img/olmo/olmo-results.png)
+
+图表来源：[OLMo: Accelerating the Science of Language Models](https://allenai.org/olmo/olmo-paper.pdf)
+
+## 参考文献
+
+- [OLMo: Open Language Model](https://blog.allenai.org/olmo-open-language-model-87ccfc95f580)
+- [OLMo: Accelerating the Science of Language Models](https://allenai.org/olmo/olmo-paper.pdf)

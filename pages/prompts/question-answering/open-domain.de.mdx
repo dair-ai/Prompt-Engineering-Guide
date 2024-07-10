@@ -32,18 +32,18 @@ Mensch: Kann ich im SeaTac Flughafen McDonalds bekommen?
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-        "role": "user",
-        "content": "In this conversation between a human and the AI, the AI is helpful and friendly, and when it does not know the answer it says \"I don’t know\".\n\nAI: Hi, how can I help you?\nHuman: Can I get McDonalds at the SeaTac airport?"
-        }
-    ],
-    temperature=1,
-    max_tokens=250,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "In this conversation between a human and the AI, the AI is helpful and friendly, and when it does not know the answer it says \"I don’t know\".\n\nAI: Hi, how can I help you?\nHuman: Can I get McDonalds at the SeaTac airport?"
+            }
+        ],
+        temperature=1,
+        max_tokens=250,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>
@@ -56,8 +56,8 @@ Mensch: Kann ich im SeaTac Flughafen McDonalds bekommen?
             model="accounts/fireworks/models/mixtral-8x7b-instruct",
             messages=[
                 {
-                "role": "user",
-                "content": "In this conversation between a human and the AI, the AI is helpful and friendly, and when it does not know the answer it says \"I don’t know\".\n\nAI: Hi, how can I help you?\nHuman: Can I get McDonalds at the SeaTac airport?",
+                    "role": "user",
+                    "content": "In this conversation between a human and the AI, the AI is helpful and friendly, and when it does not know the answer it says \"I don’t know\".\n\nAI: Hi, how can I help you?\nHuman: Can I get McDonalds at the SeaTac airport?",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],

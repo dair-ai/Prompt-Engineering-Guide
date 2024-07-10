@@ -1,0 +1,46 @@
+# 使用 Gemini 1.5 Flash 进行上下文缓存
+
+import {Cards, Card} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+
+Google 最近发布了一个名为 [上下文缓存](https://ai.google.dev/gemini-api/docs/caching?lang=python) 的新功能，该功能通过 Gemini 1.5 Pro 和 Gemini 1.5 Flash 模型的 Gemini APIs 提供。本指南提供了如何使用 Gemini 1.5 Flash 进行上下文缓存的基本示例。根据
+
+### 应用案例：分析一年的机器学习论文
+
+本指南演示了如何使用上下文缓存来分析我们在过去一年中记录的所有 [机器学习论文的摘要](https://github.com/dair-ai/ML-Papers-of-the-Week)。我们将这些摘要存储在一个文本文件中，现在可以将其输入到 Gemini 1.5 Flash 模型中，并进行高效查询。
+
+### 过程：上传、缓存和查询
+
+1. **数据准备** 首先将包含摘要的 readme 文件转换为纯文本文件。
+2. **使用 Gemini API：** 你可以使用 Google 的 `generativeai` 库上传文本文件。
+3. **实现上下文缓存：** 使用 `caching.CachedContent.create ()` 函数创建缓存。这需要：
+    * 指定 Gemini Flash 1.5 模型。
+    * 为缓存提供一个名字。
+    * 为模型定义一个指令（例如，“你是一个专业的 AI 研究员……”）。
+    * 为缓存设置生存时间（例如，15 分钟）。
+4. **创建模型：** 然后我们使用缓存的内容创建一个生成模型实例。
+5. **查询：** 我们可以开始用自然语言问题查询模型，比如：
+    * “你能告诉我本周最新的 AI 论文是什么吗？”
+    * “你能列出提到 Mamba 的论文吗？列出论文的标题和摘要。”
+    * “关于长上下文 LLMs 的一些创新是什么？列出论文的标题和摘要。”
+
+结果非常有希望。模型准确地从文本文件中检索并总结了信息。上下文缓存证明了其高效性，消除了每次查询都需要重复发送整个文本文件的需要。
+
+这种工作流程有可能成为研究人员的宝贵工具，使他们能够：
+
+* 快速分析和查询大量的研究数据。
+* 在无需手动搜索文档的情况下检索特定的发现。
+* 在不浪费提示令牌的情况下进行交互式的研究会议。
+
+我们很高兴能进一步探索上下文缓存的应用，特别是在更复杂的情况下，如代理工作流程。
+
+
+下面是笔记本的链接：
+
+<Cards>
+    <Card 
+        icon={<CodeIcon />}
+        title="Context Caching with Gemini APIs"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/gemini-context-caching.ipynb"
+    />
+</Cards>

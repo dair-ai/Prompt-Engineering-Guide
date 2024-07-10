@@ -1,18 +1,23 @@
 {
-    "flan": "Flan",
     "chatgpt": "ChatGPT",
-    "llama": "LLaMA",
     "gpt-4": "GPT-4",
-    "mistral-7b": "Mistral 7B",
+    "claude-3": "Claude 3",
+    "code-llama": "Code Llama",
+    "flan": "Flan",
     "gemini": "Gemini",
     "gemini-advanced": "Gemini Advanced",
     "gemini-pro": "Gemini 1.5 Pro",
-    "phi-2": "Phi-2",
+    "gemma": "Gemma",
+    "grok-1": "Grok-1",
+    "llama": "LLaMA",
+    "llama-3": "Llama 3",
+    "mistral-7b": "Mistral 7B",
+    "mistral-large": "Mistral Large",
     "mixtral": "Mixtral",
-    "code-llama": "Code Llama",
-    "olmo": "OLMo",
+    "mixtral-8x22b": "Mixtral 8x22B",
+    "olmo": "OLMo",    
+    "phi-2": "Phi-2",
     "sora": "Sora",
-    "collection": "Model Collection" 
+    "collection": "LLM Collection" 
 }
-  
   

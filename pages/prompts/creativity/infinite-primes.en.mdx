@@ -21,18 +21,18 @@ Write a proof of the fact that there are infinitely many primes; do it in the st
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-        "role": "user",
-        "content": "Write a proof of the fact that there are infinitely many primes; do it in the style of a Shakespeare play through a dialogue between two parties arguing over the proof."
-        }
-    ],
-    temperature=1,
-    max_tokens=1000,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": "Write a proof of the fact that there are infinitely many primes; do it in the style of a Shakespeare play through a dialogue between two parties arguing over the proof."
+            }
+        ],
+        temperature=1,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>

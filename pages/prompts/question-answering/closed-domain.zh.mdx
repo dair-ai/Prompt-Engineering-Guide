@@ -1,0 +1,81 @@
+# 使用 LLMs 进行封闭域问答
+
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## 背景
+以下提示测试了 LLMs 在回答封闭域问题方面的能力，这涉及回答属于特定主题或领域的问题。
+
+<Callout type="warning" emoji="⚠️">
+    请注意，由于任务的挑战性，当 LLMs 没有关于问题的知识时，它们可能会产生幻觉。
+</Callout>
+
+## 提示
+```markdown
+患者信息：
+- 20 岁女性
+- 有神经性厌食症和抑郁症病史
+- 血压 100/50，脉搏 50，身高 5’5’’
+- 由其营养师推荐，但她对自己的病情持否认态度
+- 报告说吃得很好，但体重严重偏低
+
+请将以上数据改写为医疗记录，仅使用以上信息。
+
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "患者信息：\n- 20 岁女性\n- 有神经性厌食症和抑郁症病史\n- 血压 100/50，脉搏 50，身高 5’5’’\n- 由其营养师推荐，但她对自己的病情持否认态度\n- 报告说吃得很好，但体重严重偏低\n\n请将以上数据改写为医疗记录，仅使用以上信息。"
+            }
+        ],
+        temperature=1,
+        max_tokens=500,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                    "role": "user",
+                    "content": "患者信息：\n- 20 岁女性\n- 有神经性厌食症和抑郁症病史\n- 血压 100/50，脉搏 50，身高 5’5’’\n- 由其营养师推荐，但她对自己的病情持否认态度\n- 报告说吃得很好，但体重严重偏低\n\n请将以上数据改写为医疗记录，仅使用以上信息。",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+</Tabs>
+
+## 参考
+- [通用人工智能的曙光：GPT-4 的早期实验](https://arxiv.org/abs/2303.12712) (13 April 2023)

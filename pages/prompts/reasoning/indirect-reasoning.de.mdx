@@ -32,18 +32,18 @@ Antwort:
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-    {
-      "role": "user",
-      "content": "If a+|a|=0, try to prove that a<0.\n\nStep 1: List the conditions and questions in the original proposition.\n\nStep 2: Merge the conditions listed in Step 1 into one. Define it as wj.\n\nStep 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.\n\nAnswer:"
-    }
-    ],
-    temperature=0,
-    max_tokens=1000,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "If a+|a|=0, try to prove that a<0.\n\nStep 1: List the conditions and questions in the original proposition.\n\nStep 2: Merge the conditions listed in Step 1 into one. Define it as wj.\n\nStep 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.\n\nAnswer:"
+            }
+        ],
+        temperature=0,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>

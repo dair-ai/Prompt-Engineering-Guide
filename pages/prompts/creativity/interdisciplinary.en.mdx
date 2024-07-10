@@ -21,18 +21,18 @@ Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle 
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-        "role": "user",
-        "content": "Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle as a US presidential candidate by Mahatma Gandhi."
-        }
-    ],
-    temperature=1,
-    max_tokens=1000,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": "Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle as a US presidential candidate by Mahatma Gandhi."
+            }
+        ],
+        temperature=1,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>

@@ -1,0 +1,82 @@
+# 使用 LLM 解释概念
+
+import {Tabs, Tab} from 'nextra/components'
+import { Callout } from 'nextra/components'
+
+## 背景
+以下提示测试 LLM 解释或总结概念的能力。
+
+## 提示
+
+输入：
+
+```markdown
+抗生素是一种用于治疗细菌感染的药物。它们通过杀死细菌或阻止细菌繁殖来工作，使身体的免疫系统能够抵抗感染。抗生素通常以药片、胶囊或液体溶液的形式口服，有时也通过静脉注射。它们对病毒感染无效，不适当地使用抗生素会导致抗生素耐药性。
+
+用一句话解释上述内容：
+```
+
+输出：
+
+```markdown
+抗生素是用于治疗细菌感染的药物，通过杀死细菌或阻止其繁殖来帮助免疫系统抵抗感染，但对病毒无效，不当使用会导致耐药性。
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI ()
+
+    response = client.chat.completions.create (
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "抗生素是一种用于治疗细菌感染的药物。它们通过杀死细菌或阻止细菌繁殖来工作，使身体的免疫系统能够抵抗感染。抗生素通常以药片、胶囊或液体溶液的形式口服，有时也通过静脉注射。它们对病毒感染无效，不适当地使用抗生素会导致抗生素耐药性。\n\n 用一句话解释上述内容："
+            }
+        ],
+        temperature=1,
+        max_tokens=250,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create (
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                    "role": "user",
+                    "content": "抗生素是一种用于治疗细菌感染的药物，它们通过杀死细菌或阻止细菌繁殖来工作，使身体的免疫系统能够抵抗感染，通常口服或静脉注射，对病毒无效，不当使用会导致耐药性。\n\n 用一句话解释上述内容：",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 参考
+- [提示工程指南](https://www.promptingguide.ai/introduction/examples#text-summarization) (2023 年 3 月 16 日)

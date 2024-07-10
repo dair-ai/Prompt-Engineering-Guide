@@ -37,18 +37,18 @@ Bitte fügen Sie ein Hemd und Hosen hinzu.
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-        "role": "user",
-        "content": "Produce TikZ code that draws a person composed from letters in the alphabet. The arms and torso can be the letter Y, the face can be the letter O (add some facial features) and the legs can be the legs of the letter H. Feel free to add other features.."
-        }
-    ],
-    temperature=1,
-    max_tokens=1000,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "Produce TikZ code that draws a person composed from letters in the alphabet. The arms and torso can be the letter Y, the face can be the letter O (add some facial features) and the legs can be the legs of the letter H. Feel free to add other features.."
+            }
+        ],
+        temperature=1,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>
@@ -61,8 +61,8 @@ Bitte fügen Sie ein Hemd und Hosen hinzu.
             model="accounts/fireworks/models/mixtral-8x7b-instruct",
             messages=[
                 {
-                "role": "user",
-                "content": "Produce TikZ code that draws a person composed from letters in the alphabet. The arms and torso can be the letter Y, the face can be the letter O (add some facial features) and the legs can be the legs of the letter H. Feel free to add other features.",
+                    "role": "user",
+                    "content": "Produce TikZ code that draws a person composed from letters in the alphabet. The arms and torso can be the letter Y, the face can be the letter O (add some facial features) and the legs can be the legs of the letter H. Feel free to add other features.",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],

@@ -1,15 +1,15 @@
 {
-    "llm-agents": "LLM Agents",
-    "rag": "RAG for LLMs",
-    "llm-reasoning": "LLM Reasoning",
-    "rag-faithfulness": "RAG Faithfulness",
-    "llm-recall": "LLM In-Context Recall",
-    "rag_hallucinations": "RAG Reduces Hallucination",
-    "synthetic_data": "Synthetic Data",
-    "thoughtsculpt": "ThoughtSculpt",
-    "infini-attention": "Infini-Attention",
-    "guided-cot": "LM-Guided CoT",
-    "trustworthiness-in-llms": "Trustworthiness in LLMs",
-    "llm-tokenization": "LLM Tokenization",
-    "groq": "Groq 是什么？"
+    "llm-agents": "代理 (LLM Agents)",
+    "rag": "检索增强生成 (RAG)",
+    "rag_hallucinations": "利用 RAG 减少幻觉",
+    "rag-faithfulness": "RAG 的效果评估",
+    "llm-reasoning": "模型推理能力 (Reasoning)",
+    "llm-recall": "上下文记忆能力 (In-Context Recall)",
+    "synthetic_data": "合成数据 (Synthetic Data)",
+    "infini-attention": "超长文本 (Infini-Attention)",
+    "guided-cot": "小模型引导的思维链 (LM guided CoT)",
+    "llm-tokenization": "标记化（Tokenization）",
+    "trustworthiness-in-llms": "大模型的可性度评估",
+    "thoughtsculpt": "基于图的自我修订与搜索推理框架 ThoughtSculpt", 
+    "groq": "芯片加速"
 }

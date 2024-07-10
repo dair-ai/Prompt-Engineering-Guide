@@ -20,18 +20,18 @@ Can you write a proof that there are infinitely many primes, with every line tha
     client = OpenAI()
 
     response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-        "role": "user",
-        "content": "Can you write a proof that there are infinitely many primes, with every line that rhymes?"
-        }
-    ],
-    temperature=1,
-    max_tokens=256,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": "Can you write a proof that there are infinitely many primes, with every line that rhymes?"
+            }
+        ],
+        temperature=1,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
     ```
     </Tab>

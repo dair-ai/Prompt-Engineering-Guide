@@ -1,0 +1,75 @@
+# 使用 LLMs 进行科学问答
+
+import {Tabs, Tab} from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## 背景
+以下提示测试了 LLMs 在进行科学问答方面的能力。
+
+## 提示
+
+```markdown
+根据下面的上下文回答问题。保持答案简短和简明。如果不确定答案，请回答 "Unsure about answer"。
+
+上下文：Teplizumab 的起源可以追溯到一家新泽西的制药公司 Ortho Pharmaceutical。在那里，科学家们生成了一种早期版本的抗体，称为 OKT3。最初来源于老鼠，该分子能够结合在 T 细胞表面并限制其杀伤细胞的潜力。1986 年，它被批准用于帮助防止肾移植后的器官排斥反应，使其成为第一个被允许用于人类治疗的抗体。
+
+问题：OKT3 最初来源于什么？
+回答：
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI ()
+
+    response = client.chat.completions.create (
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "根据下面的上下文回答问题。保持答案简短和简明。如果不确定答案，请回答 \"Unsure about answer\"。\n\n 上下文：Teplizumab 的起源可以追溯到一家新泽西的制药公司 Ortho Pharmaceutical。在那里，科学家们生成了一种早期版本的抗体，称为 OKT3。最初来源于老鼠，该分子能够结合在 T 细胞表面并限制其杀伤细胞的潜力。1986 年，它被批准用于帮助防止肾移植后的器官排斥反应，使其成为第一个被允许用于人类治疗的抗体。\n\n 问题：OKT3 最初来源于什么？\n 回答："
+            }
+        ],
+        temperature=1,
+        max_tokens=250,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create (
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                    "role": "user",
+                    "content": "根据下面的上下文回答问题。保持答案简短和简明。如果不确定答案，请回答 \"Unsure about answer\"。\n\n 上下文：Teplizumab 的起源可以追溯到一家新泽西的制药公司 Ortho Pharmaceutical。在那里，科学家们生成了一种早期版本的抗体，称为 OKT3。最初来源于老鼠，该分子能够结合在 T 细胞表面并限制其杀伤细胞的潜力。1986 年，它被批准用于帮助防止肾移植后的器官排斥反应，使其成为第一个被允许用于人类治疗的抗体。\n\n 问题：OKT3 最初来源于什么？\n 回答：",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+</Tabs>
+
+## 参考
+- [提示工程指南](https://www.promptingguide.ai/introduction/examples#question-answering) (2023 年 3 月 16 日)
