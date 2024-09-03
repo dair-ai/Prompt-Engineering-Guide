@@ -36,7 +36,7 @@ const config: DocsThemeConfig = {
     const { title } = useConfig()
     return (
     <>
-      <title>{title ? title + ' | Prompt Engineering Guide': 'Prompt Engineering Guide'} </title>
+      <title>{title ? title + ' | Prompt Engineering Guide': 'Prompt Engineering Guide'}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta property="og:title" content="Prompt Engineering Guide" />
       <meta property="og:description" content="A Comprehensive Overview of Prompt Engineering" />
