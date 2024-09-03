@@ -1,0 +1,31 @@
+# Fine-Tuning mit GPT-4o-Modellen
+
+OpenAI hat kürzlich die Verfügbarkeit von Fine-Tuning für seine neuesten Modelle, GPT-4o und GPT-4o mini, [angekündigt](https://openai.com/index/gpt-4o-fine-tuning/). Diese neue Fähigkeit ermöglicht Entwicklern, die GPT-4o-Modelle für spezifische Anwendungsfälle zu spezialisieren, was die Leistung verbessert und die Ausgaben anpasst.
+
+## Details und Kosten des Fine-Tunings
+
+Entwickler können nun auf den `GPT-4o-2024-08-06` Checkpoint für das Fine-Tuning über das dedizierte [Fine-Tuning-Dashboard](https://platform.openai.com/finetune) zugreifen. Dieser Prozess ermöglicht die Anpassung von Antwortstruktur, Ton und die Einhaltung komplexer, bereichsspezifischer Anweisungen.
+
+Die Kosten für das Fine-Tuning von GPT-4o betragen \$25 pro Million Token für das Training und \$3,75 pro Million Eingabetoken sowie \$15 pro Million Ausgabetoken für das Inferieren. Diese Funktion steht ausschließlich Entwicklern in kostenpflichtigen Nutzungsebenen zur Verfügung.
+
+## Kostenlose Trainings-Token zur Erprobung
+
+Um die Erkundung dieser neuen Funktion zu fördern, bietet OpenAI bis zum 23. September eine zeitlich begrenzte Aktion an. Entwickler können täglich 1 Million kostenlose Trainings-Token für GPT-4o und 2 Millionen kostenlose Trainings-Token pro Tag für GPT-4o mini erhalten. Dies bietet eine gute Gelegenheit, zu experimentieren und innovative Anwendungen für feinabgestimmte Modelle zu entdecken.
+
+## Anwendungsfall: Emotionsklassifikation
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/UJ7ry7Qp2Js?si=ZU3K0ZVNfQjnlZgo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Im obigen Leitfaden zeigen wir ein praktisches Beispiel für Fine-Tuning, das das Training eines Modells für die Emotionsklassifikation umfasst. Unter Verwendung eines [JSONL-formatierten Datensatzes](https://github.com/dair-ai/datasets/tree/main/openai), der Textproben enthält, die mit entsprechenden Emotionen gekennzeichnet sind, kann GPT-4o mini für die Klassifizierung von Texten nach emotionalem Ton feinabgestimmt werden.
+
+Diese Demonstration hebt das Potenzial des Fine-Tunings hervor, die Modellleistung für spezifische Aufgaben zu verbessern und eine signifikante Steigerung der Genauigkeit im Vergleich zu Standardmodellen zu erreichen.
+
+## Zugriff auf und Bewertung feinabgestimmter Modelle
+
+Sobald der Fine-Tuning-Prozess abgeschlossen ist, können Entwickler auf ihre angepassten Modelle über den OpenAI-Spielplatz zugreifen und diese bewerten. Der Spielplatz ermöglicht interaktives Testen mit verschiedenen Eingaben und bietet Einblicke in die Leistung des Modells. Für eine umfassendere Bewertung können Entwickler das feinabgestimmte Modell über die OpenAI-API in ihre Anwendungen integrieren und systematische Tests durchführen.
+
+Die Einführung von Fine-Tuning für GPT-4o-Modelle eröffnet neue Möglichkeiten für Entwickler, die die Stärken von LLMs für spezialisierte Aufgaben nutzen möchten.
