@@ -8,11 +8,7 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 📺 [YouTube Mini Lectures on Prompting Engineering](https://www.youtube.com/playlist?list=PLGSHbNsNO4Vha1jB0wMtuYYEVO4laSo0m)
 
-We've partnered with Maven to deliver the following live cohort-based courses on prompt engineering:
-
-- [LLMs for Everyone ](https://maven.com/dair-ai/llms-for-everyone) (Beginner) - learn about the latest prompt engineering techniques and how to effectively apply them to real-world use cases.
-
-- [Prompt Engineering for LLMs ](https://maven.com/dair-ai/prompt-engineering-llms) (Advanced) - learn advanced prompt engineering techniques to build complex use cases and applications with LLMs.
+🎉 We are excited to launch our brand new [course website](https://dair-ai.thinkific.com/pages/courses) and releasing our first course on Introduction to Prompt Engineering. [Join Now](https://dair-ai.thinkific.com/bundles/pro)!
 
 Happy Prompting!
 
