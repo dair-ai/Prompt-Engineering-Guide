@@ -1,0 +1,82 @@
+# Platon'un Diyaloğunu Değerlendirmek
+
+import { Tabs, Tab } from 'nextra/components'
+
+## Arkaplan
+Aşağıdaki komut istemi, bir LLM'nin iki farklı modelin çıktıları üzerinde sanki bir öğretmenmiş gibi değerlendirme yapma becerisini test etmektedir.
+
+İlk olarak, iki model (örneğin, ChatGPT & GPT-4) aşağıdaki komut istemi kullanılarak istenir:
+
+```
+Platon'un Gorgias'ı retorik ve sofistik hitabetin bir eleştirisidir ve burada sadece bunun uygun bir sanat biçimi olmadığını değil, aynı zamanda retorik ve hitabetin kullanımının çoğu zaman zararlı ve kötü niyetli olabileceğine işaret eder. Platon'un bunun yerine otoregresif dil modellerinin kullanımını eleştirdiği bir diyalog yazabilir misiniz?
+```
+
+Daha sonra, bu çıktılar aşağıdaki değerlendirme istemi kullanılarak değerlendirilir.
+
+## İstem
+```
+Aşağıdaki iki çıktıyı bir öğretmenmişsiniz gibi karşılaştırabilir misiniz?
+
+ChatGPT'den çıktı: {çıktı 1}
+
+GPT-4'den çıktı: {çıktı 2}
+```
+
+## Kod / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": "Aşağıdaki iki çıktıyı bir öğretmenmişsiniz gibi karşılaştırabilir misiniz?\n\nOutput from ChatGPT:\n{çıktı 1}\n\nOutput from GPT-4:\n{çıktı 2}"
+            }
+        ],
+        temperature=1,
+        max_tokens=1500,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Aşağıdaki iki çıktıyı bir öğretmenmişsiniz gibi karşılaştırabilir misiniz?\n\nOutput from ChatGPT:\n{çıktı 1}\n\nOutput from GPT-4:\n{çıktı 2}",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## Referans
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 Nisan 2023)

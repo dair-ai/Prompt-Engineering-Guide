@@ -1,0 +1,83 @@
+# Alfabe Kullanarak Bir İnsan Çiz
+
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## Arkaplan
+Aşağıdaki istem, LLM'nin yalnızca metin üzerinde eğitilmiş olmasına rağmen görsel kavramları ele alma yeteneklerini test etmektedir. Bu, LLM için zorlu bir görevdir, bu nedenle birkaç yineleme içerir. Aşağıdaki örnekte kullanıcı önce istediği bir görseli talep etmekte ve ardından düzeltmeler ve eklemelerle birlikte geri bildirim sağlamaktadır. Takip eden talimatlar, LLM'nin görevde kaydettiği ilerlemeye bağlı olacaktır. Bu görevin, daha sonra kullanıcı tarafından manuel olarak derlenmesi gereken TikZ kodu oluşturmayı istediğini unutmayın.
+
+## İstem
+
+İstem Denemesi 1:
+```markdown
+Alfabedeki harflerden oluşan bir kişi çizen TikZ kodu üretin. Kollar ve gövde Y harfi olabilir, yüz O harfi olabilir (bazı yüz özellikleri ekleyin) ve bacaklar H harfinin bacakları olabilir.
+```  
+
+İstem Denemesi 2:
+```markdown
+Gövde biraz fazla uzun, kollar çok kısa ve yüz gövdenin hemen üzerinde olmak yerine sağ kol yüzü taşıyor gibi görünüyor. Bunu düzeltebilir misiniz lütfen?
+```
+
+İstem Denemesi 3:
+```markdown
+Lütfen bir gömlek ve pantolon ekle.
+```
+
+## Kod / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": "Alfabedeki harflerden oluşan bir kişi çizen TikZ kodu üretin. Kollar ve gövde Y harfi olabilir, yüz O harfi olabilir (bazı yüz özellikleri ekleyin) ve bacaklar H harfinin bacakları olabilir.."
+            }
+        ],
+        temperature=1,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Alfabedeki harflerden oluşan bir kişi çizen TikZ kodu üretin. Kollar ve gövde Y harfi olabilir, yüz O harfi olabilir (bazı yüz özellikleri ekleyin) ve bacaklar H harfinin bacakları olabilir.",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## Referans
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 Nisan 2023)

@@ -1,0 +1,80 @@
+# Kapalı Uçlu Soru Cevaplama
+
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## Arkaplan
+Aşağıdaki istem, bir büyük dil modelinin (LLM) belirli bir konu veya alanla ilgili soruları cevaplama yeteneklerini test eder.
+
+<Callout type="warning" emoji="⚠️">
+    Görevin zorlu doğası nedeniyle, LLM'lerin soruyla ilgili hiçbir bilgileri olmadığında halüsinasyon görmelerinin muhtemel olduğunu unutmayın.
+</Callout>
+
+## Prompt
+```markdown
+Hastanın detayları:
+- 20 yaşında kadın
+- anoreksiya nervosa ve depresyon öyküsü olan
+- tansiyon 100/50, nabız 50, boy 5'5''
+- beslenme uzmanı tarafından yönlendirildi ancak hastalığını inkar ediyor
+- iyi beslendiğini ancak ciddi derecede düşük kilolu olduğunu bildiriyor
+
+Lütfen sadece yukarıdaki bilgileri kullanarak yukarıdaki verileri tıbbi bir not halinde yeniden yazınız.
+```
+
+## Kod / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+        "role": "user",
+        "content": "Hastanın detayları:\n- 20 yaşında kadın\n- anoreksiya nervosa ve depresyon öyküsü olan\n- tansiyon 100/50, nabız 50, boy 5'5''\n- beslenme uzmanı tarafından yönlendirildi ancak hastalığını inkar ediyor\n- iyi beslendiğini ancak ciddi derecede düşük kilolu olduğunu bildiriyor\n\nLütfen sadece yukarıdaki bilgileri kullanarak yukarıdaki verileri tıbbi bir not halinde yeniden yazınız."
+        }
+    ],
+    temperature=1,
+    max_tokens=500,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Hastanın detayları:\n- 20 yaşında kadın\n- anoreksiya nervosa ve depresyon öyküsü olan\n- tansiyon 100/50, nabız 50, boy 5'5''\n- beslenme uzmanı tarafından yönlendirildi ancak hastalığını inkar ediyor\n- iyi beslendiğini ancak ciddi derecede düşük kilolu olduğunu bildiriyor\n\nLütfen sadece yukarıdaki bilgileri kullanarak yukarıdaki verileri tıbbi bir not halinde yeniden yazınız.",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+</Tabs>
+
+## Referans
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 Nisan 2023)

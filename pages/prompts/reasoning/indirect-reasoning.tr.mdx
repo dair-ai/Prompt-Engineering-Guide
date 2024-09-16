@@ -1,0 +1,83 @@
+# Dolaylı Akıl Yürütme
+
+import { Tabs, Tab } from 'nextra/components'
+
+## Arkaplan
+[Zhang et al. (2024)](https://arxiv.org/abs/2402.03667) yakın zamanda LLM'lerin muhakeme gücünü güçlendirmek için dolaylı bir muhakeme yöntemi önermiştir. Bu yöntem, olgusal muhakeme ve matematiksel ispat gibi IR görevlerinin üstesinden gelmek için karşıtlıklar ve çelişkiler mantığını kullanmaktadır. İki temel adımdan oluşmaktadır: 1) veri ve kuralları artırarak (yani, karşıtlığın mantıksal eşdeğerliği) LLM'lerin anlaşılabilirliğini artırmak ve 2) çelişki ile ispata dayalı dolaylı akıl yürütmeyi uygulamak için LLM'leri teşvik etmek için istem şablonları tasarlamak.
+
+GPT-3.5-turbo ve Gemini-pro gibi LLM'ler üzerinde yapılan deneyler, önerilen yöntemin geleneksel doğrudan akıl yürütme yöntemlerine kıyasla olgusal akıl yürütmenin genel doğruluğunu %27,33 ve matematiksel kanıtın doğruluğunu %31,43 oranında artırdığını göstermektedir.
+
+Aşağıda çelişkiyle ispat için sıfır atış şablonuna bir örnek verilmiştir.
+
+
+## İstem
+```
+Eğer a+|a|=0 ise, a<0 olduğunu kanıtlamaya çalışın.
+
+Adım 1: Orijinal önermedeki koşulları ve soruları listeleyin.
+
+Adım 2: Adım 1'de listelenen koşulları tek bir koşulda birleştirin. Bunu wj olarak tanımlayın.
+
+Adım 3: Adım adım düşünelim. Lütfen tüm olasılıkları göz önünde bulundurun. Eğer wj (Adım 2'de tanımlanan) ile sorunun olumsuzu arasındaki kesişim en az bir olasılıkta boş değilse, orijinal önerme yanlıştır. Aksi takdirde, orijinal önerme doğrudur.
+
+Cevap:
+```
+
+## Kod / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+    {
+      "role": "user",
+      "content": "Eğer a+|a|=0 ise, a<0 olduğunu kanıtlamaya çalışın.\n\nAdım 1: Orijinal önermedeki koşulları ve soruları listeleyin.\n\nAdım 2: Adım 1'de listelenen koşulları tek bir koşulda birleştirin. Bunu wj olarak tanımlayın.\n\n3. Adım: Adım adım düşünelim. Lütfen tüm olasılıkları göz önünde bulundurun. Eğer wj (Adım 2'de tanımlanan) ile sorunun olumsuzu arasındaki kesişim en az bir olasılıkta boş değilse, orijinal önerme yanlıştır. Aksi takdirde, orijinal önerme doğrudur.\n\nCevap:"
+    }
+    ],
+    temperature=0,
+    max_tokens=1000,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Eğer a+|a|=0 ise, a<0 olduğunu kanıtlamaya çalışın.\n\nAdım 1: Orijinal önermedeki koşulları ve soruları listeleyin.\n\nAdım 2: Adım 1'de listelenen koşulları tek bir koşulda birleştirin. Bunu wj olarak tanımlayın.\n\n3. Adım: Adım adım düşünelim. Lütfen tüm olasılıkları göz önünde bulundurun. Eğer wj (Adım 2'de tanımlanan) ile sorunun olumsuzu arasındaki kesişim en az bir olasılıkta boş değilse, orijinal önerme yanlıştır. Aksi takdirde, orijinal önerme doğrudur.\n\nCevap:",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## Referans
+- [Large Language Models as an Indirect Reasoner: Contrapositive and Contradiction for Automated Reasoning](https://arxiv.org/abs/2402.03667) (06 Şubat 2024)

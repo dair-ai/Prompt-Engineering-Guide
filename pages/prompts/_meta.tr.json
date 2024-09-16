@@ -1,15 +1,14 @@
 {
-    "classification": "Classification",
-    "coding": "Coding",
-    "creativity": "Creativity",
-    "evaluation": "Evaluation",
-    "information-extraction": "Information Extraction",
-    "image-generation": "Image Generation",
-    "mathematics": "Mathematics",
-    "question-answering": "Question Answering",
-    "reasoning": "Reasoning",
-    "text-summarization": "Text Summarization",
-    "truthfulness": "Truthfulness",
-    "adversarial-prompting": "Adversarial Prompting"
+    "classification": "Sınıflandırma",
+    "coding": "Kodlama",
+    "creativity": "Yaratıcılık",
+    "evaluation": "Değerlendirme",
+    "information-extraction": "Bilgi Çıkarımı",
+    "image-generation": "Görüntü Oluşturma",
+    "mathematics": "Matematik",
+    "question-answering": "Soru Cevaplama",
+    "reasoning": "Muhakeme",
+    "text-summarization": "Metin Özetleme",
+    "truthfulness": "Doğruluk",
+    "adversarial-prompting": "Çekişmeli Yönlendirme"
 }
-  
