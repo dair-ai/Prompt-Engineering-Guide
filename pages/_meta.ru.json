@@ -1,0 +1,27 @@
+{
+  "index": "Промпт инжиниринг",
+  "introduction": "Введение",
+  "techniques": "Техники",
+  "applications": "Применение",
+  "prompts": "Prompt Hub",
+  "models": "Модели",
+  "risks": "Риски и неправильное использование",
+  "research": "LLM Research Findings",
+  "papers": "Статьи",
+  "tools": "Инструменты",
+  "notebooks": "Notebooks",
+  "datasets": "Datasets",
+  "readings": "Дополнительные статьи",
+  "course": {
+    "title": "Курс по инженерии промптов",
+    "type": "page"
+  },
+  "services": {
+    "title": "Услуги",
+    "type": "page"
+  },
+  "about": {
+    "title": "О нас",
+    "type": "page"
+  }
+}

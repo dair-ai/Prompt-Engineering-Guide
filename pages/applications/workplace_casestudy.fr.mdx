@@ -1,0 +1,56 @@
+# Graduate Job Classification Case Study
+
+[Clavié et al., 2023](https://arxiv.org/abs/2303.07142) fournit une étude de cas sur le prompt-engineering appliquée à un cas d'utilisation de classification de texte de taille moyenne dans un système de production. En utilisant la tâche de classification pour déterminer si un emploi est un véritable "emploi débutant", adapté à un récent diplômé ou non, ils ont évalué une série de techniques de prompt engineering et ont rapporté leurs résultats en utilisant GPT-3.5 (`gpt-3.5-turbo`).
+
+Les travaux montrent que les LLM surpassent tous les autres modèles testés, y compris une base de référence extrêmement solide dans DeBERTa-V3. `gpt-3.5-turbo` surpasse également sensiblement les anciennes variantes GPT3 dans toutes les métriques clés, mais nécessite une analyse de sortie supplémentaire car sa capacité à s'en tenir à un modèle semble être pire que les autres variantes.
+
+Les principales conclusions de leur approche de prompt engineering sont :
+
+- Pour des tâches telles que celle-ci, où aucune connaissance experte n'est requise, la technique Few-shot CoT prompting a été moins performante que la technique Zero-shot prompting dans toutes les expériences.
+- L'impact du prompt sur l'obtention du raisonnement correct est énorme. Le simple fait de demander au modèle de classifier un emploi donné donne un score F1 de 65,6, alors que le modèle post prompt engineering atteint un score F1 de 91,7.
+- Essayer de forcer le modèle à coller à un modèle diminue les performances dans tous les cas (ce comportement disparaît lors des premiers tests avec GPT-4, qui sont postérieurs à l'article).
+- De nombreuses petites modifications ont un impact disproportionné sur les performances.
+  - Les tableaux ci-dessous montrent l'ensemble des modifications testées.
+  - Le fait de donner des instructions précises et de répéter les points clés semble être le principal moteur de performance.
+  - Quelque chose d'aussi simple que donner au modèle un nom (humain) et se référer à lui en tant que tel a augmenté le score F1 de 0,6 points.
+
+### Modifications de prompts testées
+
+| Nom court  | Description                                                                                                    |
+|------------|----------------------------------------------------------------------------------------------------------------|
+| Baseline   | Fournir une offre d'emploi et demander si elle convient à un diplômé.                                          |
+| CoT        | Donnez quelques exemples de classification précise avant de poser une requête.                                 |
+| Zero-CoT   | Demandez au modèle de raisonner étape par étape avant de fournir sa réponse.                                   |
+| rawinst    | Donnez des instructions sur son rôle et la tâche en ajoutant un message à l'utilisateur.                       |
+| sysinst    | Donnez des instructions sur son rôle et la tâche en tant que message système.                                  |
+| bothinst   | Séparer les instructions avec le rôle en tant que message système et la tâche en tant que message utilisateur. |
+| mock       | Donnez des instructions de tâche en vous moquant d'une discussion où il les reconnaît.                         |
+| reit       | Renforcez les éléments clés des instructions en les répétant.                                                  |
+| strict     | Demandez au modèle de répondre en suivant strictement un modèle donné.                                         |
+| loose      | Demandez que seule la réponse finale soit donnée en suivant un modèle donné.                                   |
+| right      | Demander au modèle de parvenir à la bonne conclusion.                                                          |
+| info       | Fournissez des informations supplémentaires pour résoudre les échecs de raisonnement courants.                 |
+| name       | Donnez au modèle un nom par lequel nous nous y référons dans la conversation.                                  |
+| pos        | Fournissez au modèle des commentaires positifs avant de l'interroger.                                          |
+
+
+### Impact des modifications de prompt sur les performances
+
+|                                        | Precision     | Recall        | F1            | Adhérence aux modèles  |
+|----------------------------------------|---------------|---------------|---------------|------------------------|
+| _Baseline_                             | _61.2_        | _70.6_        | _65.6_        | _79%_                  |
+| _CoT_                                  | _72.6_        | _85.1_        | _78.4_        | _87%_                  |
+| _Zero-CoT_                             | _75.5_        | _88.3_        | _81.4_        | _65%_                  |
+| _+rawinst_                             | _80_          | _92.4_        | _85.8_        | _68%_                  |
+| _+sysinst_                             | _77.7_        | _90.9_        | _83.8_        | _69%_                  |
+| _+bothinst_                            | _81.9_        | _93.9_        | _87.5_        | _71%_                  |
+| +bothinst+mock                         | 83.3          | 95.1          | 88.8          | 74%                    |
+| +bothinst+mock+reit                    | 83.8          | 95.5          | 89.3          | 75%                    |
+| _+bothinst+mock+reit+strict_           | _79.9_        | _93.7_        | _86.3_        | _**98%**_              |
+| _+bothinst+mock+reit+loose_            | _80.5_        | _94.8_        | _87.1_        | _95%_                  |
+| +bothinst+mock+reit+right              | 84            | 95.9          | 89.6          | 77%                    |
+| +bothinst+mock+reit+right+info         | 84.9          | 96.5          | 90.3          | 77%                    |
+| +bothinst+mock+reit+right+info+name    | 85.7          | 96.8          | 90.9          | 79%                    |
+| +bothinst+mock+reit+right+info+name+pos| **86.9**      | **97**        | **91.7**      | 81%                    |
+
+L'adhérence du modèle fait référence à la fréquence à laquelle le modèle répond dans le format souhaité. 

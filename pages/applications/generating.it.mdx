@@ -1,0 +1,46 @@
+# Generazione di dati
+
+I Large Language Model (LLM) hanno una forte capacità di generare testi coerenti. L'uso di strategie di prompt efficaci può guidare il modello a produrre risposte migliori, coerenti e più concrete. Gli LLM possono anche essere particolarmente utili per generare dati che sono davvero utili per eseguire tutti i tipi di esperimenti e valutazioni. Ad esempio, possiamo usarli per generare campioni rapidi per un classificatore di sentiment, come questo:
+
+*Prompt:*
+```
+Produci 10 esempi per l'analisi del sentimento. Gli esempi sono classificati come positivi o negativi. Produrre 2 esempi negativi e 8 esempi positivi. Utilizzate questo formato per gli esempi:
+D: <sentenza>
+R: <sentimento
+```
+
+*Output:*
+```
+D: Ho appena ricevuto la migliore notizia di sempre!
+A: Positiva
+
+D: Abbiamo appena ricevuto un aumento al lavoro!
+R: Positivo
+
+D: Sono così orgoglioso di ciò che ho realizzato oggi.
+R: Positivo
+
+D: Sto vivendo la giornata migliore di sempre!
+R: Positivo
+
+D: Non vedo l'ora che arrivi il fine settimana.
+R: Positivo
+
+D: Ho appena ricevuto il miglior regalo di sempre!
+R: Positivo
+
+D: Sono così felice in questo momento.
+R: Positivo
+
+D: Sono così fortunata ad avere una famiglia così fantastica.
+R: Positivo
+
+D: Il tempo fuori è così cupo.
+R: Negativo
+
+D: Ho appena ricevuto una notizia terribile.
+R: Negativa
+```
+
+Questo risultato è molto utile e lo useremo anche per un altro test in un'altra sezione di questa guida.
+

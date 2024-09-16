@@ -1,0 +1,105 @@
+# Prompt Chaining
+
+import {Screenshot} from 'components/screenshot'
+import PC1 from '../../img/prompt_chaining/prompt-chaining-1.png'
+
+## Introduzione al Prompt Chaining (concatenamento di prompt)
+
+Per migliorare l'affidabilità e le prestazioni degli LLM, una delle principali tecniche di prompting consiste nel suddividere i compiti in sottocompiti. Una volta identificati i sottocompiti, all'LLM viene dato un prompt per il sottocompito e poi la sua risposta viene utilizzata come input per un altro prompt. Si tratta del cosiddetto prompt chaining (concatenamento di prompt), in cui un compito viene suddiviso in sottocompiti con l'idea di creare una catena di operazioni di prompt.
+
+Il concatenamento dei prompt è utile per realizzare compiti complessi che un LLM potrebbe faticare ad affrontare se sollecitato con un prompt molto dettagliato. Nel concatenamento di prompt, i prompt della catena eseguono trasformazioni o processi aggiuntivi sulle risposte generate prima di raggiungere lo stato finale desiderato. 
+
+Oltre a ottenere prestazioni migliori, il concatenamento di prompt contribuisce a migliorare la trasparenza della vostra applicazione LLM, aumentando la controllabilità e l'affidabilità. Ciò significa che è possibile eseguire il debug dei problemi con le risposte del modello in modo molto più semplice e analizzare e migliorare le prestazioni nelle diverse fasi che necessitano di miglioramenti.
+
+Il concatenamento dei prompt è particolarmente utile per la creazione di assistenti conversazionali basati su LLM e per migliorare la personalizzazione e l'esperienza utente delle applicazioni.
+
+## Casi d'uso per il Prompt Chaining
+
+### Prompt Chaining per domande/risposte su documenti (Document QA - Question Answering)
+
+Il concatenamento dei prompt può essere utilizzato in diversi scenari che possono comportare diverse operazioni o trasformazioni. Ad esempio, un caso d'uso comune dei LLM prevede la risposta a domande su un documento di testo di grandi dimensioni. È utile progettare due prompt diversi, dove il primo prompt è responsabile dell'estrazione delle citazioni rilevanti per rispondere a una domanda, ed un secondo prompt prende in input le citazioni e il documento originale per rispondere a una determinata domanda. In altre parole, si creeranno due prompt diversi per eseguire il compito di rispondere a una domanda data da un documento.
+
+Il primo prompt qui di seguito estrae le citazioni rilevanti dal documento oggetto della domanda. Si noti che per semplicità è stato aggiunto un segnaposto `{{document}}` al posto del documento. Per testare il prompt si può copiare e incollare un articolo da Wikipedia, come questa pagina per [prompt engineering](https://en.wikipedia.org/wiki/Prompt_engineering). A causa del contesto più ampio utilizzato per questo compito, stiamo utilizzando il modello `gpt-4-1106-preview` di OpenAI. È possibile utilizzare il prompt con altri LLM a contesto lungo come Claude. 
+
+Prompt 1: 
+```
+Sei un assistente disponibile. Il tuo compito è aiutare a rispondere a una domanda posta in un documento. Il primo passo consiste nell'estrarre dal documento le citazioni rilevanti per la domanda, delimitate da ####. Per favore produci l'elenco delle citazioni utilizzando <quotes></quotes>. Rispondi con "Non sono state trovate citazioni pertinenti!" se non sono state trovate citazioni pertinenti.
+
+
+####
+{{document}}
+####
+```
+
+Ecco una schermata dell'intero prompt, compresa la domanda che viene passata utilizzando il ruolo `user`.
+
+<Screenshot src={PC1} alt="Prompt Chaining Parte 1" />
+
+Output del Prompt 1:
+```
+<quotes>
+- Chain-of-thought (CoT) prompting[27]
+- Generated knowledge prompting[37]
+- Least-to-most prompting[38]
+- Self-consistency decoding[39]
+- Complexity-based prompting[41]
+- Self-refine[42]
+- Tree-of-thought prompting[43]
+- Maieutic prompting[45]
+- Directional-stimulus prompting[46]
+- Textual inversion and embeddings[59]
+- Using gradient descent to search for prompts[61][62][63][64]
+- Prompt injection[65][66][67]
+</quotes>
+```
+
+Le citazioni restituite nel primo prompt possono ora essere utilizzate come input per il secondo prompt sotto. Si noti che è possibile ripulire ancora un po' le citazioni, cioè rimuoverle. Queste citazioni potrebbero essere rimosse o utilizzate come parte di un altro prompt della catena, ma per ora le si ignora. Il secondo prompt prende quindi le citazioni rilevanti estratte dal prompt 1 e prepara una risposta utile alla domanda, dato il documento e le citazioni estratte. Il secondo prompt può essere il seguente:
+
+Prompt 2:
+```
+Dato un insieme di citazioni rilevanti (delimitate da <quotes></quotes>) estratte da un documento ed il documento originale (delimitato da ####), per favore componi una risposta alla domanda. Assicurati che la risposta sia accurata, abbia un tono amichevole e suoni utile.
+
+####
+{{document}}
+####
+
+<quotes>
+- Chain-of-thought (CoT) prompting[27]
+- Generated knowledge prompting[37]
+- Least-to-most prompting[38]
+- Self-consistency decoding[39]
+- Complexity-based prompting[41]
+- Self-refine[42]
+- Tree-of-thought prompting[43]
+- Maieutic prompting[45]
+- Directional-stimulus prompting[46]
+- Textual inversion and embeddings[59]
+- Using gradient descent to search for prompts[61][62][63][64]
+- Prompt injection[65][66][67]
+</quotes>
+```
+
+Output del Prompt 2:
+
+```
+Le tecniche di prompting menzionate nel documento includono:
+
+1. Chain-of-thought (CoT) prompting[27]
+2. Generated knowledge prompting[37]
+3. Least-to-most prompting[38]
+4. Self-consistency decoding[39]
+5. Complexity-based prompting[41]
+6. Self-refine[42]
+7. Tree-of-thought prompting[43]
+8. Maieutic prompting[45]
+9. Directional-stimulus prompting[46]
+10. Textual inversion and embeddings[59]
+11. Using gradient descent to search for prompts[61][62][63][64]
+12. Prompt injection[65][66][67]
+
+Ognuna di queste tecniche impiega strategie uniche per migliorare o specificare le interazioni con i modelli linguistici di grandi dimensioni per produrre i risultati desiderati.
+```
+
+Come si può vedere, la semplificazione e la creazione di catene di prompt è un approccio utile quando le risposte devono subire diverse operazioni o trasformazioni. Come esercizio, provate a progettare un prompt che rimuova le citazioni (ad esempio, [27]) dalla risposta prima di inviarla come risposta finale all'utente della vostra applicazione.
+
+Si possono trovare altri esempi di concatenamento di prompt in questa [documentazione](https://docs.anthropic.com/claude/docs/prompt-chaining) che sfrutta l'LLM di Claude. Il nostro esempio è ispirato ed adattato dai loro esempi.

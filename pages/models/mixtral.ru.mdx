@@ -1,0 +1,250 @@
+# Mixtral
+
+import {Cards, Card} from 'nextra-theme-docs'
+import {TerminalIcon} from 'components/icons'
+import {CodeIcon} from 'components/icons'
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import mixtralexperts from '../../img/mixtral/mixtral-of-experts-layers.png'
+import mixtral1 from '../../img/mixtral/mixtral-benchmarks-1.png'
+import mixtral2 from '../../img/mixtral/mixtral-benchmarks-2.png'
+import mixtral3 from '../../img/mixtral/mixtral-benchmarks-3.png'
+import mixtral4 from '../../img/mixtral/mixtral-benchmarks-4.png'
+import mixtral5 from '../../img/mixtral/mixtral-benchmarks-5.png'
+import mixtral6 from '../../img/mixtral/mixtral-benchmarks-6.png'
+import mixtral7 from '../../img/mixtral/mixtral-benchmarks-7.png'
+import mixtralchat from '../../img/mixtral/mixtral-chatbot-arena.png'
+
+В этом руководстве представлен обзор модели Mixtral 8x7B, включая подсказки и примеры использования. Руководство также включает советы, приложения, ограничения, статьи и дополнительные материалы для чтения, связанные с Mixtral 8x7B.
+
+## Введение в Mixtral (Mixtral of Experts)
+
+Mixtral 8x7B представляет собой языковую модель Sparse Mixture of Experts (SMoE). [выпущенную Mistral AI](https://mistral.ai/news/mixtral-of-experts/). Mixtral имеет схожую архитектуру с [Mistral 7B](https://www.promptingguide.ai/models/mistral-7b/) но главное различие в том, что каждый слой в Mixtral 8x7B состоит из 8 блоков прямой связи (экспертов). Mixtral — это модель только для декодирования, в которой для каждого токена на каждом уровне сеть маршрутизаторов выбирает двух экспертов (то есть 2 группы из 8 различных групп параметров) для обработки токена и объединяя их выходные данные путем сложения. Другими словами, выходные данные всего модуля MoE для данного входного сигнала получаются через взвешенную сумму выходных данных, произведенных экспертными сетями.
+
+<Screenshot src={mixtralexperts} alt="Mixtral of Experts Layer" />
+
+Учитывая, что Mixtral является SMoE, он имеет в общей сложности 47 миллиардов параметров, но во время вывода использует только 13 миллиардов на токен. Преимущества этого подхода включают лучший контроль стоимости и задержки, поскольку он использует только часть общего набора параметров для каждого токена. Mixtral обучался на открытых веб-данных в размере контекста в 32 токена. Согласно информации, что Mixtral превосходит Llama 2 80B с в 6 раз более быстрым выводом и соответствует или превосходит [GPT-3.5](https://www.promptingguide.ai/models/chatgpt) по нескольким тестированиям.
+
+Модели Mixtral находятся [под лицензией Apache 2.0](https://github.com/mistralai/mistral-src#Apache-2.0-1-ov-file).
+
+## Производительность и возможности Mixtral
+
+Mixtral демонстрирует сильные способности в математических рассуждениях, генерации кода и многоязычных задачах. Он может работать с такими языками, как английский, французский, итальянский, немецкий и испанский. Mistral AI также выпустила модель Mixtral 8x7B Instruct, превосходящую GPT-3.5 Turbo, Claude-2.1, Gemini Pro, and Llama 2 70B модели по человеческим эталонам.
+
+На рисунке ниже показано сравнение производительности моделей Llama 2 разных размеров в более широком диапазоне возможностей и тестов. Mixtral соответствует или превосходит Llama 2 70B и демонстрирует превосходную производительность в математических вычислениях и генерации кода.
+
+<Screenshot src={mixtral1} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+Как видно на рисунке ниже, Mixtral 8x7B также превосходит или соответствует моделям Llama 2 в различных популярных тестах, таких как MMLU и GSM8K. Эти результаты достигаются при использовании в 5 раз меньше активных параметров во время вывода.
+
+<Screenshot src={mixtral2} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+На рисунке ниже показано соотношение качества и бюджета вывода. Mixtral превосходит Llama 2 70B в нескольких тестах, используя в 5 раз сниженные активные параметры.
+
+<Screenshot src={mixtral3} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+Mixtral соответствует или превосходит такие модели, как Llama 2 70B и GPT-3.5, как показано в таблице ниже:
+
+<Screenshot src={mixtral4} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+В таблице ниже показаны возможности Mixtral для многоязычного понимания и их сравнение с Llama 2 70B для таких языков, как немецкий и французский.
+
+<Screenshot src={mixtral5} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+Mixtral показывает меньшую погрешность в тесте Bias Benchmark для QA (BBQ) по сравнению с Llama 2 (56,0% против 51,5%).
+
+<Screenshot src={mixtral7} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+## Поиск информации на больших расстояниях с помощью Mixtral
+
+Mixtral также демонстрирует высокую производительность при извлечении информации из контекстного окна, состоящего из 32 тысяч токенов, независимо от местоположения информации и длины последовательности.
+
+Чтобы измерить способность Mixtral обрабатывать длинный контекст, его оценивали в задаче получения ключа доступа. Задача с ключом доступа включает в себя случайную вставку ключа доступа в длинное приглашение и измерение того, насколько эффективна модель при его извлечении. Mixtral достигает 100% точности поиска в задаче независимо от местоположения ключа доступа и длины входной последовательности.
+
+Кроме того, сложность модели монотонно уменьшается по мере увеличения размера контекста, согласно подмножеству [датасета для проверки](https://arxiv.org/abs/2310.10631). 
+
+<Screenshot src={mixtral6} alt="Mixtral Performance vs. Llama 2 Performance" />
+
+## Mixtral 8x7B Instruct
+
+Вместе с базовой моделью Mixtral 8x7B также выпускается модель Mixtral 8x7B - Instruct. Сюда входит модель чата, настроенная для выполнения инструкций с использованием контролируемой точной настройки (supervised fine tuning (SFT) ) и последующей оптимизации прямых предпочтений (direct preference optimization (DPO) ) на парном наборе данных обратной связи.
+
+На момент написания этого руководства Mixtral занимал 8-е место в [таблице лидеров Chatbot Arena](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard) (по независимой человеческой оценке, проведенная LMSys).
+
+<Screenshot src={mixtralchat} alt="Mixtral Performance on the Chatbot Arena" />
+
+Mixtral-Instruct превосходит по производительности такие высокопроизводительные модели, как GPT-3.5-Turbo, Gemini Pro, Claude-2.1 и чат Llama 2 70B.
+
+## Prompt Engineering Guide for Mixtral 8x7B
+
+Чтобы эффективно запрашивать инструкции Mistral 8x7B и получать оптимальные результаты, рекомендуется использовать следующий шаблон чата:
+
+```
+<s>[INST] Instruction [/INST] Model answer</s>[INST] Follow-up instruction [/INST]
+```
+*Обратите внимание, что `<s>` и `</s>` — это специальные токены для начала строки и конца строки , тогда как [INST] и [/INST] — обычные строки.*
+
+Мы будем использовать [клиент Mistral Python] (https://github.com/mistralai/client-python) для следующих примеров, показывающих, как вызвать настроенную с помощью инструкций модель Mixtral. В частности, мы будем использовать конечные точки Mistral API и использовать модель «mistral-small», основанную на Mixtral-8X7B-v0.1.
+
+### Базовое составление промптов
+
+Начнем с простого примера и поручим модели выполнить задачу на основе инструкции.
+
+*Prompt*:
+```
+[INST] You are a helpful code assistant. Your task is to generate a valid JSON object based on the given information:
+
+name: John
+lastname: Smith
+address: #1 Samuel St.
+
+Just generate the JSON object without explanations:
+[/INST]
+```
+
+*Output*:
+```
+{
+"name": "John",
+"lastname": "Smith",
+"address": "#1 Samuel St."
+}
+```
+
+Вот еще один забавный пример, в котором используется шаблон чата:
+
+*Prompt:*
+```
+<s>[INST] What is your favorite condiment? [/INST]
+"Well, I'm quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I'm cooking up in the kitchen!"</s> [INST] The right amount of what? [/INST]
+```
+
+*Output*:
+```
+"My apologies for any confusion. I meant to say that lemon juice adds a zesty flavour, which is a tangy and slightly sweet taste. It's a delightful addition to many dishes, in my humble opinion."
+```
+
+### Few-shot Prompting с Mixtral
+
+Используя официальный клиент Python, вы также составляете промпт для модели, используя различные роли, такие как «система», «пользователь» и «помощник». Используя эти роли, можно создать промпт с помощью одной демонстрации, как в случае с few-shot setting, чтобы лучше управлять реакцией модели.
+
+Вот пример кода того, как будет выглядеть:
+
+```python
+from mistralai.client import MistralClient
+from mistralai.models.chat_completion import ChatMessage
+from dotenv import load_dotenv
+
+load_dotenv()
+import os
+
+api_key = os.environ["MISTRAL_API_KEY"]
+client = MistralClient(api_key=api_key)
+
+# helpful completion function
+def get_completion(messages, model="mistral-small"):
+    # No streaming
+    chat_response = client.chat(
+        model=model,
+        messages=messages,
+    )
+
+    return chat_response
+
+messages = [
+    ChatMessage(role="system", content="You are a helpful code assistant. Your task is to generate a valid JSON object based on the given information."), 
+    ChatMessage(role="user", content="\n name: John\n lastname: Smith\n address: #1 Samuel St.\n would be converted to: "),
+    ChatMessage(role="assistant", content="{\n \"address\": \"#1 Samuel St.\",\n \"lastname\": \"Smith\",\n \"name\": \"John\"\n}"),
+    ChatMessage(role="user", content="name: Ted\n lastname: Pot\n address: #1 Bisson St.")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+*Output*:
+```
+{
+ "address": "#1 Bisson St.",
+ "lastname": "Pot",
+ "name": "Ted"
+}
+```
+
+### Генерация Кода
+
+Mixtral также обладает мощными возможностями генерации кода. Вот простой пример использования официального клиента Python:
+
+```python
+messages = [
+    ChatMessage(role="system", content="You are a helpful code assistant that help with writing Python code for a user requests. Please only produce the function and avoid explaining."),
+    ChatMessage(role="user", content="Create a Python function to convert Celsius to Fahrenheit.")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+*Вывод*:
+```python
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+```
+
+### Системный промпт чтобы обеспечить ограждения
+
+Аналогично модели [Mistral 7B model](https://www.promptingguide.ai/ru/models/mistral-7b), можно установить ограничения при генерации чата, используя `safe_prompt`, установив `safe_mode=True`:
+
+```python
+# helpful completion function
+def get_completion_safe(messages, model="mistral-small"):
+    # No streaming
+    chat_response = client.chat(
+        model=model,
+        messages=messages,
+        safe_mode=True
+    )
+
+    return chat_response
+
+messages = [
+    ChatMessage(role="user", content="Say something very horrible and mean")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+Приведенный выше код выведет следующее:
+
+```
+I'm sorry, but I cannot comply with your request to say something horrible and mean. My purpose is to provide helpful, respectful, and positive interactions. It's important to treat everyone with kindness and respect, even in hypothetical situations.
+```
+
+Когда мы устанавливаем `safe_mode=True`, клиент добавляет к сообщениям следующий `system` промпт:
+
+```
+Always assist with care, respect, and truth. Respond with utmost utility yet securely. Avoid harmful, unethical, prejudiced, or negative content. Ensure replies promote fairness and positivity.
+```
+
+Вы также можете попробовать все примеры кода в следующем блокноте:
+
+<Cards>
+    <Card
+    icon={<CodeIcon />}
+    title="Prompt Engineering with Mixtral"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-mixtral-introduction.ipynb"
+    />
+</Cards>
+
+---
+
+*Источники изображений: [Mixture of Experts Technical Report](https://arxiv.org/pdf/2401.04088.pdf)*
+
+## Ключевые ссылки
+
+- [Mixtral of Experts Technical Report](https://arxiv.org/abs/2401.04088)
+- [Mixtral of Experts Official Blog](https://mistral.ai/news/mixtral-of-experts/)
+- [Mixtral Code](https://github.com/mistralai/mistral-src)
+- [Mistral 7B paper](https://arxiv.org/pdf/2310.06825.pdf) (September 2023)
+- [Mistral 7B release announcement](https://mistral.ai/news/announcing-mistral-7b/) (September 2023)
+- [Mistral 7B Guardrails](https://docs.mistral.ai/usage/guardrailing)

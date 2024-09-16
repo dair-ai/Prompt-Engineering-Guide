@@ -1,0 +1,16 @@
+# Solicitação de estímulo direcional
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import DSP from '../../img/dsp.jpeg'
+
+[Li et al., (2023)](https://arxiv.org/abs/2302.11520) propõe uma nova técnica de solicitação para orientar melhor o LLM na geração do resumo desejado.
+
+Um LM de política sintonizável é treinado para gerar o estímulo/dica. Vendo mais uso de RL para otimizar LLMs.
+
+A figura abaixo mostra como o Prompt de Estímulo Direcional se compara ao prompt padrão. A política LM pode ser pequena e otimizada para gerar as dicas que orientam um LLM congelado em caixa preta.
+
+<Screenshot src={DSP} alt="DSP" />
+Fonte da imagem: [Li et al., (2023)](https://arxiv.org/abs/2302.11520)
+
+Exemplo completo em breve!

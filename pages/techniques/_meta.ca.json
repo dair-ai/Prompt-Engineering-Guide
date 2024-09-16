@@ -1,0 +1,19 @@
+{
+    "zeroshot": "Prompt sense entrenament previ (Zero-shot)",
+    "fewshot": "Prompt amb poques mostres (Few-shot)",
+    "cot": "Prompt cadena de pensament (CoT)",
+    "consistency": "Autoconsistència",
+    "knowledge": "Prompt de coneixement generat",
+    "prompt_chaining": "Prompt Chaining",
+    "tot": "Tree of Thoughts",
+    "rag": "Retrieval Augmented Generation",
+    "art": "Automatic Reasoning and Tool-use",
+    "ape": "Enginyeria de prompts automàtic (APE)",
+    "activeprompt": "Prompt actiu",
+    "dsp": "Prompt d'Estímul dirigit",
+    "pal": "Program-Aided Language Models",
+    "react": "ReAct",
+    "reflexion": "Reflexion",
+    "multimodalcot": "Prompt CoT multimodal",
+    "graph": "Prompt de graf"
+}

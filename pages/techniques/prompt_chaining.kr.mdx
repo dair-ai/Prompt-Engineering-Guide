@@ -1,0 +1,99 @@
+# Prompt Chaining
+
+import {Screenshot} from 'components/screenshot'
+import PC1 from '../../img/prompt_chaining/prompt-chaining-1.png'
+
+## Introduction to Prompt Chaining
+
+LLM의 안정성과 성능을 개선하기 위해 중요한 프롬프트 엔지니어링 기법 중 하나는 작업을 하위 작업으로 분할하는 것입니다. 이러한 하위 작업이 식별되면 LLM에 하위 작업에 대한 프롬프트가 표시되고 그 응답이 다른 프롬프트의 입력으로 사용됩니다. 프롬프트 연쇄라는 개념으로 작업을 하위 작업으로 분할하여 프롬프트 작업의 연쇄를 만드는 것을 프롬프트 체이닝 이라고 합니다.
+
+프롬프트 체이닝은 매우 상세한 프롬프트로 프롬프트를 보낼 경우 LLM이 처리하기 어려울 수 있는 복잡한 작업을 수행하는 데 유용합니다. 프롬프트 체이닝에서 프롬프트는 최종 원하는 상태에 도달하기 전에 생성된 응답에 대해 변환 또는 추가 프로세스를 수행합니다. 
+
+프롬프트 체이닝은 더 나은 성능을 달성하는 것 외에도 LLM 애플리케이션의 투명성을 높이고 제어 가능성 및 안정성을 높이는 데 도움이 됩니다. 즉, 모델 응답의 문제를 훨씬 쉽게 디버그하고 개선이 필요한 여러 단계의 성능을 분석하고 개선할 수 있습니다.
+
+프롬프트 체이닝은 LLM 기반 대화형 어시스턴트를 구축하고 애플리케이션의 개인화 및 사용자 경험을 개선할 때 특히 유용합니다. 
+
+## 프롬프트 체이닝 사용 사례
+
+### 문서 QA를 위한 프롬프트 체이닝
+
+프롬프트 체인이닝은 여러 작업이나 변환을 수반할 수 있는 다양한 시나리오에서 사용할 수 있습니다. 예를 들어, LLM의 일반적인 사용 사례 중 하나는 큰 텍스트 문서에 대한 질문에 답하는 것입니다. 첫 번째 프롬프트는 질문에 답하기 위해 관련 인용문을 추출하고 두 번째 프롬프트는 주어진 질문에 답하기 위해 인용문과 원본 문서를 입력으로 받는 두 개의 서로 다른 프롬프트를 디자인하면 도움이 됩니다. 즉, 문서가 주어졌을 때 질문에 답하는 작업을 수행하기 위해 서로 다른 두 개의 프롬프트를 만들게 됩니다.
+
+아래의 첫 번째 프롬프트는 질문이 주어진 문서에서 관련 인용문을 추출합니다. 간단하게 하기 위해 `{{document}}` 문서에 대한 자리 표시자를 추가했습니다. 프롬프트를 테스트하려면 [프롬프트 엔지니어링](https://en.wikipedia.org/wiki/Prompt_engineering)에 대한 이 페이지와 같은 Wikipedia 문서를 복사하여 붙여넣을 수 있습니다. 이 작업에는 더 큰 컨텍스트가 사용되기 때문에 OpenAI의 `gpt-4-1106-preview` 모델을 사용하고 있습니다. 이 프롬프트는 Claude와 같은 다른 긴 컨텍스트의 LLM과 함께 사용할 수 있습니다. 
+
+Prompt 1: 
+```
+You are a helpful assistant. Your task is to help answer a question given a document. The first step is to extract quotes relevant to the question from the document, delimited by ####. Please output the list of quotes using <quotes></quotes>. Respond with "No relevant quotes found!" if no relevant quotes were found.
+####
+{{document}}
+####
+```
+
+다음은 `user` 역할을 사용하여 전달되는 질문을 포함한 전체 프롬프트의 스크린샷입니다.
+
+<Screenshot src={PC1} alt="Prompt Chaining Part 1" />
+
+Output of Prompt 1:
+```
+<quotes>
+- Chain-of-thought (CoT) prompting[27]
+- Generated knowledge prompting[37]
+- Least-to-most prompting[38]
+- Self-consistency decoding[39]
+- Complexity-based prompting[41]
+- Self-refine[42]
+- Tree-of-thought prompting[43]
+- Maieutic prompting[45]
+- Directional-stimulus prompting[46]
+- Textual inversion and embeddings[59]
+- Using gradient descent to search for prompts[61][62][63][64]
+- Prompt injection[65][66][67]
+</quotes>
+```
+
+이제 첫 번째 프롬프트에서 반환된 따옴표를 아래 두 번째 프롬프트의 입력으로 사용할 수 있습니다. 따옴표를 조금 더 정리할 수 있습니다. 즉, 인용을 제거할 수 있습니다. 이러한 인용문은 제거하거나 체인의 다른 프롬프트의 일부로 활용할 수 있지만 지금은 무시합니다. 그러면 두 번째 프롬프트는 프롬프트 1에서 추출한 관련 인용문을 가져와 문서와 추출된 인용문을 바탕으로 질문에 대한 유용한 답변을 준비합니다. 두 번째 프롬프트는 다음과 같을 수 있습니다:
+
+Prompt 2:
+```
+Given a set of relevant quotes (delimited by <quotes></quotes>) extracted from a document and the original document (delimited by ####), please compose an answer to the question. Ensure that the answer is accurate, has a friendly tone, and sounds helpful.
+####
+{{document}}
+####
+<quotes>
+- Chain-of-thought (CoT) prompting[27]
+- Generated knowledge prompting[37]
+- Least-to-most prompting[38]
+- Self-consistency decoding[39]
+- Complexity-based prompting[41]
+- Self-refine[42]
+- Tree-of-thought prompting[43]
+- Maieutic prompting[45]
+- Directional-stimulus prompting[46]
+- Textual inversion and embeddings[59]
+- Using gradient descent to search for prompts[61][62][63][64]
+- Prompt injection[65][66][67]
+</quotes>
+```
+
+Output of Prompt 2:
+
+```
+The prompting techniques mentioned in the document include:
+1. Chain-of-thought (CoT) prompting[27]
+2. Generated knowledge prompting[37]
+3. Least-to-most prompting[38]
+4. Self-consistency decoding[39]
+5. Complexity-based prompting[41]
+6. Self-refine[42]
+7. Tree-of-thought prompting[43]
+8. Maieutic prompting[45]
+9. Directional-stimulus prompting[46]
+10. Textual inversion and embeddings[59]
+11. Using gradient descent to search for prompts[61][62][63][64]
+12. Prompt injection[65][66][67]
+Each of these techniques employs unique strategies to enhance or specify the interactions with large language models to produce the desired outcomes.
+```
+
+보시다시피 프롬프트 체인을 단순화하고 생성하는 것은 응답이 여러 가지 작업이나 변환을 거쳐야 하는 경우 유용한 프롬프트 접근 방식입니다. 연습 삼아 애플리케이션 사용자에게 최종 응답으로 보내기 전에 응답에서 인용문(예: [27])을 제거하는 프롬프트를 자유롭게 디자인해 보세요.
+
+또한 이 [문서](https://docs.anthropic.com/claude/docs/prompt-chaining)에서 Claude LLM을 활용한 프롬프트 체이닝의 더 많은 예시를 찾을 수 있습니다. 이 예제는 이러한 예제에서 영감을 받아 수정한 것입니다.

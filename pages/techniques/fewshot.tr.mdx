@@ -1,0 +1,107 @@
+# Az-Örnekli İstem
+
+Büyük dil modelleri, sıfır örnekleme yeteneklerini göstermekte olağanüstü bir başarı sergilese de, sıfır örnekli ayarları kullanırken daha karmaşık görevlerde yetersiz kalabilirler. Az örnekli istem kullanımı, modele daha iyi bir performans için yol göstermek üzere istemde gösterimler sağlayarak duruma özgü öğrenmeyi sağlama tekniği olarak kullanılabilir. Gösterimler, modelin bir yanıt oluşturmasını istediğimiz sonraki örnekler için koşul oluşturur.
+
+[Touvron ve diğerleri 2023](https://arxiv.org/pdf/2302.13971.pdf) 'e göre, az örnekleme özellikleri, modeller yeterli boyuta ölçeklendiğinde ilk ortaya çıktı [(Kaplan ve diğerleri., 2020)](https://arxiv.org/abs/2001.08361).
+
+Az örnekli istemin kullanımını, [Brown ve diğerleri. 2020](https://arxiv.org/abs/2005.14165) 'de sunulan bir örnekle gösterelim. Bu örnekte, görev bir kelimeyi cümlede doğru şekilde kullanmaktır
+
+*İstem:*
+```
+Bir "whatpu", Tanzanya'ya özgü küçük, tüylü bir hayvandır. "Whatpu" kelimesinin kullanıldığı örneğin bir cümlesi şudur:
+Afrika'daki seyahatimiz sırasında bu çok şirin whatpu'ları gördük.
+"Farduddle" yapmak, çok hızlı bir şekilde zıplamak anlamına gelir. "Farduddle" kelimesinin kullanıldığı bir cümlenin örneği şudur:
+```
+
+*Çıktı:*
+```
+Maçı kazandığımızda, hepsi sevinçle farduddle yapmaya başladık.
+```
+
+Modelin, yalnızca bir örnek vererek (yani 1-örnekli) görevi nasıl gerçekleştireceğini bir şekilde öğrendiğini gözlemleyebiliriz. Daha zor görevler için, gösterimleri artırmayı deneyebiliriz (örneğin, 3-örnekli, 5-örnekli, 10-örnekli, vb.).
+
+[Min ve diğerleri (2022)](https://arxiv.org/abs/2202.12837) 'nin bulgularını takiben, az-örnekli çalışırken gösterimler/örnekler hakkında birkaç ipucu daha bulunmaktadır:
+
+- "gösterimler tarafından belirlenen etiket boşluğu ve giriş metninin dağılımı her ikisi de önemlidir (etiketlerin bireysel girişler için doğru olup olmadığına bakılmaksızın)"
+- kullandığınız format da performansta kilit bir rol oynar, hatta yalnızca rastgele etiketler kullanırsanız bu, hiç etiket kullanmamaktan çok daha iyidir.
+- ek sonuçlar, rastgele etiketlerin (uniform dağılımdan değil) gerçek bir etiket dağılımından seçilmesinin de yardımcı olduğunu göstermektedir.
+
+Birkaç örneği deneyelim. İlk önce rastgele etiketlerle bir örnek deneyelim (bu, Negatif ve Pozitif etiketlerin girdilere rastgele atanması anlamına gelir):
+
+*İstem:*
+```
+Bu harika! // Negatif
+Bu kötü! // Pozitif
+Vay be, o film harikaydı! // Pozitif
+Ne kadar korkunç bir gösteri! //
+```
+
+*Çıktı:*
+```
+Negatif
+```
+
+Etiketler rastgeleleştirilmiş olsa da doğru yanıtı almaya devam ediyoruz. Ayrıca formatı da koruduk, bu da yardımcı oluyor. Aslında, daha ileri deneyselleştirmeyle, deneylediğimiz yeni GPT modellerinin rastgele formatlara bile daha dirençli hale geldiği görülüyor. Örnek:
+
+*İstem:*
+```
+Pozitif Bu harika!
+Negatif Bu kötü!
+Wow o film harika!
+Pozitif
+Ne kadar korkunç bir gösteri! --
+```
+
+*Çıktı:*
+```
+Negatif
+```
+
+Yukarıdaki formatın hiçbir tutarlılığı yok ama model hala doğru etiketi tahmin etti. Farklı ve daha karmaşık görevler için bu durumun geçerli olup olmadığını teyit etmek için daha kapsamlı bir analiz yapmamız gerekiyor, bu da istemlerin farklı varyasyonlarını içerir.
+
+### Az-Örnekli İstemin Sınırlılıkları
+
+Standart az-örnekli istem, birçok görevde iyi çalışıyor, ancak daha karmaşık çıkarım görevleriyle uğraşırken hâlâ mükemmel bir teknik değil. Bu durumun neden olduğunu gösterelim. Daha önce verilen şu görevi hatırlıyor musunuz:
+
+```
+Bu grubun tek sayıları bir çift sayıya toplanır: 15, 32, 5, 13, 82, 7, 1. 
+
+C: 
+```
+
+Bunu tekrar denediğimizde, model şunu verir:
+
+```
+Evet, bu grubun tek sayıları 107'ye toplanır, bu da bir çift sayıdır.
+```
+
+Bu doğru bir yanıt değil, bu yalnızca bu sistemlerin sınırlılıklarını belirtmekle kalmaz, aynı zamanda daha ileri düzeyde istem mühendisliğine ihtiyaç duyulduğunu da gösterir.
+
+Sonuçları geliştirmek için bazı örnekler eklemeyi deneyelim.
+
+*İstem:*
+```
+Bu grubun tek sayıları bir çift sayıya toplanır: 4, 8, 9, 15, 12, 2, 1.
+C: Yanıt Yanlıştır.
+
+Bu grubun tek sayıları bir çift sayıya toplanır: 17,  10, 19, 4, 8, 12, 24.
+C: Yanıt Doğrudur.
+
+Bu grubun tek sayıları bir çift sayıya toplanır: 16,  11, 14, 4, 8, 13, 24.
+C: Yanıt Doğrudur.
+
+Bu grubun tek sayıları bir çift sayıya toplanır: 17,  9, 10, 12, 13, 4, 2.
+C: Yanıt Yanlıştır.
+
+Bu grubun tek sayıları bir çift sayıya toplanır: 15, 32, 5, 13, 82, 7, 1. 
+C: 
+```
+
+*Çıktı:*
+```
+Yanıt Doğrudur.
+```
+
+Bu işe yaramadı. Az-örnekli istem kullanmanın, bu tür çıkarım problemleri için güvenilir yanıtlar almak için yeterli olmadığı gibi görünüyor. Yukarıdaki örnek, göreve dair temel bilgileri sağlar. Daha yakından bakarsanız, giriş yaptığımız görev tipi, birkaç çıkarım adımı daha içerir. Diğer bir deyişle, sorunu adımlara bölebilir ve bunu modelin anlamasını sağlayabiliriz. Son zamanlarda, [düşünce zinciri (CoT) istemi](https://arxiv.org/abs/2201.11903), daha karmaşık aritmetik, sağduyu ve sembolik çıkarım görevlerini ele almak için popüler hale gelmiştir. 
+
+Genel olarak, örneklerin sağlandığı bazı görevlerde faydalı olduğu görünmektedir. Sıfır-örnekli ve az-örnekli istemler yetersiz olduğunda, modelin öğrendiklerinin belirli bir görevi iyi yapmak için yeterli olmadığı anlamına gelir. Bu noktadan itibaren, modellerinizi ince ayarlamaya veya daha ileri düzeyde istem teknikleriyle denemeler yapmaya başlamanız önerilir. Sonraki bölümde, oldukça popüler olan düşünce zinciri istemine yer veriyoruz.

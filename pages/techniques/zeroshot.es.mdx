@@ -1,0 +1,22 @@
+# Prompt sin entrenamiento previo (Zero-shot)
+
+Los LLMs de hoy en día entrenados con grandes cantidades de datos y ajustados para seguir instrucciones, son capaces de realizar tareas sin necesidad de entrenamiento. Probamos algunos ejemplos de cero entrenamiento en la sección anterior. Aquí hay uno de los ejemplos que usamos:
+
+*Prompt:*
+```
+Clasifica el texto en neutral, negativo o positivo. 
+
+Texto: Creo que las vacaciones están bien.
+Sentimiento:
+```
+
+*Output:*
+```
+Neutral
+```
+
+Tenga en cuenta que en la instrucción anterior no proporcionamos al modelo ningún ejemplo, eso es el prompt sin entrenamiento.
+
+El ajuste de instrucciones ha demostrado mejorar el aprendizaje sin entrenamiento [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). El ajuste de instrucciones es esencialmente el concepto de ajustar modelos en conjuntos de datos descritos a través de instrucciones. Además, RLHF (aprendizaje por refuerzo a partir de la retroalimentación humana) se ha adoptado para escalar el ajuste de instrucciones, en el que el modelo se alinea mejor con las preferencias humanas. Este reciente desarrollo impulsa modelos como ChatGPT. Discutiremos todos estos enfoques y métodos en las próximas secciones.
+
+Cuando el prompt sin entrenamiento no funciona, se recomienda proporcionar demostraciones o ejemplos en la instrucción, lo que lleva a un entrenamiento con pocos ejemplos. En la siguiente sección, demostraremos el entrenamiento con pocas muestras/ejemplos.

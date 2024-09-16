@@ -1,0 +1,82 @@
+# Scaling Instruction-Finetuned Language Models
+
+import {Screenshot} from 'components/screenshot'
+import FLAN1 from '../../img/flan-1.png'
+import FLAN2 from '../../img/flan-2.png'
+import FLAN3 from '../../img/flan-3.png'
+import FLAN4 from '../../img/flan-4.png'
+import FLAN5 from '../../img/flan-5.png'
+import FLAN6 from '../../img/flan-6.png'
+import FLAN7 from '../../img/flan-7.png'
+import FLAN8 from '../../img/flan-8.png'
+import FLAN9 from '../../img/flan-9.png'
+import FLAN10 from '../../img/flan-10.png'
+import FLAN11 from '../../img/flan-11.png'
+
+## Cosa c'è di nuovo?
+
+<Screenshot src={FLAN1} alt="FLAN1" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Questo documento esplora i vantaggi del ridimensionamento [instruction finetuning](https://arxiv.org/pdf/2109.01652.pdf) e come migliora le prestazioni su una varietà di modelli (PaLM, T5), richiede configurazioni (zero-shot, few- shot, CoT) e benchmark (MMLU, TyDiQA). Questo viene esplorato con i seguenti aspetti: ridimensionamento del numero di attività (attività 1.8K), ridimensionamento delle dimensioni del modello e messa a punto dei dati della catena di pensiero (9 set di dati utilizzati).
+
+**Procedura di messa a punto:**
+- Le attività 1.8K sono state formulate come istruzioni e utilizzate per mettere a punto il modello
+- Utilizza sia con che senza esemplari, sia con e senza CoT
+
+Attività di messa a punto e attività trattenute mostrate di seguito:
+
+<Screenshot src={FLAN11} alt="FLAN11" />
+
+## Capacità e risultati chiave
+
+- La messa a punto delle istruzioni si adatta bene al numero di compiti e alle dimensioni del modello; ciò suggerisce la necessità di ridimensionare ulteriormente il numero di attività e le dimensioni del modello
+- L'aggiunta di set di dati CoT nella messa a punto consente buone prestazioni nelle attività di ragionamento
+- Flan-PaLM ha migliorato le capacità multilingue; Miglioramento del 14,9% su TyDiQA one-shot; Miglioramento dell'8,1% sul ragionamento aritmetico nelle lingue sottorappresentate
+- Plan-PaLM funziona bene anche su domande di generazione a risposta aperta, che è un buon indicatore per una migliore usabilità
+- Migliora le prestazioni nei benchmark RAI (Responsible AI).
+- I modelli ottimizzati per le istruzioni Flan-T5 dimostrano forti capacità di pochi colpi e superano i checkpoint pubblici come T5
+
+**I risultati quando si ridimensiona il numero di attività di fine tuning e la dimensione del modello:** si prevede che il ridimensionamento sia della dimensione del modello che del numero di attività di fine tuning continui a migliorare le prestazioni, sebbene il ridimensionamento del numero di attività abbia ridotto i rendimenti.
+
+<Screenshot src={FLAN2} alt="FLAN2" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+**I risultati della messa a punto con dati non-CoT e CoT:** la messa a punto congiunta di dati non-CoT e CoT migliora le prestazioni in entrambe le valutazioni, rispetto alla messa a punto solo di una o dell'altra.
+
+<Screenshot src={FLAN3} alt="FLAN3" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Inoltre, l'autocoerenza unita al CoT raggiunge risultati SoTA su diversi benchmark. L'autocoerenza CoT + migliora anche significativamente i risultati sui benchmark che coinvolgono problemi matematici (ad esempio, MGSM, GSM8K).
+
+<Screenshot src={FLAN4} alt="FLAN4" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+La messa a punto CoT sblocca il ragionamento zero-shot, attivato dalla frase "pensiamo passo dopo passo", sui compiti BIG-Bench. In generale, il CoT Flan-PaLM a zero-shot supera le prestazioni del CoT PaLM a zero-shot senza messa a punto.
+
+<Screenshot src={FLAN6} alt="FLAN6" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Di seguito sono riportate alcune dimostrazioni di CoT a zero-shot per PaLM e Flan-PaLM in attività invisibili.
+
+<Screenshot src={FLAN5} alt="FLAN5" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Di seguito sono riportati altri esempi per il prompt a zero-shot. Mostra come il modello PaLM lotti con le ripetizioni e non risponda alle istruzioni nell'impostazione a zero-shot dove il Flan-PaLM è in grado di funzionare bene. Gli esemplari a few-shot possono mitigare questi errori.
+
+<Screenshot src={FLAN7} alt="FLAN7" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Di seguito sono riportati alcuni esempi che dimostrano più capacità zero-shot del modello Flan-PALM su diversi tipi di domande aperte impegnative:
+
+<Screenshot src={FLAN8} alt="FLAN8" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+
+<Screenshot src={FLAN9} alt="FLAN9" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+<Screenshot src={FLAN10} alt="FLAN10" />
+fonte dell'immagine: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Puoi provare [i modelli Flan-T5 su Hugging Face Hub](https://huggingface.co/google/flan-t5-xxl).

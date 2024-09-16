@@ -1,0 +1,25 @@
+# Automatic Reasoning and Tool-use (ART)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ART from '../../img/ART.png'
+import ART2 from '../../img/ART2.png'
+
+생각의 사슬(chain-of-thought; CoT) 프롬프팅과 도구를 교차적으로 결합하는 것은 대규모언어모델로 많은 작업을 처리하는 강력하고 견고한 접근 방식인 것으로 밝혀졌습니다. 이러한 접근법들은 일반적으로 작업 특정 시연을 수작업으로 제작하고, 주의 깊게 교차하여 모델을 생성하고 도구를 사용해야 합니다. [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)은 프로그램으로 중간 추론 단계를 자동 생성하기 위해 frozen 대규모언어모델을 사용하는 새로운 프레임워크를 제안합니다.
+
+ART는 다음과 같이 작동합니다:
+- 새로운 작업이 주어지면 작업 라이브러리에서 다단계의 추론 및 도구 사용 시연을 선택합니다.
+- 테스트 시에는 외부 도구가 호출될 때마다 생성을 일시 중단하고, 생성을 재개하기 전에 그 출력들을 통합합니다.
+
+ART는 모델이 시연들로부터 일반화하여 새로운 작업을 분해하고 적절한 장소에서 도구를 사용하도록 
+장려하는데, 이는 제로샷(zero-shot) 방식으로 이루어집니다. 또한 ART는 사람들로 하여금 추론 단계에서 오류를 수정하거나 단순히 작업 및 도구 라이브러리를 업데이트하여 새로운 도구를 추가할 수 있게 함으로써 확장 가능합니다. 과정은 다음과 같습니다:
+
+<Screenshot src={ART} alt="ART" />
+이미지 출처: [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)
+
+ART는 BigBench와 MMLU 벤치마크에서 보이지 않는 작업에 대해 퓨샷(few-shot) 프롬프팅과 자동 CoT를 크게 향상시키며, 사람의 피드백을 반영할 경우 수작업으로 만든 CoT 프롬프트의 성능을 능가합니다.
+
+아래는 BigBench와 MMLU 작업에서 ART의 성능을 보여 주는 표입니다:
+
+<Screenshot src={ART2} alt="ART2" />
+이미지 출처: [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)

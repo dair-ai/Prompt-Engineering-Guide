@@ -1,0 +1,105 @@
+# PAL (프로그램지원언어모델)
+
+import { Callout, FileTree } from "nextra-theme-docs";
+import { Screenshot } from "components/screenshot";
+import PAL from "../../img/pal.png";
+
+[Gao et al., (2022)](https://arxiv.org/abs/2211.10435)는 LLM을 이용하여 자연어 문제를 읽고 중간 추론 단계로서의 프로그램을 생성하는 방법을 제시합니다. 그 방법은 프로그램지원언어모델(program-aided language models; PAL)이라고 이름 붙었으며, 해답을 얻기 위해 자유 형식 텍스트를 사용하는 대신 Python 인터프리터와 같은 프로그래밍 방식의 런타임을 통해 단계적으로 해결해 나간다는 점에서 생각의 사슬(chain-of-thought) 프롬프팅과 차이가 있습니다.
+
+<Screenshot src={PAL} alt="PAL" />
+이미지 출처: [Gao et al., (2022)](https://arxiv.org/abs/2211.10435)
+
+LangChain과 OpenAI GPT-3을 사용한 예시를 살펴보겠습니다. 우리는 Python 인터프리터를 활용하여 질문을 해석하고 답변을 제공하는 간단한 애플리케이션을 개발해야 하는 상황이라고 가정해 보겠습니다.
+
+그중에서도 날짜에 대한 이해가 필요한 질문에 대해서 LLM을 이용하여 답할 수 있는 기능을 만들고자 합니다. LLM에 제공할 프롬프트의 예제 중 일부는 [여기](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py)에서 채택했습니다.
+
+다음은 우리가 사용하는 import 문입니다.
+
+```python
+import openai
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+import os
+from langchain.llms import OpenAI
+from dotenv import load_dotenv
+```
+
+우선 몇 가지를 구성해 보겠습니다.
+
+```python
+load_dotenv()
+
+# API 구성
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# LangChain 구성
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+```
+
+모델 인스턴스를 설정합니다.
+
+```python
+llm = OpenAI(model_name='text-davinci-003', temperature=0)
+```
+
+프롬프트와 질문을 설정합니다.
+
+```python
+question = "오늘은 2023년 2월 27일이야. 나는 정확히 25년 전에 태어났어. 내가 태어난 날짜를 MM/DD/YYYY 형식으로 알려줘."
+
+DATE_UNDERSTANDING_PROMPT = """
+# Q: 2015년까지 36시간 남았어. 오늘로부터 일주일 뒤는 며칠인지 MM/DD/YYYY 형식으로 알려줘.
+# 2015년이 되기까지 36시간이 남았다면 오늘은 36시간 전이다.
+today = datetime(2015, 1, 1) - relativedelta(hours=36)
+# 오늘부터 일주일 뒤는
+one_week_from_today = today + relativedelta(weeks=1)
+# 답을 %m/%d/%Y 형식으로 하면
+one_week_from_today.strftime('%m/%d/%Y')
+# Q: 2019년의 첫 날은 화요일이고 오늘은 2019년의 첫 월요일이야. 오늘 날짜를 MM/DD/YYYY 형식으로 알려줘.
+# 2019년의 첫 날이 화요일이고 오늘이 2019년의 첫 월요일이라면 오늘은 6일 후다.
+today = datetime(2019, 1, 1) + relativedelta(days=6)
+# 답을 %m/%d/%Y 형식으로 하면
+today.strftime('%m/%d/%Y')
+# Q: 콘서트는 1943년 6월 1일에 열리기로 예정되어 있었는데, 하루 연기되어 오늘로 변경됐어. 10일 전 날짜를 MM/DD/YYY 형식으로 알려줘.
+# 콘서트가 1943년 6월 1일로 예정되어 있었으나 오늘로 하루 연기되었다면, 오늘은 하루가 지난 것이다.
+today = datetime(1943, 6, 1) + relativedelta(days=1)
+# 열흘 전의 날짜는
+ten_days_ago = today - relativedelta(days=10)
+# 답을 %m/%d/%Y의 형식으로 하면
+ten_days_ago.strftime('%m/%d/%Y')
+# Q: 오늘은 1969년 4월 19일이야. 24시간 후의 날짜를 MM/DD/YYYY 형식으로 알려줘.
+# 오늘의 날짜는 1969년 4월 19일이다.
+today = datetime(1969, 4, 19)
+# 24시간 후의 날짜는
+later = today + relativedelta(hours=24)
+# 답을 %m/%d/%Y의 형식으로 하면
+today.strftime('%m/%d/%Y')
+# Q: 영희는 오늘이 2002년 3월 11일이라고 생각했지만 실제로는 다음날인 3월 12일이야. 24시간 후의 날짜를 MM/DD/YYYY 형식으로 알려줘.
+# 영희는 오늘 날짜를 2002년 3월 11일이라고 생각했고, 사실 오늘은 3월 12일이면 오늘 날짜는 2002년 3월 12일이다.
+today = datetime(2002, 3, 12)
+# 24시간 후의 날짜는
+later = today + relativedelta(hours=24)
+# 답을 %m/%d/%Y의 형식으로 하면
+later.strftime('%m/%d/%Y')
+# Q: 영희는 2001년 2월 마지막 날 태어났어. 오늘은 영희의 16번째 생일이야. 어제의 날짜를 MM/DD/YYYY 형식으로 알려줘.
+# 영희가 2001년 2월의 마지막 날에 태어났고 오늘이 영희의 16번째 생일이라면 오늘은 16년 후다.
+today = datetime(2001, 2, 28) + relativedelta(years=16)
+# 어제 날짜는
+yesterday = today - relativedelta(days=1)
+# 답을 %m/%d/%Y의 형식으로 하면
+yesterday.strftime('%m/%d/%Y')
+# Q: {question}
+""".strip() + '\n'
+```
+
+```python
+llm_out = llm(DATE_UNDERSTANDING_PROMPT.format(question=question))
+print(llm_out)
+```
+
+```python
+exec(llm_out)
+print(born)
+```
+
+다음과 같은 결과를 얻을 수 있습니다: `02/27/1998`

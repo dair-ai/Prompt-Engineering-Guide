@@ -1,0 +1,103 @@
+# İstem Fonksiyonu
+
+## Giriş
+GPT'nin iletişim arayüzü ile bir programlama dilinin kabuğu arasında bir paralellik çizdiğimizde, kapsülleme isteminin bir fonksiyon oluşturduğu düşünülebilir. Bu fonksiyonun benzersiz bir adı vardır ve bu adı giriş metniyle birlikte çağırdığımızda, belirlenen iç kurallara dayanarak sonuçlar üretir. Kısacası, GPT ile kolayca etkileşim kurmayı mümkün kılan bir isim ile yeniden kullanılabilir bir istem oluşturuyoruz. GPT'nin adınıza belirli görevleri gerçekleştirmesine olanak sağlayan kullanışlı bir araca sahip olmak gibidir - sadece girişi vermeniz ve istenen çıktıyı almanız gerekir.
+
+İstemleri fonksiyonlara kapsüllediğinizde, bir iş akışı oluşturmak için bir dizi fonksiyon oluşturabilirsiniz. Her fonksiyon belirli bir adımı veya görevi temsil eder ve belirli bir sırada birleştirildiğinde, daha karmaşık süreçleri otomatikleştirebilir veya problemleri daha verimli bir şekilde çözebilir. Bu yaklaşım, GPT ile daha yapılandırılmış ve düzenli bir etkileşime olanak sağlar, sonuçta yeteneklerini artırır ve geniş bir yelpazede görevleri gerçekleştirecek güçlü bir araç haline getirir.
+
+Dolayısıyla bir fonksiyonu kullanmadan önce, GPT'ye hakkında bilgi vermemiz gerekiyor. İşte fonksiyonu tanımlayan bir istem.
+
+*İstem:*
+> Bu isteme **meta istem** diyelim.
+Bu istem GPT3.5 üzerinde test edilmiştir ve GPT4'te daha iyi performans gösterir
+
+```
+Merhaba, ChatGPT! Umarım iyisindir. Belirli bir fonksiyonla ilgili yardım için sana başvuruyorum. Bilgiyi işleme ve verilen talimatlara göre çeşitli görevleri yerine getirme yeteneğine sahip olduğunu anlıyorum. İsteğimi daha kolay anlamana yardımcı olmak için fonksiyonu, girdiyi ve girişle ne yapılacağına dair talimatları tanımlamak için bir şablon kullanacağım. Lütfen ayrıntıları aşağıda bulun:
+
+fonksiyon_adı: [Fonksiyon Adı]
+girdi: [Giriş]
+kurallar: [Girişin nasıl işleneceğine dair talimatlar]
+
+Bu fonksiyon için çıktıyı, sağladığım detaylara dayanarak sağlamanı rica ederim. Yardımın çok takdir edilmektedir. Teşekkür ederim!
+Parantez içindeki metni, gerçekleştirmenizi istediğim fonksiyon için ilgili bilgilerle değiştireceğim. Bu detaylı giriş, isteğimi daha verimli bir şekilde anlamanıza ve istenen çıktıyı sağlamanıza yardımcı olmalıdır. Format şu şekildedir: fonksiyon_adı(giriş) Eğer anladıysan, sadece bir kelime ile tamam yanıtını ver.
+
+```
+
+
+## Örnekler 
+
+### İngilizce çalışma yardımcısı
+Örneğin, GPT'yi İngilizce çalışmalarımızda yardımcı olarak kullanmak istediğimizi düşünelim. İşlemi, bir dizi fonksiyon oluşturarak basitleştirebiliriz.
+
+Bu örnek, GPT3.5'te test edilmiştir ve GPT4'te daha iyi performans gösterir.
+
+#### Fonksiyon açıklaması
+
+Yukarıdaki bölümde tanımlanan **meta istemini** GPT'ye yapıştırmamız gereklidir. 
+
+Sonra `trans_word` adında bir fonksiyon oluşturacağız.  
+Bu fonksiyon, GPT'den Çince'yi İngilizce'ye çevirmesini sağlar.
+
+*İstem:*
+```
+function_name: [trans_word]
+input: ["text"]
+rule: [Sizden bir İngilizce çevirmen, dil düzeltici ve geliştirici olarak hareket etmenizi istiyorum. Herhangi bir dildeki "text" dahil olmak üzere giriş formları sağlayacağım ve dilini algılayacak, çevirecek ve düzgün İngilizce bir yapıda metnimi yanıtlayacaksınız.]
+```
+
+Metni genişleten bir fonksiyon yazın.
+
+*İstem:*
+```
+function_name: [expand_word]
+input: ["text"]
+rule: [Bir Sohbet Kutusu, dil düzeltici ve dil geliştirici olarak hareket etmenizi rica ederim. Size, herhangi bir dilde "text" dahil olmak üzere giriş formları sağlarım ve orijinal dili çıktı veririm. Anlamını aynı tutmanızı ancak ifade şeklini daha edebi hale getirmenizi istiyorum.]
+```
+
+Metni düzelten bir fonksiyon yazın.
+
+*İstem:*
+```
+function_name: [fix_english]
+input: ["text"]
+rule: [Lütfen bir İngilizce usta, dil düzeltici ve dil geliştirici olarak hizmet verin. Size, "text" dahil giriş formları sağlarım, metnin kelime dağarcığını ve cümlelerini daha doğal ve zarif hale getirmenizi istiyorum. Anlamını aynı tutun.]
+```
+Son olarak, fonksiyonları bağımsız olarak çalıştırabilir veya onları bir araya getirebilirsiniz.
+
+*İstem:*
+```
+trans_word('婆罗摩火山处于享有“千岛之国”美称的印度尼西亚. 多岛之国印尼有4500座之多的火山, 世界著名的十大活火山有三座在这里.')
+fix_english('Son olarak, fonksiyonları bağımsız olarak çalıştırabilir veya onları bir araya getirebilirsiniz.')
+fix_english(expand_word(trans_word('婆罗摩火山处于享有“千岛之国”美称的印度尼西亚. 多岛之国印尼有4500座之多的火山, 世界著名的十大活火山有三座在这里.')))
+```
+Fonksiyonları bu formatla temsil ederek, her fonksiyonun adını, girişini ve girişi işleme kuralını net bir şekilde görebilirsiniz. Bu, iş akışındaki her adımın işlevselliğini ve amacını anlama konusunda düzenli bir yol sunar.
+
+_ipucu:_
+Eğer ChatGPT'nin aşırı bilgi çıkışı yapmasını istemezseniz, fonksiyonun kurallarını tanımladıktan sonra basitçe bir cümle ekleyebilirsiniz.
+```
+ANLAMADIKÇA BAŞKA HİÇBİR ŞEY SÖYLEME, TAMAM MI?
+```
+
+### Birden Fazla Parametreli Fonksiyon
+Beş giriş parametresi alarak bir şifre oluşturan bir fonksiyon oluşturalım ve oluşturulan şifreyi çıktı verelim.
+
+*İstem:*
+```
+fonksiyon_adı: [pg]
+giriş: ["uzunluk", "büyük_harf", "küçük_harf", "sayılar", "özel"]
+kural: [Size giriş formları olarak "uzunluk", "büyük_harf", "küçük_harf", "sayılar" ve "özel" karakterler dahil olmak üzere bilgileri sağlayacağım. Göreviniz bu giriş formlarını kullanarak karmaşık bir şifre oluşturmak ve bana sağlamaktır. Yanıtınızda herhangi bir açıklama veya ek bilgi eklemeyin, yalnızca oluşturulan şifreyi sağlayın. Örneğin, giriş formları uzunluk = 8, büyük_harf = 1, küçük_harf = 5, sayılar = 2, özel = 1 ise, yanıtınız "D5%t9Bgf" gibi bir şifre olmalıdır.]
+```
+```
+pg(uzunluk = 10, büyük_harf = 1, küçük_harf = 5, sayılar = 2, özel = 1)
+pg(10,1,5,2,1)
+```
+
+### Düşünceler
+Şu anda, GPT'yi programlama üzerine çalışan birçok proje var, örneğin:
+- [GitHub Copilot](https://github.com/features/copilot)
+- [Microsoft AI](https://www.microsoft.com/en-us/ai)
+- [chatgpt-plugins](https://openai.com/blog/chatgpt-plugins)
+- [LangChain](https://github.com/hwchase17/langchain)
+- [marvin](https://github.com/PrefectHQ/marvin)
+
+Ancak bu projeler ya ürün müşterisi ya da Python veya diğer programlama dilleri ile kodlama yapabilecek kullanıcılar için tasarlanmıştır. Ortalama bir kullanıcı için bunu kolay bir şablonda günlük işler için kullanın ve birkaç kez tekrarlayın. Bir not uygulamasına işlevi belgelendirin ve hatta bir kütüphaneye güncellenebilir. Alternatif olarak, [ChatGPT-Next-Web](https://github.com/Yidadaa/ChatGPT-Next-Web), [chatbox](https://github.com/Bin-Huang/chatbox), [PromptAppGPT](https://github.com/mleoking/PromptAppGPT) ve [ChatGPT-Desktop](https://github.com/lencx/ChatGPT) gibi bazı açık kaynaklı ChatGPT araçları kullanılabilir. Şu anda, ChatGPT-Next-Web, yeni sohbet başlatmadan önce birkaç şut eklemeyi mümkün kılar. Ve PromptAppGPT, istem şablonlarına dayalı web uygulamalarının düşük kodlu gelişimini destekler ve birkaç istem satırıyla herkesin AutoGPT-benzeri uygulamalar geliştirmesini sağlar. Bu özelliği, işlevimizi eklemek için kullanabiliriz, bu da daha sonra kullanılabilir.

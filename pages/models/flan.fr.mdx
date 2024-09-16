@@ -1,0 +1,83 @@
+# Échelle de modèles de langage finement ajustés aux instructions
+
+import {Screenshot} from 'components/screenshot'
+import FLAN1 from '../../img/flan-1.png'
+import FLAN2 from '../../img/flan-2.png'
+import FLAN3 from '../../img/flan-3.png'
+import FLAN4 from '../../img/flan-4.png'
+import FLAN5 from '../../img/flan-5.png'
+import FLAN6 from '../../img/flan-6.png'
+import FLAN7 from '../../img/flan-7.png'
+import FLAN8 from '../../img/flan-8.png'
+import FLAN9 from '../../img/flan-9.png'
+import FLAN10 from '../../img/flan-10.png'
+import FLAN11 from '../../img/flan-11.png'
+
+## Quoi de neuf ?
+
+<Screenshot src={FLAN1} alt="FLAN1" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+This paper explores the benefits scaling [instruction finetuning](https://arxiv.org/pdf/2109.01652.pdf) and how it improves performance on a variety of models (PaLM, T5), prompting setups (zero-shot, few-shot, CoT), and benchmarks (MMLU, TyDiQA). This is explored with the following aspects: scaling the number of tasks (1.8K tasks), scaling model size, and finetuning on chain-of-thought data (9 datasets used).
+
+**Procédure de finetuning**
+- 1.8K tasks were phrased as instructions and used to finetune the model
+- Uses both with and without exemplars, and with and without CoT
+
+Finetuning tasks and held out tasks shown below:
+
+<Screenshot src={FLAN11} alt="FLAN11" />
+
+## Capacités et résultats clés
+
+- L'optimisation de l'instruction s'étend bien avec le nombre de tâches et la taille du modèle ; cela suggère la nécessité de faire évoluer le nombre de tâches et la taille du modèle encore plus loin.
+- L'ajout de jeux de données CoT dans l'optimisation des instructions permet une bonne performance sur les tâches de raisonnement.
+- Flan-PaLM a amélioré les capacités multilingues ; 14,9 % d'amélioration sur TyDiQA en une seule étape ; 8,1 % d'amélioration sur le raisonnement arithmétique dans les langues sous-représentées.
+- Plan-PaLM fonctionne également bien sur les questions de génération ouverte, ce qui est un bon indicateur d'une meilleure utilisabilité.
+- Améliore les performances sur les benchmarks d'Intelligence Artificielle Responsable (IAR).
+- Les modèles optimisés par instruction de Flan-T5 démontrent de solides capacités en quelques étapes et surpassent les checkpoints publics tels que T5.
+
+
+**Les résultats lors de la mise à l'échelle du nombre de tâches de réglage fin et de la taille du modèle :** la mise à l'échelle de la taille du modèle et du nombre de tâches de réglage fin devrait continuer à améliorer les performances, bien que la mise à l'échelle du nombre de tâches ait des rendements réduits.
+
+<Screenshot src={FLAN2} alt="FLAN2" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+**Résultats lors d'un réglage fin avec des données non-CoT et CoT :** Un réglage fin conjoint sur des données non-CoT et CoT améliore les performances des deux évaluations, par rapport à un réglage fin sur l'une ou l'autre.
+
+<Screenshot src={FLAN3} alt="FLAN3" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+De plus, l'auto-cohérence combinée au CoT permet d'obtenir des résultats SoTA sur plusieurs benchmarks. CoT + auto-cohérence améliore également considérablement les résultats sur les benchmarks impliquant des problèmes mathématiques (par exemple, MGSM, GSM8K).
+
+<Screenshot src={FLAN4} alt="FLAN4" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Le réglage fin du CoT déverrouille le raisonnement zéro coup, activé par la phrase "pensons étape par étape", sur les tâches BIG-Bench. En général, le CoT Flan-PaLM à tir zéro surpasse le CoT PaLM à tir zéro sans réglage fin.
+
+<Screenshot src={FLAN6} alt="FLAN6" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Vous trouverez ci-dessous quelques démonstrations de CoT à tir zéro pour PaLM et Flan-PaLM dans des tâches invisibles.
+
+<Screenshot src={FLAN5} alt="FLAN5" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Ci-dessous se trouvent d'autres exemples pour la génération de texte sans cible. Cela montre comment le modèle PaLM a du mal avec les répétitions et ne répond pas aux instructions dans le contexte de génération de texte sans cible, tandis que le modèle Flan-PaLM est capable de bien performer. Les exemples exemplaires en quelques tirs peuvent atténuer ces erreurs. 
+
+<Screenshot src={FLAN7} alt="FLAN7" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Vous trouverez ci-dessous quelques exemples démontrant davantage de capacités de tir zéro du modèle Flan-PALM sur plusieurs types de questions ouvertes difficiles :
+
+<Screenshot src={FLAN8} alt="FLAN8" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+
+<Screenshot src={FLAN9} alt="FLAN9" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+<Screenshot src={FLAN10} alt="FLAN10" />
+Image Source: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+You can try [Flan-T5 models on the Hugging Face Hub](https://huggingface.co/google/flan-t5-xxl). 

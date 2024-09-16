@@ -1,0 +1,115 @@
+# Allgemeine Tipps für das Entwerfen von Prompts
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/7M6CSCIMJ3k?si=BgaVt9g1vS4BQzXZ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Hier sind einige Tipps, die Sie beim Entwerfen Ihrer Prompts im Kopf behalten sollten:
+
+### Beginnen Sie einfach
+Wenn Sie mit dem Entwerfen von Prompts beginnen, sollten Sie im Kopf behalten, dass dies wirklich ein iterativer Prozess ist, der viel Experimentieren erfordert, um optimale Ergebnisse zu erzielen. Die Verwendung eines einfachen Playgrounds von OpenAI oder Cohere ist ein guter Ausgangspunkt.
+
+Sie können mit einfachen Prompts starten und weitere Elemente und Kontext hinzufügen, während Sie auf bessere Ergebnisse abzielen. Ihr Prompt im Verlauf zu iterieren, ist aus diesem Grund von entscheidender Bedeutung. Während Sie den Leitfaden lesen, werden Sie viele Beispiele sehen, bei denen Spezifität, Einfachheit und Prägnanz Ihnen oft bessere Ergebnisse liefern werden.
+
+Wenn Sie eine große Aufgabe haben, die viele unterschiedliche Teilaufgaben umfasst, können Sie versuchen, die Aufgabe in einfachere Teilaufgaben zu zerlegen und weiter aufzubauen, während Sie bessere Ergebnisse erzielen. Dies vermeidet die Einführung von zu viel Komplexität zu Beginn des Prozesses der Promptgestaltung.
+
+### Die Anweisung
+Sie können effektive Prompts für verschiedene einfache Aufgaben entwerfen, indem Sie Befehle verwenden, um das Modell zu instruieren, was Sie erreichen möchten, zum Beispiel "Schreibe", "Klassifiziere", "Fasse zusammen", "Übersetze", "Ordne" usw.
+
+Behalten Sie im Kopf, dass Sie auch viel experimentieren müssen, um zu sehen, was am besten funktioniert. Probieren Sie verschiedene Anweisungen mit verschiedenen Schlüsselwörtern, Kontexten und Daten aus und sehen Sie, was für Ihren speziellen Anwendungsfall und Ihre Aufgabe am besten funktioniert. Normalerweise ist der Kontext, je spezifischer und relevanter zur Aufgabe, desto besser. Auf die Wichtigkeit von Sampling und das Hinzufügen von mehr Kontext werden wir in den kommenden Leitfäden näher eingehen.
+
+Andere empfehlen, dass Sie Anweisungen am Anfang des Prompts platzieren. Eine weitere Empfehlung ist es, einen klaren Trenner wie "###" zu verwenden, um die Anweisung und den Kontext zu trennen.
+
+Zum Beispiel:
+
+*Prompt:*
+```
+### Anweisung ###
+Übersetze den folgenden Text ins Spanische:
+
+Text: "Hallo!"
+```
+
+*Ausgabe:*
+```
+¡Hola!
+```
+
+### Spezifität
+Seien Sie sehr spezifisch bezüglich der Anweisung und der Aufgabe, die Sie vom Modell ausführen lassen möchten. Je beschreibender und detaillierter der Prompt ist, desto besser die Ergebnisse. Dies ist besonders wichtig, wenn Sie ein gewünschtes Ergebnis oder einen gewünschten Stil der Generierung anstreben. Es gibt keine spezifischen Tokens oder Schlüsselwörter, die zu besseren Ergebnissen führen. Wichtiger ist ein gutes Format und ein beschreibender Prompt. Tatsächlich ist das Bereitstellen von Beispielen im Prompt sehr effektiv, um gewünschte Ausgaben in spezifischen Formaten zu erhalten.
+
+Beim Entwerfen von Prompts sollten Sie auch die Länge des Prompts im Kopf behalten, da es Begrenzungen gibt, wie lang der Prompt sein kann. Überlegen Sie, wie spezifisch und detailliert Sie sein sollten. Zu viele unnötige Details einzuschließen ist nicht unbedingt ein guter Ansatz. Die Details sollten relevant sein und zur anstehenden Aufgabe beitragen. Dies ist etwas, mit dem Sie viel experimentieren müssen. Wir ermutigen zu viel Experimentieren und Iteration, um Prompts für Ihre Anwendungen zu optimieren.
+
+Als Beispiel versuchen wir einen einfachen Prompt, um spezifische Informationen aus einem Text zu extrahieren.
+
+*Prompt:*
+```
+Extrahiere die Namen von Orten im folgenden Text.
+
+Gewünschtes Format:
+Ort: <komma_separierte_Liste_von_Firmennamen>
+
+Input: "Although these developments are encouraging to researchers, much is still a mystery. “We often have a black box between the brain and the effect we see in the periphery,” says Henrique Veiga-Fernandes, a neuroimmunologist at the Champalimaud Centre for the Unknown in Lisbon. “If we want to use it in the therapeutic context, we actually need to understand the mechanism.""
+```
+
+*Ausgabe:*
+```
+Ort: Champalimaud Centre for the Unknown, Lissabon
+```
+
+Der Eingabetext ist aus [diesem Nature Artikel](https://www.nature.com/articles/d41586-023-00509-z) entnommen.
+
+### Vermeiden Sie Ungenauigkeit
+
+In Anbetracht der obigen Tipps über Detailreichtum und Verbesserung des Formats, ist es einfach, in die Falle zu tappen, zu clever mit Prompts sein zu wollen und potenziell ungenaue Beschreibungen zu erstellen. Es ist oft besser, spezifisch und direkt zu sein. Die Analogie hier ist sehr ähnlich zu effektiver Kommunikation – je direkter, desto effektiver kommt die Botschaft an.
+
+Zum Beispiel könnten Sie daran interessiert sein, das Konzept des Prompt-Engineerings zu erlernen. Sie könnten so etwas ausprobieren:
+
+```
+Erläutere das Konzept des Prompt-Engineerings. Halte die Erklärung kurz, nur ein paar Sätze, und sei nicht zu beschreibend.
+```
+
+Aus dem oben stehenden Prompt ist nicht klar, wie viele Sätze zu verwenden sind und welcher Stil. Sie könnten immer noch etwas gute Antworten mit den obigen Prompts erhalten, aber der bessere Prompt wäre einer, der sehr spezifisch, prägnant und auf den Punkt ist. Etwas wie:
+
+```
+Nutze 2-3 Sätze, um das Konzept des Prompt-Engineerings einem Oberschüler zu erklären.
+```
+
+### Tun oder nicht tun?
+Ein weiterer häufiger Tipp beim Gestalten von Prompts ist es, auszudrücken, was zu tun ist, anstatt zu sagen, was nicht zu tun ist. Dies fördert mehr Spezifität und konzentriert sich auf die Details, die zu guten Antworten vom Modell führen.
+
+Hier ist ein Beispiel eines Filmempfehlungs-Chatbots, der genau das tut, was ich nicht möchte, wegen der Art und Weise, wie ich die Anweisung geschrieben habe – fokussiert auf das, was nicht zu tun ist.
+
+*Prompt:*
+```
+Das Folgende ist ein Agent, der Kunden Filme empfiehlt. FRAGE NICHT NACH INTERESSEN. FRAGE NICHT NACH PERSÖNLICHEN INFORMATIONEN.
+
+Kunde: Bitte empfehlen Sie einen Film basierend auf meinen Interessen.
+Agent: 
+```
+
+*Ausgabe:*
+```
+Natürlich kann ich einen Film basierend auf Ihren Interessen empfehlen. Welche Art von Film möchten Sie sehen? Bevorzugen Sie Action, Komödie, Romantik oder etwas anderes?
+```
+
+Hier ist ein besserer Prompt:
+
+*Prompt:*
+```
+Das Folgende ist ein Agent, der Kunden Filme empfiehlt. Der Agent ist dafür verantwortlich, einen Film aus den globalen Top-Trendfilmen zu empfehlen. Er sollte davon absehen, die Nutzer nach ihren Vorlieben zu fragen und vermeiden, nach persönlichen Informationen zu fragen. Falls der Agent keinen Film zum Empfehlen hat, sollte er antworten "Sorry, ich finde heute keinen Film zum Empfehlen.".
+
+Kunde: Bitte empfehlen Sie einen Film basierend auf meinen Interessen.
+Agent:
+```
+
+*Ausgabe:*
+```
+Tut mir leid, ich habe keine Informationen für Ihre Interessen. Allerdings ist hier eine Liste der aktuellen globalen Top-Trendfilme: [Liste von Filmen]. Ich hoffe, Sie finden etwas, das Ihnen gefällt!
+```
+
+Einige der oben genannten Beispiele wurden aus dem Artikel ["Best practices for prompt engineering with OpenAI API"](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api) übernommen.

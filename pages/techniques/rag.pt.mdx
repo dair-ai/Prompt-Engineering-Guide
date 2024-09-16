@@ -1,0 +1,25 @@
+# Geração com Recuperação Aprimorada (RAG)
+
+import {Screenshot} from 'components/screenshot'
+import RAG from '../../img/rag.png'
+
+Os modelos de linguagem de uso geral podem ser ajustados para alcançar várias tarefas comuns, como análise de sentimento e reconhecimento de entidades nomeadas. Essas tarefas geralmente não exigem conhecimento adicional.
+
+Para tarefas mais complexas e intensivas em conhecimento, é possível construir um sistema baseado em modelo de linguagem que acessa fontes de conhecimento externas para concluir tarefas. Isso possibilita maior consistência factual, melhora a confiabilidade das respostas geradas e ajuda a mitigar o problema de "alucinação".
+
+Pesquisadores de Meta IA introduziram um método chamado [Geração com Recuperação Aprimorada (RAG)](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) para lidar com tarefas intensivas em conhecimento. O RAG combina um componente de recuperação de informações com um modelo gerador de texto. O RAG pode ser ajustado e seu conhecimento interno pode ser modificado de maneira eficiente e sem a necessidade de re-treinar todo o modelo.
+
+O RAG recebe uma entrada e recupera um conjunto de documentos relevantes/suportantes a partir de uma fonte (por exemplo, Wikipedia). Os documentos são concatenados como contexto com o prompt de entrada original e alimentados ao gerador de texto, que produz a saída final. Isso torna o RAG adaptável a situações em que os fatos podem evoluir ao longo do tempo. Isso é muito útil, já que o conhecimento paramétrico dos modelos de linguagem é estático. O RAG permite que os modelos de linguagem evitem o re-treinamento, possibilitando o acesso às informações mais recentes para gerar saídas confiáveis por meio da geração com recuperação.
+
+Lewis et al., (2021) propuseram uma receita de ajuste de uso geral para o RAG. Um modelo seq2seq pré-treinado é usado como memória paramétrica e um índice de vetor denso da Wikipedia é usado como memória não paramétrica (acessada por meio de um recuperador pré-treinado neural). Abaixo está uma visão geral de como a abordagem funciona:
+
+<Screenshot src={RAG} alt="RAG" />
+Fonte da imagem: [Lewis et el. (2021)](https://arxiv.org/pdf/2005.11401.pdf) 
+
+O RAG apresenta um desempenho forte em várias avaliações, como [Natural Questions](https://ai.google.com/research/NaturalQuestions), [WebQuestions](https://paperswithcode.com/dataset/webquestions) e CuratedTrec. O RAG gera respostas mais factuais, específicas e diversas ao ser testado em perguntas MS-MARCO e Jeopardy. O RAG também melhora os resultados na verificação de fatos do FEVER.
+
+Isso mostra o potencial do RAG como uma opção viável para aprimorar as saídas de modelos de linguagem em tarefas intensivas em conhecimento.
+
+Mais recentemente, essas abordagens baseadas em recuperador se tornaram mais populares e são combinadas com modelos de linguagem de grande porte, como o ChatGPT, para melhorar suas capacidades e consistência factual.
+
+Você pode encontrar um [exemplo simples de como usar recuperadores e modelos de linguagem para responder perguntas com fontes](https://python.langchain.com/en/latest/modules/chains/index_examples/vector_db_qa_with_sources.html) na documentação do LangChain.```

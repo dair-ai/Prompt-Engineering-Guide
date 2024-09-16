@@ -1,0 +1,15 @@
+{
+    "llm-agents": "LLM Agenten",
+    "rag": "RAG für LLMs",
+    "llm-reasoning": "LLM Reasoning",
+    "guided-cot": "LM-geführtes CoT",
+    "rag_hallucinations": "RAG Reduziert Halluzination",
+    "synthetic_data": "Synthetische Daten",
+    "rag-faithfulness": "RAG Zuverlässigkeit",
+    "llm-recall": "LLM In-Context Recall",
+    "thoughtsculpt": "ThoughtSculpt",
+    "infini-attention": "Infini-Attention",
+    "trustworthiness-in-llms": "Vertrauenswürdigkeit in LLMs",
+    "llm-tokenization": "LLM Tokenisierung",
+    "groq": "Was ist Groq?"
+}

@@ -1,0 +1,11 @@
+{
+    "finetuning-gpt4o": "Fine-tuning GPT-4o",
+    "function_calling": "Function Calling",
+    "context-caching": "Context Caching with LLMs",
+    "generating": "Generating Data",
+    "synthetic_rag": "Generating Synthetic Dataset for RAG",
+    "generating_textbooks": "Tackling Generated Datasets Diversity",
+    "coding": "Generating Code",
+    "workplace_casestudy": "Graduate Job Classification Case Study",
+    "pf": "Prompt Function"
+}

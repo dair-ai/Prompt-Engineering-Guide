@@ -1,0 +1,27 @@
+{
+  "index": "提示工程指南",
+  "introduction": "提示工程简介",
+  "techniques": "提示技术",
+  "applications": "提示应用",
+  "prompts": "Prompt Hub",
+  "models": "模型",
+  "risks": "风险和误用",
+  "research": "LLM Research Findings",
+  "papers": "论文",
+  "tools": "工具和库",
+  "notebooks": "Prompt Engineering 笔记本",
+  "datasets": "数据集",
+  "readings": "阅读推荐",
+  "course":{
+    "title": "提示工程课程",
+    "type": "page"
+  },
+  "services": {
+    "title": "服务",
+    "type": "page"
+  },
+  "about": {
+    "title": "关于",
+    "type": "page"
+  }
+}

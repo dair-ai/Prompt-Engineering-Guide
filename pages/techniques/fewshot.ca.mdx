@@ -1,0 +1,109 @@
+# Estimulació de pocs trets (Few-shot)
+
+Encara que els grans models de llenguatge demostrin capacitats notables en situacions de zero trets, encara no són suficients en tasques més complexes utilitzant aquesta configuració. L'estimulació de pocs trets es pot utilitzar com a tècnica per permetre l'aprenentatge en context, on proporcionem demostracions en l'estímul per dirigir el model cap a un millor rendiment. Les demostracions serveixen com a condicionament per als exemples posteriors on volem que el model generi una resposta.
+
+Segons [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf), les propietats de pocs trets van aparèixer primer quan els models es van escalar a una mida suficient [(Kaplan et al., 2020)](https://arxiv.org/abs/2001.08361).
+
+Anem a demostrar l'estimulació de pocs trets mitjançant un exemple presentat a [Brown et al. 2020](https://arxiv.org/abs/2005.14165). En l'exemple, la tasca és utilitzar correctament una paraula nova en una frase.
+
+*Estímul:*
+```
+Un "whatpu" és un petit animal pelut originari de Tanzània. Un exemple d'una frase que utilitza
+la paraula whatpu és:
+Estàvem viatjant per Àfrica i vam veure aquests whatpus molt monos.
+Fer un "farduddle" significa saltar amunt i avall molt ràpid. Un exemple d'una frase que utilitza
+la paraula farduddle és:
+```
+
+*Sortida:*
+```
+Quan vam guanyar el partit, tots vam començar a fer farduddle per celebrar-ho.
+```
+
+Podem observar que el model ha après de alguna manera com realitzar la tasca proporcionant-li només un exemple (és a dir, 1-tret). Per a tasques més difícils, podem experimentar amb l'augment de les demostracions (per exemple, 3-trets, 5-trets, 10-trets, etc.).
+
+Seguint les conclusions de [Min et al. (2022)](https://arxiv.org/abs/2202.12837), aquí hi ha alguns consells més sobre les demostracions/exemplars quan es fan pocs trets:
+
+- "l'espai d'etiquetes i la distribució del text d'entrada especificada per les demostracions són importants (independentment de si les etiquetes són correctes per a entrades individuals)"
+- el format que utilitzis també juga un paper clau en el rendiment, fins i tot si utilitzes etiquetes aleatòries, això és molt millor que no tenir etiquetes en absolut.
+- els resultats addicionals mostren que seleccionar etiquetes aleatòries d'una distribució veritable d'etiquetes (en lloc d'una distribució uniforme) també ajuda.
+
+Anem a provar alguns exemples. Provem primer un exemple amb etiquetes aleatòries (és a dir, les etiquetes Negatiu i Positiu s'assignen aleatòriament als inputs):
+
+*Estímul:*
+```
+Això és increïble! // Negatiu
+Això és dolent! // Positiu
+Uau, aquesta pel·lícula és genial! // Positiu
+Quin espectacle horrible! //
+```
+
+*Sortida:*
+```
+Negatiu
+```
+
+Encara obtenim la resposta correcta, tot i que les etiquetes s'han randomitzat. Tingueu en compte que també hem mantingut el format, la qual cosa també ajuda. De fet, amb més experimentació, sembla que els models GPT més nous amb els quals estem experimentant es tornen més robustos fins i tot amb formats aleatoris. Exemple:
+
+*Estímul:*
+```
+Positiu Això és increïble! 
+Això és dolent! Negatiu
+Uau, aquesta pel·lícula és genial!
+Positiu
+Quin espectacle horrible! --
+```
+
+*Sortida:*
+```
+Negatiu
+```
+
+No hi ha consistència en el format anterior, però el model encara ha predit l'etiqueta correcta. Haurem de dur a terme una anàlisi més exhaustiva per confirmar si això es manté per a tasques diferents i més complexes, incloses diferents variacions de l'estímul.
+
+### Limitacions de l'estimulació de pocs trets
+
+L'estimulació estàndard de pocs trets funciona bé per a moltes tasques, però encara no és una tècnica perfecta, especialment quan es tracta de tasques de raonament més complex. Anem a demostrar per què és així. Recordeu l'exemple anterior on vam proporcionar la següent tasca:
+
+```
+Els nombres imparells d'aquest grup sumen un nombre parell: 15, 32, 5, 13, 82, 7, 1. 
+
+A: 
+```
+
+Si tornem a provar, el model produeix la següent sortida:
+
+```
+Sí, els nombres imparells d'aquest grup sumen 107, que és un nombre parell.
+```
+
+Aquesta no és la resposta correcta, la qual cosa no només destaca les limitacions d'aquests sistemes, sinó que també indica que hi ha una necessitat de millorar l'enginyeria dels estímuls.
+
+Anem a provar d'afegir alguns exemples per veure si l'estimulació de pocs trets millora els resultats.
+
+*Estímul:*
+```
+Els nombres imparells d'aquest grup sumen un nombre parell: 4, 8, 9, 15, 12, 2, 1.
+A: La resposta és Fals.
+
+Els nombres imparells d'aquest grup sumen un nombre parell: 17,  10, 19, 4, 8, 12, 24.
+A: La resposta és Cert.
+
+Els nombres imparells d'aquest grup sumen un nombre parell: 16,  11, 14, 4, 8, 13, 24.
+A: La resposta és Cert.
+
+Els nombres imparells d'aquest grup sumen un nombre parell: 17,  9, 10, 12, 13, 4, 2.
+A: La resposta és Fals.
+
+Els nombres imparells d'aquest grup sumen un nombre parell: 15, 32, 5, 13, 82, 7, 1. 
+A: 
+```
+
+*Sortida:*
+```
+La resposta és Cert.
+```
+
+Això no ha funcionat. Sembla que l'estimulació de pocs trets no és suficient per obtenir respostes fiables per a aquest tipus de problema de raonament. L'exemple anterior proporciona informació bàsica sobre la tasca. Si mireu més de prop, el tipus de tasca que hem introduït implica alguns passos de raonament addicionals. En altres paraules, podria ser útil desglossar el problema en passos i demostrar-ho al model. Més recentment, l'[estimulació de cadena de pensament (CoT)](https://arxiv.org/abs/2201.11903) s'ha popularitzat per abordar tasques més complexes d'aritmètica, raonament de sentit comú i simbòlic.
+
+En general, sembla que proporcionar exemples és útil per resoldre algunes tasques. Quan l'estimulació de zero trets i pocs trets no és suficient, podria ser que el que ha après el model no sigui suficient per fer-ho bé en la tasca. A partir d'aquí, es recomana començar a pensar en ajustar els vostres models o experimentar amb tècniques d'estimulació més avançades. A continuació, parlem d'una de les tècniques d'estimulació populars anomenada estimulació de cadena de pensament, que ha guanyat molta popularitat.

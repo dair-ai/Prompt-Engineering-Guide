@@ -1,0 +1,20 @@
+{
+    "zeroshot": "Prompt Zero-shot",
+    "fewshot": "Prompt Few-shot",
+    "cot": "Prompt Chain-of-Thought",
+    "consistency": "Self-Consistency",
+    "knowledge": "Prompt Generate Knowledge",
+    "prompt_chaining": "Prompt Chaining",
+    "tot": "Tree of Thoughts",
+    "rag": "Retrieval Augmented Generation",
+    "art": "Automatic Reasoning and Tool-use",
+    "ape": "Automatic Prompt Engineer",
+    "activeprompt": "Prompt Attivo",
+    "dsp": "Prompt Directional Stimulus",
+    "pal": "Program-Aided Language Models",
+    "react": "ReAct",
+    "reflexion": "Reflexion",
+    "multimodalcot": "Multimodal CoT",
+    "graph": "Graph Prompt"
+}
+  

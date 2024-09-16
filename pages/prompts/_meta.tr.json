@@ -1,0 +1,14 @@
+{
+    "classification": "Sınıflandırma",
+    "coding": "Kodlama",
+    "creativity": "Yaratıcılık",
+    "evaluation": "Değerlendirme",
+    "information-extraction": "Bilgi Çıkarımı",
+    "image-generation": "Görüntü Oluşturma",
+    "mathematics": "Matematik",
+    "question-answering": "Soru Cevaplama",
+    "reasoning": "Muhakeme",
+    "text-summarization": "Metin Özetleme",
+    "truthfulness": "Doğruluk",
+    "adversarial-prompting": "Çekişmeli Yönlendirme"
+}

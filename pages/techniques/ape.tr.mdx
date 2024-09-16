@@ -1,0 +1,26 @@
+# Otomatik İstem Mühendisi (APE)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import APE from '../../img/APE.png'
+import APECOT from '../../img/ape-zero-shot-cot.png'
+
+<Screenshot src={APE} alt="APE" />
+Resim Kaynağı: [Zhou ve diğerleri, (2022)](https://arxiv.org/abs/2211.01910)
+
+[Zhou ve diğerleri, (2022)](https://arxiv.org/abs/2211.01910) otomatik istem mühendisliğini (APE) otomatik talimat oluşturma ve seçim için bir çerçeve olarak önerir. Talimat oluşturma problemi, büyük dil modelini kullanarak aday çözümler üzerinde oluşturma ve arama yapılmasıyla ele alınan doğal dil oluşumu olarak çerçevelenir.
+
+İlk adımda, bir görev için talimat adayları oluşturmak üzere çıktı gösterimleri verilmiş bir büyük dil modeli (bir çıkarım modeli olarak) kullanılır. Bu aday çözümler, arama işlemini yönlendirecektir. Talimatlar, bir hedef model kullanılarak uygulanır ve ardından en uygun talimat, hesaplanan değerlendirme puanlarına dayalı olarak seçilir.
+
+APE, insan tarafından geliştirilmiş "Adım adım düşünelim" istemiinden ([Kojima ve ark., 2022](https://arxiv.org/abs/2205.11916)) daha iyi bir sıfır atış CoT istemi bulur.
+
+"Bu konuyu adım adım çözelim ki doğru yanıtı alalım." ifadesi, düşünme zinciri mantığını çağrıştırır ve MultiArith ve GSM8K referansları üzerindeki performansı iyileştirir:
+
+<Screenshot src={APECOT} alt="APECOT" />
+Resim Kaynağı: [Zhou ve diğerleri, (2022)](https://arxiv.org/abs/2211.01910)
+
+Bu makale, otomatik olarak istemleri optimize etme fikri ile ilgili önemli bir konuya değinir ki bu da istem mühendisliği ile ilgilidir. Bu rehberde bu konuya derinlemesine girmedik ancak konuyla ilgileniyorsanız aşağıda birkaç önemli makale bulabilirsiniz:
+
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - gradyan yönlendirmeli arama temelli bir yaklaşım önererek çeşitli görevler için otomatik olarak istem oluşturmayı önerir.
+- [Önek Ayarlama](https://arxiv.org/abs/2101.00190) - NLG görevleri için eğitilebilir sürekli bir önek ekleyerek ince ayarlamaya hafif bir alternatif sunar.
+- [İstem Ayarlama](https://arxiv.org/abs/2104.08691) - geriye yayılma yoluyla yumuşak istemler öğrenme mekanizması önerir.

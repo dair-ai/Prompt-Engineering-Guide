@@ -1,0 +1,98 @@
+# preconceitos
+
+Os LLMs podem produzir gerações problemáticas que podem ser potencialmente prejudiciais e exibir vieses que podem deteriorar o desempenho do modelo em tarefas posteriores. Alguns deles podem ser mitigados por meio de estratégias de solicitação eficazes, mas podem exigir soluções mais avançadas, como moderação e filtragem.
+
+### Distribuição de Exemplares
+Ao realizar o aprendizado de poucos tiros, a distribuição dos exemplares afeta o desempenho do modelo ou influencia o modelo de alguma forma? Podemos fazer um teste simples aqui.
+
+*Prompt:*
+```
+Q: Acabei de receber a melhor notícia de todas!
+A: positivo
+
+Q: Acabamos de receber um aumento no trabalho!
+A: positivo
+
+Q: Estou muito orgulhoso do que realizei hoje.
+A: positivo
+
+Q: Estou tendo o melhor dia de todos!
+A: positivo
+
+Q: Estou realmente ansioso pelo fim de semana.
+A: positivo
+
+Q: Acabei de receber o melhor presente de todos!
+A: positivo
+
+Q: Estou tão feliz agora.
+A: positivo
+
+Q: Sou tão abençoado por ter uma família tão incrível.
+A: positivo
+
+Q: O tempo lá fora está tão sombrio.
+A: negativo
+
+Q: Acabei de receber uma notícia terrível.
+A: negativo
+
+Q: Isso deixou um gosto amargo.
+A:
+```
+
+*Saída:*
+```
+Negativo
+```
+
+No exemplo acima, parece que a distribuição de exemplares não influencia o modelo. Isso é bom. Vamos tentar outro exemplo com um texto mais difícil de classificar e vamos ver como fica o modelo:
+
+*Prompt:*
+```
+Q: A comida aqui é deliciosa!
+A: positivo
+
+Q: Estou tão cansado deste curso.
+A: negativo
+
+Q: Não acredito que fui reprovado no exame.
+A: negativo
+
+Q: Tive um ótimo dia hoje!
+A: positivo
+
+Q: Eu odeio este trabalho.
+A: negativo
+
+Q: O atendimento aqui é péssimo.
+A: negativo
+
+Q: Estou tão frustrado com a minha vida.
+A: negativo
+
+Q: Eu nunca tenho uma pausa.
+A: negativo
+
+Q: Esta refeição está com um gosto horrível.
+A: negativo
+
+Q: Não suporto meu chefe.
+A: negativo
+
+Q: Eu sinto algo.
+A:
+```
+
+*Saída:*
+```
+Negativo
+```
+
+Embora a última frase seja um tanto subjetiva, inverti a distribuição e, em vez disso, usei 8 exemplos positivos e 2 exemplos negativos e, em seguida, tentei a mesma frase exata novamente. Adivinha o que a modelo respondeu? Ele respondeu "Positivo". O modelo pode ter muito conhecimento sobre a classificação de sentimentos, portanto, será difícil fazer com que ele exiba viés para esse problema. O conselho aqui é evitar distorcer a distribuição e, em vez disso, fornecer um número mais equilibrado de exemplos para cada rótulo. Para tarefas mais difíceis das quais o modelo não tem muito conhecimento, provavelmente terá mais dificuldades.
+
+
+### Ordem dos Exemplares
+Ao executar o aprendizado de poucos disparos, a ordem afeta o desempenho do modelo ou influencia o modelo de alguma forma?
+
+Você pode tentar os exemplos acima e ver se consegue fazer com que o modelo seja inclinado para um rótulo alterando a ordem. O conselho é ordenar exemplares aleatoriamente. Por exemplo, evite ter todos os exemplos positivos primeiro e depois os exemplos negativos por último. Esse problema é ainda mais amplificado se a distribuição de rótulos for distorcida. Certifique-se sempre de experimentar bastante para reduzir esse tipo de viés.

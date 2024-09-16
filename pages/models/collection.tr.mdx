@@ -1,0 +1,86 @@
+# LLM Koleksiyonu
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+
+Bu bölüm, dikkate değer ve temel LLM'lerin bir koleksiyonunu ve özetini içerir.
+
+## Models
+
+| Model | Çıkış Tarihi | Boyut (B) | Kontrol Noktaları | Açıklama |
+| --- | --- | --- | --- | --- |
+| [Falcon LLM](https://falconllm.tii.ae/) | May 2023 | 7, 40 | [Falcon-7B](https://huggingface.co/tiiuae), [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) | Falcon LLM is a foundational large language model (LLM) with 40 billion parameters trained on one trillion tokens. TII has now released Falcon LLM – a 40B model. |
+| [PaLM 2](https://arxiv.org/abs/2305.10403) | May 2023 | - | - | A Language Model that has better multilingual and reasoning capabilities and is more compute-efficient than its predecessor PaLM. |
+| [Med-PaLM 2](https://arxiv.org/abs/2305.09617v1) | May 2023 | - | - | Towards Expert-Level Medical Question Answering with Large Language Models |
+| [Gorilla](https://arxiv.org/abs/2305.15334v1) | May 2023 | 7 | [Gorilla](https://github.com/ShishirPatil/gorilla) | Gorilla: Large Language Model Connected with Massive APIs | 
+| [RedPajama-INCITE](https://www.together.xyz/blog/redpajama-models-v1) | May 2023 | 3, 7 | [RedPajama-INCITE](https://huggingface.co/togethercomputer) | A family of models including base, instruction-tuned & chat models. |
+| [LIMA](https://arxiv.org/abs/2305.11206v1) | May 2023 | 65 | - |  A 65B parameter LLaMa language model fine-tuned with the standard supervised loss on only 1,000 carefully curated prompts and responses, without any reinforcement learning or human preference modeling. | 
+| [Replit Code](https://huggingface.co/replit) | May 2023 | 3 | [Replit Code](https://huggingface.co/replit) | replit-code-v1-3b model is a 2.7B LLM trained on 20 languages from the Stack Dedup v1.2 dataset. |
+| [h2oGPT](https://github.com/h2oai/h2ogpt) | May 2023 | 12 | [h2oGPT](https://github.com/h2oai/h2ogpt) | h2oGPT is a large language model (LLM) fine-tuning framework and chatbot UI with document(s) question-answer capabilities. | 
+| [CodeGen2](https://arxiv.org/abs/2305.02309) | May 2023 | 1, 3, 7, 16 | [CodeGen2](https://github.com/salesforce/codegen2) | Code models for program synthesis. |
+| [CodeT5 and CodeT5+](https://arxiv.org/abs/2305.07922) | May 2023 | 16 | [CodeT5](https://github.com/salesforce/codet5) | CodeT5 and CodeT5+ models for Code Understanding and Generation from Salesforce Research. | 
+| [StarCoder](https://huggingface.co/blog/starcoder) | May 2023 | 15 | [StarCoder](https://huggingface.co/bigcode/starcoder) | StarCoder: A State-of-the-Art LLM for Code | 
+| [MPT-7B](https://www.mosaicml.com/blog/mpt-7b) | May 2023 | 7 | [MPT-7B](https://github.com/mosaicml/llm-foundry#mpt) | MPT-7B is a GPT-style model, and the first in the MosaicML Foundation Series of models. |
+| [DLite](https://medium.com/ai-squared/announcing-dlite-v2-lightweight-open-llms-that-can-run-anywhere-a852e5978c6e) | May 2023 | 0.124 - 1.5 | [DLite-v2-1.5B](https://huggingface.co/aisquared/dlite-v2-1_5b) | Lightweight instruction following models which exhibit ChatGPT-like interactivity. |
+| [Dolly](https://www.databricks.com/blog/2023/04/12/dolly-first-open-commercially-viable-instruction-tuned-llm) | April 2023 | 3, 7, 12 | [Dolly](https://huggingface.co/databricks/dolly-v2-12b) | An instruction-following LLM, fine-tuned on a human-generated instruction dataset licensed for research and commercial use. |
+| [StableLM](https://github.com/Stability-AI/StableLM#stablelm-alpha) | April 2023 | 3, 7 | [StableLM-Alpha](https://github.com/Stability-AI/StableLM#stablelm-alpha) |  Stability AI's StableLM series of language models | 
+| [Pythia](https://arxiv.org/abs/2304.01373) | April 2023 | 0.070 - 12 | [Pythia](https://github.com/eleutherai/pythia) | A suite of 16 LLMs all trained on public data seen in the exact same order and ranging in size from 70M to 12B parameters. |
+| [Open Assistant (Pythia Family)](https://open-assistant.io/) | March 2023 | 12 | [Open Assistant](https://huggingface.co/OpenAssistant) | OpenAssistant is a chat-based assistant that understands tasks, can interact with third-party systems, and retrieve information dynamically to do so. |
+| [Cerebras-GPT](https://arxiv.org/abs/2304.03208) | March 2023 | 0.111 - 13 | [Cerebras-GPT](https://huggingface.co/cerebras) | Cerebras-GPT: Open Compute-Optimal Language Models Trained on the Cerebras Wafer-Scale Cluster |
+| [BloombergGPT](https://arxiv.org/abs/2303.17564v1)| March 2023 | 50 | - | BloombergGPT: A Large Language Model for Finance|
+| [PanGu-Σ](https://arxiv.org/abs/2303.10845v1) | March 2023 | 1085 | - | PanGu-Σ: Towards Trillion Parameter Language Model with Sparse Heterogeneous Computing |
+| [GPT-4](https://arxiv.org/abs/2303.08774v3) | March 2023 | - | - | GPT-4 Technical Report |
+| [LLaMA](https://arxiv.org/abs/2302.13971v1) | Feb 2023 | 7, 13, 33, 65 | [LLaMA](https://github.com/facebookresearch/llama) | LLaMA: Open and Efficient Foundation Language Models |
+| [ChatGPT](https://openai.com/blog/chatgpt) | Nov 2022 | - | - | A model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests. | 
+| [Galactica](https://arxiv.org/abs/2211.09085v1) | Nov 2022 | 0.125 - 120 | [Galactica](https://huggingface.co/models?other=galactica) | Galactica: A Large Language Model for Science |
+| [mT0](https://arxiv.org/abs/2211.01786v1) | Nov 2022 | 13 | [mT0-xxl](https://huggingface.co/bigscience/mt0-xxl) | Crosslingual Generalization through Multitask Finetuning |
+| [BLOOM](https://arxiv.org/abs/2211.05100v3) | Nov 2022 | 176 | [BLOOM](https://huggingface.co/bigscience/bloom) | BLOOM: A 176B-Parameter Open-Access Multilingual Language Model |
+| [U-PaLM](https://arxiv.org/abs/2210.11399v2) | Oct 2022 | 540 | - | Transcending Scaling Laws with 0.1% Extra Compute |
+| [UL2](https://arxiv.org/abs/2205.05131v3) | Oct 2022 | 20 | [UL2, Flan-UL2](https://github.com/google-research/google-research/tree/master/ul2#checkpoints) | UL2: Unifying Language Learning Paradigms |
+| [Sparrow](https://arxiv.org/abs/2209.14375) | Sep 2022 | 70 | - | Improving alignment of dialogue agents via targeted human judgements |
+| [Flan-T5](https://arxiv.org/abs/2210.11416v5) | Oct 2022 | 11 | [Flan-T5-xxl](https://huggingface.co/google/flan-t5-xxl) | Scaling Instruction-Finetuned Language Models |
+| [AlexaTM](https://arxiv.org/abs/2208.01448v2) | Aug 2022 | 20 | - | AlexaTM 20B: Few-Shot Learning Using a Large-Scale Multilingual Seq2Seq Model |
+| [GLM-130B](https://arxiv.org/abs/2210.02414v1) | Oct 2022 | 130 | [GLM-130B](https://github.com/THUDM/GLM-130B) | GLM-130B: An Open Bilingual Pre-trained Model |
+| [OPT-IML](https://arxiv.org/abs/2212.12017v3) | Dec 2022 | 30, 175  | [OPT-IML](https://github.com/facebookresearch/metaseq/tree/main/projects/OPT-IML#pretrained-model-weights) | OPT-IML: Scaling Language Model Instruction Meta Learning through the Lens of Generalization |
+| [OPT](https://arxiv.org/abs/2205.01068) | May 2022 | 175 | [OPT-13B](https://huggingface.co/facebook/opt-13b), [OPT-66B](https://huggingface.co/facebook/opt-66b) | OPT: Open Pre-trained Transformer Language Models |
+| [PaLM](https://arxiv.org/abs/2204.02311v5) |April 2022| 540 | - | PaLM: Scaling Language Modeling with Pathways |
+| [Tk-Instruct](https://arxiv.org/abs/2204.07705v3) | April 2022 | 11 | [Tk-Instruct-11B](https://huggingface.co/allenai/tk-instruct-11b-def) | Super-NaturalInstructions: Generalization via Declarative Instructions on 1600+ NLP Tasks |
+| [GPT-NeoX-20B](https://arxiv.org/abs/2204.06745v1) | April 2022 | 20 | [GPT-NeoX-20B](https://huggingface.co/EleutherAI/gpt-neox-20b)  | GPT-NeoX-20B: An Open-Source Autoregressive Language Model |
+| [Chinchilla](https://arxiv.org/abs/2203.15556) | Mar 2022 | 70 | - | Shows that for a compute budget, the best performances are not achieved by the largest models but by smaller models trained on more data. |
+| [InstructGPT](https://arxiv.org/abs/2203.02155v1) | Mar 2022 | 175 | - | Training language models to follow instructions with human feedback |
+| [CodeGen](https://arxiv.org/abs/2203.13474v5) | Mar 2022 | 0.350 - 16 | [CodeGen](https://huggingface.co/models?search=salesforce+codegen) | CodeGen: An Open Large Language Model for Code with Multi-Turn Program Synthesis |
+| [AlphaCode](https://arxiv.org/abs/2203.07814v1) | Feb 2022 | 41 | - | Competition-Level Code Generation with AlphaCode |
+| [MT-NLG](https://arxiv.org/abs/2201.11990v3) | Jan 2022 | 530 | - | Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model|
+| [LaMDA](https://arxiv.org/abs/2201.08239v3) | Jan 2022 | 137 | - | LaMDA: Language Models for Dialog Applications | 
+| [GLaM](https://arxiv.org/abs/2112.06905) | Dec 2021 | 1200 | - | GLaM: Efficient Scaling of Language Models with Mixture-of-Experts |
+| [Gopher](https://arxiv.org/abs/2112.11446v2) | Dec 2021 | 280 | - | Scaling Language Models: Methods, Analysis & Insights from Training Gopher |
+| [WebGPT](https://arxiv.org/abs/2112.09332v3) | Dec 2021 | 175 | - | WebGPT: Browser-assisted question-answering with human feedback |
+| [Yuan 1.0](https://arxiv.org/abs/2110.04725v2) | Oct 2021| 245 | - | Yuan 1.0: Large-Scale Pre-trained Language Model in Zero-Shot and Few-Shot Learning |
+| [T0](https://arxiv.org/abs/2110.08207) | Oct 2021 | 11 | [T0](https://huggingface.co/bigscience/T0) | Multitask Prompted Training Enables Zero-Shot Task Generalization |
+| [FLAN](https://arxiv.org/abs/2109.01652v5) | Sep 2021 | 137 | - | Finetuned Language Models Are Zero-Shot Learners |
+| [HyperCLOVA](https://arxiv.org/abs/2109.04650) | Sep 2021 | 82 | - | What Changes Can Large-scale Language Models Bring? Intensive Study on HyperCLOVA: Billions-scale Korean Generative Pretrained Transformers |
+| [ERNIE 3.0 Titan](https://arxiv.org/abs/2112.12731v1) | July 2021 | 10 | - | ERNIE 3.0 Titan: Exploring Larger-scale Knowledge Enhanced Pre-training for Language Understanding and Generation |
+| [Jurassic-1](https://uploads-ssl.webflow.com/60fd4503684b466578c0d307/61138924626a6981ee09caf6_jurassic_tech_paper.pdf) | Aug 2021 | 178 | - | Jurassic-1: Technical Details and Evaluation |
+| [ERNIE 3.0](https://arxiv.org/abs/2107.02137v1) | July 2021 | 10 | - | ERNIE 3.0: Large-scale Knowledge Enhanced Pre-training for Language Understanding and Generation|
+| [Codex](https://arxiv.org/abs/2107.03374v2) | July 2021 | 12 | - | Evaluating Large Language Models Trained on Code |
+| [GPT-J-6B](https://arankomatsuzaki.wordpress.com/2021/06/04/gpt-j/) | June 2021 | 6 | [GPT-J-6B](https://github.com/kingoflolz/mesh-transformer-jax/#gpt-j-6b) | A 6 billion parameter, autoregressive text generation model trained on The Pile. |
+| [CPM-2](https://arxiv.org/abs/2106.10715v3) | Jun 2021 | 198 | [CPM](https://github.com/TsinghuaAI/CPM) | CPM-2: Large-scale Cost-effective Pre-trained Language Models |
+| [PanGu-α](https://arxiv.org/abs/2104.12369v1) | April 2021 | 13 | [PanGu-α](https://gitee.com/mindspore/models/tree/master/official/nlp/Pangu_alpha#download-the-checkpoint) | PanGu-α: Large-scale Autoregressive Pretrained Chinese Language Models with Auto-parallel Computation |
+| [mT5](https://arxiv.org/abs/2010.11934v3) | Oct 2020 | 13 | [mT5](https://github.com/google-research/multilingual-t5#released-model-checkpoints) | mT5: A massively multilingual pre-trained text-to-text transformer |
+| [BART](https://arxiv.org/abs/1910.13461) | Jul 2020 | - | [BART](https://github.com/facebookresearch/fairseq) | Denoising Sequence-to-Sequence Pre-training for Natural Language Generation, Translation, and Comprehension |
+| [GShard](https://arxiv.org/abs/2006.16668v1) | Jun 2020 | 600| -| GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding |
+| [GPT-3](https://arxiv.org/abs/2005.14165) | May 2020 | 175 | - | Language Models are Few-Shot Learners |
+| [CTRL](https://arxiv.org/abs/1909.05858) | Sep 2019 | 1.63 | [CTRL](https://github.com/salesforce/ctrl) | CTRL: A Conditional Transformer Language Model for Controllable Generation | 
+| [ALBERT](https://arxiv.org/abs/1909.11942) | Sep 2019 | 0.235 | [ALBERT](https://github.com/google-research/ALBERT) | A Lite BERT for Self-supervised Learning of Language Representations | 
+| [XLNet](https://arxiv.org/abs/1906.08237) | Jun 2019 | - | [XLNet](https://github.com/zihangdai/xlnet#released-models) | Generalized Autoregressive Pretraining for Language Understanding and Generation |
+| [T5](https://arxiv.org/abs/1910.10683) | Oct 2019 | 0.06 - 11 | [Flan-T5](https://github.com/google-research/t5x/blob/main/docs/models.md#flan-t5-checkpoints) | Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer | 
+| [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf) | Nov 2019 | 1.5 | [GPT-2](https://github.com/openai/gpt-2) | Language Models are Unsupervised Multitask Learners | 
+| [RoBERTa](https://arxiv.org/abs/1907.11692) | July 2019 | 0.125 - 0.355 | [RoBERTa](https://github.com/facebookresearch/fairseq/tree/main/examples/roberta) | A Robustly Optimized BERT Pretraining Approach | 
+| [BERT](https://arxiv.org/abs/1810.04805)| Oct 2018 | - | [BERT](https://github.com/google-research/bert) | Bidirectional Encoder Representations from Transformers |
+| [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf) | June 2018 | - | [GPT](https://github.com/openai/finetune-transformer-lm) | Improving Language Understanding by Generative Pre-Training | 
+
+
+<Callout emoji="⚠️">
+  Bu bölüm geliştirme aşamasındadır.
+</Callout>
+
+Veriler, [Papers with Code](https://paperswithcode.com/methods/category/language-models) ve [Zhao ve diğerleri tarafından (2023)](https://arxiv.org/pdf/2303.18223.pdf) yapılan yakın çalışmalardan alınmıştır.

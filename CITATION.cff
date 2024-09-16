@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Saravia"
+  given-names: "Elvis"
+title: "Prompt Engineering Guide"
+date-released: 2022-12-16
+url: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Saravia"
+    given-names: "Elvis"
+  month: 12
+  journal: "https://github.com/dair-ai/Prompt-Engineering-Guide"
+  title: "Prompt Engineering Guide"
+  year: 2022

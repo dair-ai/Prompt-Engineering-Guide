@@ -1,0 +1,105 @@
+# PAL（プログラム支援言語モデル）
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import PAL from '../../img/pal.png'
+
+[Gao et al.,（2022）](https://arxiv.org/abs/2211.10435)は、自然言語の問題を読み取り、プログラムを中間推論ステップとして生成するためにLLMを使用する方法を示しています。プログラム支援言語モデル（PAL）と呼ばれ、解決策を取得するための自由形式テキストの代わりに、Pythonインタプリタのようなプログラム実行時に解決ステップをオフロードします。
+
+<Screenshot src={PAL} alt="PAL" />
+Image Source: [Gao et al., (2022)](https://arxiv.org/abs/2211.10435)
+
+以下は、LangChainとOpenAI GPT-3を使用した例を見てみましょう。Pythonインタプリタを活用して、質問を解釈し、答えを提供する簡単なアプリケーションを開発したいと考えています。
+
+具体的には、日付理解が必要な質問に答えるためにLLMを使用する機能を作成することに興味があります。[ここ](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py)から採用されたいくつかの例を含むプロンプトをLLMに提供します。
+
+必要なインポートは以下のとおりです。
+
+```python
+import openai
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+import os
+from langchain.llms import OpenAI
+from dotenv import load_dotenv
+```
+
+まず、いくつかの設定を行いましょう。
+
+```python
+load_dotenv()
+
+# API configuration
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# for LangChain
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+```
+
+モデルインスタンスをセットアップします。
+
+```python
+llm = OpenAI(model_name='text-davinci-003', temperature=0)
+```
+
+設定プロンプト＋質問：
+
+```python
+question = "Today is 27 February 2023. I was born exactly 25 years ago. What is the date I was born in MM/DD/YYYY?"
+
+DATE_UNDERSTANDING_PROMPT = """
+# Q: 2015 is coming in 36 hours. What is the date one week from today in MM/DD/YYYY?
+# 2015が36時間後に来る場合、今日は36時間前である。
+today = datetime(2015, 1, 1) - relativedelta(hours=36)
+# 今日から1週間後、
+one_week_from_today = today + relativedelta(weeks=1)
+# %m/%d/%Yでフォーマットされた答えは
+one_week_from_today.strftime('%m/%d/%Y')
+# Q: 2019年の最初の日は火曜日で、今日は2019年の最初の月曜日です。今日の日付は何ですか？MM/DD/YYYYで答えてください。
+# 2019年の最初の日が火曜日であり、今日が2019年の最初の月曜日である場合、今日は6日後である。
+today = datetime(2019, 1, 1) + relativedelta(days=6)
+# %m/%d/%Yでフォーマットされた答えは
+today.strftime('%m/%d/%Y')
+# Q: コンサートは06/01/1943に予定されていましたが、1日遅れて今日になりました。10日前の日付は何ですか？MM/DD/YYYYで答えてください。
+# コンサートが06/01/1943に予定されていたが、1日遅れて今日になった場合、今日は1日後である。
+today = datetime(1943, 6, 1) + relativedelta(days=1)
+# 10日前、
+ten_days_ago = today - relativedelta(days=10)
+# %m/%d/%Yでフォーマットされた答えは
+ten_days_ago.strftime('%m/%d/%Y')
+# Q: 今日は1969年4月19日です。24時間後の日付は何ですか？MM/DD/YYYYで答えてください。
+# 今日は1969年4月19日です。
+today = datetime(1969, 4, 19)
+# 24時間後、
+later = today + relativedelta(hours=24)
+# %m/%d/%Yでフォーマットされた答えは
+today.strftime('%m/%d/%Y')
+# Q: Janeは今日が2002年3月11日だと思っていましたが、実際は3月12日であり、1日後です。24時間後の日付は何ですか？MM/DD/YYYYで答えてください。
+# Janeは今日が2002年3月11日だと思っていましたが、実際は3月12日である場合、今日は2002年3月12日です。
+today = datetime(2002, 3, 12)
+# 24時間後、
+later = today + relativedelta(hours=24)
+# %m/%d/%Yでフォーマットされた答えは
+later.strftime('%m/%d/%Y')
+# Q: Janeは2001年の2月の最後の日に生まれました。今日は彼女の16歳の誕生日です。昨日の日付は何ですか？MM/DD/YYYYで答えてください。
+# Janeが2001年の2月の最後の日に生まれた場合、今日は16年後です。
+today = datetime(2001, 2, 28) + relativedelta(years=16)
+# 昨日、
+yesterday = today - relativedelta(days=1)
+# %m/%d/%Yでフォーマットされた答えは
+yesterday.strftime('%m/%d/%Y')
+# Q: {question}
+""".strip() + '\n'
+```
+
+```python
+llm_out = llm(DATE_UNDERSTANDING_PROMPT.format(question=question))
+print(llm_out)
+```
+
+```python
+exec(llm_out)
+print(born)
+```
+
+これにより、`02/27/1998`が出力されます。

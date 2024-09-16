@@ -1,0 +1,88 @@
+# Halüsinasyon Tespiti
+
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## Arkaplan
+Aşağıdaki istem, bir LLM'nin [kapalı alan soru cevaplama](/prompts/question-answering/closed-domain) bağlamında halüsinasyonu tespit etme yeteneklerini test etmektedir. Bubeck ve diğerleri (2023) GPT-4 gibi LLM'lerin halüsinasyonu tanımlamak için kullanılabileceğini öne sürmektedir. 
+
+<Callout type="warning" emoji="⚠️">
+    Görevin zorlu doğası nedeniyle, LLM'lerin soruyla ilgili hiçbir bilgi veya bağlama sahip olmadıklarında halüsinasyon görmelerinin muhtemel olduğunu unutmayın.
+</Callout>
+
+Komut istemi, komut isteminin hangi bölümlerinin hangi bilgilere karşılık geldiğini gösteren göstergeler içerecek şekilde biraz değiştirilmiştir.
+
+## İstem
+```markdown
+Hastanın bilgileri:
+- 20 yaşında kadın
+- anereksiya nervoza ve depresyon öyküsü olan
+- tansiyon 100/50, nabız 50, boy 5'5''
+- beslenme uzmanı tarafından sevk edildi ancak hastalığını inkar ediyor
+- iyi beslendiğini ancak ciddi derecede düşük kilolu olduğunu bildiriyor
+
+Soru: Lütfen sadece yukarıdaki bilgileri kullanarak yukarıdaki verileri tıbbi bir not halinde yeniden yazınız.
+
+GPT-4 Yanıtı: Anoreksiya nervoza ve depresyon öyküsü olan 20 yaşındaki kadın hasta, beslenme uzmanı tarafından yeme bozukluğunun değerlendirilmesi ve tedavisi için sevk edilmiştir. Yeme alışkanlıkları veya beden imajıyla ilgili herhangi bir sorunu olduğunu reddediyor ve normal beslendiğini iddia ediyor. Bununla birlikte, boyuna göre ciddi derecede düşük kiloludur (BMI 16,6) ve düşük kan basıncı (100/50) ve bradikardi (nabız 50) gibi yetersiz beslenme belirtileri vardır. Ayrıca depresif ve umutsuz hissettiğini bildirmektedir. Kardiyak aritmiler, elektrolit dengesizlikleri, osteoporoz ve infertilite gibi ciddi tıbbi komplikasyon riski altındadır. Anoreksiya nervoza ve depresyonunu ele almak için acil psikiyatrik ve tıbbi müdahaleye ihtiyacı var.
+
+Lütfen yukarıdaki tıbbi notu okuyun ve her bir iddianın hastanın gerçeklerinde tam olarak yer aldığını doğrulayın. Hastanın gerçekler listesinde yer almayan her türlü bilgiyi bildiriniz.
+```
+
+## Kod / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+        "role": "user",
+        "content": "Hastanın bilgileri:\n- 20 yaşında kadın\n- anereksiya nervoza ve depresyon öyküsü olan\n- tansiyon 100/50, nabız 50, boy 5'5''\n- beslenme uzmanı tarafından sevk edildi ancak hastalığını inkar ediyor\n- iyi beslendiğini ancak ciddi derecede düşük kilolu olduğunu bildiriyor\n\nSoru: Lütfen sadece yukarıdaki bilgileri kullanarak yukarıdaki verileri tıbbi bir not halinde yeniden yazınız.\n\nGPT-4 Yanıtı: Anoreksiya nervoza ve depresyon öyküsü olan 20 yaşındaki kadın hasta, beslenme uzmanı tarafından yeme bozukluğunun değerlendirilmesi ve tedavisi için sevk edilmiştir. Yeme alışkanlıkları veya beden imajıyla ilgili herhangi bir sorunu olduğunu reddediyor ve normal beslendiğini iddia ediyor. Bununla birlikte, boyuna göre ciddi derecede düşük kiloludur (BMI 16,6) ve düşük kan basıncı (100/50) ve bradikardi (nabız 50) gibi yetersiz beslenme belirtileri vardır. Ayrıca depresif ve umutsuz hissettiğini bildirmektedir. Kardiyak aritmiler, elektrolit dengesizlikleri, osteoporoz ve infertilite gibi ciddi tıbbi komplikasyon riski altındadır. Anoreksiya nervoza ve depresyonunu ele almak için acil psikiyatrik ve tıbbi müdahaleye ihtiyacı var.\n\nLütfen yukarıdaki tıbbi notu okuyun ve her bir iddianın hastanın gerçeklerinde tam olarak yer aldığını doğrulayın. Hastanın gerçekler listesinde yer almayan her türlü bilgiyi bildiriniz."
+        }
+    ],
+    temperature=1,
+    max_tokens=250,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Hastanın bilgileri:\n- 20 yaşında kadın\n- anereksiya nervoza ve depresyon öyküsü olan\n- tansiyon 100/50, nabız 50, boy 5'5''\n- beslenme uzmanı tarafından sevk edildi ancak hastalığını inkar ediyor\n- iyi beslendiğini ancak ciddi derecede düşük kilolu olduğunu bildiriyor\n\nSoru: Lütfen sadece yukarıdaki bilgileri kullanarak yukarıdaki verileri tıbbi bir not halinde yeniden yazınız.\n\nGPT-4 Yanıtı: Anoreksiya nervoza ve depresyon öyküsü olan 20 yaşındaki kadın hasta, beslenme uzmanı tarafından yeme bozukluğunun değerlendirilmesi ve tedavisi için sevk edilmiştir. Yeme alışkanlıkları veya beden imajıyla ilgili herhangi bir sorunu olduğunu reddediyor ve normal beslendiğini iddia ediyor. Bununla birlikte, boyuna göre ciddi derecede düşük kiloludur (BMI 16,6) ve düşük kan basıncı (100/50) ve bradikardi (nabız 50) gibi yetersiz beslenme belirtileri vardır. Ayrıca depresif ve umutsuz hissettiğini bildirmektedir. Kardiyak aritmiler, elektrolit dengesizlikleri, osteoporoz ve infertilite gibi ciddi tıbbi komplikasyon riski altındadır. Anoreksiya nervoza ve depresyonunu ele almak için acil psikiyatrik ve tıbbi müdahaleye ihtiyacı var.\n\nLütfen yukarıdaki tıbbi notu okuyun ve her bir iddianın hastanın gerçeklerinde tam olarak yer aldığını doğrulayın. Hastanın gerçekler listesinde yer almayan her türlü bilgiyi bildiriniz.",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## Referans
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 Nisan 2023)

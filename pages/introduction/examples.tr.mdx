@@ -1,0 +1,290 @@
+# Örnek İstemler
+
+Önceki bölüm, LLM'lere nasıl istem vereceğimize dair basit bir örneği tanıttı.
+
+Bu bölüm, farklı görevleri gerçekleştirmek için istemlerin nasıl kullanılacağına dair daha fazla örnek sunacak ve bu süreçte anahtar kavramları tanıtacaktır. Çoğu zaman, kavramları örnekler üzerinden gitmek en iyi öğrenme yoludur. Aşağıdaki birkaç örnek, farklı türde görevleri gerçekleştirmek için iyi tasarlanmış istemler nasıl kullanabileceğinizi gösterir.
+
+Konular:
+- [Metin Özetleme](#metin-özetleme)
+- [Bilgi Çıkarımı](#bilgi-çıkarımı)
+- [Soru Cevaplama](#soru-cevaplama)
+- [Metin Sınıflandırma](#metin-sınıflandırma)
+- [Konuşma](#konuşma)
+- [Kod Oluşturma](#kod-oluşturma)
+- [Mantık Yürütme](#mantık-yürütme)
+
+---
+
+## Metin Özetleme
+Doğal dil oluşturmanın standart görevlerinden biri metin özeti oluşturmaktır. Metin özetleme, birçok farklı tür ve alanı içerebilir. Aslında, dil modellerinin en umut verici uygulamalarından biri, makaleleri ve kavramları hızlı ve kolay okunan özetlere dönüştürme yeteneğidir. İstemi kullanarak basit bir özetleme görevini deneyelim.
+
+Diyelim ki antibiyotikler hakkında bilgi edinmek istiyorsunuz, böyle bir istem deneyebilirsiniz:
+
+*İstem:*
+```
+Antibiyotikleri anlatın
+
+A:
+```
+
+*Çıktı:*
+```
+Antibiyotikler bakteriyel enfeksiyonları tedavi etmek için kullanılan bir tür ilaçtır. Çalışma şekilleri, bakterileri öldürerek veya çoğalmalarını engelleyerek vücudun bağışıklık sistemine enfeksiyonla savaşma şansı verir. Antibiyotikler genellikle hap, kapsül veya sıvı çözeltiler formunda ağızdan alınır veya bazen damar içi yolla verilir. Virüs enfeksiyonlarına karşı etkili değillerdir ve uygun olmayan şekillerde kullanımları antibiyotik direncine sebep olabilir.
+```
+
+"A:" soru-cevapta kullandığınız belirgin bir istem formatıdır. Burada modelin bir yanıt beklendiğini belirtmek için kullandınız. Bu örnekte, bunun kullanışlı olup olmadığı açık değil ama bunu sonraki örnekler için saklayalım. Diyelim ki bu çok fazla bilgi ve bunu daha da özetlemek istiyorsunuz. Aslında modeli böyle bir cümleyle bunu özetlemesi için yönlendirebilirsiniz:
+
+*İstem:*
+```
+Antibiyotikler bakteriyel enfeksiyonları tedavi etmek için kullanılan bir tür ilaçtır. Çalışma şekilleri, bakterileri öldürerek veya çoğalmalarını engelleyerek vücudun bağışıklık sistemine enfeksiyonla savaşma şansı verir. Antibiyotikler genellikle hap, kapsül veya sıvı çözeltiler formunda ağızdan alınır veya bazen damar içi yolla verilir. Virüs enfeksiyonlarına karşı etkili değillerdir ve uygun olmayan şekillerde kullanımları antibiyotik direncine sebep olabilir.
+
+Yukarıdakileri bir cümle ile açıklayın:
+```
+
+*Çıktı:*
+```
+Antibiyotikler, bakterileri öldürerek veya çoğalmalarını durdurarak bakteriyel enfeksiyonları tedavi eden ilaçlardır, ancak virüslere karşı etkili değiller ve aşırı kullanımları antibiyotik direncine yol açabilir.
+```
+
+Yukarıdaki çıktının doğruluğuna çok fazla dikkat etmeden, bu konuya daha sonra değineceğiz, model paragrafı bir cümlede özetlemeye çalıştı. İstekte daha yaratıcı olabilirsiniz ama bunu daha sonraki bir bölüm için bırakacağız. Burada durup deney yapmak ve daha iyi sonuçlar alıp almadığınızı görmek için zaman ayırabilirsiniz.
+
+---
+## Bilgi Çıkarımı
+Dil modelleri, doğal dil oluşturma ve ilgili görevleri gerçekleştirmek üzere eğitilirken, aynı zamanda sınıflandırma ve doğal dil işleme (NLP) görevlerinin çeşitli diğer alanlarını da gerçekleştirebilir.
+
+Aşağıda, verilen bir paragraftan bilgi çıkaran bir istem örneği verilmiştir.
+
+*İstem:*
+```
+Araştırma makalelerindeki yazar-katkı ifadeleri ve teşekkürler, yazarların el yazılarının hazırlanması ve analizinde AI teknolojileri, örneğin ChatGPT gibi, kullanıp kullanmadığını ve hangi ölçüde kullandığını açıkça ve özellikle belirtmelidir. Ayrıca, hangi LLM'lerin kullanıldığını da belirtmelidirler. Bu, editör ve hakemlerin potansiyel yanlılık, hatalı ve uygun olmayan kaynak verme durumları için manuskriptleri daha dikkatlice incelemeleri konusunda uyarıda bulunacaktır. Aynı şekilde, bilimsel dergiler LLM kullanımı hakkında, örneğin gönderilen makaleleri seçerken, şeffaf olmalıdır.
+
+Yukarıdaki paragrafta bahsedilen büyük dil modeli tabanlı ürünü belirtin:
+```
+
+*Çıktı:*
+```
+Yukarıdaki paragrafta bahsedilen büyük dil modeli tabanlı ürün ChatGPT'dir.
+```
+
+Sonuçları iyileştirmek için birçok yol var, ama bu bile oldukça yararlı.
+
+Bu kadarıyla, modeli ne yapması gerektiğini açıkça belirterek farklı görevleri yerine getirmesini sağlayabileceğinizin açık olması gerekir. Bu, AI ürün geliştiricilerin zaten güçlü ürünler ve deneyimler oluşturmak için kullandığı güçlü bir yetenektir.
+
+
+Paragraf kaynağı: [ChatGPT: Araştırma için beş öncelik](https://www.nature.com/articles/d41586-023-00288-7)
+
+---
+## Soru Cevaplama
+
+Modelin belirli yanıtlara yanıt vermesini sağlamanın en iyi yollarından biri, istem formatını geliştirmektir. Daha önce de belirtildiği gibi, bir istem, geliştirilmiş sonuçlar elde etmek için talimatları, bağlamı, girdiyi ve çıktı göstergelerini birleştirebilir. Bu bileşenler zorunlu olmasa da, talimat konusunda ne kadar belirli olursanız, sonucunuz o kadar iyi olur. Aşağıda, daha yapılandırılmış bir istem izlendiğinde bunun nasıl görüneceği bir örnektir.
+
+*İstem:*
+```
+Aşağıdaki bağlamda soruya yanıt verin. Yanıtı kısa ve öz tutun. Cevaptan emin değilseniz "Cevaptan emin değilim" yanıtını verin.
+
+Bağlam: Teplizumab, köklerini Ortho Pharmaceutical adlı bir New Jersey ilaç şirketine dayandırıyor. Orada, bilim adamları, OKT3 adı verilen antikorun erken bir versiyonunu ürettiler. Başlangıçta farelerden elde edilen molekül, T hücrelerinin yüzeyine bağlanabilme ve hücre öldürme potansiyellerini sınırlayabilme yeteneğine sahipti. 1986 yılında, böbrek nakillerinden sonra organ reddini önlemeye yardımcı olmak üzere onaylandı ve bu, insan kullanımına izin verilen ilk terapötik antikor oldu.
+
+Soru: OKT3 başlangıçta nereden elde edilmiştir?
+
+Cevap:
+```
+
+*Çıktı:*
+```
+Fareler.
+```
+
+Bağlam [Nature](https://www.nature.com/articles/d41586-023-00400-x)dan alınmıştır.
+
+---
+
+## Metin Sınıflandırma
+Şimdiye kadar, bir görevi gerçekleştirmek için basit talimatlar kullandınız. Bir istem mühendisi olarak, daha iyi talimatlar vermede daha iyi olmanız gerekmektedir. Ancak bu her şey değil! Daha zor kullanım durumları için, sadece talimat sağlamanın yeterli olmayacağını da göreceksiniz. İşte isteğin daha fazla bağlam ve istemde kullanabileceğiniz farklı öğelere daha çok düşünmeniz gereken yer burasıdır. Sağlayabileceğiniz diğer öğeler `giriş verisi` veya `örnekler` olabilir.
+
+Bunu, metin sınıflandırmasına bir örnek vererek göstermeye çalışalım.
+
+*İstem:*
+```
+Metni tarafsız, olumsuz veya olumlu olarak sınıflandırın.
+
+Metin: Sanırım yemek iyiydi.
+Duygu:
+```
+
+*Çıktı:*
+```
+Tarafsız
+```
+
+Metni sınıflandırma talimatını verdiniz ve model `'Tarafsız'` yanıtını verdi, bu doğru. Bununla bir şeyler ters mi, diyelim ki gerçekten ihtiyacınız olan şey modelin etiketi tam olarak istediğiniz formatında vermesidir. Yani `Tarafsız` yerine `tarafsız` vermesini istiyorsunuz. Bunu nasıl başarırsınız? Bunu yapmanın farklı yolları vardır. Burada özgüllükle ilgileniyorsunuz, yani isteğe ne kadar çok bilgi sağlarsanız, sonuçlar o kadar iyi olur. Doğru davranışı belirtmek için örnekler sağlamayı deneyebilirsiniz. Tekrar deneyelim:
+
+*İstem:*
+```
+Metni tarafsız, olumsuz veya olumlu olarak sınıflandırın.
+
+Metin: Sanırım tatil iyiydi.
+Duygu: tarafsız
+
+Metin: Sanırım yemek iyiydi.
+Duygu:
+```
+
+*Çıktı:*
+```
+tarafsız
+```
+
+Mükemmel! Bu sefer model `tarafsız` etiketini verdi ki bu da aradığınız özgül etiketti. İstekte sağlanan örneğin, modelin çıktısında özgül olmasına yardımcı olduğu görülüyor.
+
+Neden bazen özgül olmanın önemli olduğunu vurgulamak için, aşağıdaki örneğe göz atın ve sorunu bulun:
+
+*İstem:*
+```
+Metni tarfsız, olumsuz veya olumlu olarak sınıflandırın.
+
+Metin: Sanırım tatil iyiydi.
+Duygu:
+```
+
+*Çıktı:*
+```
+Tarafsız
+```
+
+Burada sorun ne? Bir ipucu olarak, uydurma `tarfsız` etiketi model tarafından tamamen göz ardı edilir. Bunun yerine, model bazı önyargılar nedeniyle `Tarafsız` çıktısını verir. Ancak gerçekten istediğiniz `tarfsız` olsaydı ne yapardınız? Belki etiketlere açıklamalar ekleyebilir veya isteme daha fazla örnek ekleyebilirsiniz? Emin değilseniz, yaklaşan bölümlerde birkaç fikir üzerinde konuşacağız.
+
+---
+
+## Konuşma
+İstem mühendisliği ile belki de elde edebileceğin en ilginç şeylerden biri, LLM sistemine nasıl davranılacağını, niyetini ve kimliğini öğretmektir. Bu, özellikle müşteri hizmetleri sohbet botları gibi konuşma sistemleri oluşturuyor olduğunuzda son derece faydalıdır. 
+
+Örneğin, sorulara daha teknik ve bilimsel yanıtlar oluşturabilen bir konuşma sistemi oluşturalım. İnşanın nasıl davranacağını açıkça söyleyerek talimat verdiğinize dikkat edin. Bu bazen *rol istemi* olarak adlandırılır.
+
+*İstem:*
+```
+Aşağıdaki, bir AI araştırma asistanı ile yapılan bir görüşmedir. Asistanın tonu teknik ve bilimseldir.
+
+İnsan: Merhaba, sen kimsin?
+AI: Selam! Ben bir AI araştırma asistanıyım. Sana bugün nasıl yardımcı olabilirim?
+İnsan: Bana kara deliklerin oluşumundan bahsedebilir misin?
+AI:
+```
+
+*Çıktı:*
+```
+Tabii! Kara delikler, yerçekimi kuvvetinin ışığın bile kaçamayacağı kadar güçlü olduğu uzay-zaman bölgeleridir. Bunlar, çok büyük bir yıldız öldüğünde ve çekirdeği kendine çöktüğünde oluşur, sonsuz yoğunlukta bir tekillik oluşturur. Tekilliğin yoğun yer çekimi, etrafındaki tüm maddeyi ve ışımayı içine çeker, kara deliği oluşturur.
+```
+
+AI araştırma asistanımız biraz teknik görünüyor, değil mi? Tamam, bu davranışı değiştirelim ve sisteme daha erişilebilir yanıtlar vermesini öğretelim.
+
+*İstem:*
+```
+Aşağıdaki, bir AI araştırma asistanı ile yapılan bir görüşmedir. Asistanın yanıtları, ilkokul öğrencilerinin bile anlayabileceği şekilde olmalıdır.
+
+İnsan: Merhaba, sen kimsin?
+AI: Selam! Ben bir AI araştırma asistanıyım. Sana bugün nasıl yardımcı olabilirim?
+İnsan: Bana kara deliklerin oluşumundan bahsedebilir misin?
+AI:
+```
+
+*Çıktı:*
+```
+Tabii! Kara delikler, çok büyük bir yıldızın yakıtı bittiğinde ve kendine çöktüğünde oluşturulur. Bu yıldızın yerçekimi, ışığın bile kaçamayacağı kadar güçlüdür. Bu, uzay-zamanda yoğun bir yer çekimi kuvvetine sahip bir nokta oluşturur ve buna kara delik denir.
+```
+
+Biraz ilerleme kaydettin. Geliştirmeye devam edebilirsin. Daha fazla örnek eklersen, daha iyi sonuçlar alabilirsin.
+
+---
+
+## Kod Oluşturma
+LLM'lerin oldukça etkili olduğu bir uygulama kod oluşturmadır. Copilot bunun harika bir örneğidir. Akıllıca tasarlanmış istemlerle gerçekleştirebileceğiniz çok sayıda kod oluşturma görevi vardır. Aşağıda birkaç örneğe bakalım.
+
+Öncelikle, kullanıcıyı selamlayan basit bir program deneyelim.
+
+*İstem:*
+```
+/*
+Kullanıcıdan ismini sorun ve "Merhaba" deyin
+*/
+```
+
+*Çıktı:*
+```
+let name = prompt("Adınız nedir?");
+console.log(`Merhaba, ${name}!`);
+```
+
+Dikkat edin, kullanılacak dilin belirlemesi bile gerekmedi.
+
+Biraz seviye değiştirelim. Aşağıdaki örnek, istemlerin tasarımına biraz daha fazla çaba harcandığında LLM'lerin ne kadar güçlü olabileceğini gösteriyor.
+
+*İstem:*
+```
+"""
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Bilgisayar Bilimleri Bölümündeki tüm öğrenciler için bir MySQL sorgusu oluşturun
+"""
+```
+
+*Çıktı:*
+```
+SELECT StudentId, StudentName 
+FROM students 
+WHERE DepartmentId IN (SELECT DepartmentId FROM departments WHERE DepartmentName = 'Bilgisayar Bilimleri');
+```
+
+Bu çok etkileyici. Bu durumda, veritabanı şeması hakkında bilgi sağladınız ve geçerli bir MySQL sorgusu oluşturmasını istediniz.
+
+---
+
+## Mantık Yürütme
+Belki de bir dil modeli için bugün en zor görevlerden biri, bir tür mantık yürütme gerektiren bir görevdir. Mantık yürütme, dil modellerinden ortaya çıkan karmaşık uygulamaların türleri nedeniyle en ilgi çekici alanlardan biridir.
+
+Matematiksel yetenekleri içeren görevlerde bazı iyileştirmeler olmuştur. Bununla birlikte, şu anda dil modellerinin mantık yürütme görevlerini gerçekleştirmede zorlandığını belirtmek önemlidir, bu da daha gelişmiş istem mühendisliği tekniklerini gerektirir. Bu gelişmiş teknikleri bir sonraki kılavuzda ele alacağız. Şimdilik, aritmetik yetenekleri göstermek için birkaç temel örneği kapsayacağız.
+
+*İstem:*
+```
+9,000 * 9,000 nedir?
+```
+
+*Çıktı:*
+```
+81,000,000
+```
+
+Daha zor bir şey deneyelim.
+
+*İstem:*
+```
+Bu gruptaki tek sayılar çift bir sayı verir: 15, 32, 5, 13, 82, 7, 1. 
+
+A: 
+```
+
+*Çıktı*
+```
+Hayır, bu gruptaki tek sayılar tek bir sayı verir: 119.
+```
+
+Bu yanlış! Bunu, istemi geliştirerek iyileştirelim..
+
+*İstem:*
+```
+Bu gruptaki tek sayılar çift bir sayı verir: 15, 32, 5, 13, 82, 7, 1. 
+
+Problem çözümünü adımlara ayır. İlk olarak, tek sayıları belirleyin, onları toplayın ve sonucun tek mi yoksa çift mi olduğunu belirtin.
+```
+
+*Çıktı:*
+```
+Tek sayılar: 15, 5, 13, 7, 1
+Toplam: 41 
+41 bir tek sayıdır.
+```
+
+Çok daha iyi, değil mi? Bu arada, bunu birkaç kez denedim ve sistem bazen başarısız oluyor. Daha iyi talimatları örneklerle birlikte sağlarsanız, daha doğru sonuçlar almanıza yardımcı olabilir.
+
+Bu kılavuzun bu bölümünde daha fazla ortak uygulama örneği eklemeye devam edeceğiz.
+
+Yaklaşan bölümde, bu ve daha zor görevlerde performansı artırmak için daha ileri düzeyde istem mühendisliği kavramları ve tekniklerini ele alacağız.

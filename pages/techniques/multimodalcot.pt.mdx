@@ -1,0 +1,14 @@
+# Prompt CoT Multimodal
+
+import {Screenshot} from 'components/screenshot'
+import MCOT from '../../img/multimodal-cot.png'
+
+[Zhang et ai. (2023)](https://arxiv.org/abs/2302.00923) propôs recentemente uma abordagem de solicitação de cadeia de pensamento multimodal. O CoT tradicional foca na modalidade de linguagem. Em contraste, o Multimodal CoT incorpora texto e visão em uma estrutura de dois estágios. A primeira etapa envolve a geração de raciocínio com base em informações multimodais. Isso é seguido pela segunda fase, inferência de respostas, que aproveita os fundamentos informativos gerados.
+
+O modelo CoT multimodal (1B) supera o GPT-3.5 no benchmark ScienceQA.
+
+<Screenshot src={MCOT} alt="MCOT" />
+Fonte da imagem: [Zhang et al. (2023)](https://arxiv.org/abs/2302.00923)
+
+Leitura adicional:
+- [A linguagem não é tudo que você precisa: alinhando a percepção com os modelos de linguagem](https://arxiv.org/abs/2302.14045) (fevereiro de 2023)

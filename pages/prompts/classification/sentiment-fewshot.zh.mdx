@@ -1,0 +1,70 @@
+# 使用大型语言模型（LLMs）进行小样本情感分类
+
+import { Tabs, Tab } from 'nextra/components'
+
+## 背景
+这个提示通过提供少量示例来测试大型语言模型（LLM）的文本分类能力，要求它将一段文本正确分类为相应的情感倾向。
+## 提示词
+```markdown
+This is awesome! // Negative
+This is bad! // Positive
+Wow that movie was rad! // Positive
+What a horrible show! //
+```
+
+## Code / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+        ```python
+        from openai import OpenAI
+        client = OpenAI()
+
+        response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {
+                "role": "user",
+                "content": "This is awesome! // Negative\nThis is bad! // Positive\nWow that movie was rad! // Positive\nWhat a horrible show! //"
+                }
+            ],
+            temperature=1,
+            max_tokens=256,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "This is awesome! // Negative\nThis is bad! // Positive\nWow that movie was rad! // Positive\nWhat a horrible show! //",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+</Tabs>
+
+
+## 参考
+- [Prompt Engineering Guide](https://www.promptingguide.ai/techniques/fewshot) (2023年3月16日)

@@ -1,0 +1,194 @@
+# Kod Üretimi
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import CODE1 from '../../img/code-generation/chat-mode.png'
+
+<Callout emoji="⚠️">
+  Bu bölüm geliştirme aşamasındadır.
+</Callout>
+
+ChatGPT gibi LLM'ler kod üretmede çok etkilidir. Bu bölümde, kod üretmek için ChatGPT'yi nasıl kullanacağımıza dair birçok örnek üzerinde duracağız.
+
+Aşağıdaki tüm örnekler için OpenAI's Playground (Chat Mode) ve `gpt-3.5-turbo` modeli kullanılır.
+
+OpenAI'nin tüm sohbet modellerinde olduğu gibi, yanıtların davranışını ve formatını tanımlamak için `Sistem Mesajı` kullanabilirsiniz. İstem örnekleri için aşağıdaki Sistem Mesajı'nı kullanacağız:
+
+```
+Bir junior geliştiriciye nasıl kod yazılacağını öğretebilen yardımcı bir kod asistanısınız. Tercih ettiğiniz dil Python. Kodu açıklamayın, sadece kod bloğunu üretin.
+```
+
+## Basit Örnek
+
+`Kullanıcı Mesajı`, modelin üretmesini istediğiniz belirli kodun talimatı ile birlikte istem olacaktır. Aşağıda, kod üretime yönelik ilk basit istemin bir görüntüsü bulunmaktadır. Son kodun `Asistan` tarafından üretildiğini unutmayın.
+
+<Screenshot src={CODE1} alt="CODE1" />
+
+Kendi denemeniz için istem:
+
+```
+Kullanıcının ismini soran ve "Merhaba" diyen kodu yazın
+```
+
+## Yorumları Kod Haline Getirme
+
+Bu LLM'lerin kod üretme yeteneklerini, sadece yorumlardan kod üretmek için de kullanabilirsiniz. Talimatları yorum bloğu olarak geçiren başka bir örneğe bakalım:
+
+*İstem:*
+```
+"""
+1. Bir film listesi oluşturun
+2. Bu filmler için bir puan listesi oluşturun
+3. Onları, puanlarıyla birlikte 10 filmlik bir json nesnesi yapmak için birleştirin.
+"""
+```
+
+*Çıktı:*
+```python
+filmler = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Schindler's List", "Pulp Fiction", "The Lord of the Rings: The Return of the King", "Forrest Gump", "Star Wars: Episode V - The Empire Strikes Back", "Inception", "The Silence of the Lambs"]
+
+puanlar = [9.3, 9.2, 9.0, 8.9, 8.9, 8.9, 8.8, 8.7, 8.7, 8.6]
+
+film_puanları = {}
+
+for i in range(len(filmler)):
+    film_puanları[filmler[i]] = puanlar[i]
+
+json_nesnesi = json.dumps(film_puanları, indent=4)
+
+print(json_nesnesi)
+```
+
+Üretilen kod, çalışan bir kod gibi görünüyor. Ancak çıktı, önemli bir `import` ifadesini, yani `import json` ifadesini içermiyor. Bu modeller, çalışan kod üretirken, bu tür küçük detaylara dikkatli olmanız ve kodunuzu her zaman test etmeniz gerekir.
+
+## Fonksiyonları veya Sonraki Satırı Tamamla
+
+LLM'ler, geliştiriciler için yararlı olmalarını sağlayan GitHub Copilot gibi araçlara da dahil edilmiştir. Modelin fonksiyonları tamamlama yeteneği yararlı bir özelliktir.
+
+*İstek:*
+```python
+# İki sayıyı çarpan ve sonucuna 75 ekleyen fonksiyon
+
+def multiply(
+```
+
+*Çıktı:*
+```python
+a, b):
+    result = a * b
+    result += 75
+    return result
+```
+
+## MySQL Sorgusu Oluşturma
+
+Yukarıdaki temel kod oluşturma örneğinin yanı sıra, modeli MySQL sorgularını oluşturma ve test etme gibi programlamanın diğer yönlerinde kullanılabilecek kullanışlı kod oluşturmak için de kullanabilirsiniz.
+
+Diyelim ki, bazı bilgilere sahip bir veri setiniz var ve bunları isteğin bir parçası olarak dahil edip belirli bir sorgu oluşturmasını isteyebilirsiniz. Örneğin:
+
+```
+"""
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a MySQL query for all students in the Computer Science department
+"""
+```
+
+*Output:*
+```mysql
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+```
+
+Model bir sorgu oluşturuyor! Ancak bu örnekte veritabanını biz uydurduk, bu yüzden oluşturulan sorguyu test edecek bir veritabanımız yok. Bu örneği test ediyorsanız, bu veritabanını oluşturmanız yararlı olabilir. Neyse ki, bunu oluşturmak için de ChatGPT'yi kullanabilirsiniz. Bir yaklaşım, bir veritabanı şeması oluşturmak için yukarıdaki isteğin biraz farklı talimatlara sahip modifiye edilmiş bir versiyonunu kullanmaktır:
+
+```mysql
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a valid database schema with the above tables and columns
+```
+
+Model aşağıdaki şemayı oluşturdu:
+
+```mysql
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+```
+
+Bunu [sqliteonline.com](https://sqliteonline.com/) gibi bir şey kullanarak geçici bir veritabanı oluşturabilirsiniz.
+
+Ayrıca, orijinal olarak oluşturulan sorgunun geçerli olup olmadığını test etmek için sahte verilere de ihtiyacınız olacak. Bunun için de ChatGPT'yi kullanalım! İstek şöyle bir şey olabilir:
+
+```mysql
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+
+Verilen veritabanı şemasıyla, her tablo için 4 satır içeren geçerli ekleme ifadeleri oluşturun.
+```
+
+Ekleme ifadelerini içeren çıktı:
+
+```mysql
+INSERT INTO departments (DepartmentId, DepartmentName)
+VALUES (1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics'), (4, 'Biology');
+
+INSERT INTO students (DepartmentId, StudentId, StudentName)
+VALUES (1, 101, 'John Doe'), (1, 102, 'Jane Doe'), (2, 201, 'Alice Smith'), (2, 202, 'Bob Johnson');
+```
+
+Şimdi veritabanınız ve sahte verileriniz var, orijinal sorguyu test edebilirsiniz. Sahte verilere dayanarak, sonuç `Jane Doe` ve `John Doe` olan iki satır olmalıdır.
+
+## Kod Açıklama
+Belirli bir dilde programlamayı öğreniyorsanız, modelin belirli kod parçalarını açıklaması için istem oluşturmak yararlı olabilir. Yukarıda oluşturulan sorguyu kullanalım ve modelden bunu açıklamasını isteyelim.
+
+Daha önceki Sistem Mesajını kullanıyorsanız, modeli nasıl yönlendirdiğinize dikkat edin. Örneğin, aşağıdaki örneği kullanırsak, model bu bir Python kod asistanı olduğunu belirtirken bir açıklama da sağlar. Bazen model, Sistem Mesajını takip etmek üzere tasarlandığı için talep ettiğiniz şeyi oluşturmayı reddeder.
+
+*İstem:*
+```mysql
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+
+Yukarıdaki SQL ifadesini açıklayın.
+```
+
+*Çıktı:*
+```
+Üzgünüm, bir Python kod asistanı olarak, SQL kodu oluşturamam. Ancak, sağlanan SQL ifadesinin amacını açıklayabilirim. 
+
+Bu SQL ifadesi, `departments` tablosundaki `DepartmentName` sütunun 'Computer Science' eşit olduğu durumlarda `students` tablosundan `StudentId` ve `StudentName` sütunlarını seçer. Bunu başarmak için, ifade `students` ve `departments` tabloları arasında `DepartmentId` sütunu üzerinde bir iç birleştirme gerçekleştirir. 
+
+Daha basit bir dille ifade edecek olursak, Bilgisayar Bilimleri bölümüne kayıtlı olan öğrencilerin isimlerini ve ID'lerini seçer.
+```
+
+## Kodu Düzenleme
+Örnek yakında gelecek!
+
+## Kodu Hata Ayıklama
+Örnek yakında gelecek!
+
+## En İyi Uygulamalar
+Yakında geliyor!

@@ -1,0 +1,20 @@
+{
+    "zeroshot": "Zero-shotプロンプティング",
+    "fewshot": "Few-shotプロンプティング",
+    "cot": "Chain-of-Thoughtプロンプティング",
+    "consistency": "自己整合性（Self-Consistency）",
+    "knowledge": "知識生成プロンプティング",
+    "prompt_chaining": "Prompt Chaining",
+    "tot": "Tree of Thoughts",
+    "rag": "Retrieval Augmented Generation",
+    "art": "Automatic Reasoning and Tool-use",
+    "ape": "自動プロンプトエンジニア",
+    "activeprompt": "アクティブプロンプト",
+    "dsp": "方向性刺激プロンプティング",
+    "pal": "Program-Aided Language Models",
+    "react": "ReAct",
+    "reflexion": "Reflexion",
+    "multimodalcot": "マルチモーダルCoT",
+    "graph": "グラフプロンプト（GraphPrompts）"
+}
+  

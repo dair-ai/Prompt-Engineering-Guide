@@ -1,0 +1,92 @@
+# Chain-of-Thought Prompting
+
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+
+
+## Цепочка мыслей (CoT) в формулировке запросов
+
+<Screenshot src={COT} alt="COT" />
+
+Источник изображения: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+
+Введенная в [Wei et al. (2022)](https://arxiv.org/abs/2201.11903) техника формулировки промптов "цепочка мыслей" (CoT) позволяет выполнять сложные рассуждения с помощью промежуточных шагов рассуждения. Вы можете комбинировать ее с few-shot, чтобы получить лучшие результаты в более сложных задачах, требующих рассуждения перед ответом.
+
+*Запрос:*
+```
+The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
+A: Adding all the odd numbers (9, 15, 1) gives 25. The answer is False.
+
+The odd numbers in this group add up to an even number: 17,  10, 19, 4, 8, 12, 24.
+A: Adding all the odd numbers (17, 19) gives 36. The answer is True.
+
+The odd numbers in this group add up to an even number: 16,  11, 14, 4, 8, 13, 24.
+A: Adding all the odd numbers (11, 13) gives 24. The answer is True.
+
+The odd numbers in this group add up to an even number: 17,  9, 10, 12, 13, 4, 2.
+A: Adding all the odd numbers (17, 9, 13) gives 39. The answer is False.
+
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
+A:
+```
+
+*Результат:*
+```
+Adding all the odd numbers (15, 5, 13, 7, 1) gives 41. The answer is False.
+```
+
+Ого! Мы видим отличный результат, когда предоставляем шаг рассуждения. Фактически, мы можем решить эту задачу, предоставив еще меньше примеров. Одного примера, кажется,достаточно:
+
+*Запрос:*
+```
+The odd numbers in this group add up to an even number: 4, 8, 9, 15, 12, 2, 1.
+A: Adding all the odd numbers (9, 15, 1) gives 25. The answer is False.
+
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
+A:
+```
+
+*Результат:*
+```
+Adding all the odd numbers (15, 5, 13, 7, 1) gives 41. The answer is False.
+```
+
+Имейте в виду, что авторы утверждают, что это возникающая способность, которая проявляется у достаточно больших языковых моделях.
+
+## Zero-shot CoT Prompting
+
+<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+
+Источник изображения: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+
+Одна из новых идей, представленная более недавно, - это идея [zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022), которая сводится к добавлению "Let's think step by step" в исходный промпт. Попробуем простую задачу и посмотрим, как модель справляется:
+
+*Запрос:*
+```
+I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?
+```
+
+*Результат:*
+```
+11 apples
+```
+
+Ответ неверен! Теперь попробуем с использованием специального запроса.
+
+*Запрос:*
+```
+I went to the market and bought 10 apples. I gave 2 apples to the neighbor and 2 to the repairman. I then went and bought 5 more apples and ate 1. How many apples did I remain with?
+
+Let's think step by step.
+```
+
+*Результат:*
+```
+First, you started with 10 apples.
+You gave away 2 apples to the neighbor and 2 to the repairman, so you had 6 apples left.
+Then you bought 5 more apples, so now you had 11 apples.
+Finally, you ate 1 apple, so you would remain with 10 apples.
+```
+
+Впечатляет то, что такой простой запрос эффективен для этой задачи. Это особенно полезно, когда у вас нет слишком много примеров для использования в запросе.

@@ -1,0 +1,23 @@
+# Sıfır-Örnekli İstem
+Bugünkü büyük LLM'ler, örneğin GPT-3, talimatlara uyma konusunda ayarlanmış ve büyük miktarda veri ile eğitilmiştir; bu yüzden bazı görevleri "sıfır örnekli" olarak gerçekleştirme yeteneğine sahiptirler.
+
+Önceki bölümde birkaç sıfır-örnekli örnek denedik. İşte kullandığımız örneklerden biri:
+
+*İstem:*
+```
+Metni tarafsız, olumsuz ya da olumlu olarak sınıflandırın. 
+
+Metin: Tatilin normal olduğunu düşünüyorum.
+Hissiyat: 
+```
+
+*Çıktı:*
+```
+Tarafsız
+```
+
+Yukarıdaki istemde, metnin yanında herhangi bir sınıflandırma örneği sunmadığımıza dikkat edin, LLM zaten "hissiyat"ı anlıyor -- işte bu, sıfır-örnekli yeteneklerin iş başında olmasıdır. 
+
+Talimat ayarlamanın, sıfır-örnekli öğrenmeyi iyileştirdiği gösterilmiştir [Wei ve ark. (2022)](https://arxiv.org/pdf/2109.01652.pdf). Talimat ayarlama, temel olarak modellerin talimatlar aracılığıyla tanımlanan veri setlerinde ince ayar yapılması kavramıdır. Ayrıca, modelin insan tercihleriyle daha iyi uyumlu hale getirilmesi amacıyla [RLHF](https://arxiv.org/abs/1706.03741) (insan geri bildiriminden pekiştirmeli öğrenme) talimat ayarlamanın ölçeklendirilmesinde benimsenmiştir. Bu yeni gelişme, ChatGPT gibi modelleri güçlendirir. Tüm bu yaklaşımlar ve yöntemler hakkında ilerleyen bölümlerde tartışacağız.
+
+Sıfır-örnekli çalışmadığında, isteme gösterimler veya örnekler sağlanması önerilir, bu da az-örnekli isteme yol açar. Bir sonraki bölümde, az-örnekli isteme örneğini gösteriyoruz.

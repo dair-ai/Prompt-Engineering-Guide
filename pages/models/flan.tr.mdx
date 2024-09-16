@@ -1,0 +1,83 @@
+# Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme
+
+import {Screenshot} from 'components/screenshot'
+import FLAN1 from '../../img/flan-1.png'
+import FLAN2 from '../../img/flan-2.png'
+import FLAN3 from '../../img/flan-3.png'
+import FLAN4 from '../../img/flan-4.png'
+import FLAN5 from '../../img/flan-5.png'
+import FLAN6 from '../../img/flan-6.png'
+import FLAN7 from '../../img/flan-7.png'
+import FLAN8 from '../../img/flan-8.png'
+import FLAN9 from '../../img/flan-9.png'
+import FLAN10 from '../../img/flan-10.png'
+import FLAN11 from '../../img/flan-11.png'
+
+## Yenilikler Neler?
+
+<Screenshot src={FLAN1} alt="FLAN1" />
+Görsel Kaynağı: [Talimatla İnce Ayarlama Ölçeklendirmesi](https://arxiv.org/abs/2210.11416)
+
+Bu makale, [talimatla ince ayarlama](https://arxiv.org/pdf/2109.01652.pdf) ayarlama ölçeklendirmesinin faydalarını araştırır ve nasıl bir dizi modelde (PaLM, T5), istem ayarlama durumlarında (sıfır örnekli, az örnekli, CoT) ve ölçüm noktalarında (MMLU, TyDiQA) performansı arttırdığını analiz eder. Bu, aşağıdaki yönlerle incelenir: görevlerin sayısını ölçekleme (1.8K görev), model boyutunu ölçeklendirme ve düşünceyle bağlantılı verilerle ince ayarlama (kullanılan 9 veri seti).
+
+**İnce Ayarlama Süreci:**
+- 1.8K görev talimat olarak ifade edildi ve modeli ince ayarlamak için kullanıldı
+- Hem örnekli hem de örneksiz, hem CoT'lu hem de CoT'suz kullanılır
+
+İnce ayarlama görevleri ve bekleme modundaki görevler aşağıda gösterilmiştir:
+
+<Screenshot src={FLAN11} alt="FLAN11" />
+
+## Yetenekler & Ana Sonuçlar
+
+- Talimatla ince ayarlama, görev sayısı ve model boyutu ile iyi bir şekilde ölçeklendirilir; bu, görev sayısını ve model boyutunu daha da ölçeklendirmenin gerekliliğini düşündürür
+- CoT veri setlerini ince ayarlama sürecine dahil etmek, akıl yürütme görevlerinde iyi performans sağlar
+- Flan-PaLM, çok dilli yetenekleri iyileştirdi; tek atışlık TyDiQA'da %14.9 oranında iyileşme; az temsil edilen dillerde aritmetik akıl yürütme üzerinde %8.1 iyileşme
+- Plan-PaLM ayrıca açık uçlu jenerasyon sorularında da iyi performans gösterir, bu da kullanılabilirliğin iyileştirildiğine dair iyi bir göstergedir
+- Sorumlu AI (RAI) ölçüm noktalarında performansı iyileştirir
+- Flan-T5 talimatla ayarlanmış modeller güçlü az örnekli yetenekler gösterir ve T5 gibi genel kullanıma açık kontrol noktalarını aşar
+
+
+**İnce ayarlama görevlerinin sayısını ve model boyutunu ölçeklendirme sonuçları:** model boyutunu ve ince ayarlama görevlerinin sayısını ölçeklendirmek, performansı iyileştirmeye devam etmesi beklenir, ancak görev sayısını arttırmanın azalan getirisi vardır.
+
+<Screenshot src={FLAN2} alt="FLAN2" />
+Görsel Kaynağı: [Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme](https://arxiv.org/abs/2210.11416)
+
+**CoT olmayan ve CoT verileriyle ince ayarlama sonuçları:** Ortaklaşa, CoT olmayan ve CoT verileri üzerinde ince ayarlama yapıldığında, yalnızca birinde ince ayar yapmaya kıyasla her iki değerlendirmede de performans artar.
+
+<Screenshot src={FLAN3} alt="FLAN3" />
+Görsel Kaynağı: [Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme](https://arxiv.org/abs/2210.11416)
+
+Ayrıca, kendine tutarlılık CoT ile birleştirildiğinde birkaç ölçüm noktasında SoTA sonuçları elde eder. CoT + kendine tutarlılık, ayrıca matematik problemleri içeren ölçüm noktalarında (örn., MGSM, GSM8K) sonuçları önemli ölçüde iyileştirir.
+
+<Screenshot src={FLAN4} alt="FLAN4" />
+Görsel Kaynağı: [Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme](https://arxiv.org/abs/2210.11416)
+
+CoT'lu ince ayarlama, BIG-Bench görevlerinde "adım adım düşünelim" ifadesiyle aktive olan sıfır örnekli akıl yürütme yeteneğini kilidini açar. Genel olarak, sıfır örnekli CoT Flan-PaLM, ince ayarlama olmadan sıfır örnekli CoT PaLM'i aşar.
+
+<Screenshot src={FLAN6} alt="FLAN6" />
+Görsel Kaynağı: [Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme](https://arxiv.org/abs/2210.11416)
+
+Aşağıda PaLM ve Flan-PaLM için sıfır örnekli CoT'nin görülmemiş görevlerdeki bazı uygulamaları bulunmaktadır.
+
+<Screenshot src={FLAN5} alt="FLAN5" />
+Görsel Kaynağı: [Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme](https://arxiv.org/abs/2210.11416)
+
+Aşağıda daha fazla sıfır örnekli istem örneği bulunmaktadır. PaLM modelinin tekrarlarla ve sıfır örnekli ayarlarda talimatlara yanıt vermede zorlandığını gösterir; Flan-PaLM ise iyi bir performans sergiler. Az örnekli durumlar bu hataları hafifletebilir. 
+
+<Screenshot src={FLAN7} alt="FLAN7" />
+Görsel Kaynağı: [Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme](https://arxiv.org/abs/2210.11416)
+
+Aşağıda, Flan-PALM modelinin farklı türden zorlu açık uçlu sorulara yönelik daha fazla sıfır örnekli yeteneklerini gösteren bazı örnekler bulunmaktadır:
+
+<Screenshot src={FLAN8} alt="FLAN8" />
+Görsel Kaynağı: [Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme](https://arxiv.org/abs/2210.11416)
+
+
+<Screenshot src={FLAN9} alt="FLAN9" />
+Görsel Kaynağı: [Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme](https://arxiv.org/abs/2210.11416)
+
+<Screenshot src={FLAN10} alt="FLAN10" />
+Görsel Kaynağı: [Öğretimle Ayarlanmış Dil Modellerini Ölçeklendirme](https://arxiv.org/abs/2210.11416)
+
+[Hugging Face Hub'daki Flan-T5 modellerini] deneyebilirsiniz. (https://huggingface.co/google/flan-t5-xxl). 

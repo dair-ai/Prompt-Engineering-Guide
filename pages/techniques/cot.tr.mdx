@@ -1,0 +1,112 @@
+# Düşünce Zinciri İstemleri
+
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+import AUTOCOT from '../../img/auto-cot.png'
+
+
+## Düşünce Zinciri (CoT) İstemleri
+
+<Screenshot src={COT} alt="COT"/>
+
+Resim Kaynağı: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+
+[Wei et al. (2022)](https://arxiv.org/abs/2201.11903) tarafından tanıtılan düşünceler zinciri (CoT) istemleri, ara aşamalı akıl yürütme yoluyla karmaşık akıl yürütme yeteneklerini sağlar. Daha karmaşık görevlerde, yanıt vermeden önce akıl yürütme gerektiren görevlerde, daha iyi sonuçlar elde etmek için az-örnekli istemlerle birleştirebilirsiniz.
+
+*İstem:*
+```
+Bu gruptaki tek sayılar çift bir sayıya eşittir: 4, 8, 9, 15, 12, 2, 1.
+A: Tüm tek sayıları (9, 15, 1) topladığımızda 25 bulunur. Cevap Yanlıştır.
+
+Bu gruptaki tek sayılar çift bir sayıya eşittir: 17,  10, 19, 4, 8, 12, 24.
+A: Tüm tek sayıları (17, 19) topladığımızda 36 bulunur. Cevap Doğrudur.
+
+Bu gruptaki tek sayılar çift bir sayıya eşittir: 16,  11, 14, 4, 8, 13, 24.
+A: Tüm tek sayıları (11, 13) topladığımızda 24 bulunur. Cevap Doğrudur.
+
+Bu gruptaki tek sayılar çift bir sayıya eşittir: 17,  9, 10, 12, 13, 4, 2.
+A: Tüm tek sayıları (17, 9, 13) topladığımızda 39 bulunur. Cevap Yanlıştır.
+
+Bu gruptaki tek sayılar çift bir sayıya eşittir: 15, 32, 5, 13, 82, 7, 1.
+A:
+```
+
+*Çıktı:*
+```
+Tüm tek sayıları (15, 5, 13, 7, 1) topladığımızda 41 bulunur. Cevap Yanlıştır.
+```
+
+Wow! Akıl yürütme adımlarını sağladığımızda mükemmel bir sonuç görüyoruz. Aslında, bu görevi daha az örnek sağlayarak, yani yalnızca bir örnek bile yeterli görünüyor:
+
+*İstem:*
+```
+Bu gruptaki tek sayılar çift bir sayıya eşittir: 4, 8, 9, 15, 12, 2, 1.
+A: Tüm tek sayıları (9, 15, 1) topladığımızda 25 bulunur. Cevap Yanlıştır.
+
+Bu gruptaki tek sayılar çift bir sayıya eşittir: 15, 32, 5, 13, 82, 7, 1.
+A:
+```
+
+*Çıktı:*
+```
+Tüm tek sayıları (15, 5, 13, 7, 1) topladığımızda 41 bulunur. Cevap Yanlıştır.
+```
+
+Yeterince büyük dil modelleri ile ortaya çıkan bir yetenek olduğunu yazarlar iddia ediyorlar.
+
+## Sıfır-Örnekli CoT İstemleri
+
+<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+
+Resim Kaynağı: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+
+Daha yakın zamanda ortaya çıkan bir fikir olan [sıfır-örnekli CoT](https://arxiv.org/abs/2205.11916) (Kojima ve diğerleri 2022), esasen orijinal isteme "Adım adım düşünelim" eklemeyi içerir. Basit bir problemi deneyelim ve modelin nasıl performans gösterdiğini görelim:
+
+*İstem:*
+```
+Pazara gittim ve 10 elma aldım. 2 elmayı komşuya ve 2 elmayı tamirciye verdim. Sonra 5 elma daha aldım ve 1'ini yedim. Kaç elmayla kaldım?
+```
+
+*Çıktı:*
+```
+11 elma
+```
+
+Cevap yanlış! Şimdi özel istemle deneyelim.
+
+*İstem:*
+```
+Pazara gittim ve 10 elma aldım. 2 elmayı komşuya ve 2 elmayı tamirciye verdim. Sonra 5 elma daha aldım ve 1'ini yedim. Kaç elmayla kaldım?
+
+Adım adım düşünelim.
+```
+
+*Çıktı:*
+```
+Öncelikle, 10 elma ile başladınız.
+2 elmayı komşuya ve 2 elmayı tamirciye verdiniz, yani 6 elmanız kaldı.
+Sonra 5 tane daha elma aldınız, yani şimdi 11 tane elmanız oldu.
+Son olarak, 1 elma yediniz, bu durumda 10 elmanız kaldı.
+```
+
+Bu basit istemin bu görevde etkili olması etkileyici. Bu, istemde kullanılacak fazla örneğiniz olmadığı durumlarda özellikle kullanışlıdır.
+
+## Otomatik Düşünceler Zinciri (Auto-CoT)
+
+Düşünceler zinciri istemlerini uygularken, süreç etkili ve çeşitlilik gösteren örneklerin elle hazırlanmasını içerir. Bu manuel çaba, alt-optimal çözümlere yol açabilir. [Zhang ve diğerleri (2022)](https://arxiv.org/abs/2210.03493) LLM'leri "Adım adım düşünelim" istemi ile kullanarak gösterimler için akıl yürütme zincirlerini birer birer oluşturarak manuel çabayı ortadan kaldıran bir yaklaşım önermektedirler. Bu otomatik süreç, oluşturulan zincirlerde hatalarla sonuçlanabilir. Hataların etkilerini hafifletmek için, gösterimlerin çeşitliliği önemlidir. Bu çalışma, Auto-CoT'yi önerir, bu çeşitlilikte sorular örneklendir ve akıl yürütme zincirleri oluşturarak gösterimleri oluşturur.
+
+Auto-CoT iki ana aşamadan oluşur:
+
+- Aşama 1): **soru kümelemesi**: veri setindeki soruları birkaç kümeye ayırır
+- Aşama 2): **gösterim örneklendirmesi**: her kümeden temsili bir soru seçer ve Zero-Shot-CoT ile basit sezgilere dayanarak akıl yürütme zinciri oluşturur
+
+Basit sezgiler, soruların uzunluğu (örneğin, 60 token) ve rasyoneldeki adımların sayısı (örneğin, 5 akıl yürütme adımı) olabilir. Bu, modelin basit ve doğru gösterimler kullanmasını teşvik eder.
+
+Süreç aşağıdaki gibi gösterilmiştir:
+
+<Screenshot src={AUTOCOT} alt="AUTOCOT" />
+
+Resim Kaynağı: [Zhang et al. (2022)](https://arxiv.org/abs/2210.03493)
+
+Auto-CoT kodu [burada](https://github.com/amazon-science/auto-cot) bulunabilir.

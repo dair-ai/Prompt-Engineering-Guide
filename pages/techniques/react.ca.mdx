@@ -1,0 +1,178 @@
+# ReAct: Generació de sol·licituds
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import REACT from '../../img/react.png'
+import REACT1 from '../../img/react/table1.png'
+import REACT2 from '../../img/react/alfworld.png'
+
+[Yao et al., 2022](https://arxiv.org/abs/2210.03629) van presentar un marc anomenat ReAct on els LLMs s'utilitzen per generar tant *rastres de raonament* com *accions específiques de la tasca* de manera entrellaçada.
+
+Generar rastres de raonament permet al model induir, seguir i actualitzar els plans d'acció, i fins i tot gestionar les excepcions. El pas d'acció permet interactuar amb i obtenir informació de fonts externes, com ara bases de coneixement o entorns.
+
+El marc ReAct pot permetre que els LLMs interactuïn amb eines externes per recuperar informació addicional que condueix a respostes més fiables i basades en fets.
+
+Els resultats mostren que ReAct pot superar diverses línies de base d'avantguarda en tasques de llenguatge i presa de decisions. ReAct també contribueix a millorar la interpretabilitat humana i la fiabilitat dels LLMs. En general, els autors van trobar que la millor aproximació utilitza ReAct combinat amb una cadena de pensament (CoT) que permet l'ús tant del coneixement intern com de la informació externa obtinguda durant el raonament.
+
+## Com funciona?
+
+ReAct s'inspira en les sinèrgies entre "actuar" i "raonar" que permeten als humans aprendre noves tasques i prendre decisions o raonar.
+
+La generació de sol·licituds en cadena de pensament (CoT) ha demostrat les capacitats dels LLMs per dur a terme rastres de raonament per generar respostes a preguntes que impliquen raonament aritmètic i de sentit comú, entre altres tasques [(Wei et al., 2022)](https://arxiv.org/abs/2201.11903). Però la falta d'accés al món extern o la incapacitat d'actualitzar el seu coneixement pot portar a problemes com ara la hallucinació de fets i la propagació d'errors.
+
+ReAct és un paradigma general que combina raonament i actuació amb LLMs. ReAct sol·licita als LLMs que generin rastres de raonament verbal i accions per a una tasca. Això permet al sistema realitzar raonament dinàmic per crear, mantenir i ajustar plans d'actuació alhora que permet la interacció amb entorns externs (per exemple, Wikipedia) per incorporar informació addicional al raonament. La figura a continuació mostra un exemple de ReAct i els diferents passos implicats per realitzar respostes a preguntes.
+
+<Screenshot src={REACT} alt="REACT" />
+Font de la imatge: [Yao et al., 2022](https://arxiv.org/abs/2210.03629)
+
+En l'exemple de dalt, passem una sol·licitud com la següent pregunta de [HotpotQA](https://hotpotqa.github.io/):
+
+```
+A part del control remot d'Apple, quins altres dispositius poden controlar el programa amb el qual el control remot d'Apple va ser dissenyat originalment per interactuar?
+```
+
+Tingueu en compte que també s'afegeixen exemples en context a la sol·licitud, però els excloem aquí per simplicitat. Podem veure que el model genera *trayectorias de resolución de tareas* (Thought, Act). Obs correspon a l'observació de l'entorn amb el qual s'està interactuant (per exemple, motor de cerca). En essència, ReAct pot recuperar informació per donar suport al raonament, mentre que el raonament ajuda a enfocar què recuperar a continuació.
+
+## ReAct Prompting
+Per demostrar com funciona la generació de sol·licituds ReAct, seguim un exemple del document.
+
+El primer pas és seleccionar casos d'un conjunt d'entrenament (per exemple, HotPotQA) i compondre trajectòries en format ReAct. Aquestes es fan servir com a exemples de poques mostres en les sol·licituds. Les trajectòries consisteixen en diversos passos de pensament-acció-observació, com es mostra en la figura de dalt. Els pensaments de forma lliure s'utilitzen per aconseguir diferents tasques, com ara descompondre preguntes
+
+Aquí teniu un exemple de com es veuen els exemples de sol·licituds ReAct (obtinguts del document i escurçats a un exemple per simplicitat):
+
+```
+Question What is the elevation range for the area that the eastern sector of the
+Colorado orogeny extends into?
+Thought 1 I need to search Colorado orogeny, find the area that the eastern sector
+of the Colorado orogeny extends into, then find the elevation range of the
+area.
+Action 1 Search[Colorado orogeny]
+Observation 1 The Colorado orogeny was an episode of mountain building (an orogeny) in
+Colorado and surrounding areas.
+Thought 2 It does not mention the eastern sector. So I need to look up eastern
+sector.
+Action 2 Lookup[eastern sector]
+Observation 2 (Result 1 / 1) The eastern sector extends into the High Plains and is called
+the Central Plains orogeny.
+Thought 3 The eastern sector of Colorado orogeny extends into the High Plains. So I
+need to search High Plains and find its elevation range.
+Action 3 Search[High Plains]
+Observation 3 High Plains refers to one of two distinct land regions
+Thought 4 I need to instead search High Plains (United States).
+Action 4 Search[High Plains (United States)]
+Observation 4 The High Plains are a subregion of the Great Plains. From east to west, the
+High Plains rise in elevation from around 1,800 to 7,000 ft (550 to 2,130
+m).[3]
+Thought 5 High Plains rise in elevation from around 1,800 to 7,000 ft, so the answer
+is 1,800 to 7,000 ft.
+Action 5 Finish[1,800 to 7,000 ft]
+...
+```
+
+Tingueu en compte que es fan servir diferents configuracions de sol·licituds per a diferents tipus de tasques. Per a tasques on el raonament és de primera importància (per exemple, HotpotQA), es fan servir múltiples passos de pensament-acció-observació per a la trajectòria de resolució de tasques. Per a tasques de presa de decisions que impliquen molts passos d'acció, els pensaments s'utilitzen escassament.
+
+## Resultats en tasques intensives en coneixement
+
+El document avalua primer ReAct en tasques de raonament intensives en coneixement, com ara respostes a preguntes (HotPotQA) i verificació de fets ([Fever](https://fever.ai/resources.html)). PaLM-540B es fa servir com a model base per a la generació de sol·licituds.
+
+<Screenshot src={REACT1} alt="REACT1" />
+Font de la imatge: [Yao et al., 2022](https://arxiv.org/abs/2210.03629)
+
+Els resultats de les sol·licituds a HotPotQA i Fever amb diferents mètodes de sol·licituds mostren que ReAct generalment té un rendiment millor que Act (implica actuar només) en ambdues tasques.
+
+També podem observar que ReAct supera CoT a Fever i queda per darrere de CoT a HotpotQA. Al document es proporciona una anàlisi detallada dels errors. En resum:
+
+- CoT pateix d'al·lucinació de fets
+- La restricció estructural de ReAct redueix la seva flexibilitat en la formulació de passos de raonament
+- ReAct depèn molt de la informació que està recuperant; els resultats de cerca no informatius descarrilen el raonament del model i provoquen dificultats per recuperar i reformular pensaments
+
+Els mètodes de sol·licitud que combinen i donen suport al canvi entre ReAct i CoT + Autoconsistència generalment tenen un rendiment millor que tots els altres mètodes de sol·licitud.
+
+## Resultats en tasques de presa de decisions
+
+El document també informa dels resultats que demostren el rendiment de ReAct en tasques de presa de decisions. ReAct s'avalua en dos marcadors de referència anomenats [ALFWorld](https://alfworld.github.io/) (joc basat en text) i [WebShop](https://webshop-pnlp.github.io/) (entorn de lloc web de compres en línia). Tots dos impliquen entorns complexos que requereixen raonament per actuar i explorar de manera efectiva.
+
+Tingueu en compte que les sol·licituds de ReAct estan dissenyades de manera diferent per a aquestes tasques, tot i que mantenen la mateixa idea central de combinar raonament i actuació. A continuació es mostra un exemple d'un problema ALFWorld que implica sol·licituds ReAct.
+
+<Screenshot src={REACT2} alt="REACT2" />
+Font de la imatge: [Yao et al., 2022](https://arxiv.org/abs/2210.03629)
+
+ReAct supera Act tant en ALFWorld com en Webshop. Act, sense cap pensament, no aconsegueix descompondre correctament els objectius en subobjectius. El raonament sembla ser avantatjós en ReAct per a aquests tipus de tasques, però els mètodes actuals basats en sol·licituds estan encara lluny del rendiment d'éssers humans experts en aquestes tasques.
+
+Consulteu el document per obtenir resultats més detallats.
+
+## Ús de LangChain ReAct
+
+A continuació es presenta un exemple d'alt nivell de com funciona l'enfocament de sol·licituds ReAct a la pràctica. Utilitzarem OpenAI per a l'LLM i [LangChain](https://python.langchain.com/en/latest/index.html), ja que ja té funcionalitat integrada que aprofita el marc de ReAct per construir agents que realitzen tasques combinant la potència dels LLM i diferents eines.
+
+En primer lloc, instal·lem i importem les biblioteques necessàries:
+
+``` python
+%%capture
+# actualitza o instal·la les biblioteques necessàries
+!pip install --upgrade openai
+!pip install --upgrade langchain
+!pip install --upgrade python-dotenv
+!pip install google-search-results
+
+# importa biblioteques
+import openai
+import os
+from langchain.llms import OpenAI
+from langchain.agents import load_tools
+from langchain.agents import initialize_agent
+from dotenv import load_dotenv
+load_dotenv()
+
+# carrega les claus API; hauràs d'obtenir-les si encara no les tens
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["SERPER_API_KEY"] = os.getenv("SERPER_API_KEY")
+
+```
+
+Ara podem configurar l'LLM, les eines que utilitzarem i l'agent que ens permet utilitzar el marc ReAct juntament amb l'LLM i les eines. Tingueu en compte que estem utilitzant una API de cerca per cercar informació externa i l'LLM com a eina de matemàtiques.
+
+``` python
+llm = OpenAI(model_name="text-davinci-003" ,temperature=0)
+tools = load_tools(["google-serper", "llm-math"], llm=llm)
+agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
+```
+
+Un cop configurat, ara podem executar l'agent amb la consulta/sol·licitud desitjada. Tingueu en compte que aquí no s'espera que proporcioneu exemples de poques mostres, com s'explica en el document.
+
+``` python
+agent.run("Who is Olivia Wilde's boyfriend? What is his current age raised to the 0.23 power?")
+```
+
+L'execució de la cadena es veu de la següent manera:
+
+``` yaml
+> Entrant a una nova cadena d'AgentExecutor...
+Necessito saber qui és el nòvio d'Olivia Wilde i després calcular la seva edat elevada a la potència de 0,23.
+Acció: Cercar
+Entrada d'acció: "Olivia Wilde boyfriend"
+Observació: Olivia Wilde va començar a sortir amb Harry Styles després d'acabar el seu compromís de molts anys amb Jason Sudeikis: vegeu la seva cronologia de relació.
+Pensament: Necessito descobrir l'edat d'Harry Styles.
+Acció: Cercar
+Entrada d'acció: "Harry Styles age"
+Observació: 29 anys
+Pensament: Necessito calcular 29 elevat a la potència de 0,23.
+Acció: Calculadora
+Entrada d'acció: 29^0.23
+Observació: Resposta: 2.169459462491557
+
+Pensament: Ara sé la resposta final.
+Resposta final: Harry Styles, el nòvio d'Olivia Wilde, té 29 anys i la seva edat elevada a la potència de 0,23 és 2.169459462491557.
+
+> Cadena finalitzada.
+```
+
+La sortida que obtenim és la següent:
+
+```
+"Harry Styles, el nòvio d'Olivia Wilde, té 29 anys i la seva edat elevada a la potència de 0,23 és 2.169459462491557."
+```
+
+Hem adaptat l'exemple de la [documentació de LangChain](https://python.langchain.com/docs/modules/agents), així que el crèdit és per a ells. Animen a l'aprenent a explorar diferents combinacions d'eines i tasques.
+
+Podeu trobar el quadern de codi aquí: https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/react.ipynb

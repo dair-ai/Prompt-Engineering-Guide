@@ -1,0 +1,77 @@
+# Bilimsel Soru Yanıtlama
+
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## Arkaplan
+Aşağıdaki istem, bir LLM'nin bilimsel soru yanıtlama becerilerini test etmektedir. 
+
+## İstem
+
+```markdown
+Soruyu aşağıdaki bağlama göre yanıtlayın. Cevabınızı kısa ve öz tutun. Cevaptan emin değilseniz “Cevaptan emin değilim” yanıtını verin.
+
+Context: Teplizumab'ın kökleri Ortho Pharmaceutical adlı bir New Jersey ilaç şirketine dayanmaktadır. Burada bilim insanları OKT3 olarak adlandırılan antikorun erken bir versiyonunu üretti. Başlangıçta farelerden elde edilen molekül, T hücrelerinin yüzeyine bağlanabiliyor ve hücre öldürme potansiyellerini sınırlayabiliyordu. 1986 yılında, böbrek nakillerinden sonra organ reddini önlemeye yardımcı olması için onaylandı ve insan kullanımı için izin verilen ilk terapötik antikor oldu.
+
+Soru: OKT3'ün orijinal kaynağı neydi?
+Cevap:
+```
+
+## Kod / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+        "role": "user",
+        "content": "Soruyu aşağıdaki bağlama göre yanıtlayın. Cevabınızı kısa ve öz tutun. Cevaptan emin değilseniz \“Cevaptan emin değilim\” yanıtını verin.\n\nContext: Teplizumab'ın kökleri Ortho Pharmaceutical adlı bir New Jersey ilaç şirketine dayanmaktadır. Burada bilim insanları OKT3 olarak adlandırılan antikorun erken bir versiyonunu üretti. Başlangıçta farelerden elde edilen molekül, T hücrelerinin yüzeyine bağlanabiliyor ve hücre öldürme potansiyellerini sınırlayabiliyordu. 1986 yılında, böbrek nakillerinden sonra organ reddini önlemeye yardımcı olması için onaylandı ve insan kullanımı için izin verilen ilk terapötik antikor oldu.\n\nSoru: OKT3'ün orijinal kaynağı neydi?\nCevap:"
+        }
+    ],
+    temperature=1,
+    max_tokens=250,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Soruyu aşağıdaki bağlama göre yanıtlayın. Cevabınızı kısa ve öz tutun. Cevaptan emin değilseniz \“Cevaptan emin değilim\” yanıtını verin.\n\nContext: Teplizumab'ın kökleri Ortho Pharmaceutical adlı bir New Jersey ilaç şirketine dayanmaktadır. Burada bilim insanları OKT3 olarak adlandırılan antikorun erken bir versiyonunu üretti. Başlangıçta farelerden elde edilen molekül, T hücrelerinin yüzeyine bağlanabiliyor ve hücre öldürme potansiyellerini sınırlayabiliyordu. 1986 yılında, böbrek nakillerinden sonra organ reddini önlemeye yardımcı olması için onaylandı ve insan kullanımı için izin verilen ilk terapötik antikor oldu.\n\nSoru: OKT3'ün orijinal kaynağı neydi?\nCevap:",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## Referans
+- [Prompt Engineering Guide](https://www.promptingguide.ai/introduction/examples#question-answering) (16 Nisan 2023)

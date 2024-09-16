@@ -1,0 +1,12 @@
+# Active-Prompt
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ACTIVE from '../../img/active-prompt.png'
+
+Chain-of-thought (CoT)-Methoden basieren auf einem festen Satz von menschen-annotierten Beispielen. Das Problem dabei ist, dass diese Beispiele möglicherweise nicht die effektivsten für die unterschiedlichen Aufgaben sind. Um diesem Problem zu begegnen, schlugen [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf) kürzlich einen neuen Prompting-Ansatz vor, der als Active-Prompt bezeichnet wird, um LLMs an verschiedene aufgabenspezifische Beispiel-Prompts (mit menschengestaltetem CoT-Reasoning annotiert) anzupassen.
+
+Unten ist eine Illustration des Ansatzes dargestellt. Im ersten Schritt wird das LLM mit oder ohne ein paar CoT-Beispiele abgefragt. *k* mögliche Antworten werden für einen Satz von Trainingsfragen generiert. Basierend auf den *k* Antworten wird eine Unsicherheitsmetrik berechnet (es wird die Uneinigkeit verwendet). Die unsichersten Fragen werden für die Annotation durch Menschen ausgewählt. Die neuen annotierten Beispiele werden dann verwendet, um jede Frage zu erschließen.
+
+<Screenshot src={ACTIVE} alt="ACTIVE" />
+Bildquelle: [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf)

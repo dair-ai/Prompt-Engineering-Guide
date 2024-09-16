@@ -1,0 +1,9 @@
+{
+  "function_calling": "Funktionsaufrufe",
+  "generating": "Generierung von Daten",
+  "synthetic_rag": "Generierung eines synthetischen Datensatzes für RAG",
+  "generating_textbooks": "Umgang mit generierten Datensätzen und deren Vielfalt",
+  "coding": "Codegenerierung",
+  "workplace_casestudy": "Fallstudie zur Klassifizierung von Absolventenjobs",
+  "pf": "Prompt-Funktion"
+}

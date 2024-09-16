@@ -1,0 +1,27 @@
+{
+  "index": "Prompt Engineering",
+  "introduction": "Einleitung",
+  "techniques": "Techniken",
+  "applications": "Anwendungen",
+  "prompts": "Prompt Hub",
+  "models": "Modelle",
+  "risks": "Risiken & Missbrauch",
+  "research": "LLM Forschungsergebnisse",
+  "papers": "Papers",
+  "tools": "Werkzeuge & Bibliotheken",
+  "notebooks": "Notebooks",
+  "datasets": "Datensätze",
+  "readings": "Zusatzlektüre",
+  "course":{
+    "title": "Prompt Engineering Kurs",
+    "type": "page"
+  },
+  "services": {
+    "title": "Services",
+    "type": "page"
+  },
+  "about": {
+    "title": "Über",
+    "type": "page"
+  }
+}
