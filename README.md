@@ -6,8 +6,6 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 🌐 [Prompt Engineering Guide (Web Version)](https://www.promptingguide.ai/)
 
-📺 [YouTube Mini Lectures on Prompting Engineering](https://www.youtube.com/playlist?list=PLGSHbNsNO4Vha1jB0wMtuYYEVO4laSo0m)
-
 🎉 We are excited to launch our brand new prompt engineering courses under the DAIR.AI Academy. [Join Now](https://dair-ai.thinkific.com/bundles/pro)!
 
 Happy Prompting!
