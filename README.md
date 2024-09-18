@@ -8,13 +8,14 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 📺 [YouTube Mini Lectures on Prompting Engineering](https://www.youtube.com/playlist?list=PLGSHbNsNO4Vha1jB0wMtuYYEVO4laSo0m)
 
-🎉 We are excited to launch our brand new [course website](https://dair-ai.thinkific.com/pages/courses) and releasing our first course on Introduction to Prompt Engineering. [Join Now](https://dair-ai.thinkific.com/bundles/pro)!
+🎉 We are excited to launch our brand new prompt engineering courses under the DAIR.AI Academy. [Join Now](https://dair-ai.thinkific.com/bundles/pro)!
 
 Happy Prompting!
 
 ---
 ## Announcements / Updates
 
+- 🎓 We now offer self-paced prompt engineering courses under our DAIR.AI Academy. [Join Now](https://dair-ai.thinkific.com/bundles/pro)! 
 - 🎓 New course on Prompt Engineering for LLMs announced! [Enroll here](https://maven.com/dair-ai/prompt-engineering-llms)!
 - 💼 We now offer several [services](https://www.promptingguide.ai/services) like corporate training, consulting, and talks.
 - 🌐 We now support 13 languages! Welcoming more translations.
