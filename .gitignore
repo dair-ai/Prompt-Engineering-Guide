@@ -18,3 +18,4 @@ pages/research/local_research/
 # app
 .next
 node_modules
+prompts
