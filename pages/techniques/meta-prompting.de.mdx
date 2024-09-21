@@ -1,0 +1,43 @@
+# Meta-Prompting
+
+## Einführung
+
+Meta-Prompting ist eine fortgeschrittene Prompting-Technik, die sich auf die strukturellen und syntaktischen Aspekte von Aufgaben und Problemen konzentriert, anstatt auf spezifische Inhaltsdetails. Das Ziel des Meta-Promptings ist es, eine abstraktere, strukturiertere Interaktionsweise mit großen Sprachmodellen (LLMs) zu konstruieren, wobei die Form und das Muster der Informationen über die traditionellen inhaltszentrierten Methoden betont werden.
+
+## Schlüsselmerkmale
+
+Laut [Zhang et al. (2024)](https://arxiv.org/abs/2311.11482) lassen sich die Schlüsselmerkmale des Meta-Promptings wie folgt zusammenfassen:
+
+**1. Strukturorientiert**: Priorisiert das Format und Muster von Problemen und Lösungen über spezifischen Inhalt.
+
+**2. Syntaxfokussiert**: Verwendet Syntax als leitende Vorlage für die erwartete Antwort oder Lösung.
+
+**3. Abstrakte Beispiele**: Setzt abstrahierte Beispiele als Frameworks ein, die die Struktur von Problemen und Lösungen veranschaulichen, ohne sich auf spezifische Details zu konzentrieren.
+
+**4. Vielseitig**: Anwendbar in verschiedenen Bereichen, fähig, strukturierte Antworten auf eine breite Palette von Problemen zu liefern.
+
+**5. Kategorischer Ansatz**: Greift auf die Typentheorie zurück, um die Kategorisierung und logische Anordnung von Komponenten in einem Prompt zu betonen.
+
+## Vorteile gegenüber Few-Shot-Prompting
+
+[Zhang et al., 2024](https://arxiv.org/abs/2311.11482) berichten, dass sich Meta-Prompting und Few-Shot-Prompting dadurch unterscheiden, dass Meta-Prompting einen stärker strukturorientierten Ansatz verfolgt, im Gegensatz zum inhaltlich getriebenen Ansatz, den Few-Shot-Prompting betont.
+
+Das folgende Beispiel, entnommen aus [Zhang et al. (2024)](https://arxiv.org/abs/2311.11482), veranschaulicht den Unterschied zwischen einem strukturierten Meta-Prompt und einem Few-Shot-Prompt zur Lösung von Problemen aus dem MATH-Benchmark:
+
+!["Meta-Prompting"](../../img/techniques/meta-prompting.png)
+
+Die Vorteile des Meta-Promptings gegenüber Few-Shot-Prompting umfassen:
+
+**1. Token-Effizienz**: Reduziert die Anzahl der erforderlichen Tokens, indem der Fokus auf Struktur und nicht auf detaillierten Inhalt gelegt wird.
+
+**2. Fairer Vergleich**: Bietet einen faireren Ansatz zum Vergleich verschiedener Problemlösungsmodelle, indem der Einfluss spezifischer Beispiele minimiert wird.
+
+**3. Zero-Shot-Effizienz**: Kann als eine Form des Zero-Shot-Promptings angesehen werden, bei dem der Einfluss spezifischer Beispiele minimiert wird.
+
+## Anwendungen
+
+Indem es sich auf die strukturellen Muster des Problemlösens konzentriert, bietet Meta-Prompting einen klaren Fahrplan zur Navigation durch komplexe Themen und verbessert die Denkfähigkeiten von LLMs in verschiedenen Bereichen.
+
+Es ist wichtig zu beachten, dass Meta-Prompting auch davon ausgeht, dass das LLM über ein innewohnendes Wissen über die jeweilige Aufgabe oder das Problem verfügt. Da LLMs sich auf unbekannte Aufgaben generalisieren können, ist es möglich, dass sie mit Meta-Prompting genutzt werden können, jedoch könnte die Leistung bei einzigartigeren und neuartigen Aufgaben, wie es beim Zero-Shot-Prompting der Fall ist, nachlassen.
+
+Anwendungen, bei denen Meta-Prompting nützlich sein kann, umfassen, sind aber nicht beschränkt auf komplexe Denkaufgaben, mathematische Problemlösungen, Programmierherausforderungen, theoretische Anfragen.
