@@ -1,5 +1,6 @@
 {
   "function_calling": "Funktionsaufrufe",
+  "context-caching": "Kontext-Caching mit LLMs",
   "generating": "Generierung von Daten",
   "synthetic_rag": "Generierung eines synthetischen Datensatzes für RAG",
   "generating_textbooks": "Umgang mit generierten Datensätzen und deren Vielfalt",
