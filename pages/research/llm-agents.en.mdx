@@ -1,7 +1,9 @@
 # LLM Agents
 
 import {Cards, Card} from 'nextra-theme-docs'
+import { Callout } from 'nextra/components'
 import {FilesIcon} from 'components/icons'
+
 
 LLM based agents, hereinafter also referred to as LLM agents for short, involve LLM applications that can execute complex tasks through the use of an architecture that combines LLMs with key modules like planning and memory. When building LLM agents, an LLM serves as the main controller or "brain" that controls a flow of operations needed to complete a task or user request. The LLM agent may require key modules such as planning, memory, and tool usage. 
 
@@ -16,6 +18,12 @@ The question above could potentially be answered using an LLM that already has t
 To answer such a question, just using an LLM alone wouldn't be enough. You can combine the LLM with an external knowledge base to form a RAG system but this is still probably not enough to answer the complex query above. This is because the complex question above requires an LLM to break the task into subparts which can be addressed using tools and a flow of operations that leads to a desired final response. A possible solution is to build an LLM agent that has access to a search API, health-related publications, and public/private health database to provide relevant information related to calorie intake and obesity. 
 
 In addition, the LLM will need access to a "code interpreter" tool that helps take relevant data to produce useful charts that help understand trends in obesity. These are the possible high-level components of the hypothetical LLM agent but there are still important considerations such as creating a plan to address the task and potential access to a memory module that helps the agent keep track of the state of the flow of operations, observations, and overall progress.
+
+<Callout type= "info" emoji="🎓">
+Learn more about LLM-based agents and advanced prompting methods in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
+
+Use code PROMPTING20 to get an extra 20% off.
+</Callout>
 
 ## LLM Agent Framework
 
