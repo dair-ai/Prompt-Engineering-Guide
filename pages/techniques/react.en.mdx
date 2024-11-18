@@ -14,7 +14,6 @@ The ReAct framework can allow LLMs to interact with external tools to retrieve a
 
 Results show that ReAct can outperform several state-of-the-art baselines on language and decision-making tasks. ReAct also leads to improved human interpretability and trustworthiness of LLMs. Overall, the authors found that best approach uses ReAct combined with chain-of-thought (CoT) that allows use of both internal knowledge and external information obtained during reasoning. 
 
-
 ## How it Works?
 
 ReAct is inspired by the synergies between "acting" and "reasoning" which allow humans to learn new tasks and make decisions or reasoning. 
@@ -33,6 +32,12 @@ Aside from the Apple Remote, what other devices can control the program Apple Re
 ```
 
 Note that in-context examples are also added to the prompt but we exclude that here for simplicity. We can see that the model generates *task solving trajectories* (Thought, Act). Obs corresponds to observation from the environment that's being interacted with (e.g., Search engine). In essence, ReAct can retrieve information to support reasoning, while reasoning helps to target what to retrieve next.  
+
+<Callout type= "info" emoji="🎓">
+Learn more about ReAct prompting and ReAct agents in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
+
+Use code BLACKFRIDAY to get an extra 35% off. This offer ends on 29th November 2024.
+</Callout>
 
 ## ReAct Prompting
 To demonstrate how ReAct prompting works, let's follow an example from the paper. 
@@ -71,6 +76,15 @@ Action 5 Finish[1,800 to 7,000 ft]
 ```
 
 Note that different prompts setups are used for different types of tasks. For tasks where reasoning is of primary importance (e.g., HotpotQA), multiple thought-action-observation steps are used for the task-solving trajectory. For decision making tasks involving lots of action steps, thoughts are used sparsely.  
+
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/f8whjxDBcd8?si=YuLAggOKAPOIxNkV"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
 
 ## Results on Knowledge-Intensive Tasks
 
