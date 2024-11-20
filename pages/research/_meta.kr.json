@@ -5,7 +5,7 @@
     "rag-faithfulness": "RAG 일관성",
     "llm-recall": "LLM In-Context Recall",
     "rag_hallucinations": "RAG Reduces Hallucination",
-    "synthetic_data": "Synthetic Data",
+    "synthetic_data": "합성 데이터",
     "thoughtsculpt": "ThoughtSculpt",
     "infini-attention": "Infini-Attention",
     "guided-cot": "LM-Guided CoT",
