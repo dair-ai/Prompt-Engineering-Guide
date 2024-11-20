@@ -2,7 +2,7 @@
     "llm-agents": "LLM Agents",
     "rag": "RAG for LLMs",
     "llm-reasoning": "LLM 추론",
-    "rag-faithfulness": "RAG Faithfulness",
+    "rag-faithfulness": "RAG 일관성",
     "llm-recall": "LLM In-Context Recall",
     "rag_hallucinations": "RAG Reduces Hallucination",
     "synthetic_data": "Synthetic Data",
