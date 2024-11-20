@@ -4,7 +4,7 @@
     "llm-reasoning": "LLM 추론",
     "rag-faithfulness": "RAG 일관성",
     "llm-recall": "LLM In-Context Recall",
-    "rag_hallucinations": "RAG Reduces Hallucination",
+    "rag_hallucinations": "RAG는 환각(Hallucination)을 줄인다",
     "synthetic_data": "합성 데이터",
     "thoughtsculpt": "ThoughtSculpt",
     "infini-attention": "Infini-Attention",
