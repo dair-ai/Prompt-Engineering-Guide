@@ -1,0 +1,24 @@
+# RAG 모델은 얼마나 일관적일까? 
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/eEU1dWVE8QQ?si=b-qgCU8nibBCSX8H" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+새로운 논문인 [Wu et al. (2024)](https://arxiv.org/abs/2404.10198)는 RAG와 LLM의 선행 지식(internal prior) 간의 줄다리기를 정량화하는 것에 초점을 맞춥니다.
+
+이 논문은 질문응답을 위한 분석에서 GPT-4와 다른 LLM들을 중심으로 다룹니다.
+
+연구 결과, 올바르게 검색된(retrieved) 정보를 제공하면 모델의 실수를 대부분 수정할 수 있다고 밝혔습니다 (94% 정확도).
+
+!["RAG Faithfulness"](../../img/research/rag-faith.png)
+*출처: [Wu et al. (2024)](https://arxiv.org/abs/2404.10198)*
+
+문서에 잘못된 값이 많고 LLM의 선행 지식(internal prior)이 약할 때, LLM은 잘못된 정보를 더 자주 언급하는 경향이 있습니다. 하지만 선행 지식이 강할수록 LLM은 잘못된 정보를 덜 선택하는 것으로 나타났습니다.
+
+또한 논문에서는 "모델의 선행 지식과 수정된 정보가 차이가 클수록, 모델이 이를 선호할 가능성이 낮아진다"고 보고하고 있습니다.
+
+많은 개발자와 기업들이 RAG 시스템을 실무에서 사용하고 있습니다. 따라서 이 연구는 지원 정보, 모순된 정보, 혹은 완전히 잘못된 정보가 포함될 수 있는 다양한 맥락에서 LLM을 사용할 때 리스크 평가의 중요성을 강조합니다.
