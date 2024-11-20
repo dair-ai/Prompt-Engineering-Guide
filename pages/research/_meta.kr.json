@@ -8,8 +8,8 @@
     "synthetic_data": "합성 데이터",
     "thoughtsculpt": "ThoughtSculpt",
     "infini-attention": "Infini-Attention",
-    "guided-cot": "LM-Guided CoT",
+    "guided-cot": "언어 모델 주도 CoT",
     "trustworthiness-in-llms": "Trustworthiness in LLMs",
     "llm-tokenization": "LLM Tokenization",
-    "groq": "What is Groq?"
+    "groq": "Groq란?"
 }
