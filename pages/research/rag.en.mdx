@@ -1,5 +1,7 @@
 # Retrieval Augmented Generation (RAG) for LLMs
 
+import { Callout } from 'nextra/components'
+
 There are many challenges when working with LLMs such as domain knowledge gaps, factuality issues, and hallucination. Retrieval Augmented Generation (RAG) provides a solution to mitigate some of these issues by augmenting LLMs with external knowledge such as databases. RAG is particularly useful in knowledge-intensive scenarios or domain-specific applications that require knowledge that's continually updating. A key advantage of RAG over other approaches is that the LLM doesn't need to be retrained for task-specific applications. RAG has been popularized recently with its application in conversational agents. 
 
 In this summary, we highlight the main findings and practical insights from the recent survey titled [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997) (Gao et al., 2023). In particular, we focus on the existing approaches, state-of-the-art RAG, evaluation, applications and technologies surrounding the different components that make up a RAG system (retrieval, generation, and augmentation techniques). 
@@ -31,6 +33,12 @@ We can explain the different steps/components as follows:
 - **Generation:** The relevant documents are combined with the original prompt as additional context. The combined text and prompt are then passed to the model for response generation which is then prepared as the final output of the system to the user. 
 
 In the example provided, using the model directly fails to respond to the question due to a lack of knowledge of current events. On the other hand, when using RAG, the system can pull the relevant information needed for the model to answer the question appropriately.
+
+<Callout type= "info" emoji="🎓">
+Learn more about RAG and advanced prompting methods in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
+
+Use code PROMPTING20 to get an extra 20% off.
+</Callout>
 
 
 ## RAG Paradigms

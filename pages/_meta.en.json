@@ -2,6 +2,7 @@
   "index": "Prompt Engineering",
   "introduction": "Introduction",
   "techniques": "Techniques",
+  "guides": "Guides",
   "applications": "Applications",
   "prompts": "Prompt Hub",
   "models": "Models",
@@ -25,3 +26,4 @@
     "type": "page"
   }
 }
+
