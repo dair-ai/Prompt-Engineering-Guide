@@ -1,7 +1,8 @@
 {
   "index": "Prompt Engineering",
   "introduction": "Introduction",
-  "techniques": "Techniques",
+  "techniques": "Prompting Techniques",
+  "agents": "Agents",
   "guides": "Guides",
   "applications": "Applications",
   "prompts": "Prompt Hub",
