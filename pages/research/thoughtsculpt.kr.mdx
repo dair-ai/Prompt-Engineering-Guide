@@ -1,0 +1,25 @@
+# 중간 단계 수정(Intermediate Revision)과 LLM을 위한 검색을 통한 추론
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/13fr5m6ezOM?si=DH3XYfzbMsg9aeIx" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+[Chi et al. (2024)](https://arxiv.org/abs/2404.05966)의 연구는 컴포넌트로 쪼갤 수 있는 작업에 대해 일반적인 추론과 검색을 수행하는 접근법을 제시합니다.
+
+이 연구에서 제안한 그래프 기반 프레임워크인 THOUGHTSCULPT는 반복적인 자가 수정(self-revision) 기능을 포함하며, LLM이 서로 얽힌 사고의 네트워크를 구축할 수 있도록 합니다.
+
+Tree-of-thoughts와 같이 추론 과정을 트리 형태로 구성하는 다른 접근법들과 달리, 이 새로운 접근법은 몬테 카를로 트리 탐색(MCTS)을 활용하여 검색 공간(search space)을 효율적으로 탐색합니다.
+
+이 새로운 방법은 LLM 기반의 사고 평가자(thought evaluator)를 사용하여 잠재적인 부분적 출력(candidate partial outputs)에 대해 피드백을 제공합니다. 그런 다음 사고 생성자(thought generator) 컴포넌트는 잠재적 해결책을 생성합니다. 사고 평가자와 사고 생성자는 직면한 해결책을 개선하는 데 도움을 주는 확장 단계로 간주됩니다. 
+
+!["ThoughtSculpt"](../../img/research/thoughtsculpt.png)
+
+마지막으로, 몬테카를로 트리 탐색(MCTS) 과정의 일환으로 작동하는 결정 시뮬레이터(decision simulator)는 연속적인 사고 흐름을 시뮬레이션하여 path의 잠재적 가치를 평가합니다.
+
+지속적인 사고 반복이 가능하기 때문에, THOUGHTSCULPT는 개방형 생성(open-ended generation), 다단계 추론(multip-step reasoning), 창의적 아이디어 발상과 같은 작업에 특히 적합합니다.
+
+이와 유사한 개념이나 검색 알고리즘을 사용해 LLM의 추론 능력과 복잡한 문제 해결, 계획을 처리하는 능력을 향상시키는 더 발전된 접근법들이 등장할 것입니다. 연구 트렌드를 잘 담아낸 기록적 가치가 있는 좋은 논문입니다.
