@@ -67,6 +67,7 @@ You can also find the most up-to-date guides on our new website [https://www.pro
   - [Prompt Engineering - Takling Generated Datasets Diversity](https://www.promptingguide.ai/applications/generating_textbooks)
   - [Prompt Engineering - Generating Code](https://www.promptingguide.ai/applications/coding)
   - [Prompt Engineering - Graduate Job Classification Case Study](https://www.promptingguide.ai/applications/workplace_casestudy)
+  - [Prompt Engineering - Deterministic Induction Limit](https://www.promptingguide.ai/applications/dil) [Source](https://medium.com/@AltamiranoAriel/deterministic-induction-limit-dil-a-novel-llm-prompting-technique-to-predict-future-events-1af6d72dd4de)
 - [Prompt Engineering - Prompt Hub](https://www.promptingguide.ai/prompts)
   - [Prompt Engineering - Classification](https://www.promptingguide.ai/prompts/classification)
   - [Prompt Engineering - Coding](https://www.promptingguide.ai/prompts/coding)
