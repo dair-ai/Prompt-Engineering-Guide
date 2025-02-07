@@ -1,3 +1,116 @@
-# Prompt Chaining
+# İstem Zincirleme
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import {Screenshot} from 'components/screenshot'
+import PC1 from '../../img/prompt_chaining/prompt-chaining-1.png'
+import { Callout } from 'nextra/components'
+
+## İstem Zincirlemeye Giriş
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/CKZC5RigYEc?si=EG1kHf83ceawWdHX" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Büyük Dil Modellerinin (LLM'lerin) güvenilirliğini ve performansını artırmak için önemli prompt mühendisliği tekniklerinden biri, görevleri alt görevlere bölmektir. Bu alt görevler belirlendikten sonra, LLM'e bir alt görevle ilgili istem (prompt) verilir ve modelin yanıtı, bir sonraki istem için girdi olarak kullanılır. Bu sürece "istem zincirleme" (prompt chaining) denir; burada bir görev, bir dizi istem işlemi oluşturmak amacıyla alt görevlere ayrılır.
+
+İstem zincirleme, LLM'in çok ayrıntılı bir istemle zorlanabileceği karmaşık görevleri gerçekleştirmek için faydalıdır. Bu teknikte, zincirleme istemler, modelin ürettiği yanıtlar üzerinde dönüşümler veya ek işlemler gerçekleştirerek istenen nihai duruma ulaşmayı sağlar.
+
+Daha iyi performans sağlamanın yanı sıra, istem zincirleme LLM tabanlı uygulamanızın şeffaflığını artırır, denetimi kolaylaştırır ve güvenilirliği yükseltir. Bu sayede, model yanıtlarındaki sorunları daha kolay tespit edebilir, analiz edebilir ve farklı aşamalardaki performansı geliştirebilirsiniz.
+
+İstem zincirleme, özellikle LLM destekli sohbet asistanları geliştirirken, uygulamalarınızın kişiselleştirilmesini ve kullanıcı deneyiminin iyileştirilmesini sağlamak açısından oldukça faydalıdır.
+
+<Callout type= "info" emoji="🎓">
+İstem zincirleme ve ileri seviye istem oluşturma yöntemleri hakkında daha fazla bilgi edinmek için yeni yapay zeka kurslarımıza katılın. [Hemen katılın!](https://dair-ai.thinkific.com/)
+</Callout>
+
+## İstem Zincirleme için Kullanım Örnekleri
+
+### Belge Soru-Cevap için İstem Zincirleme
+
+İstem zincirleme, birden fazla işlem veya dönüşüm içeren farklı senaryolarda kullanılabilir. Örneğin, büyük bir metin belgesi hakkında soruları yanıtlamak, Büyük Dil Modellerinin (LLM'lerin) yaygın kullanım alanlarından biridir. Bu süreçte, iki farklı istem tasarlamak faydalı olabilir: İlk istem, bir soruya yanıt vermek için ilgili alıntıları belgeden çıkarırken, ikinci istem ise bu alıntıları ve orijinal belgeyi kullanarak soruya yanıt verir. Başka bir deyişle, bir belgede verilen bir soruyu yanıtlamak için iki ayrı istem oluşturmuş olursunuz.
+
+Aşağıda, ilk istem bir soruya bağlı olarak belgeden ilgili alıntıları çıkarır. Kolaylık sağlamak adına belge için {{document}} şeklinde bir yer tutucu ekledik. İstemi test etmek için Wikipedia'dan [prompt engineering](https://en.wikipedia.org/wiki/Prompt_engineering) gibi bir makaleyi kopyalayıp yapıştırabilirsiniz. Bu görev için daha geniş bağlam kullanıldığından, OpenAI'nin gpt-4-1106-preview modelini kullanıyoruz. Ayrıca, bu istemi Claude gibi uzun bağlam destekleyen diğer LLM'lerle de kullanabilirsiniz.
+
+Prompt (İstem) 1: 
+```
+Sen yardımcı bir asistansın. Görevin, verilen bir belgede yer alan bir soruya yanıt bulmaya yardımcı olmaktır. İlk adım, soru ile ilgili alıntıları belgeden çıkarmaktır. Belge, #### ile sınırlanmıştır. Lütfen alıntıları <quotes></quotes> etiketi içinde listeleyerek çıktı ver. Eğer ilgili alıntılar bulunamazsa, "İlgili alıntı bulunamadı!" şeklinde yanıt ver.
+
+
+####
+{{document}}
+####
+```
+
+İşte `user` rolü kullanılarak iletilen soru da dahil olmak üzere tüm komut isteminin ekran görüntüsü.
+
+<Screenshot src={PC1} alt="Prompt Chaining Part 1" />
+
+Prompt (istem) 1'in Çıktısı:
+```
+<quotes>  
+- Düşünce zinciri (Chain-of-thought, CoT) istemi[27]  
+- Üretilen bilgi istemi[37]  
+- Basitten karmaşığa istem (Least-to-most prompting)[38]  
+- Kendi içinde tutarlılık şifreleme (Self-consistency decoding)[39]  
+- Karmaşıklık tabanlı istem[41]  
+- Kendi kendini iyileştirme (Self-refine)[42]  
+- Düşünce ağacı istemi (Tree-of-thought prompting)[43]  
+- Maiyotik istem (Maieutic prompting)[45]  
+- Yönlendirici uyaran istemi (Directional-stimulus prompting)[46]  
+- Metinsel ters çevirme ve gömülü temsiller (Textual inversion and embeddings)[59]  
+- İstemleri aramak için gradyan inişi kullanımı[61][62][63][64]  
+- İstem enjeksiyonu (Prompt injection)[65][66][67]  
+</quotes>  
+```
+
+İlk istemde döndürülen alıntılar şimdi aşağıdaki ikinci istemin girdisi olarak kullanılabilir. Alıntıları biraz daha temizleyebileceğinizi unutmayın, örneğin, kaynak referanslarını kaldırabilirsiniz. Bu referanslar istem zincirinin başka bir parçasında kullanılabilir ancak şimdilik bunu göz ardı edebilirsiniz. İkinci istem, İstem 1 tarafından çıkarılan ilgili alıntıları kullanarak, belgede verilen soruya yönelik faydalı bir yanıt oluşturur. İstem 2 şu şekilde olabilir:
+
+Prompt (İstem) 2:
+```
+Bir belgeden çıkarılan ve <quotes></quotes> etiketiyle sınırlanmış ilgili alıntılar ile #### ile sınırlanmış orijinal belge verildiğinde, lütfen soruya bir yanıt oluştur. Yanıtın doğru, samimi bir tona sahip ve yardımcı olacak şekilde olmasını sağla. 
+
+####
+{{document}}
+####
+
+<quotes>
+- Düşünce zinciri (Chain-of-thought, CoT) istemi[27]
+- Üretilen bilgi istemi[37]
+- Basitten karmaşığa istem (Least-to-most prompting)[38]
+- Kendi içinde tutarlılık şifreleme (Self-consistency decoding)[39]
+- Karmaşıklık tabanlı istem[41]
+- Kendi kendini iyileştirme (Self-refine)[42]
+- Düşünce ağacı istemi (Tree-of-thought prompting)[43]
+- Maiyotik istem (Maieutic prompting)[45]
+- Yönlendirici uyaran istemi (Directional-stimulus prompting)[46]
+- Metinsel ters çevirme ve gömülü temsiller (Textual inversion and embeddings)[59]
+- İstemleri aramak için gradyan inişi kullanımı[61][62][63][64]
+- İstem enjeksiyonu (Prompt injection)[65][66][67]
+</quotes>
+```
+
+Prompt (istem) 2'nin Çıktısı:
+
+```
+Belgede belirtilen istem teknikleri şunlardır:
+
+1. Düşünce zinciri (Chain-of-thought, CoT) istemi[27]
+2. Üretilen bilgi istemi[37]
+3. Basitten karmaşığa istem (Least-to-most prompting)[38]
+4. Kendi içinde tutarlılık şifreleme (Self-consistency decoding)[39]
+5. Karmaşıklık tabanlı istem[41]
+6. Kendi kendini iyileştirme (Self-refine)[42]
+7. Düşünce ağacı istemi (Tree-of-thought prompting)[43]
+8. Maiyotik istem (Maieutic prompting)[45]
+9. Yönlendirici uyaran istemi (Directional-stimulus prompting)[46]
+10. Metinsel ters çevirme ve gömülü temsiller (Textual inversion and embeddings)[59]
+11. İstemleri aramak için gradyan inişi kullanımı[61][62][63][64]
+12. İstem enjeksiyonu (Prompt injection)[65][66][67]
+
+Bu tekniklerin her biri, büyük dil modelleri ile etkileşimleri geliştirmek veya belirli sonuçları elde etmek için benzersiz stratejiler kullanır.
+```
+
+Gördüğünüz gibi, basitleştirme ve istem zincirleme oluşturmak, yanıtların birkaç işlem veya dönüşümden geçmesi gereken durumlarda faydalı bir istem yaklaşımıdır. Bir egzersiz olarak, yanıtı son kullanıcıya göndermeden önce alıntıları (örneğin, [27]) kaldıran bir istem tasarlamaktan çekinmeyin.
+
+Ayrıca, Claude LLM'yi kullanan bu dokümantasyonda [documentation](https://docs.anthropic.com/claude/docs/prompt-chaining) istem zincirleme ile ilgili daha fazla örnek bulabilirsiniz. Bizim örneğimiz, onların örneklerinden esinlenerek uyarlanmıştır.
