@@ -8,7 +8,7 @@ import ART2 from '../../img/ART2.png'
 Combining CoT prompting and tools in an interleaved manner has shown to be a strong and robust approach to address many tasks with LLMs. These approaches typically require hand-crafting task-specific demonstrations and carefully scripted interleaving of model generations with tool use. [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014) propose a new framework that uses a frozen LLM to automatically generate intermediate reasoning steps as a program.
 
 ART works as follows:
-- given a new task, it select demonstrations of multi-step reasoning and tool use from a task library 
+- given a new task, it selects demonstrations of multi-step reasoning and tool use from a task library 
 - at test time, it pauses generation whenever external tools are called, and integrate their output before resuming generation
 
 ART encourages the model to generalize from demonstrations to decompose a new task and
