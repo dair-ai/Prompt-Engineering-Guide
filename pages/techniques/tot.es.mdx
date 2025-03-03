@@ -1,3 +1,45 @@
-# Tree of Thoughts (ToT)
+# Árbol de Pensamientos (ToT)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import TOT from '../../img/TOT.png'
+import TOT2 from '../../img/TOT2.png'
+import TOT3 from '../../img/TOT3.png'
+
+Para tareas complejas que requieren exploración o anticipación estratégica, las técnicas de indicación tradicionales o simples no son suficientes. [Yao et al. (2023)](https://arxiv.org/abs/2305.10601) y [Long (2023)](https://arxiv.org/abs/2305.08291) propusieron recientemente Árbol de Pensamientos (ToT), un marco que generaliza la técnica de cadena de pensamientos y fomenta la exploración de pensamientos que sirven como pasos intermedios para la resolución general de problemas con modelos de lenguaje.
+
+ToT mantiene un árbol de pensamientos, donde los pensamientos representan secuencias coherentes de lenguaje que sirven como pasos intermedios hacia la solución de un problema. Este enfoque permite que un modelo de lenguaje se autoevalúe el progreso a través de pensamientos intermedios hechos hacia la solución de un problema mediante un proceso de razonamiento deliberado. La capacidad del modelo de generar y evaluar pensamientos se combina con algoritmos de búsqueda (por ejemplo, búsqueda en amplitud y búsqueda en profundidad) para permitir una exploración sistemática de pensamientos con anticipación y retroceso.
+
+El marco de ToT se ilustra a continuación:
+
+<Screenshot src={TOT} alt="TOT" />
+Fuente de la imagen: [Yao et al. (2023)](https://arxiv.org/abs/2305.10601)
+
+Al utilizar ToT, diferentes tareas requieren definir el número de candidatos y el número de pensamientos/pasos. Por ejemplo, como se demuestra en el artículo, el Juego de 24 se utiliza como una tarea de razonamiento matemático que requiere descomponer los pensamientos en 3 pasos, cada uno involucrando una ecuación intermedia. En cada paso, se mantienen los mejores b=5 candidatos.
+
+Para realizar la búsqueda en amplitud (BFS) en ToT para la tarea del Juego de 24, el modelo de lenguaje es indicado para evaluar cada candidato de pensamiento como "seguro/tal vez/imposible" en relación con alcanzar 24. Como dicen los autores, "el objetivo es promover soluciones parciales correctas que puedan ser verificadas en pocos ensayos de anticipación, y eliminar soluciones parciales imposibles basadas en el sentido común de "demasiado grande/pequeño", y mantener el resto "tal vez"". Los valores se muestrean 3 veces para cada pensamiento. El proceso se ilustra a continuación:
+
+<Screenshot src={TOT2} alt="TOT2" />
+Fuente de la imagen: [Yao et al. (2023)](https://arxiv.org/abs/2305.10601)
+
+Según los resultados reportados en la figura a continuación, ToT supera sustancialmente a otros métodos de indicación:
+
+<Screenshot src={TOT3} alt="TOT3" />
+Fuente de la imagen: [Yao et al. (2023)](https://arxiv.org/abs/2305.10601)
+
+Código disponible [aquí](https://github.com/princeton-nlp/tree-of-thought-llm) y [aquí](https://github.com/jieyilong/tree-of-thought-puzzle-solver)
+
+A un alto nivel, las ideas principales de [Yao et al. (2023)](https://arxiv.org/abs/2305.10601) y [Long (2023)](https://arxiv.org/abs/2305.08291) son similares. Ambos mejoran la capacidad del modelo de lenguaje para la resolución de problemas complejos mediante la búsqueda en árboles a través de una conversación de múltiples rondas. Una de las principales diferencias es que [Yao et al. (2023)](https://arxiv.org/abs/2305.10601) aprovecha la búsqueda en profundidad/en amplitud/búsqueda en haz, mientras que la estrategia de búsqueda en árboles (es decir, cuándo retroceder y retroceder cuántos niveles, etc.) propuesta en [Long (2023)](https://arxiv.org/abs/2305.08291) está impulsada por un "Controlador ToT" entrenado mediante aprendizaje por refuerzo. Las búsquedas DFS/BFS/Beam son estrategias de búsqueda de soluciones genéricas sin adaptación a problemas específicos. En comparación, un Controlador ToT entrenado mediante RL podría aprender de nuevos conjuntos de datos o mediante autoaprendizaje (AlphaGo frente a búsqueda por fuerza bruta), y por lo tanto el sistema ToT basado en RL puede seguir evolucionando y aprendiendo nuevos conocimientos incluso con un modelo de lenguaje fijo.
+
+[Hulbert (2023)](https://github.com/dave1010/tree-of-thought-prompting) ha propuesto Tree-of-Thought Prompting, que aplica el concepto principal de los marcos ToT como una técnica simple de indicación, haciendo que el modelo de lenguaje evalúe pensamientos intermedios en una sola indicación. Un ejemplo de indicación ToT es:
+
+```
+Imagina que tres expertos diferentes están respondiendo esta pregunta.
+Todos los expertos escribirán un paso de su pensamiento, 
+luego lo compartirán con el grupo. 
+Luego todos los expertos pasarán al siguiente paso, etc. 
+Si algún experto se da cuenta de que está equivocado en algún punto, se retira. 
+La pregunta es...
+```
+
+[Sun (2023)](https://github.com/holarissun/PanelGPT) evaluó el Tree-of-Thought Prompting con experimentos a gran escala, e introdujo PanelGPT, una idea de indicación con discusiones en panel entre modelos de lenguaje.
