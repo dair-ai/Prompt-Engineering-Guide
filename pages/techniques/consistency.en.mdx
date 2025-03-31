@@ -1,4 +1,5 @@
 # Self-Consistency
+import { Callout } from 'nextra/components'
 
 Perhaps one of the more advanced techniques out there for prompt engineering is self-consistency. Proposed by [Wang et al. (2022)](https://arxiv.org/abs/2203.11171), self-consistency aims "to replace the naive greedy decoding used in chain-of-thought prompting". The idea is to sample multiple, diverse reasoning paths through few-shot CoT, and use the generations to select the most consistent answer. This helps to boost the performance of CoT prompting on tasks involving arithmetic and commonsense reasoning.
 
@@ -75,3 +76,8 @@ When I was 6 my sister was half my age, so she was 3. Now I am 70, so she is 70/
 ```
 
 Computing for the final answer involves a few steps (check out the paper for the details) but for the sake of simplicity, we can see that there is already a majority answer emerging so that would essentially become the final answer. 
+
+<Callout type= "info" emoji="🎓">
+Learn more about advanced prompting methods in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
+Use code PROMPTING20 to get an extra 20% off.
+</Callout>
