@@ -1,3 +1,23 @@
-# Automatic Reasoning and Tool-use (ART)
+# Raisonnement Automatique et Utilisation d’Outils (ART)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import { Callout, FileTree } from 'nextra-theme-docs'
+import { Screenshot } from 'components/screenshot'
+import ART from '../../img/ART.png'
+import ART2 from '../../img/ART2.png'
+
+Combiner l’approche CoT (Chain-of-Thought) avec l’utilisation d’outils de manière entrelacée s’est révélé être une méthode puissante et robuste pour traiter de nombreuses tâches avec les LLMs (modèles de langage de grande taille). Ces approches nécessitent généralement la création manuelle de démonstrations spécifiques à la tâche ainsi qu’un enchaînement soigneusement scripté des générations du modèle avec l’utilisation d’outils.
+Paranjape et al., (2023) proposent un nouveau cadre appelé ART qui utilise un LLM figé pour générer automatiquement des étapes intermédiaires de raisonnement sous forme de programme.
+
+Le fonctionnement d’ART est le suivant :
+-Lorsqu’une nouvelle tâche est présentée, il sélectionne des démonstrations de raisonnement en plusieurs étapes et d’utilisation d’outils à partir d’une bibliothèque de tâches.
+-Lors de l’exécution, il interrompt la génération chaque fois qu’un outil externe est appelé, et intègre leur sortie avant de reprendre la génération.
+
+ART incite le modèle à généraliser à partir des démonstrations pour décomposer une nouvelle tâche et à utiliser les outils aux bons moments, de manière zero-shot (sans entraînement supplémentaire). De plus, ART est extensible : il permet également aux humains de corriger les erreurs dans les étapes de raisonnement ou d’ajouter de nouveaux outils simplement en mettant à jour les bibliothèques de tâches et d’outils. Le processus est illustré ci-dessous :
+
+<Screenshot src={ART} alt="ART" /> Source de l’image : [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)
+
+ART améliore considérablement les performances par rapport à l’approche few-shot et à la CoT automatique sur des tâches inédites dans les benchmarks BigBench et MMLU, et dépasse même les performances des invites CoT conçues manuellement lorsque des retours humains sont intégrés.
+
+Ci-dessous, un tableau illustrant les performances d’ART sur les tâches BigBench et MMLU :
+
+<Screenshot src={ART2} alt="ART2" /> Source de l’image : [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)
