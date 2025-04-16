@@ -1,4 +1,5 @@
 {
+  "finetuning-gpt4o": "Fine-Tuning mit GPT-4o",
   "function_calling": "Funktionsaufrufe",
   "generating": "Generierung von Daten",
   "synthetic_rag": "Generierung eines synthetischen Datensatzes für RAG",
