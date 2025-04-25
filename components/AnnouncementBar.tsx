@@ -16,7 +16,9 @@ const AnnouncementBar: React.FC = () => {
     >
       🚀 Master Prompt Engineering and building AI Agents in our NEW courses! Use <strong style={{ fontWeight: 'bold' }}>PROMPTING20</strong> for 20% off ➜{' '}
       <Link
-        href="https://dair-ai.thinkific.com/bundles/pro"
+        href="https://dair-ai.thinkific.com/pages/courses"
+        target="_blank"
+        rel="noopener noreferrer"
         style={{
           color: 'black',
           fontWeight: 'bold',
