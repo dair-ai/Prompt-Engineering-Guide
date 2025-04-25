@@ -12,15 +12,6 @@
   "notebooks": "Notebooks",
   "datasets": "Datasets",
   "readings": "Lecturas Adicionales",
-  
-  "course": {
-    "title": "Curso de Ingeniería de Prompt",
-    "type": "page"
-  },
-  "services": {
-    "title": "Servicios",
-    "type": "page"
-  },
   "about": {
     "title": "Acerca de",
     "type": "page"

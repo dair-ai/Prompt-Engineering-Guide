@@ -8,7 +8,7 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 🎉 We are excited to launch our brand new prompt engineering courses under the DAIR.AI Academy. [Join Now](https://dair-ai.thinkific.com/bundles/pro)!
 
-Use code BLACKFRIDAY to get an extra 35% off. This offer ends on 29th November 2024.
+Use code PROMPTING20 to get an extra 20% off.
 
 Happy Prompting!
 

@@ -12,14 +12,6 @@
   "notebooks": "Notebooks",
   "datasets": "Datasets",
   "readings": "Дополнительные статьи",
-  "course": {
-    "title": "Курс по инженерии промптов",
-    "type": "page"
-  },
-  "services": {
-    "title": "Услуги",
-    "type": "page"
-  },
   "about": {
     "title": "О нас",
     "type": "page"
