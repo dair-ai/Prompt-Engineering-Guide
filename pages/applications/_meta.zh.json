@@ -1,6 +1,11 @@
 {
+    "finetuning-gpt4o": "GPT-4o 微调",
+    "function_calling": "函数调用",
+    "context-caching": "LLMs 上下文缓存机制研究",
     "generating": "生成数据",
-    "coding": "Generating Code",
+    "synthetic_rag": "生成面向 RAG 的合成数据集",
+    "generating_textbooks": "处理合成数据集的多样性",
+    "coding": "代码生成",
     "workplace_casestudy": "毕业生工作分类案例研究",
     "pf": "提示函数"
 }
