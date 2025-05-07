@@ -1,0 +1,26 @@
+# 언어 모델 주도 생각의 사슬(Chain-of-Thought)
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/O3bl0qURONM?si=Hwdc_o0qHpw8QRsY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+[Lee et al. (2024)](https://arxiv.org/abs/2404.03414)의 새 논문에서 소형 언어 모델(sLM)을 사용해 LLM의 추론 능력을 향상시키는 방법을 제안합니다.
+
+먼저, 이 방법은 대형 언어 모델이 생성한 rationales을 이용해 소형 언어 모델에 지식 증류(knowledge distillation)를 적용하여 추론 능력의 격차를 좁히는 것을 목표로 합니다.
+
+본질적으로, rationale은 경량화된 언어 모델에서 생성되며, 정답 예측은 고정된(frozen) 대형 언어 모델에 맡겨집니다. 자원 효율적인 이러한 접근 방식은 대형 모델을 파인 튜닝할 필요없는 대신 작은 언어 모델에 rationale 생성을 분담합니다.
+
+지식 증류된 언어 모델은 여러 rationales 지향적(rational-oriented)이고 작업 지향적(task-oriented)인 보상 신호를 사용한 강화 학습을 통해 더욱 최적화됩니다.
+
+!["LM-Guide Chain-of-Thought"](../../img/research/guided-cot.png)
+*출처: https://arxiv.org/pdf/2404.03414.pdf*
+
+해당 프레임워크는 다단계 추출형 질문 응답(multi-hop extractive question answering)를 통해 테스트를 거쳤으며, 답 예측 정확도에서 모든 기준 모델을 능가합니다. 강화 학습은 생성된 rationales의 품질을 향상시켜 질문 응답 성능을 더욱 개선합니다.  
+
+이 논문에서 제안한 언어 모델 주도 CoT 프롬프트 방식은 표준 프롬프트와 CoT 프롬프트를 모두 능가합니다. 자기 일관성 디코딩(self-consistency decoding) 또한 성능을 향상시킵니다. 
+
+이 접근법은 rationales 생성에 있어 소형 언어 모델을 기발하게 활용한 예입니다. 언어 모델의 규모가 클수록 추론 능력에서 선호되는 경향을 감안하면 주목할 만한 결과입니다. 작업을 이렇게 분해(decomposing)하는 방식은 개발자들이 깊이 생각해볼 부분입니다. 모든 작업을 대형 모델이 해야 하는 것은 아닙니다. 파인 튜닝 시 최적화하려는 부분을 정확히 겨냥하고, 소형 언어 모델이 그것을 대신할 수 있는지 테스트해보는 것이 유용합니다.

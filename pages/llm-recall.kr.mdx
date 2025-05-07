@@ -1,0 +1,24 @@
+# LLM In-Context Recall은 프롬프트 종속적이다
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/2cNO76lIZ4s?si=tbbdo-vnr56YQ077" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+이 새로운 [Machlab and Battle의 논문 (2024)](https://arxiv.org/abs/2404.08865)은 needle-in-a-haystack 테스트에 여러 LLM을 대입하여 in-context recall 성능을 측정했습니다.
+ 
+이는 다양한 LLM들이 사실을 떠올리는 범위와 깊이가 다르다는 것을 보여줍니다. 이를 통해 프롬프트의 작은 변화가 모델의 Recall 성능에 크게 영향을 준다는 것을 알 수 있습니다.
+
+!["Needle In the HayStack Performance"](../../img/research/haystack-performance.png)
+*출처: [Machlab and Battle (2024)](https://arxiv.org/abs/2404.08865)*
+
+또한, 프롬프트 내용과 학습 데이터 간의 상호작용은 응답 품질을 저하시킬 수 있습니다.
+
+모델의 Recall 능력은 모델의 크기를 늘리거나, 어텐션 메커니즘을 향상시키거나, 다양한 학습 전략을 시도하거나 파인튜닝을 적용함으로써 개선될 수 있습니다.
+
+논문이 제시한 중요하고 실용적인 조언: "지속적인 평가를 통해 개별 유스케이스에 적합한 LLM을 선택하는 데 도움이 될 것이며, 기술이 계속 발전함에 따라 실제 응용 프로그램에서 그들의 영향력과 효율성을 극대화할 수 있을 것입니다."
+
+이 논문의 핵심 내용은 신중한 프롬프트 설계, 지속적인 평가 프로토콜 수립, 그리고 Recall과 효율성을 개선하기 위한 다양한 모델 향상 전략 테스트의 중요성입니다
