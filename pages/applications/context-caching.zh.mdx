@@ -1,0 +1,60 @@
+# Gemini 1.5 Flash 中的上下文缓存技术
+
+import {Cards, Card, Callout} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+
+Google 最近推出了一个名为 [上下文缓存(Context Caching)](https://ai.google.dev/gemini-api/docs/caching?lang=python) 的新特性，并通过 Gemini API 在 Gemini 1.5 Pro 和 Gemini 1.5 Flash 上提供。本节将通过一个使用 Gemini 1.5 Flash 的基础示例来演示如何使用该创新技术。
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/987Pd89EDPs?si=j43isgNb0uwH5AeI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+
+https://youtu.be/987Pd89EDPs?si=j43isgNb0uwH5AeI
+
+### 应用场景: 年度机器学习论文分析
+
+本指南演示了如何使用上下文缓存来分析 [我们在过去一年中记录的所有机器学习论文](https://github.com/dair-ai/ML-Papers-of-the-Week) 的摘要。我们将这些摘要存储在文本文件中，并可以将其输入 Gemini 1.5 Flash 中进行高效查询。
+
+### 实现流程：上传、缓存与交互
+
+1. **数据预处理:** 将 README 文件(包含论文摘要)转换为纯文本格式。
+2. **与 Gemini API 集成:** 使用 Google `generativeai` 库完成文本文件上传。
+3. **上下文缓存构建:**  通过 `caching.CachedContent.create()` 函数以创建缓存，需配置:
+    * 指定 Gemini Flash 1.5 模型.
+    * 为缓存定义一个名称标识.
+    * 定义模型的指令 (e.g., "您是一个 AI 研究专家..."). 
+    * 设置缓存的生存期 (TTL)  (e.g., 15 分钟).
+4. **创建模型:** 使用缓存内容创建一个生成式模型实例。
+5. **查询:**  现在可以使用自然语言与模型进行交互式查询:
+    * "你能列出最新一期的 AI 论文周报吗？"
+    * "你可不可以列举提及Mamba架构的论文？要求包含标题和摘要"
+    * "长上下文LLM领域的创新有哪些？请提供论文标题和摘要"
+
+最终，模型生成的结果令人欣慰，表明模型能准确检索并总结文本文件中的内容。通过上下文缓存技术能够显著提升效率，无需重复传输完整文档，从而有效降低单次 API 查询成本。
+
+这一工作流程存在潜力来成为研究人员的宝贵工具，使他们能够:
+
+* 快速分析和查询大量研究数据。
+* 检索特定结果而无需手动搜索文档。
+* 开展互动研究对话而无需浪费Prompt Token。
+
+我们很高兴能够进一步探索上下文缓存的应用，尤其是在代理工作流等更为复杂的场景中。
+
+
+本节中的 notebook 可在下面找到:
+
+<Cards>
+    <Card 
+        icon={<CodeIcon />}
+        title="使用 Gemini APIs 进行上下文缓存"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/gemini-context-caching.ipynb"
+    />
+</Cards>
+
+<Callout type= "info" emoji="🎓">
+了解我们最新推出的人工智能课程中关于高级提示工程技术与最佳实践的内容。 [立即加入!](https://dair-ai.thinkific.com/)
+使用优惠码 PROMPTING20 可额外享受 20% 折扣优惠。
+</Callout>
