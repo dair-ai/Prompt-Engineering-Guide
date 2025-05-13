@@ -1,3 +1,136 @@
 # Gemini 1.5 Pro
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+Google 推出了 Gemini 1.5 Pro，这是一种计算效率高的多模态混合专家模型。该 AI 模型专注于在长篇内容上进行回忆和推理的能力。Gemini 1.5 Pro 可以对包含数百万个 token 的长文档进行推理，包括数小时的视频和音频。Gemini 1.5 Pro 在长文档问答（QA）、长视频 QA 和长上下文自动语音识别（ASR）中取得了最先进的性能。Gemini 1.5 Pro 在标准基准测试中匹配或超越了 Gemini 1.0 Ultra，并且在至少 1000 万个 token 上实现了近乎完美的检索 (>99%)，与其它长上下文 LLM 相比是一个显著的进步。
+
+作为此次发布的一部分，Google 还推出了一个新的实验性 100 万 token 上下文窗口模型，用户可以在 Google AI Studio 中尝试使用该模型。而与此同时，200K 是目前任何可用 LLM 中最大的上下文窗口。借助 100 万 token 上下文窗口，Gemini 1.5 Pro 旨在解锁各种用例，包括在 Google AI Studio 中对大型 PDF、代码库和甚至长时间视频进行问答。它支持在同一输入序列中混合音频、视觉、文本和代码输入。
+
+## 模型架构
+Gemini 1.5 Pro 是一种基于 Gemini 1.0 多模态能力构建的稀疏混合专家（MoE）Transformer 模型。MoE 的优势在于，随着模型总参数的增长，激活参数的数量可以保持不变。虽然 [技术报告](https://storage.googleapis.com/deepmind-media/gemini/gemini_v1_5_report.pdf) 中没有披露太多细节，但据报道，Gemini 1.5 Pro 使用了显著较少的训练计算资源，而服务更高效，并进行了架构更改以实现长上下文理解（最多 1000 万个 token）。该模型是在不同模态的数据上预训练的，并通过多模态数据微调指令，进一步基于人类偏好数据进行微调。
+
+## 评测结果
+Gemini 1.5 Pro 在所有模态（即文本、视频和音频）中实现了接近完美的高达 100 万个 token 的“针(needle)”式召回率。为了说明 Gemini 1.5 Pro 的上下文窗口支持，Gemini 1.5 Pro 在扩充以下内容时仍能保持召回性能：
+
+- ~22 小时的录音
+- 10 * 1440 页的书
+- 整个代码库
+- 3 小时的视频（每秒 1 帧）
+
+!["Gemini 1.5 Pro 检索结果"](../../img/gemini/gemini-retrieval.png)
+
+Gemini 1.5 Pro 在大多数基准测试中超越了 Gemini 1.0 Pro，在数学、科学、推理、多语言性、视频理解和代码方面表现出色。下面是一张总结不同 Gemini 模型结果的表格。尽管 Gemini 1.5 Pro 使用了显著较少的训练计算资源，但它在一半的基准测试中反超了 Gemini 1.0 Ultra。
+
+!["Gemini 1.5 Pro 评测结果"](../../img/gemini/gemini-pro-results.png)
+
+## 模型能力
+
+以下子部分展示了 Gemini 1.5 Pro 可能的各种能力，从分析大量数据到长上下文多模态推理。其中一些能力在论文中有所报道，社区也有来自我们实验的相关讨论。
+
+### 长文档分析
+
+为了展示 Gemini 1.5 Pro 处理和分析文档的能力，我们从一个基本的问答任务开始。Google AI Studio 中的 Gemini 1.5 Pro 模型支持高达 100 万个 token，因此我们可以上传整个 PDF。下面的例子上传了单个 PDF 并附带一个简单的提示 `What is the paper about?`:
+
+!["Gemini 1.5 Pro 生成结果"](../../img/gemini/galactica.png)
+
+模型的响应是简洁而准确的，因为它提供了 [Galactica 论文](https://arxiv.org/abs/2211.09085) 的可接受摘要。上面的例子使用了 Google AI Studio 中的自由格式提示，但你也可以使用聊天格式与上传的 PDF 进行交互。如果你有许多想要从提供的文档中获得答案的问题，这是一个有用的功能。
+
+!["Gemini 1.5 Pro 聊天模式"](../../img/gemini/galactica-chat.png)
+
+为了利用长上下文窗口，我们现在上传两个 PDF 并提出涉及两个 PDF的问题。
+
+!["Gemini 1.5 Pro 生成结果"](../../img/gemini/galactica-2.png)
+
+响应是合理的，有趣的是，从第一篇 [LLM的调查论文](https://arxiv.org/abs/2303.18223) 中提取的信息来自一张表。"Architecture" 的信息看起来也是正确的。然而，"Performance" 部分并不属于那里，因为第一篇论文中并未找到相关内容。对于这个任务，重要的是在顶部放置提示 `Please list the facts mentioned in the first paper about the large language model introduced in the second paper`. 并给这些论文打标签，如 `Paper 1` 和 `Paper 2` 。另一个相关的后续任务是上传一组论文并提供如何总结它们的指示，撰写一篇相关工作章节。另一个有趣的任务是要求模型将最新的 LLM 论文纳入调查中。
+
+### 视频理解
+
+Gemini 1.5 Pro 从基础开始就具有多模态能力，并且还展示了视频理解能力。我们测试了一些提示，其中包括 [Andrej Karpathy 最近的一次关于 LLM 的讲座](https://www.youtube.com/watch?v=zjkBMFhNj_g&ab_channel=AndrejKarpathy) 。
+
+在这个简短的演示中，我们创建了一个 `Chat prompt` 并上传了包含 Karpathy 讲座的 YouTube 视频。第一个问题是 `What is the lecture about?`。虽然没有什么花哨的东西，但响应还是可以接受的，因为它准确地总结了讲座。
+
+!["Gemini 1.5 Pro 视频聊天"](../../img/gemini/chat-1.png)
+
+第二个任务中我们提示模型提供一个讲座的精炼大纲（一页长度）。响应如下（为简洁起见进行了编辑）：
+
+```markdown
+## 大型语言模型：新的操作系统？
+
+引言：
+
+- LLMs 在大量文本数据上进行训练，能够生成高质量的人类文本。
+- 它们变得越来越强大，并被用于广泛的任务，例如写作、翻译和编码。
+
+LLM 如何工作：
+
+- LLMs 是预测序列中下一个单词的神经网络。
+- 它们通过迭代调整参数来做出更好的预测。
+- 尽管我们可以测量它们的性能，但我们并不完全理解数十亿个参数是如何协同工作的。
+
+训练 LLMs：
+
+- 需要大量的数据和计算能力。
+- 可以看作是将互联网“压缩”成一个文件。
+- 例如，训练 LLaMA 2 70B 需要 6,000 个 GPU，耗时 12 天，成本约为 200 万美元。
+
+LLM 安全：
+
+- LLM 安全是新兴且快速发展的领域。
+- 一些关键的安全风险包括：
+    - 越狱：绕过安全机制以生成有害内容。
+    - 提示注入：向提示中注入恶意代码以控制 LLM 的输出。
+    - 数据中毒 / 后门攻击：在训练数据中插入精心设计的文本以影响 LLM 的行为。
+...
+```
+
+摘要非常简洁，是介绍了讲座及其要点的良好大纲。虽然我们没有对整个输出进行准确性评估，但看到模型输出像 "训练 LLaMA 2 70B 需要 6,000 个 GPU，耗时 12 天，成本约为 200 万美元。" 这样的信息是很有趣的。
+
+当具体细节很重要时，请记住模型有时会因为“幻觉”或由于各种原因检索出错误信息。例如，当我们提示模型 `讲座中报告的 Llama 2 的 FLOP 值是多少？` 时，它回应说 `讲座报告称，训练 Llama 2 70B 需要大约 1 万亿次 FLOP。` ，这并不准确。正确的回答应该是 ~1e24 FLOPs。技术报告中包含了这些长上下文模型在被问及有关视频的具体问题时失败的许多实例。
+
+下一个任务是从视频中提取表格信息。例子显示了提示和响应。我们可以观察到模型生成了一个表格，并且有几个细节正确，有些错误。例如，表格列是正确的，但其中一个行标签是错误的（即 `Concept Resolution` 应该是 `Coref Resolution` ）。我们测试了一些其他表格和其他元素（如文本框）的提取任务，并注意到类似的不一致之处。
+
+技术报告中记录的一个有趣例子是模型根据特定场景或时间戳从视频中检索详细信息的能力。在第一个例子中，我们提示模型回答某个特定部分何时开始。
+
+提示词:
+```
+LLM OS 部分何时开始？
+```
+
+输出:
+```
+LLM OS 部分始于 42:17。
+```
+
+这个响应是正确的。
+
+在下一个例子中，我们让模型解释幻灯片上的图表。
+
+提示词:
+```
+你能解释一下 `self-improvement` 幻灯片上右边的图表吗？
+```
+
+输出:
+```
+图表显示了 AlphaGo Zero 随时间推移的表现，其 Elo 等级分表示玩家在游戏中技能的衡量，等级分越高表示玩家越强。图表显示 AlphaGo Zero 的表现在 40 天内迅速提高，最终超过了所有其他版本的 AlphaGo 的表现，包括击败世界围棋冠军李世石的版本。这种改进是通过自我游戏实现的，没有任何人为干预或历史数据。
+```
+
+模型似乎很好地利用了所提供的信息来解释图表中的结果。下面是相应幻灯片的快照：
+
+!["AlphaGo Zero"](../../img/gemini/chart.png)
+
+### 代码推理
+凭借其长上下文推理能力，Gemini 1.5 Pro 可以回答有关代码库的问题。使用 Google AI Studio，Gemini 1.5 Pro 支持高达 100 万个 token，因此我们可以上传整个代码库，并提示它进行不同的问题或代码相关任务。技术报告提供了一个例子，包括了在模型给出了整个 JAX 代码库（约 746K 个 token）的上下文下，被要求确定核心自动微分方法的位置的实例。
+
+!["Gemini 1.5 Pro Jax"](../../img/gemini/jax.png)
+
+### 英语到 Kalamang 语言的翻译
+Gemini 1.5 Pro 可以通过提供 Kalamang 语言的语法手册（500 页的语言学文档、一个词典和约 400 对平行句子），将其英语翻译水平提升至与学习相同内容的人相当，而 Kalamang 是一种全球不到 200 人使用的语言。这展示了 Gemini 1.5 Pro 通过长上下文启用的上下文学习能力。
+
+!["Gemini 1.5 Pro 多语种"](../../img/gemini/kalamang.png)
+
+
+图像来源: [Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context](https://storage.googleapis.com/deepmind-media/gemini/gemini_v1_5_report.pdf)
+
+## 参考文献
+
+- [Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context](https://storage.googleapis.com/deepmind-media/gemini/gemini_v1_5_report.pdf)
+- [Gemini 1.5: Our next-generation model, now available for Private Preview in Google AI Studio](https://developers.googleblog.com/2024/02/gemini-15-available-for-private-preview-in-google-ai-studio.html)
