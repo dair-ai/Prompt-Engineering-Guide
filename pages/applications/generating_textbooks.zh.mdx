@@ -5,13 +5,13 @@ import {Screenshot} from 'components/screenshot'
 import IMG1 from '../../img/synthetic_diversity/textbooks_1.png'
 import IMG2 from '../../img/synthetic_diversity/textbooks_2.png'
 
-在 [前一章节](https://www.promptingguide.ai/applications/synthetic_rag) 中，我们探讨了利用大语言模型（LLM）生成合成数据集来对本地信息检索（Retriever）模型进行微调的潜力。该方法的实现得益于大量未标注文档语料的可用性。每一份文档可被用于生成一个或多个合成查询，从而形成查询-文档对。
+在 [前一章节](https://www.promptingguide.ai/zh/applications/synthetic_rag) 中，我们探讨了利用大语言模型（LLM）生成合成数据集来对本地信息检索（Retriever）模型进行微调的潜力。该方法的实现得益于大量未标注文档语料的可用性。每一份文档可被用于生成一个或多个合成查询，从而形成查询-文档对。
 
 然而，若目标任务并非信息检索（如法律文书分类），且调用外部API受限，则需要训练本地模型。在此情境下，数据采集成为显著的障碍，或将延误产品的开发进程。
 
 为了简化讨论，这一节中我们设置目标为生成儿童故事文本。此任务构成了 [Eldan 等人（2023）](https://arxiv.org/abs/2305.07759) 研究的起点。每个故事由 2-3 段组成，内容围绕简单情节和主题展开，整个数据集覆盖儿童词汇及基本常识。
 
-语言不仅是符号与规则的组合，它还承载着意义的传达与诠释。利用大型语言模型生成训练数据所面临的主要挑战之一是保持数据集的多样性。即便在较高的 [生成温度](https://www.promptingguide.ai/introduction/settings) 下，模型仍可能生成重复性较强、缺乏多样性的样本。此外，语言生成过程中的上下文连贯性与相关性亦需考虑。
+语言不仅是符号与规则的组合，它还承载着意义的传达与诠释。利用大型语言模型生成训练数据所面临的主要挑战之一是保持数据集的多样性。即便在较高的 [生成温度](https://www.promptingguide.ai/zh/introduction/settings) 下，模型仍可能生成重复性较强、缺乏多样性的样本。此外，语言生成过程中的上下文连贯性与相关性亦需考虑。
 
 为应对多样性不足问题，研究者构建了包含约 1500 个基础词汇的词表，模拟典型儿童的词汇量，按名词、动词、形容词分类。在每轮生成中，分别随机选取一个动词、一个名词与一个形容词，而模型需将这三个词融入生成的故事之中。
 
@@ -140,4 +140,4 @@ print(is_singular(matrix_example))  # returns True
 
 对于实际应用场景而言，通常无需如此庞大的数据量(因研究聚焦于预训练阶段)。以ChatGPT标准计费(每1千token收费 0.002 美元)估算，仅数据生成成本就达 2000 美元，加上提示词费用总计约 4000 美元。
 
-需要特别注意的是，当目标领域具有专业性或非英语特征时，合成数据微调的价值尤为显著。该方法与思维链 [CoT](https://www.promptingguide.ai/techniques/cot) 技术结合使用效果更佳，能有效提升本地模型的推理能力。开源模型如 Alpaca ([Taori等，2023](https://crfm.stanford.edu/2023/03/13/alpaca.html)) 和 Vicuna ([Zheng等，2023](https://lmsys.org/blog/2023-03-30-vicuna/)) 已证明通过合成数据微调可实现性能突破。
+需要特别注意的是，当目标领域具有专业性或非英语特征时，合成数据微调的价值尤为显著。该方法与思维链 [CoT](https://www.promptingguide.ai/zh/techniques/cot) 技术结合使用效果更佳，能有效提升本地模型的推理能力。开源模型如 Alpaca ([Taori等，2023](https://crfm.stanford.edu/2023/03/13/alpaca.html)) 和 Vicuna ([Zheng等，2023](https://lmsys.org/blog/2023-03-30-vicuna/)) 已证明通过合成数据微调可实现性能突破。
