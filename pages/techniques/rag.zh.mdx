@@ -1,7 +1,10 @@
 # 检索增强生成 (RAG)
 
+import {TerminalIcon} from 'components/icons'
+import {CodeIcon} from 'components/icons'
 import {Screenshot} from 'components/screenshot'
 import RAG from '../../img/rag.png'
+import { Callout } from 'nextra/components'
 
 通用语言模型通过微调就可以完成几类常见任务，比如分析情绪和识别命名实体。这些任务不需要额外的背景知识就可以完成。
 
@@ -22,4 +25,20 @@ RAG 在 [Natural Questions](https://ai.google.com/research/NaturalQuestions)、[
 
 最近，基于检索器的方法越来越流行，经常与 ChatGPT 等流行 LLM 结合使用来提高其能力和事实一致性。
 
-LangChain 文档中可以找到[一个使用检索器和 LLM 回答问题并给出知识来源的简单例子](https://python.langchain.com/docs/use_cases/question_answering/quickstart)。
+## RAG 用例: 生成友好的 ML 论文标题
+
+我们在下面准备了一个 notebook 教程，展示了如何使用开源 LLM 构建 RAG 系统来生成简短的机器学习论文标题：
+
+<Cards>
+    <Card
+    icon={<CodeIcon />}
+    title="RAG入门"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-rag.ipynb"
+    />
+</Cards>
+
+
+## 参考文献
+
+- [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997) (Dec 2023)
+- [Retrieval Augmented Generation: Streamlining the creation of intelligent natural language processing models](https://ai.meta.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) (Sep 2020)
