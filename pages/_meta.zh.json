@@ -15,31 +15,31 @@
   "datasets": "数据集",
   "readings": "阅读推荐",
   "courses":{
-    "title": "🎓 Courses",
+    "title": "🎓 课程",
     "type": "menu",
     "items": {
       "intro-prompt-engineering": {
-        "title": "Intro to Prompt Engineering",
+        "title": "提示工程简介",
         "href": "https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
       },
       "advanced-prompt-engineering": {
-        "title": "Advanced Prompt Engineering",
+        "title": "高级提示工程",
         "href": "https://dair-ai.thinkific.com/courses/advanced-prompt-engineering"
       },
       "intro-ai-agents": {
-        "title": "Intro to AI Agents",
+        "title": "AI Agents简介",
         "href": "https://dair-ai.thinkific.com/courses/introduction-building-ai-agents"
       },
       "rag-systems": {
-        "title": "Build RAG Systems",
+        "title": "构建RAG系统",
         "href": "https://dair-ai.thinkific.com/courses/introduction-rag"
       },
       "advanced-agents": {
-        "title": "Building Advanced AI Agents",
+        "title": "构建高级AI Agents",
         "href": "https://dair-ai.thinkific.com/courses/advanced-ai-agents"
       },
       "all-courses": {
-        "title": "See all →",
+        "title": "查看全部 →",
         "href": "https://dair-ai.thinkific.com/pages/courses"
       }
     }
