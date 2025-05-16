@@ -1,0 +1,53 @@
+## 为大型语言模型设计高效提示
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/8KNKjBBm1Kw?si=puEJrGFe9XSu8O-A"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+大型语言模型（LLMs）在各类任务中展现出巨大潜力，但其效果高度依赖于提示的质量。本文总结了设计高效提示以最大化 LLM 性能的重要方面。
+
+### 提示设计的关键考量因素
+
+**具体性与清晰度：**
+正如向人类下达指令一样，提示应明确表达预期结果。模糊不清可能导致意外或无关的输出。
+
+**结构化输入与输出：**
+使用JSON或XML等格式组织输入能显著提升 LLM 理解和处理信息的能力。同样地，明确指定所需输出格式（如列表、段落或代码片段）有助于提高响应相关性。
+
+**增强结构的分隔符：**
+在提示中使用特殊字符作为分隔符可进一步澄清结构并隔离不同元素，从而改善模型理解。
+
+**复杂操作的任务分解：**
+不要将包含多个任务的庞大提示直接提交给LLM，而是将其分解为更简单的子任务以显著提升清晰度和性能。这种方法使模型能够专注于每个子任务，最终实现更准确的整体结果。
+
+### 高级提示策略
+
+**少量样本提示法(Few-Shot Prompting):**
+提供少量期望的输入-输出对示例，引导LLM生成高质量响应，通过展示预期模式提高输出质量。[点击此处](https://www.promptingguide.ai/zh/techniques/fewshot) 可了解更多。
+
+**思维链提示法(Chain-of-Thought Prompting):**
+通过显式提示鼓励模型"逐步思考"，将复杂任务分解为中间推理步骤，增强其解决需要逻辑推导问题的能力。[点击此处](https://www.promptingguide.ai/zh/techniques/cot)了解更多。
+
+**ReAct 方法(Reason + Act):**
+此方法旨在激发 LLM 的高级推理、规划甚至工具使用能力。通过构建促进这些能力的提示，开发者可以解锁更复杂强大的应用场景。[点击此处](https://www.promptingguide.ai/zh/techniques/react) 可了解更多。
+
+### 结论
+
+高效的提示设计对于充分发挥 LLM 潜力至关重要。遵循最佳实践，如具体性、结构化格式、任务分解，并结合使用少量样本、思维链和 ReAct 等高级技术，开发者可显著提升这些强大LLM生成输出的质量、准确性和复杂程度。 
+
+### 想了解更多？
+
+import { Callout } from 'nextra/components'
+
+<Callout type= "info" emoji="🎉">
+我们很高兴推出全新的课程网站，并发布 [首门《提示工程入门》课程](https://dair-ai.thinkific.com/courses/introduction-prompt-engineering)。
+
+使用代码 PROMPTING20 可享受额外20%折扣。
+
+重要提示：折扣仅限前500名学员。
+
+[立即加入！](https://dair-ai.thinkific.com/courses/introduction-prompt-engineering )
+</Callout>
