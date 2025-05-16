@@ -1,3 +1,5 @@
+'use client'
+
 import cn from 'clsx'
 import type { ComponentProps, ReactElement } from 'react'
 import { useCallback, useRef } from 'react'
@@ -16,6 +18,7 @@ export const Pre = ({
 }: ComponentProps<'pre'> & {
   filename?: string
   hasCopyCode?: boolean
+  children?: React.ReactNode
 }): ReactElement => {
   const preRef = useRef<HTMLPreElement | null>(null);
 
@@ -31,7 +34,7 @@ export const Pre = ({
 
   const renderChildren = () => {
     if (React.isValidElement(children) && children.type === 'code') {
-      return children.props.children;
+      return children.props.children as React.ReactNode;
     }
     return children;
   };
