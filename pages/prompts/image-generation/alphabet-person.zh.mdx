@@ -1,33 +1,29 @@
-# Eine Person mit Alphabet-Buchstaben zeichnen
+# 使用字母绘制人物图形
 
-import { Tabs, Tab } from 'nextra/components';
-import { Callout } from 'nextra/components';
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
 
-## Hintergrund
-
-Der folgende Prompt testet die Fähigkeiten eines LLMs, visuelle Konzepte zu verarbeiten, obwohl es nur auf Text trainiert wurde. Dies ist eine herausfordernde Aufgabe für das LLM, daher umfasst sie mehrere Iterationen. Im folgenden Beispiel fordert der Nutzer zunächst eine gewünschte Visualisierung an und gibt dann Feedback zusammen mit Korrekturen und Ergänzungen. Die nachfolgenden Anweisungen hängen vom Fortschritt ab, den das LLM bei der Aufgabe macht. Beachten Sie, dass bei dieser Aufgabe darum gebeten wird, TikZ-Code zu generieren, der dann manuell vom Nutzer kompiliert werden muss.
+## 背景
+以下提示用于测试 LLM 在仅接受文本训练的情况下处理视觉概念的能力。由于此任务对 LLM 而言具有挑战性，因此需要进行多轮迭代。在下方示例中，用户首先请求生成一个自己期望的视觉图像，随后提供反馈并进行修正与补充。后续指令的内容将取决于 LLM 在任务中的进展。请注意，本任务要求生成 TikZ 代码，生成的代码随后需由用户手动编译。
 
 ## Prompt
 
-Prompt-Iteration 1:
-
+第 1 轮提示:
 ```markdown
-Erzeuge TikZ-Code, der eine Person zeichnet, die aus Buchstaben des Alphabets besteht. Die Arme und der Oberkörper können der Buchstabe Y sein, das Gesicht kann der Buchstabe O sein (füge einige Gesichtszüge hinzu) und die Beine können die Beine des Buchstaben H sein. Fühle dich frei, weitere Merkmale hinzuzufügen.
+请生成一段 TikZ 代码，用于绘制一个由英文字母组成的人物图形。手臂和躯干使用字母Y表示，脸部使用字母O表示（添加一些面部特征），腿部则使用字母H的腿部部分表示。你可以自由添加其他特征。
 ```
 
-Prompt-Iteration 2:
-
+第 2 轮提示:
 ```markdown
-Der Oberkörper ist ein bisschen zu lang, die Arme sind zu kurz, und es sieht so aus, als würde der rechte Arm das Gesicht tragen, anstatt dass das Gesicht direkt über dem Oberkörper ist. Könnten Sie das bitte korrigieren?
+目前在编译的图像中躯干略长，手臂过短，并且看起来右臂似乎承载着脸部，而非脸部位于躯干正上方。能否对此进行修正？
 ```
 
-Prompt-Iteration 3:
-
+第 3 轮提示:
 ```markdown
-Bitte fügen Sie ein Hemd und Hosen hinzu.
+请添加一件衬衫和一条裤子。
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -41,7 +37,7 @@ Bitte fügen Sie ein Hemd und Hosen hinzu.
     messages=[
         {
         "role": "user",
-        "content": "Produce TikZ code that draws a person composed from letters in the alphabet. The arms and torso can be the letter Y, the face can be the letter O (add some facial features) and the legs can be the legs of the letter H. Feel free to add other features.."
+        "content": "请生成一段 TikZ 代码，用于绘制一个由英文字母组成的人物图形。手臂和躯干使用字母Y表示，脸部使用字母O表示（添加一些面部特征），腿部则使用字母H的腿部部分表示。你可以自由添加其他特征。"
         }
     ],
     temperature=1,
@@ -80,8 +76,8 @@ Bitte fügen Sie ein Hemd und Hosen hinzu.
         ```
     </Tab>
 
+
 </Tabs>
 
-## Referenz
-
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13. April 2023)
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)

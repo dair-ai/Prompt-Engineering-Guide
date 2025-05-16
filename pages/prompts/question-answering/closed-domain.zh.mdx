@@ -1,28 +1,28 @@
-# Closed Domain Question Answering with LLMs
+# 使用 LLMs 进行封闭领域问答
 
 import { Tabs, Tab } from 'nextra/components'
 import {Callout} from 'nextra/components'
 
-## Background
-The following prompt tests an LLM's capabilities to answer closed-domain questions which involves answering questions belonging a specific topic or domain.
+## 背景
+以下提示用于测试 LLM 对封闭领域问题的回答能力，即要求模型回答特定主题或领域内的问题。
 
 <Callout type="warning" emoji="⚠️">
-    Note that due to the challenging nature of the task, LLMs are likely to hallucinate when they have no knowledge regarding the question.
+    请注意，由于任务本身的挑战性，当 LLM 对相关问题缺乏知识时，可能会产生虚构或不准确的回答。
 </Callout>
 
-## Prompt
+## 提示词
 ```markdown
-Patient’s facts:
-- 20 year old female
-- with a history of anerxia nervosa and depression
-- blood pressure 100/50, pulse 50, height 5’5’’
-- referred by her nutrionist but is in denial of her illness
-- reports eating fine but is severely underweight
+患者信息：
+- 20岁女性
+- 有神经性厌食症和抑郁症病史
+- 血压100/50，脉搏50，身高5英尺5英寸
+- 由其营养师推荐就诊，但本人否认患病
+- 自述饮食正常，但体重严重不足
 
-Please rewrite the data above into a medical note, using exclusively the information above.
+请根据以上信息撰写一份医疗记录，仅使用上述提供的资料。
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -36,7 +36,7 @@ Please rewrite the data above into a medical note, using exclusively the informa
     messages=[
         {
         "role": "user",
-        "content": "Patient’s facts:\n- 20 year old female\n- with a history of anerxia nervosa and depression\n- blood pressure 100/50, pulse 50, height 5’5’’\n- referred by her nutrionist but is in denial of her illness\n- reports eating fine but is severely underweight\n\nPlease rewrite the data above into a medical note, using exclusively the information above."
+        "content": "患者信息：\n- 20岁女性\n- 有神经性厌食症和抑郁症病史\n- 血压100/50，脉搏50，身高5英尺5英寸\n- 由其营养师推荐就诊，但本人否认患病\n- 自述饮食正常，但体重严重不足\n\n请根据以上信息撰写一份医疗记录，仅使用上述提供的资料。"
         }
     ],
     temperature=1,
@@ -57,7 +57,7 @@ Please rewrite the data above into a medical note, using exclusively the informa
             messages=[
                 {
                 "role": "user",
-                "content": "Patient’s facts:\n- 20 year old female\n- with a history of anerxia nervosa and depression\n- blood pressure 100/50, pulse 50, height 5’5’’\n- referred by her nutrionist but is in denial of her illness\n- reports eating fine but is severely underweight\n\nPlease rewrite the data above into a medical note, using exclusively the information above.",
+                "content": "患者信息：\n- 20岁女性\n- 有神经性厌食症和抑郁症病史\n- 血压100/50，脉搏50，身高5英尺5英寸\n- 由其营养师推荐就诊，但本人否认患病\n- 自述饮食正常，但体重严重不足\n\n请根据以上信息撰写一份医疗记录，仅使用上述提供的资料。",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -76,5 +76,5 @@ Please rewrite the data above into a medical note, using exclusively the informa
     </Tab>
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)

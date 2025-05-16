@@ -1,16 +1,16 @@
-# Rhyming with Proofs
+# 用诗歌证明素数无限性
 
 import { Tabs, Tab } from 'nextra/components'
 
-## Background
-This prompt tests an LLM's natural language and creative capabilities by prompting it to write a proof of infinitude of primes in the form of a poem.
+## 背景
+该提示通过要求 LLM 用押韵诗歌的形式证明素数无限性，测试其自然语言处理与创造生成能力。
 
-## Prompt
+## 提示词
 ```
-Can you write a proof that there are infinitely many primes, with every line that rhymes?
+你能否写出一个关于素数无限性的证明，使每一行都押韵？
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -24,7 +24,7 @@ Can you write a proof that there are infinitely many primes, with every line tha
     messages=[
         {
         "role": "user",
-        "content": "Can you write a proof that there are infinitely many primes, with every line that rhymes?"
+        "content": "你能否写出一个关于素数无限性的证明，使每一行都押韵？"
         }
     ],
     temperature=1,
@@ -45,7 +45,7 @@ Can you write a proof that there are infinitely many primes, with every line tha
             messages=[
                 {
                 "role": "user",
-                "content": "Can you write a proof that there are infinitely many primes, with every line that rhymes?",
+                "content": "你能否写出一个关于素数无限性的证明，使每一行都押韵？",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -66,5 +66,5 @@ Can you write a proof that there are infinitely many primes, with every line tha
 
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)

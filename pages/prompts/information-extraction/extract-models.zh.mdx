@@ -1,28 +1,28 @@
-# Extract Model Names from Papers
+# 从论文中抽取模型名称
 
 import { Tabs, Tab } from 'nextra/components'
 import {Callout} from 'nextra/components'
 
-## Background
-The following prompt tests an LLM's capabilities to perform an information extraction task which involves extracting model names from machine learning paper abstracts.
+## 背景
+以下提示用于测试 LLM 执行信息抽取任务的能力，具体而言是从机器学习论文摘要中提取模型名称。
 
-## Prompt
-
-```markdown
-Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\"model_name\"]. If you don't find model names in the abstract or you are not sure, return [\"NA\"]
-
-Abstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…
-```
-
-## Prompt Template
+## 提示词
 
 ```markdown
-Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\"model_name\"]. If you don't find model names in the abstract or you are not sure, return [\"NA\"]
+你的任务是从机器学习论文摘要中提取模型名称。你的响应应为一个包含模型名称的数组，格式为 [\"model_name\"]。如果你在摘要中未发现模型名称或不确定时，返回 [\"NA\"]
 
-Abstract: {input}
+摘要: 大型语言模型(LLMs)，如 ChatGPT 和 GPT-4，在自然语言处理研究方面引发了变革，并展示了其在通用人工智能(AGI)领域的潜力。然而，LLMs 的高昂训练与部署成本对透明和开放的学术研究构成了挑战。为解决这些问题，本项目开源了中文版 LLaMA 和 Alpaca...
 ```
 
-## Code / API
+## 提示词模板
+
+```markdown
+你的任务是从机器学习论文摘要中提取模型名称。你的响应应为一个包含模型名称的数组，格式为 [\"model_name\"]。如果你在摘要中未发现模型名称或不确定时，返回 [\"NA\"]
+
+摘要: {input}
+```
+
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -36,7 +36,7 @@ Abstract: {input}
     messages=[
         {
         "role": "user",
-        "content": "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…"
+        "content": "你的任务是从机器学习论文摘要中提取模型名称。你的响应应为一个包含模型名称的数组，格式为 [\\\"model_name\\\"]。如果你在摘要中未发现模型名称或不确定时，返回 [\\\"NA\\\"]\n\n摘要: 大型语言模型(LLMs)，如 ChatGPT 和 GPT-4，在自然语言处理研究方面引发了变革，并展示了其在通用人工智能(AGI)领域的潜力。然而，LLMs 的高昂训练与部署成本对透明和开放的学术研究构成了挑战。为解决这些问题，本项目开源了中文版 LLaMA 和 Alpaca..."
         }
     ],
     temperature=1,
@@ -57,7 +57,7 @@ Abstract: {input}
             messages=[
                 {
                 "role": "user",
-                "content": "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…",
+                "content": "你的任务是从机器学习论文摘要中提取模型名称。你的响应应为一个包含模型名称的数组，格式为 [\\\"model_name\\\"]。如果你在摘要中未发现模型名称或不确定时，返回 [\\\"NA\\\"]\n\n摘要: 大型语言模型(LLMs)，如 ChatGPT 和 GPT-4，在自然语言处理研究方面引发了变革，并展示了其在通用人工智能(AGI)领域的潜力。然而，LLMs 的高昂训练与部署成本对透明和开放的学术研究构成了挑战。为解决这些问题，本项目开源了中文版 LLaMA 和 Alpaca...",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -78,5 +78,5 @@ Abstract: {input}
 
 </Tabs>
 
-## Reference
-- [Prompt Engineering Guide](https://www.promptingguide.ai/introduction/examples#information-extraction) (16 March 2023)
+## 参考文献
+- [提示工程指南](https://www.promptingguide.ai/zh/introduction/examples#information-extraction) (2023年3月16日)

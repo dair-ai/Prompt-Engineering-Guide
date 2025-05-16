@@ -1,23 +1,23 @@
-# Science Question Answering with LLMs
+# 使用 LLMs 进行科学问题解答
 
 import { Tabs, Tab } from 'nextra/components'
 import {Callout} from 'nextra/components'
 
-## Background
-The following prompt tests an LLM's capabilities to perform science question answering. 
+## 背景
+以下提示用于测试 LLM 科学解答的能力。
 
-## Prompt
+## 提示词
 
 ```markdown
-Answer the question based on the context below. Keep the answer short and concise. Respond "Unsure about answer" if not sure about the answer.
+根据下方提供的上下文回答问题。答案应简短且准确。如果对答案不确定，请回复\"无法确定答案\"。
 
-Context: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.
+上下文: Teplizumab 最初源自一家名为 Ortho Pharmaceutical 的新泽西州制药公司。在那里，科学家们生成了该抗体的早期版本，称为 OKT3。该分子最初来源于小鼠，能够与T细胞表面结合并限制其杀伤细胞的能力。1986年，OKT3 获批用于预防肾移植后的器官排斥反应，成为首个获准用于人体治疗的治疗性抗体。
 
-Question: What was OKT3 originally sourced from?
-Answer:
+问题: OKT3 最初是从哪里提取的？
+答案:
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -31,7 +31,7 @@ Answer:
     messages=[
         {
         "role": "user",
-        "content": "Answer the question based on the context below. Keep the answer short and concise. Respond \"Unsure about answer\" if not sure about the answer.\n\nContext: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.\n\nQuestion: What was OKT3 originally sourced from?\nAnswer:"
+        "content": "根据下方提供的上下文回答问题。答案应简短且准确。如果对答案不确定，请回复\"无法确定答案\"。\n\n上下文: Teplizumab 最初源自一家名为 Ortho Pharmaceutical 的新泽西州制药公司。在那里，科学家们生成了该抗体的早期版本，称为 OKT3。该分子最初来源于小鼠，能够与T细胞表面结合并限制其杀伤细胞的能力。1986年，OKT3 获批用于预防肾移植后的器官排斥反应，成为首个获准用于人体治疗的治疗性抗体。\n\n问题: OKT3 最初是从哪里提取的？\n答案: "
         }
     ],
     temperature=1,
@@ -52,7 +52,7 @@ Answer:
             messages=[
                 {
                 "role": "user",
-                "content": "Answer the question based on the context below. Keep the answer short and concise. Respond \"Unsure about answer\" if not sure about the answer.\n\nContext: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.\n\nQuestion: What was OKT3 originally sourced from?\nAnswer:",
+                "content": "根据下方提供的上下文回答问题。答案应简短且准确。如果对答案不确定，请回复\"无法确定答案\"。\n\n上下文: Teplizumab 最初源自一家名为 Ortho Pharmaceutical 的新泽西州制药公司。在那里，科学家们生成了该抗体的早期版本，称为 OKT3。该分子最初来源于小鼠，能够与T细胞表面结合并限制其杀伤细胞的能力。1986年，OKT3 获批用于预防肾移植后的器官排斥反应，成为首个获准用于人体治疗的治疗性抗体。\n\n问题: OKT3 最初是从哪里提取的？\n答案: ",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -73,5 +73,5 @@ Answer:
 
 </Tabs>
 
-## Reference
-- [Prompt Engineering Guide](https://www.promptingguide.ai/introduction/examples#question-answering) (16 March 2023)
+## 参考文献
+- [提示工程指南](https://www.promptingguide.ai/introduction/examples#question-answering) (2023年3月16日)

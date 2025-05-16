@@ -1,6 +1,6 @@
 {
-    "code-snippet": "Generate Code Snippet",
-    "mysql-query": "Generate MySQL Query",
-    "tikz": "Draw TiKZ Diagram"
+    "code-snippet": "生成代码片段",
+    "mysql-query": "生成 MySQL 查询",
+    "tikz": "绘制 TiKZ 图形"
 }
   
