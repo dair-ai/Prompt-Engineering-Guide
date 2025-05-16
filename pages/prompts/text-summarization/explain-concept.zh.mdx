@@ -1,19 +1,19 @@
-# Explain Concepts with LLMs
+# 使用 LLMs 解释概念
 
 import { Tabs, Tab } from 'nextra/components'
 import {Callout} from 'nextra/components'
 
-## Background
-The following prompt tests an LLM's capabilities to explain or summarize concepts.
+## 背景
+以下提示用于测试 LLM 解释或总结概念的能力。
 
-## Prompt
+## 提示词
 ```markdown
-Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.
+抗生素是一类用于治疗细菌感染的药物，它们通过杀死细菌或阻止其繁殖来发挥作用，从而使人体免疫系统能够对抗感染。抗生素通常以药片、胶囊或液体形式口服，有时也通过静脉注射给药。它们对病毒感染无效，不当使用可能导致抗生素耐药性。
 
-Explain the above in one sentence:
+请用一句话解释上述内容:
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -27,7 +27,7 @@ Explain the above in one sentence:
     messages=[
         {
         "role": "user",
-        "content": "Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.\n\nExplain the above in one sentence:"
+        "content": "抗生素是一类用于治疗细菌感染的药物，它们通过杀死细菌或阻止其繁殖来发挥作用，从而使人体免疫系统能够对抗感染。抗生素通常以药片、胶囊或液体形式口服，有时也通过静脉注射给药。它们对病毒感染无效，不当使用可能导致抗生素耐药性。\n\n请用一句话解释上述内容:"
         }
     ],
     temperature=1,
@@ -48,7 +48,7 @@ Explain the above in one sentence:
             messages=[
                 {
                 "role": "user",
-                "content": "Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.\n\nExplain the above in one sentence:",
+                "content": "抗生素是一类用于治疗细菌感染的药物，它们通过杀死细菌或阻止其繁殖来发挥作用，从而使人体免疫系统能够对抗感染。抗生素通常以药片、胶囊或液体形式口服，有时也通过静脉注射给药。它们对病毒感染无效，不当使用可能导致抗生素耐药性。\n\n请用一句话解释上述内容:",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -69,5 +69,5 @@ Explain the above in one sentence:
 
 </Tabs>
 
-## Reference
-- [Prompt Engineering Guide](https://www.promptingguide.ai/introduction/examples#text-summarization) (16 March 2023)
+## 参考文献
+- [提示工程指南](https://www.promptingguide.ai/introduction/examples#text-summarization) (2023年3月16日)

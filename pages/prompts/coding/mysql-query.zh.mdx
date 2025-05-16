@@ -1,20 +1,20 @@
-# Produce MySQL Queries using LLMs
+# 使用 LLMs 生成 MySQL 查询语句
 
 import { Tabs, Tab } from 'nextra/components'
 
-## Background
-This prompt tests an LLM's code generation capabilities by prompting it to generate a valid MySQL query by providing information about the database schema.
+## 背景
+该提示通过提供数据库模式信息来测试 LLM 的代码生成功能，要求其生成有效的 MySQL 查询。
 
-## Prompt
+## 提示词
 ```markdown
 """
 Table departments, columns = [DepartmentId, DepartmentName]
 Table students, columns = [DepartmentId, StudentId, StudentName]
-Create a MySQL query for all students in the Computer Science Department
+创建一个 MySQL 查询以获取计算机科学系的所有学生
 """
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -27,7 +27,7 @@ Create a MySQL query for all students in the Computer Science Department
             messages=[
                 {
                 "role": "user",
-                "content": "\"\"\"\nTable departments, columns = [DepartmentId, DepartmentName]\nTable students, columns = [DepartmentId, StudentId, StudentName]\nCreate a MySQL query for all students in the Computer Science Department\n\"\"\""
+                "content": "\"\"\"\nTable departments, columns = [DepartmentId, DepartmentName]\nTable students, columns = [DepartmentId, StudentId, StudentName]\n创建一个MySQL查询以获取计算机科学系的所有学生\n\"\"\""
                 }
             ],
             temperature=1,
@@ -48,7 +48,7 @@ Create a MySQL query for all students in the Computer Science Department
             messages=[
                 {
                 "role": "user",
-                "content": "\"\"\"\nTable departments, columns = [DepartmentId, DepartmentName]\nTable students, columns = [DepartmentId, StudentId, StudentName]\nCreate a MySQL query for all students in the Computer Science Department\n\"\"\"",
+                "content": "\"\"\"\nTable departments, columns = [DepartmentId, DepartmentName]\nTable students, columns = [DepartmentId, StudentId, StudentName]\n创建一个MySQL查询以获取计算机科学系的所有学生\n\"\"\"",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -68,5 +68,5 @@ Create a MySQL query for all students in the Computer Science Department
 </Tabs>
 
 
-## Reference
-- [Prompt Engineering Guide](https://www.promptingguide.ai/introduction/examples#code-generation) (16 March 2023)
+## 参考文献
+- [提示工程指南](https://www.promptingguide.ai/zh/introduction/examples#code-generation) (2023年3月16日)

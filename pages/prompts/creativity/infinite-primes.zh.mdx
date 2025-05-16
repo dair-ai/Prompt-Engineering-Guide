@@ -1,17 +1,17 @@
-# Proof of Infinite Primes in Shakespeare Style
+# 用莎士比亚风格证明素数无限性
 
 import { Tabs, Tab } from 'nextra/components'
 import {Callout} from 'nextra/components'
 
-## Background
-The following prompt tests an LLM's capabilities to write a proof that there are infinitely many primes in the style of a Shakespeare play.
+## 背景
+以下提示用于测试 LLM 以莎士比亚戏剧风格撰写素数无限性证明的能力。
 
-## Prompt
+## 提示词
 ```markdown
-Write a proof of the fact that there are infinitely many primes; do it in the style of a Shakespeare play through a dialogue between two parties arguing over the proof.
+请写出素数无限性的证明，并通过两方辩论该证明的对话形式，以莎士比亚戏剧的风格呈现。
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -25,7 +25,7 @@ Write a proof of the fact that there are infinitely many primes; do it in the st
     messages=[
         {
         "role": "user",
-        "content": "Write a proof of the fact that there are infinitely many primes; do it in the style of a Shakespeare play through a dialogue between two parties arguing over the proof."
+        "content": "请写出素数无限性的证明，并通过两方辩论该证明的对话形式，以莎士比亚戏剧的风格呈现。"
         }
     ],
     temperature=1,
@@ -46,7 +46,7 @@ Write a proof of the fact that there are infinitely many primes; do it in the st
             messages=[
                 {
                 "role": "user",
-                "content": "Write a proof of the fact that there are infinitely many primes; do it in the style of a Shakespeare play through a dialogue between two parties arguing over the proof.",
+                "content": "请写出素数无限性的证明，并通过两方辩论该证明的对话形式，以莎士比亚戏剧的风格呈现。",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -67,5 +67,5 @@ Write a proof of the fact that there are infinitely many primes; do it in the st
 
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)

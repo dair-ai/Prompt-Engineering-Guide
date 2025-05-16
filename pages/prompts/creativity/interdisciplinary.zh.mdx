@@ -1,17 +1,17 @@
-# Interdisciplinary Tasks with LLMs
+# 使用 LLMs 进行跨学科任务
 
 import { Tabs, Tab } from 'nextra/components'
 import {Callout} from 'nextra/components'
 
-## Background
-The following prompt tests an LLM's capabilities to perform interdisciplinary tasks and showcase it's ability to generate creative and novel text.
+## 背景
+以下提示用于测试 LLM 执行跨学科任务的能力，并展示其生成创意性和新颖性文本的性能。
 
-## Prompt
+## 提示词
 ```markdown
-Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle as a US presidential candidate by Mahatma Gandhi.
+给 Kasturba Gandhi 写一封支持信，支持 Mahatma Gandhi 将亚原子粒子电子推举为美国总统候选人。
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -25,7 +25,7 @@ Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle 
     messages=[
         {
         "role": "user",
-        "content": "Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle as a US presidential candidate by Mahatma Gandhi."
+        "content": "给 Kasturba Gandhi 写一封支持信，支持 Mahatma Gandhi 将亚原子粒子电子推举为美国总统候选人。"
         }
     ],
     temperature=1,
@@ -46,7 +46,7 @@ Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle 
             messages=[
                 {
                 "role": "user",
-                "content": "Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle as a US presidential candidate by Mahatma Gandhi.",
+                "content": "给 Kasturba Gandhi 写一封支持信，支持 Mahatma Gandhi 将亚原子粒子电子推举为美国总统候选人。",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -67,5 +67,5 @@ Write a supporting letter to Kasturba Gandhi for Electron, a subatomic particle 
 
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)

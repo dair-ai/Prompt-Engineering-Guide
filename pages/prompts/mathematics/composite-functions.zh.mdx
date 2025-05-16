@@ -1,15 +1,15 @@
-# Evaluating Composite Functions
+# 复合函数求解
 
 import { Tabs, Tab } from 'nextra/components'
 
-## Background
-This prompt tests an LLM's mathematical capabilities by prompting it to evaluate a given composition function.
+## 背景
+该提示通过要求 LLM 计算一个给定的复合函数以测试其数学能力。
 
-## Prompt
+## 提示词
 
-Suppose $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$$ what is $$f(f(f(6)))$$?
+假设 $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$$ 那么 $$f(f(f(6)))$$ 等于?
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -23,7 +23,7 @@ Suppose $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$$ w
         messages=[
             {
             "role": "user",
-            "content": "Suppose  g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6 what is f(f(f(6)))?\n"
+            "content": "假设  g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6 那么 f(f(f(6))) 等于?\n"
             }
         ],
         temperature=1,
@@ -44,7 +44,7 @@ Suppose $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$$ w
             messages=[
                 {
                 "role": "user",
-                "content": "Suppose  g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6 what is f(f(f(6)))?",
+                "content": "假设  g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6 那么 f(f(f(6))) 等于?",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -65,5 +65,5 @@ Suppose $$g(x) = f^{-1}(x), g(0) = 5, g(4) = 7, g(3) = 2, g(7) = 9, g(9) = 6$$ w
 
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)

@@ -1,28 +1,28 @@
-# Evaluate Plato's Dialogue
+# 柏拉图式对话评估
 
 import { Tabs, Tab } from 'nextra/components'
 
-## Background
-The following prompt tests an LLM's ability to perform evaluation on the outputs of two different models as if it was a teacher.
+## 背景
+以下提示用于测试作为教师角色的 LLM 评估两个不同模型输出的能力。
 
-First, two models (e.g., ChatGPT & GPT-4) are prompted to using the following prompt:
+首先，让两个模型（例如 ChatGPT 与 GPT-4）根据如下提示生成内容：
 
 ```
-Plato’s Gorgias is a critique of rhetoric and sophistic oratory, where he makes the point that not only is it not a proper form of art, but the use of rhetoric and oratory can often be harmful and malicious. Can you write a dialogue by Plato where instead he criticizes the use of autoregressive language models?
+柏拉图的《高尔吉亚斯篇》是对修辞学与诡辩派演说的批判。他在其中指出，这种修辞不仅不是一门正当的艺术形式，而且其使用往往具有危害性和恶意。你能否撰写一篇柏拉图式的对话，模拟他对自回归语言模型的使用的批评？
 ```
 
-Then, those outputs are evaluated using the evaluation prompt below.
+随后，使用以下评估提示对模型所生成的两个输出进行评价。
 
-## Prompt
+## 提示词
 ```
-Can you compare the two outputs below as if you were a teacher?
+你能否像一位教师一样，对以下两项输出进行比较与评估？
 
-Output from ChatGPT: {output 1}
+ChatGPT 的输出: {output 1}
 
-Output from GPT-4: {output 2}
+GPT-4 的输出: {output 2}
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -36,7 +36,7 @@ Output from GPT-4: {output 2}
         messages=[
             {
             "role": "user",
-            "content": "Can you compare the two outputs below as if you were a teacher?\n\nOutput from ChatGPT:\n{output 1}\n\nOutput from GPT-4:\n{output 2}"
+            "content": "你能否像一位教师一样，对以下两项输出进行比较与评估？\n\nChatGPT 的输出: {output 1}\n\nGPT-4 的输出: {output 2}"
             }
         ],
         temperature=1,
@@ -57,7 +57,7 @@ Output from GPT-4: {output 2}
             messages=[
                 {
                 "role": "user",
-                "content": "Can you compare the two outputs below as if you were a teacher?\n\nOutput from ChatGPT:\n{output 1}\n\nOutput from GPT-4:\n{output 2}",
+                "content": "你能否像一位教师一样，对以下两项输出进行比较与评估？\n\nChatGPT 的输出: {output 1}\n\nGPT-4 的输出: {output 2}",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -78,5 +78,5 @@ Output from GPT-4: {output 2}
 
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)

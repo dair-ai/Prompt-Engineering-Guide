@@ -1,31 +1,31 @@
-# Identify Hallucination in LLM Responses
+# 识别 LLM 响应中的幻觉
 
 import { Tabs, Tab } from 'nextra/components'
 import {Callout} from 'nextra/components'
 
-## Background
-The following prompt tests an LLM's capabilities to identify hallucination in the context of [closed-domain question answering](/question-answering/closed-domain). Bubeck et al. (2023) suggests that LLMs like GPT-4 can be leveraged to identify hallucination. 
+## 背景
+以下提示用于测试 LLM 在 [封闭领域问答](/question-answering/closed-domain) 语境中识别生成内容中是否存在幻觉(hallucination)的能力。Bubeck 等人(2023)指出，像 GPT-4 这样的 LLM 可以被用来识别幻觉。
 
 <Callout type="warning" emoji="⚠️">
-    Note that due to the challenging nature of the task, LLMs are likely to hallucinate when they have no knowledge or context regarding the question.
+    请注意，由于该任务本身具有挑战性，当 LLM 对相关问题缺乏知识或上下文时，可能会产生虚构或不准确的内容。
 </Callout>
 
-The prompt has been slightly modified to include indicators that show which sections of the prompt corresponds to what information.
+以下提示经过略微修改，加入了标识符以显示提示词中各部分所对应的原始信息。
 
-## Prompt
+## 提示词
 ```markdown
-Patient’s facts:
-- 20 year old female
-- with a history of anerxia nervosa and depression
-- blood pressure 100/50, pulse 50, height 5’5’’
-- referred by her nutrionist but is in denial of her illness
-- reports eating fine but is severely underweight
+患者信息:
+- 20岁女性
+- 有神经性厌食症和抑郁症病史
+- 血压100/50，脉搏50，身高5英尺5英寸
+- 由其营养师推荐就诊，但本人否认患病
+- 自述饮食正常，但体重严重不足
 
-Question: Please rewrite the data above into a medical note, using exclusively the information above.
+问题: 请根据以上信息撰写一份医疗记录，仅使用上述提供的资料。
 
-GPT-4 Response: 20 year old female patient with a history of anorexia nervosa and depression was referred by her nutritionist for evaluation and management of her eating disorder. She denies having any problem with her eating habits or body image and claims to eat normally. However, she is severely underweight for her height (BMI 16.6) and has signs of malnutrition, such as low blood pressure (100/50) and bradycardia (pulse 50). She also reports feeling depressed and hopeless. She is at risk of serious medical complications, such as cardiac arrhythmias, electrolyte imbalances, osteoporosis, and infertility. She needs urgent psychiatric and medical intervention to address her anorexia nervosa and depression.
+GPT-4 回应: 一名20岁的女性患者，有神经性厌食症和抑郁症病史，因进食障碍被营养师推荐进行评估和治疗。她否认自己存在饮食习惯或身体形象方面的问题，并声称饮食正常。然而，她的体重远低于其身高应有的标准（BMI 16.6），并表现出营养不良的迹象，如低血压（100/50）和心动过缓（脉搏50）。她还表示感到抑郁和绝望。她面临严重的医学并发症风险，如心律失常、电解质紊乱、骨质疏松和不孕，亟需精神科和内科干预以治疗其神经性厌食症和抑郁症。
 
-Please read the above medical note and verify that each claim is exactly contained in the patient’s facts. Report any information which is not contained in the patient’s facts list.
+请阅读上述医疗记录，并验证每项陈述是否严格基于所提供的患者信息，与此同时报告任何未包含在原始患者信息列表中的内容。
 ```
 
 ## Code / API
@@ -42,7 +42,7 @@ Please read the above medical note and verify that each claim is exactly contain
     messages=[
         {
         "role": "user",
-        "content": "Patient’s facts:\n- 20 year old female\n- with a history of anerxia nervosa and depression\n- blood pressure 100/50, pulse 50, height 5’5’’\n- referred by her nutrionist but is in denial of her illness\n- reports eating fine but is severely underweight\n\nQuestion: Please rewrite the data above into a medical note, using exclusively the information above.\n\nGPT-4 Response: 20 year old female patient with a history of anorexia nervosa and depression was referred by her nutritionist for evaluation and management of her eating disorder. She denies having any problem with her eating habits or body image and claims to eat normally. However, she is severely underweight for her height (BMI 16.6) and has signs of malnutrition, such as low blood pressure (100/50) and bradycardia (pulse 50). She also reports feeling depressed and hopeless. She is at risk of serious medical complications, such as cardiac arrhythmias, electrolyte imbalances, osteoporosis, and infertility. She needs urgent psychiatric and medical intervention to address her anorexia nervosa and depression.\n\nPlease read the above medical note and verify that each claim is exactly contained in the patient’s facts. Report any information which is not contained in the patient’s facts list."
+        "content": "患者信息:\n- 20岁女性\n- 有神经性厌食症和抑郁症病史\n- 血压100/50，脉搏50，身高5英尺5英寸\n- 由其营养师推荐就诊，但本人否认患病\n- 自述饮食正常，但体重严重不足\n\n问题: 请根据以上信息撰写一份医疗记录，仅使用上述提供的资料。\n\nGPT-4 回应: 一名20岁的女性患者，有神经性厌食症和抑郁症病史，因进食障碍被营养师推荐进行评估和治疗。她否认自己存在饮食习惯或身体形象方面的问题，并声称饮食正常。然而，她的体重远低于其身高应有的标准（BMI 16.6），并表现出营养不良的迹象，如低血压（100/50）和心动过缓（脉搏50）。她还表示感到抑郁和绝望。她面临严重的医学并发症风险，如心律失常、电解质紊乱、骨质疏松和不孕，亟需精神科和内科干预以治疗其神经性厌食症和抑郁症。\n\n请阅读上述医疗记录，并验证每项陈述是否严格基于所提供的患者信息，与此同时报告任何未包含在原始患者信息列表中的内容。"
         }
     ],
     temperature=1,
@@ -63,7 +63,7 @@ Please read the above medical note and verify that each claim is exactly contain
             messages=[
                 {
                 "role": "user",
-                "content": "Patient’s facts:\n- 20 year old female\n- with a history of anerxia nervosa and depression\n- blood pressure 100/50, pulse 50, height 5’5’’\n- referred by her nutrionist but is in denial of her illness\n- reports eating fine but is severely underweight\n\nQuestion: Please rewrite the data above into a medical note, using exclusively the information above.\n\nGPT-4 Response: 20 year old female patient with a history of anorexia nervosa and depression was referred by her nutritionist for evaluation and management of her eating disorder. She denies having any problem with her eating habits or body image and claims to eat normally. However, she is severely underweight for her height (BMI 16.6) and has signs of malnutrition, such as low blood pressure (100/50) and bradycardia (pulse 50). She also reports feeling depressed and hopeless. She is at risk of serious medical complications, such as cardiac arrhythmias, electrolyte imbalances, osteoporosis, and infertility. She needs urgent psychiatric and medical intervention to address her anorexia nervosa and depression.\n\nPlease read the above medical note and verify that each claim is exactly contained in the patient’s facts. Report any information which is not contained in the patient’s facts list.",
+                "content": "患者信息:\n- 20岁女性\n- 有神经性厌食症和抑郁症病史\n- 血压100/50，脉搏50，身高5英尺5英寸\n- 由其营养师推荐就诊，但本人否认患病\n- 自述饮食正常，但体重严重不足\n\n问题: 请根据以上信息撰写一份医疗记录，仅使用上述提供的资料。\n\nGPT-4 回应: 一名20岁的女性患者，有神经性厌食症和抑郁症病史，因进食障碍被营养师推荐进行评估和治疗。她否认自己存在饮食习惯或身体形象方面的问题，并声称饮食正常。然而，她的体重远低于其身高应有的标准（BMI 16.6），并表现出营养不良的迹象，如低血压（100/50）和心动过缓（脉搏50）。她还表示感到抑郁和绝望。她面临严重的医学并发症风险，如心律失常、电解质紊乱、骨质疏松和不孕，亟需精神科和内科干预以治疗其神经性厌食症和抑郁症。\n\n请阅读上述医疗记录，并验证每项陈述是否严格基于所提供的患者信息，与此同时报告任何未包含在原始患者信息列表中的内容。",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -84,5 +84,5 @@ Please read the above medical note and verify that each claim is exactly contain
 
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考文献
+- [Large Language Models as an Indirect Reasoner: Contrapositive and Contradiction for Automated Reasoning](https://arxiv.org/abs/2402.03667) (2024年4月6日)

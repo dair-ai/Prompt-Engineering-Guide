@@ -1,16 +1,16 @@
-# Physical Reasoning with LLMs 
+# 使用 LLMs 进行物理推理
 
 import { Tabs, Tab } from 'nextra/components'
 
-## Background
-This prompt tests an LLM's physical reasoning capabilities by prompting it to perform actions on a set of objects.
+## 背景
+该提示通过要求 LLM 对一组物理物体执行物理操作，测试其物理推理能力。
 
-## Prompt
+## 提示词
 ```
-Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how to stack them onto each other in a stable manner.
+这里有一本书、9个鸡蛋、一台笔记本电脑、一个瓶子和一枚钉子。请告诉我如何以稳定的方式将它们一个接一个地堆叠起来。
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -24,7 +24,7 @@ Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how t
     messages=[
         {
         "role": "user",
-        "content": "Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how to stack them onto each other in a stable manner."
+        "content": "这里有一本书、9个鸡蛋、一台笔记本电脑、一个瓶子和一枚钉子。请告诉我如何以稳定的方式将它们一个接一个地堆叠起来。"
         }
     ],
     temperature=1,
@@ -45,7 +45,7 @@ Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how t
             messages=[
                 {
                 "role": "user",
-                "content": "Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how to stack them onto each other in a stable manner.",
+                "content": "这里有一本书、9个鸡蛋、一台笔记本电脑、一个瓶子和一枚钉子。请告诉我如何以稳定的方式将它们一个接一个地堆叠起来。",
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -66,5 +66,5 @@ Here we have a book, 9 eggs, a laptop, a bottle and a nail. Please tell me how t
 
 </Tabs>
 
-## Reference
-- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13 April 2023)
+## 参考文献
+- [Large Language Models as an Indirect Reasoner: Contrapositive and Contradiction for Automated Reasoning](https://arxiv.org/abs/2402.03667) (2024年4月6日)

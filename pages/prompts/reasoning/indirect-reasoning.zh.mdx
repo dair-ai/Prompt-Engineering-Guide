@@ -1,29 +1,28 @@
-# Indirect Reasoning with LLMs 
+# 使用 LLMs 进行间接推理
 
 import { Tabs, Tab } from 'nextra/components'
 
-## Background
-[Zhang et al. (2024)](https://arxiv.org/abs/2402.03667) recently proposed an indirect reasoning method to strengthen the reasoning power of LLMs. It employs the logic of contrapositives and contradictions to tackle IR tasks such as factual reasoning and mathematic proof. It consists of two key steps: 1) enhance the comprehensibility of LLMs by augmenting data and rules (i.e., logical equivalence of contrapositive), and 2) design prompt templates to stimulate LLMs to implement indirect reasoning based on proof by contradiction.
+## 背景
+[Zhang 等人. (2024)](https://arxiv.org/abs/2402.03667) 最近提出了一种间接推理方法，以增强LLM的推理能力。该方法利用逆否命题与矛盾推理的逻辑来应对间接推理(IR)任务，例如事实推理和数学证明。该方法主要包括两个关键步骤: 1) 通过扩充数据与规则（即逆否命题的逻辑等价性）提升LLM的理解能力; 2) 设计提示模板，促使LLM基于反证法执行间接推理。
 
-Experiments on LLMs like GPT-3.5-turbo and Gemini-pro show that the proposed method enhances the overall accuracy of factual reasoning by 27.33% and mathematic proof by 31.43% compared to traditional direct reasoning methods.
+在 GPT-3.5-turbo 和 Gemini-pro 等 LLM 上的实验表明，与传统的直接推理方法相比，该方法将事实推理的整体准确率提升了27.33% ，数学证明的准确率提升了31.43% 。
 
-Below is an example of zero-shot template for proof-by-contradiction.
+以下是一个零样本提示模板示例，用于演示如何通过反证法进行间接推理。
 
-
-## Prompt
+## 提示词
 ```
-If a+|a|=0, try to prove that a<0.
+若 a+|a|=0，试证明 a<0。
 
-Step 1: List the conditions and questions in the original proposition.
+第一步: 列出原始命题中的条件与问题。
 
-Step 2: Merge the conditions listed in Step 1 into one. Define it as wj.
+第二步: 将第一步中列出的所有条件合并为一个整体，记作 wj。
 
-Step 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.
+第三步: 请逐步思考，考虑所有可能情况。如果在至少一种可能性下，wj（定义于第二步）与问题的否定之间的交集非空，则原命题不成立；否则，原命题成立。
 
-Answer:
+答案:
 ```
 
-## Code / API
+## 代码 / API
 
 <Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
     <Tab>
@@ -37,7 +36,7 @@ Answer:
     messages=[
     {
       "role": "user",
-      "content": "If a+|a|=0, try to prove that a<0.\n\nStep 1: List the conditions and questions in the original proposition.\n\nStep 2: Merge the conditions listed in Step 1 into one. Define it as wj.\n\nStep 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.\n\nAnswer:"
+      "content": "若 a+|a|=0，试证明 a<0。\n\n第一步: 列出原始命题中的条件与问题。\n\n第二步: 将第一步中列出的所有条件合并为一个整体，记作 wj。\n\n第三步: 请逐步思考，考虑所有可能情况。如果在至少一种可能性下，wj（定义于第二步）与问题的否定之间的交集非空，则原命题不成立；否则，原命题成立。\n\n答案:
     }
     ],
     temperature=0,
@@ -58,7 +57,7 @@ Answer:
             messages=[
                 {
                 "role": "user",
-                "content": "If a+|a|=0, try to prove that a<0.\n\nStep 1: List the conditions and questions in the original proposition.\n\nStep 2: Merge the conditions listed in Step 1 into one. Define it as wj.\n\nStep 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.\n\nAnswer:",
+                "content": "若 a+|a|=0，试证明 a<0。\n\n第一步: 列出原始命题中的条件与问题。\n\n第二步: 将第一步中列出的所有条件合并为一个整体，记作 wj。\n\n第三步: 请逐步思考，考虑所有可能情况。如果在至少一种可能性下，wj（定义于第二步）与问题的否定之间的交集非空，则原命题不成立；否则，原命题成立。\n\n答案:,
                 }
             ],
             stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
@@ -79,5 +78,5 @@ Answer:
 
 </Tabs>
 
-## Reference
-- [Large Language Models as an Indirect Reasoner: Contrapositive and Contradiction for Automated Reasoning](https://arxiv.org/abs/2402.03667) (06 February 2024)
+## 参考文献
+- [Large Language Models as an Indirect Reasoner: Contrapositive and Contradiction for Automated Reasoning](https://arxiv.org/abs/2402.03667) (2024年4月6日)
