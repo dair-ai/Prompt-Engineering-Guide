@@ -64,7 +64,7 @@ You can also find the most up-to-date guides on our new website [https://www.pro
   - [Prompt Engineering - Function Calling](https://www.promptingguide.ai/applications/function_calling)
   - [Prompt Engineering - Generating Data](https://www.promptingguide.ai/applications/generating)
   - [Prompt Engineering - Generating Synthetic Dataset for RAG](https://www.promptingguide.ai/applications/synthetic_rag)
-  - [Prompt Engineering - Takling Generated Datasets Diversity](https://www.promptingguide.ai/applications/generating_textbooks)
+  - [Prompt Engineering - Tackling Generated Datasets Diversity](https://www.promptingguide.ai/applications/generating_textbooks)
   - [Prompt Engineering - Generating Code](https://www.promptingguide.ai/applications/coding)
   - [Prompt Engineering - Graduate Job Classification Case Study](https://www.promptingguide.ai/applications/workplace_casestudy)
 - [Prompt Engineering - Prompt Hub](https://www.promptingguide.ai/prompts)
