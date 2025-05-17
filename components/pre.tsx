@@ -68,7 +68,7 @@ export const Pre = ({
         <Button
           onClick={toggleWordWrap}
           className="md:nx-hidden"
-          title="Toggle word wrap elvis"
+          title="Toggle word wrap"
         >
           <WordWrapIcon className="nx-pointer-events-none nx-h-4 nx-w-4" />
         </Button>
