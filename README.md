@@ -106,43 +106,12 @@ You can also find the most up-to-date guides on our new website [https://www.pro
 - [Prompt Engineering - Datasets](https://www.promptingguide.ai/datasets)
 - [Prompt Engineering - Additional Readings](https://www.promptingguide.ai/readings)
 
-
 ---
-## Lecture
-
-We have published a 1 hour lecture that provides a comprehensive overview of prompting techniques, applications, and tools.
-- [Video Lecture](https://youtu.be/dOxUroR57xs)
-- [Notebook with code](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb)
-- [Slides](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/lecture/Prompt-Engineering-Lecture-Elvis.pdf)
-
----
-## Running the guide locally
-
-To run the guide locally, for example to check the correct implementation of a new translation, you will need to:
-
-1. Install Node >=18.0.0
-1. Install `pnpm` if not present in your system. Check [here](https://pnpm.io/installation) for detailed instructions.
-1. Install the dependencies: `pnpm i next react react-dom nextra nextra-theme-docs`
-1. Boot the guide with `pnpm dev`
-2. Browse the guide at `http://localhost:3000/`
-
----
-## Appearances
-Some places where we have been featured:
-- Wall Street Journal - [ChatGPT Can Give Great Answers. But Only If You Know How to Ask the Right Question](https://www.wsj.com/articles/chatgpt-ask-the-right-question-12d0f035)
-- Forbes - [Mom, Dad, I Want To Be A Prompt Engineer](https://www.forbes.com/sites/craigsmith/2023/04/05/mom-dad-i-want-to-be-a-prompt-engineer/?sh=7f1213159c8e)
-- Markettechpost - [Best Free Prompt Engineering Resources (2023)](https://www.marktechpost.com/2023/04/04/best-free-prompt-engineering-resources-2023/)
 
 
----
-If you are using the guide for your work or research, please cite us as follows:
 
-```
-@article{Saravia_Prompt_Engineering_Guide_2022,
-author = {Saravia, Elvis},
-journal = {https://github.com/dair-ai/Prompt-Engineering-Guide},
-month = {12},
-title = {{Prompt Engineering Guide}},
+
+
 year = {2022}
 }
 ```
