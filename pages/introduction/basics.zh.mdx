@@ -2,6 +2,8 @@
 
 import {Screenshot} from 'components/screenshot'
 import INTRO1 from '../../img/introduction/sky.png'
+import {Bleed} from 'nextra-theme-docs'
+import { Callout } from 'nextra/components'
 
 ## 给LLM提示
 
@@ -24,6 +26,15 @@ blue.
 如果你正在使用OpenAI Playground或其他任何LLM Playground，你可以按照以下屏幕截图中的方式提示模型：
 
 <Screenshot src={INTRO1} alt="INTRO1" />
+
+下面的教程展示了如何开始使用 OpenAI Playground:
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/iwYtzPJELkk?si=irua5h_wHrkNCY0V" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
 
 需要注意的是，当使用 OpenAI 的 `gpt-4` 或者 `gpt-3.5-turbo` 等聊天模型时，你可以使用三个不同的角色来构建 prompt： `system`、`user` 和 `assistant`。其中 `system` 不是必需的，但有助于设定 `assistant` 的整体行为，帮助模型了解用户的需求，并根据这些需求提供相应的响应。上面的示例仅包含一条 `user` 消息，你可以使用 `user` 消息直接作为 prompt。为简单起见，本指南所有示例（除非明确提及）将仅使用 `user` 消息来作为 `gpt-3.5-turbo` 模型的 prompt。上面示例中 `assistant` 的消息是模型的响应。你还可以定义 `assistant` 消息来传递模型所需行为的示例。你可以在[此处](https://www.promptingguide.ai/models/chatgpt)了解有关使用聊天模型的更多信息。
 
@@ -139,3 +150,8 @@ Negative
 ```
 
 语言模型可以基于一些说明了解和学习某些任务，而小样本提示正好可以赋能上下文学习能力。我们将在接下来的章节中更广泛的讨论如何使用零样本提示和小样本提示。
+
+<Callout type= "info" emoji="🎓">
+了解我们最新推出的人工智能课程中关于高级提示工程技术与最佳实践的内容。 [立即加入!](https://dair-ai.thinkific.com/)
+使用优惠码 PROMPTING20 可额外享受 20% 折扣优惠。
+</Callout>

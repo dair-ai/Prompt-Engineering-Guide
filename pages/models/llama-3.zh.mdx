@@ -1,0 +1,47 @@
+# Llama 3
+
+import {Bleed} from 'nextra-theme-docs'
+
+Meta 最近 [发布了](https://llama.meta.com/llama3/) 其全新的大型语言模型（LLMs）系列，名为 Llama 3。此次发布包含了参数规模为 80 亿和 700 亿的预训练与指令微调模型。
+
+## Llama 3 架构细节
+
+以下是有关 Llama 3 技术细节的概述：
+
+- 使用标准的仅解码器 Transformer 架构。
+- 词汇表包含 128,000 个 token。
+- 训练时采用长度为 8,000 的 token 序列。
+- 应用了分组查询注意力(Grouped Query Attention, GQA)机制。
+- 在超过 15 万亿 token 上进行预训练。
+- 后续训练阶段结合了监督式微调(SFT)、拒绝采样、PPO 和 DPO 等技术。
+
+## 性能表现
+
+值得注意的是，Llama 3 的 80 亿参数版本（经过指令微调）在性能上显著优于 [Gemma 7B](https://www.promptingguide.ai/zh/models/gemma) 和 [Mistral 7B Instruct](https://www.promptingguide.ai/zh/models/mistral-7b) 。而 700 亿参数版本则整体上超越了 [Gemini Pro 1.5](https://www.promptingguide.ai/models/gemini-pro) 和 [Claude 3 Sonnet](https://www.promptingguide.ai/models/claude-3) ，但在 MATH 基准测试中略逊于 Gemini Pro 1.5。
+
+!["Llama 3 性能评估"](../../img/llama3/llama-instruct-performance.png)
+*来源: [Meta AI](https://ai.meta.com/blog/meta-llama-3/)*
+
+预训练版本也在多个基准测试中表现出色，例如 AGIEval(English)、MMLU 和 Big-Bench Hard。
+
+!["Llama 3 性能评估"](../../img/llama3/llama3-pretrained-results.png)
+*来源: [Meta AI](https://ai.meta.com/blog/meta-llama-3/)*
+
+## Llama 3 400B
+
+Meta 还透露他们即将发布一个拥有 4000 亿参数的模型，目前仍在训练中，预计不久后将面世！此外，团队还在推进多模态支持、多语言能力以及更长上下文窗口的相关工作。截至 2024 年 4 月 15 日，Llama 3 400B 的当前检查点在 MMLU 和 Big-Bench Hard 等常见基准测试中取得了以下成绩：
+
+!["Llama 3 400B"](../../img/llama3/llama-400b.png)
+*来源: [Meta AI](https://ai.meta.com/blog/meta-llama-3/)*
+
+Llama 3 模型的授权许可信息可在 [模型卡片](https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md) 中找到。
+
+## 对 Llama 3 的深入评测
+
+以下是对 Llama 3 的更详细分析:
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/h2aEmciRd6U?si=m7-xXu5IWpB-6mE0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
