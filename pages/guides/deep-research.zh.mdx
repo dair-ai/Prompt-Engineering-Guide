@@ -1,0 +1,196 @@
+## OpenAI 深度研究指南
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/wovjVUnYfic?si=OinK6Vd-VYRMy7Gt"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+
+### 什么是深度研究？
+
+深度研究(Deep Research)是 OpenAI 推出的新型智能代理系统，能够在互联网上执行**多步骤研究**任务，用于完成如生成报告、竞争分析等的复杂任务。该系统属于一种**代理式推理系统**，可调用包括 **Python** 与网页浏览在内的工具，以执行跨多个领域的高级研究任务。
+
+该系统旨在用远少于人类所需的时间完成复杂的多步骤研究任务，将原需数小时的任务压缩至数分钟之内。它尤其适用于需要**广泛**且**复杂网络搜索**的任务。深度研究由 OpenAI 的 **o3 模型**驱动，该模型专为网页浏览与数据分析优化，利用推理能力来搜索、解读并分析海量信息。近期，OpenAI 推出了由 **o4-mini** 驱动的轻量版深度研究。
+
+该模型采用**强化学习(Reinforcement Learning, RL)**进行训练，使其能够高效地浏览网页、理解复杂信息，并学会规划与执行多步骤任务以获取所需数据。它具备**回溯、调整计划**与**响应**实时信息的能力。深度研究支持**用户上传文件**，可以通过 Python **生成图表**，并设计为可嵌入网页生成的图像与图形（尽管该嵌入功能当前尚未完全可用），包括自动添加引用。
+
+**深度研究流程:**  
+[https://claude.site/artifacts/4e4f5dec-b44a-4662-b727-089515cc045e](https://claude.site/artifacts/4e4f5dec-b44a-4662-b727-089515cc045e)
+
+!["深度研究流程图"](../../img/deep-research/deep_research_flowchart.JPG)
+
+### 如何使用 OpenAI 深度研究？
+
+深度研究目前面向订阅了 **Pro、Plus、Teams 与 Enterprise** 套餐的用户开放。而 OpenAI 于 4 月 24 日发布的更新中扩展了使用配额。对 **Plus、Team、Enterprise 与 Edu 用户**，每月可使用的深度研究查询次数已从 10 次提升至 **25 次**。Pro 用户的配额也从 120 次提升至 **250 次/月**。**免费用户**可使用轻量版的深度研究功能，每月 **5 次查询**。OpenAI 表示，当原始版本的查询次数用尽后，系统将自动切换至**轻量版本**。
+
+!["深度研究实验限额"](../../img/deep-research/deep_research_OAI_post.JPG)
+
+### 深度研究能够解决哪些问题？
+
+深度研究能够以远快于人类的速度完成**复杂的多步骤研究任务**，将数小时的工作压缩至数分钟。它适用于需要大量复杂网络搜索的任务，能够自动制定策略并提出相应搜索查询。
+
+其核心流程为：**搜索(Search) + 分析(Analyze) + 综合(Synthesize)**，进而输出**报告生成(Report Generation)、洞察总结(Insights)与行动计划(Action Plans)**。该流程可借助数以百计的在线资源完成。
+
+### 深度研究的应用场景
+
+**专业应用:**  
+  * 金融：市场与竞争分析
+  * 科学研究与数据分析
+  * 政策与法规研究
+  * 工程文档撰写与技术分析
+
+**消费与购物研究:**  
+  * 产品深度调研（如汽车、电器、家具）
+  * 高度个性化的推荐
+  * 产品深度对比分析
+
+**学术研究与分析:**   
+  * 文献综述与全面摘要
+  * 提供研究发现与新见解的概览
+  * 识别研究空白 → 提出新问题 → 推动新科学研究
+  * 揭示研究趋势并推荐新阅读材料
+  * 分析定量结果并激发讨论
+  * 来源验证与发现新证据
+  * 假设检验？
+
+**知识工作/工程类任务:**  
+  * 解答需多步骤推理的复杂问题
+  * 分析所上传的文档，并结合新研究补充内容
+  * 撰写综合性报告 
+  * 编写技术文档
+  * 进行可行性研究  
+  * 综合多方信息进行推理
+
+*我们的例子:** 
+
+*   [分析 GitHub 仓库](https://x.com/OpenAIDevs/status/1920556386083102844) (新增功能，添加于2025年5月8日)
+*   [顶级 AI Agent 框架报告](https://chatgpt.com/share/681bd7b4-41e0-8000-a9de-c2b82c55d5ba) (报告)
+*   [跨学科 AI 驱动科学发现](https://chatgpt.com/share/681bdb1f-e764-8000-81c8-fab25119da0d) (文献综述)
+*   [OpenAI 模型与 Google Gemini 模型对比](https://chatgpt.com/share/681cbf8e-6550-8000-b7ea-e94ca104a17f) (竞争分析)
+*   [AI 教育趋势](https://chatgpt.com/share/681cc54d-f970-8000-8e6e-c6df6ae9e73e) (趋势)
+*   [YC 创业点子研究](https://chatgpt.com/share/681ccd59-0ef8-8000-a638-16b2c803bc99) (企业研究)
+*   [DeepSeek-R1 指南](https://chatgpt.com/share/67a3dd37-5a2c-8000-9a87-3b5f2d90350e) (指南)
+*   [CrewAI 框架一月学习计划](https://chatgpt.com/share/67a4cece-f444-8000-9a55-8491767e4aff) (学习计划)
+*   [大语言模型定价趋势](https://chatgpt.com/share/67a4cf07-efec-8000-ad83-486163512568) (趋势)
+*   [近期关于 o1 与 DeepSeek-R1 的论文](https://chatgpt.com/share/67a4cf3b-cfe4-8000-a1ca-71b0c1555caa) (摘要与分析)
+
+更多示例请见: [https://openai.com/index/introducing-deep-research/](https://openai.com/index/introducing-deep-research/)
+
+深度研究尤其擅长完成那些通常需人类耗费**大量时间**的任务，特别是下列需求：
+
+* **Integration of multiple information sources**  
+* **Deep analysis of complex data**  
+* **Creation of well-documented reports**  
+* **Multi-step research processes** (involving planning, finding, browsing, reasoning, analyzing, and synthesizing)  
+* **Processing, understanding, and reasoning about large amounts of information**
+
+* **整合多来源信息**
+* **深入分析复杂数据**
+* **撰写结构清晰的报告**
+* **执行多步骤研究流程（包括规划、查找、浏览、推理、分析与综合）**
+* **处理、理解并推理大量信息**
+
+用途词云图(由 Claude 生成): [https://claude.site/artifacts/76919015-51ba-496e-bbde-451336eac16a](https://claude.site/artifacts/76919015-51ba-496e-bbde-451336eac16a)
+
+!["深度研究词云"](../../img/deep-research/deep_research_word_cloud.JPG)
+
+### 何时使用深度研究？
+
+当任务需要**多层面、特定领域的查询**，且依赖于对**实时信息的广泛研究与对该信息的深入推理与理解**时，应当使用 Deep Research。请参阅本文档的其他部分，以了解更多关于何时使用 Deep Research 的具体用例与启发。
+
+对于其他所有任务，可使用未启用 Deep Research 的原始模型 o1-mini 和 GPT-4o。如果任务需要推理能力（例如将复杂任务自动拆解为多个子任务），可选择 o1-mini；对于其他一次性、简单的任务，则推荐使用 GPT-4o。
+
+### OpenAI Deep Research 使用技巧
+
+以下是我通过自身实验及观察他人结果所总结出的使用技巧：
+
+#### 提示词撰写建议
+
+* **明确且具体的指令**: 为其制定计划，并尽可能详尽。任务需要一定时间，因此首次提示的准确性至关重要。
+* **澄清问题而非忽视问题**: 模型在不确定时会主动提问。认真答复有助于获得更优结果。由于 Deep Research 请求的成本高于标准查询，请务必花时间进行澄清。
+!["在深度研究中澄清问题"](../../img/deep-research/deep_research_clarify.JPG)
+* **极其重要的关键词**: 该推理模型依赖关键词进行网页检索，因此请尽可能提供丰富且精准的术语（例如品牌名、技术术语、产品名称），以节省模型时间与算力。
+* **使用清晰的动词**: Deep Research 被训练以遵循指令。使用诸如“比较”“建议”“推荐”“报告”等动词，有助于模型理解任务目标及所需产出。
+* **输出格式说明**: 如有要求，请指明所需格式。例如需生成何种类型的报告、包含哪些版块，是否需表格形式等。亦可指定表格排版细节（如列数、标题等）。模型默认的报告输出风格并不一定适用于所有场景。
+* **上传文件以提供上下文**: 上传如 PDF 等文档有助于指导模型，特别是在处理极为专业或模型未能充分掌握的技术领域时尤为有效。该功能适用于 GPT-4o 模型。
+
+**请始终自行查验来源与信息的准确性**: 模型仍可能出错，并可能难以区分权威信息与猜测内容。
+
+### 接下来可以尝试哪些用法？
+
+以下是可尝试使用 Deep Research 的一些思路:
+
+* **研究调研**  
+  * 针对 AI 工具进行全面的市场调研与竞争分析
+  * 针对新产品开展调研，包括用户评价、价格对比等
+  * 向其提供文档并请求补充细节或进行批评性分析
+  * 基于趋势、用户采用率及其他用户行为，进行产品功能推荐的深入研究
+  * 用户研究
+  * 法律案件研究：搜集案例法、先例及相关法规
+  * 事实核查或背景调查
+* **商业应用**  
+  * 为特定领域搜索并开发 AI/智能代理的应用场景
+  * 跟踪特定领域或话题中的趋势
+* **学习**  
+  * 构建学习计划并提供学习路径建议
+  * 汇总关于 AI 模型使用的建议与编码最佳实践
+  * 查询某一开发工具的最新特性并推荐练习题或学习材料
+* **科学研究**  
+  * 调查有关健康主题的最新研究，例如睡眠、症状、心理健康等   
+  * 撰写涵盖最新研究成果的技术报告
+* **内容创作**  
+  * 撰写涵盖多个主题的博客文章
+  * 基于网络趋势分析，为特定领域推荐写作或内容创作主题
+* **个人用途**   
+  * 撰写关于你或其他公众人物的详尽个人简介
+  * 基于公开信息与项目经历撰写或更新简历
+  * 为即将进行的演示文稿生成/推荐幻灯片内
+
+### OAI Deep Research 有何不同？
+
+目前已有类似的智能代理解决方案，如 Google 的 Gemini Deep Research，以及可构建类似 Deep Research 工作流的多种框架。例如，可使用 **Flowise AI** 实现类似流程。开发者亦可借助 **Llama Index、crewAI、n8n 或 LangGraph** 构建这些系统。这些自定义方案可能更加经济，且可与当前可用模型（如 o1 和 o3-mini）集成使用。
+
+需特别指出的是，OpenAI 为 Deep Research 使用了一种**专有的 o3 模型变体**，仅限其内部使用。该模型专为执行复杂推理与多步研究任务设计，这些能力正是此类工作流的**关键要素**。目前尚不明确 OpenAI 是否会通过 API 发布该模型，或是否会在 ChatGPT 中提供访问权限。若要了解性能对比，OpenAI 已公布 Deep Research 与 o3-mini-high 在 Humanity’s Last Exam 等基准测试中的表现（来源：[https://openai.com/index/introducing-deep-research/）。](https://openai.com/index/introducing-deep-research/）。)
+
+!["深度研究性能评估"](../../img/deep-research/deep_research_benchmark.JPG)
+
+模型在**浏览内容并进行深入思考**时表现更佳，因此“给予模型足够的思考时间”极为重要。**推理能力模型是提升 Deep Research 执行复杂任务表现的关键所在**。随着推理模型的发展，Deep Research 的表现也将随之提升。
+
+!["深度研究通过率"](../../img/deep-research/deep_research_pass_rate.JPG)
+
+### Deep Research 的局限性？
+
+尽管 Deep Research 功能强大，但仍存在若干需改进之处。其在**技术性与专业领域信息的综合处理**方面仍有不足，因此如有支持文档请尽量提供。此外，模型在**幻觉现象方面仍需改进**。它仍可能出错，且在辨别权威信息与传闻方面存在挑战。**其在不同领域的表现可能有所差异**，在**整合多类型信息方面也存在困难**。
+
+以下是一些具体局限:
+
+* **尚不清楚如何明确指定其搜索更多在线资源**（例如搜索 50 篇文章），或限定于特定来源；另一个已观察到的问题是**对特定域名的偏倚**。
+* **引用与格式化错误仍然存在**。
+* **从 Deep Research 导出信息较为困难**；若能支持导出为 Excel、Jupyter Notebook、Notion、Google Docs 等格式，将极具实用价值。
+* **对时间/日期相关问题处理不佳**，因此务必在提示中明确说明。
+* **仍不支持订阅/付费墙背后的资源**；未来可能会集成该功能。
+* **生成与嵌入图表功能目前尚不可用**（尽管模型可处理图像），但未来预计将支持。
+
+一个显著的局限在于：**Deep Research 当前尚不能执行操作**。OpenAI 表示 Deep Research 可打开网页并读取其组件（主要为阅读行为），但若能在后台执行网站搜索及类似 Operator 的行为，将更具优势。这将帮助其获取更多高相关性的信息（例如，在 arXiv 网站使用高级搜索功能）。未来我们或将看到 Operator 与 Deep Research 的融合。
+
+能够自动接入工具及知识库将是一大进展。同时，**输出内容的个性化程度仍需提高**。这或可通过自定义指令实现（目前尚不清楚其对响应质量的影响）。OpenAI 近期推出的高级记忆功能，亦可能用于实现更聚焦、个性化的深度研究体验。
+
+import { Callout } from 'nextra/components'
+
+<Callout type= "info" emoji="🎓">
+了解如何构建 Deep Research 智能代理，请参阅我们的全新课程：[Advanced AI Agents](https://dair-ai.thinkific.com/courses/advanced-ai-agents)  
+
+使用优惠码 PROMPTING20 可额外享受 20% 折扣。
+
+</Callout>
+
+### 其他参考资料
+
+
+* [Introducing deep research | OpenAI](https://openai.com/index/introducing-deep-research/)  
+* [Introduction to Deep Research](https://www.youtube.com/watch?v=YkCDVn3_wiw&ab_channel=OpenAI)  
+* [OpenAI Deep Research: The Future of Autonomous Research and Analysis](https://dirox.com/post/openai-deep-research)  
+* [OpenAI’s 5-Stage AI Roadmap, Explained Using the “3 Levels of AI Adoption and the 6 Levels of Autonomous Companies” | by The Last AI | Dec, 2024 | Medium](https://medium.com/@The_Last_AI/openais-5-stage-ai-roadmap-explained-using-the-3-levels-of-ai-adoption-and-the-6-levels-of-e295693cc105)
+* [No Priors Ep. 112 with OpenAI Deep Research, Isa Fulford](https://www.youtube.com/watch?v=qfB4eDkd_40)
