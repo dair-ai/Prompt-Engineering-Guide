@@ -39,20 +39,20 @@ Here are a few sources to keep track of the benchmark performance of reasoning m
 
 When building agentic systems, **planning** is an important component to enable the system to better perform complex tasks. As an example, when building deep research agentic systems, planning helps in planning the actual searches and guiding the agentic system as it progresses through the task. The example below shows a search agent that first plans (breaks down queries) before orchestrating and executing searches:
 
-!["Orchestrator-Worker Agent"](../../img/reasoning-llms/orchestrator_worker_LI_1.jpg)
+!["Orchestrator-Worker Agent"](../../img/reasoning-llms/orchestrator_worker_LI_1.JPG)
 
 #### Agentic RAG 
 
 **Agentic RAG** is a system that leverages reasoning models for building agentic RAG applications that involve advanced tool use and reasoning on complex knowledge bases or sources. It can involve leveraging a **retrieval agent** with a reasoning chain/tool to route complex queries/contexts (via tool/function calling) that require complex reasoning. 
 
-!["Agentic RAG"](../../img/reasoning-llms/agentic_rag.jpg)  
+!["Agentic RAG"](../../img/reasoning-llms/agentic_rag.JPG)  
 Here is a basic implementation of an agentic RAG system using n8n: [n8n templates](https://drive.google.com/drive/folders/1Rx4ithkjQbYODt5L6L-OcSTTRT4M1MiR?usp=sharing)
 
 #### LLM-as-a-Judge
 
 When building applications that require automated evaluation/assessment, LLM-as-a-Judge is an option. LLM-as-a-Judge leverages the complex understanding and reasoning of large amounts of information. Reasoning LLMs are ideal for this type of use case. The example below shows an evaluator-optimizer agentic system that loops with an LLM-as-a-Judge agent (powered by a reasoning model) that first assesses the predictions and generates feedback. The feedback is used by a meta-prompt that takes in the current prompt, feedback, and tries to optimize the base system prompt. 
 
-!["LLM-as-a-Judge"](../../img/reasoning-llms/llm_as_a_judge.jpg)
+!["LLM-as-a-Judge"](../../img/reasoning-llms/llm_as_a_judge.JPG)
 
 #### Visual Reasoning
 
@@ -107,7 +107,7 @@ Other use cases include:
 
 * **Use few-shot prompting:** Use demonstrations if you need to improve the style and format of the outputs. 
 
-!["Hybrid Reasoning Models"](../../img/reasoning-llms/hybrid_reasoning_models.jpg)
+!["Hybrid Reasoning Models"](../../img/reasoning-llms/hybrid_reasoning_models.JPG)
 
  🧑‍💻 Code Demo: [reasoning.ipynb](https://drive.google.com/file/d/16t34_Ql4QWORkb6U9ykVbvhCHnMvQUE_/view?usp=sharing)
 
