@@ -1,5 +1,24 @@
 ## Reasoning LLMs Guide
 
+### Table of Contents
+
+* [What are Reasoning LLMs?](#what-are-reasoning-llms)
+* [Top Reasoning Models](#top-reasoning-models)
+* [Reasoning Model Design Patterns & Use Cases](#reasoning-model-design-patterns--use-cases)
+  * [Planning for Agentic Systems](#planning-for-agentic-systems)
+  * [Agentic RAG](#agentic-rag)
+  * [LLM-as-a-Judge](#llm-as-a-judge)
+  * [Visual Reasoning](#visual-reasoning)
+  * [Other Use Cases](#other-use-cases)
+* [Reasoning LLM Usage Tips](#reasoning-llm-usage-tips)
+  * [General Usage Patterns & Prompting Tips](#general-usage-patterns--prompting-tips)
+  * [Using Hybrid Reasoning Models](#using-hybrid-reasoning-models)
+* [Limitations with Reasoning Models](#limitations-with-reasoning-models)
+* [Next Steps](#next-steps)
+
+### What are Reasoning LLMs?
+
+
 <iframe width="100%"
   height="415px"
   src="https://www.youtube.com/embed/AZhUhGsgz4s?si=iZ_WsVs4HalgFBW5"
@@ -7,15 +26,9 @@
   allowFullScreen
 />
 
-### What are Reasoning LLMs?
-
-2nd Webinar: [Building with Reasoning LLMs | n8n Agentic RAG Demo + Template](https://www.youtube.com/watch?v=rh2JRWsLGfg&ab_channel=ElvisSaravia)
-
 Large reasoning models (LRMs) or simply, reasoning LLMs, are models explicitly trained to perform native thinking or chain-of-thought. Popular examples of reasoning models include Gemini 2.5 Pro, Claude 3.7 Sonnet, and o3.
 
-***Demo:*** Test ChatGPT (o3) & Gemini 2.5 Pro (AI Google Studio)
-
-***Prompt to try:***
+***Prompt to try with ChatGPT (o3) and Gemini 2.5 Pro (AI Google Studio):***
 
 ```
 What is the sum of the first 50 prime numbers? Generate and run Python code for the calculation, and make sure you get all 50. Provide the final sum clearly.
@@ -47,6 +60,8 @@ When building agentic systems, **planning** is an important component to enable 
 
 !["Agentic RAG"](../../img/reasoning-llms/agentic_rag.JPG)  
 Here is a basic implementation of an agentic RAG system using n8n: [n8n templates](https://drive.google.com/drive/folders/1Rx4ithkjQbYODt5L6L-OcSTTRT4M1MiR?usp=sharing)
+
+Here is the video tutorial of the agentic RAG system: [Building with Reasoning LLMs | n8n Agentic RAG Demo + Template](https://www.youtube.com/watch?v=rh2JRWsLGfg&ab_channel=ElvisSaravia)
 
 #### LLM-as-a-Judge
 
@@ -163,6 +178,8 @@ Here is a list of common ongoing issues to keep in mind when using reasoning mod
   * Other reasoning models also show poor tool-calling capabilities (e.g., DeepSeek-R1 and Qwen series) unless explicitly trained to do this.
 
   * With advanced and more reliable tool calling, this could unlock agentic systems that can take action in the real world. Reasoning LLMs are already very knowledgeable but need more improvements on **decision making** through **robust and dynamic tool calling capabilities** and understanding of both the physical and digital world. Multi-modal reasoning is an ongoing area of research.
+
+You can also find the most up-to-date guide on reasoning LLMs here: [Reasoning LLMs Guide](https://docs.google.com/document/d/1AwylUdyciJhvYn-64ltpe79UL7_G-BmNwqs4NNt4oQ0/edit?usp=sharing) 
 
 ## **Next Steps**
 
