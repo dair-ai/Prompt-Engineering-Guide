@@ -127,6 +127,12 @@ To run the guide locally, for example to check the correct implementation of a n
 2. Browse the guide at `http://localhost:3000/`
 
 ---
+## 🧠 AI Communities
+
+- [IT Pro and AI – Facebook Group](https://[www.facebook.com/groups/2672080656318470]
+  An international English-speaking community for developers, engineers, and prompt designers focused on building real-world AI tools and assistants using GPT, Node.js, Electron, and more.  
+  Created by [Stefan Spasov](https://devcodeapp.site/CVStefanAI)
+
 ## Appearances
 Some places where we have been featured:
 - Wall Street Journal - [ChatGPT Can Give Great Answers. But Only If You Know How to Ask the Right Question](https://www.wsj.com/articles/chatgpt-ask-the-right-question-12d0f035)
