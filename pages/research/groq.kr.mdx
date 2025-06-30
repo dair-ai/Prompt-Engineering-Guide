@@ -1,0 +1,21 @@
+# Groq란?
+
+[Groq](https://groq.com/)는 LLM 추론 솔루션 중 가장 빠른 성능을 자랑하는 것으로 최근 주목받고 있습니다. 응답 지연 시간(latency)을 줄이려는 LLM 실무자들의 관심이 쏟아지고 있고, 지연 시간은 실시간 AI 애플리케이션의 중요한 최적화 지표입니다. 이 분야에서 많은 기업들이 LLM 추론을 두고 경쟁하고 있습니다.
+
+Groq는 [Anyscale's LLMPerf Leaderboard](https://github.com/ray-project/llmperf-leaderboard)에서 현재 다른 주요 클라우드 제공업체들에 비해 18배 빠른 추론 성능을 보인다고 주장합니다. Groq는 최근 Meta AI의 Llama 2 70B와 Mixtral 8x7B 모델을 API를 통해 제공하고 있으며, 이 모델들은 Groq의 자체 하드웨어인 언어 처리 유닛(LPU) 기반의 추론 엔진에서 실행됩니다.
+
+Groq의 FAQ에 따르면, LPU는 각 단어가 계산되는 시간을 줄여서 빠른 텍스트 시퀀스 생성을 가능하게 한다고 합니다. LPU의 기술적 세부 사항과 이점에 대해선 ISCA를 수상한 [2020](https://wow.groq.com/groq-isca-paper-2020/)년과 [2022](https://wow.groq.com/isca-2022-paper/)년에 발표된 논문을 통해 더 자세히 알 수 있습니다.
+
+다음 차트는 Groq 모델의 속도와 가격을 보여줍니다:
+
+!["Groq pricing"](../../img/research/groq.png)
+
+다음 차트는 Llama 2 70B 모델에 대해 LLM 추론 제공업체들의 아웃풋 토큰 처리량(tokens/s)을 비교한 것입니다. 차트의 숫자들은 150개의 요청을 기반으로 한 평균 아웃풋 토큰 처리량을 나타냅니다.
+
+!["LLMPerf Leaderboard"](https://github.com/ray-project/llmperf-leaderboard/blob/main/.assets/output_tokens_per_s.jpg?raw=true)
+
+LLM 추론에서 또 다른 중요한 요소는 첫 번째 토큰이 반환되는 시간을 뜻하는 'time to first token (TTFT)'입니다. 아래 차트는 다양한 LLM 추론 제공업체들의 TTFT 성능을 보여줍니다:
+
+!["time to first token (seconds)"](https://github.com/ray-project/llmperf-leaderboard/blob/main/.assets/ttft.jpg?raw=true)
+
+Groq의 LLM 추론 성능에 대해서는 Anyscale의 LLMPerf Leaderboard인 [여기](https://wow.groq.com/groq-lpu-inference-engine-crushes-first-public-llm-benchmark/)에서 확인할 수 있습니다.
