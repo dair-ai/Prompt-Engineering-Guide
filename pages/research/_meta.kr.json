@@ -1,5 +1,15 @@
 {
     "llm-agents": "LLM Agents",
     "rag": "RAG for LLMs",
-    "trustworthiness-in-llms": "Trustworthiness in LLMs"
+    "llm-reasoning": "LLM 추론",
+    "rag-faithfulness": "RAG 일관성",
+    "llm-recall": "LLM In-Context Recall",
+    "rag_hallucinations": "RAG는 환각(Hallucination)을 줄인다",
+    "synthetic_data": "합성 데이터",
+    "thoughtsculpt": "ThoughtSculpt",
+    "infini-attention": "Infini-Attention",
+    "guided-cot": "언어 모델 주도 CoT",
+    "trustworthiness-in-llms": "LLM의 신뢰성",
+    "llm-tokenization": "LLM Tokenization",
+    "groq": "Groq란?"
 }
