@@ -2,6 +2,7 @@
     "zeroshot": "Zero-Shot Prompting",
     "fewshot": "Few-Shot Prompting",
     "cot": "Chain-of-Thought Prompting",
+    "meta-prompting": "Meta Prompting",
     "consistency": "Selbstkonsistenz",
     "knowledge": "Generiertes Wissens-Prompting",
     "prompt_chaining": "Prompt-Verkettung",
