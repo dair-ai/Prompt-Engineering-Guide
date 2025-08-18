@@ -1,0 +1,74 @@
+# 发明新词汇
+
+import { Tabs, Tab } from 'nextra/components'
+
+## 背景
+该提示用于测试 LLM 创造新词并将其运用于实际句子中的能力。
+
+## 提示
+
+```markdown
+"whatpu" 指一种原产于坦桑尼亚的小型毛茸茸的动物。使用单词 whatpu 的例句如下：
+我们在非洲旅行时，看到了一些非常可爱的小 whatpus。
+
+令单词 "farduddle" 表示以极快的速度上下跳跃。使用 farduddle 的例句如下：
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+        ```python
+        from openai import OpenAI
+        client = OpenAI()
+
+        response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": "\"whatpu\" 指一种原产于坦桑尼亚的小型毛茸茸的动物。使用单词 whatpu 的例句如下：\n我们在非洲旅行时，看到了一些非常可爱的小 whatpus。\n\n令单词 \"farduddle\" 表示以极快的速度上下跳跃。使用 farduddle 的例句如下："
+            }
+        ],
+        temperature=1,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+        )
+        ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "\"whatpu\" 指一种原产于坦桑尼亚的小型毛茸茸的动物。使用单词 whatpu 的例句如下：\n我们在非洲旅行时，看到了一些非常可爱的小 whatpus。\n\n令单词 \"farduddle\" 表示以极快的速度上下跳跃。使用 farduddle 的例句如下：",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 参考文献
+- [提示工程指南](https://www.promptingguide.ai/zh/techniques/fewshot) (2023年3月16日)

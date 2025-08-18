@@ -1,3 +1,254 @@
 # Mixtral
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import {Cards, Card} from 'nextra-theme-docs'
+import {TerminalIcon} from 'components/icons'
+import {CodeIcon} from 'components/icons'
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import mixtralexperts from '../../img/mixtral/mixtral-of-experts-layers.png'
+import mixtral1 from '../../img/mixtral/mixtral-benchmarks-1.png'
+import mixtral2 from '../../img/mixtral/mixtral-benchmarks-2.png'
+import mixtral3 from '../../img/mixtral/mixtral-benchmarks-3.png'
+import mixtral4 from '../../img/mixtral/mixtral-benchmarks-4.png'
+import mixtral5 from '../../img/mixtral/mixtral-benchmarks-5.png'
+import mixtral6 from '../../img/mixtral/mixtral-benchmarks-6.png'
+import mixtral7 from '../../img/mixtral/mixtral-benchmarks-7.png'
+import mixtralchat from '../../img/mixtral/mixtral-chatbot-arena.png'
+
+
+本指南提供对 Mixtral 8x7B 模型的概述，包括提示方法与使用示例。内容还涵盖 Mixtral 8x7B 的使用技巧、应用场景、局限性、相关论文及扩展阅读材料。
+
+## Mixtral（专家混合模型）简介
+
+Mixtral 8x7B 是 [由 Mistral AI 发布](https://mistral.ai/news/mixtral-of-experts/) 的稀疏专家混合模型 。该模型在架构上与 [Mistral 7B](https://www.promptingguide.ai/models/mistral-7b) 类似，但主要区别在于 Mixtral 8x7B 的每一层均由 8 个前馈模块（即“专家”）组成。Mixtral 是一个仅解码器模型，在处理每个 token 时，其路由网络会选择两个专家（即从 8 个不同参数组中选择 2 个）进行处理，并将它们的输出相加组合。换言之，对于给定输入，整个 MoE 模块的输出是通过各专家网络输出的加权和获得的。
+
+<Screenshot src={mixtralexperts} alt="Mixtral 的专家层" />
+
+由于 Mixtral 是一种稀疏专家混合模型（SMoE），它总共拥有 470 亿参数，但在推理过程中每个 token 仅激活 130 亿参数。这种设计的优势在于能够更好地控制成本与延迟，因为每次处理只使用全部参数的一小部分。Mixtral 使用公开的网页数据进行训练，上下文长度为 32K token。据报告，Mixtral 在多个基准测试中表现优于 Llama 2 80B，推理速度提高达 6 倍，并在性能上达到或超越了 GPT-3.5 。
+
+Mixtral 模型基于 [Apache 2.0 许可证](https://github.com/mistralai/mistral-src#Apache-2.0-1-ov-file) 发布。
+
+## Mixtral 性能与能力
+
+Mixtral 在数学推理、代码生成以及多语言任务方面表现出色。它支持英语、法语、意大利语、德语和西班牙语等多种语言。Mistral AI 同时发布了 Mixtral 8x7B Instruct 版本，其在人类评估基准测试中的表现超过 GPT-3.5 Turbo、Claude-2.1、Gemini Pro 和 Llama 2 70B 等模型。
+
+下图展示了 Mixtral 与不同规模的 Llama 2 模型在多种能力与基准测试中的性能对比。Mixtral 在整体表现上达到或超越了 Llama 2 70B，并在数学与代码生成方面展现出更强的能力。
+
+<Screenshot src={mixtral1} alt="Mixtral 与 Llama 2 性能对比" />
+
+如下图所示，Mixtral 8x7B 在多个流行的基准测试（如 MMLU 和 GSM8K）中也达到了与 Llama 2 相当或更优的表现，且推理过程中使用的活跃参数仅为 Llama 2 的五分之一。
+
+<Screenshot src={mixtral2} alt="Mixtral 与 Llama 2 性能对比" />
+
+下图进一步说明了质量与推理预算之间的权衡关系。Mixtral 在多个基准测试中超越 Llama 2 70B，同时使用更少的活跃参数。
+
+<Screenshot src={mixtral3} alt="Mixtral 与 Llama 2 性能对比" />
+
+如下表所示，Mixtral 的表现与 Llama 2 70B 及 GPT-3.5 相当甚至更优：
+
+<Screenshot src={mixtral4} alt="Mixtral 与 Llama 2 性能对比" />
+
+下表展示了 Mixtral 在多语言理解方面的优势，并将其与 Llama 2 70B 在德语和法语等语言上的表现进行了比较：
+
+<Screenshot src={mixtral5} alt="Mixtral 与 Llama 2 性能对比" />
+
+在 QA 偏见基准（BBQ）测试中，Mixtral 的偏见评分 (51.5%) 低于 Llama (56.0%) 。
+
+<Screenshot src={mixtral7} alt="Mixtral 与 Llama 2 性能对比" />
+
+## Mixtral 的长序列信息检索能力
+
+Mixtral 在处理长达 32,000 token 的上下文窗口时表现出色，无论信息位置如何、序列长度多大，均能有效检索相关信息。
+
+为了评估 Mixtral 处理长文本的能力，研究人员使用了 passkey retrieval 任务：在一个长提示中随机插入一个密码短语，并测试模型能否准确提取。Mixtral 在此任务中实现了 100% 的检索准确率，无论密码短语的位置或输入长度如何。
+
+此外，根据 [Proof-Pile 数据集](https://arxiv.org/abs/2310.10631) 的一部分数据显示，随着上下文长度增加，模型的困惑度（perplexity）呈单调下降趋势。
+
+<Screenshot src={mixtral6} alt="Mixtral 与 Llama 2 性能对比" />
+
+## Mixtral 8x7B Instruct
+
+除基础版 Mixtral 8x7B 外，Mistral AI 还发布了经过指令微调的 Mixtral 8x7B Instruct 模型。该版本通过监督式微调（SFT）和直接偏好优化（DPO）进行训练，以提升对话与问答任务的表现。
+
+截至本指南撰写日期（2024 年 1 月 28 日），Mixtral 在 [Chatbot Arena 排行榜](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard) （由 LMSys 进行的人类独立评估）中排名第八。
+
+<Screenshot src={mixtralchat} alt="Mixtral 在 Chatbot Arena 中的表现" />
+
+Mixtral-Instruct 在多项任务中优于 GPT-3.5-Turbo、Gemini Pro、Claude-2.1 和 Llama 2 70B chat 模型。
+
+## Mixtral 8x7B 提示工程指南
+
+为有效提示 Mistral 8x7B Instruct 并获得最优输出，建议使用以下对话模板:
+
+```
+<s>[INST] 指令 [/INST] 模型回答</s>[INST] 后续指令 [/INST]
+```
+
+*注意 `<s>` 和 `</s>` 是字符串起始（BOS）与结束（EOS）的特殊标记，而 [INST] 和 [/INST] 是普通字符串。*
+
+以下示例将使用 [Mistral 官方 Python 客户端](https://github.com/mistralai/client-python) ，展示如何提示经过指令微调的 Mixtral 模型。我们将使用 Mistral API 端点，并调用基于 Mixtral-8X7B-v0.1 的 `mistral-small` 模型。
+
+### 基础提示
+
+我们首先从一个简单示例开始，要求模型根据指令完成一项任务。
+
+*提示词*:
+```
+[INST] 你是一位乐于助人的代码助手。你的任务是根据以下信息生成一个有效的 JSON 对象:
+
+name: John
+lastname: Smith
+address: #1 Samuel St.
+
+请仅生成 JSON 对象，不包含解释:
+[/INST]
+```
+
+*输出*:
+```
+{
+"name": "John",
+"lastname": "Smith",
+"address": "#1 Samuel St."
+}
+```
+
+下面是一个有趣的多轮对话示例:
+
+*提示词:*
+```
+<s>[INST] 你最喜欢的调味品是什么？ [/INST]
+“嗯，我特别喜欢挤一点新鲜柠檬汁。它能给厨房里任何菜肴增添恰到好处的清新风味！”</s> [INST] 恰到好处是指什么？ [/INST]
+```
+
+*输出*:
+```
+"很抱歉给你添了点麻烦。我想说的是柠檬汁增加了一种刺激的味道，那是一种浓烈而略带甜味的味道。在我看来，它是许多菜肴中令人愉快的一种添加物"
+```
+
+### Mixtral 中的少样本提示
+
+使用官方Python客户端，你还可以使用不同的角色（如 `system`、`user`和`assistant`）以提示模型。通过利用这些角色，你可以利用少样本提示来更好地引导模型响应。
+
+下面是客户端示例代码：
+
+```python
+from mistralai.client import MistralClient
+from mistralai.models.chat_completion import ChatMessage
+from dotenv import load_dotenv
+
+load_dotenv()
+import os
+
+api_key = os.environ["MISTRAL_API_KEY"]
+client = MistralClient(api_key=api_key)
+
+# 实用对话函数
+def get_completion(messages, model="mistral-small"):
+    # 不使用流式生成
+    chat_response = client.chat(
+        model=model,
+        messages=messages,
+    )
+
+    return chat_response
+
+messages = [
+    ChatMessage(role="system", content="你是一位乐于助人的代码助手。你的任务是根据以下信息生成一个有效的 JSON 对象。"), 
+    ChatMessage(role="user", content="\n name: John\n lastname: Smith\n address: #1 Samuel St.\n 将被转换成: "),
+    ChatMessage(role="assistant", content="{\n \"address\": \"#1 Samuel St.\",\n \"lastname\": \"Smith\",\n \"name\": \"John\"\n}"),
+    ChatMessage(role="user", content="name: Ted\n lastname: Pot\n address: #1 Bisson St.")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+输出:
+```
+{
+ "address": "#1 Bisson St.",
+ "lastname": "Pot",
+ "name": "Ted"
+}
+```
+
+### 代码生成
+
+Mixtral 同样具备强大的代码生成能力。以下是一个使用官方 Python 客户端的简单提示示例:
+
+```python
+messages = [
+    ChatMessage(role="system", content="您是一个有用的代码助手，可以帮助编写用户请求的 Python 代码。请只编写函数，不生成解释。"),
+    ChatMessage(role="user", content="创建一个可将摄氏度转换为华氏度的 Python 函数")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+*输出*:
+```python
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
+```
+
+
+### 利用系统提示强化边界控制
+
+与 [Mistral 7B 模型](https://www.promptingguide.ai/zh/models/mistral-7b) 类似，可通过 API 中的 `safe_mode=True` 参数来启用安全模式，从而在对话生成中实施安全边界控制：
+
+```python
+# 实用对话函数
+def get_completion_safe(messages, model="mistral-small"):
+    # 不使用流式生成
+    chat_response = client.chat(
+        model=model,
+        messages=messages,
+        safe_mode=True
+    )
+
+    return chat_response
+
+messages = [
+    ChatMessage(role="user", content="说一些非常可怕和刻薄的话")
+]
+
+chat_response = get_completion(messages)
+print(chat_response.choices[0].message.content)
+```
+
+以上的代码将产生如下类似的输出:
+
+```
+很抱歉，我不能满足你让我说一些可怕和刻薄的话的要求。我的目的是提供有益、尊重和积极的互动。即使是在假设的情况下，也要善待和尊重每一个人。
+```
+
+当设置 `safe_mode=True` 时，客户端会自动在消息前添加如下系统提示:
+
+```
+Always assist with care, respect, and truth. Respond with utmost utility yet securely. Avoid harmful, unethical, prejudiced, or negative content. Ensure replies promote fairness and positivity.
+```
+
+你也可以通过以下笔记本文件尝试所有代码示例:
+
+<Cards>
+    <Card
+    icon={<CodeIcon />}
+    title="Prompt Engineering with Mixtral"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-mixtral-introduction.ipynb"
+    />
+</Cards>
+
+---
+
+*图表来源: [专家混合模型技术报告](https://arxiv.org/pdf/2401.04088.pdf)*
+
+## 主要参考文献
+
+- [Mixtral of Experts Technical Report](https://arxiv.org/abs/2401.04088)
+- [Mixtral of Experts Official Blog](https://mistral.ai/news/mixtral-of-experts/)
+- [Mixtral Code](https://github.com/mistralai/mistral-src)
+- [Mistral 7B paper](https://arxiv.org/pdf/2310.06825.pdf) (September 2023)
+- [Mistral 7B release announcement](https://mistral.ai/news/announcing-mistral-7b/) (September 2023)
+- [Mistral 7B Guardrails](https://docs.mistral.ai/usage/guardrailing)
