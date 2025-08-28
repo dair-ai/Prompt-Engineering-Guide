@@ -16,6 +16,8 @@ pages/research/local_research/
 .vscode
 agent.toml
 content_suggestions/
+.claude/
+.qodo/
 
 # app
 .next

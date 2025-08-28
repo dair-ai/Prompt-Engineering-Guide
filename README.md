@@ -10,14 +10,11 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 🌐 [Prompt Engineering Guide (Web Version)](https://www.promptingguide.ai/)
 
-🎉 We are excited to launch our brand new prompt engineering courses under the DAIR.AI Academy. [Join Now](https://dair-ai.thinkific.com/bundles/pro)!
+🎉 We are excited to launch our brand new prompt engineering and AI Agent courses under the DAIR.AI Academy. [Join Now](https://dair-ai.thinkific.com/bundles/pro)!
 
 Use code PROMPTING20 to get an extra 20% off.
 
 Happy Prompting!
-
-
-
 
 ---
 ## Announcements / Updates
