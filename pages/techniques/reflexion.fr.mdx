@@ -1,3 +1,76 @@
 # Reflexion
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right.
+import { Callout } from 'nextra/components'
+
+Reflexion est un cadre de travail pour renforcer les agents basés sur le langage grâce au feedback linguistique. Selon [Shinn et al. (2023)](https://arxiv.org/pdf/2303.11366.pdf), "Reflexion est un nouveau paradigme de renforcement ‘verbal‘ qui paramètre une politique en tant qu'encodage de la mémoire d'un agent, associé à un choix de paramètres du LLM."
+
+À un haut niveau, Reflexion convertit les feedbacks de l'environnement (qu'ils soient sous forme de texte libre ou de valeurs scalaires) en feedback linguistique, également appelé **autoréflexion**. Ce feedback est fourni comme contexte à un agent LLM pour l'épisode suivant. Cela aide l'agent à apprendre rapidement et efficacement de ses erreurs passées, ce qui entraîne des améliorations de ses performances sur de nombreuses tâches avancées.
+
+!["Méthodologie Reflexion"](../../img/research/reflexion.png)
+
+Comme le montre la figure ci-dessus, Reflexion se compose de trois modèles distincts:
+
+- **Un Acteur**: Il génère du texte et des actions basées sur les observations de l'état. L'Acteur effectue une action dans un environnement et reçoit une observation, ce qui crée une trajectoire. Le [Chain-of-Thought (CoT)](https://www.promptingguide.ai/fr/techniques/cot) et [ReAct](https://www.promptingguide.ai/fr/techniques/react) sont utilisés comme modèles d'Acteur. Un composant de mémoire est également ajouté pour fournir un contexte supplémentaire à l'agent.
+- **Un Évaluateur**: Il attribue un score aux sorties produites par l'Acteur. Concrètement, il prend en entrée une trajectoire générée (également appelée mémoire à court terme) et donne en sortie un score de récompense. Différentes fonctions de récompense sont utilisées en fonction de la tâche (les LLM et les heuristiques basées sur des règles sont utilisées pour les tâches de prise de décision).
+- **L'Auto-réflexion**: Elle génère des signaux de renforcement verbaux pour aider l'Acteur à s'améliorer. Ce rôle est assuré par un LLM qui fournit un feedback précieux pour les essais futurs. Pour générer un feedback spécifique et pertinent, qui est également stocké en mémoire, le modèle d'auto-réflexion utilise le signal de récompense, la trajectoire actuelle et sa mémoire persistante. Ces expériences (stockées dans la mémoire à long terme) sont exploitées par l'agent pour améliorer rapidement sa prise de décision.
+
+En résumé, les étapes clés du processus Reflexion sont : a) définir une tâche, b) générer une trajectoire, c) évaluer, d) effectuer une réflexion et e) générer la trajectoire suivante. La figure ci-dessous montre des exemples de la manière dont un agent Reflexion peut apprendre à optimiser de manière itérative son comportement pour résoudre diverses tâches comme la prise de décision, la programmation et le raisonnement. Reflexion étend le cadre de travail ReAct en y introduisant l'auto-évaluation, l'auto-réflexion et des composants de mémoire.
+
+!["Exemples de Reflexion"](../../img/research/reflexion-examples.png)
+
+En résumé, les étapes clés du processus Reflexion sont : a) définir une tâche, b) générer une trajectoire, c) évaluer, d) effectuer une réflexion et e) générer la trajectoire suivante. La figure ci-dessous montre des exemples de la manière dont un agent Reflexion peut apprendre à optimiser de manière itérative son comportement pour résoudre diverses tâches comme la prise de décision, la programmation et le raisonnement. Reflexion étend le cadre de travail ReAct en y introduisant l'auto-évaluation, l'auto-réflexion et des composants de mémoire.
+
+## Résultats
+
+Les résultats expérimentaux montrent que les agents Reflexion améliorent de manière significative leurs performances sur les tâches de prise de décision AlfWorld, les questions de raisonnement de HotPotQA et les tâches de programmation Python sur HumanEval.
+
+Évalué sur les tâches de prise de décision séquentielle (AlfWorld), ReAct + Reflexion surpasse nettement ReAct en complétant 130 tâches sur 134 en utilisant des techniques d'auto-évaluation heuristiques et GPT pour la classification binaire.
+
+!["Résultats de Reflexion sur ALFWorld"](../../img/research/reflexion-alfworld.png)
+
+Reflexion surpasse de manière significative toutes les approches de référence sur plusieurs étapes d'apprentissage. Pour le raisonnement seul et lorsque l'on ajoute une mémoire épisodique composée de la trajectoire la plus récente, Reflexion + CoT surpasse respectivement le CoT seul et le CoT avec mémoire épisodique.
+
+!["Résultats de Reflexion sur ALFWorld"](../../img/research/reflexion-hotpotqa.png)
+
+Comme le résume le tableau ci-dessous, Reflexion surpasse généralement les approches de pointe précédentes pour l'écriture de code en Python et en Rust sur MBPP, HumanEval et Leetcode Hard.
+
+!["Reflexion ALFWorld Results"](../../img/research/reflexion-programming.png)
+
+
+## Quand utiliser Reflexion ?
+
+Reflexion est particulièrement adapté aux situations suivantes:
+
+1. **Un agent doit apprendre par essai et erreur**: Reflexion est conçu pour aider les agents à améliorer leurs performances en réfléchissant sur leurs erreurs passées et en intégrant ces connaissances dans leurs futures décisions. Cela le rend bien adapté aux tâches où l'agent doit apprendre par essai et erreur, comme la prise de décision, le raisonnement et la programmation.
+
+2. **Les méthodes d'apprentissage par renforcement traditionnelles sont peu pratiques**: Les méthodes d'apprentissage par renforcement (RL) traditionnelles nécessitent souvent de grandes quantités de données d'entraînement et un réglage fin (fine-tuning) coûteux des modèles. Reflexion offre une alternative légère qui ne nécessite pas de fine-tuning du modèle de langage sous-jacent, ce qui le rend plus efficace en termes de données et de ressources de calcul.
+
+3. **Un feedback nuancé est nécessaire**: Reflexion utilise un feedback verbal, qui peut être plus nuancé et spécifique que les récompenses scalaires utilisées dans le RL traditionnel. Cela permet à l'agent de mieux comprendre ses erreurs et d'apporter des améliorations plus ciblées lors des essais suivants.
+
+4. **L'interprétabilité et une mémoire explicite sont importantes**: Reflexion offre une forme de mémoire épisodique plus interprétable et explicite que les méthodes de RL traditionnelles. Les auto-réflexions de l'agent sont stockées dans sa mémoire, ce qui facilite l'analyse et la compréhension de son processus d'apprentissage.
+
+Reflexion est efficace dans les tâches suivantes:
+
+- **Prise de décision séquentielle**: Les agents Reflexion améliorent leurs performances sur les tâches AlfWorld, qui impliquent de naviguer dans divers environnements et de mener à bien des objectifs en plusieurs étapes.
+- **Raisonnement**: Reflexion a amélioré la performance des agents sur HotPotQA, un ensemble de données de questions-réponses qui nécessite un raisonnement à travers plusieurs documents.
+- **Programmation**: Les agents Reflexion écrivent un meilleur code sur des benchmarks comme HumanEval et MBPP, atteignant des résultats de pointe dans certains cas.
+
+Voici quelques limitations de Reflexion:
+
+- **Dépendance à la capacité d'auto-évaluation**: Reflexion repose sur la capacité de l'agent à évaluer avec précision sa performance et à générer des auto-réflexions utiles. Cela peut être un défi, surtout pour des tâches complexes, mais il est prévu que Reflexion s'améliore avec le temps à mesure que les capacités des modèles continuent de progresser.
+- **Contraintes de mémoire à long terme**: Reflexion utilise une fenêtre glissante avec une capacité maximale, mais pour des tâches plus complexes, il pourrait être avantageux d'utiliser des structures avancées telles que l'intégration vectorielle (vector embedding) ou les bases de données SQL.
+- **Limitations de la génération de code**: Le développement piloté par les tests (test-driven development) présente des limites dans la spécification précise des correspondances entrée-sortie (par exemple, une fonction génératrice non déterministe et des sorties de fonction influencées par le matériel).
+
+---
+
+*Source des figures: [Reflexion : Agents linguistiques avec apprentissage par renforcement verbal](https://arxiv.org/pdf/2303.11366.pdf)*
+
+<Callout type= "info" emoji="🎓">
+Apprenez-en davantage sur les méthodes d'ingénierie des prompts avancées dans nos nouveaux cours sur l'IA. [Join now!](https://dair-ai.thinkific.com/).
+Utilisez le code PROMPTING20 pour obtenir une réduction supplémentaire de 20 %.
+</Callout>
+
+## References
+
+- [Reflexion : Agents linguistiques avec apprentissage par renforcement verbal](https://arxiv.org/pdf/2303.11366.pdf)
+- [Les LLMs peuvent-ils critiquer et améliorer leurs propres sorties?](https://evjang.com/2023/03/26/self-reflection.html)
