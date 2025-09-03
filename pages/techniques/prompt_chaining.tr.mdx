@@ -1,3 +1,119 @@
 # Prompt Chaining
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+import {Screenshot} from 'components/screenshot'
+import PC1 from '../../img/prompt_chaining/prompt-chaining-1.png'
+import { Callout } from 'nextra/components'
+
+## Prompt Chaining’e Giriş
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/CKZC5RigYEc?si=EG1kHf83ceawWdHX" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+LLM’lerin güvenilirliğini ve performansını artırmak için önemli prompt engineering tekniklerinden biri, görevleri alt görevlere ayırmaktır. Bu alt görevler belirlendikten sonra, LLM bir alt görevle yönlendirilir ve ardından verdiği yanıt başka bir prompt’a girdi olarak kullanılır. Bu yönteme prompt chaining denir; burada bir görev alt görevlere bölünür ve bir prompt işlemleri zinciri oluşturulur.
+
+Prompt chaining, çok detaylı bir prompt verildiğinde LLM’in zorlanabileceği karmaşık görevleri başarmak için faydalıdır. Prompt chaining’de zincirlenmiş prompt’lar, nihai hedefe ulaşmadan önce yanıtlar üzerinde dönüşümler veya ek işlemler gerçekleştirir.  
+
+Daha iyi performans sağlamanın yanı sıra, prompt chaining LLM uygulamanızın şeffaflığını artırır, kontrol edilebilirliğini ve güvenilirliğini yükseltir. Bu da model yanıtlarındaki sorunları daha kolay ayıklamanızı, farklı aşamalardaki performansı analiz edip iyileştirmenizi sağlar.
+
+Prompt chaining özellikle LLM destekli sohbet asistanları geliştirirken ve uygulamalarınızın kişiselleştirilmesi ile kullanıcı deneyimini iyileştirirken oldukça faydalıdır.
+
+<Callout type= "info" emoji="🎓">
+Prompt chaining ve ileri düzey prompting yöntemleri hakkında daha fazla bilgi edinmek için yeni yapay zeka kurslarımıza göz atın. [Hemen katılın!](https://dair-ai.thinkific.com/)
+PROMPTING20 kodunu kullanarak ekstra %20 indirim kazanın.
+</Callout>
+
+## Prompt Chaining Kullanım Alanları
+
+### Doküman Soru-Cevap için Prompt Chaining
+
+Prompt chaining, birkaç işlem veya dönüşüm gerektiren farklı senaryolarda kullanılabilir. Örneğin, LLM’lerin yaygın kullanım alanlarından biri büyük bir metin dokümanı hakkında soruları yanıtlamaktır. Bunun için iki farklı prompt tasarlamak faydalı olur: İlk prompt, soruyu yanıtlamak için gerekli alıntıları çıkarırken; ikinci prompt bu alıntılar ve orijinal dokümanla birlikte soruya yanıt üretir. Yani, bir doküman hakkında soruyu cevaplamak için iki farklı prompt oluşturmuş olursunuz.
+
+Aşağıdaki ilk prompt, verilen bir soru için dokümandan ilgili alıntıları çıkarır. Basitlik için doküman için `{{document}}` yer tutucusu eklenmiştir. Prompt’u test etmek için örneğin [prompt engineering](https://en.wikipedia.org/wiki/Prompt_engineering) sayfasını Wikipedia’dan kopyalayıp yapıştırabilirsiniz. Daha geniş bağlam gerektiği için bu görevde OpenAI’ın `gpt-4-1106-preview` modeli kullanılmıştır. Claude gibi uzun bağlam destekleyen diğer LLM’lerle de kullanılabilir.  
+
+Prompt 1: 
+```
+Yardımcı bir asistansınız. Göreviniz, bir doküman verildiğinde soruya yanıt bulmaya yardımcı olmaktır. İlk adım, soruyla ilgili alıntıları #### ile sınırlanmış dokümandan çıkarmaktır. Lütfen alıntı listesini <quotes></quotes> etiketleri içinde yazın. İlgili alıntı bulunmazsa "İlgili alıntı bulunamadı!" yazın.
+
+
+####
+{{document}}
+####
+```
+
+
+Aşağıda sorunun `user` rolü ile eklendiği tam prompt’un ekran görüntüsü bulunmaktadır.  
+
+<Screenshot src={PC1} alt="Prompt Chaining Part 1" />
+
+Prompt 1’in çıktısı:
+```
+<quotes>
+- Chain-of-thought (CoT) prompting[27]
+- Generated knowledge prompting[37]
+- Least-to-most prompting[38]
+- Self-consistency decoding[39]
+- Complexity-based prompting[41]
+- Self-refine[42]
+- Tree-of-thought prompting[43]
+- Maieutic prompting[45]
+- Directional-stimulus prompting[46]
+- Textual inversion and embeddings[59]
+- Using gradient descent to search for prompts[61][62][63][64]
+- Prompt injection[65][66][67]
+</quotes>
+```
+
+İlk prompt’tan dönen alıntılar, aşağıdaki ikinci prompt’a girdi olarak kullanılabilir. Not: alıntıları biraz daha temizleyebilirsiniz, yani atıf numaralarını kaldırabilirsiniz. Bu atıflar başka bir prompt’ta kullanılabilir veya yok sayılabilir. İkinci prompt, Prompt 1’den gelen ilgili alıntıları ve orijinal dokümanı alarak soruya yardımcı bir yanıt hazırlar. İkinci prompt şu şekilde olabilir:
+
+Prompt 2:
+```
+Bir soruyu yanıtlamak için dokümandan çıkarılan ilgili alıntılar (<quotes></quotes> ile sınırlı) ve orijinal doküman (#### ile sınırlı) verilmiştir. Lütfen soruya doğru, samimi ve yardımcı bir yanıt yazın.
+
+####
+{{document}}
+####
+
+<quotes>
+- Chain-of-thought (CoT) prompting[27]
+- Generated knowledge prompting[37]
+- Least-to-most prompting[38]
+- Self-consistency decoding[39]
+- Complexity-based prompting[41]
+- Self-refine[42]
+- Tree-of-thought prompting[43]
+- Maieutic prompting[45]
+- Directional-stimulus prompting[46]
+- Textual inversion and embeddings[59]
+- Using gradient descent to search for prompts[61][62][63][64]
+- Prompt injection[65][66][67]
+</quotes>
+```
+
+Prompt 2’nin çıktısı:
+
+```
+Dokümanda bahsedilen prompting teknikleri şunlardır:
+
+1. Chain-of-thought (CoT) prompting[27]
+2. Generated knowledge prompting[37]
+3. Least-to-most prompting[38]
+4. Self-consistency decoding[39]
+5. Complexity-based prompting[41]
+6. Self-refine[42]
+7. Tree-of-thought prompting[43]
+8. Maieutic prompting[45]
+9. Directional-stimulus prompting[46]
+10. Textual inversion and embeddings[59]
+11. Using gradient descent to search for prompts[61][62][63][64]
+12. Prompt injection[65][66][67]
+
+Bu tekniklerin her biri, büyük dil modelleriyle etkileşimleri geliştirmek veya özelleştirmek için farklı stratejiler kullanır ve istenilen çıktıları üretmeyi kolaylaştırır.
+```
+
+Gördüğünüz gibi, prompt zincirleri tasarlamak, yanıtların birkaç işlem veya dönüşümden geçmesi gerektiğinde faydalı bir yaklaşım olur. Bir alıştırma olarak, son kullanıcıya nihai yanıtı göndermeden önce yanıt 
+içindeki atıfları (örneğin [27]) kaldıran bir prompt tasarlayabilirsiniz.
+
+Claude LLM’den yararlanan daha fazla prompt chaining örneğini bu [dökümantasyonda](https://docs.anthropic.com/claude/docs/prompt-chaining) bulabilirsiniz. Bizim örneğimiz de onların örneklerinden esinlenilmiş ve uyarlanmıştır.
