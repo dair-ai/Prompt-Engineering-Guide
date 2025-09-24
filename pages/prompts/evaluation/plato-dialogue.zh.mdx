@@ -1,0 +1,82 @@
+# 柏拉图式对话评估
+
+import { Tabs, Tab } from 'nextra/components'
+
+## 背景
+以下提示用于测试作为教师角色的 LLM 评估两个不同模型输出的能力。
+
+首先，让两个模型（例如 ChatGPT 与 GPT-4）根据如下提示生成内容：
+
+```
+柏拉图的《高尔吉亚斯篇》是对修辞学与诡辩派演说的批判。他在其中指出，这种修辞不仅不是一门正当的艺术形式，而且其使用往往具有危害性和恶意。你能否撰写一篇柏拉图式的对话，模拟他对自回归语言模型的使用的批评？
+```
+
+随后，使用以下评估提示对模型所生成的两个输出进行评价。
+
+## 提示词
+```
+你能否像一位教师一样，对以下两项输出进行比较与评估？
+
+ChatGPT 的输出: {output 1}
+
+GPT-4 的输出: {output 2}
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": "你能否像一位教师一样，对以下两项输出进行比较与评估？\n\nChatGPT 的输出: {output 1}\n\nGPT-4 的输出: {output 2}"
+            }
+        ],
+        temperature=1,
+        max_tokens=1500,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "你能否像一位教师一样，对以下两项输出进行比较与评估？\n\nChatGPT 的输出: {output 1}\n\nGPT-4 的输出: {output 2}",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)

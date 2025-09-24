@@ -1,15 +1,15 @@
 {
-    "classification": "Classification",
-    "coding": "Coding",
-    "creativity": "Creativity",
-    "evaluation": "Evaluation",
-    "information-extraction": "Information Extraction",
-    "image-generation": "Image Generation",
-    "mathematics": "Mathematics",
-    "question-answering": "Question Answering",
-    "reasoning": "Reasoning",
-    "text-summarization": "Text Summarization",
-    "truthfulness": "Truthfulness",
-    "adversarial-prompting": "Adversarial Prompting"
+    "classification": "文本分类",
+    "coding": "代码生成",
+    "creativity": "创造能力",
+    "evaluation": "评估能力",
+    "information-extraction": "信息抽取",
+    "image-generation": "图像生成",
+    "mathematics": "数学能力",
+    "question-answering": "问题回答",
+    "reasoning": "推理能力",
+    "text-summarization": "文本总结",
+    "truthfulness": "真实性",
+    "adversarial-prompting": "对抗性提示"
 }
   
