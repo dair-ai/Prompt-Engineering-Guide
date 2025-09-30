@@ -23,3 +23,6 @@ content_suggestions/
 .next
 node_modules
 prompts
+
+#mcp
+.mcp.json
