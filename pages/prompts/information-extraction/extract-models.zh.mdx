@@ -1,0 +1,82 @@
+# 从论文中抽取模型名称
+
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## 背景
+以下提示用于测试 LLM 执行信息抽取任务的能力，具体而言是从机器学习论文摘要中提取模型名称。
+
+## 提示词
+
+```markdown
+你的任务是从机器学习论文摘要中提取模型名称。你的响应应为一个包含模型名称的数组，格式为 [\"model_name\"]。如果你在摘要中未发现模型名称或不确定时，返回 [\"NA\"]
+
+摘要: 大型语言模型(LLMs)，如 ChatGPT 和 GPT-4，在自然语言处理研究方面引发了变革，并展示了其在通用人工智能(AGI)领域的潜力。然而，LLMs 的高昂训练与部署成本对透明和开放的学术研究构成了挑战。为解决这些问题，本项目开源了中文版 LLaMA 和 Alpaca...
+```
+
+## 提示词模板
+
+```markdown
+你的任务是从机器学习论文摘要中提取模型名称。你的响应应为一个包含模型名称的数组，格式为 [\"model_name\"]。如果你在摘要中未发现模型名称或不确定时，返回 [\"NA\"]
+
+摘要: {input}
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+        "role": "user",
+        "content": "你的任务是从机器学习论文摘要中提取模型名称。你的响应应为一个包含模型名称的数组，格式为 [\\\"model_name\\\"]。如果你在摘要中未发现模型名称或不确定时，返回 [\\\"NA\\\"]\n\n摘要: 大型语言模型(LLMs)，如 ChatGPT 和 GPT-4，在自然语言处理研究方面引发了变革，并展示了其在通用人工智能(AGI)领域的潜力。然而，LLMs 的高昂训练与部署成本对透明和开放的学术研究构成了挑战。为解决这些问题，本项目开源了中文版 LLaMA 和 Alpaca..."
+        }
+    ],
+    temperature=1,
+    max_tokens=250,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "你的任务是从机器学习论文摘要中提取模型名称。你的响应应为一个包含模型名称的数组，格式为 [\\\"model_name\\\"]。如果你在摘要中未发现模型名称或不确定时，返回 [\\\"NA\\\"]\n\n摘要: 大型语言模型(LLMs)，如 ChatGPT 和 GPT-4，在自然语言处理研究方面引发了变革，并展示了其在通用人工智能(AGI)领域的潜力。然而，LLMs 的高昂训练与部署成本对透明和开放的学术研究构成了挑战。为解决这些问题，本项目开源了中文版 LLaMA 和 Alpaca...",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 参考文献
+- [提示工程指南](https://www.promptingguide.ai/zh/introduction/examples#information-extraction) (2023年3月16日)
