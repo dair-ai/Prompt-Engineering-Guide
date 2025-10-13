@@ -15,15 +15,16 @@ const ContentFileNames = ({ section = 'research', lang = 'en' }) => {
   return (
     <Cards>
       {fileNames.map(({ slug, title }, index) => (
-        <Card
-          key={index}
-          icon={<FilesIcon />}
-          title={title}
-          href={`/${section}/${slug}`}
-        >
-          {/* Add your desired content here, or an empty fragment if no content is needed */}
-          <></>
-        </Card>
+        <React.Fragment key={index}>
+          <Card
+            icon={<FilesIcon />}
+            title={title}
+            href={`/${section}/${slug}`}
+          >
+            {/* Add your desired content here, or an empty fragment if no content is needed */}
+            <></>
+          </Card>
+        </React.Fragment>
       ))}
     </Cards>
   );
