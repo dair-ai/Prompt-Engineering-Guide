@@ -1,0 +1,284 @@
+# Context Engineering Deep Dive: Building a Deep Research Agent
+
+import { Callout } from 'nextra/components'
+
+[Context engineering](https://www.promptingguide.ai/guides/context-engineering-guide) requires significant iteration and careful design decisions to build reliable AI agents. This guide takes a deep dive into the practical aspects of context engineering through the development of a basic deep research agent, exploring some of the techniques and design patterns that improve agent reliability and performance.
+
+<Callout type="info" emoji="📚">
+This content is based on our new course ["Building Effective AI Agents with n8n"](https://dair-ai.thinkific.com/courses/agents-with-n8n), which provides comprehensive insights, downloadable templates, prompts, and advanced tips into designing and implementing agentic systems.
+</Callout>
+
+## The Reality of Context Engineering
+
+Building effective AI agents requires substantial tuning of system prompts and tool definitions. The process involves spending hours iterating on:
+
+- System prompt design and refinement
+- Tool definitions and usage instructions
+- Agent architecture and communication patterns
+- Input/output specifications between agents
+
+
+Don't underestimate the effort required for context engineering. It's not a one-time task but an iterative process that significantly impacts agent reliability and performance.
+
+## Agent Architecture Design
+
+### The Original Design Problem
+
+![deep-research-agent](../../img/agents/simple-dr-agent.png)
+
+Let's look at a basic deep research agent architecture. The initial architecture connects the web search tool directly to the deep research agent. This design places too much burden on a single agent responsible for:
+
+- Managing tasks (creating, updating, deleting)
+- Saving information to memory
+- Executing web searches
+- Generating final reports
+
+**Consequences of this design:**
+- Context grew too long
+- Agent forgot to execute web searches
+- Task completion updates were missed
+- Unreliable behavior across different queries
+
+### The Improved Multi-Agent Architecture
+
+The solution involved separating concerns by introducing a dedicated search worker agent:
+
+**Benefits of the multi-agent design:**
+
+1. **Separation of Concerns**: The parent agent (Deep Research Agent) handles planning and orchestration, while the search worker agent focuses exclusively on executing web searches
+2. **Improved Reliability**: Each agent has a clear, focused responsibility, reducing the likelihood of missed tasks or forgotten operations
+3. **Model Selection Flexibility**: Different agents can use different language models optimized for their specific tasks
+   - Deep Research Agent: Uses Gemini 2.5 Pro for complex planning and reasoning
+   - Search Worker Agent: Uses Gemini 2.5 Flash for faster, more cost-effective search execution
+
+If you are using models from other providers like OpenAI, you can leverage GPT-5 (for planning and reasoning) and GPT-5-mini (for search execution) for similar performance. 
+
+<Callout type="info" emoji="💡">
+**Design Principle**: Separating agent responsibilities improves reliability and enables cost-effective model selection for different subtasks.
+</Callout>
+
+## System Prompt Engineering
+
+Here is the full system prompt for the deep research agent we built in n8n:
+
+```md
+You are a deep research agent who will help with planning and executing search tasks to generate a deep research report.
+
+## GENERAL INSTRUCTIONS
+
+The user will provide a query, and you will convert that query into a search plan with multiple search tasks (3 web searches). You will execute each search task and maintain the status of those searches in a spreadsheet.
+
+You will then generate a final deep research report for the user.
+
+For context, today's date is: {{ $now.format('yyyy-MM-dd') }}
+
+## TOOL DESCRIPTIONS
+
+Below are some useful instructions for how to use the available tools. 
+
+Deleting tasks: Use the delete_task tool to clear up all the tasks before starting the search plan. 
+
+Planning tasks: You will create a plan with the search tasks (3 web searches) and add them to the Google Sheet using the append_update_task tool. Make sure to keep the status of each task updated after completing each search. Each task begins with a todo status and will be updated to a "done" status once the search worker returns information regarding the search task.
+
+Executing tasks: Use the Search Worker Agent tool to execute the search plan. The input to the agent are the actual search queries, word for word. 
+
+Use the tools in the order that makes the most sense to you but be efficient. 
+```
+
+Let's break it down into parts and discuss why each section is important:
+
+
+### High-Level Agent Definition
+
+The system prompt begins with a clear definition of the agent's role:
+
+```md
+You are a deep research agent who will help with planning and executing search tasks to generate a deep research report.
+```
+
+### General Instructions
+
+Provide explicit instructions about the agent's workflow:
+
+```md
+## GENERAL INSTRUCTIONS
+
+The user will provide a query, and you will convert that query into a search plan with multiple search tasks (3 web searches). You will execute each search task and maintain the status of those searches in a spreadsheet.
+
+You will then generate a final deep research report for the user.
+```
+
+### Providing Essential Context
+
+**Current Date Information:**
+
+Including the current date is crucial for research agents to get up-to-date information:
+
+```md
+For context, today's date is: {{ $now.format('yyyy-MM-dd') }}
+```
+
+**Why this matters:**
+- LLMs typically have knowledge cutoffs months or years behind the current date
+- Without current date context, agents often search for outdated information
+- This ensures agents understand temporal context for queries like "latest news" or "recent developments"
+
+In n8n, you can dynamically inject the current date using built-in functions with customizable formats (date only, date with time, specific timezones, etc.).
+
+## Tool Definitions and Usage Instructions
+
+### The Importance of Detailed Tool Descriptions
+
+Tool definitions typically appear in two places:
+
+1. **In the system prompt**: Detailed explanations of what tools do and when to use them
+2. **In the actual tool implementation**: Technical specifications and parameters
+
+<Callout type="warning" emoji="🎯">
+**Key Insight**: The biggest performance improvements often come from clearly explaining tool usage in the system prompt, not just defining tool parameters.
+</Callout>
+
+### Example Tool Instructions
+
+The system prompt also includes detailed instructions for using the available tools:
+
+```md
+## TOOL DESCRIPTIONS
+ 
+Below are some useful instructions for how to use the available tools. 
+ 
+Deleting tasks: Use the delete_task tool to clear up all the tasks before starting the search plan. 
+ 
+Planning tasks: You will create a plan with the search tasks (3 web searches) and add them to the Google Sheet using the append_update_task tool. Make sure to keep the status of each task updated after completing each search. Each task begins with a todo status and will be updated to a "done" status once the search worker returns information regarding the search task.
+ 
+Executing tasks: Use the Search Worker Agent tool to execute the search plan. The input to the agent are the actual search queries, word for word. 
+ 
+Use the tools in the order that makes the most sense to you but be efficient. 
+```
+
+
+Initially, without explicit status definitions, the agent would use different status values across runs:
+- Sometimes "pending", sometimes "to-do"
+- Sometimes "completed", sometimes "done", sometimes "finished"
+
+Be explicit about allowed values. This eliminates ambiguity and ensures consistent behavior.
+
+Note that the system prompt also includes this instruction:
+
+```md
+Use the tools in the order that makes most sense to you, but be efficient.
+```
+
+What's the reasoning behind this decision?
+
+This provides flexibility for the agent to optimize its execution strategy. During testing, the agent might:
+- Execute only 2 searches instead of 3 if it determines that's sufficient
+- Combine redundant search queries
+- Skip searches that overlap significantly
+
+Here is a specific instruction you can use, if you require all search tasks to be executed:
+
+```md
+You MUST execute a web search for each and every search task you create.
+Do NOT skip any tasks, even if they seem redundant.
+```
+
+**When to use flexible vs. rigid approaches:**
+- **Flexible**: During development and testing to observe agent decision-making patterns
+- **Rigid**: In production when consistency and completeness are critical
+
+## Context Engineering Iteration Process
+
+### The Iterative Nature of Improving Context
+
+Context engineering is not a one-time effort. The development process involves:
+
+1. **Initial implementation** with basic system prompts
+2. **Testing** with diverse queries
+3. **Identifying issues** (missed tasks, wrong status values, incomplete searches)
+4. **Adding specific instructions** to address each issue
+5. **Re-testing** to validate improvements
+6. **Repeating** the cycle
+
+### What's Still Missing
+
+Even after multiple iterations, there are opportunities for further improvement:
+
+**Search Task Metadata:**
+- Augmenting search queries
+- Search type (web search, news search, academic search, PDF search)
+- Time period filters (today, last week, past month, past year, all time)
+- Domain focus (technology, science, health, etc.)
+- Priority levels for task execution order
+
+**Enhanced Search Planning:**
+- More detailed instructions on how to generate search tasks
+- Preferred formats for search queries
+- Guidelines for breaking down complex queries
+- Examples of good vs. bad search task decomposition
+
+**Date Range Specification:**
+- Start date and end date for time-bounded searches
+- Format specifications for date parameters
+- Logic for inferring date ranges from time period keywords
+
+Based on the recommended improvements, it's easy to appreciate that web search for AI agents is a challenging effort that requires a lot of context engineering.
+
+
+## Advanced Considerations
+
+### Sub-Agent Communication
+
+When designing multi-agent systems, carefully consider:
+
+**What information does the sub-agent need?**
+- For the search worker: Just the search query text
+- Not the full context or task metadata
+- Keep sub-agent inputs minimal and focused
+
+**What information should the sub-agent return?**
+- Search results and relevant findings
+- Error states or failure conditions
+- Metadata about the search execution
+
+### Context Length Management
+
+As agents execute multiple tasks, context grows:
+- Task history accumulates
+- Search results add tokens
+- Conversation history expands
+
+**Strategies to manage context length:**
+- Use separate agents to isolate context
+- Implement memory management tools
+- Summarize long outputs before adding to context
+- Clear task lists between research queries
+
+### Error Handling in System Prompts
+
+Include instructions for failure scenarios:
+
+```text
+ERROR HANDLING:
+- If search_worker fails, retry once with rephrased query
+- If task cannot be completed, mark status as "failed" with reason
+- If critical errors occur, notify user and request guidance
+- Never proceed silently when operations fail
+```
+
+## Conclusion
+
+Context engineering is a critical practice for building reliable AI agents that requires:
+
+- **Significant iteration time** spent tuning prompts and tool definitions
+- **Careful architectural decisions** about agent separation and communication
+- **Explicit instructions** that eliminate assumptions
+- **Continuous refinement** based on observed behavior
+- **Balance between flexibility and control**
+
+The deep research agent example demonstrates how thoughtful context engineering transforms an unreliable prototype into a robust, production-ready system. By applying these principles—clear role definitions, explicit tool instructions, essential context provision, and iterative improvement—you can build AI agents that consistently deliver high-quality results.
+
+<Callout type="info" emoji="🎓">
+Learn how to build production-ready AI agents with hands-on examples and templates. [Join our comprehensive course!](https://dair-ai.thinkific.com/courses/agents-with-n8n)
+Use code PROMPTING20 to get an extra 20% off.
+</Callout>
