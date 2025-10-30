@@ -6,26 +6,40 @@ const AnnouncementBar: React.FC = () => {
     <div
       style={{
         width: '100%',
-        backgroundColor: '#f5f5f5', // Light red background
-        color: 'black', // Darker red text
+        backgroundColor: '#8b5cf6',
+        color: 'white',
         padding: '10px 20px',
         textAlign: 'center',
         fontSize: '0.9rem',
-        borderBottom: '1px solid #fcc',
+        borderBottom: '1px solid #7c3aed',
       }}
     >
-      🚀 Master Prompt Engineering and building AI Agents in our NEW courses! Use <strong style={{ fontWeight: 'bold' }}>PROMPTING20</strong> for 20% off ➜{' '}
+      🚀 Master building real-world AI Agents. Use <strong style={{ fontWeight: 'bold' }}>AGENTX20</strong> for 20% off{' '}
       <Link
-        href="https://dair-ai.thinkific.com/"
+        href="https://dair-ai.thinkific.com/courses/deep-ai-agents"
         target="_blank"
         rel="noopener noreferrer"
         style={{
-          color: 'black',
+          display: 'inline-block',
+          marginLeft: '8px',
+          padding: '6px 16px',
+          backgroundColor: 'white',
+          color: '#8b5cf6',
           fontWeight: 'bold',
-          textDecoration: 'underline',
+          textDecoration: 'none',
+          borderRadius: '20px',
+          transition: 'all 0.2s ease',
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.backgroundColor = '#f3f4f6';
+          e.currentTarget.style.transform = 'scale(1.05)';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.backgroundColor = 'white';
+          e.currentTarget.style.transform = 'scale(1)';
         }}
       >
-        Enroll now
+        Enroll now →
       </Link>
     </div>
   );

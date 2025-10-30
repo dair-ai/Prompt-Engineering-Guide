@@ -87,6 +87,38 @@ const config: DocsThemeConfig = {
   components: {
     pre: Pre,
   },
+  navbar: {
+    extraContent: (
+      <a
+        href="/services"
+        style={{
+          padding: '6px 16px',
+          backgroundColor: '#8b5cf6',
+          color: 'white',
+          borderRadius: '6px',
+          fontWeight: 600,
+          textDecoration: 'none',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '4px',
+          transition: 'all 0.2s ease',
+          border: 'none',
+          cursor: 'pointer',
+          whiteSpace: 'nowrap',
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.backgroundColor = '#7c3aed'
+          e.currentTarget.style.transform = 'scale(1.05)'
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.backgroundColor = '#8b5cf6'
+          e.currentTarget.style.transform = 'scale(1)'
+        }}
+      >
+        ✨ Services
+      </a>
+    )
+  },
 }
 
 export default config
