@@ -14,7 +14,7 @@ const AnnouncementBar: React.FC = () => {
         borderBottom: '1px solid #7c3aed',
       }}
     >
-      🚀 Master building real-world AI Agents. Use <strong style={{ fontWeight: 'bold' }}>AGENTX20</strong> for 20% off{' '}
+      🚀 Master building real-world AI Agents in our new course! Use <strong style={{ fontWeight: 'bold' }}>AGENTX20</strong> for 20% off{' '}
       <Link
         href="https://dair-ai.thinkific.com/courses/deep-ai-agents"
         target="_blank"
