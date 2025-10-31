@@ -164,13 +164,12 @@ const CopyPageDropdown: React.FC = () => {
 
         {isOpen && (
           <div
+            className="nx-bg-white dark:nx-bg-neutral-900 nx-border nx-border-gray-200 dark:nx-border-neutral-700"
             style={{
               position: 'absolute',
               top: '100%',
               right: 0,
               marginTop: '4px',
-              backgroundColor: 'white',
-              border: '1px solid #e5e7eb',
               borderRadius: '8px',
               boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
               minWidth: '240px',
@@ -181,6 +180,7 @@ const CopyPageDropdown: React.FC = () => {
             <button
               onClick={handleCopyAsMarkdown}
               disabled={copyStatus === 'copying'}
+              className="hover:nx-bg-gray-100 dark:hover:nx-bg-neutral-800"
               style={{
                 width: '100%',
                 display: 'flex',
@@ -194,12 +194,6 @@ const CopyPageDropdown: React.FC = () => {
                 textAlign: 'left',
                 color: 'inherit',
                 transition: 'background-color 0.2s ease',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = '#f9fafb';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
               <svg
@@ -219,7 +213,7 @@ const CopyPageDropdown: React.FC = () => {
                 <div style={{ fontWeight: 500 }}>
                   {copyStatus === 'success' ? 'Copied!' : 'Copy page'}
                 </div>
-                <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>
+                <div className="nx-text-gray-500 dark:nx-text-gray-400" style={{ fontSize: '0.75rem' }}>
                   Copy page as Markdown for LLMs
                 </div>
               </div>
@@ -227,6 +221,7 @@ const CopyPageDropdown: React.FC = () => {
 
             <button
               onClick={handleOpenInClaude}
+              className="hover:nx-bg-gray-100 dark:hover:nx-bg-neutral-800"
               style={{
                 width: '100%',
                 display: 'flex',
@@ -240,12 +235,6 @@ const CopyPageDropdown: React.FC = () => {
                 textAlign: 'left',
                 color: 'inherit',
                 transition: 'background-color 0.2s ease',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = '#f9fafb';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
               <svg
@@ -259,7 +248,7 @@ const CopyPageDropdown: React.FC = () => {
               </svg>
               <div>
                 <div style={{ fontWeight: 500 }}>Open in Claude</div>
-                <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>
+                <div className="nx-text-gray-500 dark:nx-text-gray-400" style={{ fontSize: '0.75rem' }}>
                   Ask questions about this page
                 </div>
               </div>
@@ -267,6 +256,7 @@ const CopyPageDropdown: React.FC = () => {
 
             <button
               onClick={handleOpenInChatGPT}
+              className="hover:nx-bg-gray-100 dark:hover:nx-bg-neutral-800"
               style={{
                 width: '100%',
                 display: 'flex',
@@ -281,12 +271,6 @@ const CopyPageDropdown: React.FC = () => {
                 color: 'inherit',
                 transition: 'background-color 0.2s ease',
               }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.backgroundColor = '#f9fafb';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
             >
               <svg
                 width="16"
@@ -299,7 +283,7 @@ const CopyPageDropdown: React.FC = () => {
               </svg>
               <div>
                 <div style={{ fontWeight: 500 }}>Open in ChatGPT</div>
-                <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>
+                <div className="nx-text-gray-500 dark:nx-text-gray-400" style={{ fontSize: '0.75rem' }}>
                   Ask questions about this page
                 </div>
               </div>
