@@ -1,7 +1,9 @@
 import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 import { useConfig } from 'nextra-theme-docs'
+import { useRouter } from 'next/router'
 import { Pre } from './components/pre'
+import CopyPageDropdown from './components/CopyPageDropdown'
 
 const config: DocsThemeConfig = {
   logo: (
@@ -86,6 +88,28 @@ const config: DocsThemeConfig = {
   ),
   components: {
     pre: Pre,
+  },
+  main: ({ children }) => {
+    const router = useRouter();
+    // Only show on English pages (not index page)
+    const isEnglishPage = router.locale === 'en' && router.pathname !== '/';
+
+    return (
+      <>
+        {isEnglishPage && (
+          <div style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginBottom: '16px',
+            position: 'relative',
+            zIndex: 10
+          }}>
+            <CopyPageDropdown />
+          </div>
+        )}
+        {children}
+      </>
+    );
   },
   navbar: {
     extraContent: (
