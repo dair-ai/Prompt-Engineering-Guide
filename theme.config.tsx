@@ -96,18 +96,21 @@ const config: DocsThemeConfig = {
 
     return (
       <>
-        {isEnglishPage && (
-          <div style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            marginBottom: '16px',
-            position: 'relative',
-            zIndex: 10
-          }}>
-            <CopyPageDropdown />
-          </div>
-        )}
-        {children}
+        <div>
+          {isEnglishPage && (
+            <div style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginBottom: '16px',
+              position: 'relative',
+              zIndex: 10,
+              maxWidth: '100%'
+            }}>
+              <CopyPageDropdown />
+            </div>
+          )}
+          {children}
+        </div>
       </>
     );
   },
