@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import path from 'path';
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -18,23 +16,25 @@ export default function handler(
       return res.status(400).json({ error: 'Only English pages are supported' });
     }
 
-    // Construct the file path
-    const filePath = path.join(process.cwd(), 'pages', pagePath);
+    // Construct GitHub raw URL
+    const githubBaseUrl = 'https://raw.githubusercontent.com/dair-ai/Prompt-Engineering-Guide/main/pages';
+    const githubUrl = `${githubBaseUrl}/${pagePath}`;
 
-    console.log('Attempting to read file:', filePath);
-    console.log('File exists:', fs.existsSync(filePath));
+    console.log('Fetching from GitHub:', githubUrl);
 
-    // Check if file exists
-    if (!fs.existsSync(filePath)) {
+    // Fetch content from GitHub
+    const response = await fetch(githubUrl);
+
+    if (!response.ok) {
+      console.error('GitHub fetch failed:', response.status, response.statusText);
       return res.status(404).json({
         error: 'Page not found',
-        attempted: filePath,
+        attempted: githubUrl,
         pagePath: pagePath
       });
     }
 
-    // Read the file content
-    let content = fs.readFileSync(filePath, 'utf8');
+    let content = await response.text();
 
     // Clean the content:
     // 1. Remove import statements
@@ -51,7 +51,7 @@ export default function handler(
 
     return res.status(200).json({ content, pagePath });
   } catch (error) {
-    console.error('Error reading page content:', error);
-    return res.status(500).json({ error: 'Failed to read page content' });
+    console.error('Error fetching page content:', error);
+    return res.status(500).json({ error: 'Failed to fetch page content' });
   }
 }
