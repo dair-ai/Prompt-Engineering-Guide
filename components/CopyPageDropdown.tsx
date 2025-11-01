@@ -34,7 +34,7 @@ const CopyPageDropdown: React.FC = () => {
 
   // Cross-platform copy function with mobile fallback
   const copyToClipboard = async (text: string): Promise<void> => {
-    // Try modern Clipboard API first
+    // Try modern Clipboard API first (works in HTTPS contexts)
     if (navigator.clipboard && window.isSecureContext) {
       try {
         await navigator.clipboard.writeText(text);
@@ -44,28 +44,71 @@ const CopyPageDropdown: React.FC = () => {
       }
     }
 
-    // Fallback for mobile browsers and older browsers
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
+    // Enhanced fallback for mobile browsers
+    return new Promise<void>((resolve, reject) => {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
 
-    // Make the textarea invisible and position it off-screen
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-999999px';
-    textArea.style.top = '-999999px';
-    document.body.appendChild(textArea);
+      // Position off-screen but keep it in viewport for mobile compatibility
+      textArea.style.position = 'fixed';
+      textArea.style.top = '0';
+      textArea.style.left = '0';
+      textArea.style.width = '1px';
+      textArea.style.height = '1px';
+      textArea.style.padding = '0';
+      textArea.style.border = 'none';
+      textArea.style.outline = 'none';
+      textArea.style.boxShadow = 'none';
+      textArea.style.background = 'transparent';
+      textArea.style.fontSize = '16px'; // Prevent iOS zoom
+      textArea.style.opacity = '0';
+      textArea.style.pointerEvents = 'none';
 
-    // Focus and select the text
-    textArea.focus();
-    textArea.select();
+      // Don't use readonly - it prevents selection on some mobile browsers
+      document.body.appendChild(textArea);
 
-    try {
-      const successful = document.execCommand('copy');
-      if (!successful) {
-        throw new Error('execCommand failed');
+      // Focus and select
+      textArea.focus();
+
+      const isIOS = /ipad|iphone/i.test(navigator.userAgent);
+
+      if (isIOS) {
+        // iOS-specific handling
+        const range = document.createRange();
+        range.selectNodeContents(textArea);
+        const selection = window.getSelection();
+        if (selection) {
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        textArea.setSelectionRange(0, text.length);
+      } else {
+        // Standard selection for Android and others
+        textArea.select();
+        textArea.setSelectionRange(0, text.length);
       }
-    } finally {
-      document.body.removeChild(textArea);
-    }
+
+      // Wait a bit for selection to take effect on mobile
+      setTimeout(() => {
+        try {
+          const successful = document.execCommand('copy');
+
+          // Clean up after a short delay
+          setTimeout(() => {
+            document.body.removeChild(textArea);
+          }, 100);
+
+          if (successful) {
+            resolve();
+          } else {
+            reject(new Error('Copy command was unsuccessful'));
+          }
+        } catch (error) {
+          document.body.removeChild(textArea);
+          reject(error);
+        }
+      }, 100);
+    });
   };
 
   // Fetch page content from API
