@@ -32,6 +32,42 @@ const CopyPageDropdown: React.FC = () => {
     return `${cleanPath}.en.mdx`;
   };
 
+  // Cross-platform copy function with mobile fallback
+  const copyToClipboard = async (text: string): Promise<void> => {
+    // Try modern Clipboard API first
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch (error) {
+        console.warn('Clipboard API failed, trying fallback:', error);
+      }
+    }
+
+    // Fallback for mobile browsers and older browsers
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+
+    // Make the textarea invisible and position it off-screen
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+
+    // Focus and select the text
+    textArea.focus();
+    textArea.select();
+
+    try {
+      const successful = document.execCommand('copy');
+      if (!successful) {
+        throw new Error('execCommand failed');
+      }
+    } finally {
+      document.body.removeChild(textArea);
+    }
+  };
+
   // Fetch page content from API
   const fetchPageContent = async (): Promise<string> => {
     const pagePath = getPagePath();
@@ -53,7 +89,7 @@ const CopyPageDropdown: React.FC = () => {
     try {
       setCopyStatus('copying');
       const content = await fetchPageContent();
-      await navigator.clipboard.writeText(content);
+      await copyToClipboard(content);
       setCopyStatus('success');
       setTimeout(() => {
         setCopyStatus('idle');
@@ -105,7 +141,7 @@ const CopyPageDropdown: React.FC = () => {
   // Copy markdown from modal
   const handleCopyFromModal = async () => {
     try {
-      await navigator.clipboard.writeText(markdownContent);
+      await copyToClipboard(markdownContent);
       alert('Content copied to clipboard!');
     } catch (error) {
       console.error('Failed to copy:', error);
