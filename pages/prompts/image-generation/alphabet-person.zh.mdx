@@ -1,0 +1,83 @@
+# 使用字母绘制人物图形
+
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## 背景
+以下提示用于测试 LLM 在仅接受文本训练的情况下处理视觉概念的能力。由于此任务对 LLM 而言具有挑战性，因此需要进行多轮迭代。在下方示例中，用户首先请求生成一个自己期望的视觉图像，随后提供反馈并进行修正与补充。后续指令的内容将取决于 LLM 在任务中的进展。请注意，本任务要求生成 TikZ 代码，生成的代码随后需由用户手动编译。
+
+## 提示词
+
+第 1 轮提示:
+```markdown
+请生成一段 TikZ 代码，用于绘制一个由英文字母组成的人物图形。手臂和躯干使用字母Y表示，脸部使用字母O表示（添加一些面部特征），腿部则使用字母H的腿部部分表示。你可以自由添加其他特征。
+```
+
+第 2 轮提示:
+```markdown
+目前在编译的图像中躯干略长，手臂过短，并且看起来右臂似乎承载着脸部，而非脸部位于躯干正上方。能否对此进行修正？
+```
+
+第 3 轮提示:
+```markdown
+请添加一件衬衫和一条裤子。
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+        "role": "user",
+        "content": "请生成一段 TikZ 代码，用于绘制一个由英文字母组成的人物图形。手臂和躯干使用字母Y表示，脸部使用字母O表示（添加一些面部特征），腿部则使用字母H的腿部部分表示。你可以自由添加其他特征。"
+        }
+    ],
+    temperature=1,
+    max_tokens=1000,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Produce TikZ code that draws a person composed from letters in the alphabet. The arms and torso can be the letter Y, the face can be the letter O (add some facial features) and the legs can be the legs of the letter H. Feel free to add other features.",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)
