@@ -16,7 +16,7 @@ const AnnouncementBar: React.FC = () => {
     >
       🚀 Master building AI workflows and agents with Claude Code! Use <strong style={{ fontWeight: 'bold' }}>AGENTX20</strong> for 20% off{' '}
       <Link
-        href="https://dair-ai.thinkific.com/courses/claude-code"
+        href="https://dair-ai.thinkific.com/courses/claude-code-for-everyone-2"
         target="_blank"
         rel="noopener noreferrer"
         style={{
