@@ -30,7 +30,7 @@ Happy Prompting!
 - 🔥 We reached #1 on Hacker News on 21 Feb 2023
 - 🎉 The First Prompt Engineering Lecture went live [here](https://youtu.be/dOxUroR57xs)
 
-[Join our Discord](https://discord.com/invite/SKgkVT8BGJ)
+[Join our Discord](https://discord.gg/YbMT8k6GfX)
 
 [Follow us on Twitter](https://twitter.com/dair_ai)
 
