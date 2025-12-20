@@ -60,7 +60,7 @@ const config: DocsThemeConfig = {
     link: 'https://github.com/dair-ai/Prompt-Engineering-Guide',
   },
   chat: {
-    link: 'https://discord.gg/FUyz9vPAwf',
+    link: 'https://discord.gg/YbMT8k6GfX',
   },
   docsRepositoryBase: 'https://github.com/dair-ai/Prompt-Engineering-Guide/tree/main/',
   footer: {
