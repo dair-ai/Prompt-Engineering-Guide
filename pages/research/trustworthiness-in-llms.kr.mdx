@@ -1,3 +1,61 @@
-# Trustworthiness in LLMs
+# LLM의 신뢰성
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right.
+import {Screenshot} from 'components/screenshot'
+
+import TRUSTLLM from '../../img/llms/trustllm.png'
+import TRUSTLLM2 from '../../img/llms/trust-dimensions.png'
+import TRUSTLLM3 from '../../img/llms/truthfulness-leaderboard.png'
+
+LLM을 활용한 애플리케이션은 건강과 금융 같은 고위험(high-stake) 분야에서 중요한 역할을 합니다. ChatGPT와 같은 LLM은 인간이 읽을 수 있는 응답을 생성하는 데 매우 능숙하지만, 사실성, 안전성, 개인정보 보호 등 여러 측면에서 신뢰할 수 있는 응답을 보장하지는 않습니다.
+
+[Sun et al. (2024)](https://arxiv.org/abs/2401.05561)은 최근 LLM의 신뢰성에 대한 포괄적인 연구를 제시하며, 신뢰성의 도전 과제, 벤치마크, 평가, 접근법 분석, 방향성 등에 대해 논의했습니다.
+
+현재 LLM을 실생활에 적용하는 데 있어 가장 큰 도전 과제 중 하나는 바로 신뢰성입니다. 이 연구에서는 8개의 차원에 걸쳐 신뢰할 수 있는 LLM을 위한 원칙을 제시하고, 6개의 차원(사실성, 안전성, 공정성, 견고성, 개인정보 보호, 기계 윤리)에 대한 벤치마크를 제안합니다.
+
+저자는 LLM의 신뢰성을 6가지 측면에서 평가할 수 있는 벤치마크를 제시했습니다:
+
+<Screenshot src={TRUSTLLM} alt="A benchmark of trustworthy large language models" />
+
+다음은 신뢰할 수 있는 LLM의 8개 차원의 정의입니다.
+
+<Screenshot src={TRUSTLLM2} alt="Dimensions of Trustworthy LLMs" />
+
+## 주요 결과
+
+이 연구에서는 TrustLLM을 사용해 16개의 주요 LLM을 평가했으며, 30개 이상의 데이터셋을 포함한 평가 결과를 보여줍니다. 다음은 평가에서 나온 주요 결과입니다:
+
+- 상용 LLM은 신뢰성 면에서 대부분의 오픈 소스 모델을 능가하는 반면, 일부 오픈 소스 모델이 차이를 좁혀가고 있습니다.
+- GPT-4와 Llama 2와 같은 모델은 고정관념적 발언을 확실하게 거부하고, 적대적인 공격에 대한 내성을 강화할 수 있습니다.
+- Llama 2와 같은 오픈 소스 모델은 신뢰성 측면에서 특별한 측정 도구 없이도 상용 모델과 비슷한 성과를 보입니다. 논문에서는 Llama 2와 같은 모델이 신뢰성에 과도하게 최적화되어 있어서 때때로 유용성을 해치는 결과를 초래하며, 무해한 프롬프트도 해로운 인풋으로 잘못 처리된다고 언급하고 있습니다.
+
+## 주요 통찰
+
+이 논문에서 다룬 다양한 신뢰성 차원에 대해 보고된 주요 통찰은 다음과 같습니다:
+
+- **신뢰성**: LLM은 훈련 데이터의 잡음, 사실이 아니거나 오래된 정보 때문에 신뢰성에서 어려움을 겪는 경우가 많습니다. 외부 지식원에 접근할 수 있는 LLM은 신뢰성에서 개선된 성과를 보입니다.
+
+- **안전성**: 오픈 소스 LLM은 일반적으로 탈옥, 유해성, 남용과 같은 안전성 측면에서 상용 모델에 뒤처집니다. 안전성 조치를 과도하게 취하지 않으면서 균형을 찾는 것이 도전 과제입니다.
+
+- **공정성**: 대부분의 LLM은 고정관념을 잘 판별하지 못합니다. GPT-4와 같은 고급 모델도 이 분야에서 약 65%의 정확도를 보입니다.
+
+- **견고성**: LLM의 견고성은 특히 열린 질문이나 분포 밖의 작업에서 상당한 변동성을 보입니다.
+
+- **개인정보 보호**: LLM은 개인정보 보호 규범을 인지하지만, 개인정보 처리 능력은 모델마다 크게 다릅니다. 예를 들어, 일부 모델은 Enron 이메일 데이터셋으로 테스트했을 때 정보 유출이 발생했습니다.
+
+- **기계 윤리**: LLM은 기본적인 도덕적 원칙을 이해합니다만 복잡한 윤리적 상황에서는 부족함이 있습니다.
+
+## LLM 신뢰성 리더보드
+
+저자들은 또한 [LLM 신뢰성 리더보드](https://trustllmbenchmark.github.io/TrustLLM-Website/leaderboard.html)를 공개하기도 했습니다. 예를 들어, 아래 표는 다양한 모델이 사실성 차원에서 어떻게 평가되는지를 보여줍니다. 웹사이트에서는 "더 신뢰할 수 있는 LLM은 ↑ 기호와 함께 메트릭 값이 높고, ↓ 기호가 붙으며 메트릭 값이 낮습니다."라고 설명하고 있습니다.
+
+<Screenshot src={TRUSTLLM3} alt="Trustworthiness Leaderboard for LLMs" />
+
+## 코드
+
+LLM의 신뢰성을 다양한 차원에서 평가할 수 있는 평가 키트가 담긴 GitHub 저장소도 제공합니다.
+
+소스 코드: https://github.com/HowieHwong/TrustLLM
+
+## 참고 문헌
+
+이미지 출처 / 논문: [TrustLLM: Trustworthiness in Large Language Models](https://arxiv.org/abs/2401.05561) (10 Jan 2024)
