@@ -52,8 +52,8 @@ importers:
         specifier: 18.11.10
         version: 18.11.10
       '@types/react':
-        specifier: 19.2.7
-        version: 19.2.7
+        specifier: ^18.2.0
+        version: 18.3.27
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -971,8 +971,11 @@ packages:
   '@types/node@18.11.10':
     resolution: {integrity: sha512-juG3RWMBOqcOuXC643OAdSA525V44cVgGV6dUDuiFtss+8Fk5x1hI93Rsld43VeJVIeqlP9I7Fn9/qaVqoEAuQ==}
 
-  '@types/react@19.2.7':
-    resolution: {integrity: sha512-MWtvHrGZLFttgeEj28VXHxpmwYbor/ATPYbBfSFZEIRK0ecCFLl2Qo55z52Hss+UV9CRN7trSeq1zbgx7YDWWg==}
+  '@types/prop-types@15.7.15':
+    resolution: {integrity: sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==}
+
+  '@types/react@18.3.27':
+    resolution: {integrity: sha512-cisd7gxkzjBKU2GgdYrTdtQx1SORymWyaAFhaxQPK9bYO9ot3Y5OikQRvY0VYQtvwjeQnizCINJAenh/V7MK2w==}
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
@@ -3182,7 +3185,7 @@ snapshots:
   '@mdx-js/react@2.3.0(react@18.3.1)':
     dependencies:
       '@types/mdx': 2.0.13
-      '@types/react': 19.2.7
+      '@types/react': 18.3.27
       react: 18.3.1
 
   '@napi-rs/simple-git-android-arm-eabi@0.1.22':
@@ -3447,8 +3450,11 @@ snapshots:
 
   '@types/node@18.11.10': {}
 
-  '@types/react@19.2.7':
+  '@types/prop-types@15.7.15': {}
+
+  '@types/react@18.3.27':
     dependencies:
+      '@types/prop-types': 15.7.15
       csstype: 3.2.3
 
   '@types/unist@2.0.11': {}
