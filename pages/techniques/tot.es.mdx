@@ -1,3 +1,24 @@
 # Tree of Thoughts (ToT)
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right side.
+El Tree of Thoughts (ToT) —o "Árbol de Pensamientos"— es un marco de trabajo (framework) para modelos de lenguaje a gran escala (LLM) que mejora su capacidad de razonamiento al permitirles explorar múltiples caminos de solución de forma estructurada, similar a un árbol de decisión.
+A diferencia del razonamiento lineal tradicional, el ToT permite a la IA evaluar, descartar y retroceder entre diferentes ideas hasta encontrar la solución óptima.
+¿Cómo funciona el Tree of Thoughts?
+El proceso se divide en cuatro componentes principales:
+Descomposición en "Pensamientos": El problema complejo se divide en pasos intermedios o unidades de razonamiento llamadas "pensamientos".
+Generación de Pensamientos: En cada paso, el modelo genera varias alternativas o posibles caminos a seguir (ramas).
+Evaluación de Estados: El modelo actúa como un juez, evaluando la viabilidad de cada pensamiento generado. Se utilizan heurísticas para decidir si un camino es prometedor o si debe ser "podado" (descartado).
+Algoritmos de Búsqueda: Se utilizan métodos como la Búsqueda en Anchura (BFS) o la Búsqueda en Profundidad (DFS) para navegar sistemáticamente por el árbol de opciones.
+Diferencias clave con Chain of Thought (CoT)
+Característica	Chain of Thought (Cadena de Pensamiento)	Tree of Thoughts (Árbol de Pensamientos)
+Estructura	Lineal (un paso tras otro).	No lineal (múltiples ramas en paralelo).
+Flexibilidad	Si el modelo comete un error al inicio, suele fallar al final.	Puede retroceder (backtracking) y probar rutas alternativas.
+Evaluación	No evalúa pasos intermedios explícitamente.	Evalúa y califica cada paso antes de continuar.
+Uso de Recursos	Bajo; es una sola ejecución.	Alto; requiere múltiples llamadas al modelo para explorar las ramas.
+Aplicaciones principales
+El ToT es especialmente útil en tareas que requieren planificación estratégica y búsqueda de soluciones entre miles de posibilidades:
+Escritura Creativa: Explorar diferentes arcos narrativos o estructuras de capítulos antes de escribir el texto final.
+Resolución de Problemas Matemáticos/Lógicos: Muy eficaz en retos como el "Juego del 24" o Sudokus, donde una mala decisión inicial bloquea la solución.
+Programación y Depuración: Evaluar diferentes arquitecturas de código o rastrear el origen de un error a través de múltiples hipótesis.
+Estrategia de Negocios: Analizar diversos escenarios de mercado y prever las consecuencias de diferentes decisiones corporativas.
+Implementación
+Si deseas aplicar este concepto, puedes consultar el repositorio oficial de investigación en el GitHub de Tree of Thoughts. En la práctica, herramientas como LangChain también ofrecen módulos para implementar agentes que utilizan esta lógica de árbol.
