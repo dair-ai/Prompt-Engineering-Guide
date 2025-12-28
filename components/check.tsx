@@ -1,13 +1,13 @@
-import type { ComponentProps, ReactElement } from 'react'
+import type { ReactElement, SVGAttributes } from 'react'
 
-export function CheckIcon(props: ComponentProps<'svg'>): ReactElement {
+export function CheckIcon(props: SVGAttributes<SVGElement>): ReactElement {
   return (
     <svg
       viewBox="0 0 20 20"
       width="1em"
       height="1em"
       fill="currentColor"
-      {...props}
+      {...(props as any)}
     >
       <path
         fillRule="evenodd"

@@ -1,17 +1,20 @@
 'use client'
 
-import type { ComponentProps, ReactElement } from 'react'
+import type { ReactElement } from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import { CheckIcon } from './check'
 import { CopyIcon } from './copy'
 import { Button } from './button'
 
+interface CopyToClipboardProps {
+  getValue: () => string
+  className?: string
+}
+
 export const CopyToClipboard = ({
   getValue,
-  ...props
-}: {
-  getValue: () => string
-} & ComponentProps<'button'>): ReactElement => {
+  className
+}: CopyToClipboardProps): ReactElement => {
   const [isCopied, setCopied] = useState(false)
 
   useEffect(() => {
@@ -25,9 +28,7 @@ export const CopyToClipboard = ({
     }
   }, [isCopied])
 
-  const handleClick = useCallback<
-    NonNullable<ComponentProps<'button'>['onClick']>
-  >(async () => {
+  const handleClick = useCallback(async () => {
     setCopied(true)
     if (!navigator?.clipboard) {
       console.error('Access to clipboard rejected!')
@@ -42,7 +43,7 @@ export const CopyToClipboard = ({
   const IconToUse = isCopied ? CheckIcon : CopyIcon
 
   return (
-    <Button onClick={handleClick} title="Copy code" tabIndex={0} {...props}>
+    <Button onClick={handleClick} className={className}>
       <IconToUse className="nextra-copy-icon nx-pointer-events-none nx-h-4 nx-w-4" />
     </Button>
   )
