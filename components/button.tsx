@@ -1,11 +1,11 @@
 import cn from 'clsx'
-import type { ComponentProps, ReactElement } from 'react'
+import type { ButtonHTMLAttributes, ReactElement } from 'react'
 
 export const Button = ({
   children,
   className,
   ...props
-}: ComponentProps<'button'>): ReactElement => {
+}: ButtonHTMLAttributes<HTMLButtonElement>): ReactElement => {
   return (
     <button
       className={cn(
