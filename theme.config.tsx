@@ -65,7 +65,7 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: 'https://github.com/dair-ai/Prompt-Engineering-Guide/tree/main/',
   footer: {
     text: (
-      <div>Copyright © 2024 DAIR.AI</div>
+      <div>Copyright © 2026 DAIR.AI</div>
     ),
   },
   search: {

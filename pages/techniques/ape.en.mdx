@@ -1,6 +1,7 @@
 # Automatic Prompt Engineer (APE)
 
-import { Callout, FileTree } from 'nextra-theme-docs'
+import { FileTree } from 'nextra-theme-docs'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 import {Screenshot} from 'components/screenshot'
 import APE from '../../img/APE.png'
 import APECOT from '../../img/ape-zero-shot-cot.png'
@@ -27,7 +28,31 @@ This paper touches on an important topic related to prompt engineering which is 
 - [Prefix Tuning](https://arxiv.org/abs/2101.00190) - a lightweight alternative to fine-tuning that prepends a trainable continuous prefix for NLG tasks.
 - [Prompt Tuning](https://arxiv.org/abs/2104.08691) - proposes a mechanism for learning soft prompts through backpropagation.
 
-<Callout type= "info" emoji="🎓">
-Learn more about advanced prompting methods in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
-Use code PROMPTING20 to get an extra 20% off.
-</Callout>
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Master automatic prompt engineering and advanced optimization techniques for better results."
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents. Covers function calling, tool integration, and debugging agentic systems."
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://dair-ai.thinkific.com/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>

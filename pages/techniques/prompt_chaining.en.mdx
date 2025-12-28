@@ -2,7 +2,7 @@
 
 import {Screenshot} from 'components/screenshot'
 import PC1 from '../../img/prompt_chaining/prompt-chaining-1.png'
-import { Callout } from 'nextra/components'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 
 ## Introduction to Prompt Chaining
 
@@ -19,11 +19,6 @@ Prompt chaining is useful to accomplish complex tasks which an LLM might struggl
 Besides achieving better performance, prompt chaining helps to boost the transparency of your LLM application, increases controllability, and reliability. This means that you can debug problems with model responses much more easily and analyze and improve performance in the different stages that need improvement.
 
 Prompt chaining is particularly useful when building LLM-powered conversational assistants and improving the personalization and user experience of your applications. 
-
-<Callout type= "info" emoji="🎓">
-Learn more about prompt chaining and advanced prompting methods in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
-Use code PROMPTING20 to get an extra 20% off.
-</Callout>
 
 ## Use Cases for Prompt Chaining
 
@@ -115,3 +110,32 @@ Each of these techniques employs unique strategies to enhance or specify the int
 As you can see, simplifying and creating prompt chains is a useful prompting approach where the responses need to undergo several operations or transformations. As an exercise, feel free to design a prompt that removes the citations (e.g., [27]) from the response before sending this as a final response to the user of your application.
 
 You can also find more examples of prompt chaining in this [documentation](https://docs.anthropic.com/claude/docs/prompt-chaining) that leverages the Claude LLM. Our example is inspired and adapted from their examples.
+
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Master prompt chaining, document QA, and advanced techniques for complex multi-step tasks."
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents. Covers function calling, tool integration, and debugging agentic systems."
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://dair-ai.thinkific.com/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>

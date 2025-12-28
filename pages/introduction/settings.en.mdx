@@ -1,7 +1,7 @@
 # LLM Settings
 
 import {Bleed} from 'nextra-theme-docs'
-import {Callout} from 'nextra-theme-docs'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 
 <iframe width="100%"
   height="415px"
@@ -29,7 +29,31 @@ Similar to `temperature` and `top_p`, the general recommendation is to alter the
 
 Before starting with some basic examples, keep in mind that your results may vary depending on the version of LLM you use.
 
-<Callout type= "info" emoji="🎓">
-Learn more about LLM settings in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
-Use code PROMPTING20 to get an extra 20% off.
-</Callout>
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Learn how to configure temperature, top-p, and other LLM parameters for optimal results in our comprehensive course."
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents. Covers function calling, tool integration, and debugging agentic systems."
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://dair-ai.thinkific.com/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>

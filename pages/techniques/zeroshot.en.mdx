@@ -1,7 +1,7 @@
 # Zero-Shot Prompting
 
 import {Bleed} from 'nextra-theme-docs'
-import { Callout } from 'nextra/components'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 
 <iframe width="100%"
   height="415px"
@@ -32,7 +32,31 @@ Instruction tuning has been shown to improve zero-shot learning [Wei et al. (202
 
 When zero-shot doesn't work, it's recommended to provide demonstrations or examples in the prompt which leads to few-shot prompting. In the next section, we demonstrate few-shot prompting.
 
-<Callout type= "info" emoji="🎓">
-Learn more advanced prompting methods in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
-Use code PROMPTING20 to get an extra 20% off.
-</Callout>
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Master zero-shot, few-shot, and advanced prompting techniques to unlock the full potential of large language models."
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents. Covers function calling, tool integration, and debugging agentic systems."
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://dair-ai.thinkific.com/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>

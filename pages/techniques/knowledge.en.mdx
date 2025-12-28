@@ -1,6 +1,6 @@
 # Generated Knowledge Prompting
 
-import { Callout } from 'nextra/components'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 import {Screenshot} from 'components/screenshot'
 import GENKNOW from '../../img/gen-knowledge.png'
 
@@ -92,7 +92,31 @@ Yes, part of golf is trying to get a higher point total than others. Each player
 
 Some really interesting things happened with this example. In the first answer, the model was very confident but in the second not so much. I simplified the process for demonstration purposes but there are a few more details to consider when arriving at the final answer. Check out the paper for more.
 
-<Callout type= "info" emoji="🎓">
-Learn more about Meta Prompting and advanced prompting methods in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
-Use code PROMPTING20 to get an extra 20% off.
-</Callout>
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Master generated knowledge prompting and advanced techniques for better reasoning and accuracy."
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents. Covers function calling, tool integration, and debugging agentic systems."
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://dair-ai.thinkific.com/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>

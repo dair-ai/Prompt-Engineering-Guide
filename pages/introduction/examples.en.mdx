@@ -3,7 +3,7 @@
 import {Cards, Card} from 'nextra-theme-docs'
 import {CodeIcon} from 'components/icons'
 import {Bleed} from 'nextra-theme-docs'
-import {Callout} from 'nextra-theme-docs'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 
 The previous section introduced a basic example of how to prompt LLMs. 
 
@@ -25,12 +25,6 @@ Topics:
   src="https://www.youtube.com/embed/TBhRC4Dath4?si=6nwh0GuYAOv1H6yT" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowFullScreen
   />
-
-<Callout type="info" emoji="🎓">
-Learn more about prompting techniques and examples in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
-Use code PROMPTING20 to get an extra 20% off.
-</Callout>
-
 
 ## Text Summarization
 One of the standard tasks in natural language generation is text summarization. Text summarization can include many different flavors and domains. In fact, one of the most promising applications of language models is the ability to summarize articles and concepts into quick and easy-to-read summaries. Let's try a basic summarization task using prompts.
@@ -315,4 +309,33 @@ If you want to practice with the prompts above using Python, we have prepared a 
     href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb"
     />
 </Cards>
+
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Learn hands-on examples of text summarization, classification, code generation, and reasoning with LLMs."
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents. Covers function calling, tool integration, and debugging agentic systems."
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://dair-ai.thinkific.com/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>
 

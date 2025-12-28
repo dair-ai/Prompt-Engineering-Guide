@@ -1,6 +1,7 @@
 # ReAct Prompting
 
-import { Callout, FileTree } from 'nextra-theme-docs'
+import { FileTree } from 'nextra-theme-docs'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 import {Screenshot} from 'components/screenshot'
 import REACT from '../../img/react.png'
 import REACT1 from '../../img/react/table1.png'
@@ -32,11 +33,6 @@ Aside from the Apple Remote, what other devices can control the program Apple Re
 ```
 
 Note that in-context examples are also added to the prompt but we exclude that here for simplicity. We can see that the model generates *task solving trajectories* (Thought, Act). Obs corresponds to observation from the environment that's being interacted with (e.g., Search engine). In essence, ReAct can retrieve information to support reasoning, while reasoning helps to target what to retrieve next.  
-
-<Callout type= "info" emoji="🎓">
-Learn more about ReAct prompting and ReAct agents in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
-Use code PROMPTING20 to get an extra 20% off.
-</Callout>
 
 ## ReAct Prompting
 To demonstrate how ReAct prompting works, let's follow an example from the paper. 
@@ -191,7 +187,31 @@ We adapted the example from the [LangChain documentation](https://python.langcha
 
 You can find the notebook for this code here: https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/react.ipynb
 
-<Callout type= "info" emoji="🎓">
-Learn more about ReAct prompting and ReAct agents in our new AI courses. [Join now!](https://dair-ai.thinkific.com/)
-Use code PROMPTING20 to get an extra 20% off.
-</Callout>
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Master ReAct prompting, chain-of-thought, and advanced reasoning techniques for complex tasks."
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents with ReAct patterns. Covers function calling, tool integration, and agentic systems."
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://dair-ai.thinkific.com/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>
