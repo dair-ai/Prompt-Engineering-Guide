@@ -7,6 +7,8 @@ interface ButtonProps {
   onClick?: () => void
   type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
+  title?: string
+  tabIndex?: number
 }
 
 export const Button = ({
@@ -14,13 +16,17 @@ export const Button = ({
   className,
   onClick,
   type = 'button',
-  disabled
+  disabled,
+  title,
+  tabIndex
 }: ButtonProps): ReactElement => {
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
+      title={title}
+      tabIndex={tabIndex}
       className={cn(
         'nextra-button nx-transition-all active:nx-opacity-50',
         'nx-bg-primary-700/5 nx-border nx-border-black/5 nx-text-gray-600 hover:nx-text-gray-900 nx-rounded-md nx-p-1.5',
