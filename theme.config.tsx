@@ -89,13 +89,13 @@ const config: DocsThemeConfig = {
   components: {
     pre: Pre,
   },
-  main: ({ children }) => {
+  main: ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     // Only show on English pages (not index page)
     const isEnglishPage = router.locale === 'en' && router.pathname !== '/';
 
     return (
-      <div>
+      <>
         {isEnglishPage && (
           <div style={{
             display: 'flex',
@@ -109,8 +109,8 @@ const config: DocsThemeConfig = {
           </div>
         )}
         {children}
-      </div>
-    );
+      </>
+    ) as React.ReactElement;
   },
   navbar: {
     extraContent: (
