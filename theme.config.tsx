@@ -95,23 +95,21 @@ const config: DocsThemeConfig = {
     const isEnglishPage = router.locale === 'en' && router.pathname !== '/';
 
     return (
-      <>
-        <div>
-          {isEnglishPage && (
-            <div style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              marginBottom: '16px',
-              position: 'relative',
-              zIndex: 10,
-              maxWidth: '100%'
-            }}>
-              <CopyPageDropdown />
-            </div>
-          )}
-          {children}
-        </div>
-      </>
+      <div>
+        {isEnglishPage && (
+          <div style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginBottom: '16px',
+            position: 'relative',
+            zIndex: 10,
+            maxWidth: '100%'
+          }}>
+            <CopyPageDropdown />
+          </div>
+        )}
+        {children}
+      </div>
     );
   },
   navbar: {
