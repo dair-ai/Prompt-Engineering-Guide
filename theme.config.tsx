@@ -13,7 +13,7 @@ const config: DocsThemeConfig = {
         <circle cx="40" cy="206" r="40" fill="currentColor"/>
         <circle cx="166" cy="120" r="40" fill="currentColor"/>
       </svg>
-      <span style={{ marginLeft: '.4em', fontWeight: 800 }}>
+      <span className="logo-text" style={{ marginLeft: '.4em', fontWeight: 800 }}>
         Prompt Engineering Guide
       </span>
     </>
