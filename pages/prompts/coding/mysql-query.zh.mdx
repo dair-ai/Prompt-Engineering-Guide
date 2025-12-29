@@ -1,0 +1,72 @@
+# 使用 LLMs 生成 MySQL 查询语句
+
+import { Tabs, Tab } from 'nextra/components'
+
+## 背景
+该提示通过提供数据库模式信息来测试 LLM 的代码生成功能，要求其生成有效的 MySQL 查询。
+
+## 提示词
+```markdown
+"""
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+创建一个 MySQL 查询以获取计算机科学系的所有学生
+"""
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+        ```python
+        from openai import OpenAI
+        client = OpenAI()
+
+        response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {
+                "role": "user",
+                "content": "\"\"\"\nTable departments, columns = [DepartmentId, DepartmentName]\nTable students, columns = [DepartmentId, StudentId, StudentName]\n创建一个MySQL查询以获取计算机科学系的所有学生\n\"\"\""
+                }
+            ],
+            temperature=1,
+            max_tokens=1000,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "\"\"\"\nTable departments, columns = [DepartmentId, DepartmentName]\nTable students, columns = [DepartmentId, StudentId, StudentName]\n创建一个MySQL查询以获取计算机科学系的所有学生\n\"\"\"",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+</Tabs>
+
+
+## 参考文献
+- [提示工程指南](https://www.promptingguide.ai/zh/introduction/examples#code-generation) (2023年3月16日)

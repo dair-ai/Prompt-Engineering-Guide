@@ -1,0 +1,82 @@
+# 使用 LLMs 进行间接推理
+
+import { Tabs, Tab } from 'nextra/components'
+
+## 背景
+[Zhang 等人. (2024)](https://arxiv.org/abs/2402.03667) 最近提出了一种间接推理方法，以增强LLM的推理能力。该方法利用逆否命题与矛盾推理的逻辑来应对间接推理(IR)任务，例如事实推理和数学证明。该方法主要包括两个关键步骤: 1) 通过扩充数据与规则（即逆否命题的逻辑等价性）提升LLM的理解能力; 2) 设计提示模板，促使LLM基于反证法执行间接推理。
+
+在 GPT-3.5-turbo 和 Gemini-pro 等 LLM 上的实验表明，与传统的直接推理方法相比，该方法将事实推理的整体准确率提升了27.33% ，数学证明的准确率提升了31.43% 。
+
+以下是一个零样本提示模板示例，用于演示如何通过反证法进行间接推理。
+
+## 提示词
+```
+若 a+|a|=0，试证明 a<0。
+
+第一步: 列出原始命题中的条件与问题。
+
+第二步: 将第一步中列出的所有条件合并为一个整体，记作 wj。
+
+第三步: 请逐步思考，考虑所有可能情况。如果在至少一种可能性下，wj（定义于第二步）与问题的否定之间的交集非空，则原命题不成立；否则，原命题成立。
+
+答案:
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+    {
+      "role": "user",
+      "content": "若 a+|a|=0，试证明 a<0。\n\n第一步: 列出原始命题中的条件与问题。\n\n第二步: 将第一步中列出的所有条件合并为一个整体，记作 wj。\n\n第三步: 请逐步思考，考虑所有可能情况。如果在至少一种可能性下，wj（定义于第二步）与问题的否定之间的交集非空，则原命题不成立；否则，原命题成立。\n\n答案:
+    }
+    ],
+    temperature=0,
+    max_tokens=1000,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "若 a+|a|=0，试证明 a<0。\n\n第一步: 列出原始命题中的条件与问题。\n\n第二步: 将第一步中列出的所有条件合并为一个整体，记作 wj。\n\n第三步: 请逐步思考，考虑所有可能情况。如果在至少一种可能性下，wj（定义于第二步）与问题的否定之间的交集非空，则原命题不成立；否则，原命题成立。\n\n答案:,
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 参考文献
+- [Large Language Models as an Indirect Reasoner: Contrapositive and Contradiction for Automated Reasoning](https://arxiv.org/abs/2402.03667) (2024年4月6日)
