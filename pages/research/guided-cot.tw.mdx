@@ -1,0 +1,28 @@
+# LM-Guided Chain-of-Thought
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/O3bl0qURONM?si=Hwdc_o0qHpw8QRsY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+一篇由 [Lee et al. (2024)](https://arxiv.org/abs/2404.03414) 發表的新論文，提出利用「小型語言模型」來提升大型模型推理能力的方法。
+
+研究者首先讓大型模型產生含逐步推理過程的解答（rationales），再透過知識蒸餾把這些推理過程轉移給較小的語言模型，藉此縮小兩者在推理能力上的差距。
+
+在推理階段，實際產生推理文字的是這個經過蒸餾的小模型，而最後的答案預測則交由「凍結不動」的大型模型負責。這種設計可以避免微調大型模型的高成本，改由小模型負責推理步驟，達到資源效率與效能之間的平衡。
+
+接著，研究者再使用強化學習，搭配多種「以推理品質為主」與「以任務表現為主」的獎勵訊號，進一步最佳化這個小模型。
+
+!["LM-Guide Chain-of-Thought"](../../img/research/guided-cot.png)
+*來源：https://arxiv.org/pdf/2404.03414.pdf*
+
+實驗在多跳式抽取式問答任務上進行，結果顯示：這套框架在答案正確率方面優於所有基線方法。強化學習有助於提升產生推理步驟的品質，而這又進一步帶動問答效能提升。
+
+論文中提出的 LM-guided CoT 提示詞方法，整體表現優於標準提示詞與一般的 CoT 提示詞；再搭配 self-consistency 解碼策略時，效果更佳。
+
+整體而言，這個工作充分展示如何善用小型語言模型來負責「推理內容產生」，而不需把所有能力壓在大型模型身上。這對想要在實務系統中做「任務分解、功能模組化」的開發者來說，是很值得思考的設計思路：
+並不是所有事情都一定要交給最大、最貴的模型來做。
+

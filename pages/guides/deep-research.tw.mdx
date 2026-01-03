@@ -1,0 +1,187 @@
+## OpenAI Deep Research 指南
+
+import { Callout } from 'nextra/components'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/wovjVUnYfic?si=OinK6Vd-VYRMy7Gt"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+### 什麼是 Deep Research？
+
+Deep Research 是 OpenAI 推出的新型代理（agent），可以在網路上執行 **多步驟研究**，用於完成像是撰寫報告、競品分析等複雜任務。它是一種 **代理式推理系統（agentic reasoning system）**，能存取 **Python**、網頁瀏覽等工具，在各種領域做進階研究。
+
+這個系統的設計目標，是在遠少於人類所需時間的情況下完成多步研究任務：把原本要花數小時的工作壓縮到幾分鐘內完成。因此，它特別適合需要 **大量** 且 **複雜網頁搜尋** 的場景。Deep Research 由 OpenAI 的 **o3 模型**驅動，該模型針對網頁瀏覽與資料分析做了最佳化，會透過推理來搜尋、理解與分析大量資訊。近期 OpenAI 也推出由 **o4-mini** 驅動的輕量版 Deep Research。
+
+Deep Research 透過 **強化學習（RL）** 訓練，學會如何有效瀏覽網頁、對複雜資訊推理、並規劃與執行多步任務來取得所需資料。它具備 **回溯（backtrack）**、**調整計畫（adapt its plan）**，以及依即時資訊 **反應（react）** 的能力。Deep Research 支援 **使用者上傳檔案**，可透過 Python **產生圖表**，並被設計成可嵌入它產生的圖表、以及網站上的影像（不過嵌入功能目前尚未完全可用），並能加入引用。
+
+**Deep Research 流程圖：**
+[https://claude.site/artifacts/4e4f5dec-b44a-4662-b727-089515cc045e](https://claude.site/artifacts/4e4f5dec-b44a-4662-b727-089515cc045e)
+
+!["Deep Research Flow Chart"](../../img/deep-research/deep_research_flowchart.JPG)
+
+### 如何取得 OpenAI Deep Research？
+
+目前 Deep Research 開放給 **Pro、Plus、Teams 與 Enterprise** 使用者。OpenAI 在 4 月 24 日的更新中擴大了使用上限：**Plus／Team／Enterprise／Edu** 使用者每月可用 **25 次** deep research 查詢（原本為 10 次）；**Pro** 使用者每月可用 **250 次**（原本為 120 次）。**免費使用者**可用輕量版進行 **5 次** deep research 查詢。OpenAI 表示：當原始 Deep Research 的額度用完後，查詢會自動切換到 **輕量版**。
+
+!["Deep Research Usage Limits"](../../img/deep-research/deep_research_OAI_post.JPG)
+
+### Deep Research 解決了什麼問題？
+
+Deep Research 能以遠快於人類的速度處理 **複雜、多步驟研究任務**，把數小時的工作壓縮到幾分鐘內完成。它特別適合需要大量且複雜網頁搜尋的任務，因為它能規劃出更精緻的計畫與所需查詢。
+
+它的核心流程可以概括為：**Search + Analyze + Synthesize**，最後導向 **報告產生**、**洞見** 與 **行動計畫**；並且能運用數百個線上來源完成這些工作。
+
+### 常見使用情境
+
+**專業應用：**
+  * 金融：市場研究與競品分析
+  * 科學研究與資料分析
+  * 政策與法規研究
+  * 工程文件與技術分析
+
+**購物與消費研究：**
+  * 深度產品研究（車輛、家電、傢俱）
+  * 高度客製化的推薦
+  * 深入產品比較
+
+**學術與分析：**
+  * 文獻回顧與完整摘要
+  * 產生含發現的概觀並挖掘新洞見
+  * 辨識研究缺口 → 新研究問題 → 新的科學研究方向
+  * 發掘趨勢並推薦新的延伸閱讀
+  * 分析量化輸出並產生值得討論的解讀
+  * 來源驗證與尋找新證據
+  * 假說檢驗？
+
+**知識工作／工程：**
+  * 回答需要多步推理的複雜查詢
+  * 分析上傳的檔案與文件，並用新研究補強
+  * 建立完整報告
+  * 撰寫技術文件
+  * 可行性研究
+  * 整合多個來源的資訊
+
+**我們的範例：**
+
+*   [Analyze GitHub Repos](https://x.com/OpenAIDevs/status/1920556386083102844)（2025 年 5 月 8 日新增功能）
+*   [Top AI Agent Frameworks](https://chatgpt.com/share/681bd7b4-41e0-8000-a9de-c2b82c55d5ba)（Report）
+*   [AI-Driven Scientific Discovery Across Disciplines](https://chatgpt.com/share/681bdb1f-e764-8000-81c8-fab25119da0d)（Literature Review）
+*   [OpenAI models vs. Google Gemini models](https://chatgpt.com/share/681cbf8e-6550-8000-b7ea-e94ca104a17f)（Competitive Analysis）
+*   [Trends in AI Education](https://chatgpt.com/share/681cc54d-f970-8000-8e6e-c6df6ae9e73e)（Trends）
+*   [YC Startup Ideas Research](https://chatgpt.com/share/681ccd59-0ef8-8000-a638-16b2c803bc99)（Company Research）
+*   [DeepSeek-R1 Guide](https://chatgpt.com/share/67a3dd37-5a2c-8000-9a87-3b5f2d90350e)（Guide）
+*   [CrewAI Framework - One-Month Study Plan](https://chatgpt.com/share/67a4cece-f444-8000-9a55-8491767e4aff)（Study Plan）
+*   [LLM Pricing Trends](https://chatgpt.com/share/67a4cf07-efec-8000-ad83-486163512568)（Trends）
+*   [Recent Papers on o1 and DeepSeek-R1](https://chatgpt.com/share/67a4cf3b-cfe4-8000-a1ca-71b0c1555caa)（Summary & Analysis）
+
+更多範例可參考：[https://openai.com/index/introducing-deep-research/](https://openai.com/index/introducing-deep-research/)
+
+Deep Research 特別擅長處理那些通常需要人類 **數小時** 才能完成的任務，尤其是包含：
+
+* **整合多個資訊來源**
+* **對複雜資料做深度分析**
+* **產生具完整脈絡與引用的報告**
+* **多步研究流程**（包含規劃、搜尋、瀏覽、推理、分析與綜整）
+* **處理、理解並對大量資訊推理**
+
+用例的文字雲（由 Claude 產生）：[https://claude.site/artifacts/76919015-51ba-496e-bbde-451336eac16a](https://claude.site/artifacts/76919015-51ba-496e-bbde-451336eac16a)
+
+!["Deep Research Word Cloud"](../../img/deep-research/deep_research_word_cloud.JPG)
+
+### 何時該用 Deep Research？
+
+當任務 **需要多面向、具領域特性的查詢**，並且必須大量研究 **即時資訊**，且需要對資訊做 **謹慎推理／理解** 時，就適合使用 Deep Research。你也可以參考本文件的其他章節，取得更具體的用例與靈感。
+
+其他任務則可以使用 raw（不使用 Deep Research）的 o1-mini 與 GPT-4o。若任務能受益於推理（例如自主地把複雜任務拆解成更小部分），就用 o1-mini；其餘一次性的簡單任務，則用 GPT-4o。
+
+### OpenAI Deep Research 使用技巧
+
+以下是我根據自己的實驗與觀察他人結果整理的使用技巧摘要：
+
+#### 提示詞撰寫技巧
+
+* **清楚且具體的指令：** 先給它一個計畫，並盡可能具體。任務需要時間，因此第一次就把 prompt 寫好很重要。
+* **要釐清，不要忽略：** 模型會針對不確定的地方提問。完整回答通常能得到更好的結果。deep research 查詢比一般查詢更昂貴，因此值得花時間釐清。
+!["Deep Research Clarify"](../../img/deep-research/deep_research_clarify.JPG)
+* **關鍵字很有用：** 推理模型會用關鍵字來做網頁搜尋，盡量提供越多越好。精準用詞（例如品牌、技術名詞、產品名稱）能節省模型時間與思考成本。
+* **使用清楚的動詞：** Deep Research 經過訓練以遵循指令。像是「compare」、「suggest」、「recommend」、「report」等動詞能幫助它理解任務，以及你想要的輸出形式。
+* **輸出格式：** 若你在意輸出格式，請在 prompt 中明確指定。例如：報告型態、段落結構、是否需要表格；也可以指定表格版面（例如欄數、表頭）。模型偏好的「報告式輸出」不一定適合每個人。
+* **上傳檔案作為脈絡：** 上傳 PDF 等檔案能提供重要背景並引導模型，特別是很技術性的主題，或模型不一定熟悉的資訊。這個功能可搭配 ChatGPT-4o 使用。
+
+**檢查來源並驗證資訊：** 建議自行檢查來源。模型仍可能出錯，也可能難以分辨權威資訊與推測／傳聞。
+
+### 接下來可以試什麼？
+
+以下是一些可用 Deep Research 嘗試的方向：
+
+* **Research**
+  * 對 AI 工具做全面市場研究／競品分析
+  * 研究新產品（包含評測、價格比較等）
+  * 丟給它一份文件，請它補充細節，或甚至請它批判內容
+  * 做大量研究，並根據趨勢、採用率與其他使用者模式，提出產品功能建議
+  * 使用者研究
+  * 法律案件研究：蒐集判例、先例與法規
+  * 事實查核或背景調查
+* **Business use cases**
+  * 為特定領域搜尋並發展 AI／agent 用例
+  * 追蹤某個領域或主題的趨勢
+* **Learning use cases**
+  * 建立讀書計畫並對學習路徑提出建議
+  * 彙整使用 AI 模型的技巧與寫碼最佳實務
+  * 追蹤某個開發工具的最新功能，並請它推薦練習或學習素材
+* **Science**
+  * 追蹤與健康相關主題（睡眠、症狀、心理健康等）的最新研究
+  * 撰寫包含最新發現的技術報告
+* **Content Creation**
+  * 針對多個主題組合撰寫一篇部落格文章
+  * 分析某領域的網路趨勢後，提出可寫作或可做內容的主題建議
+* **Personal**
+  * 為你或任何公眾人物撰寫一份詳細的個人簡介
+  * 根據公開資訊與專案經歷產生／更新履歷
+  * 為即將到來的簡報產生／建議投影片內容
+
+### OpenAI Deep Research 與其他方案有何不同？
+
+市面上已經有專門的 agentic 解決方案（例如 Google 的 Gemini Deep Research），也有不少框架可用來打造類似 Deep Research 的 agentic workflows。例如可以用 **Flowise AI** 來仿製類似系統；開發者也能用 **Llama Index、crewAI、n8n、LangGraph** 等工具來搭建這類系統。這些自行搭建的系統可能更具成本效益，也能與目前可用的模型（例如 o1 與 o3-mini）整合。
+
+需要注意的是：OpenAI 在 Deep Research 中使用了只有 OpenAI 能存取的 *proprietary o3 model variant*。這個模型專門為複雜推理與多步研究任務設計，而這些能力對這類工作流程非常重要。目前尚不清楚 OpenAI 是否會透過 API 推出這個特定模型，或在 ChatGPT 中提供。若想看效能比較，OpenAI 提供了 Deep Research 與 o3-mini-high 在 Humanity’s Last Exam 等基準的結果（來源：https://openai.com/index/introducing-deep-research/）。
+
+!["Deep Research Benchmark"](../../img/deep-research/deep_research_benchmark.JPG)
+
+模型瀏覽得越多、也越願意對瀏覽內容做思考，表現通常越好，因此 *給它思考時間很重要*。*推理模型是讓 Deep Research 在複雜任務上表現更好的關鍵*；隨著推理模型進步，Deep Research 也會跟著進步。
+
+!["Deep Research Pass Rate"](../../img/deep-research/deep_research_pass_rate.JPG)
+
+### Deep Research 的限制？
+
+Deep Research 雖然強大，但仍有不少可以改進的地方。它在 **綜整技術性與具領域專業的資訊** 上仍會卡關，因此如果你手上有支援文件，建議一併提供。模型也 **仍需要在幻覺方面再提升**：它依然會出錯，且可能難以分辨權威資訊與謠言。不同產業／領域的結果 **可能有顯著差異**，而且它在 **整合多種不同型態資訊** 時也仍有挑戰。
+
+還有一些具體限制：
+
+* 不容易讓它「明確地搜尋更多網路來源」（例如 50 篇不同文章），或限定在特定來源；也觀察到它可能對某些網域名稱有偏好。
+* 仍會出現 **引用錯誤與格式錯誤**。
+* **把資訊從 Deep Research 匯出** 不容易；若能輸出到 Excel、notebooks、Notion、Docs 等常見編輯工具會更好。
+* **不太擅長時間／日期相關查詢**，因此這類問題務必盡可能具體。
+* **尚不支援付費牆／訂閱制來源**；未來可能會加入整合。
+* 依我們實驗，**產生並嵌入圖表** 的功能目前仍未完全可用（不過可納入影像），預期之後會逐步推出。
+
+一個重要限制是：**Deep Research（目前）不會採取行動**。OpenAI 表示 Deep Research 能開啟網頁並查看不同元件（主要是「閱讀」動作），但如果它也能在背景做站內搜尋，或像 Operator 一樣執行動作，可能會更有趣；例如用 arXiv 的進階搜尋來找更相關的資訊。未來可能會看到 Operator 與 Deep Research 的能力逐漸融合。
+
+如果能使用更多工具並自動存取知識庫，也會很有幫助。另外，輸出也需要更多 **個人化**；可能可以透過 custom instructions 改善（目前還不確定會如何影響回應）。OpenAI 近期也釋出更進階的 memory 能力，或許也能讓 deep research 更聚焦、更個人化。
+
+<Callout type= "info" emoji="🎓">
+若想學習如何打造 Deep Research agent，可以參考我們的新課程：[Advanced AI Agents](https://dair-ai.thinkific.com/courses/advanced-ai-agents)
+
+使用優惠碼 PROMPTING20 可享額外 8 折優惠。
+</Callout>
+
+### 其他參考資料
+
+* [Introducing deep research | OpenAI](https://openai.com/index/introducing-deep-research/)
+* [Introduction to Deep Research](https://www.youtube.com/watch?v=YkCDVn3_wiw&ab_channel=OpenAI)
+* [OpenAI Deep Research: The Future of Autonomous Research and Analysis](https://dirox.com/post/openai-deep-research)
+* [OpenAI’s 5-Stage AI Roadmap, Explained Using the “3 Levels of AI Adoption and the 6 Levels of Autonomous Companies” | by The Last AI | Dec, 2024 | Medium](https://medium.com/@The_Last_AI/openais-5-stage-ai-roadmap-explained-using-the-3-levels-of-ai-adoption-and-the-6-levels-of-e295693cc105)
+* [No Priors Ep. 112 with OpenAI Deep Research, Isa Fulford](https://www.youtube.com/watch?v=qfB4eDkd_40)

@@ -1,0 +1,62 @@
+# 零樣本提示詞
+
+import {Bleed} from 'nextra-theme-docs'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/ZTaHqdkxUMs?si=EDLjgAxuFxFcrSM3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+如今的大型語言模型（LLM），例如 GPT-3.5 Turbo、GPT-4 與 Claude 3，都已針對指令遵循做過調校，並在大量資料上訓練。大規模訓練讓這些模型具備以「零樣本」方式完成部分任務的能力。零樣本提示詞（zero-shot prompting）指的是：用來與模型互動的 prompt 不包含任何示例或示範；prompt 會直接要求模型執行任務，而不額外提供用來引導行為的範例。
+
+我們在前一節嘗試了幾個零樣本範例。以下是其中一個我們用過的範例（文字分類）：
+
+*Prompt:*
+```
+Classify the text into neutral, negative or positive.
+
+Text: I think the vacation is okay.
+Sentiment:
+```
+
+*Output:*
+```
+Neutral
+```
+
+注意，上面的 prompt 並沒有提供任何「文字 → 分類」的示例，但模型已能理解「sentiment」並完成分類，這就是零樣本能力在發揮作用。
+
+研究顯示，指令微調（instruction tuning）能提升零樣本學習能力（[Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf)）。指令微調的概念，本質上是把「以指令描述的資料集」拿來做模型微調。除此之外，[RLHF](https://arxiv.org/abs/1706.03741)（reinforcement learning from human feedback，人類回饋強化學習）也被用來擴大指令微調的效果，讓模型更貼近人類偏好；這類做法也推動了像 ChatGPT 這樣的模型。我們會在後續章節更詳細討論這些方法與做法。
+
+當零樣本效果不佳時，建議在 prompt 中加入示範（demonstrations）或示例（examples），也就是少量樣本提示詞（few-shot prompting）。下一節會示範少量樣本提示詞。
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 zero-shot、few-shot 與進階提示詞技巧，釋放大型語言模型的完整潛力。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

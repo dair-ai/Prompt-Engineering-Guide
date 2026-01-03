@@ -1,0 +1,121 @@
+# Deep Agents
+
+import { Callout } from 'nextra/components'
+
+現在多數所謂的「Agent」，其實都還很淺（shallow）。
+
+一旦面對真正長鏈、多步驟的問題（例如深度研究、具結構的代理寫碼流程），就很容易當機。
+
+這件事正在快速改變。
+
+我們正逐漸進入 **Deep Agents** 的時代：這類系統會更有策略地規劃、記憶與委派子任務，目標是處理非常複雜的問題。
+
+包括 [DAIR.AI Academy's](https://dair-ai.thinkific.com/)、[LangChain](https://docs.langchain.com/labs/deep-agents/overview)、[Claude Code](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk)，以及像 [Philipp Schmid](https://www.philschmid.de/agents-2.0-deep-agents) 等開發者，都在持續整理與實驗這個概念。
+
+下圖是我們為 [DAIR.AI Academy's](https://dair-ai.thinkific.com/) 學員設計的深度 Agent，用來支援課程相關的客服與問答：
+
+![deep-agent](../../img/agents/customer-support-deep-agent.png)
+
+<Callout type="info" emoji="📚">
+本篇內容延伸自課程「Building Effective AI Agents with n8n」，課程中會更全面介紹 Deep Agents 的設計原則、樣板與提示詞實作細節。
+</Callout>
+
+以下是我自己整理、並綜合他人觀點後歸納出的 Deep Agents 核心概念。
+
+## 規劃（Planning）
+
+![cs-planning](../../img/agents/cs-planning.png)
+
+Deep Agent 不再只是在單一 context window 裡「臨場發揮」，而是維護一份**可更新、可重試、可恢復**的結構化任務規劃。你可以把它想成一份持續變動的待辦清單，引導 Agent 朝長期目標前進。
+
+只要試著在 Claude Code 或類似工具裡開啟「先規劃再執行」的模式，就能感受到差異：在長任務上效果好非常多。
+
+我們也曾示範過如何透過延長「腦力激盪時間」來提升結果品質，這其實就是在強化規劃、專家脈絡與人類在環（human-in-the-loop）合作。對於像科學發現這類長期、開放式問題，規劃能力會更加關鍵。
+
+## Orchestrator 與 Sub-agent 架構
+
+![cs-subagents](../../img/agents/cs-subagents.png)
+
+只靠一個超長 context 的大 Agent 已經不太夠用。
+雖然也有人主張應該避免多代理、改用單一巨型系統（例如這篇 [Don't build multi-agents](https://cognition.ai/blog/dont-build-multi-agents)），但我對這種做法持保留態度。
+
+在實務上，「**協調者（orchestrator）＋多個專精子 Agent**」是一種非常強大的架構：
+
+- 協調者負責理解任務、規劃步驟與委派
+- 子 Agent 則聚焦於各自領域（搜尋、寫碼、知識庫檢索、分析、驗證、撰寫…）
+- 每個子 Agent 擁有乾淨、聚焦的脈絡，有利於管理 context 與行為一致性
+
+Claude Code 將這種作法在寫碼場景裡發揚光大；實務上也證明，透過職責分離來管理 context，是目前最有效率的方式之一。
+
+我也曾經在 X 上分享過幾篇關於 orchestrator + sub-agents 架構的實作筆記與心得：[筆記一](https://x.com/omarsar0/status/1960877597191245974)、[筆記二](https://x.com/omarsar0/status/1971975884077965783)。
+
+## Context Retrieval 與 Agentic Search
+
+![persistent-storage](../../img/agents/cs-persistent-storage.png)
+
+Deep Agents 不會只靠對話歷史撐全場。
+它們會把中間產物存放在外部記憶中（檔案、筆記、向量資料庫或其他形式），需要時再有選擇地取用，避免把所有細節都塞進同一個 context。
+
+近期像 [ReasoningBank](https://arxiv.org/abs/2509.25140) 與 [Agentic Context Engineering](https://arxiv.org/abs/2510.04618) 之類的研究，都在探討如何設計更好的「推理記憶」與檢索策略。
+
+在 orchestrator＋sub-agents 架構下，常見的做法是採用混合記憶：
+
+- 結合 traditional semantic search 與 agentic search
+- 允許 Agent 自己選擇要用哪種檢索策略
+
+## 脈絡工程（Context Engineering）
+
+對這類系統來說，「說不清楚要做什麼」幾乎是最糟糕的情況。
+Prompt 工程依然重要，但我們更希望用 **context engineering（脈絡工程）** 來強調對整體上下文與流程的設計。
+
+好的脈絡工程會明確定義：
+
+- 什麼時候要進行規劃、什麼時候直接執行
+- 什麼情況要交給哪一個 sub-agent
+- 檔案與中間產物應如何命名與整理
+- 要如何與人類協同（例如何時詢問使用者確認）
+
+其中也包含：
+
+- 結構化輸出（structured outputs）的設計
+- system prompt 的最佳化與壓縮
+- 對 context 效果的評估與修改
+- 工具定義與使用說明的持續調整（可參考 [Writing Tools for Agents](https://www.anthropic.com/engineering/writing-tools-for-agents)）
+
+更多內容可以參考我們在指南中的脈絡工程專章：[Context Engineering Deep Dive](https://www.promptingguide.ai/guides/context-engineering-guide)。
+
+## 驗證（Verification）
+
+![verification agent](../../img/agents/cs-verification-agent.png)
+
+在 Deep Agents 中，「驗證」跟脈絡工程一樣重要，但往往被談得比較少。
+驗證的核心是：**檢查輸出是否可信**，可以由 LLM 擔任評審（LLM-as-a-Judge），也可以交給人類，或兩者搭配。
+
+現代 LLM 在許多工（特別是數學與寫碼）上表現已經非常強，但仍然存在：
+
+- 幻覺（hallucination）
+- 迎合型回應（sycophancy）
+- prompt injection
+- 以及其他安全與穩定性問題
+
+匯入驗證步驟可以讓 Agent 更接近「可上線使用」的水準，而不只是 demo。
+你可以透過系統化評估流程（eval pipelines）來建立專門的 verifier Agent。
+
+## 結語
+
+Deep Agents 代表的是一種**建構 AI 系統方式的質變**：
+從單一模型一次性輸出，走向有規劃、有記憶、有分工與驗證的多階段流程。
+
+這類 Agent 也很可能會成為「個人化、主動型代理」的基礎積木：
+未來的代理不只是回應指令，而是能在背景中主動幫你完成一連串任務。
+
+如果你想實際動手打造這樣的 Deep Agent，可以參考我們在 DAIR.AI Academy 的課程：
+https://dair-ai.thinkific.com/courses/agents-with-n8n
+
+文中圖例則出自課程的期末專案：學生需要設計並實作一個具 Agentic RAG 能力的系統。
+
+<Callout type="info" emoji="📚">
+本篇內容延伸自課程「Building Effective AI Agents with n8n」，課程中有更多圖示、範例、提示詞樣板與實作技巧，幫助你一步步建構自己的 Deep Agents。
+</Callout>
+
+*撰寫：Elvis Saravia（Prompt Engineering Guide 作者、DAIR.AI Academy 共同創辦人）*

@@ -1,0 +1,23 @@
+# 透過 RAG 降低結構化輸出中的幻覺
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/TUL5guqZejw?si=Doc7lzyAY-SKr21L" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+ServiceNow 的研究團隊在一篇[新論文](https://arxiv.org/abs/2404.08189) 中，探討如何為「結構化輸出任務」打造一個高效的 RAG 系統，同時降低幻覺問題。
+
+!["RAG Hallucination"](../../img/research/structured_outputs.png)
+
+文中提出的 RAG 架構結合了一個小型語言模型與一個非常小的檢索器，展示在資源受限環境中，仍然可以藉由 RAG 打造能力強大的 LLM 應用，同時降低幻覺並提升輸出可靠度。
+
+論文特別關注的企業應用場景，是將自然語言需求轉換成工作流程（以 JSON 表示）。這類任務的潛在效益極大，可以直接提升企業內流程自動化與開發效率，但仍有許多可以最佳化之處，例如：
+
+- 使用推測解碼（speculative decoding）進一步降低延遲
+- 改用 YAML 等更親近人類閱讀的格式取代 JSON
+
+作者也分享了不少實務經驗與建議，說明如何在真實企業環境中有效設計 RAG 系統並控制幻覺風險。
+

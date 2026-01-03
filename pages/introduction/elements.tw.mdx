@@ -1,0 +1,66 @@
+# 提示詞的元素
+
+import {Bleed} from 'nextra-theme-docs'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+隨著我們介紹越來越多提示詞工程的例子與應用，你會注意到：一個提示詞通常由某些元素組成。
+
+一個提示詞可能包含以下任一元素：
+
+**指令（Instruction）** - 希望模型執行的特定任務或指示
+
+**脈絡（Context）** - 外部資訊或額外的背景，能引導模型給出更好的回應
+
+**輸入資料（Input Data）** - 要讓模型回應的輸入或問題
+
+**輸出指示（Output Indicator）** - 輸出的類型或格式
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/kgBZhJnh-vk?si=-a-KvhmXFJMtAuCB" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+為了更清楚示範提示詞的元素，以下是一個目標是執行文字分類（text classification）任務的簡單提示詞：
+
+*提示詞*
+```
+Classify the text into neutral, negative, or positive
+
+Text: I think the food was okay.
+
+Sentiment:
+```
+
+在上面的提示詞中，指令對應到分類任務：「Classify the text into neutral, negative, or positive」。輸入資料對應到「I think the food was okay.」這段文字，而輸出指示則是「Sentiment:」。注意：這個基礎例子沒有使用脈絡，但你也可以把脈絡納入提示詞中。舉例來說，你可以在提示詞裡加入額外範例，協助模型更理解任務，並引導輸出成你期待的樣子。
+
+你不一定需要同時使用這四種元素；提示詞的格式會依任務而定。接下來的指南會介紹更多具體範例。
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 zero-shot、few-shot 與進階提示詞方法，讓大型語言模型產出更好的結果。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

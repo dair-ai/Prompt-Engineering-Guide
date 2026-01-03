@@ -1,0 +1,60 @@
+# LLM 設定
+
+import {Bleed} from 'nextra-theme-docs'
+import {Callout} from 'nextra-theme-docs'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/CB0H7esOl68?si=OECAnvgnvJHy0qZ2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+在設計與測試提示詞時，通常會透過 API 與大型語言模型（LLM）互動。你可以設定一些參數，讓同一段提示詞在回應上呈現不同結果。調整這些設定有助於提升回應的可靠性與符合期待的程度，而找到適合用例的設定也需要做一些實驗。以下是使用不同 LLM 供應商時常見的設定：
+
+**溫度（Temperature）** - 簡單來說，`溫度`參數越低，模型產生的結果會越確定性高，即最有可能的下一個 token 總是會被選取。提高溫度可能會導致結果更具隨機性，從而產生更多樣化或更具創造性的輸出。您實質上是在增加其他可能 token 的權重。在實際應用上，對於以事實為基礎的問答（QA）等任務，您可能會想使用較低的溫度值以獲得更基於事實和簡潔的回應。對於產生詩歌或其他創造性任務，提高溫度值可能會有所幫助。
+
+**Top P** - 這是一種搭配溫度使用的取樣技巧，稱為 nucleus sampling（核心取樣）。它可以控制模型輸出有多「確定」。如果需要精準、以事實為主的答案，建議把它調低；如果希望回應更多樣，則可以調高。當使用 Top P 時，模型只會在涵蓋 `top_p` 的機率總量（probability mass）的 token 中做選擇；因此 `top_p` 較低時，會偏向挑選最有把握的回應。相對地，`top_p` 較高時，模型會考慮更多候選詞（包含較不可能的詞），輸出也就更具多樣性。
+
+一般建議是僅調整其中一個參數，不必兩個都調整。
+
+**最大長度（Max Length）** - 你可以透過調整 `max length` 來管理模型要產生多少 token。指定最大長度能避免回應過長或離題，也有助於控管成本。
+
+**停止序列（Stop Sequences）** - `stop sequence` 是一段用來停止模型繼續產生 token 的字串。指定停止序列也是一種控制回應長度與結構的方式。舉例來說，如果希望模型產生最多 10 項的清單，可以把 `11` 加進停止序列。
+
+**頻率懲罰（Frequency Penalty）** - `frequency penalty` 會根據某個 token 在提示詞與回應中已出現的次數，對下一個 token 施加比例式的懲罰。頻率懲罰越高，某個詞再次出現的機率就越低。這個設定可透過對重複出現的 token 加大懲罰，來降低回應中的重複用詞。
+
+**存在懲罰（Presence Penalty）** - `presence penalty` 也會對重複 token 施加懲罰，但與頻率懲罰不同的是，存在懲罰對所有重複 token 的懲罰幅度相同：一個 token 出現 2 次與出現 10 次，受到的懲罰是一樣的。這個設定可以避免模型在回應中過度重複同一段文字。如果希望模型產生更多樣或更具創意的文字，可以嘗試提高存在懲罰；如果希望模型更聚焦，則可以嘗試降低它。
+
+與 `temperature` 和 `top_p` 類似，一般也建議在頻率懲罰與存在懲罰之間擇一調整，而不要同時調整兩者。
+
+在我們開始一些基本示例之前，請記住您的結果可能會因使用的 LLM 版本而有所不同。
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="在完整課程中學會如何調整 temperature、top-p 與其他 LLM 參數，取得最佳結果。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

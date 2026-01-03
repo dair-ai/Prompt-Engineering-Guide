@@ -1,0 +1,205 @@
+# ReAct 提示詞
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import REACT from '../../img/react.png'
+import REACT1 from '../../img/react/table1.png'
+import REACT2 from '../../img/react/alfworld.png'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+[Yao 等人，2022](https://arxiv.org/abs/2210.03629) 提出了一個名為 ReAct 的框架，其中 LLM 以交錯的方式產生 *推理軌跡* 和 *任務特定行動*。
+
+產生推理軌跡讓模型能夠引導、追蹤和更新行動計劃，甚至處理異常。行動步驟允許與外部來源（如知識庫或環境）進行介面並收集資訊。
+
+ReAct 框架可以讓 LLM 與外部工具互動以取得額外的資訊，從而產生更可靠和事實上的回應。
+
+結果顯示，ReAct 在語言和決策任務上的表現超越了幾個最先進的基線。ReAct 也提高了 LLM 的人類可解釋性和可信度。整體來說，作者發現最佳的方法是將 ReAct 與連續思考型提示詞 (CoT) 結合，允許在推理過程中使用內部知識和取得的外部資訊。
+
+## 它是如何運作的？
+
+ReAct 的靈感來自於 "行動" 和 "推理" 之間的協同作用，這種協同作用讓人類能夠學習新任務並做出決策或推理。
+
+連續思考型提示詞已經顯示了 LLM 執行推理軌跡以產生涉及算術和常識推理的問題的答案的能力，以及其他任務 [(Wei 等人，2022)](https://arxiv.org/abs/2201.11903)。但它因為缺乏與外部世界的接觸或無法更新自己的知識，而導致事實幻覺和錯誤傳播等問題。
+
+ReAct 是一個將推理和行動與 LLM 結合的通用範疇。ReAct 會用提示詞引導 LLM 為任務產生口頭推理軌跡和行動。這讓系統進行動態推理以建立、維護和調整行動計劃，同時也支援與外部環境（例如，維基百科）的互動，以將額外的資訊納入推理中。下圖顯示了 ReAct 的一個範例以及執行問題回答所涉及的不同步驟。
+
+<Screenshot src={REACT} alt="REACT" />
+圖片來源：[Yao 等人，2022](https://arxiv.org/abs/2210.03629)
+
+在上面的範例中，我們將以下問題作為提示詞傳遞，該問題來自 [HotpotQA](https://hotpotqa.github.io/)：
+
+```
+除了蘋果遙控器，還有哪些裝置可以控制蘋果遙控器最初設計用來互動的程式？
+```
+
+請注意，上下文中的範例也被新增到提示詞中，但為了簡單起見，我們在這裡排除了它。我們可以看到，該模型產生了 *任務解決軌跡* (思考，行動)。Obs 對應與之互動的環境的觀察（例如，搜尋引擎）。本質上，ReAct 可以檢索資訊以支援推理，而推理則有助於確定下一步要檢索的目標。
+
+## ReAct 提示詞
+為了更好地說明 ReAct 提示詞是如何運作的，我們繼續跟隨論文的範例。
+
+第一步是從訓練集（例如 HotPotQA）中選擇案例，並組成 ReAct 格式的軌跡。這些在提示詞中作為少量樣本學習的範例。軌跡由多個思考 - 行動 - 觀察步驟組成，如上圖所示。自由形式的思考用來完成不同的任務，如分解問題、提取資訊、進行常識/算術推理、引導搜尋公式和合成最終答案。
+
+以下是一個 ReAct 提示詞的範例（摘自論文，為簡單起見縮短為一個範例）：
+
+```
+問題 科羅拉多造山運動的東部區域延伸到的區域的海拔範圍是多少？
+思考 1 我需要搜尋科羅拉多造山運動，找到科羅拉多造山運動東部區域延伸的區域，然後找到該區域的海拔範圍。
+行動 1 搜尋 [科羅拉多造山運動]
+觀察 1 科羅拉多造山運動是科羅拉多及其周邊地區造山運動的一段。
+思考 2 它沒有提到東部區域。所以我需要查一下東部區域。
+行動 2 查詢 [東部區域]
+觀察 2 (結果 1 / 1) 東部區域延伸至高平原，稱為中原造山運動。
+思考 3 科羅拉多造山運動的東部區域延伸到高平原。所以我需要搜尋高平原，找到它的海拔範圍。
+行動 3 搜尋 [高平原]
+觀察 3 高平原指的是兩個截然不同的陸地區域之一。
+思考 4 我需要搜尋高平原（美國）。
+行動 4 搜尋 [高平原（美國）]
+觀察 4 高平原是大平原的一個分割槽。從東到西，高平原的海拔從約 1800 到 7000 英尺 (550 到 2130 米) 不等。[3]
+思考 5 高平原海拔高度從約 1800 到 7000 英尺，所以答案是 1800 到 7000 英尺。
+行動 5 結束 [1800 到 7000 英尺]
+...
+```
+
+請注意，不同的提示詞設定用於不同類型的任務。對於以推理為主要目標的任務（例如 HotpotQA），多個思考 - 行動 - 觀察步驟用於任務解決軌跡。對於涉及許多行動步驟的決策任務，則較少使用思考。
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/f8whjxDBcd8?si=YuLAggOKAPOIxNkV"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+## 在知識密集型任務上的結果
+
+論文首先在知識密集型推理任務如問答（HotPotQA）和事實驗證（[Fever](https://fever.ai/resources.html)）上評估了 ReAct。PaLM-540B 作為提示詞的基本模型。
+
+<Screenshot src={REACT1} alt="REACT1" />
+圖片來源：[Yao 等人，2022](https://arxiv.org/abs/2210.03629)
+
+在 HotPotQA 和 Fever 上使用不同提示詞方法的提示詞結果顯示，ReAct 通常在兩項任務上的表現都優於 Act（只涉及行動）。
+
+我們也可以觀察到 ReAct 在 Fever 上的表現優於 CoT，而在 HotpotQA 上落後於 CoT。論文中提供了詳細的錯誤分析。整體來說：
+
+- CoT 存在事實幻覺的問題
+- ReAct 的結構性約束降低了它在制定推理步驟方面的靈活性
+- ReAct 在很大程度上仰賴於它正在檢索的資訊；非資訊性搜尋結果阻礙了模型推理，並導致難以恢復和重新形成思考
+
+結合並支援在 ReAct 和連續思考型提示詞 + 自我一致性之間切換的提示詞方法通常優於所有其他提示詞方法。
+
+## 在決策型任務上的結果
+
+論文也報告了 ReAct 在決策型任務上的結果。ReAct 在兩個基準上進行評估，分別是 [ALFWorld](https://alfworld.github.io/)（基於文字的遊戲）和 [WebShop](https://webshop-pnlp.github.io/)（線上購物網站環境）。兩者都涉及複雜的環境，需要推理才能有效地行動和探索。
+
+請注意，儘管對這些任務的 ReAct 提示詞的設計有很大不同，但仍然保持了相同的核心思想，即結合推理和行動。下面是一個涉及 ReAct 提示詞的 ALFWorld 問題範例。
+
+<Screenshot src={REACT2} alt="REACT2" />
+圖片來源：[Yao 等人，2022](https://arxiv.org/abs/2210.03629)
+
+ReAct 在 ALFWorld 和 Webshop 上都優於 Act。沒有任何思考的 Act 無法正確地將目標分解成子目標。在這些類型的任務中，ReAct 的推理顯示出優勢，但目前基於提示詞的方法在這些任務上的表現仍遠遠落後於專家人類的表現。
+
+檢視這篇論文了解更詳細的結果。
+
+## LangChain ReAct 使用
+
+以下是 ReAct 提示詞方法在實踐中如何運作的高階範例。我們將在 LLM 和 [LangChain](https://python.langchain.com/en/latest/index.html) 中使用 OpenAI，因為它已經具有內建功能，可以利用 ReAct 框架建立代理，這些代理能夠結合 LLM 和不同工具的功能來執行任務。
+
+首先，讓我們安裝並匯入必要的函式庫：
+
+``` python
+%%capture
+# 更新或安裝必要的函式庫
+!pip install --upgrade openai
+!pip install --upgrade langchain
+!pip install --upgrade python-dotenv
+!pip install google-search-results
+
+# 匯入函式庫
+import openai
+import os
+from langchain.llms import OpenAI
+from langchain.agents import load_tools
+from langchain.agents import initialize_agent
+from dotenv import load_dotenv
+load_dotenv()
+
+# 載入 API keys; 如果你還沒有，你需要先取得。
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["SERPER_API_KEY"] = os.getenv("SERPER_API_KEY")
+
+```
+
+現在我們可以設定 LLM，我們將使用的工具，以及允許我們將 ReAct 框架與 LLM 和工具一起使用的代理。請注意，我們使用搜尋 API 來搜尋外部資訊，並使用 LLM 作為數學工具。
+
+``` python
+llm = OpenAI(model_name="text-davinci-003" ,temperature=0)
+tools = load_tools(["google-serper", "llm-math"], llm=llm)
+agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
+```
+
+設定好之後，我們現在可以用所需的查詢/提示詞執行代理。請注意，這裡我們不需要提供少量樣本學習的範例，如論文中所解釋的。
+
+``` python
+agent.run("奧利維亞·王爾德的男朋友是誰？他現在的年齡的 0.23 次方是多少？")
+```
+
+鏈執行如下所示：
+
+``` yaml
+> 正在進入新的代理執行器鏈......
+  我需要找出奧利維亞·王爾德的男友是誰，然後計算他的年齡的 0.23 次方。
+行動: 搜尋
+行動輸入: "奧利維亞·王爾德的男友"
+觀察: 奧利維亞·王爾德在與傑森·蘇代基斯多年的訂婚結束後，開始與哈利·斯泰爾斯約會 — 參照他們的關係時間線。
+思考: 我需要找出哈利·斯泰爾斯的年齡。
+行動: 搜尋
+行動輸入: "哈利·斯泰爾斯的年齡"
+觀察: 29 歲
+思考: 我需要計算 29 的 0.23 次方。
+行動: 計算器
+行動輸入: 29^0.23
+觀察: 答案: 2.169459462491557
+
+思考: 現在我知道最終答案了。
+最終答案: 哈利·斯泰爾斯，奧利維亞·王爾德的男朋友，29 歲。他的年齡的 0.23 次方是 2.169459462491557。
+
+> 結束鏈。
+```
+
+我們得到如下輸出：
+
+```
+"哈利·斯泰爾斯，奧利維亞·王爾德的男朋友，29 歲。他的年齡的 0.23 次方是 2.169459462491557。"
+```
+
+我們從 [LangChain 文件](https://python.langchain.com/docs/modules/agents/agent_types/react) 中改編了這個範例，所以這些都要歸功於他們。我們鼓勵學習者去探索工具和任務的不同組合。
+
+您可以在這裡找到這些程式碼：https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/react.ipynb
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 ReAct 提示詞、chain-of-thought 與進階推理技巧，處理複雜任務。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

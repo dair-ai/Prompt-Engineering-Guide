@@ -1,0 +1,11 @@
+{
+    "finetuning-gpt4o": "使用 GPT-4o 進行微調（Fine-Tuning）",
+    "function_calling": "使用 LLM 進行 Function Calling",
+    "context-caching": "使用 Gemini 1.5 Flash 的 Context Caching",
+    "generating": "產生資料",
+    "synthetic_rag": "為 RAG 產生合成資料集",
+    "generating_textbooks": "應對合成資料集的多樣性問題",
+    "coding": "產生程式碼",
+    "workplace_casestudy": "應屆畢業生職務分類案例研究",
+    "pf": "提示詞函式"
+}

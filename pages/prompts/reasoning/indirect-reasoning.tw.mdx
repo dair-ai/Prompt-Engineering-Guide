@@ -1,0 +1,83 @@
+# 使用 LLM 的間接推理
+
+import { Tabs, Tab } from 'nextra/components'
+
+## 背景
+[Zhang 等人（2024）](https://arxiv.org/abs/2402.03667)近期提出一種間接推理方法，用來加強 LLM 的推理能力。該方法運用逆否與矛盾的邏輯，處理事實推理與數學證明等間接推理（IR）任務。它包含兩個關鍵步驟：1) 透過擴充資料與規則（也就是逆否命題的邏輯等價）提升 LLM 的可理解性；2) 設計提示詞範本，引導 LLM 以反證法實作間接推理。
+
+在 GPT-3.5-turbo 與 Gemini-pro 等 LLM 上的實驗顯示，與傳統的直接推理方法相比，該方法能把事實推理的整體準確率提升 27.33%，數學證明提升 31.43%。
+
+以下是反證法的零樣本範例。
+
+
+## 提示詞
+```
+If a+|a|=0, try to prove that a<0.
+
+Step 1: List the conditions and questions in the original proposition.
+
+Step 2: Merge the conditions listed in Step 1 into one. Define it as wj.
+
+Step 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.
+
+Answer:
+```
+
+## 程式碼 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+    {
+      "role": "user",
+      "content": "If a+|a|=0, try to prove that a<0.\n\nStep 1: List the conditions and questions in the original proposition.\n\nStep 2: Merge the conditions listed in Step 1 into one. Define it as wj.\n\nStep 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.\n\nAnswer:"
+    }
+    ],
+    temperature=0,
+    max_tokens=1000,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "If a+|a|=0, try to prove that a<0.\n\nStep 1: List the conditions and questions in the original proposition.\n\nStep 2: Merge the conditions listed in Step 1 into one. Define it as wj.\n\nStep 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.\n\nAnswer:",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 參考資料
+- [Large Language Models as an Indirect Reasoner: Contrapositive and Contradiction for Automated Reasoning](https://arxiv.org/abs/2402.03667)（2024 年 2 月 6 日）

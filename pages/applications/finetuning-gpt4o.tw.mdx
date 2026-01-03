@@ -1,0 +1,57 @@
+# 使用 GPT-4o 進行微調（Fine-Tuning）
+
+import { Callout } from 'nextra/components'
+
+OpenAI 近期[宣佈](https://openai.com/index/gpt-4o-fine-tuning/)，開放針對最新的 GPT-4o 與 GPT-4o mini 模型進行微調。透過微調，開發者可以依照特定情境客製模型行為，在結構、語氣與領域指令遵從度等面向獲得更好的表現。
+
+## 微調細節與成本
+
+目前可透過專用的 [fine-tuning dashboard](https://platform.openai.com/finetune) 對 `GPT-4o-2024-08-06` checkpoint 進行微調。透過這個流程，可以調整：
+
+- 回應的結構與格式
+- 語氣與風格
+- 對複雜、領域專屬指令的遵從程度
+
+官方定價如下：
+
+- 訓練階段：每 100 萬個訓練 token 收費 25 美元
+- 推論階段：輸入每 100 萬個 token 3.75 美元、輸出每 100 萬個 token 15 美元
+
+目前此功能僅開放給有付費用量的開發者使用。
+
+## 限時免費訓練額度
+
+為了鼓勵大家實驗微調功能，OpenAI 在限時活動（截至 9 月 23 日）中提供每日免費訓練額度：
+
+- GPT-4o：每天 100 萬個免費訓練 token
+- GPT-4o mini：每天 200 萬個免費訓練 token
+
+這是一個很適合用來嘗試新應用、驗證任務可行性的視窗。
+
+## 範例：情緒分類（Emotion Classification）
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/UJ7ry7Qp2Js?si=ZU3K0ZVNfQjnlZgo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+在影片示範中，我們以「情緒分類」作為實際案例：
+使用一份 [JSONL 格式的資料集](https://github.com/dair-ai/datasets/tree/main/openai)，裡麵包含文字樣本以及對應的情緒標籤，對 GPT-4o mini 進行微調，讓模型學會根據文字情緒做分類。
+
+實驗結果顯示，微調後的模型在這項任務上的準確率明顯優於未微調版本，展示了在專門任務上使用 fine-tuning 的價值。
+
+## 存取與評估微調後的模型
+
+微調完成後，可以在 OpenAI Playground 直接選擇自訂模型進行互動測試，試不同輸入、觀察輸出品質。若要做更完整的評估，可以：
+
+- 透過 OpenAI API 把微調模型接入實際應用
+- 撰寫自動化測試指令碼，對特定任務進行系統性評估
+
+整體而言，GPT-4o 微調功能大幅擴充了開發者的空間，讓 LLM 更容易被調整到貼合特定領域與產品需求。
+
+<Callout type= "info" emoji="🎓">
+想學習更多進階方法與實務操作，歡迎參考我們的 AI 課程。[立即加入！](https://dair-ai.thinkific.com/)
+結帳時輸入優惠碼 PROMPTING20，可額外享有 8 折優惠。
+</Callout>
+

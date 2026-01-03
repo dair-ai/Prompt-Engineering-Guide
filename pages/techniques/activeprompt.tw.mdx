@@ -1,0 +1,42 @@
+# Active-Prompt
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ACTIVE from '../../img/active-prompt.png'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+思緒鏈（CoT）的方法仰賴固定的一組人工註釋範例。然而，這些範例可能不是對於各種任務最有效的例子。為瞭解決這個問題，[Diao 等人，(2023)](https://arxiv.org/pdf/2302.12246.pdf) 最近提出了一種新的提示詞方式，稱為 Active-Prompt，以適應 LLM 到不同的任務專用示例提示詞（由人類設計的 CoT 推理進行註釋）。
+
+以下是這種方法的說明。第一步是有或無少量 CoT 範例的情況下查詢 LLM。對一組訓練問題產生 *k* 個可能的答案。基於 *k* 個回答計算不確定性度量（使用不同意）。選擇最不確定的問題由人類進行註釋。然後使用新註釋的範例來推斷每個問題。
+
+<Screenshot src={ACTIVE} alt="ACTIVE" />
+圖片來源：[Diao 等人，(2023)](https://arxiv.org/pdf/2302.12246.pdf)
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 Active-Prompt、chain-of-thought 與進階提示詞技巧，提升 LLM 成效。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

@@ -1,0 +1,118 @@
+# Reflexion
+
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+Reflexion 是一個讓語言型 Agent 透過「語言回饋」進行強化學習的框架。依照 [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/pdf/2303.11366.pdf) 的說法：「Reflexion 是一種新的『語言式強化』正規化，將 Agent 的記憶編碼與 LLM 參數設定一起視為策略的一部分。」
+
+簡單來說，Reflexion 會把環境提供的回饋（可以是自然語言、也可以是數值分數）轉換成一段語言化的反思訊息（**self-reflection**），並在下一回合把這段反思當成額外上下文餵給 LLM Agent。透過這樣的迴圈，Agent 能從過去錯誤快速學習，在各種進階任務上獲得顯著的表現提升。
+
+!["Reflexion Framework"](../../img/research/reflexion.png)
+
+如上圖所示，Reflexion 由三個主要角色組成：
+
+- **Actor：**
+  根據目前狀態觀測輸出文字與動作。Actor 在環境中採取行動並取得新的觀測，形成一條軌跡（trajectory）。論文以 [chain-of-thought (CoT) prompting](https://www.promptingguide.ai/techniques/cot) 及 [ReAct](https://www.promptingguide.ai/techniques/react) 做為 Actor 模型，並加入記憶模組，為 Agent 提供額外上下文。
+
+- **Evaluator：**
+  對 Actor 產生的軌跡打分。具體來說，它讀入一條軌跡（短期記憶），輸出一個獎勵分數。依任務不同，可能使用 LLM 或規則式啟發式方法來做評分。
+
+- **Self-Reflection：**
+  產生語言化的強化訊息，幫助 Actor 在下一回合改進。這個角色同樣由 LLM 擔任，會根據獎勵、目前軌跡，以及長期記憶中的資訊，產生具體且可操作的反思內容，並存入記憶。之後 Agent 會在新的嘗試中參考這些經驗，加快學習速度。
+
+總結來說，Reflexion 的流程可以分成：
+（a）定義任務、（b）產生軌跡、（c）評估、（d）反思、（e）產生下一條軌跡。下圖展示 Reflexion Agent 如何透過反覆修正來解決決策、程式設計與推理等不同問題。Reflexion 在 [ReAct](https://www.promptingguide.ai/techniques/react) 架構上加入自我評估、自我反思與記憶元件。
+
+!["Reflexion Examples"](../../img/research/reflexion-examples.png)
+
+## 實驗結果
+
+實驗顯示，Reflexion Agent 在多個任務上都有明顯進步，包括 sequential decision-making（AlfWorld）、HotPotQA 推理題目，以及 HumanEval 上的 Python 程式設計。
+
+在 AlfWorld 任務中，結合 ReAct 的 Reflexion Agent 使用啟發式與 GPT 做二元分類評估，最終完成 130/134 個任務，遠勝於只用 ReAct 的版本。
+
+!["Reflexion ALFWorld Results"](../../img/research/reflexion-alfworld.png)
+
+在純推理任務中，如果加入由最近軌跡構成的 episodic memory，Reflexion + CoT 也明顯優於單純 CoT 以及「CoT + episodic memory」等基線方法。
+
+!["Reflexion ALFWorld Results"](../../img/research/reflexion-hotpotqa.png)
+
+在程式設計相關基準（HumanEval、MBPP、Leetcode Hard）上，Reflexion 也普遍超越先前的最新方法，在 Python 與 Rust 程式撰寫任務中取得更好的成績。
+
+!["Reflexion ALFWorld Results"](../../img/research/reflexion-programming.png)
+
+## 什麼時候適合用 Reflexion？
+
+以下情境特別適合考慮引入 Reflexion：
+
+1. **Agent 需要從嘗試錯誤中學習：**
+   Reflexion 的設計核心，就是讓 Agent 透過反思過去錯誤、修正策略來提升表現，特別適合決策、推理、程式設計等需要多次嘗試的任務。
+
+2. **傳統強化學習成本過高：**
+   許多 RL 方法需要大量資料與昂貴的模型微調。Reflexion 則不需要重新微調底層 LLM，只靠「語言化的回饋」就能強化行為，對資料與運算資源都更省。
+
+3. **需要細膩的回饋：**
+   傳統 RL 通常使用單一數值獎勵；Reflexion 則使用自然語言作為回饋，可以更具體指出錯誤與改善方向，幫助 Agent 做更精準的修正。
+
+4. **重視可解釋性與明確記憶：**
+   Reflexion 將 Agent 的「反思文字」直接存入記憶，因此整個學習過程相對容易檢視與分析，比起只看標量獎勵更具可讀性。
+
+實務上，Reflexion 在以下任務中特別有幫助：
+
+- **序列決策：**
+  在 AlfWorld 等環境中，Agent 需要在多步驟情境下完成目標，Reflexion 能幫助它逐步改善行動策略。
+
+- **推理與問答：**
+  在 HotPotQA 這類需要跨文件、多步驟推理的資料集上，Reflexion 能提升答案品質。
+
+- **程式設計：**
+  在 HumanEval、MBPP 等程式基準上，Reflexion Agent 透過不斷檢查與反思改善程式碼，有時甚至能達到最新水準。
+
+Reflexion 也有一些限制：
+
+- **仰賴自我評估品質：**
+  Agent 需要足夠的能力去評估自己表現並產生有用的反思文字，對非常複雜的任務來說可能具有挑戰。但隨著模型能力提升，這類方法預期會越來越有效。
+
+- **長期記憶的設計：**
+  論文中採用最大長度的滑動視窗，做為基本記憶機制。若任務更複雜，可能需要引入向量資料庫、SQL 資料庫等更進階的記憶結構。
+
+- **程式產生的先天限制：**
+  例如在測試驅動開發情境中，如果輸入輸出對應本身難以完整規範（例如非決定性函式或受硬體影響的輸出），就很難完全仰賴自動評測。
+
+---
+
+*圖片來源： [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/pdf/2303.11366.pdf)*
+
+
+## 參考資料
+
+- [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/pdf/2303.11366.pdf)
+- [Can LLMs Critique and Iterate on Their Own Outputs?](https://evjang.com/2023/03/26/self-reflection.html)
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 Reflexion、自我反思與進階技巧，協助反覆改進。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

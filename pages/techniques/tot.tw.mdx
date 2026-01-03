@@ -1,0 +1,75 @@
+# 思緒樹 (ToT)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import TOT from '../../img/TOT.png'
+import TOT2 from '../../img/TOT2.png'
+import TOT3 from '../../img/TOT3.png'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+對於需要探索或策略性前瞻的複雜任務，傳統或簡單的提示詞技術往往不足夠。[Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601) 和 [Long (2023)](https://arxiv.org/abs/2305.08291) 最近提出了思緒樹（ToT），這是一個廣泛適用於連續思考型提示詞的框架，並鼓勵探索作為語言模型一般問題解決過程中的中間思緒。
+
+ToT 維護一個思緒樹，其中的思緒代表了作為解決問題中間步驟的連貫語言序列。這種方法使語言模型（LM）能夠透過深思熟慮的推理過程，自我評估中間思緒在解決問題方面的進展。然後，語言模型的產生和評估思緒的能力與搜尋演算法（例如，廣度優先搜尋和深度優先搜尋）相結合，以實現具有前瞻和回溯的思緒的系統性探索。
+
+下面描繪了 ToT 框架：
+
+<Screenshot src={TOT} alt="TOT" />
+圖片來源：[Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601)
+
+使用 ToT 時，不同的任務需要定義候選者數量和思緒/步驟的數量。例如，如論文中所示，24 點遊戲被用作一個數學推理任務，這需要將思緒分解為涉及中間方程式的 3 個步驟。在每一步，保留最佳的 b=5 個候選者。
+
+為了在 24 點遊戲任務中進行 ToT 的廣度優先搜尋，語言模型被提示詞評估每一個思緒候選者為「確定/也許/不可能」，以達到 24 點。如作者所述，「目的是促進可以在少量前瞻試驗內被判定為正確的部分解決方案，並根據"過大/過小" 的常識，消除不可能的部分解決方案，並保留其餘的 "也許"」。每個思緒的值被抽樣 3 次。以下是該過程的描繪：
+
+<Screenshot src={TOT2} alt="TOT2" />
+圖片來源：[Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601)
+
+從下面的圖中報導的結果來看，ToT 大大優於其他提示詞方法：
+
+<Screenshot src={TOT3} alt="TOT3" />
+圖片來源：[Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601)
+
+程式碼可從 [此處](https://github.com/princeton-nlp/tree-of-thought-llm) 和 [此處](https://github.com/jieyilong/tree-of-thought-puzzle-solver) 獲得。
+
+從高層次來看，[Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601) 和 [Long (2023)](https://arxiv.org/abs/2305.08291) 的主要思想是相似的。兩者都透過多輪對話的樹狀搜尋，增強了 LLM 在複雜問題解決方面的能力。主要的不同之處是，[Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601) 利用了 DFS/BFS/beam 搜尋，而 [Long (2023)](https://arxiv.org/abs/2305.08291) 提出的樹狀搜尋策略（即何時回溯以及回溯多少級等）是由經過強化學習訓練的 "ToT 控制器" 驅動的。DFS/BFS/Beam 搜尋是針對特定問題沒有適應性的通用解決方案搜尋策略。相比之下，一個經由 RL 訓練的 ToT 控制器可能能夠從新資料集或透過自我對戰（AlphaGo vs 窮舉搜尋）中學習到的資訊中獲益。
+
+[Sun (2023)](https://github.com/holarissun/PanelGPT) 以大型實驗評測 Tree-of-Thought 提示詞法，並提出 PanelGPT —— 讓多個 LLM 以 panel 討論方式進行提示詞的想法。
+
+[Hulbert (2023)](https://github.com/dave1010/tree-of-thought-prompting) 提出了「思緒樹提示詞技術」（Tree-of-Thought Prompting），這套技術將 ToT 框架的主要概念作為一種簡單的提示詞技術，讓語言生命週期模型（LLM）在單一提示詞中評估中間思緒。一個示例的 ToT 提示詞如下：
+
+```
+想像有三位不同的專家正在回答這個問題。
+每位專家將寫下他們思考的第一步，
+然後與小組分享。
+然後所有專家將繼續進行下一步，依此類推。
+如果有任何專家在任何時候意識到自己是錯的，那麼他們就會離開。
+問題是...
+```
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 Tree of Thoughts、chain-of-thought 與進階推理技巧，解決複雜問題。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

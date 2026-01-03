@@ -1,0 +1,54 @@
+# 自動推理與工具使用 (ART)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ART from '../../img/ART.png'
+import ART2 from '../../img/ART2.png'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+以交替方式結合 CoT 提示詞與工具的使用，已證明是一種強大且穩定的方式來處理 LLM 的許多工。這些方法通常需要手工製作專門針對任務的展示，並仔細編寫模型產生與工具使用的交錯指令碼。 [Paranjape 等人，(2023)](https://arxiv.org/abs/2303.09014) 提議了一種新框架，該框架使用凍結的 LLM 自動產生中間推理步驟作為一個程式。
+
+ART 的運作如下：
+- 給定一個新任務，它從任務庫中選擇多步推理和使用工具的展示
+- 在測試時，每當呼叫外部工具時，它會暫停產生，並在恢復產生之前整合這些工具的輸出
+
+ART 鼓勵模型從展示中推廣，以分解新任務並在合適的地方使用工具，這是一種零樣本方式。此外，ART 也具有擴充性，因為它也使人類可以透過僅更新任務和工具庫來修復推理步驟中的錯誤或新增新工具。下面展示了此過程：
+
+<Screenshot src={ART} alt="ART" />
+圖片來源：[Paranjape 等人，(2023)](https://arxiv.org/abs/2303.09014)
+
+ART 在 BigBench 和 MMLU 基準上大幅改進了少量樣本提示詞和自動 CoT 在未見任務上的表現，並超越了在人類回饋被納入時手工製作的 CoT 提示詞的效能。
+
+下面是一個表格，展示了 ART 在 BigBench 和 MMLU 任務上的表現：
+
+<Screenshot src={ART2} alt="ART2" />
+圖片來源：[Paranjape 等人，(2023)](https://arxiv.org/abs/2303.09014)
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握工具使用提示詞、推理鏈與進階技巧，應對複雜任務。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

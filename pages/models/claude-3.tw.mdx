@@ -1,0 +1,42 @@
+# Claude 3
+
+Anthropic 發表了新一代 Claude 3 模型家族，包含 Claude 3 Haiku、Claude 3 Sonnet 與 Claude 3 Opus。
+
+其中最強的 **Claude 3 Opus** 在多項常見基準（例如 MMLU、HumanEval）上被報導能超越 GPT‑4 與其他公開模型。
+
+## 成果與能力
+
+Claude 3 系列在多種任務上都有不錯表現，包括：
+
+- 進階推理與分析
+- 基礎數學
+- 資料擷取與預測
+- 內容撰寫與程式碼產生
+- 多語言處理（例如西班牙語、日語、法語等）
+
+下表展示了 Claude 3 與其他模型在多個 benchmark 上的比較，其中 Claude 3 Opus 整體表現最佳：
+
+!["Claude 3 Benchmarks"](../../img/claude/claude-benchmark.png)
+
+在家族中：
+
+- **Claude 3 Haiku** 是速度最快且成本最低的版本；
+- **Claude 3 Sonnet** 相較前一代 Claude 約快 2 倍；
+- **Claude 3 Opus** 在能力大幅提升的同時，推論速度與 Claude 2.1 大致相當。
+
+Claude 3 模型預設支援 **200K tokens** 的脈絡視窗，對部分客戶還可擴充至 **1M tokens**。
+在 Needle In A Haystack（NIAH）這類長脈絡記憶測試中，Opus 拿到接近完美的回憶率，顯示其在長上下文處理上的優勢。
+
+此外，Claude 3 在視覺能力上也有明顯強化，能處理照片、圖表與各類視覺化資料：
+
+!["Claude 3 Vision Capabilities"](../../img/claude/claude-vision.png)
+
+官方也指出，Claude 3 系列在理解使用者意圖與降低「誤拒絕」方面表現更好；
+Opus 在開放式問答中的事實性與回答品質也有顯著提升，同時減少錯誤回答與幻覺。
+在結構化輸出方面（例如 JSON 物件），Claude 3 也比 Claude 2 系列更加穩定、可靠。
+
+## 參考資料
+
+- [Claude 3 Haiku, Claude 3 Sonnet, and Claude 3 Opus](https://www.anthropic.com/news/claude-3-family)
+- [The Claude 3 Model Family: Opus, Sonnet, Haiku](https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf)
+

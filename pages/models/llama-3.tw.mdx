@@ -1,0 +1,62 @@
+# Llama 3
+
+import {Bleed} from 'nextra-theme-docs'
+
+Meta 近期[發表](https://llama.meta.com/llama3/) 了新一代 LLM 家族 **Llama 3**，目前包含：
+
+- 8B 參數的預訓練與指令調整（instruction‑tuned）模型
+- 70B 參數的預訓練與指令調整模型
+
+## 架構重點
+
+官方公開的技術細節大致如下：
+
+- 採用標準 decoder‑only Transformer 架構
+- vocabulary 約 128K tokens
+- 以 8K tokens 的序列長度進行訓練
+- 使用 GQA（grouped query attention）
+- 預訓練資料量超過 15T tokens
+- 後訓練（post‑training）結合了 SFT、rejection sampling、PPO 與 DPO 等方法
+
+## 效能表現
+
+在指令調整版本中：
+
+- **Llama 3 8B Instruct** 在多數基準上優於 [Gemma 7B](https://www.promptingguide.ai/models/gemma) 與 [Mistral 7B Instruct](https://www.promptingguide.ai/models/mistral-7b)；
+- **Llama 3 70B Instruct** 整體上優於 [Gemini Pro 1.5](https://www.promptingguide.ai/models/gemini-pro) 與 [Claude 3 Sonnet](https://www.promptingguide.ai/models/claude-3)，
+  但在 MATH 等部分數學基準上略落後 Gemini 1.5 Pro。
+
+!["Llama 3 Performance"](../../img/llama3/llama-instruct-performance.png)
+*來源：[Meta AI](https://ai.meta.com/blog/meta-llama-3/)*
+
+在預訓練模型方面，Llama 3 也在 AGIEval（英文）、MMLU、Big‑Bench Hard 等多個基準上展現強勁表現：
+
+!["Llama 3 Performance"](../../img/llama3/llama3-pretrained-results.png)
+*來源：[Meta AI](https://ai.meta.com/blog/meta-llama-3/)*
+
+## Llama 3 400B 展望
+
+Meta 也宣佈正在訓練一個 **400B 參數** 的 Llama 3 模型，目前仍在開發中。
+未來 roadmap 中還包括：
+
+- 多模態支援
+- 更完整的多語言能力
+- 更長的 context window 等
+
+截至 2024 年 4 月 15 日，Llama 3 400B 的 checkpoint 在 MMLU、Big‑Bench Hard 等常見基準上的表現如下：
+
+!["Llama 3 400B"](../../img/llama3/llama-400b.png)
+*來源：[Meta AI](https://ai.meta.com/blog/meta-llama-3/)*
+
+Llama 3 模型的授權資訊可在官方 [model card](https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md) 中查詢。
+
+## 延伸評測
+
+若想更深入了解 Llama 3 的行為與實務表現，可以參考以下影片評測：
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/h2aEmciRd6U?si=m7-xXu5IWpB-6mE0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+

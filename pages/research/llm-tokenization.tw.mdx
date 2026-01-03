@@ -1,0 +1,30 @@
+# LLM Tokenization
+
+Andrej Karpathy 近期發布了一堂關於大型語言模型（LLM）tokenization 的[課程](https://youtu.be/zduSFxRajkE?si=Hq_93DBE72SQt73V)。Tokenization 是訓練 LLM 的關鍵步驟之一，但實務上常是使用既有的 tokenizer 與資料集，很少深入探討其設計細節（例如 [Byte Pair Encoding](https://en.wikipedia.org/wiki/Byte_pair_encoding) 等演算法）。
+
+在這堂課中，Karpathy 示範如何從零開始實作一個 GPT 風格的 tokenizer，也說明瞭許多看似「奇怪」的模型行為，其實都可以追溯到 tokenization 的設計。
+
+!["LLM Tokenization"](../../img/research/tokenization.png)
+
+*圖片來源：https://youtu.be/zduSFxRajkE?t=6711*
+
+上圖的文字版整理如下：
+
+- 為什麼 LLM 會拼錯單字？──因為 tokenization。
+- 為什麼 LLM 很難處理簡單的字串操作（例如反轉字串）？──因為 tokenization。
+- 為什麼 LLM 對某些非英文語言（例如日文）特別吃力？──因為 tokenization。
+- 為什麼 LLM 在簡單算術上表現不好？──因為 tokenization。
+- 為什麼 GPT-2 在寫 Python 程式碼時遇到不必要的困難？──因為 tokenization。
+- 為什麼輸入 `\<endoftext\>` 這個字串會讓模型突然停止？──因為 tokenization。
+- 為什麼會看到關於「結尾空白」的奇怪警告？──因為 tokenization。
+- 為什麼問到「SolidGoldMagikarp」這類奇怪字串時，模型會有怪異行為？──因為 tokenization。
+- 為什麼與 LLM 互動時，用 YAML 通常比 JSON 更好？──因為 tokenization。
+- 為什麼 LLM 並非真正的「端對端語言模型」？──因為 tokenization。
+- 一切痛苦的根源是什麼？──還是 tokenization。
+
+如果想要提升 LLM 的可靠度，光懂得如何寫提示詞還不夠，也需要理解模型在 token 層級上的限制。雖然推論階段我們常只注意 `max_tokens` 等設定，但良好的提示詞工程其實包括：理解 tokenizer 的切分方式、哪些字元或字串會被拆成很多 token、以及這些切分如何影響模型的理解與產生能力。
+
+例如，有些縮寫或特殊詞彙如果被切成不合理的 token 組合，可能導致模型難以辨識或誤解含義，讓原本設計良好的提示詞表現大打折扣。這類問題在實務中並不少見，只是經常被忽略。
+
+在實作與除錯 tokenization 時，一個實用工具是 [Tiktokenizer](https://tiktokenizer.vercel.app/)，課程中也使用它來示範如何檢查字串的實際 token 切法。
+

@@ -1,0 +1,125 @@
+# Phi-2
+
+import {Screenshot} from 'components/screenshot'
+import PHI2 from '../../img/phi-2/phi-2-benchmark.png'
+import PHI2SAFETY from '../../img/phi-2/phi-2-safety.png'
+import PHI2PERFORMANCE from '../../img/phi-2/phi-2-performance.png'
+import PHI2PHYSICS from '../../img/phi-2/phi-2-physics.png'
+import PHI2CORRECTING from '../../img/phi-2/phi-2-correcting.png'
+
+本指南會概覽 Phi-2──一個擁有 27 億參數的小型語言模型（SLM），說明如何為 Phi-2 設計提示詞與常見應用場景，並整理其優點、限制、重要參考資料與延伸閱讀。
+
+## Phi-2 簡介
+
+Phi-2 是 Microsoft Research 最新釋出的 small language model（SLM），承接先前的 Phi-1 與 Phi-1.5 系列。
+
+Phi-1 是一個 13 億參數模型，訓練資料來自網路上「教科書品質」的文字（約 60 億 token），以及使用 GPT-3.5 合成的教材與習題（約 10 億 token）（[Textbooks Are All You Need](https://arxiv.org/abs/2306.11644)）。實驗顯示，它在 Python 程式碼產生任務上有不錯表現。
+
+[Phi-1.5](https://arxiv.org/abs/2309.05463) 在 Phi-1 的基礎上進一步強化常識推理與語言理解能力。Phi-1.5 能處理較複雜的數學與基本程式任務，表現大致接近參數量約其 5 倍的模型。
+
+Phi-2 則是擁有 27 億參數的進一步提升版本，在推理與語言理解方面再次明顯進步。官方報告指出，Phi-2 的表現可勝過參數量比它大 25 倍的模型，而且採用 MIT 授權，方便在商業情境中使用。
+
+## Phi-2 訓練洞見與評估
+
+許多研究者都關心：「小型語言模型是否也能展現類似大型模型的『突現能力』？如果能，該如何透過訓練技巧達成？」Phi 系列就是其中重要的探索之一。
+
+Phi-2 的訓練資料同樣是「教科書品質」文字，總計約 1.4 兆 token，並以多次輪訓方式訓練。資料包含幫助模型學習常識推理與一般知識的合成資料，並補充教育性與高品質網路內容。Phi-2 約在 96 張 A100 GPU 上訓練 14 天，過程中沒有額外進行 RLHF 或指令微調。
+
+研究者將 Phi-1.5 的知識遷移到 Phi-2，有助於加速收斂並在多個基準上獲得額外提升。下圖顯示 Phi-2（2.7B）與 Phi-1.5（1.3B）在常識推理、數學推理、程式碼產生與其他語言理解任務上的比較。除少數例外外，所有任務皆採用 0-shot 設定；BBH 與 MMLU 分別使用 3-shot CoT 與 5-shot。
+
+<Screenshot src={PHI2} alt="Phi-2 LLM Performance & Benchmarks" />
+
+雖然模型並未進行 RLHF 等對齊訓練，但報告指出，在毒性與偏見方面，Phi-2 反而比對齊過的開源模型 Llama 2-7B 更安全。作者將這點歸因於「嚴格的資料篩選與清洗」。
+
+<Screenshot src={PHI2SAFETY} alt="Phi-2 Safety Performance" />
+
+如下圖所示，Phi-2 在多項基準中皆超越 Mistral 7B 與 Llama 2（13B），甚至在多步驟推理上優於 Llama-2-70B。Phi-2 也在表現上超過 [Google 的 Gemini Nano 2](https://www.promptingguide.ai/models/gemini)。
+
+<Screenshot src={PHI2PERFORMANCE} alt="Phi-2 Performance Comparison" />
+
+下面的示例會展示 Phi-2 在多個任務上的表現能力。
+
+### 物理題解題能力
+
+下圖示範 Phi-2 解決物理文字題的過程，可以看到模型能理解題意並給出合理的計算步驟與答案：
+
+<Screenshot src={PHI2PHYSICS} alt="Phi-2 Physics Problem Solving" />
+
+### 錯誤識別能力
+
+下圖展示 Phi-2 如何找出學生在物理題計算中的錯誤，並給出修正說明：
+
+<Screenshot src={PHI2CORRECTING} alt="Phi-2 Verifying and Correcting" />
+
+## Phi-2 使用方式
+
+依據 [模型頁面](https://huggingface.co/microsoft/phi-2)，Phi-2 支援多種提示詞格式：問答（QA）格式、聊天格式，以及偏向程式產生的 code 格式。以下示例會說明如何設計這些提示詞。
+
+### QA 格式
+
+QA 格式適合用在「問一個問題，期望模型給出簡潔回答」的情境。
+建議的提示詞樣板如下：
+
+```markdown
+Instruct: {{prompt}}
+Output:
+```
+
+範例：
+
+*Prompt:*
+```text
+Instruct: What is the difference between data and information?
+Output:
+```
+
+*Output:*
+```text
+Great question! Data refers to raw facts, statistics, or numbers that have not been analyzed or processed into any meaningful context. On the other hand, information is data that has been organized, analyzed, and interpreted in a way that it can be used by humans to make informed decisions or take actions. In other words, data is raw material, while information is processed and useful knowledge.
+```
+
+### Chat 格式
+
+Phi-2 的聊天格式相當直觀，以下是一個簡單對話範例：
+
+*Prompt:*
+```text
+Human: Hello, who are you?
+AI: Greetings! I am an AI research assistant. How can I help you today?
+Human: Can you tell me about the creation of black holes?
+AI:
+```
+
+*Output:*
+```text
+Black holes form when a massive star runs out of fuel and collapses under its own gravitational pull. The resulting object is so dense that it distorts space-time around it, causing anything that comes too close to be pulled in by the immense gravity. This includes light, which cannot...
+```
+
+### Code 格式
+
+以下是一個偏向程式產生的提示詞樣板，直接把函式開頭給模型：
+
+*Prompt:*
+```text
+def multiply(a,b):\n
+```
+
+需要注意的是，Phi-2 在訓練時使用的 Python 範例與函式庫數量有限，因此在程式碼產生與多語言程式支援上仍有相當限制。
+
+## Phi-2 的限制
+
+根據論文與官方說明，Phi-2 仍有以下限制：
+
+- 和其他模型一樣，Phi-2 仍可能產生不正確的程式碼或敘述。
+- Phi-2 尚未像某些大型模型那樣做完整指令微調，因此在複雜指令遵循方面可能比較吃力。
+- 訓練資料主要是標準英文文字，對俚語或其他語言的指令理解能力有限。
+- 模型仍可能產生社會偏見或具毒性內容。
+- Phi-2 沒有特別針對「回答要精簡」做調整，因此常會輸出較長、甚至有些離題的文字。作者推測這與訓練資料多為教科書型文字有關。
+
+*圖片來源： [Microsoft Research](https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/)*
+
+## 參考資料
+
+- [Textbooks Are All You Need](https://arxiv.org/abs/2306.11644)
+- [Phi-1.5](https://arxiv.org/abs/2309.05463)
+

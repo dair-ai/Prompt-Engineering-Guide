@@ -1,0 +1,37 @@
+# Mixtral 8x22B
+
+Mixtral 8x22B 是 Mistral AI 釋出的新一代開放大型語言模型（LLM）。它採用稀疏專家混合（sparse mixture-of-experts）架構，在 1,410 億總參數中，每次推論只啟用約 390 億「活躍參數」。
+
+## 能力概觀
+
+Mixtral 8x22B 以「成本效益」為設計重點，具備下列能力與特性：
+
+- 多語言理解能力
+- 強化的數學推理能力
+- 高品質程式碼產生
+- 原生支援 function calling
+- 原生支援受限輸出（constrained output）
+- 支援 64K token 上下文長度，可在長文件上維持良好資訊擷取能力
+
+Mistral AI 宣稱，Mixtral 8x22B 在社群模型中具備非常優異的「效能 / 成本比」，並因為採用稀疏啟用，在相同硬體下能提供相對快速的推論速度。
+
+!["Mixtral 8x22B Performance"](../../img/mixtral/mixtral-8-cost.png)
+*來源：[official reported results](https://mistral.ai/news/mixtral-8x22b/)*
+
+## 效能表現
+
+依據 [官方公佈的結果](https://mistral.ai/news/mixtral-8x22b/)，在多項推理與知識基準測試（例如 MMLU、HellaS、TriQA、NaturalQA 等）上，Mixtral 8x22B（活躍參數 39B）皆優於 Command R+ 與 Llama 2 70B 等最新開源模型。
+
+!["Mixtral 8x22B Reasoning and Knowledge Performance"](../../img/mixtral/mixtral-8-reasoning.png)
+*來源：[official reported results](https://mistral.ai/news/mixtral-8x22b/)*
+
+在程式與數學任務方面，Mixtral 8x22B 在 GSM8K、HumanEval、Math 等基準上也勝過所有開源模型。根據報告，Mixtral 8x22B Instruct 在 GSM8K（maj@8）上取得 90% 的成績。
+
+!["Mixtral 8x22B Reasoning and Knowledge Performance"](../../img/mixtral/mixtral-8-maths.png)
+*來源：[official reported results](https://mistral.ai/news/mixtral-8x22b/)*
+
+更多關於 Mixtral 8x22B 的說明與使用方式，可參考官方文件：
+https://docs.mistral.ai/getting-started/open_weight_models/#operation/listModels
+
+模型採 Apache 2.0 授權釋出。
+

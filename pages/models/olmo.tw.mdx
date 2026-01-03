@@ -1,0 +1,95 @@
+# OLMo
+
+本頁將簡要介紹 **Open Language Model（OLMo）**，並整理其模型家族、資料集與訓練釋出內容，以及相關研究與延伸閱讀。
+
+## OLMo 簡介
+
+Allen Institute for AI（AI2）推出了開源語言模型與框架 **OLMo**，目標是：
+
+- 完整公開資料、訓練程式碼、模型權重與評估程式
+- 讓研究社群可以系統化地研究語言模型與訓練流程
+
+第一批釋出包含：
+
+- 4 個 7B 參數等級的變體
+- 1 個 1B 等級模型
+
+這些模型都至少訓練在 2T tokens 以上，後續 roadmap 中也包含 65B 模型。
+
+!["OLMo Models"](../../img/olmo/olmo-models.png)
+
+本次釋出內容包括：
+
+- 完整訓練資料與產生資料的[程式碼](https://github.com/allenai/dolma)
+- 模型權重、[訓練程式碼](https://github.com/allenai/OLMo)、訓練紀錄、指標與推論程式
+- 多個訓練中間 checkpoint
+- [評估程式](https://github.com/allenai/OLMo-Eval)
+- 微調程式碼
+
+所有程式與權重皆採用 [Apache 2.0 授權](https://github.com/allenai/OLMo#Apache-2.0-1-ov-file)。
+
+## OLMo-7B 架構摘要
+
+OLMo‑7B 與 OLMo‑1B 均採用 decoder‑only Transformer 架構，並參考 PaLM、Llama 等模型的設計改良，包括：
+
+- 移除 bias 項
+- 使用非參數化 layer norm
+- 採用 SwiGLU activation
+- 使用 RoPE 位置編碼
+- vocabulary 大小約 50,280
+
+## Dolma 資料集
+
+OLMo 釋出時也同步公開了預訓練語料 **Dolma**：
+一個跨 7 種來源、約 5B 文件、總計約 3 兆 tokens 的多來源、多樣化語料庫。
+其建構流程包含：
+
+- 語言過濾
+- 品質與內容過濾
+- 去重（deduplication）
+- 多來源混合
+- tokenization 等步驟
+
+!["Dolma Dataset"](../../img/olmo/dolma-dataset.png)
+
+在本次模型訓練中，從 Dolma 中抽取約 2T tokens 作為實際訓練集，並以：
+
+- 在每篇文件結尾加上 `EOS` token 後串接整體語料；
+- 以 2048 tokens 的連續片段作為訓練樣本，並在批次中打亂順序。
+
+更多訓練細節與硬體設定，可參考原論文。
+
+## 評估結果
+
+模型在下游任務上的評估使用 [Catwalk](https://github.com/allenai/catwalk) 套件，並與其他公開模型（例如 Falcon、Llama 2）比較。
+
+評估重點放在常識推理相關任務，包含 `piqa`、`hellaswag` 等資料集。
+作者採用 zero‑shot 設定，並透過「rank classification」（以 likelihood 對候選答案排序）計算準確率。
+
+結果顯示：
+
+- **OLMo‑7B** 在 2 個終端任務上表現最佳；
+- 在 9 個任務中有 8 個能維持在前 3 名。
+
+!["OLMo Results"](../../img/olmo/olmo-results.png)
+
+## 提示詞與使用指南
+
+官方論文與專案中也提供了 OLMo 的使用與評估範例：
+
+- 如何在下游任務上進行 few‑shot / zero‑shot 評估；
+- 如何使用公開微調程式碼以適應特定應用；
+- 如何利用釋出的資料與 log 進行訓練行為與 scaling law 分析。
+
+你可以從這些資源中學習到完整的開源 LLM 研發流程，包括資料清理、模型設計、訓練與評估等實務面細節。
+
+---
+
+圖與更多資訊來源：
+[OLMo: Accelerating the Science of Language Models](https://allenai.org/olmo/olmo-paper.pdf)
+
+## 參考資料
+
+- [OLMo: Open Language Model](https://blog.allenai.org/olmo-open-language-model-87ccfc95f580)
+- [OLMo: Accelerating the Science of Language Models](https://allenai.org/olmo/olmo-paper.pdf)
+

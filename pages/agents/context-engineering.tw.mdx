@@ -1,0 +1,226 @@
+# 為什麼需要脈絡工程（Context Engineering）？
+
+import { Callout } from 'nextra/components'
+
+[脈絡工程](https://www.promptingguide.ai/guides/context-engineering-guide) 是打造穩定且可預期的 AI Agents 時，最關鍵也最容易被低估的一個實務。這篇小節會透過一個「深度研究代理（deep research agent）」的案例，說明脈絡工程在實作上的重要性與典型做法。
+
+簡單說，脈絡工程就是：**刻意設計與調整促使 Agent 產生特定行為的 prompts、指令與限制條件**，讓系統更可靠地達成預期結果。
+
+<Callout type="info" emoji="📚">
+本節內容整理自課程「Building Effective AI Agents with n8n」，課程會更完整地介紹架構設計、可下載範本與提示詞實作技巧。
+</Callout>
+
+## 什麼是脈絡工程？
+
+[脈絡工程](https://www.promptingguide.ai/guides/context-engineering-guide) 可以被視為一個持續迭代的過程，用來設計、測試與最佳化提供給 Agent 的所有「上下文資訊」。相較於只針對單次 LLM 呼叫寫一段 prompt，在 Agent 場景下，我們還需要一起考量：
+
+- **System prompt**：定義 Agent 的角色與能力邊界
+- **任務約束（task constraints）**：明確規定哪些行為是「必須」或「禁止」
+- **工具說明**：描述每個工具是做什麼的、什麼時候該用、怎麼用
+- **記憶管理**：在多步驟流程中如何維持狀態與歷史脈絡
+- **錯誤處理模式**：遇到錯誤時應該如何回報與恢復
+
+## 案例：深度研究 Agent
+
+以下以一個會「搜尋網路並產生研究報告」的簡化代理系統為例，說明脈絡工程在實務上要處理什麼問題。
+
+![Agent Workflow](../../img/agents/simple-dr-agent.png)
+
+### 脈絡工程的挑戰
+
+#### 挑戰一：任務沒有被完整執行
+
+在最初版本的實作中，我們發現：
+協調者（orchestrator）Agent 會規劃出 3 個搜尋任務，但實際只幫其中 2 個跑搜尋，剩下 1 個被「悄悄略過」，也沒有任何說明。
+
+**原因**：system prompt 裡沒有明確規定「每個任務一定要有交代」，Agent 便自行判斷哪些搜尋「似乎不重要」，導致行為不一致。
+
+**改進方向**大致有兩種：
+
+1. **較彈性**：允許 Agent 不執行所有搜尋，但必須對略過的任務給出理由與標註。
+2. **較嚴格**：強制規定每一個規劃出的搜尋任務都必須被執行。
+
+下面是較嚴謹的 system prompt 補強範例：
+
+```text
+You are a deep research agent responsible for executing comprehensive research tasks.
+
+TASK EXECUTION RULES:
+- For each search task you create, you MUST either:
+  1. Execute a web search and document findings, OR
+  2. Explicitly state why the search is unnecessary and mark it as completed with justification
+
+- Do NOT skip tasks silently or make assumptions about task redundancy
+- If you determine tasks overlap, consolidate them BEFORE execution
+- Update task status in the spreadsheet after each action
+```
+
+#### 挑戰二：缺乏可觀測性（Observability）
+
+在沒有良好紀錄機制的情況下，很難理解 Agent 為什麼做出某些決策，也難以針對錯誤調整 prompt。
+
+**解法**：為 Agent 建立一套簡單的任務追蹤系統，例如用試算表或文字檔記錄：
+
+- 任務 ID
+- 搜尋查詢
+- 狀態（todo / in_progress / completed）
+- 結果摘要
+- 時間戳記（timestamp）
+
+這些資訊可以幫助我們：
+
+- 即時觀察 Agent 的決策與行為
+- 了解整體任務執行流程
+- 找出行為模式與常見錯誤
+- 為後續調整與實驗提供依據
+
+### 脈絡工程實務準則
+
+根據上述案例，可以整理出幾項常用的設計原則：
+
+#### 1. 消除 Prompt 中的模糊空間
+
+**不佳示例：**
+```text
+Perform research on the given topic.
+```
+
+**較佳寫法：**
+```text
+Perform research on the given topic by:
+1. Breaking down the query into 3-5 specific search subtasks
+2. Executing a web search for EACH subtask using the search_tool
+3. Documenting findings for each search in the task tracker
+4. Synthesizing all findings into a comprehensive report
+```
+
+#### 2. 明確寫出預期
+
+不要假設 Agent「知道你要什麼」。
+盡量在指令中講清楚：
+
+- 哪些行為是必做、哪些是可選
+- 輸出品質標準與格式要求
+- 決策準則與優先順序
+
+#### 3. 建立可觀測性
+
+在 Agent 系統裡加入 Debug 友善的設計：
+
+- 記錄每次決策與推理摘要
+- 把狀態變化寫到外部儲存（例如試算表或資料庫）
+- 紀錄工具呼叫與結果
+- 捕捉錯誤與邊界情況，當作後續調整的素材
+
+<Callout type="warning" emoji="⚠️">
+每一次「奇怪的行為」或錯誤案例，都是改進脈絡工程的線索。
+</Callout>
+
+#### 4. 依實際行為迭代
+
+脈絡工程本質上是一個閉環：
+
+1. 先用初版 context 上線
+2. 觀察實際行為與產出
+3. 找出與預期不符的地方
+4. 調整 system prompt、約束條件與工具說明
+5. 再次測試與驗證
+6. 重複上述步驟
+
+#### 5. 在「彈性」與「約束」間找到平衡
+
+過度嚴格的規則會讓 Agent 缺乏彈性、難以處理邊界情況；
+過度寬鬆又會讓行為變得不可預測。
+
+實務上可以先從較彈性版本開始，觀察 Agent 行為，再逐步加入必要的約束條件。
+
+## 進階脈絡工程技巧概覽
+
+這裡列出幾個進階議題，細節可參考脈絡工程專章：
+
+### 分層脈絡架構
+
+將 context 拆成 System / Task / Tool / Memory 等層級分別設計。
+
+### 動態調整脈絡
+
+根據任務複雜度、資源狀況、歷史錯誤紀錄來動態增減指令與輔助資訊。
+
+### 脈絡檢驗（Context Validation）
+
+評估是確保脈絡工程技巧能如預期運作的關鍵。在上線前，請驗證脈絡設計：
+
+- **完整性**：是否涵蓋所有重要情境？
+- **清楚度**：是否沒有歧義？
+- **一致性**：不同部分是否彼此一致？
+- **可測試性**：是否能驗證其行為？
+
+## 常見脈絡工程地雷
+
+### 1. 約束過頭
+
+**問題：** 規則太多、太死，導致 Agent 無法處理邊界情況。
+
+**範例：**
+```text
+NEVER skip a search task.
+ALWAYS perform exactly 3 searches.
+NEVER combine similar queries.
+```
+
+**較佳做法：**
+```text
+Aim to perform searches for all planned tasks. If you determine that tasks are redundant, consolidate them before execution and document your reasoning.
+```
+
+### 2. 指令過於籠統
+
+**問題：** 指令含糊會導致行為不可預測。
+
+**範例：**
+```text
+Do some research and create a report.
+```
+
+**較佳做法：**
+```text
+Execute research by:
+1. Analyzing the user query to identify key information needs
+2. Creating 3-5 specific search tasks covering different aspects
+3. Executing searches using the search_tool for each task
+4. Synthesizing findings into a structured report with sections for:
+   - Executive summary
+   - Key findings per search task
+   - Conclusions and insights
+```
+
+### 3. 未定義錯誤處理
+
+**問題：** 沒有告訴 Agent 出錯時要怎麼做，就很難期待它在錯誤情況下能保持穩定。
+**解法：** 在某些情況下，為 AI Agent 加上錯誤處理指令會有幫助，例如：
+
+```text
+ERROR HANDLING:
+- If a search fails, retry once with a rephrased query
+- If retry fails, document the failure and continue with remaining tasks
+- If more than 50% of searches fail, alert the user and request guidance
+- Never stop execution completely without user notification
+```
+
+## 如何衡量脈絡工程是否有效？
+
+可以追蹤以下幾個指標來評估：
+
+1. **任務完成率**：有多少任務被完整、正確地完成
+2. **行為一致性**：在相似輸入下行為是否穩定
+3. **錯誤比例**：失敗與非預期行為出現的頻率
+4. **使用者滿意度**：輸出是否實際有用
+5. **除錯成本**：定位與修正問題需要花多少時間
+
+脈絡工程不應被視為一次性工作，而是一個持續迭代的工程實務。
+透過系統化觀察、分析失敗案例、調整指令與限制，再搭配嚴謹測試，就能逐步打造出穩定、可預測且真正有用的 Agent 系統。
+
+<Callout type="info" emoji="🎓">
+若想進一步學習如何將這些原則落實到生產環境中的代理系統，歡迎參考我們的課程。[立即加入！](https://dair-ai.thinkific.com/courses/agents-with-n8n)
+結帳時輸入 PROMPTING20 可享 8 折優惠。
+</Callout>

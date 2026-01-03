@@ -1,0 +1,88 @@
+# Meta Prompting
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+## 簡介
+
+Meta Prompting 是一種進階提示詞技巧，重點不在任務本身的內容細節，而是著重於任務與問題的「結構」與「語法形式」。它的目標是為大型語言模型（LLM）建立一種更抽象、結構化的互動方式，強調資訊呈現的形式與模式，而不是傳統那種以內容為主的提示詞寫法。
+
+## 核心特性
+
+根據 [Zhang et al. (2024)](https://arxiv.org/abs/2311.11482)，Meta Prompting 具備以下幾個關鍵特性：
+
+**1. 以結構為主：**
+優先關注問題與解答的格式與結構，而非具體內容。
+
+**2. 著重語法：**
+把「語法」當成預期輸出或解法的樣板，用來引導模型產生結果。
+
+**3. 抽象範例：**
+使用抽象化的例子來呈現問題與解答的框架，只示意結構，不執著於實際細節。
+
+**4. 高度通用：**
+可以跨領域使用，為各種問題提供結構化的回應形式。
+
+**5. 類型與分類思維：**
+借用型別理論的想法，強調在提示詞中對各元素做清楚的分類與邏輯安排。
+
+## 相較 few-shot 提示詞的優勢
+
+[Zhang et al. (2024)](https://arxiv.org/abs/2311.11482) 指出，Meta Prompting 與 few-shot 提示詞最大的差異在於前者採取更偏「結構導向」的做法，而 few-shot 提示詞則較偏「內容導向」：
+few-shot 會示範具體範例；Meta Prompting 則凸顯問題與解答的形式與模式。
+
+下圖（取自原論文）示意了一個用於 MATH benchmark 的 Meta Prompt 與 few-shot 提示詞之差異：
+
+!["Meta Prompting"](../../img/techniques/meta-prompting.png)
+
+相較 few-shot 提示詞，Meta Prompting 具有以下優點：
+
+**1. Token 利用更有效率：**
+著重在結構，而不是大量具體內容，因此可以在較少 token 下，傳遞更多有用的結構資訊。
+
+**2. 比較更公平：**
+在比較不同模型的推理能力時，因為減少了特定範例的影響，可以更公平地評估模型本身的能力。
+
+**3. 接近零樣本設定：**
+可以視為一種結構化的 zero-shot 提示詞法，盡量降低個別範例帶來的偏差。
+
+
+## 應用場景
+
+透過強調「問題與解答結構」而非具體內容，Meta Prompting 能為模型提供一條清楚的思考路徑，幫助在多種領域中提升推理品質。
+
+值得注意的是，Meta Prompting 假設模型本身對目標任務已具備一定先備知識。由於 LLM 具備對未知任務做一定程度泛化的能力，在許多情境下仍然可以搭配 Meta Prompting 使用；但如同一般 zero-shot 提示詞，遇到極為新穎或非常特殊的任務時，表現可能會明顯下降。
+
+適合匯入 Meta Prompting 的情境包含（但不限於）：
+
+- 複雜推理任務
+- 數學題與定理相關問題
+- 需要明確步驟與邏輯結構的程式設計挑戰
+- 需要模型整理、比較或抽象化理論概念的問題
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 meta prompting、結構導向技巧與進階方法，用於複雜推理。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

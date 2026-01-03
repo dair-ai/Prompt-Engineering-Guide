@@ -1,0 +1,20 @@
+{
+    "zeroshot": "零樣本型提示詞",
+    "fewshot": "少量樣本學習提示詞",
+    "cot": "連續思考型提示詞 (Chain-of-Thought)",
+    "meta-prompting": "後設提示詞 (Meta Prompting)",
+    "consistency": "自我一致性",
+    "knowledge": "產生知識提示詞",
+    "prompt_chaining": "提示詞串接 (Prompt Chaining)",
+    "tot": "思緒樹 (Tree of Thoughts)",
+    "rag": "檢索擴增式產生 (RAG)",
+    "art": "自動推理與工具使用",
+    "ape": "自動提示詞工程師 (APE)",
+    "activeprompt": "Active-Prompt",
+    "dsp": "定向性刺激型提示詞",
+    "pal": "程式輔助語言模型 (PAL)",
+    "react": "ReAct 提示詞",
+    "reflexion": "反思 (Reflexion)",
+    "multimodalcot": "多模態連續思考型提示詞",
+    "graph": "GraphPrompts"
+}

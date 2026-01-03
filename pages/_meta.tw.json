@@ -1,0 +1,55 @@
+{
+  "index": "提示詞工程",
+  "introduction": "簡介",
+  "techniques": "提示詞技巧",
+  "agents": "AI Agents",
+  "guides": "指南",
+  "applications": "應用",
+  "prompts": "Prompt Hub",
+  "models": "模型",
+  "risks": "風險與誤用",
+  "research": "LLM 研究",
+  "papers": "論文",
+  "tools": "工具",
+  "notebooks": "Notebooks",
+  "datasets": "資料集",
+  "readings": "延伸閱讀",
+  "courses": {
+    "title": "🎓 課程",
+    "type": "menu",
+    "items": {
+      "intro-prompt-engineering": {
+        "title": "提示詞工程入門",
+        "href": "https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+      },
+      "advanced-prompt-engineering": {
+        "title": "進階提示詞工程",
+        "href": "https://dair-ai.thinkific.com/courses/advanced-prompt-engineering"
+      },
+      "intro-ai-agents": {
+        "title": "AI Agents 入門",
+        "href": "https://dair-ai.thinkific.com/courses/introduction-ai-agents"
+      },
+      "agents-with-n8n": {
+        "title": "用 n8n 建構 AI Agents",
+        "href": "https://dair-ai.thinkific.com/courses/agents-with-n8n"
+      },
+      "rag-systems": {
+        "title": "建構 RAG 系統",
+        "href": "https://dair-ai.thinkific.com/courses/introduction-rag"
+      },
+      "advanced-agents": {
+        "title": "建構進階 AI Agents",
+        "href": "https://dair-ai.thinkific.com/courses/advanced-ai-agents"
+      },
+      "all-courses": {
+        "title": "查看全部 →",
+        "href": "https://dair-ai.thinkific.com/pages/courses"
+      }
+    }
+  },
+  "about": {
+    "title": "關於",
+    "type": "page"
+  }
+}

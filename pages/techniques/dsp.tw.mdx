@@ -1,0 +1,46 @@
+# 定向性刺激型提示詞
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import DSP from '../../img/dsp.jpeg'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+[Li 等人，（2023）](https://arxiv.org/abs/2302.11520) 提出了一種新的提示詞技術，目的是更精確地引導 LLM 產生所需的摘要。
+
+這邊訓練了一個可調整的策略型語言模型（LM）以產生刺激／提示詞。越來越多地運用強化學習（RL）來最佳化 LLM。
+
+以下的圖示展示了定向性刺激型提示詞與標準提示詞的比較。這個策略型語言模型可以相當小型，並專門最佳化以產生引導黑盒子凍結型 LLM 的提示詞。
+
+<Screenshot src={DSP} alt="DSP" />
+圖片來源：[Li 等人，（2023）](https://arxiv.org/abs/2302.11520)
+
+完整範例即將上線！
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 directional stimulus prompting（方向性刺激提示詞）與進階技巧，引導 LLM 輸出。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

@@ -1,0 +1,289 @@
+# **脈絡工程（Context Engineering）指南**
+
+## **目錄**
+
+* [什麼是脈絡工程？](#what-is-context-engineering)
+* [脈絡工程實戰](#context-engineering-in-action)
+  * [System Prompt（系統提示詞）](#system-prompt)
+  * [Instructions（指令）](#instructions)
+  * [User Input（使用者輸入）](#user-input)
+  * [Structured Inputs and Outputs（結構化輸入與輸出）](#structured-inputs-and-outputs)
+  * [Tools（工具）](#tools)
+  * [RAG & Memory（RAG 與記憶）](#rag--memory)
+  * [States & Historical Context（狀態與歷史脈絡）](#states--historical-context)
+* [進階脈絡工程](#advanced-context-engineering-wip)
+* [延伸資源](#resources)
+
+
+
+## **What is Context Engineering?**
+
+幾年前，很多人──甚至包含頂尖的 AI 研究者──都認為提示詞工程到了今天應該早就「過時」了。
+
+顯然這個判斷大錯特錯；事實上，提示詞工程現在比以往更重要，重要到開始被重新包裝成 ***context engineering***。
+
+沒錯，又是一個花俏的新名詞，用來描述同一件關鍵的事：調整指令與相關脈絡，讓 LLM 能有效完成任務。
+
+關於脈絡工程，已經有不少人分享過（[Ankur Goyal](https://x.com/ankrgyl/status/1913766591910842619)、[Walden Yan](https://cognition.ai/blog/dont-build-multi-agents)、[Tobi Lutke](https://x.com/tobi/status/1935533422589399127)、以及 [Andrej Karpathy](https://x.com/karpathy/status/1937902205765607626)），但這裡仍想整理一些想法，並用一個具體的逐步指南，示範在開發 AI agent 工作流程時，如何把脈絡工程落地實作。
+
+不確定「context engineering」最早是誰提出的，但這裡會以 [Dex Horthy](https://x.com/dexhorthy/status/1933283008863482067) 的這張圖作為起點，快速說明脈絡工程大致涵蓋哪些內容。
+
+![A diagram showing overlapping aspects of context engineering](../../img/context-engineering-guide/context-engineering-diagram.jpg)
+
+我喜歡「脈絡工程」這個說法，因為它是一個更廣的概念，能更貼切地涵蓋提示詞工程的工作內容，以及許多相關任務。
+
+之所以有人質疑提示詞工程是否算一項「嚴肅技能」，往往是因為把它與 blind prompting 混為一談（也就是在像 ChatGPT 這類 LLM 直接丟一段簡短任務描述）。在 blind prompting 裡，基本上就是直接問系統一個問題；但在提示詞工程裡，需要更仔細思考提示詞的脈絡與結構。或許從一開始就叫「脈絡工程」會更貼切。
+
+脈絡工程可以視為下一階段：開始「設計完整脈絡」，很多時候不再只是寫提示詞，而是用更嚴謹的方法取得、強化與最佳化系統所需的知識。
+
+從開發者的角度來看，脈絡工程是一個反覆迭代的流程：不斷調整指令與提供給 LLM 的脈絡，直到得到期望結果。這通常也包含一套更正式的流程（例如 eval pipelines）來衡量策略是否有效。
+
+考量 AI 領域演進非常快速，這裡先給一個較廣義的定義：***脈絡工程就是為了讓 LLM 與各式進階 AI 模型能有效完成任務，而設計並最佳化指令與相關脈絡的過程。*** 這不只涵蓋以文字為主的 LLM，也包含針對越來越普及的多模態模型（multimodal models）所做的脈絡最佳化。脈絡工程可以包含所有提示詞工程相關工作，以及例如下列這些流程：
+
+* 設計與管理 prompt chains（若適用）
+* 調整指令／system prompts
+* 管理提示詞中的動態元素（例如使用者輸入、日期時間等）
+* 搜尋並整理相關知識（也就是 RAG）
+* 查詢增強（query augmentation）
+* 工具定義與使用說明（在 agentic systems 的情境）
+* 準備與最佳化 few-shot demonstrations
+* 結構化輸入與輸出（例如 delimiters、JSON schema）
+* 短期記憶（例如管理 state／historical context）與長期記憶（例如從 vector store 取回相關知識）
+* 以及許多其他有助於最佳化 LLM system prompt、讓系統達成目標任務的技巧。
+
+換句話說，脈絡工程想做到的，就是在 LLM 的 context window 內，讓被提供的資訊最有助於完成任務；同時也代表要把雜訊資訊過濾掉。這本身也是一門學問，因為需要用系統化的方法衡量 LLM 的表現。
+
+雖然大家都在談脈絡工程，但這裡會用一個具體例子，帶你理解在建構 AI agents 時，脈絡工程實際會長什麼樣子。
+
+
+## **Context Engineering in Action**
+
+來看一個我最近為個人用途做的脈絡工程案例：我做了一個 multi-agent 的 deep research 應用。
+
+我把 agentic workflow 建在 n8n 裡，但工具本身不是重點。我做的整體 agent 架構如下：
+
+![An image of an n8n workflow displaying a multi-agent deep research application](../../img/context-engineering-guide/context-engineering-workflow.jpg)
+
+在這個 workflow 中，Search Planner agent 的任務是根據使用者查詢產生搜尋計畫。
+
+### **System Prompt**
+
+以下是我為這個 subagent 整理的 system prompt：
+
+```
+You are an expert research planner. Your task is to break down a complex research query (delimited by <user_query></user_query>) into specific search subtasks, each focusing on a different aspect or source type.
+
+The current date and time is: {{ $now.toISO() }}
+
+For each subtask, provide:
+1. A unique string ID for the subtask (e.g., 'subtask_1', 'news_update')
+2. A specific search query that focuses on one aspect of the main query
+3. The source type to search (web, news, academic, specialized)
+4. Time period relevance (today, last week, recent, past_year, all_time)
+5. Domain focus if applicable (technology, science, health, etc.)
+6. Priority level (1-highest to 5-lowest)
+
+All fields (id, query, source_type, time_period, domain_focus, priority) are required for each subtask, except time_period and domain_focus which can be null if not applicable.
+
+Create 2 subtasks that together will provide comprehensive coverage of the topic. Focus on different aspects, perspectives, or sources of information.
+
+Each substask will include the following information:
+
+id: str
+query: str
+source_type: str  # e.g., "web", "news", "academic", "specialized"
+time_period: Optional[str] = None  # e.g., "today", "last week", "recent", "past_year", "all_time"
+domain_focus: Optional[str] = None  # e.g., "technology", "science", "health"
+priority: int  # 1 (highest) to 5 (lowest)
+
+After obtaining the above subtasks information, you will add two extra fields. Those correspond to start_date and end_date. Infer this information given the current date and the time_period selected. start_date and end_date should use the format as in the example below:
+
+"start_date": "2024-06-03T06:00:00.000Z",
+"end_date": "2024-06-11T05:59:59.999Z",
+```
+
+這份提示詞包含許多需要仔細權衡的部分：究竟要提供哪些脈絡，才能讓 planning agent 有效完成任務。可以看到，這不只是「寫一段簡單提示詞／指令」而已；要讓模型把事情做好，通常需要反覆實驗，並補齊足夠的關鍵脈絡。
+
+接下來把問題拆成幾個核心元件，逐一說明這些元件為什麼對脈絡工程很重要。
+
+### **Instructions**
+
+Instructions 指的是提供給系統的高層級指令，用來明確告訴它要做什麼。
+
+```
+You are an expert research planner. Your task is to break down a complex research query (delimited by <user_query></user_query>) into specific search subtasks, each focusing on a different aspect or source type.
+```
+
+很多新手（甚至是有經驗的 AI 開發者）往往寫到這裡就停了。看過上面完整提示詞後，應該能體會：若希望系統照著期待的方式運作，就必須提供更多脈絡。這就是脈絡工程在做的事：讓系統更清楚問題邊界，以及想要它產出的具體內容與格式。
+
+### **User Input**
+
+使用者輸入雖然沒有直接寫在 system prompt 裡，但可以長得像下面這樣：
+
+```
+<user_query> What's the latest dev news from OpenAI? </user_query>
+```
+
+注意這裡用了 delimiters，把使用者輸入包起來，讓提示詞結構更清楚。這很重要：一方面能降低混淆，讓模型更清楚哪些是使用者輸入、哪些是要產出的內容；另一方面，有時輸入的資訊型態也會影響模型該如何產出（例如：query 是輸入，subqueries 是輸出）。
+
+### **Structured Inputs and Outputs**
+
+除了高層級 instruction 與 user input 外，你可能也注意到：我花了不少篇幅，詳細規範 planning agent 需要產出的 subtasks 欄位與細節。以下是我提供給 planning agent 的更細部指示，讓它能根據使用者查詢產生 subtasks：
+
+```
+For each subtask, provide:
+1. A unique string ID for the subtask (e.g., 'subtask_1', 'news_update')
+2. A specific search query that focuses on one aspect of the main query
+3. The source type to search (web, news, academic, specialized)
+4. Time period relevance (today, last week, recent, past_year, all_time)
+5. Domain focus if applicable (technology, science, health, etc.)
+6. Priority level (1-highest to 5-lowest)
+
+All fields (id, query, source_type, time_period, domain_focus, priority) are required for each subtask, except time_period and domain_focus which can be null if not applicable.
+
+Create 2 subtasks that together will provide comprehensive coverage of the topic. Focus on different aspects, perspectives, or sources of information.
+```
+
+仔細看這段指示可以發現：我把「希望 agent 產出的必要資訊」明確列成清單，並補上一些 hints/examples，協助引導資料產生的方向。這對於讓 agent 更清楚「什麼才算符合期待的輸出」非常關鍵。舉例來說，若沒有明講 priority level 的尺度是 1–5，系統很可能會自己改用 1–10。再次強調：脈絡真的差很多！
+
+接著來談 structured outputs。為了讓 planning agent 產出更一致的結果，我們也提供了 subtask 格式與欄位型別的提示詞，讓它知道輸出應該長什麼樣子：
+
+```
+Each substask will include the following information:
+
+id: str
+query: str
+source_type: str  # e.g., "web", "news", "academic", "specialized"
+time_period: Optional[str] = None  # e.g., "today", "last week", "recent", "past_year", "all_time"
+domain_focus: Optional[str] = None  # e.g., "technology", "science", "health"
+priority: int  # 1 (highest) to 5 (lowest)
+```
+
+此外，在 n8n 裡也能使用 tool output parser，用來把最終輸出整理成結構化格式。我使用的做法是提供一個 JSON 範例：
+
+```
+{
+  "subtasks": [
+    {
+      "id": "openai_latest_news",
+      "query": "latest OpenAI announcements and news",
+      "source_type": "news",
+      "time_period": "recent",
+      "domain_focus": "technology",
+      "priority": 1,
+      "start_date": "2025-06-03T06:00:00.000Z",
+      "end_date": "2025-06-11T05:59:59.999Z"
+    },
+    {
+      "id": "openai_official_blog",
+      "query": "OpenAI official blog recent posts",
+      "source_type": "web",
+      "time_period": "recent",
+      "domain_focus": "technology",
+      "priority": 2,
+      "start_date": "2025-06-03T06:00:00.000Z",
+      "end_date": "2025-06-11T05:59:59.999Z"
+    },
+...
+}
+```
+
+接著這個工具會根據範例自動產生 schema，讓系統能解析並產出正確的 structured outputs，如下例所示：
+
+```
+[
+  {
+    "action": "parse",
+    "response": {
+      "output": {
+        "subtasks": [
+          {
+            "id": "subtask_1",
+            "query": "OpenAI recent announcements OR news OR updates",
+            "source_type": "news",
+            "time_period": "recent",
+            "domain_focus": "technology",
+            "priority": 1,
+            "start_date": "2025-06-24T16:35:26.901Z",
+            "end_date": "2025-07-01T16:35:26.901Z"
+          },
+          {
+            "id": "subtask_2",
+            "query": "OpenAI official blog OR press releases",
+            "source_type": "web",
+            "time_period": "recent",
+            "domain_focus": "technology",
+            "priority": 1.2,
+            "start_date": "2025-06-24T16:35:26.901Z",
+            "end_date": "2025-07-01T16:35:26.901Z"
+          }
+        ]
+      }
+    }
+  }
+]
+```
+
+這看起來很複雜，但現在許多工具都已內建 structured output 功能，所以很可能不需要自己手刻。n8n 讓這段脈絡工程變得很輕鬆。這其實是脈絡工程裡很容易被忽略、但又非常關鍵的一環：一旦 agent 的輸出不夠一致，又必須以特定格式傳給下一個元件，這個做法就會非常有威力。
+
+### **Tools**
+
+因為我們用 n8n 建 agent，所以要把「目前日期與時間」放進脈絡裡很簡單，可以這樣做：
+
+```
+The current date and time is: {{ $now.toISO() }}
+```
+
+這是一個 n8n 內呼叫的簡單函式，但在更一般的系統裡，通常會做成一個獨立工具（tool），讓系統在需要時才去取日期時間（也就是讓行為更動態）。這也是脈絡工程的精神：迫使建構者做出明確決策──哪些脈絡該傳、什麼時候該傳給 LLM。這很棒，因為可以減少應用中的假設與不精確。
+
+日期與時間對系統來說很重要；否則遇到需要理解「現在時間」的查詢時，模型往往表現不好。舉例來說，若要求系統搜尋「上週」OpenAI 的最新開發者新聞，它很可能會自己亂猜日期區間，導致搜尋查詢品質下降，進而讓網路搜尋結果不準。當系統能拿到正確的日期時間，就能更好地推論 date ranges（對 search agent 與工具來說很關鍵）。因此我把下面這段加進脈絡，讓 LLM 能產生日期範圍：
+
+```
+After obtaining the above subtasks information, you will add two extra fields. Those correspond to start_date and end_date. Infer this information given the current date and the time_period selected. start_date and end_date should use the format as in the example below:
+
+"start_date": "2024-06-03T06:00:00.000Z",
+"end_date": "2024-06-11T05:59:59.999Z",
+```
+
+因為這裡聚焦在架構中的 planning agent，所以不需要加入太多工具。唯一另一個有意義的工具，是一個 retrieval tool：能根據 query 取回相關 subtasks。下面來談這個想法。
+
+### **RAG & Memory**
+
+我做的第一版 deep research 應用不需要短期記憶，但我們做了另一個版本：會針對不同使用者查詢快取 subqueries。這有助於在 workflow 中達成加速與一些最佳化。如果使用者以前問過類似問題，就能把結果存到 vector store，並在下次查詢時直接搜尋；如此一來就不必重新產生一份已經存在的 subqueries 計畫。要記得：每呼叫一次 LLM API，就會增加延遲與成本。
+
+這就是聰明的脈絡工程：讓應用更動態、更便宜、更有效率。脈絡工程不只是最佳化提示詞，更是在針對目標，選擇「最適合的脈絡」。也可以更有創意：例如如何維護 vector store，以及如何把既有 subtasks 拉進提示詞脈絡。能做出新穎又有效的脈絡工程，才是真正的護城河！
+
+### **States & Historical Context**
+
+在 deep research agent 的 v1 我們沒有展示這部分，但這個專案另一個重要工作，是最佳化最終報告的產出流程。很多情況下，agentic system 需要反覆修正全部或部分 query、subtasks，甚至是從 web search APIs 拉回來的資料。這代表系統會對同一個問題嘗試多次，並且需要存取先前的 states，以及（可能）整個系統的歷史脈絡。
+
+這在我們的 use case 裡代表什麼？在這個例子中，可能需要讓 agent 能存取 subtasks 的狀態、修正版（若有）、workflow 中各個 agent 的先前結果，還有任何能幫助它在 revision 階段做出更好決策的脈絡。至於到底要傳哪些歷史脈絡，則取決於要最佳化的目標是什麼。這裡會牽涉很多決策。脈絡工程不總是直覺或一次到位，光是這個元件就很容易需要反覆調整多次。也因此我一直強調 eval 的重要性：如果沒有量測，要如何判斷脈絡工程的努力到底有沒有帶來效果？
+
+
+## **Advanced Context Engineering \[WIP\]**
+
+這篇文章還沒涵蓋脈絡工程的其他面向，例如脈絡壓縮（context compression）、脈絡管理技巧、脈絡安全，以及評估脈絡有效性（也就是隨時間量測這些脈絡是否仍然有效）。未來文章會再分享更多想法。
+
+脈絡可能被稀釋或變得低效（例如：混入過時或不相關的資訊），這需要特別的評估 workflow 來捕捉這些問題。
+
+我預期脈絡工程會持續成為 AI 開發者／工程師的重要技能。除了手動脈絡工程之外，也有機會建立方法來自動化脈絡工程中的有效流程。目前已經看過一些工具嘗試往這方向走，但這個領域仍需要更大的進展。
+
+<Callout type="info" emoji="🎓">
+  本篇內容整理自我們的新課程 ["Building Effective AI Agents with n8n"](https://dair-ai.thinkific.com/courses/agents-with-n8n)，課程中提供更完整的洞見、可下載範本、提示詞、以及設計與實作 agentic systems 的進階技巧。
+
+  <strong>輸入優惠碼 <code>PROMPTING20</code> 可享 Pro 會員 8 折優惠。</strong>
+</Callout>
+
+## **Resources**
+
+以下整理一些近期由其他作者撰寫、推薦的脈絡工程延伸閱讀：
+
+* [https://rlancemartin.github.io/2025/06/23/context\_engineering/](https://rlancemartin.github.io/2025/06/23/context_engineering/)
+* [https://x.com/karpathy/status/1937902205765607626](https://x.com/karpathy/status/1937902205765607626)
+* [https://www.philschmid.de/context-engineering](https://www.philschmid.de/context-engineering)
+* [https://simple.ai/p/the-skill-thats-replacing-prompt-engineering?](https://simple.ai/p/the-skill-thats-replacing-prompt-engineering?)
+* [https://github.com/humanlayer/12-factor-agents](https://github.com/humanlayer/12-factor-agents)
+* [https://blog.langchain.com/the-rise-of-context-engineering/](https://blog.langchain.com/the-rise-of-context-engineering/)
+
+
+import { Callout } from 'nextra/components'

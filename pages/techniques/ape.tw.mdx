@@ -1,0 +1,58 @@
+# 自動提示詞工程師（APE）
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import APE from '../../img/APE.png'
+import APECOT from '../../img/ape-zero-shot-cot.png'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+<Screenshot src={APE} alt="APE" />
+圖片來源：[Zhou 等人，（2022）](https://arxiv.org/abs/2211.01910)
+
+[Zhou 等人，（2022）](https://arxiv.org/abs/2211.01910) 提出了自動提示詞工程師（APE），這是一種用於自動產生和選擇指令的框架。指令產生問題被視為自然語言合成問題，使用大型語言模型（LLM）作為黑盒子最佳化問題的解決方案來產生和搜尋候選解。
+
+第一步涉及一個大型語言模型（作為推理模型），該模型接收輸出展示以產生任務的指令候選項。這些候選解將指導搜尋過程。使用目標模型執行指令，然後根據計算的評估分數選擇最適合的指令。
+
+APE 發現了一個比人工設計的"讓我們一步一步地思考"提示詞更好的零樣本 CoT 提示詞（[Kojima 等人，2022](https://arxiv.org/abs/2205.11916)）。
+
+提示詞"讓我們一步一步地解決這個問題，以確保我們有正確的答案。"引發了思緒鏈的推理，並提高了 MultiArith 和 GSM8K 基準測試的效能：
+
+<Screenshot src={APECOT} alt="APECOT" />
+圖片來源：[Zhou 等人，（2022）](https://arxiv.org/abs/2211.01910)
+
+本文涉及與提示詞工程相關的重要主題，即自動最佳化提示詞的想法。雖然我們在本指南中沒有深入探討這個主題，但如果你對此主題感興趣，以下是一些關鍵論文：
+
+- [AutoPrompt: Eliciting Knowledge from Language Models with Automatically Generated Prompts](https://arxiv.org/abs/2010.15980) - 提出了一種基於梯度引導搜尋的方法，用於自動建立各種任務的提示詞。
+- [Prefix-Tuning: Optimizing Continuous Prompts for Generation](https://arxiv.org/abs/2101.00190) - 是一種輕量級的精確調校（fine-tuning）替代方案，為自然語言產生（NLG）任務新增可訓練的連續字首。
+- [The Power of Scale for Parameter-Efficient Prompt Tuning](https://arxiv.org/abs/2104.08691) - 提出了一種透過反向傳播學習軟提示詞的機制。
+- [Prompt-OIRL](https://arxiv.org/abs/2309.06553) - 提出使用 offline inverse reinforcement learning 來產生依查詢調整的 prompts。
+- [OPRO](https://arxiv.org/abs/2309.03409) - 提出用 LLM 來最佳化提示詞，例如讓 LLM「深呼吸」可提升數學題表現。
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握自動化提示詞工程與進階最佳化技巧，取得更好的結果。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

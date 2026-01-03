@@ -1,0 +1,141 @@
+# 連續思考型提示詞（Chain-of-Thought Prompting）
+
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+import AUTOCOT from '../../img/auto-cot.png'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+## 連續思考型（CoT）提示詞
+
+<Screenshot src={COT} alt="COT" />
+
+圖片來源：[Wei 等人（2022 年）](https://arxiv.org/abs/2201.11903)
+
+於 [Wei 等人（2022 年）](https://arxiv.org/abs/2201.11903) 提出的連續思考型提示詞能透過中間推理步驟來實現複雜的推理能力。你可以將其與少量樣本學習（few-shot learning）結合，以在需要先進行推理才能回應的更複雜任務上獲得更佳結果。
+
+*提示詞：*
+```
+這組數字中的奇數加起來是一個偶數：4、8、9、15、12、2、1。
+A：加總所有奇數（9、15、1）得到 25。答案是錯的。
+
+這組數字中的奇數加起來是一個偶數：17、10、19、4、8、12、24。
+A：加總所有奇數（17、19）得到 36。答案是對的。
+
+這組數字中的奇數加起來是一個偶數：16、11、14、4、8、13、24。
+A：加總所有奇數（11、13）得到 24。答案是對的。
+
+這組數字中的奇數加起來是一個偶數：17、9、10、12、13、4、2。
+A：加總所有奇數（17、9、13）得到 39。答案是錯的。
+
+這組數字中的奇數加起來是一個偶數：15、32、5、13、82、7、1。
+A：
+```
+
+*輸出：*
+```
+加總所有奇數（15、5、13、7、1）得到 41。答案是錯的。
+```
+
+哇！當我們提供了推理步驟後，我們可以看到一個完美的結果。事實上，我們可以透過提供更少的範例來解決這個任務，也就是說，只需要一個範例就足夠了：
+
+*提示詞：*
+```
+這個組合中的奇數加總會是一個偶數：4、8、9、15、12、2、1。
+A：將所有的奇數（9、15、1）加總會得到 25。答案是錯的。
+
+這個組合中的奇數加總會是一個偶數：15、32、5、13、82、7、1。
+A：
+```
+
+*輸出：*
+```
+將所有的奇數（15、5、13、7、1）加總會得到 41。答案是錯的。
+```
+
+請注意，作者聲稱這是一個會隨著語言模型足夠大而自然產生的能力。
+
+## 零樣本 COT 提示詞
+
+<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+
+圖片來源：[Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916)
+
+近期出現的一個新概念是[零樣本 COT](https://arxiv.org/abs/2205.11916)（Kojima 等人，2022 年），基本上就是在原本的提示詞語中加上「讓我們逐步思考」。我們試著解一個簡單的問題，看看模型如何表現：
+
+*提示詞：*
+```
+我去市場買了 10 顆蘋果。我給了鄰居 2 顆蘋果，也給了修繕工 2 顆。然後我又買了 5 顆蘋果並吃了 1 顆。我最後剩下幾顆蘋果？
+```
+
+*輸出：*
+```
+11 顆蘋果
+```
+
+答案錯了！現在我們試試看用特殊的提示詞語。
+
+*提示詞：*
+```
+我去市場買了 10 顆蘋果。我給了鄰居 2 顆蘋果，也給了修繕工 2 顆。然後我又買了 5 顆蘋果並吃了 1 顆。我最後剩下幾顆蘋果？
+
+讓我們逐步思考。
+```
+
+*輸出：*
+```
+首先，你開始是有 10 顆蘋果。
+你給了鄰居和修繕工各 2 顆，所以你還剩下 6 顆。
+接著你買了 5 顆蘋果，所以現在你有 11 顆。
+最後，你吃了 1 顆蘋果，所以你會剩下 10 顆蘋果。
+```
+
+這個簡單的提示詞語在這項任務中顯得相當有效。這在你沒有太多範例可用於提示詞時特別有用。
+
+## 自動連續思考型提示詞（Auto-CoT）
+
+當使用連續思考型提示詞並透過示範進行操作時，這個過程會需要手工製作有效且多樣的範例。這種手工努力可能會導致次優的解決方案。[張等人（2022）](https://arxiv.org/abs/2210.03493) 提出了一種方法，藉由使用「讓我們一步一步地思考」的提示詞來利用大型語言模型（LLM）產生示範的推理鏈，以消除手工努力。這個自動過程中仍可能會產生錯誤的推理鏈。為了減少錯誤影響，示範的多樣性十分重要。這項工作提出了 Auto-CoT，這是一種選擇多樣性問題並產生推理鏈以建構示範的方法。
+
+Auto-CoT 主要包含兩個階段：
+
+- 階段 1）：**問題分群**：將給定資料集的問題分成幾個群組
+- 階段 2）：**示範抽樣**：從每一個群組選擇一個代表性的問題，並使用 Zero-Shot-CoT 和簡單的啟發式方法產生其推理鏈
+
+這些簡單的啟發式方法可能包括問題的長度（例如，60 個詞彙）和推理步驟的數量（例如，5 個推理步驟）。這鼓勵模型使用簡單而準確的示範。
+
+下面是相關的流程示意：
+
+<Screenshot src={AUTOCOT} alt="AUTOCOT" />
+
+圖片來源：[張等人（2022）](https://arxiv.org/abs/2210.03493)
+
+Auto-CoT 的程式碼可以在[這裡](https://github.com/amazon-science/auto-cot)找到。
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 chain-of-thought 提示詞、zero-shot CoT 與進階推理技巧，解決複雜問題。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

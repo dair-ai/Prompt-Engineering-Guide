@@ -21,6 +21,7 @@ const config: DocsThemeConfig = {
   i18n: [
     { locale: 'en', text: 'English' },
     { locale: 'zh', text: '中文' },
+    { locale: 'tw', text: '繁體中文' },
     { locale: 'jp', text: '日本語'},
     { locale: 'pt', text: 'Português' },
     { locale: 'it', text: 'Italian' },

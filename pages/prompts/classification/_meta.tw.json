@@ -1,0 +1,4 @@
+{
+    "sentiment": "情緒分類",
+    "sentiment-fewshot": "少量樣本情緒分類"
+}

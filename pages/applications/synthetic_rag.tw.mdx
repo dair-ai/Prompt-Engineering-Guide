@@ -1,0 +1,138 @@
+# 為 RAG 產生合成資料集
+
+import {Screenshot} from 'components/screenshot'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+
+import IMG1 from '../../img/synthetic_rag/synthetic_rag_1.png'
+import IMG2 from '../../img/synthetic_rag/synthetic_rag_2.png'
+import IMG3 from '../../img/synthetic_rag/synthetic_rag_3.png'
+import IMG4 from '../../img/synthetic_rag/synthetic_rag_4.png'
+
+
+## RAG 設定中的合成資料
+
+在許多機器學習專案中，「**沒有標註資料**」幾乎是常態。
+傳統做法往往是：先花好幾週甚至數月蒐集資料、人工標註，最後才能開始訓練模型與驗證想法。
+
+隨著大型語言模型的出現，某些產品的開發方式出現了轉變：
+可以先用通用 LLM 的泛化能力來快速驗證想法、做出雛型，如果效果接近目標，再回頭走完整的資料與模型開發流程。
+
+<Screenshot src={IMG1} alt="Paradigm shift in AI-powered products." />
+
+圖片來源：[The Rise of the AI Engineer, by S. Wang](https://www.latent.space/p/ai-engineer)
+
+其中一個重要方向就是 [Retrieval Augmented Generation (RAG)](https://www.promptingguide.ai/techniques/rag)。
+對於知識密集型任務（knowledge-intensive tasks），單靠模型的既有參數知識不夠可靠，因此會先從外部知識庫取回相關文件，再交給 LLM 進行產生與整合。更多細節可以參考本指南中 RAG 相關章節。
+
+在 RAG 裡，**檢索模型（Retriever）** 是關鍵元件：
+它負責從大量文件中找出最相關的片段交給 LLM。檢索效果越好，整體系統的品質就越高。
+現實情況是：預訓練檢索模型在英文新聞這類常見領域表現還不錯，但一旦換成其他語言或非常專業的領域（例如：捷克法律、印度稅務等），效果就會明顯下滑。
+
+為了解決這個問題，近期開始流行一種做法：
+**用現有的強大 LLM 產生合成訓練資料，來微調新的檢索模型或其他任務模型**。
+可以把這視為一種「把 LLM 的能力 distill 到一般編碼器」的過程，雖然訓練成本不低，但可以大幅改善推論效率，也特別適合資料稀缺的語言與領域。
+
+[Promptagator: Few-shot Dense Retrieval From 8 Examples](https://arxiv.org/abs/2209.11755) 提出的方法顯示：
+只要搭配約 8 筆人工標註範例，加上大量未標註文件，就能訓練出接近 SOTA 的檢索模型。
+這證實了：在標註困難的場景中，利用合成資料來訓練任務專屬的 Retriever，是一條非常有價值的路徑。
+
+## 產生領域專屬資料集
+
+要使用 LLM 產生合成資料，大致需要兩個元素：
+
+1. 一段簡短的任務說明（prompt 說明這是什麼樣的檢索任務）
+2. 一小批人工標註的（查詢，文件）範例
+
+不同檢索任務的「搜尋意圖」可能完全不同：
+例如有些任務要找**支援**某個觀點的論點，有些則要找**反對**的論點。
+在 [ArguAna dataset](https://aclanthology.org/P18-1023/) 資料集中，就有這種差異。
+
+以下是一個簡化例子（為了方便理解以英文撰寫，實務上可以是任何語言）：
+
+*Prompt 範例：*
+```text
+Task: Identify a counter-argument for the given argument.
+
+Argument #1: {insert passage X1 here}
+
+A concise counter-argument query related to the argument #1: {insert manually prepared query Y1 here}
+
+Argument #2: {insert passage X2 here}
+A concise counter-argument query related to the argument #2: {insert manually prepared query Y2 here}
+
+<- paste your examples here ->
+
+Argument N: Even if a fine is made proportional to income, you will not get the equality of impact you desire. ...
+
+A concise counter-argument query related to the argument #N:
+```
+
+模型輸出可能是像：
+
+*輸出：*
+```text
+punishment house would make fines relative income
+```
+
+如果用比較形式化的方式描述，prompt 大致可以寫成：
+
+$(e_{prompt}, e_{doc}(d_{1}), e_{query}(q_1), … , e_{doc}(d_k), e_{query}(q_k), e_{doc}(d))$
+
+其中：
+
+- $e_{prompt}$：任務說明（整體指令）
+- $e_{doc}$：文件描述樣板
+- $e_{query}$：查詢描述樣板
+- $d$：新的文件，LLM 需要為它產生查詢
+
+接下來，我們只會拿最後一個文件 $d$ 與 LLM 產生的查詢來當作訓練資料。
+這種做法特別適合「有完整文件語料，但手邊只有少量標註 pair」的情境。
+
+整體流程概觀如下：
+
+<Screenshot src={IMG2} alt="PROMPTGATOR Dataset Generation & Training Overview." />
+
+圖片來源：[Promptagator: Few-shot Dense Retrieval From 8 Examples](https://arxiv.org/abs/2209.11755)
+
+在實作上，需要特別注意 few-shot 範例的品質：
+
+- 建議多準備一些（例如 20 筆），每次隨機抽 2–8 筆放進 prompt；
+- 範例要有代表性，格式要一致，可在範例中呈現預期的查詢長度與語氣；
+- 範例品質太差會直接拖垮合成資料品質，進而影響訓練後模型的效果。
+
+大多數情況下，使用成本較低的 ChatGPT 等級模型就足夠，
+因為它對不常見語言與領域也有不錯的泛化能力。
+
+在成本估算上，文中給出一個例子：
+
+- 一個 prompt（含指令與 4–5 個範例）約 700 tokens
+- 模型回應查詢約 25 tokens
+- 以 GPT-3.5 Turbo 的當時費率（每 1000 token 約 0.0015 / 0.002 美元）
+
+如果要替 50,000 筆文件產生合成查詢，總成本大約是 55 美元左右。
+甚至可以為同一文件產生 2–4 個不同查詢，加強訓練訊號。
+
+這個數字（50,000）不是隨便選的：
+根據 [Promptagator: Few-shot Dense Retrieval From 8 Examples](https://arxiv.org/abs/2209.11755)，
+這大致是讓模型在「人工標註資料」與「合成資料」兩種情境下達到相近表現所需的標註數量。
+換句話說，如果全靠人工標註，至少要收集上萬筆例子才能達到類似水準，
+不但時間會拖長，單純人力成本也往往遠高於合成資料＋本機模型訓練的花費。
+
+<Screenshot src={IMG3} alt="Synthetic Dataset VS Manually Labeled Dataset" />
+
+圖片來源：[Promptagator: Few-shot Dense Retrieval From 8 Examples](https://arxiv.org/abs/2209.11755)
+
+下圖則展示了該論文在 BeIR benchmark 中使用的 prompt 樣板範例：
+
+<Screenshot src={IMG4} alt="Prompt Templates from PROMPTGATOR paper." />
+
+圖片來源：[Promptagator: Few-shot Dense Retrieval From 8 Examples](https://arxiv.org/abs/2209.11755)
+
+總結來說，透過合成資料加上適當的 prompt 設計，你可以：
+
+- 在資料稀缺的專業領域快速打造高品質 Retriever；
+- 大幅縮短從「沒有標註」到「可用系統」之間的時間；
+- 對於非英文或專門領域，取得比預訓練模型更穩定的檢索品質。
+
+這套方法與本指南其他章節（例如 CoT、RAG、代理式系統）搭配時，更能展現出整體威力。
