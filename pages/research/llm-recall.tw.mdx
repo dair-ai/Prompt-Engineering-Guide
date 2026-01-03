@@ -1,0 +1,36 @@
+# LLM 的語境記憶表現與提示詞設計
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/2cNO76lIZ4s?si=tbbdo-vnr56YQ077" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+一篇由 [Machlab 與 Battle (2024)](https://arxiv.org/abs/2404.08865) 發表的新論文，系統性分析多種大型語言模型在「語境記憶」（in-context recall）上的表現，並使用多種「大海撈針」（needle-in-a-haystack）測試來量化。
+
+研究發現，不同 LLM 在不同長度與不同位置的資訊上，記憶能力有顯著差異，而且模型的 recall 表現對提示詞的微小變動非常敏感。
+
+!["Needle In the HayStack Performance"](../../img/research/haystack-performance.png)
+*來源： [paper by Machlab and Battle (2024)](https://arxiv.org/abs/2404.08865)*
+
+此外，提示詞內容與訓練資料之間的互動，也可能使模型輸出品質下降。例如某些關鍵字或句型，剛好與模型訓練時的模式重疊，可能導致模型偏向產生特定答案，而忽略語境中的正確資訊。
+
+論文指出，可以透過以下方式改善模型的語境記憶能力：
+
+- 提升模型規模
+- 改良注意力機制
+- 採用不同訓練策略
+- 針對特定場景進行微調
+
+其中一個重要的實務建議是：
+
+> 持續評估模型表現，才能在不同使用情境中選出最合適的 LLM，最大化效益與效率。
+
+整體來說，這篇工作強調三件事：
+
+1. 語境記憶高度仰賴提示詞設計。
+2. 需要建立長期且系統的評估流程。
+3. 可以透過模型選擇與訓練策略調整來逐步改善 recall 與實用性。
+

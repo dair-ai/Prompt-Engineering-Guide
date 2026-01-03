@@ -1,0 +1,200 @@
+## OpenAI 4o 影像產生指南
+
+import { Callout } from 'nextra/components'
+
+4o Image Generation 模型的實用指南
+
+![A stylized title in front of an OpenAI logo, behind frosted glass.](../../img/4o-image-generation/4o_image_generation.png)
+
+### 什麼是 4o Image Generation 模型？
+
+4o Image Generation 是 OpenAI 最新的影像模型，已整合進 ChatGPT。它能產生寫實風格的輸出、以圖片作為輸入並進行轉換，並能遵循更細緻的指令（包含在圖片中產生文字）。OpenAI 已確認此模型是自回歸（autoregressive），並與 GPT-4o LLM 使用相同架構；也就是說，模型「產生圖片」的方式，與 LLM「產生文字」的方式非常接近。這讓它在圖片上的文字渲染、更細緻的影像編輯，以及基於輸入圖片的修改等能力上表現更好。
+
+### 如何使用 4o Image Generation？
+
+你可以在 ChatGPT（網頁或手機 App）中透過文字提示詞來使用 4o Image Generation，或在工具列選擇「Create an image」。此外，模型也可以在 Sora 中使用，或透過 OpenAI API 使用 `gpt-image-1`。
+
+文字提示詞：`Generate an image of…`
+![text_prompt](../../img/4o-image-generation/text_prompt_3.JPG)
+
+在工具列選擇「Create an image」：
+![tool_select](../../img/4o-image-generation/tool_select.JPG)
+
+透過 OpenAI API（[OpenAI API](https://platform.openai.com/docs/guides/images-vision?api-mode=responses)）：
+![Screenshot of the OpenAI API documentation page](../../img/4o-image-generation/image_gen_API.JPG)
+
+**目前支援 4o 影像產生的相關模型：**
+
+- gpt-4o
+- gpt-4o-mini
+- gpt-4.1
+- gpt-4.1-mini
+- gpt-4.1-nano
+- o3
+
+### 4o 影像產生模型可以做什麼？
+
+**可產生的畫面比例：**
+
+- 正方形 1:1 1024×1024（預設）
+- 橫向 3:2 1536×1024
+- 直向 2:3 1024×1536
+
+**可使用的參考圖片檔案格式：**
+
+- PNG
+- JPEG
+- WEBP
+- 非動態 GIF
+
+**可透過以下方式編輯圖片：**
+
+**Inpainting**（僅限同一個聊天中產生的圖片）
+![Example of inpainting.](../../img/4o-image-generation/inpainting_combined.png)
+
+**文字提示詞改圖**（例如：「what would it look like during the winter?」）
+![Example image before text prompt revision](../../img/4o-image-generation/text_edit_combined.png)
+
+**參考圖片與風格轉移**
+模型在提供參考圖片時，很擅長做材質重貼（retexturing）與風格轉換。在模型推出時，「Ghiblify」風格轉換曾在社群上爆紅。
+
+![Image of Sam Altman and Jony Ive](../../img/4o-image-generation/sam_and_jony.png) ![Image of Sam Altman and Jony Ive Ghiblified](../../img/4o-image-generation/sam_and_jony_ghiblified.png)
+
+**透明背景（png）**
+需要在提示詞中明確寫出「transparent PNG」或「transparent background」。
+![Example of a sticker with a transparent background, suitable for use as a PNG.](../../img/4o-image-generation/inpainting_combined.png)
+
+**在圖片中產生文字**
+![An image of the DAIR.AI Academy text generated with 4o Image Generation.](../../img/4o-image-generation/text_in_images.png)
+
+**以不同風格產生同一張圖片**
+![Photorealistic teapot.](../../img/4o-image-generation/teapot_1.png) ![Teapot in the style of Van Gogh.](../../img/4o-image-generation/teapot_2.png)
+
+**合併圖片**
+![Meerkat and a T-shirt](../../img/4o-image-generation/combine_images.png)
+![Combined.](../../img/4o-image-generation/combined.png)
+
+### 提示詞撰寫技巧
+
+#### 越具體的提示詞，越能掌控結果
+
+如果你的提示詞不夠具體，ChatGPT 往往會自行補上一些細節。這對快速測試或探索很方便；但如果你心中有明確目標，建議寫出更具體、描述更完整的 prompt。
+
+<Callout type="info" emoji="💡">
+  如果你不確定要怎麼描述畫面，可以請 o3 先根據你的描述，寫出 3 個針對 4o 影像產生最佳化、且具不同風格的 prompts（幫你補齊細節）。再挑你最喜歡的部分組合起來當作最終 prompt。
+</Callout>
+
+#### 光線、構圖、風格
+
+如果你有很具體的目標，請在 prompt 裡明確定義光線、構圖與風格。模型雖然能根據 prompt 的大方向去推估，但若你需要特定結果，就必須精準描述。舉例來說，如果你希望圖片看起來像是用某種相機與鏡頭拍攝，就把它寫進 prompt。
+
+其他可考慮的細節：
+
+- 主體（Subject）
+- 媒材（Medium）
+- 環境（Environment）
+- 色彩（Color）
+- 氛圍（Mood）
+
+#### 依任務選擇不同模型
+
+4o 最適合用在一次性修改或簡單影像產生任務，速度最快。
+
+如果你預期需要多步產生，建議改用推理模型。當你在創作探索中反覆新增／移除元素時，推理模型更能把圖片中「一致的元素」維持在脈絡中（例如：特定風格、字型、顏色等）。你可以參考這個[縮圖產生流程的範例對話](https://chatgpt.com/share/68404206-5710-8007-8262-6efaba15a852)。
+
+#### 畫面比例
+
+即使你提供參考圖片，也建議在 prompt 中指定你想要的畫面比例。模型有時會根據 prompt 線索猜出適合的比例（例如火箭圖片常用 2:3），但如果沒有明確指示，預設會用 1:1。
+
+*測試用 prompt：*
+```
+A high-resolution photograph of a majestic Art Deco-style rocket inspired by the scale and grandeur of the SpaceX Starship, standing on a realistic launch pad during golden hour. The rocket has monumental vertical lines, stepped geometric ridges like the American Radiator Building, and a mirror-polished metallic surface reflecting a vivid sunset sky. The rocket is photorealistic, awe-inspiring, and elegant, bathed in cinematic warm light with strong shadows and a vast landscape stretching to the horizon.
+```
+
+![A photorealistic, Art Deco-style rocket on a launchpad at sunset, generated from the provided test prompt.](../../img/4o-image-generation/art_deco_starship.png)
+
+#### 留意同一聊天中的一致性
+
+如果你想在同一張圖上微調一些小細節，這種「一致性」會很有幫助；但如果你想更發散地創作，它也可能變成限制。模型會「記住」同一聊天中產生過的圖片，因此如果你要做彼此獨立、差異很大的影像任務，建議每次都從新的聊天開始。
+
+<Callout type="info" emoji="💡">
+  如果前幾次迭代的結果跟你想像差很多，**可以請模型輸出它用來產生圖片的 prompt**，看看是不是某些重點被放錯了。接著開一個新聊天，用修正版 prompt 重新開始。
+</Callout>
+
+#### 用同一個提示詞產生多張圖片
+
+像 o3 與 o4-mini 這類推理模型可以用單一 prompt 產生多張圖片，但你需要在 prompt 裡明確要求，而且不一定每次都會成功。範例：[Chat Link](https://chatgpt.com/share/68496cf8-0120-8007-b95f-25a940298c09)
+
+*測試用 prompt：*
+```
+Generate an image of [decide this yourself], in the style of an oil painting by Van Gogh. Use a 3:2 aspect ratio. Before you generate the image, recite the rules of this image generation task. Then send the prompt to the 4o Image Generation model. Do not use DALL-E 3. If the 4o Image Generation model is timed out, tell me how much time is left until you can queue the next prompt to the model.
+
+Rules:
+- Use only the aspect ratio mentioned earlier.
+- Output the prompt you sent to the image generation model exactly as you sent it, do this every time in between image generations
+- Create three variations with a different subject, but the same rules. After an image is generated, immediately start creating the next one, without ending your turn or asking me for confirmation for moving forward.
+```
+
+#### 很難強制模型嚴格遵循複雜提示詞
+
+當 prompt 包含多個元件時，提示詞有時會在 chat model 與 4o Image Generation model 之間的流程中被改寫。若你在同一聊天中產生了多張圖片，即使你修改 prompt，先前產生過的圖片也可能會影響後續輸出。
+
+### 已知限制與注意事項
+
+- ChatGPT 可能會在把 prompt 送到 4o Image Generation model 前改寫你的初始 prompt；這種情況更容易發生在多輪產生任務、prompt 描述不足，或 prompt 很長的時候。
+- 目前不清楚每個使用者或訂閱方案的產生配額；OpenAI 表示系統是動態的，因此很可能取決於你的訂閱方案，以及你所在區域的伺服器負載。
+- 免費方案的產生請求常會進入佇列，可能需要很久才會產生。
+- 產生的圖片可能帶有偏黃的色調。
+- 若 prompt 或參考圖片包含深色元素，產生的圖片可能會太暗。
+- **拒絕產生：** 影像產生同樣適用 OpenAI 的一般規範：[Usage Policies](https://openai.com/policies/usage-policies/)。如果系統在 prompt、參考圖片或產生圖片中偵測到禁止內容，常會直接拒絕，並刪除部分已產生的影像。
+- ChatGPT 內目前沒有原生 upscaling 功能。
+- 模型在裁切上可能出錯，輸出圖片可能只包含原始產生圖片的一部分。
+- 仍可能出現類似 LLM 的幻覺問題。
+- 同時產生包含許多概念或大量個別主體的圖片很困難。
+- 用圖片視覺化圖表資料時不夠精準。
+- 在圖片中產生非拉丁語系文字仍有困難。
+- 針對圖片特定局部（例如修正錯字）的編輯要求不一定有效。
+- **模型命名：** 這個模型有多種名稱，容易讓人混淆：Imagegen、gpt-image-1、4o Image Generation、image_gen.text2im…
+- 有些情況下，即使你在 prompt 中指定，畫面比例仍可能不正確。
+
+### 小技巧與最佳實務
+
+<Callout type="info" emoji="⚙️">
+  **使用 ChatGPT 個人化設定：** 為了避免 ChatGPT 自動切回舊的 DALL-E 3 模型，可以在設定中的「What traits should ChatGPT have」加入這段指令：
+  > "Never use the DALL-E tool. Always generate images with the new image gen tool. If the image tool is timed out, tell me instead of generating with DALL-E."
+</Callout>
+
+- 如果你碰到產生次數限制，可以直接問 ChatGPT 還要多久才能再產生更多圖片；後端有這個資訊。
+- 影像產生與編輯在 prompt 中使用清楚的動詞（例如 "draw" 或 "edit"）時效果更好。
+- 使用推理模型來產生圖片的附加好處之一，是你能看到模型如何推理 prompt 的建立與修訂流程；開啟 thinking traces 來看看模型聚焦在哪些細節。
+
+### 可以嘗試的應用場景
+
+- **產生 Logo：** 使用參考圖片與細緻描述。這通常是多輪任務，建議使用推理模型。[Example Chat](https://chatgpt.com/share/6848aaa7-be7c-8007-ba6c-c69ec1eb9c25)。
+- **產生行銷素材：** 使用既有視覺素材當作參考，要求模型替換文字、產品或環境。
+- **產生著色本頁面：** 使用 2:3 比例產生客製著色本頁面。[Example Chat](https://chatgpt.com/share/684ac538-25c4-8007-861a-3fe682df47ab)。
+- **貼圖：** 記得在 prompt 中註明透明背景。[Example Chat](https://chatgpt.com/share/684960b3-dc00-8007-bf16-adfae003dde5)。
+- **材質轉移：** 使用材質參考圖片，並把它套用到另一張圖片或 prompt 的主體上。[Example Chat](https://chatgpt.com/share/684ac8d5-e3f8-8007-9326-ea6291a891e3)。
+- **室內設計：** 拍下房間照片，並要求替換傢俱或改變特徵。[Example Chat](https://chatgpt.com/share/684ac69f-6760-8007-83b9-2e8094e5ae31)。
+
+### Prompt & Chat Examples
+
+- [Course thumbnail image generation process](https://chatgpt.com/share/68404206-5710-8007-8262-6efaba15a852)
+- [Subject revision in multi-turn image generation](https://chatgpt.com/share/6848a5e1-3730-8007-8a16-56360794722c)
+- [Textured icon on a transparent background](https://chatgpt.com/share/6848a7ab-0ab4-8007-843d-e19e3f7daec8)
+- [Logo design for a drone flower delivery start-up](https://chatgpt.com/share/6848aaa7-be7c-8007-ba6c-c69ec1eb9c25)
+- [White outline sticker of a raccoon eating a strawberry](https://chatgpt.com/share/684960b3-dc00-8007-bf16-adfae003dde5)
+- [Generate multiple images with one prompt](https://chatgpt.com/share/68496cf8-0120-8007-b95f-25a940298c09)
+- [Editing an image with a text prompt (summer to winter)](https://chatgpt.com/share/684970b8-9718-8007-a591-db40ad5f13ae)
+- [A bumblebee napping in the style of Studio Ghibli](https://chatgpt.com/share/68497515-62e8-8007-b927-59d4b5e9a876)
+- [Interior design by adding furniture to your own images](https://chatgpt.com/share/684ac69f-6760-8007-83b9-2e8094e5ae31)
+- [Material transfer using two reference images](https://chatgpt.com/share/684ac8d5-e3f8-8007-9326-ea6291a891e3)
+
+### 參考資料
+
+- [Introducing 4o Image Generation](https://openai.com/index/introducing-4o-image-generation/)
+- [Addendum to GPT-4o System Card: Native Image Generation](https://cdn.openai.com/11998be9-5319-4302-bfbf-1167e093f1fb/Native_Image_Generation_System_Card.pdf)
+- [Gpt-image-1 in the OpenAI API](https://openai.com/index/image-generation-api/)
+- [OpenAI Docs: gpt-image-1](https://platform.openai.com/docs/models/gpt-image-1)
+- [OpenAI Docs: Image Generation Guide](https://platform.openai.com/docs/guides/image-generation?image-generation-model=gpt-image-1)
+- [More prompt and image examples from OpenAI](https://platform.openai.com/docs/guides/image-generation?image-generation-model=gpt-image-1&gallery=open)

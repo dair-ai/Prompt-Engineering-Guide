@@ -1,0 +1,14 @@
+{
+    "classification": "分類",
+    "coding": "程式設計",
+    "creativity": "創意",
+    "evaluation": "評估",
+    "information-extraction": "資訊擷取",
+    "image-generation": "影像產生",
+    "mathematics": "數學",
+    "question-answering": "問答",
+    "reasoning": "推理",
+    "text-summarization": "文字摘要",
+    "truthfulness": "真實性",
+    "adversarial-prompting": "對抗式提示詞"
+}

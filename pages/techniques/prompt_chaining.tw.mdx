@@ -1,0 +1,154 @@
+# Prompt Chaining（提示詞串鍊）
+
+import {Screenshot} from 'components/screenshot'
+import PC1 from '../../img/prompt_chaining/prompt-chaining-1.png'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+## Prompt Chaining 概觀
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/CKZC5RigYEc?si=EG1kHf83ceawWdHX" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+為了提升大型語言模型（LLM）的穩定度與表現，一個很重要的提示詞工程技巧是：**把大任務拆成多個子任務**。拆解之後，先用 LLM 解決某個子任務，再把該步驟的輸出當作下一個提示詞的輸入，層層串接。這樣的設計就稱為 Prompt Chaining──以一連串提示詞操作來完成整體任務。
+
+當一個任務太複雜、如果直接塞給模型一個超長提示詞時，很容易得到不穩定或難以控制的結果。透過 Prompt Chaining，可以把複雜流程拆成多個「可控的小步驟」，並在每一步施加額外的轉換或檢查，最終才產生對使用者友善的輸出。
+
+除了提升效能以外，Prompt Chaining 也能：
+
+- 讓整體系統的行為更透明、容易除錯
+- 把錯誤侷限在特定階段，便於最佳化
+- 增加 LLM 應用的可控性與可靠性
+
+在實務上，Prompt Chaining 對打造對話型助理與個人化體驗特別有幫助，可以一步步整理資料、補上缺漏、或針對使用情境調整語氣與細節。
+
+
+## Prompt Chaining 的應用案例
+
+### 文件問答（Document QA）
+
+Prompt Chaining 很適合需要多步驟處理的情境。以「根據長文件回答問題」為例，我們可以設計兩個提示詞：
+
+1. 第一個提示詞負責從文件中擷取與問題相關的引用片段。
+2. 第二個提示詞再利用這些引用與原始文件來撰寫最終答案。
+
+也就是說，我們會設計兩個不同的提示詞來完成「給定文件，回答問題」這個任務。
+
+以下是第一個提示詞，它會從文件中擷取相關引用。為了簡化，我們用 `{{document}}` 當成文件內容的佔位符號。實際測試時，可以貼上一篇維基百科文章，例如 [prompt engineering](https://en.wikipedia.org/wiki/Prompt_engineering) 條目。
+由於此任務會用到較長的上下文，示例使用 OpenAI 的 `gpt-4-1106-preview` 模型，你也可以改用其他支援長上下文的模型，例如 Claude。
+
+Prompt 1:
+```
+You are a helpful assistant. Your task is to help answer a question given in a document. The first step is to extract quotes relevant to the question from the document, delimited by ####. Please output the list of quotes using <quotes></quotes>. Respond with "No relevant quotes found!" if no relevant quotes were found.
+
+
+####
+{{document}}
+####
+```
+
+下圖是完整提示詞（包含以 `user` 角色傳入的問題）在介面上的樣子：
+
+<Screenshot src={PC1} alt="Prompt Chaining Part 1" />
+
+Prompt 1 輸出範例：
+```
+<quotes>
+- Chain-of-thought (CoT) prompting[27]
+- Generated knowledge prompting[37]
+- Least-to-most prompting[38]
+- Self-consistency decoding[39]
+- Complexity-based prompting[41]
+- Self-refine[42]
+- Tree-of-thought prompting[43]
+- Maieutic prompting[45]
+- Directional-stimulus prompting[46]
+- Textual inversion and embeddings[59]
+- Using gradient descent to search for prompts[61][62][63][64]
+- Prompt injection[65][66][67]
+</quotes>
+```
+
+接著，我們可以把上述引用（必要時先清理，例如移除引用編號）當成輸入，交給第二個提示詞。第二個提示詞會根據「問題＋原始文件＋上述引用」來撰寫一個完整、友善又有用的回答：
+
+Prompt 2:
+```
+Given a set of relevant quotes (delimited by <quotes></quotes>) extracted from a document and the original document (delimited by ####), please compose an answer to the question. Ensure that the answer is accurate, has a friendly tone, and sounds helpful.
+
+####
+{{document}}
+####
+
+<quotes>
+- Chain-of-thought (CoT) prompting[27]
+- Generated knowledge prompting[37]
+- Least-to-most prompting[38]
+- Self-consistency decoding[39]
+- Complexity-based prompting[41]
+- Self-refine[42]
+- Tree-of-thought prompting[43]
+- Maieutic prompting[45]
+- Directional-stimulus prompting[46]
+- Textual inversion and embeddings[59]
+- Using gradient descent to search for prompts[61][62][63][64]
+- Prompt injection[65][66][67]
+</quotes>
+```
+
+Prompt 2 的輸出範例：
+
+```
+The prompting techniques mentioned in the document include:
+
+1. Chain-of-thought (CoT) prompting[27]
+2. Generated knowledge prompting[37]
+3. Least-to-most prompting[38]
+4. Self-consistency decoding[39]
+5. Complexity-based prompting[41]
+6. Self-refine[42]
+7. Tree-of-thought prompting[43]
+8. Maieutic prompting[45]
+9. Directional-stimulus prompting[46]
+10. Textual inversion and embeddings[59]
+11. Using gradient descent to search for prompts[61][62][63][64]
+12. Prompt injection[65][66][67]
+
+Each of these techniques employs unique strategies to enhance or specify the interactions with large language models to produce the desired outcomes.
+```
+
+可以看到，透過把流程拆成兩個提示詞，我們先用 Prompt 1 專注在「找出相關片段」，再用 Prompt 2 負責「整理並撰寫回答」。對於需要多次轉換或後處理的流程，Prompt Chaining 是一個非常實用的設計。
+
+你也可以進一步設計第三個提示詞，把回答中的引用編號（例如 `[27]`）清掉，再把結果當成真正回給使用者的內容，讓介面更乾淨。
+
+更多 Prompt Chaining 的範例可以參考這份以 Claude LLM 為例的 [教學文件](https://docs.anthropic.com/claude/docs/prompt-chaining)，本例也受到其中範例的啟發與調整。
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 prompt chaining、文件問答與進階技巧，處理複雜的多步驟任務。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

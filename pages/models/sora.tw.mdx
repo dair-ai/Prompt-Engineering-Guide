@@ -1,0 +1,72 @@
+# Sora
+
+import { Bleed } from 'nextra-theme-docs'
+
+OpenAI 近期發布了文字轉影片模型 Sora。Sora 可以根據文字指令產生最長約一分鐘的影片，內容可以是寫實或高度想像的場景。
+
+OpenAI 表示，他們的長期願景是打造能理解並模擬「物理世界動態」的 AI 系統，並以此做為解決各種需要真實互動問題的基礎。
+
+## 能力概觀
+
+Sora 能產生兼具高畫質與高語意對齊度的影片，對文字提示詞的理解相當細緻。它可以同時處理多個角色、不同的運動型態與背景場景，並理解彼此之間的互動關係。另一個重要能力是：在同一支影片中產生多個分鏡，同時維持人物與風格的一致性。
+
+以下是幾個示範影片。
+
+Prompt：
+```text
+A stylish woman walks down a Tokyo street filled with warm glowing neon and animated city signage. She wears a black leather jacket, a long red dress, and black boots, and carries a black purse. She wears sunglasses and red lipstick. She walks confidently and casually. The street is damp and reflective, creating a mirror effect of the colorful lights. Many pedestrians walk about.
+```
+
+<iframe
+  src="https://cdn.openai.com/sora/videos/tokyo-walk.mp4"
+  width="100%"
+  height="300px"
+  title="SWR-States"
+/>
+
+Prompt：
+
+```text
+A movie trailer featuring the adventures of the 30 year old space man wearing a red wool knitted motorcycle helmet, blue sky, salt desert, cinematic style, shot on 35mm film, vivid colors.
+```
+
+<iframe
+  src="https://cdn.openai.com/sora/videos/mitten-astronaut.mp4"
+  width="100%"
+  height="300px"
+  title="SWR-States"
+/>
+
+*影片來源：https://openai.com/sora*
+
+## 方法概觀
+
+根據目前公開資訊，Sora 是一個擴散模型，能一次產生完整影片或延伸既有影片。它同時採用 Transformer 架構，藉此在擴散過程中獲得良好的延展性。
+
+在表示方式上，Sora 會將影片與影像切成「小區塊」（patch），類似 GPT 模型中的 token，讓系統能以統一的方式處理影像與影片，並支援更長時間、更高解析度與不同長寬比的輸出。
+
+Sora 也沿用了 DALL·E 3 中的 recaptioning 技術，透過更精確的文字描述來提升對指令的遵從度。此外，Sora 能從單張圖片出發產生影片，將靜態畫面以合理方式動畫化。
+
+## 限制與安全考量
+
+目前已知的限制包含：在物理模擬與因果關係上仍存在弱點。對於提示詞中提到的空間細節與事件（例如鏡頭運動方式），Sora 有時也會誤解。
+
+OpenAI 表示，目前正與安全測試團隊（red teamers）與創作者合作，評估模型的潛在風險與實際能力。
+
+Prompt：
+
+```text
+Prompt: Step-printing scene of a person running, cinematic film shot in 35mm.
+```
+
+<iframe
+  src="https://cdn.openai.com/sora/videos/backward-jogger.mp4"
+  width="100%"
+  height="300px"
+  title="SWR-States"
+/>
+
+*影片來源：https://openai.com/sora*
+
+想看更多由 Sora 產生的影片示例，可參考：https://openai.com/sora
+

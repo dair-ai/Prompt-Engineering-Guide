@@ -1,0 +1,179 @@
+# 提示詞基礎
+
+import {Screenshot} from 'components/screenshot'
+import INTRO1 from '../../img/introduction/sky.png'
+import {Bleed} from 'nextra-theme-docs'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+## 對 LLM 下提示詞
+
+只要善用簡單的提示詞，就能讓模型做出很多有用的事情。不過，輸出品質很大一部分取決於你提供了多少資訊，以及提示詞本身設計得是否清楚、具體。一個提示詞通常會包含傳給模型的 *指令* 或 *問題*，也可以再加入 *脈絡*、*輸入* 或 *範例* 等細節。妥善運用這些元素，就能更精確地引導模型，提升回應品質。
+
+先從一個最基本的提示詞範例開始：
+
+*提示詞*
+
+```md
+The sky is
+```
+
+*輸出：*
+
+```md
+blue.
+```
+
+如果是在 OpenAI Playground 或其他 LLM playground 中操作，可以像下圖這樣輸入提示詞給模型：
+
+<Screenshot src={INTRO1} alt="INTRO1" />
+
+以下這段影片教學示範了如何開始使用 OpenAI Playground：
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/iwYtzPJELkk?si=irua5h_wHrkNCY0V" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+有一點很值得注意：在使用 OpenAI 的對話式模型（例如 `gpt-3.5-turbo` 或 `gpt-4`）時，可以用三種不同角色來組成提示詞：`system`、`user` 與 `assistant`。`system` 訊息不是必填，但能設定整體助理行為與風格；上面的範例只有一則 `user` 訊息，用來直接向模型提出要求。為了說明方便，本指南中的範例（除非特別註明）都只會使用 `user` 訊息來向 `gpt-3.5-turbo` 下提示詞。範例裡的 `assistant` 訊息則對應到模型的回應內容，你也可以事先放入一些 `assistant` 訊息，當作期望行為的範例。想更深入了解如何與 chat models 互動，可以參考[這裡](https://www.promptingguide.ai/models/chatgpt)。
+
+從上面的例子可以看到，語言模型會根據我們提供的 `"The sky is"` 這段脈絡，接續產生合理的字串。不過這個輸出有時與實際想完成的任務還有落差。這也凸顯了一件事：如果想讓系統做出更貼近需求的行為，就必須提供更多脈絡或更具體的指示──這正是提示詞工程的核心。
+
+接著我們來稍微改進前面的提示詞：
+
+*提示詞：*
+
+```
+Complete the sentence:
+
+The sky is
+```
+
+*輸出：*
+
+```
+blue during the day and dark at night.
+```
+
+這樣是否好一些？在這個版本中，我們明確告訴模型要「完成這個句子」，因此輸出結果看起來就更符合預期，也更貼近指令本身。這種透過設計更精準的提示詞，來引導模型完成特定任務的做法，就是本指南中所談的 **提示詞工程**。
+
+上述例子只是當今大型語言模型所能達成功能的一個非常基本的示範。實際上，現在的 LLM 已經可以處理各種進階任務，從文字摘要、數學推理到程式碼產生都有。
+
+## 提示詞格式
+
+剛才我們只使用了非常單純的提示詞。一般來說，一個標準的提示詞可以長成下面這樣：
+
+```
+<問題>？
+```
+
+或是：
+
+```
+<指令>
+```
+
+也可以把它整理成問答（QA）格式，這在許多 QA 資料集中是相當常見的形式，例如：
+
+```
+Q: <問題>？
+A:
+```
+
+像這樣直接對模型發問、沒有提供任何示範的方式，通常會被稱為 *零樣本提示詞*（zero-shot prompting），也就是只給問題，讓模型自己想出答案。一些大型語言模型具備處理零樣本提示詞的能力，但能否做得好，會受到任務複雜度、所需知識，以及模型原本訓練目標等條件影響。
+
+一個具體的零樣本提示詞範例如下：
+
+*提示詞*
+
+```
+Q: What is prompt engineering?
+```
+
+在較新的模型裡，其實可以省略前面的 `Q:`，模型仍然能從字串的組合方式推斷出這是一個問答任務。換句話說，提示詞也可以簡化成：
+
+*提示詞*
+
+```
+What is prompt engineering?
+```
+
+在上述標準格式的基礎上，一個相當常見且有效的做法是 *少量樣本提示詞*（few-shot prompting），也就是在提示詞中加入幾個範例（示範）。可以用下面的方式來組織少量樣本提示詞：
+
+```
+<問題>？
+<答案>
+
+<問題>？
+<答案>
+
+<問題>？
+<答案>
+
+<問題>？
+
+```
+
+若是採用 QA 格式，則可以寫成：
+
+```
+Q: <問題>？
+A: <答案>
+
+Q: <問題>？
+A: <答案>
+
+Q: <問題>？
+A: <答案>
+
+Q: <問題>？
+A:
+```
+
+要注意的是，並不是所有任務都一定要用 QA 格式。實際上，提示詞格式應該依照手邊要解的問題來調整。舉例來說，在做簡單的情感分類時，可以給出幾個示範，像這樣：
+
+*提示詞：*
+
+```
+This is awesome! // Positive
+This is bad! // Negative
+Wow that movie was rad! // Positive
+What a horrible show! //
+```
+
+*輸出：*
+
+```
+Negative
+```
+
+少量樣本提示詞能讓模型在「上下文中學習」（in-context learning）：也就是只靠少量示範，就能在推論階段學會如何完成一個新任務。後續章節會更深入介紹零樣本與少量樣本提示詞的各種技巧與應用。
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 zero-shot、few-shot 與進階提示詞方法，讓大型語言模型產出更好的結果。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

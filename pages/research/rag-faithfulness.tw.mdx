@@ -1,0 +1,34 @@
+# RAG 模型有多「忠實」？
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/eEU1dWVE8QQ?si=b-qgCU8nibBCSX8H" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+一篇由 [Wu et al. (2024)](https://arxiv.org/abs/2404.10198) 發表的新論文，試圖量化「RAG 提供的檔案」與「LLM 內建先驗（prior）」之間的拉扯關係。
+
+研究主軸是：在問答任務中，模型在多大程度上會「相信檢索到的內容」，又會在多大程度上「堅持自己原本的內在知識」？文章主要以 GPT-4 與其他模型為物件進行分析。
+
+實驗結果顯示：只要提供正確的檢索內容，大部分模型原本的錯誤都能被修正，整體正確率可達 94%。
+
+!["RAG Faithfulness"](../../img/research/rag-faith.png)
+*來源： [Wu et al. (2024)](https://arxiv.org/abs/2404.10198)*
+
+然而，當檔案內包含更多錯誤數值，且模型在該領域的內在先驗較弱時，模型就更容易被錯誤資料「帶著走」，直接背出錯誤答案。相反地，如果模型在某領域先驗較強，面對錯誤資訊時則會更具抵抗力。
+
+論文也指出：
+
+> 越偏離模型原始先驗的修改內容，模型越不可能採信它。
+
+在實務上，越來越多團隊與公司在生產環境中使用 RAG 系統。這篇工作提醒我們：
+在設計系統時，必須重視「不同類型上下文資訊」帶來的風險，這些資訊可能是：
+
+- 支援性（supporting）
+- 相互矛盾（contradicting）
+- 完全錯誤或噪音（incorrect / noisy）
+
+在這些情境下，RAG 系統應該搭配適當的評估與防護機制，而不能僅僅假設「只要有檢索就會更好」。
+

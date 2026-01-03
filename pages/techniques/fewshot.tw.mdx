@@ -1,0 +1,144 @@
+# 少量樣本學習提示詞
+
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/ojtbHUqw1LA?si=DPHurHTzZXm22vcN" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+雖然大型語言模型展示了驚人的零樣本能力，但在使用零樣本設定時，它們在更複雜的任務上仍然表現不佳。少量樣本學習提示詞可以作為一種技術，以啟用上下文學習，我們在提示詞中提供示範以引導模型實現更好的效能。示範作為後續範例的條件，我們希望模型產生回應。
+
+根據 [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf)，few-shot 特性在模型擴大到足夠規模時出現（[Kaplan et al., 2020](https://arxiv.org/abs/2001.08361)）。
+
+讓我們透過[Brown 等人 2020 年](https://arxiv.org/abs/2005.14165)提出的一個例子來示範少量樣本學習提示詞。在這個例子中，任務是在句子中正確使用一個新詞。
+
+*提示詞：*
+```
+“whatpu”是坦尚尼亞的一種小型毛茸茸的動物。一個使用whatpu這個詞的句子的例子是：
+我們在非洲旅行時看到了這些非常可愛的whatpus。
+“farduddle”是指快速跳上跳下。一個使用farduddle這個詞的句子的例子是：
+```
+
+*輸出：*
+```
+當我們贏得比賽時，我們都開始慶祝跳躍。
+```
+
+我們可以觀察到，模型透過提供一個示例（即 1-shot）已經學會瞭如何執行任務。對於更困難的任務，我們可以嘗試增加示範（例如 3-shot、5-shot、10-shot 等）。
+
+根據[Min 等人（2022）](https://arxiv.org/abs/2202.12837)的研究結果，以下是在進行少量樣本學習時關於示範/範例的一些額外提示詞：
+
+- “標籤空間和示範指定的輸入文字的分佈都很重要（無論標籤是否對單個輸入正確）”
+- 使用的格式也對效能起著關鍵作用，即使只是使用隨機標籤，這也比沒有標籤好得多。
+- 其他結果表明，從真實標籤分佈（而不是均勻分佈）中選擇隨機標籤也有幫助。
+
+讓我們嘗試一些例子。讓我們首先嘗試一個隨機標籤的例子（意味著將標籤 Negative 和 Positive 隨機分配給輸入）：
+
+*提示詞：*
+```
+這太棒了！// Negative
+這太糟糕了！// Positive
+哇，那部電影太棒了！// Positive
+多麼可怕的節目！//
+```
+
+*輸出：*
+```
+Negative
+```
+
+即使標籤已經隨機化，我們仍然得到了正確的答案。請注意，我們還保留了格式，這也有助於。實際上，透過進一步的實驗，我們發現我們正在嘗試的新 GPT 模型甚至對隨機格式也變得更加穩健。例如：
+
+*提示詞：*
+```
+Positive This is awesome!
+This is bad! Negative
+Wow that movie was rad!
+Positive
+What a horrible show! --
+```
+
+*輸出：*
+```
+Negative
+```
+
+上面的格式不一致，但模型仍然預測了正確的標籤。我們必須進行更徹底的分析，以確認這是否適用於不同和更複雜的任務，包括提示詞的不同變體。
+
+### 少量樣本學習提示詞的限制
+
+標準的少量樣本學習提示詞對許多工作都有效，但仍然不是一種完美的技術，特別是在處理更複雜的推理任務時。讓我們示範為什麼會這樣。您是否還記得之前提供的任務：
+
+```
+這組數字中的奇數加起來是一個偶數：15、32、5、13、82、7、1。
+
+A：
+```
+
+如果我們再試一次，模型輸出如下：
+
+```
+是的，這組數字中的奇數加起來是107，是一個偶數。
+```
+
+這不是正確的答案，這不僅突顯了這些系統的侷限性，而且需要更進階的提示詞工程。
+
+讓我們嘗試新增一些示例，看看少量樣本學習提示詞是否可以改善結果。
+
+*提示詞：*
+```
+這組數字中的奇數加起來是一個偶數：4、8、9、15、12、2、1。
+A：答案是False。
+
+這組數字中的奇數加起來是一個偶數：17、10、19、4、8、12、24。
+A：答案是True。
+
+這組數字中的奇數加起來是一個偶數：16、11、14、4、8、13、24。
+A：答案是True。
+
+這組數字中的奇數加起來是一個偶數：17、9、10、12、13、4、2。
+A：答案是False。
+
+這組數字中的奇數加起來是一個偶數：15、32、5、13、82、7、1。
+A：
+```
+
+*輸出：*
+```
+答案是True。
+```
+
+這沒用。似乎少量樣本學習提示詞不足以獲得這種類型的推理問題的可靠回應。上面的示例提供了任務的基本資訊。如果您仔細觀察，我們引入的任務類型涉及幾個更多的推理步驟。換句話說，如果我們將問題分解成步驟並向模型示範，這可能會有所幫助。最近，[連續思考型提示詞](https://arxiv.org/abs/2201.11903)已經流行起來，以解決更複雜的算術、常識和符號推理任務。
+
+整體來說，提供示例對解決某些任務很有用。當零樣本提示詞和少量樣本學習提示詞不足時，這可能意味著模型學到的東西不足以在任務上表現良好。從這裡開始，建議開始考慮微調您的模型或嘗試更進階的提示詞技術。接下來，我們將討論一種流行的提示詞技術，稱為連續思考型提示詞，它已經獲得了很多關注。
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 few-shot prompting、in-context learning 與進階技巧，提升 LLM 成效。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>

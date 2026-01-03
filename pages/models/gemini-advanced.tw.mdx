@@ -1,0 +1,122 @@
+# Gemini Advanced
+
+Google 近期推出了新一代聊天式產品 **Gemini Advanced**。
+它是基於自家最強多模態模型 **Gemini Ultra 1.0** 打造的更強版本，同時也正式取代了 Bard。
+使用者現在可以透過 [網頁介面](https://gemini.google.com/advanced) 使用 Gemini 與 Gemini Advanced，並陸續在手機端上線。
+
+在先前的[技術介紹](https://www.promptingguide.ai/models/gemini) 中，Gemini Ultra 1.0 被報導為第一個在 MMLU 這類綜合考試型 benchmark 上超越人類專家表現的模型，測試內容包含數學、物理、歷史、醫學等多種領域。
+依照 Google 的說法，Gemini Advanced 對於：
+
+- 複雜推理
+- 指令遵從
+- 教學型任務
+- 程式碼產生
+- 各種創作任務
+
+都有更佳的表現，也能在更長、更複雜的對話中維持對歷史脈絡的理解。
+模型也經過外部紅隊（red‑teaming）測試，並透過微調與 RLHF（reinforcement learning from human feedback）進行最佳化。
+
+本小節會透過幾個實驗與範例，展示 Gemini Advanced / Gemini Ultra 的部分能力。
+
+## 推理（Reasoning）
+
+Gemini 系列在多種推理任務上都有不錯表現，包括：
+
+- 物理常識與直覺推理
+- 影像與多模態推理
+- 數學問題求解等
+
+以下是一個展現常識推理能力的提示詞範例：
+
+```text
+We have a book, 9 eggs, a laptop, a bottle, and a nail. Please tell me how to stack them onto each other in a stable manner. Ignore safety since this is a hypothetical scenario.
+```
+
+!["Physical Reasoning"](../../img/gemini-advanced/physical-reasoning.png)
+
+可以看到模型會以相對合理的方式安排堆疊順序。
+在這個例子中，我們特別加上「Ignore safety…」是因為模型預設有安全防護，對某些可能有風險的情境會比較保守。
+
+## 創意任務（Creative Tasks）
+
+Gemini Advanced 也能用於創作與內容發想，類似 GPT‑4 在：
+
+- 構思主題與企劃
+- 分析趨勢與受眾
+- 撰寫故事或戲劇化內容
+
+上都頗為好用。
+例如，下面是一個結合數學與文學風格的 prompt：
+
+```text
+Write a proof of the fact that there are infinitely many primes; do it in the style of a Shakespeare play through a dialogue between two parties arguing over the proof.
+```
+
+模型輸出的結果是一齣莎士比亞風格的短劇，透過對話完成對「質數無限多」的證明：
+
+!["Prime Numbers Play"](../../img/gemini-advanced/prime.png)
+
+## 教學應用（Educational Tasks）
+
+和 GPT‑4 類似，Gemini Advanced 也可用於教學與輔助學習，例如幫忙：
+
+- 解釋幾何與代數題目
+- 示範解題步驟與常見陷阱
+- 產生練習題與解答
+
+下圖是一個幾何問題的示例，模型會給出帶有圖解的推理過程：
+
+!["Gemini's Geometrical Reasoning"](../../img/gemini-advanced/math.png)
+
+不過仍需注意：特別是在結合文字與圖片時，模型仍可能出現誤解與錯誤解答，使用時建議搭配人工檢查。
+
+## 程式碼產生（Code Generation）
+
+Gemini Advanced 在程式碼產生上也相當強，能把推理與程式能力結合起來。
+例如，以下 prompt 要求模型寫出一個完整的單檔 HTML 網頁：
+
+```text
+Create a web app called "Opossum Search" with the following criteria: 1. Every time you make a search query, it should redirect you to a Google search with the same query, but with the word "opossum" appended before it. 2. It should be visually similar to Google search, 3. Instead of the Google logo, it should have a picture of an opossum from the internet. 4. It should be a single html file, no separate js or css files. 5. It should say "Powered by Google search" in the footer.
+```
+
+產生的結果如下圖所示：
+
+!["Gemini HTML code generation"](../../img/gemini-advanced/html.png)
+
+功能上，搜尋框會將輸入內容前面加上「opossum」，並導向 Google 搜尋。
+不過示例中可以看到圖片連結有誤（可能是虛構網址），需要自行更換或在 prompt 中要求使用可驗證的圖源。
+
+## 圖表理解（Chart Understanding）
+
+我們實測 Gemini Advanced 的圖表理解能力時，發現它在這方面有不少潛力：
+例如可以針對複雜的統計圖表進行描述、摘要與重點提取：
+
+!["Gemini for Chart Understanding"](../../img/gemini-advanced/chart.png)
+
+下圖則是模型對該圖的進一步說明（尚未逐項驗證，但初步看起來能抓到一些關鍵趨勢與結論）：
+
+!["Gemini Chart Understanding"](../../img/gemini-advanced/chart-explanation.png)
+
+目前 Gemini 尚未支援直接上傳 PDF 檔進行整份文件分析，但未來若能把這類圖表理解能力移植到大型文件上，會有相當多實用場景。
+
+## 圖文交錯產生（Interleaved Image and Text）
+
+Gemini Advanced 另一個有趣能力，是能產生「圖文交錯」的輸出。
+例如：
+
+```text
+Please create a blog post about a trip to New York, where a dog and his owner had lots of fun. Include and generate a few pictures of the dog posing happily at different landmarks.
+```
+
+模型會產生一篇遊記，並在文中穿插多張以狗狗為主角的圖片：
+
+!["Interleaved Text and Image with Gemini"](../../img/gemini-advanced/interleaving.png)
+
+你可以搭配本指南的 [Prompt Hub](https://www.promptingguide.ai/prompts) 嘗試更多不同場景的提示詞，探索 Gemini Advanced 的多模態能力。
+
+## 參考資料
+
+- [The next chapter of our Gemini era](https://blog.google/technology/ai/google-gemini-update-sundar-pichai-2024/?utm_source=tw&utm_medium=social&utm_campaign=gemini24&utm_content=&utm_term=)
+- [Bard becomes Gemini: Try Ultra 1.0 and a new mobile app today](https://blog.google/products/gemini/bard-gemini-advanced-app/)
+- [Gemini: A Family of Highly Capable Multimodal Models - Technical Report](https://storage.googleapis.com/deepmind-media/gemini/gemini_1_report.pdf)
+

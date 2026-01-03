@@ -1,0 +1,229 @@
+# AI Workflows vs. AI Agents
+
+import { Callout } from 'nextra/components'
+
+![AI Workflows vs. AI Agents](../../img/agents/task-planner-agent.png)
+
+代理式系統（agentic systems）代表了一種新的典範：如何把大型語言模型（Large Language Models, LLMs）與工具協作編排，用來完成更複雜的任務。本篇會說明 **AI workflows** 與 **AI Agents** 的核心差異，協助在 AI 應用中判斷何時該採用哪一種做法。
+
+<Callout type="info" emoji="📚">
+本篇內容整理自我們的新課程 ["Building Effective AI Agents with n8n"](https://dair-ai.thinkific.com/courses/agents-with-n8n)，課程中提供更完整的洞見、可下載範本、提示詞、以及設計與實作代理式系統的進階技巧。
+</Callout>
+
+## 什麼是代理式系統？
+
+代理式系統大致可以分成兩種類型：
+
+### 1. AI Workflows（AI 工作流程）
+
+**AI workflows** 指的是：用 **事先定義好的程式路徑（predefined code paths）** 來編排 LLM 與工具的系統。整體流程會依照結構化的步驟順序執行，並具有明確的控制流（control flow）。
+
+**主要特徵：**
+
+AI workflows 的典型特性包括：
+
+- 事先定義好的步驟與執行路徑
+- 可預測性高、控管容易
+- 任務邊界清楚
+- 編排邏輯明確（由程式掌握）
+
+**適用情境：**
+
+建議在這些情境優先使用 AI workflows：
+
+- 任務定義清楚、需求明確
+- 需要可預測性與一致性
+- 需要明確掌握執行流程
+- 正式環境（production）中可靠性至關重要
+
+### 2. AI Agents
+
+**AI agents** 指的是：讓 LLM **動態主導自己的流程** 與工具使用方式，並在完成任務的過程中維持一定程度的自主控制（autonomous control）。
+
+**主要特徵：**
+
+AI agents 的典型特性包括：
+
+- 動態決策
+- 自主選擇與使用工具
+- 具備推理與反思能力
+- 自主規劃並執行任務
+
+**適用情境：**
+
+建議在這些情境優先使用 AI agents：
+
+- 任務較開放、執行路徑會隨情境改變
+- 情境複雜，事前難以明確定義步驟數量與分支
+- 需要自適應推理（adaptive reasoning）
+- 彈性的重要性高於可預測性
+
+## 常見的 AI 工作流程模式
+
+### Pattern 1: Prompt Chaining
+
+
+
+Prompt chaining 指的是：把複雜任務拆成一連串依序執行的 LLM 呼叫，並讓每一步的輸出作為下一步的輸入。
+
+**範例：文件產生工作流程**
+
+![Prompt Chaining](../../img/agents/prompt-chaining.png)
+
+這個 workflow 示範了用 prompt chaining 來產生文件的模式：當收到 chat 訊息後，系統先用 GPT-4.1-mini 產生初稿大綱，再把大綱拿去和預先定義的標準比對。接著透過人工的 "Set Grade" 步驟評估品質，再由條件式的 "If" 節點根據分數決定下一步。如果大綱符合檢核標準，就用 GPT-4o 擴寫各段落，並進一步精修與潤飾最終文件；若未符合檢核標準，workflow 會分支到 "Edit Fields" 讓人為調整後再繼續，確保多階段產出流程中能持續做品質控管。
+
+**Prompt Chaining 使用情境：**
+- 內容產生管線
+- 多階段文件處理
+- 逐步驗證（sequential validation）流程
+
+### Pattern 2: Routing
+
+Routing 會先對請求做分類，並根據分類結果把不同的請求導向專門的 LLM chain 或 agent。
+
+**範例：客服路由器**
+
+![Routing](../../img/agents/routing.png)
+
+這個 workflow 示範了在客服系統中如何做智慧分流：當收到 chat 訊息後，先由 Query Classifier 使用 GPT-4.1-mini 搭配 Structured Output Parser 來判斷請求類型。接著 "Route by Type" switch 會把問題導向三條專門的 LLM chain：General LLM Chain 用於一般問題、Refund LLM Chain 用於付款／退款相關、Support LLM Chain 用於技術支援。這樣既能維持統一的回覆系統，也能針對不同問題提供更適切的處理方式，進而提升客服效率與準確性。
+
+**Routing 使用情境：**
+- 客服系統
+- 跨領域問答
+- 請求優先排序與委派
+- 透過路由到合適模型來提升資源使用效率
+
+**優點：**
+- 更有效率地使用資源
+- 針對不同問題類型提供專門處理
+- 透過選擇性使用模型來控制成本
+
+### Pattern 3: Parallelization
+
+Parallelization 會同時執行多個互相獨立的 LLM 操作，以提升效率。
+
+**範例：內容安全管線**
+
+![Parallelization](../../img/agents/parallelization.png)
+
+**Parallelization 使用情境：**
+- 內容審查系統
+- 多準則評估
+- 併行資料處理
+- 獨立驗證任務
+
+**優勢：**
+- 降低延遲
+- 更有效率地使用資源
+- 提升吞吐量
+
+## AI Agents：自主任務執行
+
+AI agents 結合 LLM 與自主決策能力，讓系統能透過推理、反思，以及動態工具使用來完成複雜任務。
+
+**範例：任務規劃 Agent**
+
+**情境**：使用者詢問「明天下午 2 點加一場和 John 的會議」
+
+
+![Task Planning Agent](../../img/agents/task-planner-agent.png)
+
+這個 workflow 示範了一個自主的 Task Planner agent，展現具備動態決策能力的 agent 行為：當收到 chat 訊息後，系統會把請求導向 Task Planner agent；這個 agent 可存取三個關鍵元件：用於理解與規劃的 Chat Model（Reasoning LLM）、用於跨互動維持脈絡的 Memory 系統，以及 Tool 集合。agent 會從多個工具中自主挑選，例如 add_update_tasks（把任務新增或更新到 Google Sheets）以及 search_task（讀取與搜尋既有任務）。與事先寫死流程的 workflow 不同，agent 會根據使用者請求自行決定要用哪些工具、何時使用、以及使用順序，展現出 AI agents 相較於傳統 AI workflows 的彈性與自主性。
+
+<Callout type="warning" emoji="💡">
+**重點洞見**：agent 會根據請求脈絡決定要用哪些工具、以及使用順序──不是照著預先定義的規則。
+</Callout>
+
+**AI Agent 使用情境：**
+
+- 深度研究系統
+- Agentic RAG 系統
+- 程式撰寫 agents
+- 資料分析與處理
+- 內容產生與編修
+- 客服支援與協助
+- 互動式聊天機器人與虛擬助理
+
+
+**核心元件：**
+
+以下整理建構 AI Agents 的幾個核心元件：
+
+1. **Tool Access**：與外部系統整合（Google Sheets、search APIs、資料庫）
+2. **Memory**：跨互動保留脈絡，維持連續性
+3. **Reasoning Engine**：用於工具選擇與任務規劃的決策邏輯
+4. **Autonomy**：不仰賴預先定義的控制流，自主完成執行
+
+### Agents 與 Workflows 的差異
+
+| 面向 | AI Workflows | AI Agents |
+|--------|-------------|-----------|
+| **控制流程** | 事先定義、明確 | 動態、自主 |
+| **決策方式** | 以程式邏輯寫死 | 由 LLM 推理驅動 |
+| **工具使用** | 由程式編排 | 由 agent 自行選擇 |
+| **適應性** | 路徑固定 | 執行彈性 |
+| **複雜度** | 較低、較可預測 | 較高、能力更強 |
+| **適用情境** | 任務定義清楚 | 問題開放、探索性高 |
+
+
+## 設計考量
+
+### 如何在 Workflows 與 Agents 之間做選擇
+
+**以下情況適合使用 AI Workflows：**
+- 任務需求清楚且穩定
+- 可預測性是必要條件
+- 需要明確掌握執行流程
+- 除錯與監控是優先事項
+- 成本控管至關重要
+
+**以下情況適合使用 AI Agents：**
+- 任務開放或具探索性
+- 彈性比可預測性更重要
+- 問題空間複雜且變因很多
+- 類人推理有助於解題
+- 需要隨情境變化做調整
+
+### 混合式作法
+
+許多正式環境系統會同時結合兩種作法：
+- **用 workflows 提供結構**：把可靠、定義清楚的元件放在 workflow
+- **用 agents 提供彈性**：在需要自適應決策的地方使用 agents
+- **範例**：先用 workflow 把請求路由到不同專門 agents，再由各 agent 處理開放式子任務
+
+未來文章會提供一個具體範例。
+
+## 最佳實務
+
+### 適用於 AI Workflows
+
+1. **清楚定義步驟**：把 workflow 中每個階段寫清楚
+2. **錯誤處理**：為失敗情況準備 fallback path
+3. **驗證關卡**：在關鍵步驟之間加入檢查
+4. **效能監控**：追蹤每一步的延遲與成功率
+
+### 適用於 AI Agents
+
+1. **工具設計**：提供目的明確、文件清楚的工具
+2. **記憶管理**：實作有效的脈絡保留策略
+3. **防護欄**：對 agent 行為與工具使用範圍設下邊界
+4. **可觀測性**：記錄 agent 的推理與決策過程
+5. **迭代測試**：在多元情境下持續評估 agent 表現
+
+未來文章會更深入討論這些主題。
+
+## 結論
+
+理解 AI workflows 與 AI agents 的差異，是建構有效代理式系統的關鍵。workflows 適合任務定義清楚的場景，能提供控制性與可預測性；agents 則適合複雜且開放式的問題，提供更高的彈性與自主性。
+
+選擇 workflows、agents，或兩者混合，取決於具體 use case、效能需求，以及對自主決策的容忍度。只要讓系統設計與任務特性對齊，就能建構更有效率、更可靠的 AI 應用。
+
+<Callout type="info" emoji="📚">
+本篇內容整理自我們的新課程 ["Building Effective AI Agents with n8n"](https://dair-ai.thinkific.com/courses/agents-with-n8n)，課程中提供更完整的洞見、可下載範本、提示詞、以及設計與實作代理式系統的進階技巧。
+</Callout>
+
+## Additional Resources
+
+- [Anthropic: Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)
+- [Prompt Engineering Guide](https://www.promptingguide.ai/)
+- [Building Effective AI Agents with n8n](https://dair-ai.thinkific.com/courses/agents-with-n8n)
