@@ -34,9 +34,9 @@ const AnnouncementBar: React.FC = () => {
         display: isMenuOpen ? 'none' : 'block',
       }}
     >
-      🚀 Master building AI workflows and agents with Claude Code! Use <strong style={{ fontWeight: 'bold' }}>AGENTX20</strong> for 20% off{' '}
+      🚀 Master building AI workflows and agents with Claude Code! Use <strong style={{ fontWeight: 'bold' }}>EARLYBIRDCC3</strong> for 20% off{' '}
       <Link
-        href="https://dair-ai.thinkific.com/courses/claude-code-for-everyone-2"
+        href="https://dair-ai.thinkific.com/courses/claude-code-for-everyone-cohort-3"
         target="_blank"
         rel="noopener noreferrer"
         style={{
