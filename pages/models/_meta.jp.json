@@ -1,6 +1,7 @@
 {
     "flan": "Flan",
     "chatgpt": "ChatGPT",
+    "claude-3": "Claude 3",
     "llama": "LLaMA",
     "gpt-4": "GPT-4",
     "mistral-7b": "Mistral 7B",
