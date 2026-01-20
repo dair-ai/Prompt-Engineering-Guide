@@ -1,0 +1,54 @@
+# Kontext-Caching mit Gemini 1.5 Flash
+
+import {Cards, Card} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+
+Google hat kürzlich ein neues Feature namens [Kontext-Caching](https://ai.google.dev/gemini-api/docs/caching?lang=python) veröffentlicht, das über die Gemini-APIs mithilfe der Modelle Gemini 1.5 Pro und Gemini 1.5 Flash verfügbar ist. Diese Anleitung bietet ein grundlegendes Beispiel dafür, wie man Kontext-Caching mit Gemini 1.5 Flash verwendet.
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/987Pd89EDPs?si=j43isgNb0uwH5AeI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+https://youtu.be/987Pd89EDPs?si=j43isgNb0uwH5AeI
+
+### Der Anwendungsfall: Analyse eines Jahres an ML-Papieren
+
+Die Anleitung zeigt, wie man Kontext-Caching verwenden kann, um die Zusammenfassungen aller [ML-Papiere, die wir im letzten Jahr dokumentiert haben](https://github.com/dair-ai/ML-Papers-of-the-Week), zu analysieren. Wir speichern diese Zusammenfassungen in einer Textdatei, die jetzt an das Modell Gemini 1.5 Flash übergeben und effizient abgefragt werden kann.
+
+### Der Prozess: Hochladen, Caching und Abfragen
+
+1. **Datenvorbereitung:** Zuerst die README-Datei (die die Zusammenfassungen enthält) in eine Klartextdatei umwandeln.
+2. **Verwendung der Gemini-API:** Die Textdatei kann mithilfe der Google-`generativeai`-Bibliothek hochgeladen werden.
+3. **Implementierung des Kontext-Cachings:** Ein Cache wird mit der Funktion `caching.CachedContent.create()` erstellt. Dies umfasst:
+    * Spezifizierung des Gemini Flash 1.5 Modells.
+    * Vergabe eines Namens für den Cache.
+    * Definition einer Anweisung für das Modell (z.B. "Sie sind ein Experte für KI-Forschung...").
+    * Festlegung einer „time to live“ (TTL) für den Cache (z.B. 15 Minuten).
+4. **Erstellen des Modells:** Anschließend wird eine generative Modellinstanz mit dem gecachten Inhalt erstellt.
+5. **Abfragen:** Wir können das Modell mit natürlichen Sprachfragen abfragen, wie zum Beispiel:
+    * "Kannst du mir bitte die neuesten AI-Papiere der Woche nennen?"
+    * "Kannst du die Papiere auflisten, die Mamba erwähnen? Nennen Sie den Titel des Papiers und die Zusammenfassung."
+    * "Was sind einige der Innovationen rund um Long-Context-LLMs? Nenne den Titel des Papiers und die Zusammenfassung."
+
+Die Ergebnisse waren vielversprechend. Das Modell hat Informationen aus der Textdatei genau abgerufen und zusammengefasst. Kontext-Caching erwies sich als sehr effizient und eliminierte die Notwendigkeit, die gesamte Textdatei mit jeder Anfrage erneut zu senden.
+
+Dieser Workflow hat das Potenzial, ein wertvolles Werkzeug für Forscher zu werden, da er ihnen ermöglicht:
+
+* Große Mengen an Forschungsdaten schnell zu analysieren und abzufragen.
+* Spezifische Ergebnisse zu finden, ohne manuell durch Dokumente suchen zu müssen.
+* Interaktive Forschungssitzungen durchzuführen, ohne Eingabetokens zu verschwenden.
+
+Wir freuen uns darauf, weitere Anwendungen des Kontext-Cachings zu erkunden, insbesondere in komplexeren Szenarien wie agentischen Workflows.
+
+Das Notebook ist unten zu finden:
+
+<Cards>
+    <Card 
+        icon={<CodeIcon />}
+        title="Kontext-Caching mit Gemini-APIs"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/gemini-context-caching.ipynb"
+    />
+</Cards>
+`
