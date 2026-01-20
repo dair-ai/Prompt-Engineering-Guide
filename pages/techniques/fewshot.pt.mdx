@@ -1,10 +1,10 @@
 # Few-Shot Prompting
 
-Embora os modelos de linguagem grande demonstrem recursos notáveis de disparo zero, eles ainda ficam aquém em tarefas mais complexas ao usar a configuração de disparo zero. O prompt de poucos disparos pode ser usado como uma técnica para permitir o aprendizado no contexto, onde fornecemos demonstrações no prompt para direcionar o modelo para um melhor desempenho. As demonstrações servem de condicionamento para exemplos subsequentes onde gostaríamos que o modelo gerasse uma resposta.
+Embora os modelos de linguagem grande demonstrem recursos notáveis de *zero-shot*, eles ainda ficam aquém em tarefas mais complexas ao usar a configuração de disparo zero. O prompt de *few-shot* pode ser usado como uma técnica para permitir o aprendizado no contexto, onde fornecemos demonstrações no prompt para direcionar o modelo para um melhor desempenho. As demonstrações servem de condicionamento para exemplos subsequentes onde gostaríamos que o modelo gerasse uma resposta.
 
-De acordo com [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) poucas propriedades de tiro apareceram pela primeira vez quando os modelos foram dimensionados para um tamanho suficiente [(Kaplan et al., 2020)](https://arxiv.org/abs/2001.08361).
+De acordo com [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) as propriedades de *few-shot* surgiram pela primeira vez quando os modelos foram escalados para um tamanho suficientemente grande [(Kaplan et al., 2020)](https://arxiv.org/abs/2001.08361).
 
-Vamos demonstrar a solicitação de poucos disparos por meio de um exemplo apresentado em [Brown et al. 2020](https://arxiv.org/abs/2005.14165). No exemplo, a tarefa é usar corretamente uma nova palavra em uma frase.
+Vamos demonstrar a solicitação de *few-shot* por meio de um exemplo apresentado em [Brown et al. 2020](https://arxiv.org/abs/2005.14165). No exemplo, a tarefa é usar corretamente uma nova palavra em uma frase.
 
 *Prompt:*
 ```
@@ -20,7 +20,7 @@ a palavra farduddlear é:
 Quando ganhamos o jogo, todos farduddleamos em festejo.
 ```
 
-Podemos observar que o modelo aprendeu de alguma forma como executar a tarefa fornecendo apenas um exemplo (ou seja, 1-shot). Para tarefas mais difíceis, podemos experimentar aumentar as demonstrações (por exemplo, 3 tiros, 5 tiros, 10 tiros, etc.).
+Podemos observar que o modelo aprendeu de alguma forma como executar a tarefa fornecendo apenas um exemplo (ou seja, 1-shot). Para tarefas mais difíceis, podemos experimentar aumentar as demonstrações (por exemplo, 3-shot, 5-shot, 10-shot, etc.).
 
 Seguindo as descobertas de [Min et al. (2022)](https://arxiv.org/abs/2202.12837), aqui estão mais algumas dicas sobre demonstrações/exemplares ao fazer poucos disparos:
 
@@ -79,7 +79,7 @@ Sim, os números ímpares neste grupo somam 107, que é um número par.
 
 Esta não é a resposta correta, o que não apenas destaca as limitações desses sistemas, mas também a necessidade de uma engenharia imediata mais avançada.
 
-Vamos tentar adicionar alguns exemplos para ver se a solicitação de poucos tiros melhora os resultados.
+Vamos tentar adicionar alguns exemplos para ver se a solicitação de *few-shot* melhora os resultados.
 
 *Prompt:*
 ```
@@ -104,6 +104,6 @@ A:
 A resposta é verdadeira.
 ```
 
-Isso não funcionou. Parece que a solicitação de poucos disparos não é suficiente para obter respostas confiáveis para esse tipo de problema de raciocínio. O exemplo acima fornece informações básicas sobre a tarefa. Se você olhar mais de perto, o tipo de tarefa que introduzimos envolve mais algumas etapas de raciocínio. Em outras palavras, pode ajudar se dividirmos o problema em etapas e demonstrarmos isso ao modelo. Mais recentemente, [inserção de cadeia de pensamento (CoT)](https://arxiv.org/abs/2201.11903) foi popularizada para abordar mais aritmética complexa, senso comum e tarefas de raciocínio simbólico.
+Isso não funcionou. Parece que a solicitação de *few-shot* não é suficiente para obter respostas confiáveis para esse tipo de problema de raciocínio. O exemplo acima fornece informações básicas sobre a tarefa. Se você olhar mais de perto, o tipo de tarefa que introduzimos envolve mais algumas etapas de raciocínio. Em outras palavras, pode ajudar se dividirmos o problema em etapas e demonstrarmos isso ao modelo. Mais recentemente, [inserção de cadeia de pensamento (CoT)](https://arxiv.org/abs/2201.11903) foi popularizada para abordar mais aritmética complexa, senso comum e tarefas de raciocínio simbólico.
 
-No geral, parece que fornecer exemplos é útil para resolver algumas tarefas. Quando a solicitação de disparo zero e a solicitação de poucos disparos não são suficientes, isso pode significar que tudo o que foi aprendido pelo modelo não é suficiente para se sair bem na tarefa. A partir daqui, é recomendável começar a pensar em ajustar seus modelos ou experimentar técnicas de solicitação mais avançadas. A seguir, falaremos sobre uma das técnicas populares de sugestão, chamada de sugestão em cadeia de pensamento, que ganhou muita popularidade.
+No geral, parece que fornecer exemplos é útil para resolver algumas tarefas. Quando a solicitação de *zero-shot* e a solicitação de *few-shot* não são suficientes, isso pode significar que tudo o que foi aprendido pelo modelo não é suficiente para se sair bem na tarefa. A partir daqui, é recomendável começar a pensar em ajustar seus modelos ou experimentar técnicas de solicitação mais avançadas. A seguir, falaremos sobre uma das técnicas populares de sugestão, chamada de sugestão em cadeia de pensamento, que ganhou muita popularidade.
