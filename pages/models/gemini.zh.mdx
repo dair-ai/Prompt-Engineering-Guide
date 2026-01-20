@@ -10,6 +10,11 @@ import GEMINI5 from '../../img/gemini/gemini-3.png'
 import GEMINI6 from '../../img/gemini/gemini-6.png'
 import GEMINI7 from '../../img/gemini/gemini-7.png'
 import GEMINI8 from '../../img/gemini/gemini-8.png'
+import GEMINI9 from '../../img/gemini/pe-guide.png'
+import GEMINI10 from '../../img/gemini/prompt-webqa-1.png'
+import GEMINI11 from '../../img/gemini/prompt-webqa-2.png'
+import GEMINI12 from '../../img/gemini/gemini-few-shot.png'
+import GEMINI13 from '../../img/gemini/gemini-few-shot-2.png'
 
 本章概述了Gemini模型和如何有效地提示和使用这些模型。本章也包括了有关Gemini模型的功能，技巧，应用，限制，论文和其他阅读材料。
 
@@ -35,7 +40,7 @@ Gemini模型基于多模态和多语言数据进行训练，例如网络文档�
 
 ## Gemini实验结果
 
-Gemini Ultra在与[思维链提示(chain-of-thought (CoT) prompting)](https://www.promptingguide.ai/techniques/cot)和[自洽性(self-consistency)](https://www.promptingguide.ai/techniques/consistency)等有助于处理模型不确定性的方法相结合时，达到了最高的准确率。
+Gemini Ultra在与[思维链提示(chain-of-thought (CoT) prompting)](https://www.promptingguide.ai/zh/techniques/cot)和[自洽性(self-consistency)](https://www.promptingguide.ai/zh/techniques/consistency)等有助于处理模型不确定性的方法相结合时，达到了最高的准确率。
 
 技术报告中提到，Gemini Ultra在32个样本上的MMLU测试效果，从贪婪采样(greedy sampling)方法的84.0%提高到不确定性路由思维链(uncertainty-routed chain-of-thought)方法(包括CoT和多数投票(majority voting)）的90.0%，如果仅使用32个思维链样本，则略微提高到85.0%。类似地，思维链(CoT)和自洽性(self-consistency)在GSM8K小学数学基准上实现了94.4%的准确率。此外，Gemini Ultra正确地实现了74.4%的[HumanEval](https://paperswithcode.com/dataset/humaneval)代码补全问题。下表总结了Gemini的测试结果以及与其他著名模型的结果对比。
 
@@ -95,6 +100,21 @@ Gemini Pro输出:
 [\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
 ```
 
+
+### 视觉问答
+
+视觉问答是指向模型提出关于输入图像的问题。Gemini 模型在处理图表、自然图像、表情包等多种类型的图像时，展现了不同的多模态推理能力。在以下示例中，我们向模型（通过 Google AI Studio 访问的 Gemini Pro Vision）提供了一个文本指令和一张代表本提示工程指南快照的图像。
+
+模型的回答是: "The title of the website is "Prompt Engineering Guide"." 从所提问题来看，这似乎是一个正确的答案。 
+
+<Screenshot src={GEMINI10} alt="GEMINI10" />
+
+下面是一个使用不同输入问题的另一个示例。Google AI Studio 允许您通过点击上方的 `{{}} Test input` 选项来使用不同的输入进行测试。然后，您可以在下表中添加正在测试的提示内容。
+
+<Screenshot src={GEMINI11} alt="GEMINI11" />
+
+您可以自由上传自己的图像并提问以进行实验。据报道，Gemini Ultra 在此类任务中的表现要优于当前版本。当该模型正式发布后，我们将进一步进行相关实验。
+
 ### 验证和纠错
 
 Gemini模型展示了令人印象深刻的跨模态推理能力。例如，下图(左)是一个物理问题的解答，该问题是由一位物理老师画的。然后，Gemini被提示对该问题进行推理，并解释该学生在答案中出错的地方（如果有错误）。该模型还被指示解决问题并使用LaTeX来完成数学部分。右图是模型的响应，详细解释了问题和答案。
@@ -128,6 +148,29 @@ Gemini模型还展示了原生支持处理一系列音频和图像的能力。�
 ### Gemini多面手编程助理
 
 Gemini还被用于构建一个名为AlphaCode 2的多面手助理，它将推理功能与搜索和工具使用相结合，用来解决编程竞赛问题。AlphaCode 2在Codeforces编程竞赛平台的参赛者中名列前15%。
+
+## 使用 Gemini 的少样本提示
+少样本提示（Few-shot prompting）是一种提示方法，用于向模型表明你期望的输出类型。这种方法在多种场景下非常有用，例如当你希望输出具有特定格式（如 JSON 对象）或特定风格时。Google AI Studio 在其界面中也支持这一功能。以下是一个使用 Gemini 模型进行少样本提示的示例。
+
+我们希望构建一个简单的文本情绪分类器。第一步是通过点击“Create new”或“+”来创建一个“结构化提示”。少样本提示将结合你的任务描述和提供的示例。下图展示了我们将传递给模型的指令（顶部）以及示例。你可以设置输入文本（INPUT text）和输出文本（OUTPUT text），以添加更具描述性的指示符。在下面的示例中，我们分别使用 “Text:” 作为输入，使用 “Emotion:” 作为输出指示符。
+
+<Screenshot src={GEMINI12} alt="GEMINI12" />
+
+整个组合后的提示词如下所示：
+
+```
+Your task is to classify a piece of text, delimited by triple backticks, into the following emotion labels: ["anger", "fear", "joy", "love", "sadness", "surprise"]. Just output the label as a lowercase string.
+Text: I feel very angry today
+Emotion: anger
+Text: Feeling thrilled by the good news today.
+Emotion: joy
+Text: I am actually feeling good today.
+Emotion:
+```
+
+随后，你可以在“Test your prompt”部分中添加输入内容以测试该提示。我们在示例中使用了 “I am actually feeling good today.” 作为输入，点击 “Run” 后，模型正确地输出了标签 “joy”。请参见下图中的示例：
+
+<Screenshot src={GEMINI13} alt="GEMINI13" />
 
 ## 库的使用
 
@@ -183,10 +226,20 @@ response = model.generate_content(prompt_parts)
 print(response.text)
 ```
 
+模型的输出像之前的一样:
+```
+[\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
+```
+
 ## 引用
 
 - [Introducing Gemini: our largest and most capable AI model](https://blog.google/technology/ai/google-gemini-ai/#sundar-note)
 - [How it’s Made: Interacting with Gemini through multimodal prompting](https://developers.googleblog.com/2023/12/how-its-made-gemini-multimodal-prompting.html)
 - [Welcome to the Gemini era](https://deepmind.google/technologies/gemini/#introduction)
+- [Prompt design strategies](https://ai.google.dev/docs/prompt_best_practices)
 - [Gemini: A Family of Highly Capable Multimodal Models - Technical Report](https://storage.googleapis.com/deepmind-media/gemini/gemini_1_report.pdf)
 - [Fast Transformer Decoding: One Write-Head is All You Need](https://arxiv.org/abs/1911.02150)
+- [Google AI Studio quickstart](https://ai.google.dev/tutorials/ai-studio_quickstart)
+- [Multimodal Prompts](https://ai.google.dev/docs/multimodal_concepts)
+- [Gemini vs GPT-4V: A Preliminary Comparison and Combination of Vision-Language Models Through Qualitative Cases](https://arxiv.org/abs/2312.15011v1)
+- [A Challenger to GPT-4V? Early Explorations of Gemini in Visual Expertise](https://arxiv.org/abs/2312.12436v2)

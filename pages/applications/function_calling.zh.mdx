@@ -1,6 +1,16 @@
 # 在LLM中调用函数
 
+import {Cards, Card, Callout} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+
 ## 调用函数
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/p0I-hwZSWMs?si=tQgi-LiHe6Oj_rzm" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
 
 函数调用是指可靠地连接LLM与外部工具的能力。让用户能够使用高效的外部工具、与外部API进行交互。
 
@@ -73,6 +83,7 @@ def get_completion(messages, model="gpt-3.5-turbo-1106", temperature=0, max_toke
 ```
 
 您可以像这样构造用户提问：
+
 ```python
 messages = [
     {
@@ -98,10 +109,48 @@ ChatCompletionMessage(content=None, role='assistant', function_call=None, tool_c
 
 然后您可以调用一个外部天气API来获取实际的天气信息。一旦您有了天气信息，就可以将其传回模型，随后根据原始用户问题总结出最终回应。
 
-这里有一个[python notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb)，它提供了一个简单示例，展示了如何使用OpenAI API进行函数调用。
+## Notebooks
+
+<Callout type= "info" emoji="🎓">
+了解我们最新推出的人工智能课程中关于高级提示工程技术与最佳实践的内容。[立即加入!](https://dair-ai.thinkific.com/)
+使用优惠码 PROMPTING20 可额外享受 20% 折扣优惠。
+</Callout>
+
+这里有一个[python notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb) 提供了一个简单示例，展示了如何使用 OpenAI API 进行函数调用。
+
+<Cards>
+    <Card 
+        icon={<CodeIcon />}
+        title="使用 OpenAI APIs 进行函数调用"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb"
+    />
+</Cards>
+
 
 ## 使用开源LLM进行函数调用
 更多使用开源LLM进行函数调用的说明即将推出...
 
 ## 函数调用用例
-更多函数调用用例即将推出...
+
+以下是函数调用能力在大语言模型（LLMs）中可带来显著益处的典型应用场景: 
+
+- **对话代理系统**: 函数调用机制可用于构建复杂的对话代理或聊天机器人，使其能够通过调用外部 API 或知识库处理复杂查询，从而生成更具相关性与实用性的响应。
+
+- **自然语言理解**: 可将自然语言转换为结构化的 JSON 数据，或从文本中提取结构化信息。被广泛应用于命名实体识别、情感分析及关键词提取等任务中。
+
+- **数学问题求解**: 支持定义涵盖多种类型高阶计算的自定义函数以分步骤求解复杂数学问题，提升语言模型在数学推理方面的能力。
+
+- **API 集成**: 函数调用有助于将大语言模型与外部 API 高效集成，模型根据输入生成有效的 API 请求，从而实现信息检索、自动问答或创意协助等功能。
+
+- **信息抽取**: 从给定输入中提取特定信息，如从文章中获取相关新闻条目或参考资料，提升模型的实用性与精准性。
+
+
+## 参考文献
+- [Fireworks Raises the Quality Bar with Function Calling Model and API Release](https://blog.fireworks.ai/fireworks-raises-the-quality-bar-with-function-calling-model-and-api-release-e7f49d1e98e9)
+- [Benchmarking Agent Tool Use and Function Calling](https://blog.langchain.dev/benchmarking-agent-tool-use/)
+- [Function Calling](https://ai.google.dev/docs/function_calling)
+- [Interacting with APIs](https://python.langchain.com/docs/use_cases/apis)
+- [OpenAI's Function Calling](https://platform.openai.com/docs/guides/function-calling)
+- [How to call functions with chat models](https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models)
+- [Pushing ChatGPT's Structured Data Support To Its Limits](https://minimaxir.com/2023/12/chatgpt-structured-data/)
+- [Math Problem Solving with Function Calling](https://github.com/svpino/openai-function-calling/blob/main/sample.ipynb)

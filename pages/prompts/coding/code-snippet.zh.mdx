@@ -1,0 +1,70 @@
+# 使用 LLMs 生成代码片段
+
+import { Tabs, Tab } from 'nextra/components'
+
+## 背景
+该提示通过提供关于程序的详细信息（使用 `/* <instruction> */` 格式的注释），测试LLM生成相应代码片段的能力。
+
+## 提示词
+```markdown
+/*
+要求用户提供他们的姓名并输出 "Hello"
+*/
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+        ```python
+        from openai import OpenAI
+        client = OpenAI()
+
+        response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {
+                "role": "user",
+                "content": "/*\n要求用户提供他们的姓名并输出 \"Hello\"\n*/"
+                }
+            ],
+            temperature=1,
+            max_tokens=1000,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "/*\n要求用户提供他们的姓名并输出 \"Hello\"\n*/",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+</Tabs>
+
+
+## 参考文献
+- [提示工程指南](https://www.promptingguide.ai/zh/introduction/examples#code-generation) (2023年3月16日)

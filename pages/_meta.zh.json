@@ -2,18 +2,51 @@
   "index": "提示工程指南",
   "introduction": "提示工程简介",
   "techniques": "提示技术",
+  "agents": "Agents",
+  "guides": "提示指南",
   "applications": "提示应用",
   "prompts": "Prompt Hub",
   "models": "模型",
   "risks": "风险和误用",
-  "research": "LLM Research Findings",
+  "research": "LLM 研究发现",
   "papers": "论文",
   "tools": "工具和库",
-  "notebooks": "Prompt Engineering 笔记本",
+  "notebooks": "Notebooks",
   "datasets": "数据集",
   "readings": "阅读推荐",
+  "courses":{
+    "title": "🎓 课程",
+    "type": "menu",
+    "items": {
+      "intro-prompt-engineering": {
+        "title": "提示工程简介",
+        "href": "https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+      },
+      "advanced-prompt-engineering": {
+        "title": "高级提示工程",
+        "href": "https://dair-ai.thinkific.com/courses/advanced-prompt-engineering"
+      },
+      "intro-ai-agents": {
+        "title": "AI Agents简介",
+        "href": "https://dair-ai.thinkific.com/courses/introduction-building-ai-agents"
+      },
+      "rag-systems": {
+        "title": "构建RAG系统",
+        "href": "https://dair-ai.thinkific.com/courses/introduction-rag"
+      },
+      "advanced-agents": {
+        "title": "构建高级AI Agents",
+        "href": "https://dair-ai.thinkific.com/courses/advanced-ai-agents"
+      },
+      "all-courses": {
+        "title": "查看全部 →",
+        "href": "https://dair-ai.thinkific.com/pages/courses"
+      }
+    }
+  },
   "about": {
     "title": "关于",
     "type": "page"
   }
 }
+

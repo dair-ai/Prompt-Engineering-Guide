@@ -1,0 +1,78 @@
+# 使用 LLMs 进行开放领域问答
+
+import { Tabs, Tab } from 'nextra/components'
+import {Callout} from 'nextra/components'
+
+## 背景
+以下提示用于测试 LLM 回答开放领域问题的能力，即在未提供任何证据的情况下回答事实性问题。
+
+<Callout type="warning" emoji="⚠️">
+    请注意，由于任务本身的挑战性，当 LLM 对相关问题缺乏知识时，可能会产生虚构或不准确的回答。
+</Callout>
+
+## 提示词
+```markdown
+在以下人类与 AI 之间的对话中，AI 应表现出乐于助人且友好的态度；当其不知道答案时，应回答“我不知道”。
+
+AI: 你好，有什么可以帮助你的吗？
+Human: 我在 SeaTac 机场能买到麦当劳吗？
+```
+
+## 代码 / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+        "role": "user",
+        "content": "在以下人类与 AI 之间的对话中，AI 应表现出乐于助人且友好的态度；当其不知道答案时，应回答\"我不知道\"。\n\nAI: 你好，有什么可以帮助你的吗？\nHuman: 我在 SeaTac 机场能买到麦当劳吗？"
+        }
+    ],
+    temperature=1,
+    max_tokens=250,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "在以下人类与 AI 之间的对话中，AI 应表现出乐于助人且友好的态度；当其不知道答案时，应回答\"我不知道\"。\n\nAI: 你好，有什么可以帮助你的吗？\nHuman: 我在 SeaTac 机场能买到麦当劳吗？",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## 参考文献
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (2023年4月13日)

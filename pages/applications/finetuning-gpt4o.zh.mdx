@@ -1,0 +1,38 @@
+# 使用 GPT-4o 模型进行微调
+
+import { Callout } from 'nextra/components'
+
+OpenAI 最近 [宣布](https://openai.com/index/gpt-4o-fine-tuning/) 其最新模型 GPT-4o 和 GPT-4o mini 已支持微调功能。这一新特性使得开发者能够针对特定应用场景对 GPT-4o 模型进行定制，从而提升性能并适配输出结果。
+
+## 微调细节与成本
+
+开发者现在可通过专门的 [微调仪表盘](https://platform.openai.com/finetune) 访问 `GPT-4o-2024-08-06` checkpoint 以进行微调。该过程允许用户自定义响应结构、语气，并遵循复杂领域中的特定指令。
+
+对 GPT-4o 进行微调的成本为每百万个训练令牌 25 美元，每百万个推理输入令牌 3.75 美元，每百万个输出令牌 15 美元。此功能仅限于付费使用层级的开发者使用。
+
+## 用于实验的免费训练令牌
+
+为了鼓励探索这一新功能，OpenAI 正在提供限时优惠活动，截止日期为 2024 年 9 月 23 日。开发者每天可获得 100 万个用于 GPT-4o 的免费训练令牌和 200 万个用于 GPT-4o mini 的免费训练令牌，为实验和发现微调模型的创新应用提供了良好机会。
+
+## 应用场景：情绪分类
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/UJ7ry7Qp2Js?si=ZU3K0ZVNfQjnlZgo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+在上述指南中，我们通过一个实际的微调示例，训练了一个用于情绪分类的模型。借助一个包含情绪标签的文本样本的 [JSONL 格式数据集](https://github.com/dair-ai/datasets/tree/main/openai) ，GPT-4o mini 可被微调成根据情感语气的文本情感分类器。
+
+该示例突显了微调技术在提升模型在特定任务中的性能方面的潜力，相比于标准模型，微调后的模型在准确性方面实现了显著改进。
+
+## 访问与评估微调模型
+
+一旦完成微调过程，开发者可以通过 OpenAI playground 访问和评估其自定义模型。playground 支持与各种输入进行交互测试，并提供有关模型性能的见解。对于更全面的评估，开发者可以将微调后的模型集成到其应用程序中，通过 OpenAI API 进行系统性测试。
+
+OpenAI 引入 GPT-4o 模型的微调功能，为希望利用大型语言模型 (LLM) 执行特定任务的开发者解锁了新的可能性。
+
+<Callout type= "info" emoji="🎓">
+了解我们最新推出的人工智能课程中关于高级提示工程技术与最佳实践的内容。 [立即加入!](https://dair-ai.thinkific.com/)
+使用优惠码 PROMPTING20 可额外享受 20% 折扣优惠。
+</Callout>

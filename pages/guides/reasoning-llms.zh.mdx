@@ -1,0 +1,230 @@
+## 推理型 LLMs 指南
+
+### 目录
+
+* [什么是推理型 LLMs?](#什么是推理型-LLMs?)
+* [顶级推理模型](#顶级推理模型)
+* [推理模型的设计模式与用例](#推理模型的设计模式与用例)
+  * [代理系统的规划](#代理系统的规划)
+  * [代理式RAG](#代理式RAG)
+  * [LLM作为评判者(LLM-as-a-Judge)](#LLM作为评判者(LLM-as-a-Judge))
+  * [视觉推理](#视觉推理)
+  * [其他用例](#其他用例)
+* [使用推理型LLMs的技巧](#reasoning-llm-usage-tips)
+  * [通用使用模式与提示技巧](#general-usage-patterns--prompting-tips)
+  * [使用混合推理模型](#using-hybrid-reasoning-models)
+* [推理模型的局限性](#limitations-with-reasoning-models)
+* [下一步建议](#next-steps)
+
+### 什么是推理型 LLMs?
+
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/AZhUhGsgz4s?si=iZ_WsVs4HalgFBW5"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+大型推理模型(Large Reasoning Models, LRMs)，或简称为推理型 LLMs ，是专门训练用于执行原生思维过程或链式思考(chain-of-thought)的语言模型。当前流行的推理模型包括 Gemini 2.5 Pro 、Claude 3.7 Sonnet 和 o3 等。
+
+***可在ChatGPT(o3)和Gemini 2.5 Pro(Google AI Studio)中尝试的提示词: ***
+
+```
+前50个质数的总和是多少？请生成并运行用于计算的 Python 代码，确保准确包含全部 50 个质数，并明确给出最终结果。
+```
+
+### 顶级推理模型
+
+以下是一些主流推理模型及其功能与优势的概览：
+
+[Reasoning LLMs \[WIP\]](https://docs.google.com/spreadsheets/d/1Ru5875NC9PdKK19SVH54Y078Mb4or-ZLXqafnqPDxlY/edit?usp=sharing)
+
+以下是跟踪推理模型基准性能的一些资源：
+
+* [Chatbot Arena LLM Leaderboard](https://beta.lmarena.ai/leaderboard)  
+* [General Reasoning](https://gr.inc/)  
+* [Agent Leaderboard \- a Hugging Face Space by galileo-ai](https://huggingface.co/spaces/galileo-ai/agent-leaderboard)
+
+### 推理模型的设计模式与用例
+
+#### 代理系统的规划
+
+在构建代理系统时，**规划**是一个关键组成部分，它使系统能够更有效地执行复杂任务。例如，在构建深度研究型代理系统时，规划有助于安排实际搜索步骤，并引导代理系统逐步完成任务。下面的例子展示了一个搜索代理，该代理首先对查询进行分解规划，然后协调并执行搜索：
+
+!["协调器-工作者代理"](../../img/reasoning-llms/orchestrator_worker_LI_1.JPG)
+
+#### 代理式RAG
+
+**代理式RAG**是一种利用推理模型构建具备高级工具调用能力和复杂知识库推理能力的代理 RAG 应用的系统。它可以结合一个**检索代理**与推理链/工具，通过工具/函数调用来路由需要复杂推理的复杂查询/上下文。
+
+!["代理式RAG"](../../img/reasoning-llms/agentic_rag.JPG)  
+这里是使用 n8n 构建的一个基础代理式 RAG 系统实现: [n8n 模板](https://drive.google.com/drive/folders/1Rx4ithkjQbYODt5L6L-OcSTTRT4M1MiR?usp=sharing)
+
+这是搭建代理式 RAG 系统的视频教程: [Building with Reasoning LLMs | n8n Agentic RAG Demo + Template](https://www.youtube.com/watch?v=rh2JRWsLGfg&ab_channel=ElvisSaravia)
+
+#### LLM作为评判者(LLM-as-a-Judge)
+
+当构建需要自动化评估/评分的应用程序时，LLM-as-a-Judge 是一个可行的选择。该方法利用了 LLM 对大量信息的理解与推理能力，而推理型 LLMs 尤其适合此类任务。下图展示了一个评估-优化代理系统 ，其中基于推理模型 LLM-as-a-Judge 的代理会先评估预测结果并生成反馈。随后，元提示(meta-prompt)将当前提示、反馈整合，并尝试优化基础系统提示。
+
+!["LLM-as-a-Judge"](../../img/reasoning-llms/llm_as_a_judge.JPG)
+
+#### 视觉推理
+
+像 o3 这样的模型可以利用多工具协同的能力，进行[高级视觉推理](https://openai.com/index/thinking-with-images/) ，完成诸如图像分析甚至图像修改（如缩放、裁剪、旋转等）的任务。该类模型可以在其链式思考过程中融合图像信息。
+
+**🧩字谜示例:** [https://chatgpt.com/share/681fcc32-58fc-8000-b2dc-5da7e84cf8bf](https://chatgpt.com/share/681fcc32-58fc-8000-b2dc-5da7e84cf8bf)
+
+#### 其他用例
+
+其他常见应用场景包括: 
+
+* 在技术领域内的大型复杂数据集中（例如一组不同的文档）发现关系并回答问题；
+* 审查、理解与调试大型代码库，适用于算法开发与科学编程；
+* 需要解决高级数学问题、设计实验与深层推理的科学任务；
+* 文献综述与综合；
+* 为知识库生成例行指令以优化LLM使用的分步说明（例如元提示）；
+* 数据验证以提升数据集的质量与可靠性；
+* 多步骤代理规划（如深度研究）；
+* 识别并提取相关信息以支持问答系统；
+* 对知识密集型和模糊性任务的支持。
+
+
+## **推理型LLM使用技巧**
+
+### **通用使用模式与提示技巧**
+
+* **战略性推理:** 将推理模型用于基于 LLM 的应用中需要大量推理的模块或组件，而非应用于应用程序的每一部分。并采用“关注点分离”原则（即模块化应用程序），以便于识别在哪些地方应用推理最为有效。
+
+* **推理时扩展(测试时计算):** 通常来说，推理模型的性能随着思考时间（即计算资源）的增加而提升。
+
+* **思考时间设置：** 你可以选择不同的推理努力选项，例如\`**low**\`用于更低的成本和更快的响应，或者\`**high**\`用于更高的思考时间和更多的 tokens 消耗，这也会导致较慢的响应。``**中**`则是精度和速度之间的平衡。
+
+* **明确的指令:** 与标准聊天型LLM一样，为推理模型提供清晰明确的指令至关重要。虽然不需要详细列出每一步骤（详见下文），但应给出必要的高层次指令、约束条件以及期望输出，以消除模型可能做出的假设。
+
+* **避免手动链式思维(Chain-of-Thought, CoT):** 在指令中应避免使用逐步提示的链式思维。指令应简洁直接，在适用时可在指令中加入限制条件。
+
+* **结构化输入与输出:** 与标准LLM类似，使用分隔符对输入进行结构化是一种良好实践。在构建复杂代理系统时，也可以利用结构化输出。大多数推理模型能很好地遵循使用JSON或XML格式输出的指令。除非有硬性要求必须输出为JSON格式，我们建议默认使用XML格式进行内容结构化。**Claude 4等模型的输出格式往往受提示结构的影响较大（例如，如果提示中使用Markdown格式，模型倾向于生成Markdown格式的输出）**。
+
+* **少量样本提示法(Few-shot Prompting):** 若模型难以达到预期输出效果，可添加少量示例或示范。确保这些示例与高层指令一致，以避免混淆。当难以解释所需输出或需展示希望模型避免的行为时，该方法尤为有效。
+
+* **使用描述性修饰语指导模型:** 通过使用清晰的修饰语和细节说明，可以引导 o3 和 Claude 4 等模型生成更复杂、更高品质的输出（如代码和搜索结果）。根据 [Claude 4 文档](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices#enhance-visual-and-frontend-code-generation) ，一个前端代码生成的示例是：“Add thoughtful details like hover states, transitions, and micro-interactions”（添加细致的设计细节，如悬停状态、过渡效果和微交互）。
+
+### 使用混合推理模型
+
+* **从简单开始:** 首先使用标准模式（关闭思考模式）并评估响应效果。也可在此阶段尝试手动链式思维提示。
+
+* **启用原生推理能力:** 若发现错误或浅层回答，但认为任务可通过深入分析/推理改进，则启用“思考”功能。从低思考强度开始，并评估响应质量。
+
+* **增加思考时间:** 若低强度思考仍不足，切换至中等强度。
+
+* **进一步增加思考时间:** 若中等强度仍不理想，切换至高强度。
+
+* **使用少量样本提示法:** 若需改进输出风格与格式，可加入示例演示。
+
+!["混合推理模型"](../../img/reasoning-llms/hybrid_reasoning_models.JPG)
+
+ 🧑‍💻 代码示例: [reasoning.ipynb](https://drive.google.com/file/d/16t34_Ql4QWORkb6U9ykVbvhCHnMvQUE_/view?usp=sharing)
+
+## **推理模型的局限性**
+
+以下是在使用推理模型时需注意的一些常见问题：
+
+* **输出质量**
+
+  * 推理模型有时会生成混合语言内容、重复内容、不一致输出、格式错误或低质量的输出风格。
+
+  * 遵循模型的最佳提示实践可缓解部分问题。避免模糊不清或不必要的指令。
+
+* **推理影响指令执行能力**
+
+  * 使用显式的链式思维提示与推理模型结合时，可能会削弱模型的指令执行能力([参考文献](https://arxiv.org/abs/2505.11423))。这意味着在使用 CoT 时需更加谨慎，甚至完全避免将其用于推理模型。
+
+  * 这篇 [论文](https://arxiv.org/abs/2505.11423) 提出以下缓解策略:
+
+    * 基于精心挑选的示例进行少量样本上下文学习；
+
+    * 自我反思（模型自我批评并修正答案）；
+
+    * 自主选择性推理（模型决定何时进行推理）；
+
+    * 分类器选择性推理（外部分类器预测推理是否有助于任务）。 
+
+* **过度思考与思考不足**
+
+  * 若提示不当，推理模型可能出现“过度思考”或“思考不足”现象。
+
+  * 可通过明确任务、流程及预期输出格式来改善这一问题。
+
+  * 其他开发者则通过创建子任务并在必要时将复杂任务路由至推理工具（由推理模型驱动）来应对。
+
+* **成本高昂**
+
+  * 推理模型的成本显著高于标准聊天型LLM，因此应在调试工具上进行实验，并始终评估响应质量。 
+
+  * 跟踪因输出不一致而导致的token使用量和成本变化。
+
+* **延迟较高**
+
+  * 推理模型相对缓慢，有时还会生成与当前任务无关的内容，导致输出出现延迟的问题。
+
+  * 更加简洁的提示可缓解此类延迟。在应用层面，也可以利用流式传输技术来改善感知延迟。
+
+  * 较小的推理模型（如Claude 3.7 Sonnet）通常具有更好的延迟表现。
+
+  * ***建议先优化准确性，再优化延迟与成本。*** 
+
+* **工具调用与代理能力较差**
+
+  * 尽管o3等推理模型在多工具调用方面有所改进，但并行工具调用仍可能存在挑战。
+
+  * 其他推理模型（如 DeepSeek-R1 和 Qwen 系列）除非经过专门训练，否则也表现出较差的工具调用能力。
+
+  * 随着更先进、更可靠的工具调用机制的发展，有望实现能够在现实世界中采取行动的代理系统。推理型 LLM 已具备丰富的知识，但在通过稳健且动态的工具调用能力 进行决策制定方面仍需改进，并需增强其对物理与数字世界的理解。多模态推理是当前研究的重点领域之一。
+
+您还可以在此查阅关于推理型LLMs的最新指南: [Reasoning LLMs Guide](https://docs.google.com/document/d/1AwylUdyciJhvYn-64ltpe79UL7_G-BmNwqs4NNt4oQ0/edit?usp=sharing) 
+
+## **下一步建议**
+
+我们推荐以下课程，以深入了解推理型 LLMs 的应用，并提升基于LLM的代理系统工作流的开发能力：
+
+* [Prompt Engineering for Developers](https://dair-ai.thinkific.com/courses/prompt-engineering-devs)  
+  * 涵盖更多关于提示推理型 LLMs 的技巧与实际应用
+* [Advanced AI Agents](https://dair-ai.thinkific.com/courses/advanced-ai-agents)  
+  *涵盖如何在多代理系统中使用推理型 LLMs，以及 LLM 作为评判者(LLM-as-a-Judge)和监督者-工作者代理架构等高级概念 
+* [Introduction to AI Agents](https://dair-ai.thinkific.com/courses/introduction-ai-agents)  
+  * 涵盖如何构建基于ReAct代理等概念的系统
+* [Introduction to RAG](https://dair-ai.thinkific.com/courses/introduction-rag)  
+  * 涵盖如何使用如代理式RAG等流行设计模式进行开发
+
+我们还拥有一个活跃的社区论坛，您可以在其中获得支持与指导，参与实时办公时间、专家在线活动等内容。
+
+如有任何问题，请联系 [academy@dair.ai](mailto:academy@dair.ai)
+
+import { Callout } from 'nextra/components'
+
+<Callout type= "info" emoji="🎓">
+在我们的新课程《[高级AI代理](https://dair-ai.thinkific.com/courses/advanced-ai-agents)》中，学习如何使用推理型LLMs构建高级代理。
+
+使用优惠码 PROMPTING20 可享受额外20%折扣。
+
+</Callout>
+
+## **参考文献**
+
+* [Claude 4 prompt engineering best practices](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices)  
+* [LLM Reasoning | Prompt Engineering Guide\<\!-- \--\>](https://www.promptingguide.ai/research/llm-reasoning)  
+* [Reasoning Models Don’t Always Say What They Think](https://arxiv.org/abs/2505.05410)  
+* [Gemini thinking | Gemini API | Google AI for Developers](https://ai.google.dev/gemini-api/docs/thinking)  
+* [Introducing OpenAI o3 and o4-mini](https://openai.com/index/introducing-o3-and-o4-mini/)  
+* [Understanding Reasoning LLMs](https://sebastianraschka.com/blog/2025/understanding-reasoning-llms.html)  
+* [Thinking with images | OpenAI](https://openai.com/index/thinking-with-images/)  
+* [DeepSeek R1 Paper](https://github.com/deepseek-ai/DeepSeek-R1/blob/main/DeepSeek_R1.pdf)  
+* [General Reasoning](https://gr.inc/)  
+* [Llama-Nemotron: Efficient Reasoning Models](https://arxiv.org/pdf/2505.00949v1)   
+* [Phi-4-Mini Reasoning](https://arxiv.org/abs/2504.21233)  
+* [The CoT Encyclopedia](https://arxiv.org/abs/2505.10185)  
+* [Towards a deeper understanding of Reasoning in LLMs](https://arxiv.org/abs/2505.10543)  
+* [The Pitfalls of Reasoning for Instruction Following in LLMs](http://arxiv.org/abs/2505.11423)
+* [The Illusion of Thinking: Understanding the Strengths and Limitations of Reasoning Models via the Lens of Problem Complexity](https://ml-site.cdn-apple.com/papers/the-illusion-of-thinking.pdf)
+
