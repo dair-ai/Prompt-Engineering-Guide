@@ -20,31 +20,31 @@
     "items": {
       "intro-prompt-engineering": {
         "title": "Intro to Prompt Engineering",
-        "href": "https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+        "href": "https://academy.dair.ai/courses/introduction-prompt-engineering"
       },
       "advanced-prompt-engineering": {
         "title": "Advanced Prompt Engineering",
-        "href": "https://dair-ai.thinkific.com/courses/advanced-prompt-engineering"
+        "href": "https://academy.dair.ai/courses/advanced-prompt-engineering"
       },
       "intro-ai-agents": {
         "title": "Intro to AI Agents",
-        "href": "https://dair-ai.thinkific.com/courses/introduction-ai-agents"
+        "href": "https://academy.dair.ai/courses/introduction-ai-agents"
       },
       "agents-with-n8n": {
         "title": "Building Effective AI Agents with n8n",
-        "href": "https://dair-ai.thinkific.com/courses/agents-with-n8n"
+        "href": "https://academy.dair.ai/courses/building-effective-ai-agents"
       },
       "rag-systems": {
         "title": "Build RAG Systems",
-        "href": "https://dair-ai.thinkific.com/courses/introduction-rag"
+        "href": "https://academy.dair.ai/courses/introduction-to-rag"
       },
       "advanced-agents": {
         "title": "Building Advanced AI Agents",
-        "href": "https://dair-ai.thinkific.com/courses/advanced-ai-agents"
+        "href": "https://academy.dair.ai/courses/advanced-ai-agents"
       },
       "all-courses": {
         "title": "See all →",
-        "href": "https://dair-ai.thinkific.com/pages/courses"
+        "href": "https://academy.dair.ai/courses"
       }
     }
   },

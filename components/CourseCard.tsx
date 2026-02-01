@@ -233,7 +233,7 @@ export const CoursesSection = ({
 export const CoursePromo = ({
   title = "Want to learn more?",
   description = "Learn more about advanced prompt engineering techniques and best practices in our AI courses.",
-  href = "https://dair-ai.thinkific.com/",
+  href = "https://academy.dair.ai/",
   buttonText = "Explore Courses",
   promoCode
 }: {

@@ -10,7 +10,7 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 🌐 [Prompt Engineering Guide (Web Version)](https://www.promptingguide.ai/)
 
-🎉 We are excited to launch our new prompt engineering, RAG, and AI Agents courses under the DAIR.AI Academy. [Join Now](https://dair-ai.thinkific.com/bundles/pro)!
+🎉 We are excited to launch our new prompt engineering, RAG, and AI Agents courses under the DAIR.AI Academy. [Join Now](https://academy.dair.ai/pricing)!
 
 The courses are meant to compliment this guide and provide a more hands-on approach to learning about prompt engineering, context engineering, and AI Agents. 
 
@@ -21,8 +21,8 @@ Happy Prompting!
 ---
 ## Announcements / Updates
 
-- 🎓 We now offer self-paced prompt engineering courses under our DAIR.AI Academy. [Join Now](https://dair-ai.thinkific.com/bundles/pro)! 
-- 🎓 New course on Prompt Engineering for LLMs announced! [Enroll here](https://maven.com/dair-ai/prompt-engineering-llms)!
+- 🎓 We now offer self-paced prompt engineering courses under our DAIR.AI Academy. [Join Now](https://academy.dair.ai/pricing)! 
+- 🎓 New course on Prompt Engineering for LLMs announced! [Enroll here](https://academy.dair.ai/courses/introduction-prompt-engineering)!
 - 💼 We now offer several [services](https://www.promptingguide.ai/services) like corporate training, consulting, and talks.
 - 🌐 We now support 13 languages! Welcoming more translations.
 - 👩‍🎓 We crossed 3 million learners in January 2024!
