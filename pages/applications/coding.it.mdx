@@ -1,3 +1,196 @@
-# Generating Code
+# Generazione di codice
 
-Needs translation! Feel free to contribute a translating by clicking the `Edit this page` button on the right side.
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import CODE1 from '../../img/code-generation/chat-mode.png'
+
+<Callout emoji="⚠️">
+  Questa sezione è in fase di sviluppo.
+</Callout>
+
+Gli LLM come ChatGPT sono molto efficaci nella generazione di codice. In questa sezione copriremo molti esempi su come usare ChatGPT per la generazione di codice.
+
+Per tutti gli esempi qui sotto vengono utilizzati l’OpenAI Playground (Chat Mode) e il modello `gpt-3.5-turbo`.
+
+Come per tutti i modelli chat di OpenAI, puoi usare un `System Message` per definire il comportamento e il formato delle risposte. Per gli esempi di prompt useremo il seguente System Message:
+
+```
+You are a helpful code assistant that can teach a junior developer how to code. Your language of choice is Python. Don't explain the code, just generate the code block itself.
+```
+
+## Esempio di base
+
+Il `User Message` sarà quindi il prompt stesso con l’istruzione sul codice specifico che vuoi far generare al modello. Di seguito trovi un’istantanea del primo prompt di base per la generazione di codice. Nota che il codice finale è stato generato dall’`Assistant`.
+
+<Screenshot src={CODE1} alt="CODE1" />
+
+Ecco il prompt, se vuoi provarlo tu stesso:
+
+```
+Write code that asks the user for their name and say "Hello"
+```
+
+## Trasformare commenti in codice
+
+Puoi anche usare le capacità di generazione di codice di questi LLM per generare codice partendo solo da commenti. Vediamo un altro esempio che passa le istruzioni come blocco di commento:
+
+*Prompt:*
+```
+"""
+1. Create a list of movies
+2. Create a list of ratings for these movies
+3. Combine them to make a json object of 10 movies with their ratings.
+"""
+```
+
+*Output:*
+```python
+movies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Schindler's List", "Pulp Fiction", "The Lord of the Rings: The Return of the King", "Forrest Gump", "Star Wars: Episode V - The Empire Strikes Back", "Inception", "The Silence of the Lambs"]
+
+ratings = [9.3, 9.2, 9.0, 8.9, 8.9, 8.9, 8.8, 8.7, 8.7, 8.6]
+
+movie_ratings = {}
+
+for i in range(len(movies)):
+    movie_ratings[movies[i]] = ratings[i]
+
+json_object = json.dumps(movie_ratings, indent=4)
+
+print(json_object)
+```
+
+Il codice generato sembra funzionante. Tuttavia, l’output non contiene una dichiarazione import importante, ossia import json. Anche se questi modelli generano codice funzionante, devi prestare molta attenzione a piccoli dettagli come questo e assicurarti sempre di testare il tuo codice.
+
+## Completare funzioni o la riga successiva
+
+Questi LLM sono stati anche integrati in strumenti come GitHub Copilot, il che li rende utili per gli sviluppatori. Una funzionalità utile è la capacità del modello di completare le funzioni.
+
+*Prompt:*
+```python
+# function to multiply two numbers and add 75 to it
+
+def multiply(
+```
+
+*Output:*
+```python
+a, b):
+    result = a * b
+    result += 75
+    return result
+```
+
+## Generazione di query MySQL
+
+Oltre all’esempio base di generazione di codice qui sopra, puoi usare il modello per generare codice utile che può essere impiegato anche in altri aspetti della programmazione, come la creazione e il test di query MySQL.
+
+Supponiamo di avere un dataset con alcune informazioni che puoi includere nel prompt e poi chiedere di generare una query specifica. Per esempio:
+
+```
+"""
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a MySQL query for all students in the Computer Science department
+"""
+```
+
+*Output:*
+```mysql
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+```
+
+Il modello genera una query! Tuttavia, in questo esempio abbiamo inventato il database, quindi non abbiamo un database su cui testare la query generata. Se stai testando questo esempio, potrebbe essere utile creare questo database. Fortunatamente, puoi usare ChatGPT anche per generarlo. Un approccio consiste nell’usare una versione modificata del prompt sopra, con istruzioni leggermente diverse, per generare uno schema di database:
+
+```mysql
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a valid database schema with the above tables and columns
+```
+
+Il modello ha generato il seguente schema:
+
+```mysql
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+```
+
+Puoi creare un database temporaneo usando qualcosa come [sqliteonline.com](https://sqliteonline.com/).
+
+Ti serviranno anche dati fittizi per verificare se la query generata in origine è valida. Usiamo ChatGPT anche per questo! Il prompt potrebbe essere simile al seguente:
+
+```mysql
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+
+Given the database schema above, generate valid insert statements include 4 rows for each table.
+```
+
+L’output con le istruzioni di inserimento:
+
+```mysql
+INSERT INTO departments (DepartmentId, DepartmentName)
+VALUES (1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics'), (4, 'Biology');
+
+INSERT INTO students (DepartmentId, StudentId, StudentName)
+VALUES (1, 101, 'John Doe'), (1, 102, 'Jane Doe'), (2, 201, 'Alice Smith'), (2, 202, 'Bob Johnson');
+```
+
+Ora che hai il database e i dati fittizi, puoi testare la query originale. Sulla base dei dati fittizi, il risultato dovrebbe essere di due righe con `Jane Doe` e `John Doe`.
+
+## Spiegare il codice
+Se stai imparando a programmare in un certo linguaggio, potrebbe essere utile chiedere al modello di spiegare alcune parti di codice. Riutilizziamo la query generata sopra e chiediamo al modello di spiegarla.
+
+Se stai usando lo stesso System Message di prima, fai attenzione a come istruisci il modello. Per esempio, se usiamo l’esempio seguente, il modello si lamenterà di essere un assistente di codice in Python, ma fornirà comunque una spiegazione. A volte il modello rifiuta di generare ciò che gli stai chiedendo perché è progettato per seguire il System Message. 
+
+*Prompt:*
+
+```mysql
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+
+Explain the above SQL statement.
+```
+
+*Output:*
+
+```
+Sorry, as a code assistant in Python, I cannot generate SQL code. However, I can explain the purpose of the SQL statement provided. 
+
+This SQL statement selects the `StudentId` and `StudentName` columns from the `students` table, where the `DepartmentName` column in the `departments` table is equal to 'Computer Science'. To achieve this, the statement performs an inner join on the `DepartmentId` column between the `students` and `departments` tables. 
+
+In simpler terms, it is selecting the names and IDs of students who are enrolled in the Computer Science department.
+```
+
+## Editing Code
+Esempio in arrivo!
+
+## Debugging Code
+Esempio in arrivo!
+
+## Best practices
+In arrivo!
