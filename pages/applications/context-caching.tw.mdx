@@ -1,0 +1,58 @@
+# 使用 Gemini 1.5 Flash 的 Context Caching
+
+import {Cards, Card, Callout} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+
+Google 最近在 Gemini API 中推出了一項新功能：[context-caching](https://ai.google.dev/gemini-api/docs/caching?lang=python)，目前可搭配 Gemini 1.5 Pro 與 Gemini 1.5 Flash 使用。本指南示範如何在 Gemini 1.5 Flash 上運用 context caching。
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/987Pd89EDPs?si=j43isgNb0uwH5AeI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+https://youtu.be/987Pd89EDPs?si=j43isgNb0uwH5AeI
+
+### 使用情境：分析一整年的 ML 論文摘要
+
+範例中展示的是：如何利用 context caching 來分析我們過去一年整理的 [ML 論文摘要](https://github.com/dair-ai/ML-Papers-of-the-Week)。這些摘要被彙整在一個文字檔中，接著會餵給 Gemini 1.5 Flash，並在上面進行高效率的查詢。
+
+### 流程概觀：上傳、建立快取與查詢
+
+1. **資料準備：** 先把包含摘要的 README 檔轉成純文字檔。
+2. **使用 Gemini API：** 透過 Google 的 `generativeai` 函式庫上傳文字檔。
+3. **建立 context cache：** 使用 `caching.CachedContent.create()` 建立快取，包含：
+   - 指定使用的模型（Gemini 1.5 Flash）
+   - 為快取命名
+   - 提供模型指令（例如「You are an expert AI researcher...」）
+   - 設定 TTL（time-to-live），例如 15 分鐘
+4. **建立模型執行個體：** 使用快取內容建立對應的 generative model。
+5. **進行查詢：** 之後即可用自然語言提問，例如：
+   - 「Can you please tell me the latest AI papers of the week?」
+   - 「Can you list the papers that mention Mamba? List the title of the paper and summary.」
+   - 「What are some of the innovations around long-context LLMs? List the title of the paper and summary.」
+
+實驗結果相當不錯：模型能正確從文字檔中擷取並總結需要的資訊，而且因為有 context caching，不必在每次查詢時重新上傳整份文字檔，效率大幅提升。
+
+這樣的工作流程對研究者來說特別實用，因為可以：
+
+* 快速分析並查詢大量研究資料
+* 直接取得特定主題或關鍵詞相關的摘要，而不用手動翻找文件
+* 在不大量消耗提示詞的 token 前提下，進行互動式研究
+
+未來也很值得把 context caching 與更複雜的代理工作流程（agentic workflows）結合，擴充更多應用可能。
+
+以下是對應的 notebook：
+
+<Cards>
+    <Card
+        icon={<CodeIcon />}
+        title="Context Caching with Gemini APIs"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/gemini-context-caching.ipynb"
+    />
+</Cards>
+
+<Callout type= "info" emoji="🎓">
+如果想進一步了解快取與相關技巧，歡迎參考我們的 AI 課程。[立即加入！](https://dair-ai.thinkific.com/)
+結帳時輸入優惠碼 PROMPTING20，可額外享有 8 折優惠。
+</Callout>

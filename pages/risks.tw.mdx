@@ -1,0 +1,11 @@
+# 風險與誤用
+
+import { Callout } from 'nextra-theme-docs'
+import ContentFileNames from 'components/ContentFileNames'
+
+
+我們已經看到，透過少量樣本學習（few-shot learning）、思維鏈提示詞（chain-of-thought prompting）等技巧，精心設計的提示詞可以讓大型語言模型（LLM）在各式任務上發揮相當好的效果。不過，一旦開始思考要在 LLM 之上建立實際應用，就必須同時面對與語言模型相關的誤用情境、風險，以及配套的安全實務。
+
+本節會聚焦於幾種常見的風險與誤用型態，例如透過提示詞注入（prompt injections）操控模型行為，或誘發各種有害輸出，並討論如何用適當的提示詞策略與工具（像是審查用 API）來降低這類風險。其他重要議題還包括泛化能力、校準（calibration）、偏誤與社會偏誤、事實性（factuality）等。
+
+<ContentFileNames section="risks" lang="tw"/>

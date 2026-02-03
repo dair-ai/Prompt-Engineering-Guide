@@ -1,0 +1,196 @@
+# 產生程式碼
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import CODE1 from '../../img/code-generation/chat-mode.png'
+
+<Callout emoji="⚠️">
+  本章節正在準備中。
+</Callout>
+
+像 ChatGPT 這種大型語言模型在程式碼產生方面非常有效。在本節中，我們將介紹許多如何使用 ChatGPT 進行程式碼產生的範例。
+
+以下所有範例都使用 OpenAI 的 Playground（聊天模式）和`gpt-3.5-turbo`模型。
+
+與 OpenAI 的所有聊天模型一樣，您可以使用`系統訊息`來定義回應的行為和格式。我們將使用以下系統訊息作為提示詞範例：
+
+```
+您是一位有用的程式碼助手，可以教初級開發人員如何編寫程式碼。您選擇的語言是Python。不解釋程式碼，只產生程式碼區塊本身。
+```
+
+## 基本範例
+
+`使用者訊息`將是提示詞本身，其中包含了您希望模型產生的特定程式碼的指令。以下是程式碼產生的第一個基本提示詞快照。請注意，最終程式碼是由`助手`產生的。
+
+<Screenshot src={CODE1} alt="CODE1" />
+
+如果您想自己試試，這是一些提示詞：
+
+```
+寫一段程式碼詢問使用者他們的名字並說Hello
+```
+
+## 將註解轉換成程式碼
+
+您也可以使用這些大型語言模型的程式碼產生能力將註解轉換成程式碼。讓我們看另一個將指令作為註解區塊傳遞的範例：
+
+*提示詞：*
+```
+"""
+1. 建立一個電影名稱列表
+2. 建立這些電影的評分列表
+3. 將它們組合並建立一個包含10部電影及其評分的json物件
+"""
+```
+
+*輸出：*
+```python
+movies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Schindler's List", "Pulp Fiction", "The Lord of the Rings: The Return of the King", "Forrest Gump", "Star Wars: Episode V - The Empire Strikes Back", "Inception", "The Silence of the Lambs"]
+
+ratings = [9.3, 9.2, 9.0, 8.9, 8.9, 8.9, 8.8, 8.7, 8.7, 8.6]
+
+movie_ratings = {}
+
+for i in range(len(movies)):
+    movie_ratings[movies[i]] = ratings[i]
+
+json_object = json.dumps(movie_ratings, indent=4)
+
+print(json_object)
+```
+
+產生的程式碼看起來像是可以正常執行的程式碼。然而，輸出的程式碼不包含重要的`import`語句，即：`import json`。當這些模型產生可執行的程式碼時，您必須注意這樣的小細節，並始終確保測試您的程式碼。
+
+## 完成函式或下一行
+
+這些大型語言模型也被整合到像是 GitHub Copilot 等工具中，這使得它們對開發人員非常有用。其中一個有用的功能是模型能夠完成函式。
+
+*提示詞：*
+```python
+# 將兩個數字相乘並加 75 的函式
+
+def multiply(
+```
+
+*輸出：*
+```python
+a, b):
+    result = a * b
+    result += 75
+    return result
+```
+
+## MySQL 查詢語句產生
+
+除了上面的基本程式碼產生範例外，您還可以使用該模型產生其他有用的程式碼，例如建立和測試 MySQL 查詢。
+
+假設您有一個資料集，其中包含一些資訊，您可以將其作為提示詞的一部分，然後指示它產生特定查詢。例如：
+
+```
+"""
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a MySQL query for all students in the Computer Science department
+"""
+```
+
+*輸出：*
+```mysql
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+```
+
+模型產生了一個查詢語句！然而，我們沒有對應的資料庫來測試產生的查詢語句是否正確。如果要測試，則需要建立這個資料庫。幸運的是，您可以使用 ChatGPT 為您產生此內容。例如使用上述提示詞的修改版本，其指令略有不同，以產生資料庫結構：
+
+```mysql
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a valid database schema with the above tables and columns
+```
+
+模型產生了以下的資料表建立語句：
+
+```mysql
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+```
+
+您也可以建立一個臨時的資料庫，使用類似[sqliteonline.com](https://sqliteonline.com/)。
+
+您還需要虛擬資料來測試產生的查詢是否有效。讓我們也使用 ChatGPT！提示詞語句類似下例：
+
+```mysql
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+
+給定上面的資料表結構，產生有效的插入語句，每個表包含4行：
+```
+
+帶有插入語句的輸出：
+
+```mysql
+INSERT INTO departments (DepartmentId, DepartmentName)
+VALUES (1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics'), (4, 'Biology');
+
+INSERT INTO students (DepartmentId, StudentId, StudentName)
+VALUES (1, 101, 'John Doe'), (1, 102, 'Jane Doe'), (2, 201, 'Alice Smith'), (2, 202, 'Bob Johnson');
+```
+
+現在您已經有了資料庫和虛擬資料，可以測試原始查詢了。根據虛擬資料，結果應該是兩行，分別包含`Jane Doe`和`John Doe`。
+
+## 解釋程式碼
+如果您正在學習使用某種語言程式設計，用提示詞請模型解釋某些程式碼位可能會很有用。讓我們重用上面產生的查詢，並要求模型對其進行解釋。
+
+如果您使用的是與之前相同的`系統訊息`，請注意如何指導模型。例如，如果我們使用以下範例，模型會抱怨它是 Python 中的程式碼助手，但它仍然提供瞭解釋。有時，模型拒絕產生您指示的內容，因為它用來遵循系統訊息。
+
+*提示詞：*
+
+```mysql
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+
+解釋上面的SQL語句。
+```
+
+*輸出：*
+
+```
+對不起，作為一個Python程式碼助手，我不能產生SQL語句。但是，我能解釋您提供的SQL語句的含義。
+
+這個SQL語句從`students`表選擇了`StudentId`和`StudentName`欄位，其中`departments`表中的`DepartmentName`欄位等於'Computer Science'。為了實現這一效果，語句使用一個內部連接關鍵字在`DepartmentId`欄位和`students`和`departments`表。
+
+簡單來說，語句選擇了電腦科學系註冊的學生的姓名和ID。
+```
+
+## 編輯程式碼
+範例即將推出！
+
+## 除錯程式碼
+範例即將推出！
+
+## 最佳實踐
+即將推出！

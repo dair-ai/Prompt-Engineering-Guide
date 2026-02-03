@@ -1,0 +1,82 @@
+# 擴充指令微調的語言模型
+
+import {Screenshot} from 'components/screenshot'
+import FLAN1 from '../../img/flan-1.png'
+import FLAN2 from '../../img/flan-2.png'
+import FLAN3 from '../../img/flan-3.png'
+import FLAN4 from '../../img/flan-4.png'
+import FLAN5 from '../../img/flan-5.png'
+import FLAN6 from '../../img/flan-6.png'
+import FLAN7 from '../../img/flan-7.png'
+import FLAN8 from '../../img/flan-8.png'
+import FLAN9 from '../../img/flan-9.png'
+import FLAN10 from '../../img/flan-10.png'
+import FLAN11 from '../../img/flan-11.png'
+
+## 最新進展？
+
+<Screenshot src={FLAN1} alt="FLAN1" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+本論文探討了擴充 [指令微調](https://arxiv.org/pdf/2109.01652.pdf) 的好處，以及它如何改善多種模型（PaLM、T5）、提示詞設定（零樣本、少數樣本、CoT）和基準測試（MMLU、TyDiQA）的效能。研究探討了以下幾個方面：擴充任務數量（1.8K 個任務）、擴充模型大小，以及在連續思考資料（使用了 9 個資料集）上進行微調。
+
+**微調程式：**
+- 使用 1.8K 個任務作為指令進行模型微調
+- 使用有和沒有示例的，以及有和沒有 CoT 的情況
+
+以下顯示微調任務和保留任務：
+
+<Screenshot src={FLAN11} alt="FLAN11" />
+
+## 功能與主要結果
+
+- 指令微調與任務數量和模型大小有良好的擴充性；這暗示了進一步擴充任務數量和模型大小的需要
+- 將 CoT 資料集加入微調過程能提高推理任務的效能
+- Flan-PaLM 在多語言能力方面有所改進；在一次性 TyDiQA 上提升了 14.9%；在代表性不足的語言中的算術推理方面提升了 8.1%
+- Plan-PaLM 也在開放式產生問題上表現良好，這是改善可用性的一個好指標
+- 在負責任的人工智慧（RAI）基準測試中有所改進
+- 用指令調整過的 Flan-T5 模型展示了強大的少數樣本能力，並超越了像 T5 這樣的公開檢查點
+
+**當擴充微調任務數量和模型大小的結果：** 預計會繼續提高效能，儘管擴充任務數量的回報逐漸減小。
+
+<Screenshot src={FLAN2} alt="FLAN2" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+**使用非 CoT 和 CoT 資料微調的結果：** 與僅使用其中一種資料微調相比，共同使用非 CoT 和 CoT 資料微調能在兩方面都提高效能。
+
+<Screenshot src={FLAN3} alt="FLAN3" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+此外，自我一致性加上 CoT 在多個基準測試上達到了業界最佳結果。CoT + 自我一致性也顯著提高了涉及數學問題（例如，MGSM、GSM8K）的基準測試的結果。
+
+<Screenshot src={FLAN4} alt="FLAN4" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+CoT 微調解鎖了「一步一步來想」這句短語啟用的零樣本推理，適用於 BIG-Bench 任務。一般而言，在沒有微調的情況下，零樣本的 CoT Flan-PaLM 表現優於零樣本的 CoT PaLM。
+
+<Screenshot src={FLAN6} alt="FLAN6" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+以下是一些尚未見過的任務中，PaLM 和 Flan-PaLM 使用零樣本 CoT 的展示。
+
+<Screenshot src={FLAN5} alt="FLAN5" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+以下是更多零樣本提示詞的例子。這展示了在零樣本設定中，PaLM 模型會面臨重複和未回應指令的問題，而 Flan-PaLM 能表現得相當不錯。少量樣本的範例可以減少這些錯誤。
+
+<Screenshot src={FLAN7} alt="FLAN7" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+以下是一些展示 Flan-PALM 模型在多種不同類型的開放式問題上具有更多零樣本能力的例子：
+
+<Screenshot src={FLAN8} alt="FLAN8" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+
+<Screenshot src={FLAN9} alt="FLAN9" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+<Screenshot src={FLAN10} alt="FLAN10" />
+圖片來源：[Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+您可以在 [Hugging Face Hub 上嘗試 Flan-T5 模型](https://huggingface.co/google/flan-t5-xxl)。

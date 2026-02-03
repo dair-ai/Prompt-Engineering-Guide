@@ -1,0 +1,26 @@
+# Efficient Infinite Context Transformers
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/tOaTaQ8ZGRo?si=pFP-KiLe63Ppl9Pd" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Google 的一篇新論文（[paper](https://arxiv.org/abs/2404.07143)）提出把「壓縮式記憶」（compressive memory）直接整合進一般的點積注意力層中。
+
+這項工作的目標，是讓 Transformer 類的大型語言模型能在「記憶體佔用與計算量固定」的前提下，有效處理幾乎無限長的輸入序列。
+
+作者提出一種新的注意力機制 Infini-attention，將壓縮記憶模組嵌入標準注意力機制中：
+
+!["Infini-Attention"](../../img/research/infini-attention.png)
+
+在同一個 Transformer 區塊中，同時結合了「遮罩式區域性注意力」與「長期線性注意力」，讓 Infini-Transformer 能同時有效處理短距離與長距離的語境關係。
+
+實驗顯示，這種方法在長上下文語言建模任務上超越多種基線模型，並達到 114 倍的記憶壓縮比。
+
+研究者也展示：一個 10 億參數的 LLM 可以自然延伸到 100 萬 token 的序列長度；一個 80 億參數模型則在 50 萬 token 長度的「整本書摘要」任務上達到新的最佳結果。
+
+隨著長上下文 LLM 在各種應用中愈來愈重要，如何設計有效的記憶系統成為關鍵。像 Infini-attention 這類方法，有機會為推理、規劃、持續學習與其他高階能力開啟新的可能。
+

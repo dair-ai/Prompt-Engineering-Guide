@@ -1,0 +1,224 @@
+## Reasoning LLMs 指南
+
+import { Callout } from 'nextra/components'
+
+### 目錄
+
+* [什麼是 Reasoning LLM？](#what-are-reasoning-llms)
+* [代表性推理模型](#top-reasoning-models)
+* [設計模式與應用場景](#reasoning-model-design-patterns--use-cases)
+  * [Agent 規劃](#planning-for-agentic-systems)
+  * [Agentic RAG](#agentic-rag)
+  * [LLM-as-a-Judge](#llm-as-a-judge)
+  * [視覺推理](#visual-reasoning)
+  * [其他應用](#other-use-cases)
+* [使用技巧與實務建議](#reasoning-llm-usage-tips)
+  * [一般使用模式與提示詞撰寫技巧](#general-usage-patterns--prompting-tips)
+  * [混合式推理模型的使用方式](#using-hybrid-reasoning-models)
+* [模型限制](#limitations-with-reasoning-models)
+* [進一步學習方向](#next-steps)
+* [參考資料](#references)
+
+### What are Reasoning LLMs?
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/AZhUhGsgz4s?si=iZ_WsVs4HalgFBW5"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+Large reasoning models（LRMs），或簡稱 reasoning LLM，是指那些明確為原生思考（native thinking）或 chain-of-thought 訓練的模型。常見例子包含 Gemini 2.5 Pro、Claude 3.7 Sonnet 與 o3。
+
+***可以在 ChatGPT（o3）與 Gemini 2.5 Pro（AI Google Studio）試試的 prompt：***
+
+```
+What is the sum of the first 50 prime numbers? Generate and run Python code for the calculation, and make sure you get all 50. Provide the final sum clearly.
+```
+
+### Top Reasoning Models
+
+以下整理了一份熱門 reasoning 模型與其特色的摘要（持續更新）：
+[Reasoning LLMs \[WIP\]](https://docs.google.com/spreadsheets/d/1Ru5875NC9PdKK19SVH54Y078Mb4or-ZLXqafnqPDxlY/edit?usp=sharing)
+
+若想追蹤 benchmark 表現，可以參考：
+
+* [Chatbot Arena LLM Leaderboard](https://beta.lmarena.ai/leaderboard)
+* [General Reasoning](https://gr.inc/)
+* [Agent Leaderboard \- a Hugging Face Space by galileo-ai](https://huggingface.co/spaces/galileo-ai/agent-leaderboard)
+
+### Reasoning Model Design Patterns & Use Cases
+
+#### Planning for Agentic Systems
+
+在設計代理式系統（agentic systems）時，**規劃（planning）**是一個關鍵能力，能讓系統更好地處理複雜任務。以 deep research 類型的代理為例，規劃可以協助系統安排實際搜尋步驟，並在任務推進過程中引導整體流程。下圖示意一個搜尋代理會先規劃（拆解查詢），再協調與執行搜尋：
+
+!["Orchestrator-Worker Agent"](../../img/reasoning-llms/orchestrator_worker_LI_1.JPG)
+
+#### Agentic RAG
+
+**Agentic RAG** 指的是：運用推理模型來打造 agentic RAG 應用，讓系統能在複雜知識庫或來源上做更進階的工具使用與推理。常見作法是使用 **retrieval agent** 搭配推理鏈／工具，把需要複雜推理的查詢或脈絡（透過 tool/function calling）路由到合適的處理流程。
+
+!["Agentic RAG"](../../img/reasoning-llms/agentic_rag.JPG)
+以下是用 n8n 實作 Agentic RAG 的基礎範例：[n8n templates](https://drive.google.com/drive/folders/1Rx4ithkjQbYODt5L6L-OcSTTRT4M1MiR?usp=sharing)
+
+這是 Agentic RAG 的影片教學：[Building with Reasoning LLMs | n8n Agentic RAG Demo + Template](https://www.youtube.com/watch?v=rh2JRWsLGfg&ab_channel=ElvisSaravia)
+
+#### LLM-as-a-Judge
+
+當應用需要自動化評估／評分時（例如模型評測、答案品質檢查），LLM-as-a-Judge 是常見選項。LLM-as-a-Judge 會利用模型對大量資訊的複雜理解與推理能力；而 reasoning LLM 特別適合這類用例。下圖示意一個 evaluator-optimizer 代理式系統：它會在一個迴圈中先由 LLM-as-a-Judge（以推理模型驅動）評估預測結果並產生回饋；接著 meta-prompt 會把目前的 prompt、回饋一起送入，嘗試最佳化 base system prompt。
+
+!["LLM-as-a-Judge"](../../img/reasoning-llms/llm_as_a_judge.JPG)
+
+#### Visual Reasoning
+
+像 o3 這類模型具備 multi-tool 能力，可用來做[進階視覺推理](https://openai.com/index/thinking-with-images/)，例如：對圖片進行推理、以及搭配可用工具做影像修改（例如 zoom、crop、rotate 等）。模型也能在 chain-of-thought 中對影像進行推理。
+
+**🧩填字遊戲：** [https://chatgpt.com/share/681fcc32-58fc-8000-b2dc-5da7e84cf8bf](https://chatgpt.com/share/681fcc32-58fc-8000-b2dc-5da7e84cf8bf)
+
+#### Other Use Cases
+
+其他用例包含：
+
+* 在大型、複雜資料集上找出關聯並回答問題（例如技術領域中大量且彼此獨立的文件集合）
+* 檢視、理解與除錯大型程式碼庫；也適合演算法開發與科學計算寫碼
+* 需要進階數學解題、實驗設計與更深推理的科學任務
+* 文獻回顧與綜整
+* 為知識庫（KB）產生 routines，以最佳化 LLM 的逐步指令（例如 meta-prompting）
+* 資料驗證，以提升資料集的品質與可靠性
+* 多步代理式規劃（例如 deep research）
+* 為 QA 系統辨識並擷取相關資訊
+* 知識密集且具歧義的任務
+
+## **Reasoning LLM Usage Tips**
+
+### **General Usage Patterns & Prompting Tips**
+
+* **Strategic Reasoning：** 把 reasoning 模型用在「推理負擔較重」的模組或元件，而不是整個應用的每個部分。建議採用 separation of concerns（把應用模組化），讓你能清楚辨識：哪些地方最需要 reasoning。
+
+* **Inference-time scaling（test-time compute）：** 一般來說，多數推理模型擁有更多思考時間（也就是更多 compute）時，表現會更好。
+
+* **Thinking time：** 可以使用不同的 reasoning effort 選項，例如 `**low**`（成本較低、回應較快）或 `**high**`（思考時間較長、tokens 較多、回應也較慢）。`**medium**` 則是在正確性與速度之間取得平衡。
+
+* **Be explicit with instructions：** 和一般 chat LLM 類似，請提供清楚且明確的指令，說明希望達成的目標。你不需要要求逐步推理（下面會再談），但務必給足高階指令、限制條件與期待輸出，避免模型自行做假設。
+
+* **Avoid manual CoT：** 盡量避免在指令中使用 chain-of-thought（一步一步）提示詞；指令應該簡單直接，並在適當時加入回應限制。
+
+* **Structure inputs and outputs：** 和標準 LLM 一樣，建議用 delimiters 來結構化輸入。你也可以使用結構化輸出（尤其在打造複雜 agentic 應用時）。多數推理模型都能有效依指令輸出 JSON 或 XML。我們建議預設以 XML 作為結構化產生內容的格式，除非有明確需求必須輸出 JSON。**像 Claude 4 這類模型的輸出格式，往往會受 prompt 的結構影響（例如：若用 Markdown 排版 prompt，輸出也容易傾向 Markdown）。**
+
+* **Few-shot Prompting：** 若模型難以產生你要的輸出，可以加入 few-shot 示範／範例。記得讓範例與高階指令一致，避免造成混淆。當你很難清楚描述「期望輸出長什麼樣子」時，few-shot 特別有用；你也可以用它示範要避免的行為。
+
+* **Use descriptive and clear modifiers when instructing the models：** 你可以透過清楚的修飾語與更具體的指令，引導 o3、Claude 4 等模型產生更複雜、品質更高的輸出（例如程式碼與搜尋結果）。例如 Claude 4 文件提到，一段用於產生前端程式碼的指令可以是：「Add thoughtful details like hover states, transitions, and micro-interactions」。參考：[Claude 4 documentation](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices#enhance-visual-and-frontend-code-generation)。
+
+### Using Hybrid Reasoning Models
+
+* **Start simple：** 先用標準模式（關閉 thinking）並評估回應；這時也可以嘗試手動 chain-of-thought prompt。
+
+* **Enable native reasoning：** 若你看到錯誤或回應偏淺，但認為任務會受益於更完整的分析／推理，就啟用 thinking。先從 low thinking effort 開始，並評估回應品質。
+
+* **Increase thinking time：** 如果 low thinking 不夠，再切到 medium effort。
+
+* **More thinking time：** 如果 medium effort 還不夠，再切到 high effort。
+
+* **Use few-shot prompting：** 若需要改善輸出風格與格式，可以加入示範。
+
+!["Hybrid Reasoning Models"](../../img/reasoning-llms/hybrid_reasoning_models.JPG)
+
+🧑‍💻 Code Demo: [reasoning.ipynb](https://drive.google.com/file/d/16t34_Ql4QWORkb6U9ykVbvhCHnMvQUE_/view?usp=sharing)
+
+## **Limitations with Reasoning Models**
+
+以下整理使用推理模型時常見、仍在持續存在的問題：
+
+* **輸出品質**
+
+  * 推理模型有時會產生混合語言內容、重複內容、輸出不一致、格式問題，或整體風格品質偏低。
+
+  * 其中部分問題可以透過遵循模型的提示詞最佳實務來緩解；並避免含糊或不必要的指令。
+
+* **Reasoning 影響指令遵循（Instruction-Following）**
+
+  * 對推理模型使用明確的 chain-of-thought 提示詞時，可能會降低模型的指令遵循表現（[ref](https://arxiv.org/abs/2505.11423)）。因此，需要更謹慎地使用 CoT，甚至乾脆避免在推理模型上使用它。
+
+  * 這篇[論文](https://arxiv.org/abs/2505.11423) 提出以下緩解策略：
+
+    * few-shot in-context learning（挑選合適範例）
+    * self-reflection（模型自我批判並修訂答案）
+    * self-selective reasoning（模型自行決定何時推理）
+    * classifier-selective reasoning（外部分類器預測推理是否有幫助）
+
+* **想太多與想太少（Overthinking & Underthinking）**
+
+  * 若提示詞不夠恰當，推理模型往往會「想太多」或「想太少」。
+
+  * 你可以透過更明確指定任務、流程與期待輸出格式來改善。
+
+  * 也有開發者透過拆分子任務，並在需要時才把複雜任務路由到推理工具（由推理模型驅動）來處理。
+
+* **成本**
+
+  * 推理模型的成本通常遠高於標準 chat LLM，因此建議搭配除錯工具做實驗，並且固定評估回應品質。
+
+  * 也要追蹤因輸出不一致而產生的 token 使用量與成本。
+
+* **延遲（Latency）**
+
+  * 推理模型相對較慢，有時也會產生與任務無關的多餘內容，導致延遲問題。
+
+  * 這類延遲問題可以透過更精簡的提示詞來改善。在應用端，也可以透過串流 tokens 來提升體感延遲。
+
+  * 較小的推理模型，以及像 Claude 3.7 Sonnet 這類模型，延遲表現通常更好。
+
+  * ***建議先以正確性為優先，再逐步調整延遲與成本。***
+
+* **工具呼叫與 agentic 能力較弱**
+
+  * 雖然像 o3 這類推理模型已改善 multi-tool calling，但 parallel tool calling 仍可能是問題。
+
+  * 其他推理模型（例如 DeepSeek-R1 與 Qwen 系列）除非有特別針對工具呼叫訓練，否則也常呈現較弱的 tool-calling 能力。
+
+  * 若未來工具呼叫更進階且更可靠，將有機會解鎖能在真實世界採取行動的 agentic 系統。Reasoning LLM 目前已具備大量知識，但仍需要在 **decision making**、**穩健且動態的工具呼叫能力**，以及對實體與數位世界的理解上持續提升；多模態推理仍是持續研究的方向。
+
+你也可以在這裡找到最新版的 reasoning LLM 指南：[Reasoning LLMs Guide](https://docs.google.com/document/d/1AwylUdyciJhvYn-64ltpe79UL7_G-BmNwqs4NNt4oQ0/edit?usp=sharing)
+
+## **Next Steps**
+
+我們推薦以下課程，幫助你更深入了解推理模型的應用，並提升 LLM-based 代理式系統工作流程開發能力：
+
+* [Prompt Engineering for Developers](https://dair-ai.thinkific.com/courses/prompt-engineering-devs)
+  * 介紹更多提示詞推理模型與應用技巧
+* [Advanced AI Agents](https://dair-ai.thinkific.com/courses/advanced-ai-agents)
+  * 介紹如何在 multi-agent 系統中善用推理模型，以及 LLM-as-a-Judge、supervisor-worker 代理架構等進階概念
+* [Introduction to AI Agents](https://dair-ai.thinkific.com/courses/introduction-ai-agents)
+  * 介紹如何使用 ReAct Agents 等概念
+* [Introduction to RAG](https://dair-ai.thinkific.com/courses/introduction-rag)
+  * 介紹如何使用 Agentic RAG 等常見設計模式
+
+我們也有活躍的社群論壇，提供支援與指引、直播 office hours、專家直播活動等。
+
+如有任何問題，歡迎透過電子郵件聯絡 [academy@dair.ai](mailto:academy@dair.ai)。
+
+<Callout type= "info" emoji="🎓">
+想學習如何用 reasoning LLM 建構進階代理系統？歡迎參考我們的新課程：[Advanced AI Agents](https://dair-ai.thinkific.com/courses/advanced-ai-agents)
+
+使用優惠碼 PROMPTING20 可享額外 8 折優惠。
+
+</Callout>
+
+## **References**
+
+* [Claude 4 prompt engineering best practices](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices)
+* [LLM Reasoning | Prompt Engineering Guide\<\!-- \--\>](https://www.promptingguide.ai/research/llm-reasoning)
+* [Reasoning Models Don’t Always Say What They Think](https://arxiv.org/abs/2505.05410)
+* [Gemini thinking | Gemini API | Google AI for Developers](https://ai.google.dev/gemini-api/docs/thinking)
+* [Introducing OpenAI o3 and o4-mini](https://openai.com/index/introducing-o3-and-o4-mini/)
+* [Understanding Reasoning LLMs](https://sebastianraschka.com/blog/2025/understanding-reasoning-llms.html)
+* [Thinking with images | OpenAI](https://openai.com/index/thinking-with-images/)
+* [DeepSeek R1 Paper](https://github.com/deepseek-ai/DeepSeek-R1/blob/main/DeepSeek_R1.pdf)
+* [General Reasoning](https://gr.inc/)
+* [Llama-Nemotron: Efficient Reasoning Models](https://arxiv.org/pdf/2505.00949v1)
+* [Phi-4-Mini Reasoning](https://arxiv.org/abs/2504.21233)
+* [The CoT Encyclopedia](https://arxiv.org/abs/2505.10185)
+* [Towards a deeper understanding of Reasoning in LLMs](https://arxiv.org/abs/2505.10543)
+* [The Pitfalls of Reasoning for Instruction Following in LLMs](http://arxiv.org/abs/2505.11423)
+* [The Illusion of Thinking: Understanding the Strengths and Limitations of Reasoning Models via the Lens of Problem Complexity](https://ml-site.cdn-apple.com/papers/the-illusion-of-thinking.pdf)

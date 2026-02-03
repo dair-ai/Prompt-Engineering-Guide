@@ -1,0 +1,165 @@
+# 使用 LLM 進行 Function Calling
+
+import {Cards, Card, Callout} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+
+## 入門：什麼是 Function Calling？
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/p0I-hwZSWMs?si=tQgi-LiHe6Oj_rzm" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+
+Function calling 指的是：讓大型語言模型（LLM）**可靠地呼叫外部工具或 API** 的能力。
+模型會判斷「是否需要呼叫某個函式」，並輸出一段 JSON，內容包含該函式所需的參數。
+
+以 GPT-4 / GPT-3.5 為例，它們已針對這種用法做過微調：
+在對話中偵測出需要呼叫函式時，會自動產生對應的 `tool_calls` 與參數。你可以在一次請求中定義多個函式，讓模型選擇最適合的工具。
+
+Function calling 對以下情境特別關鍵：
+
+- 建構需要查詢外部脈絡的聊天機器人或代理（agents）
+- 將自然語言轉成 API 呼叫或資料庫查詢
+- 讓模型「真的去外部系統取資料」，而不是只憑訓練知識猜答案
+
+## 以 GPT-4 為例的基本流程
+
+假設使用者問：
+
+```text
+What is the weather like in London?
+```
+
+單靠 LLM 本身是無法取得即時天氣的，因此我們需要：
+
+1. 定義一個 `get_current_weather` 函式作為工具
+2. 把函式定義隨同對話一併送進模型
+3. 讓模型決定是否要呼叫該函式，以及要帶入哪些參數
+
+函式定義大致如下：
+
+```python
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather in a given location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city and state, e.g. San Francisco, CA",
+                    },
+                    "unit": {
+                        "type": "string",
+                        "enum": ["celsius", "fahrenheit"]},
+                },
+                "required": ["location"],
+            },
+        },
+    }
+]
+```
+
+你可以先定義一個 completion 函式：
+
+```python
+def get_completion(messages, model="gpt-3.5-turbo-1106", temperature=0, max_tokens=300, tools=None):
+    response = openai.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        tools=tools
+    )
+    return response.choices[0].message
+```
+
+接著這樣組裝使用者問題：
+
+```python
+messages = [
+    {
+        "role": "user",
+        "content": "What is the weather like in London?"
+    }
+]
+```
+
+最後呼叫上面的 `get_completion`，並同時傳入 `messages` 與 `tools`：
+
+```python
+response = get_completion(messages, tools=tools)
+```
+
+`response` 物件內容如下：
+
+```python
+ChatCompletionMessage(
+  content=None,
+  role='assistant',
+  function_call=None,
+  tool_calls=[
+    ChatCompletionMessageToolCall(
+      id='...',
+      function=Function(
+        arguments='{\"location\":\"London\",\"unit\":\"celsius\"}',
+        name='get_current_weather'
+      ),
+      type='function'
+    )
+  ]
+)
+```
+
+我們可以從 `arguments` 中取出 `location` 與 `unit`，自行呼叫外部天氣 API，取得結果後再把實際天氣資訊回傳給模型，請它產生一段對使用者友善的自然語言說明。
+
+## Notebook 範例
+
+<Callout type= "info" emoji="🎓">
+如果想深入了解 function calling 的實作細節，歡迎參考我們的 AI 課程。[立即加入！](https://dair-ai.thinkific.com/)
+結帳時輸入優惠碼 PROMPTING20，可額外享有 8 折優惠。
+</Callout>
+
+以下 notebook 示範如何在 OpenAI API 中使用 function calling：
+
+<Cards>
+    <Card
+        icon={<CodeIcon />}
+        title="Function Calling with OpenAI APIs"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb"
+    />
+</Cards>
+
+## 開源模型上的 Function Calling
+
+如何在開源 LLM 上實作類似機制（工具呼叫、結構化輸出等）的整理與筆記將在未來補充。
+
+## Function Calling 使用情境
+
+以下是可受惠於 LLM function calling 能力的使用情境：
+
+- **對話型代理（Conversational Agents）**：可用來建立複雜的對話型代理或聊天機器人，透過呼叫外部 API 或外部知識庫來回答複雜問題，提供更相關、實用的回覆。
+
+- **自然語言理解（Natural Language Understanding）**：可將自然語言轉成結構化 JSON 資料，從文字內容中抽取結構化資料，並執行命名實體辨識、情感分析、關鍵字擷取等任務。
+
+- **數學問題求解（Math Problem Solving）**：可定義自訂函式，處理需要多步驟與進階計算的複雜數學問題。
+
+- **API 整合（API Integration）**：可將 LLM 與外部 API 整合，用來取得資料或依輸入執行動作。這對於建構 QA 系統或創作型助理都很有幫助。整體而言，function calling 可以把自然語言轉成有效的 API 呼叫。
+
+- **資訊擷取（Information Extraction）**：可用來從輸入內容中擷取特定資訊，例如從文章中找出相關新聞或引用來源。
+
+## 參考資料
+
+- [Fireworks Raises the Quality Bar with Function Calling Model and API Release](https://blog.fireworks.ai/fireworks-raises-the-quality-bar-with-function-calling-model-and-api-release-e7f49d1e98e9)
+- [Benchmarking Agent Tool Use and Function Calling](https://blog.langchain.dev/benchmarking-agent-tool-use/)
+- [Function Calling](https://ai.google.dev/docs/function_calling)
+- [Interacting with APIs](https://python.langchain.com/docs/use_cases/apis)
+- [OpenAI's Function Calling](https://platform.openai.com/docs/guides/function-calling)
+- [How to call functions with chat models](https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models)
+- [Pushing ChatGPT's Structured Data Support To Its Limits](https://minimaxir.com/2023/12/chatgpt-structured-data/)
+- [Math Problem Solving with Function Calling](https://github.com/svpino/openai-function-calling/blob/main/sample.ipynb)

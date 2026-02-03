@@ -1,0 +1,71 @@
+# LLM 的可信度（Trustworthiness）
+
+import {Screenshot} from 'components/screenshot'
+
+import TRUSTLLM from '../../img/llms/trustllm.png'
+import TRUSTLLM2 from '../../img/llms/trust-dimensions.png'
+import TRUSTLLM3 from '../../img/llms/truthfulness-leaderboard.png'
+
+若要在醫療、金融等高風險領域部署 LLM 應用，「可信度」就是關鍵。不少模型（例如 ChatGPT）雖然能產生流暢自然的回答，卻無法在真實性、安全性、隱私等面向上給出明確保證。
+
+[TrustLLM: Trustworthiness in Large Language Models](https://arxiv.org/abs/2401.05561) 近期發表一篇綜論，系統性整理 LLM 在可信度上的挑戰、評測基準、現有方法與未來方向。
+
+作者指出，將目前的 LLM 帶入生產環境的最大障礙之一，就是「如何信任它」。文中提出一套涵蓋 8 個面向的可信 LLM 原則，並推出一個著重 6 個維度（真實性、安全、公平性、穩健性、隱私與機器倫理）的評測基準。
+
+論文中提出的基準系統如下圖：
+
+<Screenshot src={TRUSTLLM} alt="A benchmark of trustworthy large language models" />
+
+而 8 個可信度維度的定義則整理如下：
+
+<Screenshot src={TRUSTLLM2} alt="Dimensions of Trustworthy LLM" />
+
+## 主要發現
+
+作者對 16 個主流 LLM，在超過 30 個資料集上做了全面評測，主要觀察包括：
+
+- 專有模型在整體可信度上普遍優於多數開源模型，但已有少數開源模型逐漸拉近差距。
+- GPT-4 與 Llama 2 等模型在拒絕刻板印象敘述與抵抗對抗攻擊方面表現較好。
+- Llama 2 等開源模型在未使用額外審查工具的情況下，其可信度表現已接近部分專有模型。
+- 不過，論文也指出：像 Llama 2 這類模型有時會「過度強調安全」，導致在某些任務上錯把正常請求視為有害內容，影響實用性。
+
+## 各維度的重點洞見
+
+在不同可信度面向上，作者整理出以下重點：
+
+- **真實性（Truthfulness）：**
+  由於訓練資料本身存在雜訊、錯誤或過時內容，LLM 在真實性上常出現問題。若模型能搭配外部知識來源，一般能顯著提升這方面表現。
+
+- **安全（Safety）：**
+  多數開源模型在越獄、毒性與濫用等面向仍落後專有模型。如何在安全與實用性之間取得平衡是一大挑戰。
+
+- **公平性（Fairness）：**
+  在辨識刻板印象與偏見方面，多數模型表現不理想；即使是較先進的 GPT-4，在相關評測中的準確率也只有約 65%。
+
+- **穩健性（Robustness）：**
+  在開放式問題與分佈外（out-of-distribution）任務上，模型表現差異很大，且對提示詞變動十分敏感。
+
+- **隱私（Privacy）：**
+  多數模型對隱私規範有一定認知，但實際處理敏感資訊時的安全程度落差很大。部分模型在 Enron Email Dataset 等測試中出現資訊外洩現象。
+
+- **機器倫理（Machine Ethics）：**
+  模型在基本倫理原則上有一定理解，但在複雜情境下，對道德抉擇的處理仍不可靠。
+
+## LLM 可信度排行榜
+
+作者也建立了一個公開排行榜：
+[https://trustllmbenchmark.github.io/TrustLLM-Website/leaderboard.html](https://trustllmbenchmark.github.io/TrustLLM-Website/leaderboard.html)
+
+例如，下圖展示不同模型在「真實性」維度上的表現。依照網站說明，指標標註 `↑` 的越高越好，標註 `↓` 的則越低越佳。
+
+<Screenshot src={TRUSTLLM3} alt="Trustworthiness Leaderboard for LLM" />
+
+## 評估工具與程式碼
+
+論文也提供一個 GitHub 儲存庫，內含完整的評估套件，可以用來測試不同 LLM 在多個可信度維度上的表現：
+
+程式碼：https://github.com/HowieHwong/TrustLLM
+
+## 參考資料
+
+圖片與內容來源： [TrustLLM: Trustworthiness in Large Language Models](https://arxiv.org/abs/2401.05561)（2024 年 1 月 10 日）

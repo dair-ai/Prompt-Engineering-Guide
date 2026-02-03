@@ -1,0 +1,69 @@
+## 設計高效提示詞（Prompts）的實務重點
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/8KNKjBBm1Kw?si=puEJrGFe9XSu8O-A"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+大型語言模型（LLM）非常強大，但真正決定效果好壞的，往往是你給它的「提示詞」寫得如何。這篇小節整理了一些實務上設計提示詞時特別需要注意的重點，幫助你更穩定地發揮模型能力。
+
+### 設計提示詞時的關鍵考量
+
+**1. 明確且具體（Specificity & Clarity）**
+就像對人下指令一樣，越清楚具體，越不容易產生歧義。模糊的描述通常會帶來意料之外、甚至完全無關的輸出。
+
+**2. 結構化輸入與輸出（Structured Inputs/Outputs）**
+把輸入內容整理成結構化格式（例如 JSON、表格、標題分段），可以大幅降低模型誤解意圖的機率。
+同樣地，在提示詞裡清楚指定輸出格式（例如要一段文字、條列清單或程式碼片段），也有助於提高回應品質。
+
+**3. 善用分隔符號（Delimiters）**
+利用特定符號將不同區塊分開（例如：問題區、上下文區、範例區），能讓模型更清楚哪些內容是輸入、哪些是規則、哪些是要產生的輸出，減少彼此混淆。
+
+**4. 對複雜任務進行拆解（Task Decomposition）**
+不要把所有事情一次塞進同一個 prompt。
+將複雜流程拆成多個子步驟，分別請模型完成，可以讓每一步的意圖更清楚，也更容易 debug 與調整。
+
+### 進階提示詞策略
+
+**Few-shot Prompting**
+先給模型「幾組範例」，示範從輸入到輸出的對應關係，能幫它更好地學會你想要的格式與邏輯。
+詳細介紹可參考本指南的 few-shot 提示詞章節：
+[https://www.promptingguide.ai/techniques/fewshot](https://www.promptingguide.ai/techniques/fewshot)
+
+**Chain-of-Thought Prompting**
+透過提示詞要求模型「一步一步思考」，鼓勵它先寫出中間推理步驟，再給結論。
+這在需要邏輯推理或多步驟計算的任務中特別有效。
+更多內容可見 CoT 章節：
+[https://www.promptingguide.ai/techniques/cot](https://www.promptingguide.ai/techniques/cot)
+
+**ReAct（Reason + Act）**
+ReAct 強調「先推理，再採取行動」，適合需要規劃、工具使用或多輪決策的情境。
+透過設計合適的提示詞格式，可以引導模型展現更強的思考與策略能力。
+詳見：[https://www.promptingguide.ai/techniques/react](https://www.promptingguide.ai/techniques/react)
+
+### 小結
+
+想讓 LLM 真正幫上忙，提示詞工程是不可或缺的一環。
+實務上可以記住幾個原則：
+
+- 指令具體明確
+- 善用結構化格式與分隔符號
+- 將任務拆解成多個清楚的步驟
+- 搭配 few-shot、CoT、ReAct 等進階技巧
+
+只要在這些面向稍加練習與調整，就能明顯提升模型回應的品質、準確度與可控性。
+
+### 想學更多？
+
+import { Callout } from 'nextra/components'
+
+<Callout type= "info" emoji="🎉">
+我們已推出全新的課程網站，並上架第一門課程［Introduction to Prompt Engineering］：
+[https://dair-ai.thinkific.com/courses/introduction-prompt-engineering](https://dair-ai.thinkific.com/courses/introduction-prompt-engineering)
+
+結帳時輸入 PROMPTING20 可享 8 折優惠（限前 500 位學員）。
+
+[立即加入](https://dair-ai.thinkific.com/courses/introduction-prompt-engineering)！
+</Callout>

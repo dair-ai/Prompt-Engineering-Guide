@@ -1,0 +1,223 @@
+# AI Agents 的函式呼叫（Function Calling）
+
+import { Callout } from 'nextra/components'
+
+函式呼叫（也稱為 tool calling）是現代以 LLM 為核心的代理系統的關鍵能力之一。理解函式呼叫在背後如何運作，是打造有效的 AI Agents、並在出問題時進行除錯的基礎。
+
+## 主題
+
+- [什麼是函式呼叫？](#什麼是函式呼叫)
+- [函式呼叫如何驅動 AI Agents](#函式呼叫如何驅動-ai-agents)
+- [工具定義的角色](#工具定義的角色)
+- [Agent 迴圈：行動與觀察](#agent-迴圈行動與觀察)
+- [函式呼叫除錯](#函式呼叫除錯)
+- [工具定義的最佳實務](#工具定義的最佳實務)
+
+## 什麼是函式呼叫？
+
+本質上，函式呼叫讓 LLM 可以與外部工具、API 與知識庫互動。當 LLM 接到需要超出訓練資料範圍的資訊或動作時，它可以決定呼叫外部函式來取得資訊或執行動作。
+
+例如，如果你問 AI Agent：「巴黎現在的天氣如何？」LLM 單靠自己無法正確回答，因為它沒有即時天氣資料。但透過函式呼叫，LLM 會判斷需要呼叫天氣 API，產生帶有正確參數（此例為城市「巴黎」）的函式呼叫，再用回傳資料產生回應。
+
+這項能力讓原本只是文字產生器的 LLM，變成能與真實世界互動的強大代理。
+
+## 函式呼叫如何驅動 AI Agents
+
+![Function Calling Flow](../../img/agents/function-calling-flow.png)
+
+以 LLM 為核心的代理系統，通常仰賴兩個能力來解決複雜任務：工具呼叫與推理。這讓 Agents 可以整合外部工具、連接 MCP（Model Context Protocol）伺服器，並存取知識庫。
+
+函式呼叫流程如下：
+
+1. **使用者提問**：使用者向 Agent 提出需求（例如「巴黎現在的天氣如何？」）
+
+2. **脈絡組裝**：system 訊息、工具定義、使用者訊息被組合成送給模型的完整脈絡
+
+3. **工具決策**：LLM 分析脈絡並判斷是否需要呼叫工具；若需要，會輸出結構化回應，指示要呼叫哪個工具與使用的參數
+
+4. **工具執行**：開發者的程式收到工具呼叫需求後，執行實際函式（例如呼叫天氣 API）
+
+5. **觀察**：工具回傳結果，成為代理術語中的 observation
+
+6. **回應產生**：觀察結果與先前所有訊息一起回傳給模型，讓它產生最終回應
+
+這裡的關鍵在於：模型始終保有完整脈絡，清楚知道對話中發生過的一切。這種脈絡意識讓 Agent 能做出更好的後續決策，並正確將工具結果整合進最後的回應。
+
+## 工具定義的角色
+
+工具定義可以說是函式呼叫最關鍵的元件。它們是 LLM 唯一知道有哪些工具、何時該使用的資訊來源。
+
+一個工具定義通常包含：
+
+- **名稱**：函式的清楚識別名稱
+- **描述**：說明工具做什麼、什麼情境該用
+- **參數**：函式可接受的輸入內容，包括型別與說明
+
+以下是天氣工具定義範例：
+
+```python
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather in a given location. Use this when the user asks about weather conditions in a specific city or region.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city and state, e.g. San Francisco, CA"
+                    },
+                    "unit": {
+                        "type": "string",
+                        "enum": ["celsius", "fahrenheit"],
+                        "description": "The temperature unit to use"
+                    }
+                },
+                "required": ["location"]
+            }
+        }
+    }
+]
+```
+
+描述欄位特別重要。它不只告訴模型工具的用途，也會告訴模型什麼時候該用。當你提供多個工具時，清楚而具體的描述會變得更關鍵，才能幫模型做出正確的工具選擇。
+
+<Callout type="info" emoji="💡">
+工具定義會在每次 LLM 呼叫時成為脈絡的一部分，因此會佔用 token，並影響成本與延遲。工具定義要簡潔，但也要足夠具體。
+</Callout>
+
+## Agent 迴圈：行動與觀察
+
+理解 Agent 迴圈是除錯與最佳化代理系統的基礎。迴圈由以下步驟反覆組成：
+
+1. **行動**：Agent 決定採取行動（呼叫工具）
+2. **環境回應**：外部工具或 API 回傳結果
+3. **觀察**：Agent 接收並處理結果
+4. **決策**：Agent 判斷是否需要下一次行動，或直接回應使用者
+
+來看一個具體例子。當你對 Agent 說「OpenAI 最新消息」，流程可能會是：
+
+```
+使用者：「OpenAI 最新消息」
+
+Agent 想：我需要 OpenAI 的最新資訊。
+         我應該使用 web_search 工具。
+
+行動：web_search(query="OpenAI latest news announcements")
+
+觀察：[近期 OpenAI 文章的搜尋結果...]
+
+Agent 想：我已經有回答所需的資訊。
+         我來整理給使用者。
+
+回應：「以下是 OpenAI 的最新更新...」
+```
+
+觀察就是環境（例如搜尋引擎或 API）在 Agent 執行行動後回傳的內容。這份觀察會變成下一輪的脈絡，讓 Agent 建立在既有結果上再做決策。
+
+在更複雜的情境裡，Agent 可能需要多次呼叫工具才能回答問題。每一次呼叫都會累積脈絡，讓 Agent 根據已掌握的資訊決定下一步該做什麼。
+
+## 函式呼叫除錯
+
+在打造 AI Agents 時，一定會遇到「行為不如預期」的情況：可能選錯工具、參數給錯，或該呼叫卻沒呼叫。此時理解函式呼叫的內部運作就非常關鍵。
+
+在像 n8n 這類工作流程自動化工具中，你可以開啟「Return Intermediate Steps」，來查看背後發生的細節，包括：
+
+- **哪些工具被呼叫**：工具呼叫的順序
+- **傳入的參數**：每個工具實際收到的參數
+- **回傳的觀察**：每個工具回傳了什麼
+- **Token 使用量**：每一步消耗的 token 數量
+
+以下是一個研究查詢的中繼步驟範例：
+
+```json
+{
+  "intermediateSteps": [
+    {
+      "action": {
+        "tool": "web_search",
+        "toolInput": {
+          "query": "OpenAI latest announcements 2025"
+        }
+      },
+      "observation": "1. OpenAI announces new reasoning model... 2. GPT-5 rumors surface..."
+    },
+    {
+      "action": {
+        "tool": "update_task_status",
+        "toolInput": {
+          "taskId": "search_1",
+          "status": "completed"
+        }
+      },
+      "observation": "Task updated successfully"
+    }
+  ]
+}
+```
+
+這種視覺化對除錯很關鍵。如果 Agent 產出錯誤結果，可以逐步檢查每一步，找出問題發生的位置。常見問題包括：
+
+- **工具選擇錯誤**：模型選了不該用的工具
+- **參數錯誤**：參數不完整或內容不正確
+- **脈絡不足**：工具定義提供的指引不夠
+- **觀察處理錯誤**：模型誤解了工具回傳內容
+
+<Callout type="warning" emoji="⚠️">
+有些平台因抽象層的關係，可能不會完整暴露 prompt 脈絡。除錯時，盡量靠近原始 API 呼叫，才能清楚知道模型實際收到的脈絡。
+</Callout>
+
+## 工具定義的最佳實務
+
+以下是打造代理系統時最實用的工具定義建議：
+
+**描述要具體**
+
+不要寫「搜尋網路」，可以改成：「搜尋網路上的最新資訊。當使用者詢問近期事件、新聞或訓練後可能變動的資料時使用。」
+
+**在 system prompt 補上使用情境**
+
+工具定義裡雖然有描述，但在 system prompt 中再補上何時、如何使用工具的明確指引，會讓 LLM 做出更好的判斷，特別是工具數量較多時。
+
+```
+You have access to the following tools:
+- web_search: Use this for any questions about current events or recent information
+- calculator: Use this for mathematical calculations
+- knowledge_base: Use this to search internal documentation
+
+Always prefer the knowledge_base for company-specific questions before using web_search.
+```
+
+**明確定義參數限制**
+
+盡可能使用 enum 約束參數值，並在描述中給範例，幫助模型更清楚理解可用的值。
+
+```python
+"unit": {
+    "type": "string",
+    "enum": ["celsius", "fahrenheit"],
+    "description": "Temperature unit. Use 'celsius' for most countries, 'fahrenheit' for US."
+}
+```
+
+**妥善處理工具失敗情況**
+
+工具應該回傳清楚的錯誤訊息，協助 Agent 復原或改用替代方案。
+
+```python
+def search_database(query: str) -> str:
+    results = db.search(query)
+    if not results:
+        return "No results found for this query. Try broadening your search terms or using alternative keywords."
+    return format_results(results)
+```
+
+<Callout type="info" emoji="🎓">
+本內容整理自我們的課程 ["Building Effective AI Agents with n8n"](https://dair-ai.thinkific.com/courses/agents-with-n8n)，課程中提供實戰操作代理系統與除錯的完整經驗。
+
+使用優惠碼 PROMPTING20 可再折 20%。
+</Callout>
+
+函式呼叫是連結 LLM 推理與真實世界行動的橋梁。透過理解工具定義如何影響模型決策、Agent 迴圈如何處理行動與觀察，以及整體流程的除錯方式，你就能打造出更穩健的 AI Agents，並有效運用外部工具解決複雜問題。

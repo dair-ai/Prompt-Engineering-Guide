@@ -1,0 +1,73 @@
+# 檢索增強產生（RAG）
+
+import {Cards, Card} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+import {Screenshot} from 'components/screenshot'
+import RAG from '../../img/rag.png'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+一般用途的語言模型可以透過微調完成多種常見任務，例如情感分析與命名實體辨識。這類任務通常不需要額外的背景知識。
+
+但在更複雜、知識密集的任務上，可以打造一個能存取外部知識來源的語言模型系統，來完成特定任務。這樣能提升事實一致性、提高回應可靠性，並有助於降低「幻覺」問題。
+
+Meta AI 的研究人員提出了 [Retrieval Augmented Generation（RAG）](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/)，用來處理這類知識密集任務。RAG 把資訊檢索元件與文字產生模型結合在一起。RAG 可以進行微調，並能在不重新訓練整個模型的情況下，以相對高效的方式更新其內部知識。
+
+RAG 會先接收輸入，並根據某個來源（例如 Wikipedia）檢索一組相關／支援文件。接著把這些文件串接成 context，與原始輸入 prompt 一起送進文字產生器，最後輸出答案。這讓 RAG 特別適合用在「事實會隨時間變動」的情境，因為 LLM 的參數化知識是靜態的；RAG 則能透過檢索式產生來存取最新資訊，產出更可靠的回應。
+
+Lewis et al.（2021）提出一套通用的 RAG 微調方法：以預訓練的 seq2seq 模型作為參數化記憶，並以 Wikipedia 的 dense vector index 作為非參數化記憶（透過預訓練的 neural retriever 存取）。以下是方法運作概觀：
+
+<Screenshot src={RAG} alt="RAG" />
+圖片來源：[Lewis et el. (2021)](https://arxiv.org/pdf/2005.11401.pdf)
+
+RAG 在多個 benchmark 上表現良好，例如 [Natural Questions](https://ai.google.com/research/NaturalQuestions)、[WebQuestions](https://paperswithcode.com/dataset/webquestions) 與 CuratedTrec。RAG 在 MS-MARCO 與 Jeopardy 問題上產出的回應更符合事實、更具體、也更多樣，並且也改善了 FEVER 事實驗證的結果。
+
+這顯示 RAG 是提升語言模型在知識密集任務表現的一個可行方向。
+
+近年來，這類以 retriever 為基礎的方法越來越普及，並常與像 ChatGPT 這樣的熱門 LLM 結合，以提升能力與事實一致性。
+
+
+## RAG 使用案例：產生好讀的 ML 論文標題
+
+以下準備了一個 notebook 教學，示範如何使用開源 LLM 打造 RAG 系統，來產生簡短且精準的機器學習論文標題：
+
+<Cards>
+    <Card
+    icon={<CodeIcon />}
+    title="RAG 入門"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-rag.ipynb"
+    />
+</Cards>
+
+## 參考資料
+
+- [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997)（2023 年 12 月）
+- [Retrieval Augmented Generation: Streamlining the creation of intelligent natural language processing models](https://ai.meta.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/)（2020 年 9 月）
+
+<CoursesSection title="相關學習">
+  <CourseCard
+    tag="課程"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="掌握 RAG、知識檢索與進階提示詞技巧，因應知識密集型任務。"
+    href="https://dair-ai.thinkific.com/courses/introduction-prompt-engineering"
+    level="入門"
+    duration="2 小時"
+  />
+  <CourseCard
+    tag="課程"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="學會打造高效的 AI Agents，涵蓋函式呼叫、工具整合與代理系統除錯。"
+    href="https://dair-ai.thinkific.com/courses/agents-with-n8n"
+    level="中階"
+    duration="5 小時"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="探索所有課程"
+  description="探索我們完整的 AI 與提示詞工程課程目錄，從入門到進階都涵蓋。"
+  href="https://dair-ai.thinkific.com/"
+  buttonText="瀏覽學院"
+  promoCode="PROMPTING20"
+/>
