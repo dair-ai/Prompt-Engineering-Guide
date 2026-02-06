@@ -1,0 +1,73 @@
+# 元提示词（Meta Prompting）
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+## 介绍
+
+元提示词是一种高级提示技术，它关注任务和问题的结构与句法层面，而非具体的细节内容。元提示词的目标是构建一种与大语言模型（LLM）交互的更抽象、结构化的方式，强调信息的形式与模式，而非传统的以内容为中心的方法。
+
+## 核心特性
+
+根据[Zhang等人，2024](https://arxiv.org/abs/2311.11482)的研究，元提示词的核心特性可归纳如下：
+
+**1. 结构导向**: 优先考虑问题和解决方案的格式与模式，而非具体内容。
+
+**2. 句法聚焦**: 利用句法作为预期回答或解决方案的引导模板。
+
+**3. 抽象示例**: 使用抽象示例作为框架，展示问题和解决方案的结构，而不关注具体细节。
+
+**4. 多用途**: 适用于各种领域，能够针对广泛的问题提供结构化的响应。
+
+**5. 分类方法**: 借助类型理论，强调提示中组件的分类和逻辑排列。
+
+## 与少样本提示 (Few-Shot Prompting) 的优势对比
+
+[Zhang等人, 2024](https://arxiv.org/abs/2311.11482) 指出，元提示词与少样本提示的不同之处在于，元提示词侧重于结构导向的方法，而少样本提示则强调内容驱动的方法。
+
+以下示例(原自[Zhang等人， 2024](https://arxiv.org/abs/2311.11482))展示了在解决 MATH 基准测试问题时，结构化元提示词与少样本提示词之间的区别：
+
+!["Meta Prompting"](../../img/techniques/meta-prompting.png)
+
+元提示词相比少样本提示的优势包括：
+
+**1. Token 效率**: 通过聚焦结构而非详细内容，减少了所需的 Token 数量。
+
+**2. 公平比较**: 通过最小化具体示例的影响，为比较不同解题模型提供了一种更公平的方法。
+
+**3. 零样本效能**: 可以被视为一种特殊的零样本提示，使具体示例的干扰降至最低。
+
+## 应用场景
+
+通过聚焦解题的结构模式，元提示词为处理复杂话题提供了清晰的路线图，增强了 LLM 在各个领域的推理能力。
+
+需要注意的是，元提示词假设 LLM 对所处理的特定任务或问题具有内在知识。虽然 LLM 可以泛化到未见过的任务，但对于非常独特且新颖的任务，元提示词的表现可能会像零样本提示一样有所下降。
+
+元提示词受益的应用领域包括但不限于：复杂推理任务、数学问题求解、编程挑战以及理论查询。
+
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Master meta prompting, structure-oriented techniques, and advanced methods for complex reasoning."
+    href="https://academy.dair.ai/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents. Covers function calling, tool integration, and debugging agentic systems."
+    href="https://academy.dair.ai/courses/building-effective-ai-agents"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://academy.dair.ai/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>
