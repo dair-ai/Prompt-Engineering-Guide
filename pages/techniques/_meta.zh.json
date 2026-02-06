@@ -15,6 +15,7 @@
     "react": "ReAct框架",
     "reflexion": "Reflexion",
     "multimodalcot": "多模态思维链提示方法",
-    "graph": "基于图的提示"
+    "graph": "基于图的提示",
+    "meta-prompting": "元提示词（Meta Prompting）"
 }
   
