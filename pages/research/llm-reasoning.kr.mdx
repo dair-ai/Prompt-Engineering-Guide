@@ -1,0 +1,39 @@
+# LLM 추론
+
+최근 몇 년간, 대형 언어 모델(LLM)은 다양한 작업에서 놀라운 성과를 이루며 빠르게 발전해왔습니다. 최근에는 LLM이 대규모로 확장되었을 때 추론 능력을 발휘할 잠재력을 지니고 있음을 보여주고 있습니다. 여러 종류의 추론(reasoning)은 지능의 핵심이지만 AI 모델이 이러한 능력을 어떻게 학습하고 활용하여 복잡한 문제를 해결하는지는 아직 완전히 규명되지 않았습니다. 이는 많은 연구소에서 큰 관심을 갖고 집중적으로 투자하고 있는 중요한 연구 분야입니다.
+
+## 파운데이션 모델로 추론하기
+[Sun et al. (2023)](https://arxiv.org/abs/2312.11562)는 최근 다양한 추론 작업에서 이루어진 최신 발전을 다룬 파운데이션 모델 기반 추론의 개요를 공개했습니다. 이 연구는 또한 멀티모달 모델과 자율 에이전트를 아우르는 보다 폭넓은 관점에서 추론을 조명하고 있습니다.
+
+추론 작업은 수학적 추론, 논리적 추론, 인과 추론, 시각적 추론 등 다양한 작업을 포함합니다. 아래 그림은 정렬(alignment) 훈련과 ICL(in-context learning) 등 파운데이션 모델을 위한 추론 기법을 포함하여, 해당 설문조사 논문에서 논의된 추론 작업의 개요를 보여줍니다.
+
+!["Reasoning Tasks"](../../img/research/reasoning-tasks.png)
+*그림 출처: [Sun et al., 2023](https://arxiv.org/pdf/2212.09597.pdf)*
+
+## LLM에서 추론은 어떻게 도출하는가?
+LLM에서의 추론은 다양한 프롬프트 기법을 통해 도출하고 강화할 수 있습니다. [Qiao et al. (2023)](https://arxiv.org/abs/2212.09597)은 추론 방법을 두 가지 주요 분야, 즉 추론 향상 전략(reasoning enhanced strategy)과 지식 향상 추론(knowledge enhancement reasoning)으로 구분했습니다. 추론 전략에는 프롬프트 엔지니어링, 프로세스 최적화, 외부 엔진 활용이 포함됩니다. 예를 들어, 단일 단계(single-stage) 프롬프팅 전략으로는 [Chain-of-Thought](https://www.promptingguide.ai/techniques/cot) 과 [Active-Prompt](https://www.promptingguide.ai/techniques/activeprompt)가 있습니다. 언어 모델 프롬프트를 통한 추론의 전체 분류 체계는 논문에서 확인할 수 있으며, 아래 그림에 요약되어 있습니다:
+
+!["Reasoning Taxonomy"](../../img/research/reasoning-taxonomy.png)
+*그림 출처: [Qiao et al., 2023](https://arxiv.org/pdf/2212.09597.pdf)*
+
+[Huang et al. (2023)]() 은 GPT-3와 같은 LLM에서 추론을 향상시키거나 도출하는 다양한 기법을 요약하여 설명합니다.
+
+이 기법들은 설명 데이터셋(explanation datasets)을 기반으로 훈련된 완전 지도(fully supervised) 파인튜닝 모델을 활용하는 것부터, 생각의 사슬(CoT), 문제 분할(problem decomposition), 컨텍스트 내 학습(ICL)과 같은 프롬프트 기법에 이르기까지 다양합니다. 아래는 논문에서 설명된 기법들의 요약입니다:
+
+!["Reasoning Techniques"](../../img/research/reasoning-techniques.png)
+*그림 출처: [Huang et al., 2023](https://arxiv.org/pdf/2212.10403.pdf)*
+
+## LLM이 추론하고 계획할 수 있을까?
+LLM이 추론과 계획을 할 수 있는지에 대해 논란이 많습니다. 추론과 계획 모두 로봇 공학이나 자율 에이전트와 같은 분야에서 LLM을 활용해 복잡한 애플리케이션을 구현하는 데 중요한 능력입니다. [Subbarao Kambhampati가 작성한 포지션 페이퍼 (2024)](https://arxiv.org/abs/2403.04121)는 LLM의 추론과 계획에 대해 논의합니다.
+
+저자의 결론을 요약하면 다음과 같습니다:
+
+> 제가 읽거나 검증해본 결과, LLM이 일반적으로 이해되는 방식으로 추론이나 계획을 수행한다고 믿을 만한 확실한 이유는 없었습니다, 대신 웹 스케일 훈련을 바탕으로 LLM이 수행하는 일은 보편적 검색의 한 형태이며, 이는 때때로 추론 능력으로 잘못 인식될 수 있다는 것이 제 주장입니다.
+
+## 출처
+
+- [Reasoning with Language Model Prompting: A Survey](https://arxiv.org/abs/2212.09597)
+- [Towards Reasoning in Large Language Models: A Survey](https://arxiv.org/abs/2212.10403)
+- [Can Large Language Models Reason and Plan?](https://arxiv.org/abs/2403.04121)
+- [Rethinking the Bounds of LLM Reasoning: Are Multi-Agent Discussions the Key?](https://arxiv.org/abs/2402.18272v1)
+- [Awesome LLM Reasoning](https://github.com/atfortes/Awesome-LLM-Reasoning)

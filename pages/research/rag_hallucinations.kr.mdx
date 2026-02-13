@@ -1,0 +1,19 @@
+# RAG를 통한 구조화된 출력(structured outputs)에서 환각(hallucination) 줄이기
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/TUL5guqZejw?si=Doc7lzyAY-SKr21L" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+ServiceNow의 연구자들은 최근 발표한 [새 논문](https://arxiv.org/abs/2404.08189)에서 구조화된 출력 작업을 위한 효율적인 RAG 시스템을 배포하는 방법에 대해 논의했습니다.
+
+!["RAG Hallucination"](../../img/research/structured_outputs.png)
+
+RAG 시스템은 소형 언어 모델과 매우 작은 검색기(retriever)를 결합한 시스템입니다. 이 시스템은 제한된 자원 환경에서도 강력한 LLM 기반 시스템을 배포할 수 있게 해주며, 환각과 같은 문제를 완화하고 출력(output)의 신뢰성을 높이는 데 기여할 수 있음을 보여줍니다.
+
+이 논문은 자연어로 작성된 요구 사항을 JSON 형식으로 구성된 워크플로우로 변환하는 매우 유용한 기업용 응용 프로그램을 다룹니다. 이 작업을 통해 높은 생산성 뿐만 아니라 추가적인 최적화가 가능하다는 점도 주목해야 할 점입니다.(예: 추측적 디코딩(speculative decoding)을 사용하거나 JSON 대신 YAML을 사용하는 방식).
+
+이 논문은 실무에서 효과적으로 RAG 시스템을 개발하는 방법에 대한 유용한 통찰과 실질적인 조언을 제공합니다.

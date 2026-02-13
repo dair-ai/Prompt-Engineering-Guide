@@ -1,0 +1,25 @@
+# 효율적인 무한 컨텍스트 트랜스포머
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/tOaTaQ8ZGRo?si=pFP-KiLe63Ppl9Pd" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+구글이 발표한 새로운 [논문](https://arxiv.org/abs/2404.07143) 닷-프로덕트 어텐션 레이어(dot-product attention layer)에 압축 메모리(compressive memory)를 통합하는 방식을 제안합니다.
+
+이 연구의 목표는 트랜스포머 기반 LLM이 한정적인 메모리 사용량과 계산 비용으로 무한히 긴 입력 데이터를 효과적으로 처리할 수 있도록 하는 것입니다.
+
+이들은 기존 어텐션 메커니즘에 압축 메모리 모듈을 통합한 새로운 어텐션 기법인 Infini-attention을 제안했습니다.
+
+!["Infini-Attention"](../../img/research/infini-attention.png)
+
+이 모델은 마스킹 로컬 어텐션(masked local attention)과 장기 선형 어텐션(long-term linear attention)을 하나의 트랜스포머 블록에 통합합니다. 이를 통해 Infini-Transformer 모델은 길거나 짧은 범위의 컨텍스트 의존성을 모두 효율적으로 처리할 수 있습니다.
+
+이 접근법은 메모리를 114배 압축하면서도 문맥이 긴(long-context) 언어 모델링에서 기존 모델을 능가하는 성능을 보여줍니다!
+
+물론 10억 매개변수(1B) 크기의 LLM을 백만(1M) 토큰 길이(sequence)까지 확장 가능하며, 80억 매개변수(8B) 모델은 50만(500K) 토큰 길이의 책 요약 작업에서 새로운 최첨단(SoTA) 결과를 달성했다고 밝혔습니다.
+
+긴 문맥을 처리할 수 있는 LLM의 중요성이 점점 커지는 상황에서, 효과적인 메모리 시스템은 지금까지 LLM에서 볼 수 없었던 강력한 추론과 계획, 지속적 적응 그리고 새로운 능력을 열어줄 잠재력을 가지고 있습니다.
