@@ -113,6 +113,10 @@ You can also find the most up-to-date guides on our new website [https://www.pro
 - [Prompt Engineering - Additional Readings](https://www.promptingguide.ai/readings)
 
 
+## Security Tools
+
+- [mcp-safeguard](https://github.com/SyedAnas01/mcp-safeguard) - Security scanner for MCP servers that detects prompt injection attacks embedded in tool descriptions, along with credential leaks, exposed endpoints, and tool poisoning.
+
 ---
 ## Lecture
 
