@@ -114,6 +114,9 @@ You can also find the most up-to-date guides on our new website [https://www.pro
 
 
 ---
+
+- [AI Productivity Guide for Beginners](https://github.com/XiaowuxueAI/ai-diary/blob/main/products/ai-productivity-guide.md) - 5 practical, no-code techniques for using AI effectively. Covers instruction design, reference examples, step-by-step prompting, and building prompt template libraries. Created by an AI entrepreneur for non-technical users.
+
 ## Lecture
 
 We have published a 1 hour lecture that provides a comprehensive overview of prompting techniques, applications, and tools.
