@@ -43,6 +43,8 @@ Happy Prompting!
 ## Guides
 You can also find the most up-to-date guides on our new website [https://www.promptingguide.ai/](https://www.promptingguide.ai/).
 
+- [AI Prompt Architect](https://aipromptarchitect.co.uk) - Production-grade prompt engineering platform for developers using the STCO framework.
+
 - [Prompt Engineering - Introduction](https://www.promptingguide.ai/introduction)
   - [Prompt Engineering - LLM Settings](https://www.promptingguide.ai/introduction/settings)
   - [Prompt Engineering - Basics of Prompting](https://www.promptingguide.ai/introduction/basics)
