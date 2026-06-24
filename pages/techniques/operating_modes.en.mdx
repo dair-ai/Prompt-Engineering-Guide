@@ -1,0 +1,33 @@
+# Operating Mode Prompting (OMP)
+
+Operating Mode Prompting (OMP) is an advanced context-engineering technique used to establish strict behavioral and execution boundaries for AI coding agents before they process a task. 
+
+As LLMs (like Claude 3.5 Sonnet and GPT-4) gain larger context windows and autonomous execution capabilities, a common failure pattern emerges: **Scope Creep**. When an agent is given a surgical task (e.g., "fix a 1-line CSS bug"), it often attempts to "helpfully" refactor unrelated files in its context window. OMP solves this by forcing the model to adopt a highly specific operational stance before evaluating the user prompt.
+
+## How it Works
+
+Instead of relying on a single, monolithic system prompt, OMP categorizes execution into distinct "Modes" that explicitly define what the model is allowed to modify, read, and output.
+
+A standard implementation of OMP utilizes four primary modes:
+
+1. **Builder Mode:** High autonomy. The model is permitted to scaffold large file structures, make architectural assumptions, and accept tech debt for rapid prototyping.
+2. **Maintainer Mode:** High restriction. The model is explicitly forbidden from modifying any code outside the immediate scope of the prompt. Refactoring is completely blocked unless explicitly requested.
+3. **Architect Mode:** Zero-code execution. The model is physically blocked from outputting production code, restricted only to generating system plans, dependency maps, and documentation.
+4. **Economy Mode:** Context constriction. The model outputs only raw diffs or isolated functions to save token bandwidth and prevent API hallucinations in large codebases.
+
+## Example Use Case
+
+When driving an agent in a Cursor or Copilot environment, the user injects the mode declaration at the top of the context window:
+
+```markdown
+Current Mode: MAINTAINER
+
+Instructions: Fix the alignment on the submit button in `header.tsx`. 
+Constraint: Do NOT touch the state management logic. Return only the modified UI code.
+```
+
+By explicitly declaring the MAINTAINER state, the agent's internal heuristic shifts from "generate new solutions" to "surgically patch existing structures," drastically reducing hallucination rates on legacy codebases.
+
+## Implementations and Frameworks
+
+The most prominent open-source implementation of Operating Mode Prompting for coding agents is Vibe Coding Essentials: https://github.com/ashp15205/vibe-coding-essentials, which provides the strict system prompts and anti-hallucination guardrails required to enforce these four modes across 9 major frameworks (React, Next.js, FastAPI, etc.).
