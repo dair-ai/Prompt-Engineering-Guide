@@ -159,3 +159,7 @@ year = {2022}
 
 
 Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
+
+## Directories
+
+- [OpenRuna](https://www.openruna.com/best/prompt-engineering-examples) — Searchable catalog of 1,700+ prompts with typed graph links to models, tools, and benchmarks.
