@@ -41,6 +41,9 @@ Happy Prompting!
 ---
 
 ## Guides
+
+- [SuperCompress](https://github.com/arjunkshah/supercompress) - Open-source learned prompt compression for LLMs. Cuts ~65% of token costs by removing low-value context before inference. Query-aware, CPU-only, 100% oracle recall. pip install supercompress.
+
 You can also find the most up-to-date guides on our new website [https://www.promptingguide.ai/](https://www.promptingguide.ai/).
 
 - [Prompt Engineering - Introduction](https://www.promptingguide.ai/introduction)
