@@ -159,3 +159,10 @@ year = {2022}
 
 
 Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
+
+## Course completion and certificates
+
+The Prompt Engineering Guide repository and website are open learning resources. They do not automatically issue certificates, badges, or completion pages from this repository. If you reached this guide through an external course, learning platform, school program, or company training portal, please check that platform for certificate or completion tracking.
+
+This clarification addresses repeated certificate and completion questions, including #486, #488, #511, #520, #534, #542, #549, #553, #565, and #589.
+
