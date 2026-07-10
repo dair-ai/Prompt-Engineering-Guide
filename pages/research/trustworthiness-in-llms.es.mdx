@@ -1,3 +1,61 @@
-# Trustworthiness in LLMs
+# Confiabilidad en los LLMs
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right.
+import {Screenshot} from 'components/screenshot'
+
+import TRUSTLLM from '../../img/llms/trustllm.png'
+import TRUSTLLM2 from '../../img/llms/trust-dimensions.png'
+import TRUSTLLM3 from '../../img/llms/truthfulness-leaderboard.png'
+
+Los LLMs confiables son importantes para construir aplicaciones en dominios de alto riesgo como la salud y las finanzas. Aunque LLMs como ChatGPT son muy capaces de producir respuestas legibles para las personas, no garantizan respuestas confiables en dimensiones como la veracidad, la seguridad y la privacidad, entre otras.
+
+[Sun et al. (2024)](https://arxiv.org/abs/2401.05561) propusieron recientemente un estudio exhaustivo sobre la confiabilidad en los LLMs, en el que analizan retos, benchmarks, evaluación, análisis de enfoques y direcciones futuras.
+
+Uno de los mayores retos para llevar los LLMs actuales a producción es la confiabilidad. Su estudio propone un conjunto de principios para LLMs confiables que abarcan 8 dimensiones, incluyendo un benchmark sobre 6 dimensiones (veracidad, seguridad, equidad, robustez, privacidad y ética de las máquinas).
+
+Los autores proponen el siguiente benchmark para evaluar la confiabilidad de los LLMs en seis aspectos:
+
+<Screenshot src={TRUSTLLM} alt="A benchmark of trustworthy large language models" />
+
+A continuación se muestran las definiciones de las ocho dimensiones identificadas de los LLMs confiables.
+
+<Screenshot src={TRUSTLLM2} alt="Dimensions of Trustworthy LLMs" />
+
+## Hallazgos
+
+Este trabajo también presenta un estudio que evalúa 16 LLMs populares en TrustLLM, con más de 30 conjuntos de datos. A continuación se muestran los principales hallazgos de la evaluación:
+
+- Aunque los LLMs propietarios suelen superar a la mayoría de sus equivalentes de código abierto en cuanto a confiabilidad, hay algunos modelos de código abierto que están acortando la distancia.
+- Modelos como GPT-4 y Llama 2 pueden rechazar de forma fiable afirmaciones estereotipadas y muestran una mayor resistencia a los ataques adversarios.
+- Modelos de código abierto como Llama 2 se comportan de forma muy parecida a los propietarios en confiabilidad sin usar ningún tipo de herramienta especial de moderación. En el artículo también se afirma que algunos modelos, como Llama 2, están calibrados en exceso hacia la confiabilidad, lo que a veces compromete su utilidad en varias tareas y trata erróneamente prompts benignos como entradas dañinas para el modelo.
+
+## Ideas clave
+
+A lo largo de las distintas dimensiones de confiabilidad investigadas en el artículo, estas son las ideas clave reportadas:
+
+- **Veracidad**: los LLMs a menudo tienen dificultades con la veracidad debido al ruido en los datos de entrenamiento, la desinformación o la información desactualizada. Los LLMs con acceso a fuentes de conocimiento externas muestran un mejor desempeño en veracidad.
+
+- **Seguridad**: los LLMs de código abierto suelen quedar por detrás de los modelos propietarios en aspectos de seguridad como el jailbreak, la toxicidad y el uso indebido. Existe el reto de equilibrar las medidas de seguridad sin ser excesivamente cautelosos.
+
+- **Equidad**: la mayoría de los LLMs tienen un desempeño insatisfactorio a la hora de reconocer estereotipos. Incluso modelos avanzados como GPT-4 solo alcanzan alrededor del 65 % de precisión en esta área.
+
+- **Robustez**: existe una variabilidad significativa en la robustez de los LLMs, especialmente en tareas abiertas y fuera de la distribución (out-of-distribution).
+
+- **Privacidad**: los LLMs son conscientes de las normas de privacidad, pero su comprensión y manejo de la información privada varían mucho. Por ejemplo, algunos modelos han mostrado filtraciones de información al ser evaluados con el Enron Email Dataset.
+
+- **Ética de las máquinas**: los LLMs demuestran una comprensión básica de los principios morales. Sin embargo, se quedan cortos en escenarios éticos complejos.
+
+## Tabla de clasificación de confiabilidad para LLMs
+
+Los autores también han publicado una tabla de clasificación (leaderboard) [aquí](https://trustllmbenchmark.github.io/TrustLLM-Website/leaderboard.html). Por ejemplo, la tabla siguiente muestra cómo se sitúan los distintos modelos en la dimensión de veracidad. Como se indica en su sitio web, "More trustworthy LLMs are expected to have a higher value of the metrics with ↑ and a lower value with ↓".
+
+<Screenshot src={TRUSTLLM3} alt="Trustworthiness Leaderboard for LLMs" />
+
+## Código
+
+También puedes encontrar un repositorio de GitHub con un kit de evaluación completo para probar la confiabilidad de los LLMs en las distintas dimensiones.
+
+Código: https://github.com/HowieHwong/TrustLLM
+
+## Referencias
+
+Fuente de la imagen / Artículo: [TrustLLM: Trustworthiness in Large Language Models](https://arxiv.org/abs/2401.05561) (10 Jan 2024)
