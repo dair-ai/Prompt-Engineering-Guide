@@ -1,3 +1,155 @@
-# Function Calling with LLMs
+# Llamadas a Funciones con LLMs
 
-This page needs a translation! Feel free to contribute a translation by clicking the `Edit this page` button on the right.
+import {Cards, Card, Callout} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+
+## Primeros pasos con las llamadas a funciones
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/p0I-hwZSWMs?si=tQgi-LiHe6Oj_rzm" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+
+La llamada a funciones (function calling) es la capacidad de conectar de forma fiable los LLMs con herramientas externas para permitir un uso eficaz de dichas herramientas y la interacción con APIs externas.
+
+Los LLMs como GPT-4 y GPT-3.5 se han ajustado (fine-tuning) para detectar cuándo es necesario llamar a una función y, a continuación, generar un JSON que contiene los argumentos con los que invocarla. Las funciones invocadas mediante la llamada a funciones actúan como herramientas dentro de tu aplicación de IA, y puedes definir más de una en una misma solicitud.
+
+La llamada a funciones es una capacidad importante para construir chatbots o agentes basados en LLMs que necesitan recuperar contexto para un LLM o interactuar con herramientas externas, convirtiendo el lenguaje natural en llamadas a APIs.
+
+La llamada a funciones permite a los desarrolladores crear:
+
+- agentes conversacionales que pueden usar de forma eficiente herramientas externas para responder preguntas. Por ejemplo, la consulta "¿Qué tiempo hace en Belice?" se convertirá en una llamada a función como `get_current_weather(location: string, unit: 'celsius' | 'fahrenheit')`
+- soluciones basadas en LLMs para extraer y etiquetar datos (por ejemplo, extraer nombres de personas de un artículo de Wikipedia)
+- aplicaciones que ayudan a convertir el lenguaje natural en llamadas a APIs o en consultas válidas a bases de datos
+- motores conversacionales de recuperación de conocimiento que interactúan con una base de conocimiento
+
+En esta guía mostramos cómo instruir (prompting) a modelos como GPT-4 y a modelos de código abierto para que realicen llamadas a funciones en distintos casos de uso.
+
+## Llamadas a funciones con GPT-4
+
+Como ejemplo básico, supongamos que le pedimos al modelo que compruebe el tiempo en una ubicación determinada.
+
+El LLM por sí solo no sería capaz de responder a esta solicitud, ya que se ha entrenado con un conjunto de datos que tiene una fecha de corte. La forma de resolverlo es combinar el LLM con una herramienta externa. Puedes aprovechar las capacidades de llamada a funciones del modelo para determinar qué función externa invocar junto con sus argumentos y, después, hacer que devuelva una respuesta final. A continuación se muestra un ejemplo sencillo de cómo lograrlo usando las APIs de OpenAI.
+
+Supongamos que un usuario le hace la siguiente pregunta al modelo:
+
+```
+What is the weather like in London?
+```
+
+Para gestionar esta solicitud mediante la llamada a funciones, el primer paso es definir una función del tiempo (o un conjunto de funciones) que pasarás como parte de la solicitud a la API de OpenAI:
+
+```python
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather in a given location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city and state, e.g. San Francisco, CA",
+                    },
+                    "unit": {
+                        "type": "string", 
+                        "enum": ["celsius", "fahrenheit"]},
+                },
+                "required": ["location"],
+            },
+        },   
+    }
+]
+```
+
+La función `get_current_weather` devuelve el tiempo actual en una ubicación determinada. Cuando pasas esta definición de función como parte de la solicitud, en realidad no se ejecuta ninguna función: solo se devuelve un objeto JSON que contiene los argumentos necesarios para invocarla. Aquí tienes algunos fragmentos de código de cómo conseguirlo.
+
+Puedes definir una función de completado (completion) de la siguiente manera:
+
+```python
+def get_completion(messages, model="gpt-3.5-turbo-1106", temperature=0, max_tokens=300, tools=None):
+    response = openai.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        tools=tools
+    )
+    return response.choices[0].message
+```
+
+Así es como puedes componer la pregunta del usuario:
+
+```python
+messages = [
+    {
+        "role": "user",
+        "content": "What is the weather like in London?"
+    }
+]
+```
+
+Por último, puedes llamar a la función `get_completion` anterior pasando tanto los `messages` como las `tools`:
+
+```python
+response = get_completion(messages, tools=tools)
+```
+
+El objeto `response` contiene lo siguiente:
+
+```python
+ChatCompletionMessage(content=None, role='assistant', function_call=None, tool_calls=[ChatCompletionMessageToolCall(id='...', function=Function(arguments='{"location":"London","unit":"celsius"}', name='get_current_weather'), type='function')])
+```
+
+En particular, el objeto `arguments` contiene los argumentos importantes extraídos por el modelo y que serán necesarios para completar la solicitud.
+
+Después puedes optar por llamar a una API externa del tiempo para obtener el tiempo real. Una vez que tengas disponible la información del tiempo, puedes devolvérsela al modelo para que redacte una respuesta final teniendo en cuenta la pregunta original del usuario.
+
+## Notebooks
+
+<Callout type= "info" emoji="🎓">
+Aprende más sobre las llamadas a funciones en nuestros nuevos cursos de IA. [¡Únete ahora!](https://academy.dair.ai/)
+Usa el código PROMPTING20 para conseguir un 20% de descuento adicional.
+</Callout>
+
+Aquí tienes un notebook con un ejemplo sencillo que muestra cómo usar las llamadas a funciones con las APIs de OpenAI:
+
+<Cards>
+    <Card 
+        icon={<CodeIcon />}
+        title="Function Calling with OpenAI APIs"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb"
+    />
+</Cards>
+
+## Llamadas a funciones con LLMs de código abierto
+Próximamente más notas sobre las llamadas a funciones con LLMs de código abierto.
+
+## Casos de uso de las llamadas a funciones
+
+A continuación se muestra una lista de casos de uso que pueden beneficiarse de la capacidad de llamada a funciones de los LLMs:
+
+- **Agentes conversacionales**: la llamada a funciones puede usarse para crear agentes conversacionales o chatbots complejos que responden preguntas difíciles invocando APIs externas o una base de conocimiento externa, ofreciendo respuestas más relevantes y útiles.
+
+- **Comprensión del lenguaje natural**: puede convertir el lenguaje natural en datos JSON estructurados, extraer datos estructurados de un texto y realizar tareas como el reconocimiento de entidades nombradas, el análisis de sentimiento y la extracción de palabras clave.
+
+- **Resolución de problemas matemáticos**: la llamada a funciones puede usarse para definir funciones personalizadas que resuelvan problemas matemáticos complejos que requieren varios pasos y distintos tipos de cálculos avanzados.
+
+- **Integración de APIs**: puede usarse para integrar de forma eficaz los LLMs con APIs externas con el fin de obtener datos o realizar acciones a partir de la entrada. Esto resulta útil para construir un sistema de preguntas y respuestas o un asistente creativo. En general, la llamada a funciones puede convertir el lenguaje natural en llamadas a API válidas.
+
+- **Extracción de información**: la llamada a funciones puede usarse de forma eficaz para extraer información específica de una entrada dada, como recuperar noticias o referencias relevantes de un artículo.
+
+
+## Referencias
+- [Fireworks Raises the Quality Bar with Function Calling Model and API Release](https://blog.fireworks.ai/fireworks-raises-the-quality-bar-with-function-calling-model-and-api-release-e7f49d1e98e9)
+- [Benchmarking Agent Tool Use and Function Calling](https://blog.langchain.dev/benchmarking-agent-tool-use/)
+- [Function Calling](https://ai.google.dev/docs/function_calling)
+- [Interacting with APIs](https://python.langchain.com/docs/use_cases/apis)
+- [OpenAI's Function Calling](https://platform.openai.com/docs/guides/function-calling)
+- [How to call functions with chat models](https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models)
+- [Pushing ChatGPT's Structured Data Support To Its Limits](https://minimaxir.com/2023/12/chatgpt-structured-data/)
+- [Math Problem Solving with Function Calling](https://github.com/svpino/openai-function-calling/blob/main/sample.ipynb)
