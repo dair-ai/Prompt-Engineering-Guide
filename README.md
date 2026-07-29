@@ -12,7 +12,7 @@ Motivated by the high interest in developing with LLMs, we have created this new
 
 🎉 We are excited to launch our new prompt engineering, RAG, and AI Agents courses under the DAIR.AI Academy. [Join Now](https://academy.dair.ai/pricing)!
 
-The courses are meant to compliment this guide and provide a more hands-on approach to learning about prompt engineering, context engineering, and AI Agents. 
+The courses are meant to complement this guide and provide a more hands-on approach to learning about prompt engineering, context engineering, and AI Agents. 
 
 Use code PROMPTING20 to get an extra 20% off.
 
