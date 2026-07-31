@@ -1,0 +1,73 @@
+# Öz-Tutarlılık
+
+Belki de istem mühendisliği için oradaki daha ileri tekniklerden biri öz-tutarlılıktır. [Wang ve diğerleri (2022)](https://arxiv.org/abs/2203.11171) tarafından önerilen öz-tutarlılık, "düşünce zinciri istemlemede kullanılan naif açgözlü çözümlemeyi değiştirmeyi" hedefler. Fikir, az numaralı CoT (Chain of Thought - Düşünce Zinciri) aracılığıyla çeşitli ve çeşitli geliş yollarını örneklemek ve en tutarlı yanıtı seçmek için üretimleri kullanmaktır. Bu, aritmetik ve sağduyu akıl yürütme görevlerini içeren CoT istemleme performansını artırmaya yardımcı olur.
+
+Aşağıdaki örneği aritmetik akıl yürütme için deneyelim:
+
+*İstem:*
+```
+6 yaşında iken kız kardeşim benim yaşımın yarısıydı. Şimdi
+70 yaşındayım, kız kardeşim kaç yaşında?
+```
+
+*Çıktı:*
+```
+35
+```
+
+Çıktı yanlış! Bu durumu öz-tutarlılıkla nasıl iyileştirebiliriz? Deneyelim. Wang ve diğerleri 2022'ye (Tablo 17) ait az numaralı örnekleri kullanacağız:
+
+*İstem:*
+```
+S: Bahçede 15 ağaç var. Bahçe işçileri bugün bahçeye ağaç dikecekler. İşleri bittiğinde,
+bahçede 21 ağaç olacak. Bahçe işçileri bugün kaç ağaç dikmiştir?
+C: 15 ağaçla başlıyoruz. Daha sonra 21 ağacımız var. Fark, onların diktiği ağaç sayısı olmalı. 
+Dolayısıyla, 21 - 15 = 6 ağaç dikmişler olmalılar. Yanıt 6'dır.
+
+S: Otoparkta 3 araba var ve 2 araba daha geliyor. Şimdi otoparkta kaç araba var?
+C: Otoparkta zaten 3 araba var. 2 daha geliyor. Şimdi orada 3 + 2 = 5 araba var. Cevap 5'tir.
+
+S: Leah'nın 32 çikolatası vardı ve kız kardeşi 42 tane daha aldı. Eğer 35 tanesini yedilerse, toplamda kaç çikolataları kalmıştır?
+C: Leah'nın 32 çikolatası vardı ve Leah'nın kız kardeşi 42 çikolata aldı. Bu, başlangıçta 32 + 42 = 74 
+çikolata olduğu anlamına gelir. 35 tane yediler. Dolayısıyla toplamda hala 74 - 35 = 39 çikolata yediler. Cevap 39'dur.
+
+S: Jason'ın 20 lollipopu vardı. Denny'ye birkaç tane lollipop verdi. Şimdi Jason'ın 12 lollipopu var. Jason, Denny'ye kaç lollipop verdi?
+C: Jason'ın 20 lollipopu vardı. Artık sadece 12'si var, geri kalanını Denny'ye vermiş olmalı. Denny'ye verdiği
+lollipop sayısı 20 - 12 = 8 lollipop olmalıdır. Cevap 8’dir.
+
+S: Shawn'un beş oyuncağı var. Noel için annesi ve babası her biri tarafından ikişer oyuncak aldı. Şimdi kaç oyuncağı var?
+C: 5 oyuncağı var. Annesinden 2 tane aldı, bu yüzden ondan sonra 5 + 2 = 7 oyuncağı var. Daha sonra babasından 2 daha aldı, bu yüzden
+toplamda 7 + 2 = 9 oyuncağı var. Yanıt 9’dur.
+
+S: Sunucu odasında dokuz bilgisayar vardı. Pazartesiden perşembeye her gün beşer bilgisayar daha kuruldu. Şimdi sunucu odasında kaç bilgisayar var?
+C: Pazartesiden perşembeye 4 gün var. Her gün 5 bilgisayar eklenmiştir. Bu, toplamda 4 * 5 =
+20 bilgisayarın eklendiği anlamına gelir. İlk başta 9 bilgisayar vardı, bu yüzden şimdi 9 + 20 = 29 bilgisayar var.
+Yanıt 29'dur.
+
+S: Michael'ın 58 golf topu vardı. Salı günü, 23 golf topu kaybetti. Çarşamba günü, 2 tane daha kaybetti. Çarşamba günü sonunda kaç golf topu kaldı?
+C: Michael başlangıçta 58 topa sahipti. Salı günü 23 tane kaybetti, bu yüzden bundan sonra 58 - 23 = 35 topu var. 
+Çarşamba günü 2 tane daha kaybetti, bu yüzden şimdi 35 - 2 = 33 topu var. Yanıt 33'tür.
+
+S: Olivia'nın $23'ü var. Beş tane simit alıyor, her biri $3. Ne kadar parası kaldı?
+C: Her biri $3 olan 5 simit satın aldı. Bu, $15 harcadığı anlamına gelir. $8'i kaldı.
+
+S: 6 yaşında iken kız kardeşim benim yaşımın yarısıydı. Şimdi 70 yaşındayım, kız kardeşim kaç yaşında?
+C:
+```
+
+*Çıktı 1:*
+```
+6 yaşında iken kız kardeşim yaşımın yarısıydı, yani o 3 yaşındaydı. Şimdi ben 70 yaşındayım, o yüzden kız kardeşim 70 - 3 = 67 yaşında. Yanıt 67'dir.
+```
+
+*Çıktı 2:*
+```
+Anlatıcı 6 yaşında olduğunda, kız kardeşi yaşının yarısı kadar, yani 3 yaşındaydı. Şimdi anlatıcı 70 yaşında, bu yüzden kız kardeşi 70 - 3 = 67 yaşında olacaktır. Yanıt 67’dir.
+```
+
+*Çıktı 3:*
+```
+6 yaşında iken kız kardeşim benim yaşımın yarısıydı, yani o 3 yaşındaydı. Şimdi ben 70 yaşındayım, o yüzden kız kardeşim 70/2 = 35 yaşında. Yanıt 35'tir.
+```
+
+Nihai yanıtı hesaplamak birkaç adım gerektirir (detaylar için makaleye bakınız) ancak basitlik adına, zaten bir çoğunluk yanıtının ortaya çıktığını görebiliriz. Bu da, esasen nihai yanıt olur.

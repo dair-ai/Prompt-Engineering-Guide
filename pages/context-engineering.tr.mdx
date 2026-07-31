@@ -1,0 +1,178 @@
+# Neden Bağlam Mühendisliği?
+
+import { Callout } from 'nextra/components'
+
+[Bağlam mühendisliği](https://www.promptingguide.ai/guides/context-engineering-guide), güvenilir ve etkili AI ajanları oluşturmak için kritik bir uygulamadır. Bu kılavuz, bir derin araştırma ajanı (deep research agent) inşa etme örneği üzerinden bağlam mühendisliğinin önemini incelemektedir.
+
+Bağlam mühendisliği; istenen sonuçlara ulaşmak için bir AI ajanın davranışına rehberlik eden istemleri, talimatları ve kısıtlamaları özenle tasarlama ve iyileştirme sürecidir.
+
+<Callout type="info" emoji="📚">
+Bu içerik, ajansal sistemlerin tasarımı ve uygulanmasına ilişkin kapsamlı bilgiler, indirilebilir şablonlar, istemler ve gelişmiş ipuçları sunan yeni kursumuz ["n8n ile Etkili AI Ajanları Oluşturma"](https://academy.dair.ai/courses/building-effective-ai-agents) dersine dayanmaktadır.
+</Callout>
+
+## Bağlam Mühendisliği Nedir?
+
+[Bağlam mühendisliği](https://www.promptingguide.ai/guides/context-engineering-guide), AI ajanlarına sağlanan bağlamsal bilgileri tasarlama, test etme ve yineleme sürecidir. Tek bir LLM çağrısı için yapılan basit istem mühendisliğinin aksine, ajanlar için bağlam mühendisliği şunları içerir (ancak bunlarla sınırlı değildir):
+
+- Ajan davranışını ve yeteneklerini tanımlayan **sistem istemleri (system prompts)**
+- Karar vermeyi yönlendiren **görev kısıtlamaları**
+- Mevcut fonksiyonların/araçların ne zaman ve nasıl kullanılacağını açıklayan **araç açıklamaları**
+- Birden çok adımda durumu izlemek için **hafıza yönetimi**
+- Güçlü yürütme için **hata yönetimi** kalıpları
+
+## Derin Araştırma Ajanı İnşa Etme: Bir Örnek Olay İncelemesi
+
+Bağlam mühendisliği ilkelerini bir örnek üzerinden keşfedelim: web aramaları yapan ve raporlar oluşturan minimalist bir derin araştırma ajanı.
+
+![Ajan İş Akışı](../../img/agents/simple-dr-agent.png)
+
+### Bağlam Mühendisliği Zorluğu
+
+Bu ajan sisteminin ilk sürümü oluşturulduğunda, uygulama dikkatli bağlam mühendisliği gerektiren birkaç davranışsal sorunu ortaya çıkardı:
+
+#### Sorun 1: Eksik Görev Yürütme
+
+**Problem**: Ajansal iş akışı çalıştırıldığında orkestratör ajan sıklıkla üç arama görevi oluşturur ancak bunlardan yalnızca ikisi için arama gerçekleştirir, üçüncüsünü açık bir gerekçe göstermeden atlar.
+
+**Kök Neden**: Ajanın sistem isteminde görev tamamlama gereksinimleri hakkında açık kısıtlamalar eksikti. Ajan hangi aramaların gerekli olduğu konusunda varsayımlarda bulunarak tutarsız davranış sergiledi.
+
+**Çözüm**: İki yaklaşım mümkündür:
+
+1. **Esnek Yaklaşım**: Ajanın hangi aramaların gerekli olduğuna karar vermesine izin vermek, ancak atlanan görevler için açık akıl yürütme talep etmek
+2. **Katı Yaklaşım**: Planlanan tüm görevler için arama yapılmasını zorunlu kılan açık kısıtlamalar eklemek
+
+Örnek sistem istemi iyileştirmesi:
+
+```text
+Kapsamlı araştırma görevlerini yürütmekten sorumlu bir derin araştırma ajanısınız.
+
+GÖREV YÜRÜTME KURALLARI:
+- Oluşturduğunuz her arama görevi için ŞUNLARDAN BİRİNİ YAPMALISINIZ:
+  1. Bir web araması yapın ve bulguları belgeleyin, VEYA
+  2. Aramanın neden gereksiz olduğunu açıkça belirtin ve gerekçeyle tamamlandı olarak işaretleyin
+
+- Görevleri sessizce atlamayın veya görev tekrarı hakkında varsayımlarda bulunmayın
+- Görevlerin çakıştığını belirlerseniz, yürütmeden ÖNCE bunları birleştirin
+- Her eylemden sonra e-tablodaki görev durumunu güncelleyin
+```
+
+#### Sorun 2: Hata Ayıklama Görünürlüğünün Eksikliği
+
+**Problem**: Uygun günlük kaydı (logging) ve durum takibi olmadan, ajanın neden belirli kararlar aldığını anlamak zordu.
+
+**Çözüm**: Bu örnek için aşağıdaki alanlara sahip bir e-tablo veya metin dosyası kullanarak bir görev yönetim sistemi uygulamak faydalı olur:
+
+- Görev Kimliği (Task ID)
+- Arama sorgusu
+- Durum (todo, in_progress, completed)
+- Sonuç özeti
+- Zaman damgası
+
+Bu görünürlük şunları sağlar:
+- Ajan kararlarının gerçek zamanlı hata ayıklaması
+- Görev yürütme akışının anlaşılması
+- Davranışsal kalıpların tespiti
+- Yinelemeli iyileştirmeler için veri sağlama
+
+### Bağlam Mühendisliği En İyi Uygulamaları
+
+Bu örnek olay incelemesine dayanarak, etkili bağlam mühendisliği için temel ilkeler şunlardır:
+
+#### 1. İstem Belirsizliğini Ortadan Kaldırın
+
+**Kötü Örnek:**
+```text
+Verilen konu üzerinde araştırma yapın.
+```
+
+**İyi Örnek:**
+```text
+Verilen konu üzerinde şu adımları izleyerek araştırma yapın:
+1. Sorguyu 3-5 özel arama alt görevine bölün
+2. search_tool kullanarak HER alt görev için bir web araması gerçekleştirin
+3. Görev takipçisinde her arama için bulguları belgeleyin
+4. Tüm bulguları kapsamlı bir raporda birleştirin
+```
+
+#### 2. Beklentileri Açıkça Belirtin
+
+Ajanın ne istediğinizi bildiğini varsaymayın. Şunlar hakkında açık olun:
+- Zorunlu vs. isteğe bağlı eylemler
+- Kalite standartları
+- Çıktı formatları
+- Karar verme kriterleri
+
+#### 3. Gözlemlenebilirlik Sağlayın
+
+Ajansal sisteminize hata ayıklama mekanizmaları dahil edin:
+- Tüm ajan kararlarını ve akıl yürütmelerini günlüğe kaydedin
+- Harici depolamada durum değişikliklerini izleyin
+- Araç çağrılarını ve sonuçlarını kaydedin
+- Hataları ve uç durumları (edge cases) yakalayın
+
+<Callout type="warning" emoji="⚠️">
+Ajansal sisteminizin her çalışmasına yakından dikkat edin. Garip davranışlar ve uç durumlar, bağlam mühendisliği çabalarınızı geliştirmek için birer fırsattır.
+</Callout>
+
+#### 4. Davranışa Göre Yineleyin
+
+Bağlam mühendisliği yinelemeli bir süreçtir:
+
+1. Ajanı ilk bağlamla **konuşlandırın**
+2. Üretimdeki gerçek davranışı **gözlemleyin**
+3. Beklenen davranıştan sapmaları **belirleyin**
+4. Sistem istemlerini ve kısıtlamalarını **iyileştirin**
+5. İyileştirmeleri **test edin** ve doğrulayın
+6. **Tekrarlayın**
+
+#### 5. Esneklik ve Kısıtlamaları Dengeleyin
+
+Şunlar arasındaki dengeyi dikkate alın:
+- **Katı kısıtlamalar**: Daha tahmin edilebilir ancak daha az uyarlanabilir
+- **Esnek kılavuz ilkeler**: Daha uyarlanabilir ancak potansiyel olarak tutarsız
+
+Kullanım senaryosu gereksinimlerinize göre seçim yapın.
+
+## İleri Bağlam Mühendisliği Teknikleri
+
+### Katmanlı Bağlam Mimarisi
+
+Bağlam mühendisliği, AI ajanı oluşturma sürecinin tüm aşamaları için geçerlidir. Temel ajansal sistemimiz için bağlamı hiyerarşik katmanlar halinde düzenleyebiliriz:
+
+1. **Sistem Katmanı**: Temel ajan kimliği ve yetenekleri
+2. **Görev Katmanı**: Mevcut görev için özel talimatlar
+3. **Araç Katmanı**: Her araç için açıklamalar ve kullanım yönergeleri
+4. **Hafıza Katmanı**: İlgili geçmiş bağlam ve öğrenilenler
+
+## Sık Yapılan Bağlam Mühendisliği Hataları
+
+AI ajanları oluştururken kaçınılması gereken birkaç yaygın hata:
+
+### 1. Aşırı Kısıtlama
+
+**Problem**: Çok fazla kural ajanı esnek olmayan ve uç durumları yönetemeyen bir hale getirir.
+
+### 2. Yetersiz Belirtim (Under-Specification)
+
+**Problem**: Muğlak talimatlar öngörülemeyen davranışlara yol açar.
+
+### 3. Hata Durumlarını Göz Ardı Etmek
+
+**Problem**: Bağlam, işler ters gittiğinde nasıl davranılacağını belirtmez.
+
+## Bağlam Mühendisliği Başarısını Ölçme
+
+Bağlam mühendisliği etkinliğini değerlendirmek için şu metrikleri izleyin:
+
+1. **Görev Tamamlama Oranı**: Başarıyla tamamlanan görevlerin yüzdesi
+2. **Davranışsal Tutarlılık**: Benzer girdilerde ajan davranışının benzerliği
+3. **Hata Oranı**: Başarısızlıkların ve beklenmeyen davranışların sıklığı
+4. **Kullanıcı Memnuniyeti**: Çıktıların kalitesi ve kullanışlılığı
+5. **Hata Ayıklama Süresi**: Sorunları belirlemek ve düzeltmek için gereken süre
+
+Bağlam mühendisliğini tek seferlik bir etkinlik olarak değil, sürekli bir uygulama olarak ele almak önemlidir.
+
+<Callout type="info" emoji="🎓">
+Kapsamlı kursumuzda üretime hazır AI ajanları oluşturmayı öğrenin. [Hemen Katılın!](https://academy.dair.ai/courses/building-effective-ai-agents)
+Ekstra %20 indirim almak için PROMPTING20 kodunu kullanın.
+</Callout>

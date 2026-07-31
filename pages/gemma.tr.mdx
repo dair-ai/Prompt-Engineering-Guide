@@ -1,0 +1,22 @@
+# Gemma
+
+Google DeepMind, Gemini'yi oluşturmak için kullanılan aynı araştırma ve teknolojiden ilham alan açık dil modelleri serisi Gemma'yı yayınladı. Gemma model yayımı; temel ve talimat uyarlamalı (instruction-tuned) kontrol noktaları da dahil olmak üzere 2B ve 7B modellerini içerir.
+
+Gemma 7B modeli, çeşitli akademik ölçütlerde Llama 2 7B ve Mistral 7B'yi geride bırakmaktadır.
+
+!["Gemma Kontrol Jetonları"](../../img/gemma/control-tokens.png)
+
+## Gemma 7B İstem Formatı
+
+Gemma Instruct modeli aşağıdaki formatı kullanır:
+
+```markdown
+<start_of_turn>user
+İki sayıyı çarpan bir Python fonksiyonu oluştur <end_of_turn>
+<start_of_turn>model
+```
+
+## Kaynaklar ve Entegrasyonlar
+
+- [Colab](https://ai.google.dev/gemma/docs/get_started) ve [Kaggle](https://www.kaggle.com/models/google/gemma/code) notebook'ları
+- [Hugging Face modelleri](https://huggingface.co/collections/google/gemma-release-65d5efbccdbb8c4202ec078b)

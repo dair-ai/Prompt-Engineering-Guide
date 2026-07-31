@@ -1,0 +1,38 @@
+# GPT-4o Modelleri ile İnce Ayar (Fine-Tuning)
+
+import { Callout } from 'nextra/components'
+
+OpenAI yakın zamanda en son modelleri olan GPT-4o ve GPT-4o mini için ince ayar (fine-tuning) özelliğinin kullanıma sunulduğunu [duyurdu](https://openai.com/index/gpt-4o-fine-tuning/). Bu yeni yetenek, geliştiricilerin GPT-4o modellerini belirli kullanım senaryoları için özelleştirmelerine, performansı artırmalarına ve çıktıları uyarlamalarına olanak tanır.
+
+## İnce Ayar Detayları ve Maliyetler
+
+Geliştiriciler artık özel [ince ayar panosu](https://platform.openai.com/finetune) aracılığıyla ince ayar için `GPT-4o-2024-08-06` kontrol noktasına (checkpoint) erişebilirler. Bu süreç; yanıt yapısının, üslubun ve karmaşık, alana özgü talimatlara uyumun özelleştirilmesine imkan tanır.
+
+GPT-4o ince ayar maliyeti eğitim için milyon jeton başına 25$, çıkarım (inference) için ise milyon girdi jetonu başına 3.75$ ve milyon çıktı jetonu başına 15$'dır. Bu özellik yalnızca ücretli kullanım katmanlarındaki geliştiriciler için mevcuttur.
+
+## Deney Yapmak İçin Ücretsiz Eğitim Jetonları
+
+OpenAI bu yeni özelliğin keşfedilmesini teşvik etmek için 23 Eylül'üne kadar sınırlı süreli bir promosyon sunmaktadır. Geliştiriciler GPT-4o için günde 1 milyon ücretsiz eğitim jetonuna ve GPT-4o mini için günde 2 milyon ücretsiz eğitim jetonuna erişebilirler. Bu durum, ince ayarlı modeller için yenilikçi uygulamaları deneyimlemek üzere iyi bir fırsat sağlar.
+
+## Kullanım Senaryosu: Duygu Sınıflandırması
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/UJ7ry7Qp2Js?si=ZU3K0ZVNfQjnlZgo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Yukarıdaki rehberde, bir modeli duygu sınıflandırması için eğitmeyi içeren pratik bir ince ayar örneği sergiliyoruz. Karşılık gelen duygularla etiketlenmiş metin örneklerini içeren [JSONL biçimlendirilmiş bir veri kümesi](https://github.com/dair-ai/datasets/tree/main/openai) kullanılarak, GPT-4o mini metinleri duygusal tona göre sınıflandıracak şekilde ince ayardan geçirilebilir.
+
+Bu gösterim, standart modellere kıyasla doğrulukta önemli gelişmeler sağlayarak belirli görevler için model performansını artırmada ince ayarın potansiyelini vurgulamaktadır.
+
+## İnce Ayarlı Modellere Erişim ve Değerlendirme
+
+İnce ayar süreci tamamlandıktan sonra geliştiriciler OpenAI oyun alanı (playground) aracılığıyla özel modellerine erişebilir ve onları değerlendirebilirler. Oyun alanı, çeşitli girdilerle etkileşimli test yapılmasına izin verir ve modelin performansı hakkında içgörüler sağlar. Daha kapsamlı değerlendirme için geliştiriciler ince ayarlı modeli OpenAI API aracılığıyla uygulamalarına entegre edebilir ve sistematik testler yürütebilirler.
+
+OpenAI'ın GPT-4o modelleri için ince ayarı sunması, özelleştirilmiş görevler için LLM'lerin gücünden yararlanmak isteyen geliştiriciler için yeni olasılıkların kapısını aralamaktadır.
+
+<Callout type= "info" emoji="🎓">
+Yeni yapay zekâ kurslarımızda gelişmiş yöntemler hakkında daha fazla bilgi edinin. [Hemen Katılın!](https://academy.dair.ai/)
+Ekstra %20 indirim almak için PROMPTING20 kodunu kullanın.
+</Callout>

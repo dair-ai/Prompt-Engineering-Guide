@@ -1,0 +1,34 @@
+# Gerçeklik
+
+LLM'ler kulağa tutarlı ve inandırıcı gelen ancak bazen uydurulabilen yanıtlar üretme eğilimindedir. Yönlendirmelerin iyileştirilmesi, modelin daha doğru/gerçeğe dayalı yanıtlar üretecek şekilde geliştirilmesine yardımcı olabilir ve tutarsız ve uydurulmuş yanıtlar üretme olasılığını azaltabilir.
+
+Bazı çözümler şunları içerebilir:
+- Modelin uydurma metinler üretme olasılığını azaltmak için bağlamın bir parçası olarak temel gerçeği sağlayın (ör. ilgili makale paragrafı veya Vikipedi girişi).
+- Modeli, olasılık parametrelerini azaltarak ve bilmediği bir yanıtı kabul etmesini (ör. "Bilmiyorum") belirtmek için yapılandırın.
+- İstemde, modelin bilip bilmediği soru ve yanıtların bir kombinasyonunu sağlayın.
+
+Basit bir örneğe bakalım:
+
+*Bilgi istemi:*
+```
+S: Atom nedir?
+C: Atom, her şeyi oluşturan küçük bir parçacıktır. 
+
+S: Alvan Muntz kimdir?
+C: ? 
+
+S: Kozar-09 nedir?
+C: ?
+
+Q: Mars'ın kaç uydusu var?
+C: İki, Phobos ve Deimos. 
+
+S: Neto Beto Roberto kimdir? 
+```
+
+*Çıktı:*
+```
+C: ?
+```
+
+Bu örnekte modelin doğru olması için "Neto Beto Roberto" adını ben uydurdum. Soruyu biraz değiştirmeye çalışın ve çalışıp çalışamayacağınıza bakın. Şimdiye kadar öğrendiklerinize dayanarak bunu daha da geliştirmenin farklı yolları vardır.

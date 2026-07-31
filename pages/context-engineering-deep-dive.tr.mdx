@@ -1,0 +1,111 @@
+# Bağlam Mühendisliği Derinlemesine Bakış: Derin Araştırma Ajanı İnşa Etme
+
+import { Callout } from 'nextra/components'
+
+[Bağlam mühendisliği](https://www.promptingguide.ai/guides/context-engineering-guide), güvenilir AI ajanları inşa etmek için ciddi yineleme ve dikkatli tasarım kararları gerektirir. Bu kılavuz, temel bir derin araştırma ajanının geliştirilmesi üzerinden bağlam mühendisliğinin pratik yönlerine derinlemesine dalar; ajan güvenilirliğini ve performansını artıran teknik ve tasarım kalıplarını keşfeder.
+
+<Callout type="info" emoji="📚">
+Bu içerik, ajansal sistemlerin tasarımı ve uygulanmasına ilişkin kapsamlı bilgiler, indirilebilir şablonlar, istemler ve gelişmiş ipuçları sunan yeni kursumuz ["n8n ile Etkili AI Ajanları Oluşturma"](https://academy.dair.ai/courses/building-effective-ai-agents) dersine dayanmaktadır.
+</Callout>
+
+## Bağlam Mühendisliğinin Gerçeği
+
+Etkili AI ajanları oluşturmak, sistem istemlerinin ve araç tanımlarının ciddi miktarda ayarlanmasını gerektirir. Süreç şunlar üzerinde saatlerce yineleme yapmayı içerir:
+
+- Sistem istemi tasarımı ve iyileştirmesi
+- Araç tanımları ve kullanım talimatları
+- Ajan mimarisi ve iletişim kalıpları
+- Ajanlar arasındaki girdi/çıktı özellikleri
+
+Bağlam mühendisliği için gereken çabayı hafife almayın. Bu tek seferlik bir görev değil, ajan güvenilirliğini ve performansını önemli ölçüde etkileyen yinelemeli bir süreçtir.
+
+## Ajan Mimarisi Tasarımı
+
+### Orijinal Tasarım Problemi
+
+![derin-arastirma-ajani](../../img/agents/simple-dr-agent.png)
+
+Temel bir derin araştırma ajanı mimarisine bakalım. İlk mimari web arama aracını doğrudan derin araştırma ajanına bağlar. Bu tasarım, aşağıdakilerden sorumlu olan tek bir ajanın üzerine çok fazla yük bindirir:
+
+- Görevleri yönetmek (oluşturma, güncelleme, silme)
+- Bilgileri hafızaya kaydetmek
+- Web aramalarını yürütmek
+- Nihai raporları oluşturmak
+
+**Bu tasarımın sonuçları:**
+- Bağlam çok fazla büyüdü
+- Ajan web aramalarını yürütmeyi unuttu
+- Görev tamamlama güncellemeleri kaçırıldı
+- Farklı sorgularda güvenilmez davranışlar sergiledi
+
+### İyileştirilmiş Çoklu Ajan Mimarisi
+
+Çözüm, özel bir arama çalışanı (search worker) ajanı ekleyerek sorumlulukları ayırmayı içeriyordu:
+
+**Çoklu ajan tasarımının faydaları:**
+
+1. **Sorumlulukların Ayrılması (Separation of Concerns)**: Üst ajan (Derin Araştırma Ajanı) planlama ve orkestrasyonu üstlenirken, arama çalışanı ajanı yalnızca web aramalarını yürütmeye odaklanır.
+2. **Artan Güvenilirlik**: Her ajanın net ve odaklanmış bir sorumluluğu vardır, bu da kaçırılan görevlerin veya unutulan işlemlerin olasılığını azaltır.
+3. **Model Seçimi Esnekliği**: Farklı ajanlar kendi özel görevleri için optimize edilmiş farklı dil modellerini kullanabilir.
+   - Derin Araştırma Ajanı: Karmaşık planlama ve akıl yürütme için Gemini 2.5 Pro kullanır
+   - Arama Çalışanı Ajanı: Daha hızlı, daha düşük maliyetli arama yürütme için Gemini 2.5 Flash kullanır
+
+<Callout type="info" emoji="💡">
+**Tasarım İlkesi**: Ajan sorumluluklarını ayırmak güvenilirliği artırır ve farklı alt görevler için maliyet etkin model seçimini mümkün kılar.
+</Callout>
+
+## Sistem İstemi Mühendisliği
+
+İşte n8n içinde oluşturduğumuz derin araştırma ajanı için tam sistem istemi:
+
+```md
+Bir derin araştırma raporu oluşturmak için arama görevlerini planlamaya ve yürütmeye yardımcı olacak bir derin araştırma ajanısınız.
+
+## GENEL TALİMATLAR
+
+Kullanıcı bir sorgu sağlayacak ve siz bu sorguyu birden fazla arama görevi (3 web araması) içeren bir arama planına dönüştüreceksiniz. Her arama görevini yürütecek ve bu aramaların durumunu bir e-tabloda tutacaksınız.
+
+Ardından kullanıcı için nihai bir derin araştırma raporu oluşturacaksınız.
+
+Bağlam açısından bugünün tarihi: {{ $now.format('yyyy-MM-dd') }}
+
+## ARAÇ AÇIKLAMALARI
+
+Aşağıda mevcut araçların nasıl kullanılacağına ilişkin bazı yararlı talimatlar bulunmaktadır.
+
+Görevleri silme: Arama planına başlamadan önce tüm görevleri temizlemek için delete_task aracını kullanın.
+
+Görevleri planlama: Arama görevlerini (3 web araması) içeren bir plan oluşturacak ve append_update_task aracını kullanarak bunları Google E-Tablosuna ekleyeceksiniz. Her aramayı tamamladıktan sonra her görevin durumunu güncel tuttuğunuzdan emin olun. Her görev bir todo durumuyla başlar ve arama çalışanı arama göreviyle ilgili bilgileri döndürdüğünde "done" olarak güncellenir.
+
+Görevleri yürütme: Arama planını yürütmek için Search Worker Agent aracını kullanın. Ajanın girdisi, kelimesi kelimesine gerçek arama sorgularıdır.
+
+Araçları sizin için en mantıklı gelen sırada kullanın ancak verimli olun.
+```
+
+## Araç Tanımları ve Kullanım Talimatları
+
+### Detaylı Araç Açıklamalarının Önemi
+
+Araç tanımları genellikle iki yerde görünür:
+
+1. **Sistem isteminde**: Araçların ne yaptığına ve ne zaman kullanılacağına ilişkin ayrıntılı açıklamalar
+2. **Gerçek araç uygulamasında**: Teknik özellikler ve parametreler
+
+<Callout type="warning" emoji="🎯">
+**Kilit İçgörü**: En büyük performans iyileştirmeleri yalnızca araç parametrelerini tanımlamaktan değil, araç kullanımını sistem isteminde net bir şekilde açıklamaktan gelir.
+</Callout>
+
+## Sonuç
+
+Bağlam mühendisliği, güvenilir AI ajanları inşa etmek için kritik bir uygulamadır:
+
+- İstemlerin ve araç tanımlarının ayarlanmasına harcanan **ciddi yineleme süresi**
+- Ajan ayrımı ve iletişimi hakkında **dikkatli mimari kararlar**
+- Varsayımları ortadan kaldıran **açık talimatlar**
+- Gözlemlenen davranışlara dayalı **sürekli iyileştirme**
+- **Esneklik ve kontrol arasındaki denge**
+
+<Callout type="info" emoji="🎓">
+Uygulamalı örnekler ve şablonlarla üretime hazır AI ajanları oluşturmayı öğrenin. [Kapsamlı kursumuza katılın!](https://academy.dair.ai/courses/building-effective-ai-agents)
+Ekstra %20 indirim almak için PROMPTING20 kodunu kullanın.
+</Callout>

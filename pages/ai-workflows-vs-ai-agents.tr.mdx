@@ -1,0 +1,214 @@
+# AI İş Akışları vs. AI Ajanları
+
+import { Callout } from 'nextra/components'
+
+![AI İş Akışları vs. AI Ajanları](../../img/agents/task-planner-agent.png)
+
+Ajansal (agentic) sistemler, karmaşık görevleri başarmak için Büyük Dil Modellerini (LLM'ler) ve araçları nasıl orkestre ettiğimiz konusunda bir paradigma değişimini temsil eder. Bu kılavuz, **AI iş akışları** ve **AI Ajanları** arasındaki temel farkları inceleyerek AI uygulamalarınızda her bir yaklaşımı ne zaman kullanacağınızı anlamanıza yardımcı olur.
+
+<Callout type="info" emoji="📚">
+Bu içerik, ajansal sistemlerin tasarımı ve uygulanmasına ilişkin kapsamlı bilgiler, indirilebilir şablonlar, istemler ve gelişmiş ipuçları sunan yeni kursumuz ["n8n ile Etkili AI Ajanları Oluşturma"](https://academy.dair.ai/courses/building-effective-ai-agents) dersine dayanmaktadır.
+</Callout>
+
+## Ajansal Sistemler Nedir?
+
+Ajansal sistemler iki ana kategoride incelenebilir:
+
+### 1. AI İş Akışları (AI Workflows)
+
+**AI iş akışları**, LLM'lerin ve araçların **önceden tanımlanmış kod yolları** aracılığıyla orkestre edildiği sistemlerdir. Bu sistemler, açık kontrol akışına sahip yapılandırılmış bir operasyon sırasını takip eder.
+
+**Temel Özellikler:**
+
+AI iş akışlarının temel özellikleri şunlardır:
+
+- Önceden tanımlanmış adımlar ve yürütme yolları
+- Yüksek tahmin edilebilirlik ve kontrol
+- İyi tanımlanmış görev sınırları
+- Açık orkestrasyon mantığı
+
+**İş Akışları Ne Zaman Kullanılmalı:**
+
+Şu senaryolarda AI iş akışlarını kullanın:
+
+- Net gereksinimleri olan iyi tanımlanmış görevler
+- Tahmin edilebilirlik ve tutarlılık gerektiren senaryolar
+- Yürütme akışı üzerinde açık kontrole ihtiyaç duyduğunuz görevler
+- Güvenilirliğin kritik olduğu üretim (production) sistemleri
+
+### 2. AI Ajanları (AI Agents)
+
+**AI ajanları**, LLM'lerin kendi süreçlerini ve araç kullanımlarını **dinamik olarak yönlendirdiği**, görevleri nasıl tamamlayacakları konusunda otonom kontrolü korudukları sistemlerdir.
+
+**Temel Özellikler:**
+
+AI ajanlarının temel özellikleri şunlardır:
+
+- Dinamik karar verme
+- Otonom araç seçimi ve kullanımı
+- Akıl yürütme ve yansıma (reflection) yetenekleri
+- Kendi kendini yönlendiren görev yürütme
+
+**Ajanlar Ne Zaman Kullanılmalı:**
+
+Şu senaryolarda AI ajanlarını kullanın:
+
+- Değişken yürütme yollarına sahip açık uçlu görevler
+- Adım sayısını önceden belirlemenin zor olduğu karmaşık senaryolar
+- Uyarlanabilir akıl yürütme gerektiren görevler
+- Esnekliğin tahmin edilebilirlikten daha ağır bastığı durumlar
+
+## Yaygın AI İş Akışı Kalıpları
+
+### Kalıp 1: İstem Zincirleme (Prompt Chaining)
+
+İstem zincirleme, karmaşık bir görevi sıralı LLM çağrılarına bölmeyi içerir; burada her adımın çıktısı bir sonrakini besler.
+
+**Örnek: Belge Oluşturma İş Akışı**
+
+![İstem Zincirleme](../../img/agents/prompt-chaining.png)
+
+Bu iş akışı, bir sohbet mesajı alındığında başlayan belge oluşturma için bir istem zincirleme kalıbını gösterir. Sistem ilk olarak bir taslak oluşturmak için GPT-4.1-mini'yi kullanır, ardından taslağı önceden tanımlanmış kriterlere göre kontrol eder. Manuel bir "Grader" (Puanlama) adımı kaliteyi değerlendirir ve ardından puana göre bir sonraki eylemi belirleyen bir "If" düğümü gelir. Taslak doğrulamayı geçerse, GPT-4o kullanarak taslak bölümlerini genişletmeye ve ardından nihayi belgeyi cilalamaya geçer. Taslak doğrulamadan geçemezse, iş akışı devam etmeden önce manuel ayarlamalar için bir "Edit Fields" (Alanları Düzenle) adımına dallanır ve çok aşamalı belge oluşturma süreci boyunca kalite kontrolü sağlar.
+
+**İstem Zincirleme Kullanım Senaryoları:**
+- İçerik oluşturma boru hatları (pipelines)
+- Çok aşamalı belge işleme
+- Sıralı doğrulama iş akışları
+
+### Kalıp 2: Yönlendirme (Routing)
+
+Yönlendirme, sorgu sınıflandırmasına göre farklı istekleri uzmanlaşmış LLM zincirlerine veya ajanlarına yönlendirir.
+
+**Örnek: Müşteri Destek Yönlendiricisi**
+
+![Yönlendirme](../../img/agents/routing.png)
+
+Bu iş akışı, bir müşteri destek sisteminde akıllı sorgu dağıtımı için bir yönlendirme kalıbını gösterir. Bir sohbet mesajı alındığında, istek türünü kategorize etmek için yapılandırılmış bir çıktı ayrıştırıcısı ile birlikte GPT-4.1-mini kullanılan bir Sorgu Sınıflandırıcı tarafından işlenir. Sınıflandırmaya bağlı olarak bir "Route by Type" (Türe Göre Yönlendir) anahtarı sorguyu üç uzmanlaşmış LLM zincirinden birine yönlendirir: Temel sorular için Genel LLM Zinciri, ödeme ile ilgili sorunlar için İade LLM Zinciri veya teknik yardım için Destek LLM Zinciri. Her sorgu türü, birleşik bir yanıt sistemini korurken uzmanlaşmış işleme tabi tutulur, bu da müşteri hizmetleri operasyonlarında hem doğruluğu hem de verimliliği optimize eder.
+
+**Yönlendirme Kullanım Senaryoları:**
+- Müşteri destek sistemleri
+- Çok alanlı soru yanıtlama
+- İstek önceliklendirme ve devretme
+- Uygun modellere yönlendirerek kaynak optimizasyonu
+
+**Faydaları:**
+- Verimli kaynak kullanımı
+- Farklı sorgu türleri için uzmanlaşmış işleme
+- Seçici model kullanımı ile maliyet optimizasyonu
+
+### Kalıp 3: Paralelleştirme (Parallelization)
+
+Paralelleştirme, verimliliği artırmak için birden fazla bağımsız LLM operasyonunu eşzamanlı olarak yürütür.
+
+**Örnek: İçerik Güvenliği Boru Hattı**
+
+![Paralelleştirme](../../img/agents/parallelization.png)
+
+**Paralelleştirme Kullanım Senaryoları:**
+- İçerik moderasyon sistemleri
+- Çok kriterli değerlendirme
+- Eşzamanlı veri işleme
+- Bağımsız doğrulama görevleri
+
+**Avantajları:**
+- Düşük gecikme süresi (latency)
+- Daha iyi kaynak kullanımı
+- Artan işlem hacmi (throughput)
+
+## AI Ajanları: Otonom Görev Yürütme
+
+AI ajanları, LLM'leri otonom karar verme yetenekleriyle birleştirerek akıl yürütme, yansıma ve dinamik araç kullanımı yoluyla karmaşık görevleri gerçekleştirmelerini sağlar.
+
+**Örnek: Görev Planlayıcı Ajan**
+
+**Senaryo**: Kullanıcı "Yarın saat 14:00'te John ile bir toplantı ekle" der.
+
+![Görev Planlayıcı Ajan](../../img/agents/task-planner-agent.png)
+
+Bu iş akışı, dinamik karar verme yeteneklerine sahip otonom bir Görev Planlayıcı (Task Planner) ajanını gösterir. Bir sohbet mesajı alındığında, üç temel bileşene erişimi olan bir Görev Planlayıcı ajana yönlendirilir: Anlama ve planlama için bir Sohbet Modeli (Akıl Yürütme LLM'i), etkileşimler arasında bağlamı korumak için bir Hafıza sistemi ve bir Araç koleksiyonu. Ajan; bir Google E-Tablosuna görev eklemek veya güncellemek için `add_update_tasks` ve e-tablodaki mevcut görevleri okumak ve aramak için `search_task` dahil olmak üzere birden fazla araç arasından otonom olarak seçim yapabilir. Önceden tanımlanmış iş akışlarının aksine ajan, kullanıcının isteğine göre hangi araçları, ne zaman ve hangi sırayla kullanacağını bağımsız olarak belirler.
+
+<Callout type="warning" emoji="💡">
+**Kilit İçgörü**: Ajan, önceden tanımlanmış kurallara göre değil, istek bağlamına göre hangi araçları ve hangi sırayla kullanacağını kendisi belirler.
+</Callout>
+
+**AI Ajanı Kullanım Senaryoları:**
+
+- Derin araştırma sistemleri
+- Ajansal RAG sistemleri
+- Kodlama ajanları
+- Veri analizi ve işleme
+- İçerik üretimi ve düzenleme
+- Müşteri desteği ve asistanlık
+- Etkileşimli sohbet robotları ve sanal asistanlar
+
+**Temel Bileşenler:**
+
+AI Ajanları inşa etmek için temel bileşenlerin listesi:
+
+1. **Araç Erişimi**: Harici sistemlerle entegrasyon (Google E-Tablolar, arama API'leri, veritabanları)
+2. **Hafıza**: Süreklilik için etkileşimler arasında bağlamın korunması
+3. **Akıl Yürütme Motoru**: Araç seçimi ve görev planlaması için karar verme mantığı
+4. **Otonomi**: Önceden tanımlanmış kontrol akışı olmadan kendi kendini yönlendiren yürütme
+
+### Ajanların İş Akışlarından Farkları
+
+| Boyut | AI İş Akışları | AI Ajanları |
+|--------|-------------|-----------|
+| **Kontrol Akışı** | Önceden tanımlanmış, açık | Dinamik, otonom |
+| **Karar Verme** | Sabit kodlanmış mantık | LLM tabanlı akıl yürütme |
+| **Araç Kullanımı** | Kod ile orkestre edilmiş | Ajan tarafından öz-seçilmiş |
+| **Uyarlanabilirlik** | Sabit yollar | Esnek yürütme |
+| **Karmaşıklık** | Daha düşük, daha tahmin edilebilir | Daha yüksek, daha yetenekli |
+| **Kullanım Senaryoları** | İyi tanımlanmış görevler | Açık uçlu problemler |
+
+## Tasarım Dikkate Alınacak Hususlar
+
+### İş Akışları ve Ajanlar Arasında Seçim Yapmak
+
+**Şu durumlarda AI İş Akışlarını kullanın:**
+- Görev gereksinimleri net ve sabit olduğunda
+- Tahmin edilebilirlik temel gereksinim olduğunda
+- Yürütme üzerinde açık kontrole ihtiyaç duyduğunuzda
+- Hata ayıklama ve izleme öncelikli olduğunda
+- Maliyet yönetimi kritik olduğunda
+
+**Şu durumlarda AI Ajanlarını kullanın:**
+- Görevler açık uçlu veya keşfe dayalı olduğunda
+- Esneklik tahmin edilebilirlikten daha önemli olduğunda
+- Problem alanı çok sayıda değişkenle karmaşık olduğunda
+- İnsan benzeri akıl yürütme faydalı olduğunda
+- Değişen koşullara uyum sağlamak gerektiğinde
+
+### Hibrit Yaklaşımlar
+
+Büyük üretim sistemlerinin çoğu her iki yaklaşımı birleştirir:
+- **Yapı için iş akışları**: Güvenilir, iyi tanımlanmış bileşenler için iş akışlarını kullanın
+- **Esneklik için ajanlar**: Uyarlanabilir, karmaşık karar verme süreçleri için ajanları konuşlandırın
+- **Örnek**: Bir iş akışı istekleri, her biri açık uçlu alt görevleri üstlenen uzmanlaşmış ajanlara yönlendirir
+
+## En İyi Uygulamalar
+
+### AI İş Akışları İçin
+
+1. **Net Adım Tanımı**: İş akışındaki her aşamayı belgeleyin
+2. **Hata Yönetimi**: Başarısızlıklar için geri çekilme (fallback) yolları uygulayın
+3. **Doğrulama Kapıları**: Kritik adımlar arasına kontroller ekleyin
+4. **Performans İzleme**: Adım başına gecikme süresini ve başarı oranlarını takip edin
+
+### AI Ajanları İçin
+
+1. **Araç Tasarımı**: Net amaçlara sahip, iyi belgelenmiş araçlar sağlayın
+2. **Hafıza Yönetimi**: Etkili bağlam koruma stratejileri uygulayın
+3. **Korumalar (Guardrails)**: Ajan davranışları ve araç kullanımı üzerinde sınırlar belirleyin
+4. **Gözlemlenebilirlik**: Ajan akıl yürütmesini ve karar verme süreçlerini günlüğe kaydedin (logging)
+5. **Yinelemeli Testler**: Çeşitli senaryolarda ajan performansını sürekli değerlendirin
+
+## Sonuç
+
+AI iş akışları ve AI ajanları arasındaki ayrımı anlamak, etkili ajansal sistemler inşa etmek için kritik önem taşır. İş akışları iyi tanımlanmış görevler için kontrol ve tahmin edilebilirlik sağlarken, ajanlar karmaşık ve açık uçlu problemler için esneklik ve otonomi sunar.
+
+## Ek Kaynaklar
+
+- [Anthropic: Etkili Ajanlar İnşa Etme](https://www.anthropic.com/research/building-effective-agents)
+- [İstem Mühendisliği Kılavuzu](https://www.promptingguide.ai/)
+- [n8n ile Etkili AI Ajanları Oluşturma](https://academy.dair.ai/courses/building-effective-ai-agents)

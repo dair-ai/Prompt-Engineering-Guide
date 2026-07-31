@@ -1,0 +1,12 @@
+# Aktif-İstem
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ACTIVE from '../../img/active-prompt.png'
+
+Düşünce Zinciri (CoT) yöntemleri, sabit bir set insan tarafından biçimlendirilmiş örnekler üzerine dayanır. Buradaki problem, bu örneklerin farklı görevler için en etkili örnekler olmayabileceğidir. Bu durumu çözmek için, [Diao ve diğerleri, (2023)](https://arxiv.org/pdf/2302.12246.pdf) yakın zamanda, farklı görev özelindeki örnek istemlere (insan tasarımı CoT mantığıyla biçimlendirilmiş) LLM'leri uyumlandırmak için Aktif-İstem adlı yeni bir istem yaklaşımı önermiştir.
+
+Aşağıda yaklaşımın bir örneği bulunmaktadır. İlk adım, LLM'yi birkaç CoT örneğiyle veya birkaç CoT örneği olmadan sorgulamaktır. *k* bir dizi eğitim sorusu için olası yanıtlar oluşturulur. *k* yanıtlara (kullanılan anlaşmazlık) dayalı olarak bir belirsizlik ölçüsü hesaplanır. En belirsiz sorular insanlar tarafından ek açıklama için seçilir. Yeni açıklamalı örnekler daha sonra her soruyu anlamak için kullanılır.
+
+<Screenshot src={ACTIVE} alt="ACTIVE" />
+Resim Kaynağı: [Diao ve diğerleri, (2023)](https://arxiv.org/pdf/2302.12246.pdf)

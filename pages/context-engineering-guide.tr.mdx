@@ -1,0 +1,50 @@
+# **Bağlam Mühendisliği Rehberi (Context Engineering Guide)**
+
+## **İçindekiler**
+
+* [Bağlam Mühendisliği Nedir?](#bağlam-mühendisliği-nedir)
+* [Uygulamada Bağlam Mühendisliği](#uygulamada-bağlam-mühendisliği)
+  * [Sistem İstemi](#sistem-istemi)
+  * [Talimatlar](#talimatlar)
+  * [Kullanıcı Girdisi](#kullanıcı-girdisi)
+  * [Yapılandırılmış Girdiler ve Çıktılar](#yapılandırılmış-girdiler-ve-çıktılar)
+  * [Araçlar](#araçlar)
+  * [RAG ve Hafıza](#rag-ve-hafıza)
+  * [Durumlar ve Geçmiş Bağlam](#durumlar-ve-geçmiş-bağlam)
+* [İleri Bağlam Mühendisliği](#ileri-bağlam-mühendisliği)
+* [Kaynaklar](#kaynaklar)
+
+## **Bağlam Mühendisliği Nedir?**
+
+Birkaç yıl önce, önde gelen AI araştırmacıları bile istem mühendisliğinin (prompt engineering) şimdiye kadar öleceğini iddia ediyordu. Ancak yanıldılar ve istem mühendisliği artık her zamankinden daha önemli hale gelerek ***bağlam mühendisliği*** (context engineering) olarak yeniden adlandırılıyor.
+
+Bağlam mühendisliği: ***LLM'lerin ve gelişmiş AI modellerinin görevlerini etkili bir şekilde yerine getirmeleri için talimatların ve ilgili bağlamın tasarlanması ve optimize edilmesi sürecidir.***
+
+Bu süreç yalnızca metin tabanlı LLM'leri değil, aynı zamanda çok modlu (multimodal) modeller için bağlamın optimize edilmesini de kapsar.
+
+## **Uygulamada Bağlam Mühendisliği**
+
+Kişisel kullanımım için inşa ettiğim çoklu ajanlı bir derin araştırma uygulamasından somut bir örneği inceleyelim.
+
+![n8n iş akışı görseli](../../img/context-engineering-guide/context-engineering-workflow.jpg)
+
+### **Sistem İstemi**
+
+Aşağıda arama planlayıcı ajanımız için kullandığımız sistem istemi yer almaktadır:
+
+```text
+Uzman bir araştırma planlayıcısısınız. Göreviniz karmaşık bir araştırma sorgusunu (<user_query></user_query> ile sınırlandırılmış) her biri farklı bir açıya veya kaynak türüne odaklanan özel arama alt görevlerine bölmektir.
+
+Mevcut tarih ve saat: {{ $now.toISO() }}
+```
+
+<Callout type="info" emoji="🎓">
+Bu içerik, ajansal sistemlerin tasarımı ve uygulanmasına ilişkin kapsamlı bilgiler sunan yeni kursumuz ["n8n ile Etkili AI Ajanları Oluşturma"](https://academy.dair.ai/courses/building-effective-ai-agents) dersine dayanmaktadır.
+
+PROMPTING20 kodunu kullanarak %20 indirim kazanabilirsiniz.
+</Callout>
+
+## **Kaynaklar**
+
+- [LangChain: The Rise of Context Engineering](https://blog.langchain.com/the-rise-of-context-engineering/)
+- [12-Factor Agents](https://github.com/humanlayer/12-factor-agents)

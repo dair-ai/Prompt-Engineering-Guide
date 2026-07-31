@@ -1,0 +1,16 @@
+# Llama 3
+
+Meta yakın zamanda Llama 3 olarak adlandırılan yeni büyük dil modeli (LLM) ailesini [tanıttı](https://llama.meta.com/llama3/). Bu yayım; önceden eğitilmiş ve talimat uyarlamalı 8B ve 70B parametreli modelleri içerir.
+
+## Mimari Detayları
+
+- Standart yalnızca-kod çözücü (decoder-only) transformer kullanır.
+- Sözvarlığı 128K jetondur.
+- 15T jetondan fazla veri üzerinde önceden eğitilmiştir.
+- Gruplandırılmış sorgu dikkatini (Grouped Query Attention - GQA) uygular.
+
+## Performans
+
+Llama 3 8B (instruction-tuned), Gemma 7B ve Mistral 7B Instruct modellerini geride bırakmaktadır.
+
+!["Llama 3 Performansı"](../../img/llama3/llama-instruct-performance.png)

@@ -1,0 +1,56 @@
+# Lisansüstü İş Sınıflandırması Vaka Çalışması
+
+[Clavié ve diğerleri., 2023](https://arxiv.org/abs/2303.07142), bir üretim sistemine uygulanan orta ölçekli metin sınıflandırma kullanım durumu üzerinde istem mühendisliği uygulandığı bir vaka çalışması sunar. Bir işin gerçek bir "ilk seviye iş" olup olmadığını, yani yeni bir mezun için uygun olup olmadığını sınıflandırma görevini kullanarak, bir dizi istem mühendisliği tekniğini değerlendirdiler ve sonuçlarını GPT-3.5 (`gpt-3.5-turbo`) kullanarak raporladılar.
+
+Çalışma, LLM'lerin test edilen diğer tüm modellerden, DeBERTa-V3 gibi son derece güçlü bir temel model de dahil olmak üzere, daha iyi performans gösterdiğini ortaya koymaktadır. `gpt-3.5-turbo` ayrıca eski GPT3 varyantlarına göre tüm ana metriklerde belirgin şekilde daha iyi performans gösterir, ancak bir şablonu takip etme yeteneği diğer varyantlardan daha kötü olduğu için ek çıktı çözümlemesi gerektirir.
+
+İstem mühendisliği yaklaşımlarının önemli bulguları şunlardır:
+
+- Bu gibi görevlerde, herhangi bir uzman bilgisine gerek olmadığı durumlarda, Az örnekli CoT istemlerinin tüm deneylerde Sıfır örnekli istemlerden daha kötü performans gösterdiği görülmüştür. 
+- İstenen akıl yürütmeyi harekete geçirme üzerinde istemin etkisi büyüktür. Modele belirli bir işi sınıflandırmasını basitçe sorulması, bir F1 skorunda 65.6 sonucunu verirken, istem mühendisliği sonrası model bir F1 skorunda 91.7 elde eder. 
+- Modelin bir şablona uymaya zorlanması tüm durumlarda performansı düşürür (bu davranış, makaleye sonrasında yapılan erken dönem GPT-4 testlerinde ortadan kalkar).
+- Birçok küçük değişiklik performans üzerinde anormal büyük bir etkiye sahip olabilir.
+  - Tablolar, test edilen tüm değişiklikleri göstermektedir.
+  - Talimatları düzgün vermekte ve kilit noktaları tekrar etmek en büyük performans sürücüsü gibi görünmektedir.
+  - Modele bir (insan) ismi vermek ve buna göre hitap etmek bile F1 skorunu 0.6 puan artırır.
+
+### Test Edilen İsteme Yapılan Değişiklikler
+
+| Kısa ad    | Açıklama                                                                   |
+|------------|----------------------------------------------------------------------------|
+| Baseline   | Bir iş ilanı verin ve bir mezun için uygun olup olmadığını sorun.          |
+| CoT        | Sorgulamadan önce birkaç doğru sınıflandırma örneği verin.                 |
+| Zero-CoT   | Modelden cevabını vermeden önce adım adım muhakeme etmesini isteyin.       |
+| rawinst    | Kullanıcı mesajına ekleyerek rolü ve görevi hakkında talimatlar verin.     |
+| sysinst    | Rolü ve görevi hakkındaki talimatları bir sistem mesajı olarak verin.      |
+| bothinst   | Talimatlarda rolu sistem mesajı ve görevi kullanıcı mesajı olarak ayırın.  |
+| mock       | Görev talimatlarını, onları doğrulayan bir tartışma taklidi yaparak verin. |
+| reit       | Talimatlardaki kilit unsurları tekrarlayarak pekiştirin.                   |
+| strict     | Modelden, belirtilen şablona kesinlikle uyarak cevap vermesini isteyin.    |
+| loose      | Verilen bir şablonu izleyerek sadece nihai cevabın verilmesini isteyin.    |
+| right      | Modelin doğru sonuca ulaşmasını isteyin.                                   |
+| info       | Yaygın mantık hatalarını gidermek için ek bilgiler sağlayın.               |
+| name       | Modele konuşma sırasında atıfta bulunacağınız bir isim verin.              |
+| pos        | Sorgulamadan önce modele olumlu geri bildirim sağlayın.                    |
+
+
+### Tüm İstem Değişikliklerinin Performans Etkisi
+
+|                                        | Precision     | Recall        | F1            | Template Stickiness    |
+|----------------------------------------|---------------|---------------|---------------|------------------------|
+| _Baseline_                             | _61.2_        | _70.6_        | _65.6_        | _79%_                  |
+| _CoT_                                  | _72.6_        | _85.1_        | _78.4_        | _87%_                  |
+| _Zero-CoT_                             | _75.5_        | _88.3_        | _81.4_        | _65%_                  |
+| _+rawinst_                             | _80_          | _92.4_        | _85.8_        | _68%_                  |
+| _+sysinst_                             | _77.7_        | _90.9_        | _83.8_        | _69%_                  |
+| _+bothinst_                            | _81.9_        | _93.9_        | _87.5_        | _71%_                  |
+| +bothinst+mock                         | 83.3          | 95.1          | 88.8          | 74%                    |
+| +bothinst+mock+reit                    | 83.8          | 95.5          | 89.3          | 75%                    |
+| _+bothinst+mock+reit+strict_           | _79.9_        | _93.7_        | _86.3_        | _**98%**_              |
+| _+bothinst+mock+reit+loose_            | _80.5_        | _94.8_        | _87.1_        | _95%_                  |
+| +bothinst+mock+reit+right              | 84            | 95.9          | 89.6          | 77%                    |
+| +bothinst+mock+reit+right+info         | 84.9          | 96.5          | 90.3          | 77%                    |
+| +bothinst+mock+reit+right+info+name    | 85.7          | 96.8          | 90.9          | 79%                    |
+| +bothinst+mock+reit+right+info+name+pos| **86.9**      | **97**        | **91.7**      | 81%                    |
+
+Template stickiness, modelin istenen formatta ne sıklıkla yanıt verdiğini ifade eder. 

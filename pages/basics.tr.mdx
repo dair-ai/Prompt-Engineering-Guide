@@ -1,0 +1,112 @@
+# İstemlerin Temelleri
+
+## Temel İstemler
+
+Basit istemlerle çok şey başarabilirsiniz, ancak sonuçların kalitesi, kendisine ne kadar bilgi sağladığınıza ve ne kadar iyi hazırlandığına bağlıdır. Bir istem, modelinize geçtiğiniz *talimatı* veya *soruyu* ve *bağlam*, *girdiler* veya *örnekler* gibi diğer detayları içerebilir. Bu unsurları, modeli daha iyi yönlendirmek ve sonuç olarak daha iyi sonuçlar almak için kullanabilirsiniz.
+
+Basit bir istem örneği üzerinde konuşarak başlayalım:
+
+*İstem*
+```
+Gökyüzü
+```
+
+*Çıktı:*
+```
+mavi
+
+Berrak bir günde gökyüzü mavidir. Bulutlu bir günde, gökyüzü gri veya beyaz olabilir.
+```
+
+Görebileceğiniz gibi, dil modeli, `"Gökyüzü"` bağlamı verildiğinde mantıklı olan bir dize devamını çıktı olarak verir. Çıktı, gerçekleştirmek istediğiniz görevden beklenmedik veya uzak olabilir.
+
+Bu basit örnek, özellikle neyi başarmak istediğinize dair daha fazla bağlam veya talimat sağlama gereğini de vurgular.
+
+Daha iyi hale getirmeyi deneyelim:
+
+*İstem:*
+```
+Cümleyi tamamla:
+Gökyüzü
+```
+
+*Çıktı:*
+
+```
+bugün çok güzel.
+```
+
+Daha mı iyi oldu? Peki, modeli cümleyi tamamlamasını söylediniz yani sonuç, ona söylediğiniz şeyi ("cümleyi tamamlama") tam olarak takip ettiği için çok daha iyi görünüyor. Modeli bir görevi gerçekleştirmeye yönelik optimal istemler tasarlama yaklaşımı, **istem mühendisliği** olarak anılır.
+
+Yukarıdaki örnek, bugünün LLM'lerle nelerin mümkün olduğuna dair basit bir örnektir. Bugünün LLM'leri, metin özetlemesinden matematiksel akıl yürütmeye, kod oluşturmaya kadar her türlü gelişmiş görevi gerçekleştirebilir.
+
+## İstem Biçimlendirme
+
+Yukarıda çok basit bir istem denediniz. Standart bir istemin şu biçimi vardır:
+
+```
+<Soru>?
+```
+
+veya 
+
+```
+<Talimat>
+```
+
+Bunu, birçok QA veri setinde standart olan bir soru cevaplama (QA) biçimine biçimlendirebilirsiniz, şu şekildedir:
+
+```
+S: <Soru>?
+C: 
+```
+
+Yukarıdaki gibi bir istemle, bu aynı zamanda *sıfır-örnekli istemleme* olarak da anılır, yani, herhangi bir örnek veya gösterim olmadan modelin bir yanıt vermesi için doğrudan istem yapıyorsunuz. Bazı büyük dil modelleri, sıfır-örnekli istemleme yapabilme yeteneğine sahip olabilir, ancak bu, elinizdeki görevin karmaşıklığına ve bilgisine bağlıdır.
+
+Yukarıdaki standart format verildiğinde, istemlere popüler ve etkili bir teknik, örnekler (yani, gösterimler) sağladığınız *birkaç-örnekli istemleme* olarak anılır. Birkaç-örnekli istemleri şu şekilde biçimlendirebilirsiniz:
+
+```
+<Soru>?
+<Cevap>
+
+<Soru>?
+<Cevap>
+
+<Soru>?
+<Cevap>
+
+<Soru>?
+```
+
+QA formatı şu şekilde görünürdü:
+
+```
+S: <Soru>?
+C: <Cevap>
+
+S: <Soru>?
+C: <Cevap>
+
+S: <Soru>?
+C: <Cevap>
+
+S: <Soru>?
+C:
+```
+
+QA formatını kullanmanız gerektiğini unutmayın. İstem formatı, elinizdeki göreve bağlıdır. Örneğin, basit bir sınıflandırma görevi gerçekleştirebilir ve görevi gösteren örnekler verebilirsiniz:
+
+*İstem:*
+```
+Bu harika! // Pozitif
+Bu kötü! // Negatif
+Vay be, bu film çok havalıydı! // Pozitif
+Ne kötü bir gösteri! //
+```
+
+*Çıktı:*
+```
+Negatif
+```
+
+Birkaç-örnekli istemler, dil modelinin birkaç gösterim verildiğinde görevleri öğrenme yeteneğini yani bağlam içinde öğrenme yeteneğini sağlar.

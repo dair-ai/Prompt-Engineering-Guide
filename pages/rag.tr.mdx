@@ -1,0 +1,25 @@
+# Veri Alımı Artırılmış Üretim (RAG)
+
+import {Screenshot} from 'components/screenshot'
+import RAG from '../../img/rag.png'
+
+Genel amaçlı dil modelleri, duygu analizi ve isimli varlık tanıma gibi birçok ortak görevi gerçekleştirmek için ince ayar yapılabilir. Bu görevler genellikle ek bilgi gerektirmez.
+
+Daha karmaşık ve bilgi yoğun görevler için, görevleri tamamlamak amacıyla dış bilgi kaynaklarına erişen bir dil modeli tabanlı sistem oluşturmak mümkün olabilir. Bu durum, daha fazla gerçeklik tutarlılığı sağlar, oluşturulan yanıtların güvenilirliğini artırır ve "halüsinasyon" sorununu hafifletmeye yardımcı olur.
+
+Meta AI araştırmacıları, bu tür bilgi yoğun görevleri ele almak amacıyla [Veri Alımı Artırılmış Üretim (RAG)](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) adlı bir yöntem tanıttılar. RAG, bir bilgi alma bileşenini bir metin üreteci modeli ile birleştirir. RAG'ın ince ayarı yapılabilir ve iç bilgisi, tüm modelin yeniden eğitimine gerek kalmadan verimli bir şekilde değiştirilebilir.
+
+RAG, bir giriş alır ve bir kaynak (ör., Vikipedi) verildiğinde ilgili / destekleyici belgeleri alır. Belgeler, orijinal giriş istemi ile birlikte bağlam olarak birleştirilir ve son çıktıyı üreten metin üreteciye beslenir. Bu, RAG'ın gerçeklerin zaman içinde evrilebileceği durumlar için uyarlanabilir olmasını sağlar. Bu, LLM'lerin parametrik bilgisinin statik olması nedeniyle çok faydalıdır. RAG, dil modellerinin yeniden eğitimi atlamasına, son derece güvenilir çıktılar üretmek için en son bilgilere erişim sağlamasına olanak tanır.
+
+Lewis ve ark., (2021), RAG için genel amaçlı bir ince ayar yapma tarifi önerdi. Ön eğitimli bir seq2seq modeli parametrik hafıza olarak ve Vikipedi'nin yoğun vektör indeksi, (bir nöral ön eğitimli alıcı kullanılarak erişilen) non-parametrik hafıza olarak kullanıldı. İşlemeye yönelik bir genel bakış aşağıda sunulmuştur:
+
+<Screenshot src={RAG} alt="RAG" />
+Resim Kaynağı: [Lewis ve ark. (2021)](https://arxiv.org/pdf/2005.11401.pdf) 
+
+RAG, [Doğal Sorular](https://ai.google.com/research/NaturalQuestions), [WebSoruları](https://paperswithcode.com/dataset/webquestions) ve CuratedTrec gibi birçok referans üzerinde güçlü performanslar gösterir. RAG, MS-MARCO ve Jeopardy soruları üzerinde test edildiğinde daha gerçek, özel ve çeşitli yanıtlar üretir. Ayrıca RAG, FEVER gerçeği doğrulama sonuçlarını da iyileştirir.
+
+Bu, RAG'ın bilgi yoğun görevlerde dil modellerinin çıktılarını geliştirmek için geçerli bir seçenek olarak potansiyelini göstermektedir. 
+
+Son zamanlarda, bu alıcı tabanlı yaklaşımlar daha popüler hale gelmiş ve ChatGPT gibi popüler genel amaçlı dil modelleri ile birleştirilmiştir.
+
+LangChain dokümantasyonundan [veri tabanı tabanlı bir soru cevaplama modeli için nasıl retriever ve genel amaçlı dil modeli kullanabileceğinize dair basit bir örneği](https://python.langchain.com/docs/use_cases/question_answering/how_to/vector_db_qa) bulabilirsiniz.

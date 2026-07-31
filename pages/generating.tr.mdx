@@ -1,0 +1,44 @@
+# Veri Üretimi
+LLM'ler, tutarlı metin üretme konusunda güçlü yeteneklere sahiptir. Etkili istem stratejileri kullanmak, modelin daha iyi, tutarlı ve daha gerçekçi yanıtlar üretmesini sağlayabilir. LLM'ler aynı zamanda her türlü deneyi ve değerlendirmeyi yapmak için gerçekten faydalı olan verileri üretmede özellikle kullanışlıdır. Örneğin, bir duygu sınıflandırıcısı için hızlı örnekler oluşturmak üzere kullanabiliriz:
+
+*İstem:*
+```
+Duygu analizi için 10 örnek oluşturun. Örnekler ya olumlu ya da olumsuz olarak kategorize edilmiştir. 2 olumsuz örnek ve 8 olumlu örnek oluşturun. Örnekler için bu formatı kullanın:
+S: <cümle>
+Y: <duygu>
+```
+
+*Çıktı:*
+```
+S: Tam da en iyi haberleri aldım!
+Y: Olumlu
+
+S: İş yerinde zam aldık!
+Y: Olumlu
+
+S: Bugün başardıklarımla gerçekten gurur duyuyorum.
+Y: Olumlu
+
+S: En iyi günlerimden birini yaşıyorum!
+Y: Olumlu
+
+S: Hafta sonunu dört gözle bekliyorum.
+Y: Olumlu
+
+S: Şimdiye kadarki en iyi hediyesini aldım!
+Y: Olumlu
+
+S: Şu anda çok mutluyum.
+Y: Olumlu
+
+S: Böyle harika bir aileye sahip olduğum için çok şanslıyım.
+Y: Olumlu
+
+S: Dışarıdaki hava çok kasvetli.
+Y: Olumsuz
+
+S: Korkunç bir haber aldım.
+Y: Olumsuz
+```
+
+Bu gerçekten çok kullanışlı. Aslında bu örneği, kılavuzların başka bir bölümünde farklı bir test için kullanıyoruz.
