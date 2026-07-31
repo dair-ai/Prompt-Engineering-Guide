@@ -1,0 +1,38 @@
+# RAG İçin Sentetik Veri Kümesi Oluşturma
+
+import {Screenshot} from 'components/screenshot'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+
+import IMG1 from '../../img/synthetic_rag/synthetic_rag_1.png'
+import IMG2 from '../../img/synthetic_rag/synthetic_rag_2.png'
+import IMG3 from '../../img/synthetic_rag/synthetic_rag_3.png'
+import IMG4 from '../../img/synthetic_rag/synthetic_rag_4.png'
+
+## RAG Sistemi İçin Sentetik Veri
+
+Makine Öğrenmesi Mühendislerinin hayatında maalesef etiketlenmiş veri eksikliği sıkça görülür. Ancak LLM'lerin gelişiyle paradigma değişti: Artık LLM'in genelleştirme yeteneğine güvenilebilir ve bir fikir veya AI tabanlı bir özellik neredeyse anında test edilebilir.
+
+<Screenshot src={IMG1} alt="AI tabanlı ürünlerde paradigma değişimi." />
+
+Resim Kaynağı: [The Rise of the AI Engineer, by S. Wang](https://www.latent.space/p/ai-engineer)
+
+Yükselen yaklaşımlardan biri [Geri Çatımla Artırılmış Üretim (Retrieval Augmented Generation - RAG)](https://www.promptingguide.ai/techniques/rag) yöntemidir.
+
+RAG'ın temel bileşeni, ilgili belgeleri tespit eden ve bunları daha fazla işlenmek üzere LLM'e aktaran Erişim (Retrieval) modelidir.
+
+## Alana Özgü Veri Kümesi Oluşturma
+
+LLM'i kullanmak için kısa bir açıklama sağlamak ve birkaç örneği manuel olarak etiketlemek gerekir.
+
+<Screenshot src={IMG2} alt="PROMPTGATOR Veri Kümesi Oluşturma & Eğitime Genel Bakış." />
+
+Resim Kaynağı: [Dai et al. (2022)](https://arxiv.org/abs/2209.11755)
+
+<Screenshot src={IMG3} alt="Sentetik Veri Kümesi VS Manuel Etiketlenmiş Veri Kümesi" />
+
+Resim Kaynağı: [Dai et al. (2022)](https://arxiv.org/abs/2209.11755)
+
+<Screenshot src={IMG4} alt="PROMPTGATOR makalesinden İstem Şablonları." />
+
+Resim Kaynağı: [Dai et al. (2022)](https://arxiv.org/abs/2209.11755)

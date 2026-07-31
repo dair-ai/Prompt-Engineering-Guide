@@ -1,0 +1,45 @@
+## LLM'ler İçin Etkili İstemler Hazırlama
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/8KNKjBBm1Kw?si=puEJrGFe9XSu8O-A"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
+Büyük Dil Modelleri (LLM'ler) çeşitli görevler için muazzam bir güç sunar, ancak etkinlikleri istemlerin kalitesine bağlıdır. Bu yazı, LLM performansını en üst düzeye çıkarmak için etkili istem tasarlamanın önemli yönlerini özetlemektedir.
+
+### İstem Tasarımı İçin Temel Hususlar
+
+**Özgünlük ve Netlik:**
+Tıpkı bir insana talimat verirken olduğu gibi, istemler de istenen sonucu net bir şekilde ifade etmelidir. Muğlaklık beklenmeyen veya ilgisiz çıktılara yol açabilir.
+
+**Yapılandırılmış Girdiler ve Çıktılar:**
+Girdileri JSON veya XML gibi formatlar kullanarak yapılandırmak, bir LLM'in bilgiyi anlama ve işleme yeteneğini önemli ölçüde artırır. Benzer şekilde, istenen çıktı formatını (örneğin bir liste, paragraf veya kod parçacığı) belirtmek yanıt alaka düzeyini artırır.
+
+**Gelişmiş Yapı İçin Ayırıcılar (Delimiters):**
+İstemler içinde ayırıcı olarak özel karakterlerin kullanılması, yapıyı daha da netleştirir ve farklı öğeleri ayırarak modelin anlamasını geliştirir.
+
+**Karmaşık İşlemler İçin Görev Ayrıştırma:**
+LLM'lere birden fazla görevi kapsayan yekpare bir istem sunmak yerine, karmaşık süreçleri daha basit alt görevlere bölmek netliği ve performansı artırır.
+
+### Gelişmiş İstem Stratejileri
+
+**Az-Örnekli İstemler (Few-Shot Prompting):**
+LLM'e istenen girdi-çıktı çiftlerinden birkaç örnek sağlamak, beklenen kalıbı göstererek daha yüksek kaliteli yanıtlar üretmesine rehberlik eder. [Daha fazla bilgi](https://www.promptingguide.ai/techniques/fewshot).
+
+**Düşünce Zinciri İstemleri (Chain-of-Thought Prompting):**
+Karmaşık görevleri ara akıl yürütme adımlarına bölmeye teşvik ederek mantıksal çıkarım gerektiren sorunları çözme yeteneğini geliştirir. [Daha fazla bilgi](https://www.promptingguide.ai/techniques/cot).
+
+**ReAct (Reason + Act):**
+Bu yöntem LLM'den gelişmiş akıl yürütme, planlama ve hatta araç kullanımını ortaya çıkarmaya odaklanır. [Daha fazla bilgi](https://www.promptingguide.ai/techniques/react).
+
+import { Callout } from 'nextra/components'
+
+<Callout type= "info" emoji="🎉">
+[İstem Mühendisliğine Giriş](https://academy.dair.ai/courses/introduction-prompt-engineering) kursumuzu duyurmaktan heyecan duyuyoruz.
+
+Ekstra %20 indirim almak için PROMPTING20 kodunu kullanın.
+
+[Hemen Katılın](https://academy.dair.ai/courses/introduction-prompt-engineering)!
+</Callout>

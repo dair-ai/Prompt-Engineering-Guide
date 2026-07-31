@@ -1,0 +1,54 @@
+# Ajan Bileşenleri
+
+import { Callout } from 'nextra/components'
+
+AI ajanları, karmaşık görevleri etkili bir şekilde çözebilmek için üç temel yeteneğe ihtiyaç duyar: planlama yetenekleri, araç kullanımı ve hafıza yönetimi. Fonksiyonel AI ajanları oluşturmak için bu bileşenlerin birlikte nasıl çalıştığını inceleyelim.
+
+![Ajan Bileşenleri](../../img/agents/agent-components.png)
+
+## Planlama: Ajanın Beyni
+
+Etkili bir AI ajanın özünde, büyük dil modelleri (LLM'ler) tarafından sağlanan planlama yeteneği yer alır. Modern LLM'ler birkaç önemli planlama işlevini mümkün kılar:
+
+- Düşünce zinciri (chain-of-thought) akıl yürütmesi yoluyla görev ayrıştırma
+- Geçmiş eylemler ve bilgiler üzerine öz-yansıma (self-reflection)
+- Gelecekteki kararları iyileştirmek için uyarlanabilir öğrenme
+- Mevcut ilerlemenin kritik analizi
+
+Mevcut LLM planlama yetenekleri mükemmel olmasa da görevlerin tamamlanması için elzemdir. Güçlü planlama yetenekleri olmadan bir ajan karmaşık görevleri etkili bir şekilde otomatikleştiremez, bu da onun temel amacını boşa çıkarır.
+
+<Callout type= "info" emoji="🎓">
+Yeni kursumuzda AI ajanlarıyla nasıl sistem inşa edeceğinizi öğrenin. [Hemen Katılın!](https://academy.dair.ai/courses/introduction-ai-agents)
+Ekstra %20 indirim almak için PROMPTING20 kodunu kullanın.
+</Callout>
+
+## Araç Kullanımı: Ajanın Yeteneklerini Genişletme
+
+İkinci kritik bileşen, bir ajanın harici araçlarla arayüz kurabilme yeteneğidir. İyi tasarlanmış bir ajan yalnızca çeşitli araçlara erişmekle kalmamalı, aynı zamanda bunları ne zaman ve nasıl uygun şekilde kullanacağını da anlamalıdır. Yaygın araçlar şunları içerir:
+
+- Kod yorumlayıcıları ve yürütme ortamları
+- Web arama ve veri kazıma (scraping) araçları
+- Matematiksel hesaplayıcılar
+- Görsel üretim sistemleri
+
+Bu araçlar, ajanın planlanan eylemlerini yürütmesini sağlayarak soyut stratejileri somut sonuçlara dönüştürür. LLM'in araç seçimini ve zamanlamasını anlama yeteneği, karmaşık görevlerin etkili bir şekilde ele alınması için hayati önem taşır.
+
+## Hafıza Sistemleri: Bilgiyi Saklama ve Kullanma
+
+Üçüncü temel bileşen, iki ana biçimde sunulan hafıza yönetimidir:
+
+1. Kısa Süreli (Çalışma) Hafızası
+   - Anlık bağlam için bir arabellek (buffer) görevi görür
+   - Bağlam içi öğrenmeyi (in-context learning) mümkün kılar
+   - Çoğu görevin tamamlanması için yeterlidir
+   - Görev yinelemesi sırasında sürekliliğin korunmasına yardımcı olur
+
+2. Uzun Süreli Hafıza
+   - Harici vektör depoları (vector stores) aracılığıyla uygulanır
+   - Geçmiş bilgilerin hızlı bir şekilde geri çağrılmasını sağlar
+   - Gelecekteki görevlerin tamamlanması için değerlidir
+   - Daha az sıklıkla uygulanır ancak gelecekteki gelişmeler için potansiyel olarak kritik öneme sahiptir
+
+Hafıza sistemleri, ajanların harici araçlardan toplanan bilgileri depolamasına ve geri çağırmasına izin vererek yinelemeli iyileştirmeye ve önceki bilgiler üzerine inşa etmeye imkan tanır.
+
+Planlama yetenekleri, araç kullanımı ve hafıza sistemleri arasındaki sinerji, etkili AI ajanlarının temelini oluşturur. Her bileşenin mevcut sınırlamaları olsa da bu temel yetenekleri anlamak, AI ajanları geliştirmek ve onlarla çalışmak için son derece önemlidir. Teknoloji geliştikçe yeni hafıza türleri ve yeteneklerin ortaya çıktığını görebiliriz, ancak bu üç sütun muhtemelen AI ajan mimarisinin temel kalmaya devam edecektir.

@@ -1,0 +1,82 @@
+# AI Ajanlarında Fonksiyon Çağırma (Function Calling)
+
+import { Callout } from 'nextra/components'
+
+Fonksiyon çağırma (araç çağırma olarak da bilinir), modern LLM tabanlı ajanlara güç veren temel yeteneklerden biridir. Fonksiyon çağırmanın sahne arkasında nasıl çalıştığını anlamak, etkili AI ajanları inşa etmek ve işler ters gittiğinde hata ayıklamak için elzemdir.
+
+## Konular
+
+- [Fonksiyon Çağırma Nedir?](#fonksiyon-çağırma-nedir)
+- [Fonksiyon Çağırma AI Ajanlarına Nasıl Güç Verir?](#fonksiyon-çağırma-ai-ajanlarına-nasıl-güç-verir)
+- [Araç Tanımlarının Rolü](#araç-tanımlarının-rolü)
+- [Ajan Döngüsü: Eylemler ve Gözlemler](#ajan-döngüsü-eylemler-ve-gözlemler)
+- [Fonksiyon Çağrılarında Hata Ayıklama](#fonksiyon-çağrılarında-hata-ayıklama)
+- [Araç Tanımları İçin En İyi Uygulamalar](#araç-tanımları-için-en-iyi-uygulamalar)
+
+## Fonksiyon Çağırma Nedir?
+
+Temelinde fonksiyon çağırma, LLM'lerin harici araçlarla, API'lerle ve bilgi tabanlarıyla etkileşime girmesini sağlar. Bir LLM, eğitim verilerinin ötesinde bilgi veya eylem gerektiren bir sorgu aldığında, bu bilgiyi almak veya eylemi gerçekleştirmek için harici bir fonksiyonu çağırmaya karar verebilir.
+
+Basit bir örneği ele alalım: Bir AI ajana "Paris'te hava nasıl?" diye sorarsanız, LLM tek başına gerçek zamanlı hava durumu verilerine erişimi olmadığı için bu soruyu doğru şekilde yanıtlayamaz. Ancak fonksiyon çağırma ile LLM, bir hava durumu API'sini çağırması gerektiğini algılayabilir, doğru parametrelerle (bu durumda "Paris" şehri) uygun fonksiyon çağrısını oluşturabilir ve ardından yanıt oluşturmak için dönen verileri kullanabilir.
+
+Bu yetenek, temel bir LLM'i bir metin üreticisinden gerçek dünyayla etkileşime girebilen güçlü bir ajana dönüştüren şeydir.
+
+## Fonksiyon Çağırma AI Ajanlarına Nasıl Güç Verir?
+
+![Fonksiyon Çağırma Akışı](../../img/agents/function-calling-flow.png)
+
+LLM tabanlı ajanlar karmaşık görevleri çözmek için iki temel yeteneğe dayanır: araç çağırma ve akıl yürütme. Bu yetenekler ajanların harici araçlarla artırılmasına, MCP (Model Context Protocol) sunucularına bağlanmasına ve bilgi tabanlarına erişmesine olanak tanır.
+
+Fonksiyon çağırma akışı şu şekilde işler:
+
+1. **Kullanıcı Sorgusu**: Kullanıcı ajana bir istek gönderir (ör. "Paris'te hava nasıl?")
+2. **Bağlam Derleme**: Sistem mesajı, araç tanımları ve kullanıcı mesajı birleştirilerek modele gönderilecek tam bağlam oluşturulur
+3. **Araç Kararı**: LLM bağlamı analiz eder ve bir aracı çağırması gerekip gerekmediğini belirler. Cevap evetse, hangi aracın hangi parametrelerle çağrılacağını belirten yapılandırılmış bir yanıt verir
+4. **Araç Yürütme**: Geliştiricinin kodu araç çağrısı isteğini alır ve gerçek fonksiyonu yürütür (ör. hava durumu API'sini çağırma)
+5. **Gözlem (Observation)**: Araç sonuçlarını döndürür; bu, ajan terminolojisinde "gözlem" haline gelir
+6. **Yanıt Üretimi**: Gözlem, tüm önceki mesajlarla birlikte modele geri aktarılır ve nihai yanıtın oluşturulması sağlanır
+
+Buradaki en kilit içgörü, modelin konuşmada meydana gelen her şeyin tam bağlamını her zaman korumasıdır.
+
+## Araç Tanımlarının Rolü
+
+Araç tanımları, fonksiyon çağırmanın muhtemelen en kritik bileşenidir. LLM'in hangi araçların mevcut olduğunu ve bunları ne zaman kullanacağını bilmesinin tek yolu bunlardır.
+
+Bir araç tanımı genellikle şunları içerir:
+
+- **İsim (Name)**: Fonksiyon için net bir tanımlayıcı
+- **Açıklama (Description)**: Aracın ne yaptığına ve ne zaman kullanılacağına dair bir açıklama
+- **Parametreler (Parameters)**: Fonksiyonun kabul ettiği girdiler (türleri ve açıklamaları dahil)
+
+<Callout type="info" emoji="💡">
+Araç tanımları her LLM çağrısında bağlamın bir parçası olur. Bu, jeton (token) tükettikleri, maliyet ve gecikmeyi etkiledikleri anlamına gelir. Araç tanımlarınızda öz ancak açıklayıcı olun.
+</Callout>
+
+## Ajan Döngüsü: Eylemler ve Gözlemler
+
+Ajan döngüsünü anlamak, AI ajanlarında hata ayıklamak ve onları optimize etmek için temel öneme sahiptir. Döngü, tekrarlanan şu aşamalardan oluşur:
+
+1. **Eylem (Action)**: Ajan bir eylem yapmaya karar verir (bir aracı çağırır)
+2. **Ortam Yanıtı**: Harici araç veya API bir sonuç döndürür
+3. **Gözlem (Observation)**: Ajan sonucu alır ve işler
+4. **Karar (Decision)**: Ajan başka bir eylemde bulunmaya veya kullanıcıya yanıt vermeye karar verir
+
+## Fonksiyon Çağrılarında Hata Ayıklama
+
+AI ajanları inşa ederken kaçınılmaz olarak ajanın beklendiği gibi davranmadığı durumlarla karşılaşırsınız. Belki yanlış aracı çağırıyor, yanlış bağımsız değişkenler (arguments) iletiyor veya çağırması gerektiğinde aracı çağırmıyordur. Fonksiyon çağırmanın iç yapısını anlamak tam da bu noktada paha biçilmez hale gelir.
+
+## Araç Tanımları İçin En İyi Uygulamalar
+
+Ajan inşa etme hususundaki pratik deneyimlere dayanarak etkili araç tanımları için temel öneriler:
+
+**Açıklamalarda Spesifik Olun**
+
+"Web'de ara" yerine "Güncel bilgiler için web'de ara. Kullanıcı son olaylar, haberler veya eğitimden bu yana değişmiş olabilecek veriler hakkında soru sorduğunda bunu kullanın." ifadesini tercih edin.
+
+**Sistem İstemlerine Kullanım Bağlamı Ekleyin**
+
+Araç tanımları açıklamalar içerse de, sistem isteminde araçların ne zaman ve nasıl kullanılacağına dair açık rehberlik eklemek ek bağlam sağlar.
+
+<Callout type="info" emoji="🎓">
+Bu içerik, ajansal sistemler inşa etme ve hata ayıklama konusunda uygulamalı deneyim sunan ["n8n ile Etkili AI Ajanları Oluşturma"](https://academy.dair.ai/courses/building-effective-ai-agents) kursumuza dayanmaktadır.
+</Callout>

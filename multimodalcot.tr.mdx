@@ -1,0 +1,15 @@
+# Çok Modlu CoT İstemi
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import MCOT from '../../img/multimodal-cot.png'
+
+[Zhang ve diğerleri (2023)](https://arxiv.org/abs/2302.00923) yakın zamanda bir çok modlu düşünce zinciri istemleme yaklaşımı önerdi. Geleneksel CoT dil modalitesine odaklanır. Buna karşın, Çok Modlu CoT metni ve görüntüyü iki aşamalı bir çerçeve içine alır. İlk adım, çok modlu bilgilere dayalı olarak mantıklı bir dayanak oluşturmaktır. Bunu, bilgi içeren üretilmiş dayanakları kullanmanın avantajlarından yararlanan ikinci aşama, yanıt çıkarımı, takip eder.
+
+Çok modlu CoT modeli (1B), ScienceQA benchmark'ında GPT-3.5'ı geride bırakır.
+
+<Screenshot src={MCOT} alt="MCOT" />
+Görüntü Kaynağı: [Zhang ve diğerleri (2023)](https://arxiv.org/abs/2302.00923)
+
+Daha fazla bilgi için:
+- [Dil, İhtiyacınız Olan Tek Şey Değil: Algılamayı Dil Modelleriyle Hizalamak](https://arxiv.org/abs/2302.14045) (Şubat 2023)

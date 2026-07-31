@@ -1,0 +1,24 @@
+# Otomatik Akıl Yürütme ve Araç Kullanımı (ART)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ART from '../../img/ART.png'
+import ART2 from '../../img/ART2.png'
+
+CoT yönlendirmeyi ve araçları birbirine sıralı bir şekilde entegre etmek, LLM'ler ile birçok görevi ele almak için güçlü ve sağlam bir yaklaşım olduğunu kanıtlamıştır. Bu yöntemler genellikle görev özelinde elle oluşturulan gösterimler ve model üretimlerinin araç kullanımı ile dikkatlice senaryolaştırılmış birleştirmesi gerektirir. [Paranjape ve diğerleri, (2023)](https://arxiv.org/abs/2303.09014) dondurulmuş bir LLM'yi kullanarak bir program olarak ara akıl yürütme adımlarını otomatik olarak oluşturan yeni bir çerçeve önermektedir.
+
+ART şu şekilde çalışır:
+- yeni bir görev verildiğinde, görev kütüphanesinden çoklu adım akıl yürütme ve araç kullanımı gösterimlerini seçer
+- test zamanında, dış araçlar çağrıldığında üretimi duraklatır ve üretimi yeniden başlatmadan önce çıktılarını entegre eder
+
+ART, modelin gösterimlerden genelleme yaparak yeni bir görevi parçalara ayırmaya ve araçları uygun yerlerde kullanmaya teşvik eder; bu da sıfır-atışlı bir yöntemdir. Ek olarak, ART genişletilebilirdir çünkü ayrıca insanların akıl yürütme adımlarındaki hataları düzeltmelerine veya yalnızca görev ve araç kütüphanelerini güncelleyerek yeni araçlar eklemelerine olanak tanır. Süreç aşağıda gösterilmiştir:
+
+<Screenshot src={ART} alt="ART" />
+Resmin Kaynağı: [Paranjape ve diğerleri, (2023)](https://arxiv.org/abs/2303.09014)
+
+ART, BigBench ve MMLU ölçütlerinde görülmemiş görevlere, az-atışlı yönlendirmeyi ve otomatik CoT'yi büyük ölçüde geliştirmekte ve insan geri bildirimi dahil edildiğinde elle oluşturulan CoT yönlendirmelerinin performansını aşmaktadır. 
+
+Aşağıda, ART'ın BigBench ve MMLU görevlerindeki performansını gösteren bir tablo bulunmaktadır:
+
+<Screenshot src={ART2} alt="ART2" />
+Resmin Kaynağı: [Paranjape ve diğerleri, (2023)](https://arxiv.org/abs/2303.09014)

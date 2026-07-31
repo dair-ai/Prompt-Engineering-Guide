@@ -1,0 +1,33 @@
+# Üretilen Veri Kümelerinde Çeşitlilik Sorununu Çözme
+
+import {Screenshot} from 'components/screenshot'
+import IMG1 from '../../img/synthetic_diversity/textbooks_1.png'
+import IMG2 from '../../img/synthetic_diversity/textbooks_2.png'
+
+Önceki bölümde, yerel bir Erişim (Retriever) modelini daha da ince ayardan geçirmek için sentetik veri kümesi oluşturmada LLM kullanmanın potansiyelini tartıştık. Bu yöntem, etiketlenmemiş geniş bir belge kümesinin bulunması sayesinde mümkündür.
+
+Peki ya göreviniz Bilgi Erişimi (Information Retrieval) değilse? Örneğin, hukuki bir belge sınıflandırma problemi üzerinde çalıştığınızı ancak harici bir API'ye veri gönderilmesine izin verilmediğini varsayalım. Bu durumda yerel bir modeli eğitmeniz gerekecektir. Ancak veri toplamak ciddi bir engel haline gelebilir.
+
+[Eldan ve diğerleri (2023)](https://arxiv.org/abs/2305.07759) tarafından yapılan araştırmada, çocuk hikayeleri üretme görevi bir başlangıç noktası olmuştur.
+
+Büyük dil modellerini eğitim verisi üretmek için kullanırken temel zorluk veri kümesinin çeşitliliğini sağlamaktır. Yüksek [üretim sıcaklığında (generation temperature)](https://www.promptingguide.ai/introduction/settings) bile modeller gerekli çeşitlilikten yoksun tekrarlayıcı veri kümeleri üretebilir.
+
+Çeşitlilik sorununu çözmek için yazarlar, bir çocuğun sözvarlığını yansıtan yaklaşık 1500 temel kelimeden oluşan bir kelime hazinesi hazırlamışlardır. Her üretimde bir fiil, bir isim ve bir sıfat rastgele seçilmiş ve model bu rastgele kelimeleri içeren bir hikaye üretmiştir.
+
+## Yinelemeli (Hiyerarşik) Sentetik Veri Üretimi
+
+Format, bazıları önceden LLM'in kendisi tarafından üretilen daha da fazla varlık kullanılarak daha karmaşık hale getirilebilir. Önce bir hikaye özeti üretme isteğiyle başlanabilir ve hikayede görünmesi gereken bir cümle yazılabilir. Daha sonra nihai istekte bu üretilen ara veriler kullanılır.
+
+# İhtiyacınız Olan Tek Şey Ders Kitapları (Textbooks Are All You Need)
+
+[Gunasekar ve diğerleri (2023)](https://arxiv.org/abs/2306.11644) tarafından yapılan çalışmada, dil modellerinin iyi bir "ders kitabı" niteliklerine (net, kapsamlı, bilgilendirici ve tarafsız) benzeyen materyaller üzerinde eğitilmeleri durumunda daha etkili olacaklarını savunmaktadırlar.
+
+Phi-1 adlı LLM'i eğitmek için bu ilkeler temel alınmıştır. Ana değerlendirme görevi, verilen bir metin açıklamasına veya dokümantasyon dizesine (docstring) uyan bir Python fonksiyonu oluşturmaktır.
+
+<Screenshot src={IMG1} alt="Üretilen ders kitabı benzeri örnek" />
+
+Resim Kaynağı: [Gunasekar ve diğerleri (2023)](https://arxiv.org/abs/2306.11644)
+
+<Screenshot src={IMG2} alt="Daha büyük modellerle karşılaştırıldığında Phi-1 metrikleri." />
+
+Resim Kaynağı: [Gunasekar ve diğerleri (2023)](https://arxiv.org/abs/2306.11644)

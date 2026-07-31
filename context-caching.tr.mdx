@@ -1,0 +1,45 @@
+# Gemini 1.5 Flash ile Bağlam Önbelleğe Alma (Context Caching)
+
+import {Cards, Card, Callout} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+
+Google yakın zamanda Gemini 1.5 Pro ve Gemini 1.5 Flash modelleri aracılığıyla kullanılabilen [bağlam önbelleğe alma (context-caching)](https://ai.google.dev/gemini-api/docs/caching?lang=python) adında yeni bir özellik yayınladı. Bu kılavuz, Gemini 1.5 Flash ile bağlam önbelleğe almanın nasıl kullanılacağına dair temel bir örnek sunmaktadır.
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/987Pd89EDPs?si=j43isgNb0uwH5AeI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+### Kullanım Senaryosu: Bir Yıllık ML Makalelerini Analiz Etme
+
+Bu kılavuz, [geçtiğimiz yıl belgelediğimiz tüm ML makalelerinin](https://github.com/dair-ai/ML-Papers-of-the-Week) özetlerini analiz etmek için bağlam önbelleğe almayı nasıl kullanabileceğinizi göstermektedir. Bu özetleri bir metin dosyasında saklıyoruz ve bu dosya Gemini 1.5 Flash modeline beslenerek verimli bir şekilde sorgulanabiliyor.
+
+### Süreç: Yükleme, Önbelleğe Alma ve Sorgulama
+
+1. **Veri Hazırlığı:** İlk olarak özetleri içeren dosyayı düz bir metin dosyasına dönüştürün.
+2. **Gemini API'sini Kullanma:** Metin dosyasını Google `generativeai` kütüphanesini kullanarak yükleyebilirsiniz.
+3. **Bağlam Önbelleğe Almayı Uygulama:** `caching.CachedContent.create()` fonksiyonu kullanılarak bir önbellek oluşturulur. Bu şunları içerir:
+    * Gemini Flash 1.5 modelini belirtmek.
+    * Önbellek için bir ad sağlamak.
+    * Model için bir talimat tanımlamak (ör. "Uzman bir AI araştırmacısısınız...").
+    * Önbellek için bir yaşam süresi (TTL) ayarlamak (ör. 15 dakika).
+4. **Modeli Oluşturma:** Ardından önbelleğe alınmış içeriği kullanarak bir üretken model örneği oluşturuyoruz.
+5. **Sorgulama:** Modele doğal dilde sorular sormaya başlayabiliriz.
+
+Bu iş akışı, araştırmacıların büyük miktarda araştırma verisini hızlıca analiz etmelerine, istem jetonlarını (tokens) israf etmeden etkileşimli araştırma oturumları yürütmelerine olanak tanır.
+
+Jupyter Notebook bağlantısı aşağıdadır:
+
+<Cards>
+    <Card 
+        icon={<CodeIcon />}
+        title="Gemini API'leri ile Bağlam Önbelleğe Alma"
+        href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/gemini-context-caching.ipynb"
+    />
+</Cards>
+
+<Callout type= "info" emoji="🎓">
+Yeni yapay zekâ kurslarımızda önbelleğe alma yöntemleri hakkında daha fazla bilgi edinin. [Hemen Katılın!](https://academy.dair.ai/)
+Ekstra %20 indirim almak için PROMPTING20 kodunu kullanın.
+</Callout>

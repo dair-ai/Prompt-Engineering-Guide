@@ -1,0 +1,65 @@
+# Derin Ajanlar (Deep Agents)
+
+import { Callout } from 'nextra/components'
+
+Günümüzdeki ajanların çoğu sığdır (shallow).
+
+Uzun, çok adımlı problemlerde (ör. derin araştırma veya ajansal kodlama) kolayca kırılırlar.
+
+Bu durum hızla değişiyor!
+
+Çok karmaşık problemleri çözmek için stratejik olarak planlama yapan, hatırlayan ve akıllıca devreden sistemler olan "Derin Ajanlar" (Deep Agents) çağına giriyoruz.
+
+[DAIR.AI Akademi](https://academy.dair.ai/) olarak bizler ve [LangChain](https://docs.langchain.com/labs/deep-agents/overview), [Claude Code](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk) ekibinden diğer uzmanlar ve yakın zamanda [Philipp Schmid](https://www.philschmid.de/agents-2.0-deep-agents) gibi isimler bu fikri belgelemektedir.
+
+Öğrencilerimizin eğitimlerimiz ve kurslarımızla ilgili sorular sorması için tasarlanmış, [DAIR.AI Akademi](https://academy.dair.ai/)'nin müşteri destek sistemine güç vermek üzere inşa edilmiş bir derin ajan örneği:
+
+![derin-ajan](../../img/agents/customer-support-deep-agent.png)
+
+<Callout type="info" emoji="📚">
+Bu yazı, derin ajanların tasarımı ve uygulanmasına ilişkin kapsamlı bilgiler, indirilebilir şablonlar, istemler ve gelişmiş ipuçları sunan yeni kursumuz ["n8n ile Etkili AI Ajanları Oluşturma"](https://academy.dair.ai/courses/building-effective-ai-agents) dersine dayanmaktadır.
+</Callout>
+
+İşte Derin Ajanların arkasındaki temel fikir (kendi düşüncelerim ve başkalarından topladığım notlara dayanarak):
+
+## Planlama
+
+![cs-planlama](../../img/agents/cs-planning.png)
+
+Derin Ajanlar, tek bir bağlam penceresi içinde anlık akıl yürütmek yerine, güncelleyebilecekleri, yeniden deneyebilecekleri ve hatalardan kurtulabilecekleri yapılandırılmış görev planlarını korurlar. Bunu, ajanı uzun vadeli hedefine doğru yönlendiren yaşayan bir yapılacaklar listesi gibi düşünün. Bunu deneyimlemek için planlama için Claude Code veya Codex'i denemeniz yeterlidir; herhangi bir görevi yürütmeden önce planlamayı etkinleştirdiğinizde sonuçlar önemli ölçüde iyileşir.
+
+## Orkestratör ve Alt Ajan Mimarisi
+
+![cs-alt-ajanlar](../../img/agents/cs-subagents.png)
+
+Tek bir büyük ajan (genellikle çok uzun bir bağlama sahip olan) artık yeterli değil. Orkestratör-alt ajan mimarisi, düşünebileceğiniz her alan için bugün yararlanabileceğiniz en güçlü LLM tabanlı ajansal mimarilerden biridir. Bir orkestratör; arama ajanları, kodlayıcılar, bilgi tabanı getiricileri, analistler, doğrulayıcılar ve yazarlar gibi her biri kendi temiz bağlamına ve alan odağına sahip uzmanlaşmış alt ajanları yönetir.
+
+Orkestratör akıllıca devreder ve alt ajanlar verimli bir şekilde yürütür. Orkestratör bunların çıktılarını tutarlı bir sonuçta birleştirir.
+
+## Bağlam Geri Çağırma ve Ajansal Arama
+
+![kalici-depolama](../../img/agents/cs-persistent-storage.png)
+
+Derin Ajanlar yalnızca konuşma geçmişine güvenmezler. Ara çalışmaları dosyalar, notlar, vektörler veya veritabanları gibi harici hafızada depolarlar; böylece modelin bağlamını aşırı yüklemeden önemli olan şeylere başvurabilirler. Yüksek kaliteli yapılandırılmış hafıza harika bir şeydir.
+
+## Bağlam Mühendisliği
+
+Bu tür ajanlarla etkileşime girerken yapabileceğiniz en kötü şeylerden biri yetersiz tanımlanmış talimatlar/istemlerdir. İstem mühendisliği önemliydi ve önemlidir, ancak ajanlar için bağlam oluşturmanın önemini vurgulamak için yeni bir terim olan [bağlam mühendisliğini](https://www.promptingguide.ai/guides/context-engineering-guide) kullanacağız. Talimatların ne zaman plan yapılacağını, ne zaman alt ajan kullanılacağını, dosyaların nasıl adlandırılacağını ve insanlarla nasıl işbirliği yapılacağını tanımlamak için daha açık, ayrıntılı ve kasıtlı olması gerekir.
+
+Daha fazla bilgi edinmek için bağlam mühendisliği hakkındaki önceki kılavuzumuzu okuyun: [Bağlam Mühendisliği Derinlemesine Bakış](https://www.promptingguide.ai/guides/context-engineering-guide)
+
+## Doğrulama
+
+![dogrulama ajani](../../img/agents/cs-verification-agent.png)
+
+Bağlam mühendisliğinin yanı sıra doğrulama, bir ajansal sistemin en önemli bileşenlerinden biridir. Doğrulama; otomatikleştirilebilen (LLM-as-a-Judge) veya bir insan tarafından yapılabilen çıktıların doğrulanması anlamına gelir. Modern LLM'lerin metin oluşturmadaki (matematik ve kodlama gibi alanlarda) etkinliği nedeniyle, yanıt hallucination (halüsinasyon), dalkavukluk (sycophancy), istem enjeksiyonu ve diğer birçok sorundan muzdarip olduklarını unutmak kolaydır. Doğrulama, ajanlarınızı daha güvenilir ve üretime daha hazır hale getirmeye yardımcı olur.
+
+## Son Sözler
+
+Bu, AI ajanlarıyla nasıl sistem inşa ettiğimiz konusunda muazzam bir değişimdir. Derin ajanlar aynı zamanda bundan sonra gelecek şeyler için önemli bir yapı taşı gibi hissediliyor: bizim adımıza hareket edebilen kişiselleştirilmiş proaktif ajanlar.
+
+<Callout type="info" emoji="📚">
+Bu yazı, derin ajanların tasarımı ve uygulanmasına ilişkin kapsamlı bilgiler, indirilebilir şablonlar, istemler ve gelişmiş ipuçları sunan yeni kursumuz ["n8n ile Etkili AI Ajanları Oluşturma"](https://academy.dair.ai/courses/building-effective-ai-agents) dersine dayanmaktadır.
+</Callout>
+
+*Elvis Saravia tarafından yazılmıştır (İstem Mühendisliği Kılavuzu'nun yaratıcısı ve DAIR.AI Akademi'nin kurucu ortağı)*

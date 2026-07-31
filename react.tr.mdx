@@ -1,0 +1,169 @@
+# ReAct İstemi
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import REACT from '../../img/react.png'
+import REACT1 from '../../img/react/table1.png'
+import REACT2 from '../../img/react/alfworld.png'
+
+[Yao ve diğerleri, 2022](https://arxiv.org/abs/2210.03629), LLM'lerin hem *mantıksal izleri* hem de *görev özel eylemleri* üretmek için kullanıldığı ReAct adlı bir çerçeve tanıttı. 
+
+Mantıksal izler oluşturmak, modelin eylem planlarını teşvik etmeye, takip etmeye ve güncellemeye ve hatta istisnaları ele almaya olanak sağlar. Eylem adımı, bilgi tabanları veya çevreler gibi dış kaynaklardan bilgi toplamak için bir arayüz sağlar.
+
+ReAct çerçevesi, LLM'lerin daha güvenilir ve gerçekçi yanıtlar yol açacak ekstra bilgi almak için dış araçlarla etkileşim kurmasına izin verir.
+
+Sonuçlar, ReAct'ın, dil ve karar verme görevlerinde birçok öncü metodu geride bıraktığını gösterir. ReAct ayrıca, LLM'lerin insanlar tarafından yorumlanabilirliğini ve güvenilirliğini artırır. Genel olarak, yazarlar en iyi yaklaşımın ReAct'ı, hem dahili bilgiye sahip olmayı hem de akıl yürütme sırasında elde edilen dış bilgiyi kullanmanın mümkün olduğu düşünce zinciri (CoT) ile birleştiren bir yöntem olduğunu bulmuşlardır.
+
+
+## Nasıl Çalışır?
+
+ReAct, insanların yeni görevler öğrenmesine ve kararlar veya mantıklı sonuçlar çıkarmasına olanak sağlayan "eyleme geçme" ve "akıl yürütme" arasındaki sinerjiden ilham alır. 
+
+Düşünce zinciri (CoT) istemlemesi, LLM’lerin aritmetik ve sağduyu akıl yürütmesi içeren sorulara yanıt oluşturmak için mantıksal izleri gerçekleştirebilme becerilerini göstermiştir, diğer görevlerin yanı sıra [(Wei ve diğerleri, 2022)](https://arxiv.org/abs/2201.11903). Ancak dış dünyaya erişim eksikliği veya bilgisini güncelleme yeteneğinin olmamasının gibi durumlar, gerçek dışı bilgilerin uydurulması ve hata yayma gibi sorunlara yol açabilir. 
+
+ReAct, akıl yürütme ve eyleme geçme işlemlerini LLM'lerle birleştiren genel bir paradigmadır. ReAct, LLM'leri bir görev için sözlü mantığa dayalı izler ve etkinlikler oluşturmak üzere yönlendirir. Bu, sistemlerin etkinden ayrı ayrı etkinlik için planlar oluşturma, sürdürme ve ayarlama gibi dinamik akıl yürütme performanslarını gerçekleştirmelerine olanak sağlarken, ek bilgiyi akıl yürütmeye dahil etmek için dış ortamlar (örneğin, Wikipedia) ile etkileşimi de sağlar. Aşağıdaki şekil, ReAct'ın bir örneğini ve soruları yanıtlamak için gerekli farklı adımları göstermektedir.
+
+<Screenshot src={REACT} alt="REACT" />
+Resim Kaynağı: [Yao ve diğerleri, 2022](https://arxiv.org/abs/2210.03629)
+
+Yukarıdaki örnekte, [HotpotQA](https://hotpotqa.github.io/)'dan aşağıdaki gibi bir istemle soru geçiriyoruz:
+
+```
+Apple Remote dışında hangi cihazlar, Apple Remote'un aslen etkileşim kurmak üzere tasarlandığı programı kontrol edebilir?
+```
+
+Kontekst içindeki örnekler de isteme eklenir ancak burada basitlik adına bunları hariç tutuyoruz. Modelin *görev çözme yörüngeleri* (Düşünce, Eylem) oluşturduğunu görebiliriz. Obs, etkileşime geçilen çevreden (örneğin, Arama motoru) alınan gözlemleri temsil eder. Özünde, ReAct mantığı desteklemek için bilgi alırken, mantık neyi sonraki adımda elde edileceğini hedeflemeye yardımcı olur.
+
+## ReAct İstemciliği
+ReAct istemciliğin nasıl çalıştığını göstermek için, makaleden bir örneği takip edelim.
+
+İlk adım, bir eğitim setinden (örn., HotPotQA) örnekler seçmek ve ReAct-formatı yanıtları oluşturmaktır. Bunlar, istemlerde az sayıda örnek olarak kullanılır. Yanıtlar, yukarıdaki şekilde gösterildiği gibi birden çok düşünce-eylem-gözlem adımlarından oluşur. Serbest formdaki düşünceler, soruları ayrıştırmak, bilgi çıkarmak, genel mantık/aritmetik akıl yürütme, arama formülasyonunu yönlendirebilmek ve son yanıtı sentezlemek gibi farklı görevler başarmak için kullanılır.
+
+İşte ReAct istem örneklerinin neye benzediğine dair bir örnek (Makaleden alınmış ve sadelik için bir örneğe kısaltılmış):
+
+```
+Soru Colorado'nun doğu sektörünün uzandığı alanın yükselti aralığı nedir?
+Düşünce 1  Colorado orojenezinin doğu sektörünün uzandığı alanı belirlemek ve bu alanın yükselti aralığını bulmak için Colorado orojenezi aratmam gerekiyor.
+Eylem 1  Arama[Colorado orojenezi]
+Gözlem 1  Colorado orojenezi, Colorado ve çevresinde bir dağ oluşumu (orajenezi) dönemiydi.
+Düşünce 2  Doğu sektörünü belirtmiyor. Bu yüzden doğu sektörüne bakmam gerekiyor.
+Eylem 2  Arama[doğu sektörü]
+Gözlem 2  (Sonuç 1 / 1) Doğu sektör, High Plains'e kadar uzanır ve Central Plains orojenezi olarak adlandırılır.
+Düşünce 3  Colorado orojenezinin doğu sektörü High Plains'e uzanıyor. Yani High Plains'i aratmam ve yükselti aralığını bulmam gerekiyor.
+Eylem 3  Arama[High Plains]
+Gözlem 3  High Plains, iki farklı arazi bölgesinden birine işaret eder
+Düşünce 4  Bunun yerine High Plains (United States) aratmalıyım.
+Eylem 4  Arama[High Plains (United States)]
+Gözlem 4  High Plains, Great Plains'in bir alt bölgesidir. Doğudan batıya, 
+High Plains yükseltisi yaklaşık 1,800 ile 7,000 ft (550 ila 2,130 m) arasında değişir.[3]
+Düşünce 5  High Plains yükseltisi yaklaşık 1,800 ile 7,000 ft arasında değişir, bu yüzden yanıt 1,800 ile 7,000 ft'tir.
+Eylem 5  Bitiş[1,800 ila 7,000 ft]
+...
+```
+  
+Not: Farklı istem düzenleri, farklı türlerdeki görevler için kullanılır. Mantıksal akıl yürütmenin birincil öneme sahip olduğu görevlerde (örn., HotpotQA), görev çözme yörüngesi için çoklu düşünce-eylem-gözlem adımları kullanılır. Bol miktarda eylem adımı içeren karar verme görevleri için, düşünceler seyrek olarak kullanılır.
+
+## Bilgi Yoğun Görevlerde Sonuçlar
+
+Makale ilk olarak ReAct'ı, soru cevaplama (HotPotQA) ve gerçek doğrulama ([Fever](https://fever.ai/resources.html)) gibi bilgi yoğun mantık yürütme görevlerinde değerlendirir. İsteme için taban model olarak PaLM-540B kullanılır.
+
+<Screenshot src={REACT1} alt="REACT1" />
+Resim Kaynağı: [Yao ve diğerleri, 2022](https://arxiv.org/abs/2210.03629)
+
+HotPotQA ve Fever üzerinde farklı istem metotları kullanılarak yapılan isteme sonuçları, ReAct'ın genellikle her iki görevde de sadece eylemi içeren Act'ten daha iyi performans gösterdiğini göstermektedir.
+
+ReAct'ın Fever'da CoT'yu geçtiğini ve HotpotQA'da CoT'un gerisinde kaldığını da gözlemleyebiliriz. Makalede ayrıntılı bir hata analizi verilmiştir. Özetle:
+
+- CoT, gerçek halüsinasyonundan muzdariptir
+- ReAct'ın yapısal kısıtlaması, mantık yürütme adımlarını formüle etme esnekliğini azaltır
+- ReAct, alınan bilgilere büyük ölçüde bağımlıdır; bilgi verici olmayan arama sonuçları model mantığını sekteye uğratır ve düşünceleri yeniden formüle etmekte zorluk yaratır
+
+ReAct ve CoT+Kendi Tutarlılığını destekleyen ve arasında geçiş yapmayı sağlayan istem yöntemleri genellikle diğer tüm istem yöntemlerinden daha iyi performans gösterir.
+
+## Karar Verme Görevlerinde Sonuçlar
+
+Makale ayrıca ReAct'ın karar verme görevlerindeki performansını gösteren sonuçları da bildirir. ReAct, [ALFWorld](https://alfworld.github.io/) (metin temelli oyun) ve [WebShop](https://webshop-pnlp.github.io/) (online alışveriş web sitesi ortamı) adı verilen iki referanstaki performansı değerlendirilir. Her ikisi de etkin bir şekilde hareket etme ve keşfetme için mantık yürütme gerektiren karmaşık ortamları içerir.
+
+ReAct istemlerinin bu görevler için hala aynı temel fikiri korurken farklı şekilde tasarlandığına dikkat edin. Aşağıda, ReAct istemi içeren bir ALFWorld problemi için bir örnek verilmiştir.
+
+<Screenshot src={REACT2} alt="REACT2" />
+Resim Kaynağı: [Yao ve diğerleri, 2022](https://arxiv.org/abs/2210.03629)
+
+ReAct, hem ALFWorld hem de Webshop'ta Act'ten daha iyi performans gösterir. Herhangi bir düşüncesi olmadan Act, hedefleri alt hedeflere doğru şekilde ayrıştıramaz. Bu tür görevlerde ReAct'taki mantık yürütme avantajlı gibi görünüyor ancak mevcut istem temelli yöntemler hala bu görevlerde uzman insanların performansından oldukça uzak.
+
+Daha ayrıntılı sonuçlar için makaleyi inceleyin.
+
+## LangChain ReAct Kullanımı
+
+Aşağıda, ReAct istem yaklaşımının pratikte nasıl çalıştığına dair üst düzey bir örnektir. LLM için OpenAI'yi ve [LangChain](https://python.langchain.com/en/latest/index.html)'i kullanacağız çünkü bu, LLM'lerin gücünü farklı araçlarla birleştirerek görevleri gerçekleştiren ajanlar oluşturmak için ReAct çerçevesini kullanabilen yerleşik işlevselliğe zaten sahip.
+
+Öncelikle, gerekli kütüphaneleri yükleyelim ve içe aktaralım:
+
+``` python
+%%capture
+# gereken kütüphaneleri güncelle veya yükle
+!pip install --upgrade openai
+!pip install --upgrade langchain
+!pip install --upgrade python-dotenv
+!pip install google-search-results
+
+# kütüphaneleri import et
+import openai
+import os
+from langchain.llms import OpenAI
+from langchain.agents import load_tools
+from langchain.agents import initialize_agent
+from dotenv import load_dotenv
+load_dotenv()
+
+# API anahtarlarını yükle; bunları henüz elde etmediyseniz ihtiyacınız olacak
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["SERPER_API_KEY"] = os.getenv("SERPER_API_KEY")
+```
+
+Şimdi LLM'yi, kullanacağımız araçları ve ReAct çerçevesini LLM ve araçlarla birlikte kullanmamıza olanak sağlayan ajanı yapılandırabiliriz. External bilgi aramak için bir arama API'sini ve matematik aracı olarak LLM'yi kullandığımızı unutmayın.
+
+``` python
+llm = OpenAI(model_name="text-davinci-003" ,temperature=0)
+tools = load_tools(["google-serper", "llm-math"], llm=llm)
+agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
+```
+
+Bunu yapılandırdıktan sonra, istenen sorgu/istemle ajanı çalıştırabiliriz. Burada, makalede açıklandığı gibi birkaç atışlık örnekler sağlamamız beklenmiyor.
+
+``` python
+agent.run("Olivia Wilde'ın erkek arkadaşı kim? Şu anki yaşının 0,23 üssü kaç?")
+```
+
+Zincir yürütme şu şekildedir:
+
+``` yaml
+> Yeni AgentExecutor zincirine giriliyor...
+ Olivia Wilde'ın erkek arkadaşının kim olduğunu bulmam ve ardından yaşının 0.23 ile üssünü hesaplamam gerekiyor.
+Eylem: Arama
+Eylem Girişi: "Olivia Wilde erkek arkadaş"
+Gözlem: Olivia Wilde, Jason Sudeikis ile uzun süreli nişanını bitirdikten sonra Harry Styles ile çıkmaya başladı - ilişkilerinin zaman çizelgesini görün.
+Düşünce: Harry Styles'ın yaşını bulmam gerekiyor.
+Eylem: Arama
+Eylem Girişi: "Harry Styles yaş"
+Gözlem: 29 yaş
+Düşünce: 29'un 0,23 üssünü hesaplamalıyım.
+Eylem: Hesap Makinesi
+Eylem Girişi: 29^0.23
+Gözlem: Sonuç: 2.169459462491557
+
+Düşünce: Son cevabı artık biliyorum.
+Son Cevap: Olivia Wilde'ın erkek arkadaşı Harry Styles, 29 yaşındadır ve yaşının 0.23 kuvveti 2.169459462491557'dir. 
+
+> Zincir tamamlandı.
+```
+
+Elden elde edilen çıktı şu şekildedir:
+
+```
+"Olivia Wilde'ın erkek arkadaşı Harry Styles, 29 yaşındadır ve yaşının 0.23 kuvveti 2.169459462491557'dir."
+```
+
+Bu örneği [LangChain belgelendirmesinden](https://python.langchain.com/docs/modules/agents/agent_types/react) uyarladık, dolayısıyla hakları ona aittir. Öğrencilerin farklı araç ve görev kombinasyonlarını keşfetmelerini teşvik ederiz.
+
+Bu kodun not defterini burada bulabilirsiniz: https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/react.ipynb

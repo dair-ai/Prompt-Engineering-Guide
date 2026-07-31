@@ -1,0 +1,67 @@
+# Meta İstemleme (Meta Prompting)
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
+
+## Giriş
+
+Meta İstemleme (Meta Prompting), özel içerik ayrıntılarından ziyade görevlerin ve sorunların yapısal ve sözdizimsel yönlerine odaklanan gelişmiş bir istem tekniğidir. Meta istemlemenin amacı, geleneksel içerik odaklı yöntemler yerine bilginin biçimini ve kalıbını vurgulayarak büyük dil modelleriyle (LLM'ler) etkileşim kurmak için daha soyut, yapılandırılmış bir yol inşa etmektir.
+
+## Temel Özellikler
+
+[Zhang et al. (2024)](https://arxiv.org/abs/2311.11482)'e göre, meta istemlemenin temel özellikleri şu şekilde özetlenebilir:
+
+**1. Yapı Odaklı**: Özel içerikler yerine sorunların ve çözümlerin biçimini ve kalıbını önceliklendirir.
+
+**2. Sözdizimi Odaklı**: Beklenen yanıt veya çözüm için yönlendirici bir şablon olarak sözdizimini kullanır.
+
+**3. Soyut Örnekler**: Belirli ayrıntılara odaklanmadan sorunların ve çözümlerin yapısını gösteren soyutlanmış örnekleri çerçeve olarak kullanır.
+
+**4. Çok Yönlü**: Çeşitli alanlarda uygulanabilir, geniş bir sorun yelpazesine yapılandırılmış yanıtlar sağlayabilir.
+
+**5. Kategorik Yaklaşım**: Bir istemdeki bileşenlerin kategorizasyonunu ve mantıksal düzenlemesini vurgulamak için tip teorisinden yararlanır.
+
+## Az-Örnekli İstemlemeye (Few-Shot Prompting) Göre Avantajları
+
+[Zhang et al., 2024](https://arxiv.org/abs/2311.11482), meta istemlemenin, az-örnekli istemlemenin vurguladığı içerik odaklı yaklaşımın aksine daha yapı odaklı bir yaklaşıma odaklanmasıyla farklılaştığını bildirmektedir.
+
+!["Meta İstemleme"](../../img/techniques/meta-prompting.png)
+
+Meta İstemlemenin az-örnekli istemlemeye göre avantajları şunlardır:
+
+**1. Jeton (Token) Verimliliği**: Detaylı içerik yerine yapıya odaklanarak gereken jeton sayısını azaltır.
+
+**2. Adil Karşılaştırma**: Özel örneklerin etkisini en aza indirerek farklı sorun çözme modellerini karşılaştırmak için daha adil bir yaklaşım sağlar.
+
+**3. Sıfır-Atışlı (Zero-Shot) Etkinlik**: Özel örneklerin etkisinin en aza indirildiği bir sıfır-atışlı istemleme biçimi olarak görülebilir.
+
+## Uygulamalar
+
+Problem çözmenin yapısal kalıplarına odaklanarak, Meta İstemleme karmaşık konularda gezinmek için net bir yol haritası sunar ve çeşitli alanlarda LLM'lerin akıl yürütme yeteneklerini artırır.
+
+<CoursesSection title="İlgili Eğitimler">
+  <CourseCard
+    tag="Kurs"
+    tagColor="blue"
+    title="LLM'ler İçin İstem Mühendisliği"
+    description="Meta istemleme, yapı odaklı teknikler ve karmaşık akıl yürütme için gelişmiş yöntemlerde uzmanlaşın."
+    href="https://academy.dair.ai/courses/introduction-prompt-engineering"
+    level="Başlangıç"
+    duration="2 saat"
+  />
+  <CourseCard
+    tag="Kurs"
+    tagColor="purple"
+    title="Etkili AI Ajanları Oluşturma"
+    description="Etkili AI ajanları oluşturmayı öğrenin. Fonksiyon çağırma, araç entegrasyonu ve ajansal sistemlerde hata ayıklamayı kapsar."
+    href="https://academy.dair.ai/courses/building-effective-ai-agents"
+    level="Orta Seviye"
+    duration="5 saat"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Tüm Kursları Keşfedin"
+  description="AI ve istem mühendisliği kurs kataloğumuzun tamamını keşfedin. Başlangıç seviyesinden ileri düzey uygulayıcılara kadar."
+  href="https://academy.dair.ai/"
+  buttonText="Akademiye Göz Atın"
+  promoCode="PROMPTING20"
+/>

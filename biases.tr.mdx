@@ -1,0 +1,98 @@
+# Önyargılar
+
+LLM'ler, modelin aşağıdaki görevlerdeki performansını bozabilecek ve potansiyel olarak zararlı olabilecek ve önyargılar sergileyebilecek sorunlu üretimler yapabilir. Bunların bazıları etkili istem stratejileri ile hafifletilebilirken, daha ileri düzey çözümler gerektirebilir, örneğin düzenleme ve filtreleme. 
+
+### Örneklerin Dağılımı
+Az örnekli öğrenme yaparken, örneklerin dağılımı modelin performansını etkiler mi veya modeli bir şekilde önyargılı hale getirir mi? Burada basit bir test yapabiliriz.
+
+*İstem:*
+```
+S: En iyi haberlerim oldu!
+Y: Pozitif
+
+S: İş yerinde zam aldık!
+Y: Pozitif
+
+S: Bugün başardıklarımdan çok gururluyum.
+Y: Pozitif
+
+S: Bugün hayatımın en güzel günü!
+Y: Pozitif
+
+S: Hafta sonunu dört gözle bekliyorum.
+Y: Pozitif
+
+S: Harika bir hediye aldım!
+Y: Pozitif
+
+S: Şu anda çok mutluyum.
+Y: Pozitif
+
+S: Bu harika aileye sahip olduğum için çok şanslıyım.
+Y: Pozitif
+
+S: Hava dışarıda çok kasvetli.
+Y: Negatif
+
+S: Çok kötü bir haber aldım.
+Y: Negatif
+
+S: Bu kötü bir tat bıraktı.
+Y:
+```
+
+*Çıktı:*
+```
+Negatif
+```
+
+Yukarıdaki örnekte, örneklerin dağılımının modeli önyargılı hale getirmediği görülüyor. Bu iyi. Sınıflandırılması daha zor bir metinle başka bir örnek deneyelim ve modelin nasıl performans gösterdiğini görelim:
+
+*İstem:*
+```
+S: Buradaki yemek lezzetli!
+Y: Pozitif
+
+S: Bu kurs işinden çok sıkıldım.
+Y: Negatif
+
+S: Sınavı başaramadığıma inanamıyorum.
+Y: Negatif
+
+S: Bugün harika bir gün oldu!
+Y: Pozitif 
+
+S: Bu işten nefret ediyorum.
+Y: Negatif
+
+S: Buradaki hizmet berbat.
+Y: Negatif
+
+S: Hayatımdan çok bunaldım.
+Y: Negatif
+
+S: Hiç ara vermiyorum.
+Y: Negatif
+
+S: Bu yemek kötü tadıyor.
+Y: Negatif
+
+S: Patronuma tahammül edemiyorum.
+Y: Negatif
+
+S: Bir şey hissediyorum.
+Y:
+```
+
+*Çıktı:*
+```
+Negatif
+```
+
+Son cümle biraz subjektifken, dağılımı tersine çevirdim ve bunun yerine 8 pozitif örnek ve 2 negatif örnek kullandım ve ardından aynı cümleyi tekrar denedim. Modelin ne yanıt verdiğini tahmin edin mi? "Pozitif" yanıtını verdi. Modelin duygu sınıflandırılması hakkında çok fazla bilgisi olabilir, bu yüzden bu problem için önyargı sergilemesi zor olacak. Buradaki tavsiye, dağılımı çarpıtmamak ve bunun yerine her etiket için daha dengeli bir örnek sayısı sağlamaktır. Modelin fazla bilgiye sahip olmadığı daha zor görevlerde, muhtemelen daha çok zorlanacaktır.
+
+
+### Örneklerin Sırası
+Az örnekli öğrenme yaparken, sıra modelin performansını etkiler mi veya modeli bir şekilde önyargılı hale getirir mi?
+
+Yukarıdaki örnekleri deneyebilir ve sırayı değiştirerek modelin bir etikete önyargılı hale gelip gelmediğini görebilirsiniz. Tavsiye, örnekleri rastgele sıralamaktır. Örneğin, tüm pozitif örneklerin önce ve daha sonra negatif örneklerin son olmasını önleyin. Bu sorun, etiketlerin dağılımı çarpık olduğunda daha da artar. Bu tür bir önyargıyı azaltmak için her zaman çok deney yapmaya dikkat edin.
