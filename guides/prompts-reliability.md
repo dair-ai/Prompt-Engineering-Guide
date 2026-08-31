@@ -44,6 +44,19 @@ A: ?
 
 I made up the name "Neto Beto Roberto" so the model is correct in this instance. Try to change the question a bit and see if you can get it to work. There are different ways you can improve this further based on all that you have learned so far.
 
+
+### Document Trust & Verification
+
+Beyond generating factual text, LLM pipelines increasingly **ingest** external documents (payslips, invoices, contracts, research reports) and treat them as ground truth. A tampered payslip or an AI-generated fake report embeds exactly like a real one - and the pipeline then answers confidently from poisoned context.
+
+Two complementary verification approaches address this:
+
+1. **Forensic document authenticity** - analyzes PDFs/images for tampering signals (amount/words mismatch, font discontinuity, date anomalies, identifier checksums) and returns a risk band with per-signal evidence. Tools like [Stipple](https://github.com/Sketchjar/stipple-mcp) provide this via a hosted API.
+
+2. **AI-written-text detection** - estimates whether a document's prose was AI-generated, with linguistic tells (stock phrases, uniform sentence length, low burstiness). Useful for flagging synthetic documents before they enter a corpus. The same [Stipple API](https://github.com/Sketchjar/stipple-mcp) also provides this.
+
+The key principle: **processing a document is orthogonal to trusting it**. An LLM can extract text from a forged invoice just as accurately as from a genuine one - extraction quality doesn't imply authenticity.
+
 ---
 ## Biases
 LLMs can produce problematic generations that can potentially be harmful and display biases that could deteriorate the performance of the model on downstream tasks. Some of these can be mitigates through effective prompting strategies but might require more advanced solutions like moderation and filtering. 
