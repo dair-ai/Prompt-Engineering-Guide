@@ -76,12 +76,8 @@ const config: DocsThemeConfig = {
       <div>Last updated on {timestamp.toDateString()}</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <span>Sponsored by</span>
-        <a href="https://serpapi.com/" target="_blank" rel="noopener noreferrer">
-          <img 
-            src="https://cdn.rawgit.com/standard/standard/master/docs/logos/serpapi.png" 
-            alt="SerpAPI" 
-            style={{ height: '24px', width: 'auto', verticalAlign: 'middle' }}
-          />
+        <a href="https://serpapi.com/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', fontSize: '1.5rem', fontWeight: '700' }}>
+          SerpAPI
         </a>
       </div>
     </div>
