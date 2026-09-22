@@ -1,4 +1,5 @@
 {
     "sentiment": "Sentiment Classification",
-    "sentiment-fewshot": "Few-Shot Sentiment Classification"
+    "sentiment-fewshot": "Few-Shot Sentiment Classification",
+    "engagement-decision": "Engagement Decision Classification"
 }
