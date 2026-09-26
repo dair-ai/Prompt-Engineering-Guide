@@ -1,0 +1,83 @@
+# Indirektes Reasoning mit LLMs
+
+import { Tabs, Tab } from 'nextra/components'
+
+## Hintergrund
+[Zhang et al. (2024)](https://arxiv.org/abs/2402.03667) schlugen kürzlich eine Methode des indirekten Reasonings vor, um die Schlussfolgerungsfähigkeit von LLMs zu stärken. Sie verwendet die Logik von Kontrapositiven und Widersprüchen, um IR-Aufgaben wie faktisches Schließen und mathematische Beweisführung anzugehen. Sie besteht aus zwei Schlüsselschritten: 1) die Verständlichkeit von LLMs durch Erweiterung von Daten und Regeln verbessern (d.h., logische Äquivalenz des Kontrapositivs) und 2) Entwurf von Prompt-Vorlagen, um LLMs zur Implementierung des indirekten Schließens basierend auf dem Beweis durch Widerspruch anzuregen.
+
+Experimente mit LLMs wie GPT-3.5-turbo und Gemini-pro zeigen, dass die vorgeschlagene Methode die Gesamtgenauigkeit des faktischen Schließens um 27,33% und der mathematischen Beweisführung um 31,43% im Vergleich zu traditionellen direkten Schließmethoden erhöht.
+
+Unten finden Sie ein Beispiel für eine Zero-Shot-Vorlage für den Beweis durch Widerspruch.
+
+## Prompt
+```
+Wenn a+|a|=0, versuche zu beweisen, dass a<0.
+
+Schritt 1: Liste die Bedingungen und Fragen der ursprünglichen Aussage auf.
+
+Schritt 2: Füge die in Schritt 1 aufgelisteten Bedingungen zu einer zusammen. Definieren Sie sie als wj.
+
+Schritt 3: Lass uns Schritt für Schritt nachdenken. Bitte bedenke alle Möglichkeiten. Wenn die Schnittmenge zwischen wj (definiert in Schritt 2) und der Negation der Frage in mindestens einer Möglichkeit nicht leer ist, ist die ursprüngliche Aussage falsch. Andernfalls ist die ursprüngliche Aussage wahr.
+
+Antwort:
+```
+
+## Code / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+    {
+      "role": "user",
+      "content": "If a+|a|=0, try to prove that a<0.\n\nStep 1: List the conditions and questions in the original proposition.\n\nStep 2: Merge the conditions listed in Step 1 into one. Define it as wj.\n\nStep 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.\n\nAnswer:"
+    }
+    ],
+    temperature=0,
+    max_tokens=1000,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "If a+|a|=0, try to prove that a<0.\n\nStep 1: List the conditions and questions in the original proposition.\n\nStep 2: Merge the conditions listed in Step 1 into one. Define it as wj.\n\nStep 3: Let us think it step by step. Please consider all possibilities. If the intersection between wj (defined in Step 2) and the negation of the question is not empty at least in one possibility, the original proposition is false. Otherwise, the original proposition is true.\n\nAnswer:",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+
+</Tabs>
+
+## Referenz
+- [Große Sprachmodelle als indirekte Schlussfolgerer: Kontrapositiv und Widerspruch für automatisiertes Schließen](https://arxiv.org/abs/2402.03667) (06. Februar 2024)
+

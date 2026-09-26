@@ -1,0 +1,88 @@
+# Platons Dialog bewerten
+
+import { Tabs, Tab } from 'nextra/components';
+
+## Hintergrund
+
+Der folgende Prompt testet die Fähigkeit eines LLM, die Ausgaben von zwei verschiedenen Modellen zu evaluieren, als ob es ein Lehrer wäre.
+
+Zuerst werden zwei Modelle (z.B. ChatGPT & GPT-4) mit dem folgenden Prompt angeregt:
+
+```
+
+Platons Gorgias ist eine Kritik der Rhetorik und der sophistischen Redekunst, in der er darauf hinweist, dass dies nicht nur keine angemessene Kunstform ist, sondern der Gebrauch von Rhetorik und Redekunst oft schädlich und bösartig sein kann. Können Sie einen Dialog von Platon schreiben, in dem er stattdessen die Nutzung von autoregressiven Sprachmodellen kritisiert?
+
+```
+
+Danach werden diese Ausgaben unter Verwendung des nachstehenden Bewertungs-Prompts evaluiert.
+
+## Prompt
+
+```
+
+Kannst du die beiden untenstehenden Ausgaben vergleichen, als ob du ein Lehrer wärst?
+
+Ausgabe von ChatGPT: {Ausgabe 1}
+
+Ausgabe von GPT-4: {Ausgabe 2}
+
+```
+
+## Code / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+            "role": "user",
+            "content": "Can you compare the two outputs below as if you were a teacher?\n\nOutput from ChatGPT:\n{output 1}\n\nOutput from GPT-4:\n{output 2}"
+            }
+        ],
+        temperature=1,
+        max_tokens=1500,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Can you compare the two outputs below as if you were a teacher?\n\nOutput from ChatGPT:\n{output 1}\n\nOutput from GPT-4:\n{output 2}",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+</Tabs>
+
+## Referenz
+
+- [Funken der Künstlichen Allgemeinen Intelligenz: Frühe Experimente mit GPT-4](https://arxiv.org/abs/2303.12712) (13. April 2023)

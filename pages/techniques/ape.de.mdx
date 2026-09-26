@@ -1,0 +1,28 @@
+# Automatic Prompt Engineer (APE)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import APE from '../../img/APE.png'
+import APECOT from '../../img/ape-zero-shot-cot.png'
+
+<Screenshot src={APE} alt="APE" />
+Bildquelle: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+[Zhou et al., (2022)](https://arxiv.org/abs/2211.01910) schlagen den Automatischen Prompt Ingenieur (_Automatic Prompt Engineer_, kurz APE) vor, ein Framework für die automatische Erstellung und Auswahl von Instruktionen. Das Problem der Instruktionsgenerierung wird als Synthese natürlicher Sprache konzipiert, adressiert als ein Black-Box-Optimierungsproblem, unter Verwendung von LLMs, um Kandidatenlösungen zu generieren und zu suchen.
+
+Der erste Schritt beinhaltet ein großes Sprachmodell (als Inferenzmodell), das Ausführungsdemonstrationen erhält, um Instruktionskandidaten für eine Aufgabe zu generieren. Diese Kandidatenlösungen leiten das Suchverfahren an. Die Instruktionen werden mit einem Zielmodell ausgeführt, und dann wird die geeignetste Instruktion basierend auf berechneten Evaluierungswerten ausgewählt.
+
+APE entdeckt einen besseren Zero-Shot CoT-Prompt als den von Menschen entwickelten Prompt "Lass uns Schritt für Schritt denken" ([Kojima et al., 2022](https://arxiv.org/abs/2205.11916)).
+
+Der Prompt "Lassen Sie uns dies Schritt für Schritt durcharbeiten, um sicherzugehen, dass wir die richtige Antwort haben." ruft Ketten-des-Denkens-Argumentation hervor und verbessert die Leistung bei den MultiArith- und GSM8K-Benchmarks:
+
+<Screenshot src={APECOT} alt="APECOT" />
+Bildquelle: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+Dieses Paper berührt ein wichtiges Thema im Zusammenhang mit dem Prompt Engineering: die Idee, Prompts automatisch zu optimieren. Obwohl wir nicht tief in dieses Thema in diesem Leitfaden eingehen, hier sind einige Schlüsselpapiere, wenn Sie am Thema interessiert sind:
+
+- [Prompt-OIRL](https://arxiv.org/abs/2309.06553) - schlägt vor, Offline-Inverse-Verstärkungslernen zu verwenden, um von der Anfrage abhängige Prompts zu erstellen.
+- [OPRO](https://arxiv.org/abs/2309.03409) - führt die Idee ein, LLMs zu verwenden, um Prompts zu optimieren: Lassen Sie LLMs "Tief durchatmen", verbessert die Leistung bei Mathematikproblemen.
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - schlägt einen Ansatz vor, um automatisch Prompts für eine vielfältige Aufgabenpalette basierend auf einer durch Gradienten geleiteten Suche zu erstellen.
+- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - eine leichtgewichtige Alternative zum Feinabstimmen, die einen trainierbaren kontinuierlichen Prefix für NLG-Aufgaben voranstellt.
+- [Prompt Tuning](https://arxiv.org/abs/2104.08691) - schlägt einen Mechanismus für das Lernen von Soft-Prompts durch Rückpropagierung vor.

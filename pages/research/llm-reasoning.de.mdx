@@ -1,0 +1,37 @@
+# LLM Reasoning
+
+In den letzten Jahren haben große Sprachmodelle (LLMs) signifikante Fortschritte in einer breiten Palette von Aufgaben gemacht. In jüngster Zeit haben LLMs das Potenzial gezeigt, Logikfähigkeiten (_Reasoning_) zu demonstrieren, wenn sie auf eine ausreichend große Größe skaliert werden. Verschiedene Arten der Logik sind grundlegend für Intelligenz, aber es ist noch nicht vollständig verstanden, wie KI-Modelle diese Fähigkeit erlernen und nutzen können, um komplexe Probleme zu lösen. Es ist ein Bereich von enormem Fokus und Investition für viele Forschungslabore.
+
+## Reasoning mit Foundation Models
+[Sun et al. (2023)](https://arxiv.org/abs/2312.11562) haben kürzlich einen Überblick über Reasoning mit Foundation Models vorgeschlagen, der sich auf die neuesten Entwicklungen in verschiedenen Logikaufgaben konzentriert. Diese Arbeit fokussiert sich auch auf einen umfassenderen Blick auf Reasoning, der multimodale Modelle und autonome Sprachagenten umspannt.
+
+Logikaufgaben könnten Aufgaben wie mathematische Logik, logisches Schlussfolgern, kausales Schlussfolgern, visuelles Schlussfolgern und mehr beinhalten. Die folgende Abbildung zeigt einen Überblick über die in dem Survey-Paper diskutierten Logikaufgaben, einschließlich Reasoning-Techniken für Foundation Models wie Ausrichtungstraining und In-Context-Lernen.
+
+!["Logikaufgaben"](../../img/research/reasoning-tasks.png)
+*Abbildungsquelle: [Sun et al., 2023](https://arxiv.org/pdf/2212.09597.pdf)*
+
+## Wie kann Reasoning in LLMs hervorgerufen werden?
+Reasoning in LLMs kann mit vielen verschiedenen Prompting-Ansätzen hervorgerufen und verbessert werden. [Qiao et al. (2023)](https://arxiv.org/abs/2212.09597) haben die Forschung zu Logikmethoden in zwei verschiedene Zweige kategorisiert, nämlich Reasoning-Verstärkungsstrategie und Wissensverstärkungs-Reasoning. Reasoning-Strategien beinhalten Prompt-Engineering, Prozessoptimierung und externe Motoren. Single-Stage Prompting-Strategien beinhalten zum Beispiel [Chain-of-Thought](https://www.promptingguide.ai/techniques/cot) und [Active-Prompt](https://www.promptingguide.ai/techniques/activeprompt). Eine vollständige Taxonomie des Reasonings mit Sprachmodell-Prompting kann in dem Paper gefunden und in der Abbildung unten zusammengefasst werden:
+
+!["Reasoning-Taxonomie"](../../img/research/reasoning-taxonomy.png)
+*Abbildungsquelle: [Qiao et al., 2023](https://arxiv.org/pdf/2212.09597.pdf)*
+
+[Huang et al. (2023)]() erläutern auch eine Zusammenfassung von Techniken zur Verbesserung oder Hervorrufung von Reasoning in LLMs wie GPT-3. Diese Techniken reichen von vollständig supervidierten Feinabstimmungsmodellen, die auf Erklärungsdatensätzen trainiert wurden, bis hin zu Prompting-Methoden wie Chain-of-Thought, Problemdesintegration und In-Context-Lernen. Unten ist eine Zusammenfassung der Techniken beschrieben, die in dem Paper beschrieben sind:
+
+!["Reasoning-Techniken"](../../img/research/reasoning-techniques.png)
+*Abbildungsquelle: [Huang et al., 2023](https://arxiv.org/pdf/2212.10403.pdf)*
+
+## Können LLMs Reasoning anwenden und planen?
+Es gibt viel Debatte darüber, ob LLMs Reasoning anwenden und planen können. Sowohl Reasoning als auch Planung sind wichtige Fähigkeiten für die Erschließung komplexer Anwendungen mit LLMs, wie zum Beispiel in den Bereichen Robotik und autonome Agenten. Ein [Positionspapier von Subbarao Kambhampati (2024)](https://arxiv.org/abs/2403.04121) diskutiert das Thema Reasoning und Planung für LLMs.
+
+Hier ist eine Zusammenfassung der Schlussfolgerung des Autors:
+
+>Um zusammenzufassen, nichts, was ich gelesen, verifiziert oder gemacht habe, gibt mir einen überzeugenden Grund zu glauben, dass LLMs Reasoning/Planung anwenden, wie normalerweise verstanden. Was sie stattdessen tun, bewaffnet mit web-scale Training, ist eine Form der universellen annähernden Abfrage, die, wie ich argumentiert habe, manchmal für Reasoning-Fähigkeiten gehalten werden kann.
+
+## Referenzen
+
+- [Reasoning with Language Model Prompting: A Survey](https://arxiv.org/abs/2212.09597)
+- [Towards Reasoning in Large Language Models: A Survey](https://arxiv.org/abs/2212.10403)
+- [Can Large Language Models Reason and Plan?](https://arxiv.org/abs/2403.04121)
+- [Rethinking the Bounds of LLM Reasoning: Are Multi-Agent Discussions the Key?](https://arxiv.org/abs/2402.18272v1)
+- [Awesome LLM Reasoning](https://github.com/atfortes/Awesome-LLM-Reasoning)

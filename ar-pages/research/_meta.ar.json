@@ -1,0 +1,15 @@
+{
+  "llm-agents": "الوكيل الذكي (LLM Agents)",
+  "rag": "RAG for LLMs",
+  "llm-reasoning": "عملية الاستنتاج في النماذج اللغوية الكبيرة",
+  "rag-faithfulness": "RAG Faithfulness",
+  "llm-recall": "LLM In-Context Recall",
+  "rag_hallucinations": "تقليل الهلوسة بواسطة RAG",
+  "synthetic_data": "البيانات المصنَّعة",
+  "thoughtsculpt": "",
+  "infini-attention": "تركيز لانهائي (Infini-Attention)",
+  "guided-cot": "LM-Guided CoT",
+  "trustworthiness-in-llms": "موثوقية النماذج اللغوية",
+  "llm-tokenization": "الترميز (Tokenization)",
+  "groq": "ماهو Groq?"
+}

@@ -1,0 +1,34 @@
+# Fattualità
+
+I LLM hanno la tendenza a generare risposte che sembrano coerenti e convincenti, ma che a volte possono essere inventate. Il miglioramento dei suggerimenti può aiutare il modello a generare risposte più accurate/fattuali e a ridurre la probabilità di generare risposte incoerenti e inventate.  
+
+Alcune soluzioni potrebbero includere
+- fornire la verità di base (ad esempio, un paragrafo di un articolo correlato o una voce di Wikipedia) come parte del contesto per ridurre la probabilità che il modello produca testo inventato.
+- configurare il modello in modo che produca risposte meno diversificate, diminuendo i parametri di probabilità e istruendolo ad ammettere (ad esempio, "non so") quando non conosce la risposta. 
+- fornire nel prompt una combinazione di esempi di domande e risposte che il modello può conoscere e non conoscere.
+
+Vediamo un semplice esempio:
+
+*Prompt:*
+```
+D: Che cos'è un atomo? 
+R: Un atomo è una minuscola particella che costituisce tutto. 
+
+D: Chi è Alvan Muntz? 
+R: ? 
+
+D: Che cos'è Kozar-09? 
+R: ? 
+
+D: Quante lune ha Marte? 
+R: Due, Phobos e Deimos. 
+
+D: Chi è Neto Beto Roberto? 
+```
+
+*Output:*
+```
+R: ?
+```
+
+Ho inventato il nome "Neto Beto Roberto", quindi il modello è corretto in questo caso. Provate a cambiare un po' la domanda e vedete se riuscite a farla funzionare. Ci sono diversi modi per migliorare ulteriormente questo modello, basandosi su tutto ciò che avete imparato finora.

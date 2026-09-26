@@ -1,0 +1,120 @@
+# Funktionsaufrufe mit LLMs
+
+## Erste Schritte beim Funktionsaufruf
+
+Funktionsaufrufe bilden die Fähigkeit, LLMs zuverlässig mit externen Tools zu verbinden, um eine effektive Nutzung von Werkzeugen und die Interaktion mit externen APIs zu ermöglichen.
+
+LLMs wie GPT-4 und GPT-3.5 wurden feinabgestimmt, um zu erkennen, wann eine Funktion aufgerufen werden muss, und geben dann JSON aus, das Argumente zum Aufruf der Funktion enthält. Die Funktionen, die durch Funktionsaufrufe aufgerufen werden, dienen als Werkzeuge in Ihrer KI-Anwendung, und Sie können in einer einzelnen Anfrage mehr als eine definieren.
+
+Der Funktionsaufruf ist eine wichtige Fähigkeit für den Aufbau von LLM-betriebenen Chatbots oder Agenten, die Kontext für ein LLM abrufen oder mit externen Tools interagieren müssen, indem sie natürliche Sprache in API-Aufrufe umwandeln.
+
+Durch den Funktionsaufruf können Entwickler folgendes erstellen:
+
+- Konversationsagenten, die externe Werkzeuge effizient nutzen können, um Fragen zu beantworten. Zum Beispiel wird die Anfrage „Wie ist das Wetter in Belize?“ in einen Funktionsaufruf wie `get_current_weather(location: string, unit: 'celsius' | 'fahrenheit')` umgewandelt
+- LLM-getriebene Lösungen zum Extrahieren und Taggen von Daten (z. B. Extrahieren von Personennamen aus einem Wikipedia-Artikel)
+- Anwendungen, die natürliche Sprache in API-Aufrufe oder gültige Datenbankabfragen umwandeln können
+- Konversationswissenssuchmaschinen, die mit einer Wissensdatenbank interagieren
+
+In diesem Leitfaden zeigen wir, wie Sie Modelle wie GPT-4 und Open-Source-Modelle dazu auffordern können, für verschiedene Anwendungsfälle Funktionsaufrufe auszuführen.
+
+## Funktionsaufrufe mit GPT-4
+
+Als einfaches Beispiel nehmen wir an, wir hätten das Modell gebeten, das Wetter an einem bestimmten Ort herauszufinden.
+
+Das LLM allein könnte auf diese Anfrage nicht antworten, da es auf einem Datensatz mit einem Stichtag trainiert wurde. Die Lösung dafür ist, das LLM mit einem externen Tool zu kombinieren. Sie können die Funktionsaufruffähigkeiten des Modells nutzen, um eine externe Funktion zu bestimmen, die aufgerufen werden soll, zusammen mit ihren Argumenten, und dann eine abschließende Antwort zurückgeben lassen. Unten finden Sie ein einfaches Beispiel, wie Sie dies mit den OpenAI APIs erreichen können.
+
+Nehmen wir an, ein Nutzer stellt dem Modell folgende Frage:
+
+```
+Wie ist das Wetter in London?
+```
+
+Um diese Anfrage mit Funktionsaufrufen zu bearbeiten, ist der erste Schritt, eine Wetterfunktion oder einen Satz von Funktionen zu definieren, die Sie als Teil einer Anfrage an die OpenAI-API weitergeben werden:
+
+```python
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_current_weather",
+            "description": "Get the current weather in a given location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city and state, e.g. San Francisco, CA",
+                    },
+                    "unit": {
+                        "type": "string",
+                        "enum": ["celsius", "fahrenheit"]},
+                },
+                "required": ["location"],
+            },
+        },
+    }
+]
+```
+
+Die Funktion `get_current_weather` gibt das aktuelle Wetter an einem gegebenen Ort zurück. Wenn Sie diese Funktionsdefinition als Teil der Anfrage übergeben, wird nicht tatsächlich eine Funktion ausgeführt, sondern es wird lediglich ein JSON-Objekt zurückgegeben, das die Argumente enthält, die zum Aufrufen der Funktion benötigt werden. Hier sind einige Code-Schnipsel, wie Sie dies erreichen können.
+
+Sie können eine Completion-Funktion wie folgt definieren:
+
+```python
+def get_completion(messages, model="gpt-3.5-turbo-1106", temperature=0, max_tokens=300, tools=None):
+    response = openai.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        tools=tools
+    )
+    return response.choices[0].message
+```
+
+So können Sie die Nutzerfrage zusammensetzen:
+
+```python
+messages = [
+    {
+        "role": "user",
+        "content": "Wie ist das Wetter in London?"
+    }
+]
+```
+
+Schließlich können Sie den oben stehenden `get_completion` aufrufen und dabei sowohl die `messages` als auch die `tools` übergeben:
+
+```python
+response = get_completion(messages, tools=tools)
+```
+
+Das `response`-Objekt enthält Folgendes:
+
+```python
+ChatCompletionMessage(content=None, role='assistant', function_call=None, tool_calls=[ChatCompletionMessageToolCall(id='...', function=Function(arguments='{"location":"London","unit":"celsius"}', name='get_current_weather'), type='function')])
+```
+
+Insbesondere enthält das `arguments`-Objekt die wichtigen Argumente, die vom Modell extrahiert wurden und die benötigt werden, um die Anfrage abzuschließen.
+
+Anschließend können Sie entscheiden, eine externe Wetter-API für das tatsächliche Wetter zu nutzen. Sobald Sie die Wetterinformationen zur Verfügung haben, können Sie diese zurück an das Modell geben, um eine abschließende Antwort auf die ursprüngliche Nutzerfrage zusammenzufassen.
+
+Hier ist ein [Notebook](https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-function-calling.ipynb) mit einem einfachen Beispiel, das zeigt, wie man Funktionsaufrufe mit den OpenAI APIs verwendet.
+
+## Funktionsaufrufe mit Open-Source-LLMs
+
+Weitere Hinweise zu Funktionsaufrufen mit Open-Source-LLMs folgen in Kürze...
+
+## Anwendungsfälle für Funktionsaufrufe
+
+Weitere Anwendungsfälle für Funktionsaufrufe folgen in Kürze...
+
+## Referenzen
+
+- [Fireworks Raises the Quality Bar with Function Calling Model and API Release](https://blog.fireworks.ai/fireworks-raises-the-quality-bar-with-function-calling-model-and-api-release-e7f49d1e98e9)
+- [Benchmarking Agent Tool Use and Function Calling](https://blog.langchain.dev/benchmarking-agent-tool-use/)
+- [Function Calling](https://ai.google.dev/docs/function_calling)
+- [Interacting with APIs](https://python.langchain.com/docs/use_cases/apis)
+- [OpenAI's Function Calling](https://platform.openai.com/docs/guides/function-calling)
+- [How to call functions with chat models](https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models)
+- [Pushing ChatGPT's Structured Data Support To Its Limits](https://minimaxir.com/2023/12/chatgpt-structured-data/)

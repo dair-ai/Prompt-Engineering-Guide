@@ -1,0 +1,98 @@
+# Biases
+
+Les LLMs peuvent produire des générations problématiques qui pourraient potentiellement être préjudiciables et afficher des biais qui pourraient détériorer les performances du modèle sur des tâches en aval. Certaines de ces questions peuvent être atténuées grâce à des stratégies de formulation de requêtes efficaces, mais elles pourraient nécessiter des solutions plus avancées telles que la modération et le filtrage. 
+
+### Distribution des exemplaires
+Lorsque nous effectuons un apprentissage à quelques échantillons, la distribution des exemples affecte-t-elle les performances du modèle ou biaise-t-elle le modèle de quelque manière que ce soit ? Nous pouvons effectuer un test simple ici.
+
+*Prompt:*
+```
+Q : Je viens de recevoir la meilleure nouvelle de tous les temps !
+Un positif
+
+Q : Nous venons d'obtenir une augmentation au travail !
+R : Positif
+
+Q : Je suis tellement fier de ce que j'ai accompli aujourd'hui.
+R : Positif
+
+Q : Je passe la meilleure journée de ma vie !
+R : Positif
+
+Q : J'ai vraiment hâte d'être au week-end.
+R : Positif
+
+Q : Je viens de recevoir le meilleur cadeau de tous les temps !
+R : Positif
+
+Q : Je suis si heureux en ce moment.
+R : Positif
+
+Q : J'ai tellement de chance d'avoir une famille aussi incroyable.
+R : Positif
+
+Q : Le temps dehors est si maussade.
+R : Négatif
+
+Q : Je viens d'apprendre une terrible nouvelle.
+R : Négatif
+
+Q : Cela a laissé un goût amer.
+R :
+```
+
+*Output:*
+```
+Négatif
+```
+
+Dans l'exemple ci-dessus, il semble que la distribution des exemples n'influence pas le modèle. C'est une bonne chose. Essayons un autre exemple avec un texte plus difficile à classer et voyons comment le modèle s'en sort :
+
+*Prompt:*
+```
+Q : Ici, la nourriture est délicieuse !
+R : Positif
+
+Q: Je suis tellement fatigué de ce cours.
+R : Négatif
+
+Q : Je n'arrive pas à croire que j'ai échoué à l'examen.
+R : Négatif
+
+Q : J'ai passé une excellente journée aujourd'hui !
+R : Positif
+
+Q : Je déteste ce travail.
+R : Négatif
+
+Q : Le service ici est horrible.
+R : Négatif
+
+Q : Je suis tellement frustré par ma vie.
+R : Négatif
+
+Q : Je n'ai jamais de pause.
+R : Négatif
+
+Q : Ce repas a un goût affreux.
+R : Négatif
+
+Q : Je ne supporte pas mon patron.
+R : Négatif
+
+Q : Je ressens quelque chose.
+R :
+```
+
+*Output:*
+```
+Negatif
+```
+
+Dans le dernier exemple, bien que la phrase soit quelque peu subjective, j'ai inversé la distribution en utilisant 8 exemples positifs et 2 exemples négatifs, puis j'ai essayé la même phrase exacte. Devinez ce que le modèle a répondu ? Il a répondu "Positif". Le modèle peut avoir beaucoup de connaissances sur la classification des sentiments, il sera donc difficile de le faire afficher des biais pour ce problème. Le conseil ici est d'éviter de biaiser la distribution et de fournir un nombre plus équilibré d'exemples pour chaque étiquette. Pour les tâches plus difficiles pour lesquelles le modèle n'a pas trop de connaissances, il aura probablement plus de difficultés.
+
+
+### Ordre des exemplaires
+En effectuant l'apprentissage à partir de quelques exemples, est-ce que l'ordre des exemples affecte les performances du modèle ou le biaise d'une manière ou d'une autre?
+
+Vous pouvez essayer les exemples ci-dessus et voir si vous pouvez amener le modèle à être biaisé envers une étiquette en changeant l'ordre. Le conseil est de mettre les exemples dans un ordre aléatoire. Par exemple, évitez de mettre tous les exemples positifs d'abord, puis les exemples négatifs à la fin. Ce problème est amplifié si la distribution des étiquettes est déséquilibrée. Assurez-vous toujours d'expérimenter beaucoup pour réduire ce type de biais.

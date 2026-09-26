@@ -1,0 +1,15 @@
+# Multimodal CoT Prompt
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import MCOT from '../../img/multimodal-cot.png'
+
+[Zhang et al. (2023)](https://arxiv.org/abs/2302.00923) ha recentemente proposto un approccio multimodale di suggerimento a catena di pensiero. Il CoT tradizionale si concentra sulla modalità linguistica. Al contrario, Multimodal CoT incorpora testo e visione in un quadro a due fasi. Il primo passo prevede la generazione di motivazioni basate su informazioni multimodali. Questa è seguita dalla seconda fase, l'inferenza della risposta, che sfrutta le motivazioni informative generate.
+
+Il modello CoT multimodale (1B) supera GPT-3.5 sul benchmark ScienceQA.
+
+<Screenshot src={MCOT} alt="MCOT" />
+Sorgente Immagine: [Zhang et al. (2023)](https://arxiv.org/abs/2302.00923)
+
+Ulteriori letture:
+- [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)

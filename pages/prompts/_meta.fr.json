@@ -1,0 +1,15 @@
+{
+    "classification": "Classification",
+    "coding": "Coding",
+    "creativity": "Creativity",
+    "evaluation": "Evaluation",
+    "information-extraction": "Information Extraction",
+    "image-generation": "Image Generation",
+    "mathematics": "Mathematics",
+    "question-answering": "Question Answering",
+    "reasoning": "Reasoning",
+    "text-summarization": "Text Summarization",
+    "truthfulness": "Truthfulness",
+    "adversarial-prompting": "Adversarial Prompting"
+}
+  

@@ -1,0 +1,48 @@
+# Estudi de cas de classificació de feines per a graduats
+
+[Clavié et al., 2023](https://arxiv.org/abs/2303.07142) proporcionen un estudi de cas sobre l'enginyeria de prompts aplicada a un cas d'ús de classificació de text a escala mitjana en un sistema de producció. Utilitzant la tasca de classificar si una feina és veritablement una "feina d'inici", adequada per a un graduat recent, o no, van avaluar una sèrie de tècniques d'enginyeria de prompts i informen dels seus resultats utilitzant GPT-3.5 (`gpt-3.5-turbo`).
+
+El treball mostra que els LLMs superen tots els altres models provats, inclosa una base de comparació molt sòlida amb DeBERTa-V3. `gpt-3.5-turbo` també supera notablement les variants anteriors de GPT3 en totes les mètriques clau, però requereix una anàlisi addicional de la sortida, ja que la seva capacitat per seguir una plantilla sembla ser pitjor que les altres variants.
+
+Els resultats clau de la seva aproximació a l'enginyeria de prompts són:
+
+- Per a tasques com aquesta, on no es requereix coneixement expert, el Few-shot CoT prompting va obtenir pitjors resultats que el Zero-shot prompting en tots els experiments.
+- L'impacte del prompt per obtenir el raonament correcte és enorme. Simplement demanant al model que classifiqui una feina determinada, es produeix una puntuació F1 de 65,6, mentre que el model post-enganieria de prompts aconsegueix una puntuació F1 de 91,7.
+- Intentar forçar el model a seguir una plantilla redueix el rendiment en tots els casos (aquest comportament desapareix en les proves preliminars amb GPT-4, que són posteriors al document).
+- Moltes petites modificacions tenen un impacte considerable en el rendiment.
+  - Les taules a continuació mostren totes les modificacions provades.
+  - Donar instruccions correctes i repetir els punts clau sembla ser el principal impulsor del rendiment.
+  - Alguna cosa tan senzilla com donar al model un nom (humà) i referir-se a ell com a tal augmenta la puntuació F1 en 0,6 punts.
+
+### Modificacions de prompts provades
+
+| Nom curt  | Descripció                                                                          |
+|-----------|-------------------------------------------------------------------------------------|
+| Base      | Proporcionar una oferta de feina i preguntar si és adequada per a un graduat.       |
+| CoT       | Donar alguns exemples de classificació precisa abans de consultar.                  |
+| Zero-CoT  | Demanar al model que raoni pas a pas abans de proporcionar la seva resposta.        |
+| rawinst   | Donar instruccions sobre el seu rol i la tasca afegint al missatge de l'usuari.       |
+| sysinst   | Donar instruccions sobre el seu rol i la tasca com a missatge de sistema.              |
+| bothinst  | Repartir les instruccions amb el rol com a missatge de sistema i la tasca com a missatge d'usuari. |
+| mock      | Donar instruccions de la tasca simulant una discussió on el model les reconeix. |
+| reit      | Reforçar els elements clau de les instruccions repetint-los. |
+| strict    | Demanar al model que respongui seguint estrictament una plantilla donada. |
+| loose     | Demanar que només la resposta final es doni seguint una plantilla donada. |
+| right     | Demanar al model que arribi a la conclusió correcta. |
+| info      | Proporcionar informació addicional per abordar errors de raonament comuns. |
+| name      | Donar al model un nom pel qual ens referim a ell en la conversa. |
+| pos       | Proporcionar retroalimentació positiva al model abans de consultar-lo. |
+
+### Impacte en el rendiment de totes les modificacions de prompts
+
+|                                        | Precisió       | Sensibilitat   | F1            | Adherència a la plantilla |
+|----------------------------------------|---------------|---------------|---------------|---------------------------|
+| _Base_                                 | _61,2_        | _70,6_        | _65,6_        | _79%_                     |
+| _CoT_                                  | _72,6_        | _85,1_        | _78,4_        | _87%_                     |
+| _Zero-CoT_                             | _75,5_        | _88,3_        | _81,4_        | _65%_                     |
+| _+rawinst_                             | _80_          | _92,4_        | _85,8_        | _68%_                     |
+| _+sysinst_                             | _77,7_        | _90,9_        | _83,8_        | _69%_                     |
+| _+bothinst_                            | _81,9_        | _93,9_        | _87,5_        | _71%_                     |
+| +bothinst+mock                         | 83,3          | 95,1          | 88,8          | 74%                       |
+| +bothinst+mock+reit                    | 83,8          | 95,5          | 89,3          | 75%                       |
+| _+bothinst+mock+reit+strict_           | _79,9_        | _93,7_        | _86,3_        | _**98%**_

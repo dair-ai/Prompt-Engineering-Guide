@@ -1,0 +1,92 @@
+# Generiertes Wissens-Prompting
+
+import {Screenshot} from 'components/screenshot'
+import GENKNOW from '../../img/gen-knowledge.png'
+
+<Screenshot src={GENKNOW} alt="GENKNOW" />
+
+Bildquelle: [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf)
+
+Große Sprachmodelle (LLMs) werden kontinuierlich verbessert, und eine beliebte Technik beinhaltet die Fähigkeit, Wissen oder Informationen einzubinden, um dem Modell zu helfen, genauere Vorhersagen zu treffen. 
+
+Kann das Modell mit einer ähnlichen Idee auch genutzt werden, um Wissen zu generieren, bevor eine Vorhersage getroffen wird? Genau das wird im Paper von [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf) versucht – Wissen zu generieren, das als Teil des Prompts verwendet wird. Wie nützlich ist dies für Aufgaben wie Schlussfolgerungen nach gesundem Menschverstand?
+
+Wir probieren uns einen einfachen Prompt:
+
+*Prompt:*
+```
+Teil des Golfspiels ist es, eine höhere Punktzahl als andere zu erzielen. Ja oder Nein?
+```
+
+*Ausgabe:*
+```
+Ja.
+```
+
+Diese Art von Fehler zeigt die Grenzen von LLMs bei Aufgaben auf, die mehr Wissen über die Welt erfordern. Wie verbessern wir dies mit Wissensgenerierung?
+
+Zuerst generieren wir einige "Wissensstände":
+
+*Prompt:*
+```
+Eingabe: Griechenland ist größer als Mexiko.
+Wissen: Griechenland ist ungefähr 131.957 Quadratkilometer groß, während Mexiko ungefähr 1.964.375 Quadratkilometer groß ist. Mexiko ist daher 1.389% größer als Griechenland.
+
+Eingabe: Brillen beschlagen immer.
+Wissen: Kondensation tritt auf Brillengläsern auf, wenn Wasserdampf aus Ihrem Schweiß, Atem und der umgebenden Feuchtigkeit auf eine kalte Oberfläche trifft, abkühlt und sich dann in winzige Flüssigkeitströpfchen verwandelt und einen Film bildet, den Sie als Beschlag wahrnehmen. Ihre Gläser werden im Vergleich zu Ihrem Atem relativ kühl sein, besonders wenn die Außenluft kalt ist.
+
+Eingabe: Ein Fisch ist in der Lage zu denken.
+Wissen: Fische sind intelligenter, als sie scheinen. In vielen Bereichen, wie beispielsweise dem Gedächtnis, stehen ihre kognitiven Fähigkeiten denen von 'höheren' Wirbeltieren, einschließlich nichtmenschlicher Primaten, in nichts nach. Die Langzeitgedächtnisse der Fische helfen ihnen, komplexe soziale Beziehungen im Überblick zu behalten.
+
+Eingabe: Eine häufige Wirkung des Rauchens vieler Zigaretten im Laufe des Lebens ist eine überdurchschnittlich hohe Wahrscheinlichkeit, Lungenkrebs zu bekommen.
+Wissen: Diejenigen, die konstant weniger als eine Zigarette pro Tag im Laufe ihres Lebens geraucht haben, hatten ein neunmal höheres Risiko an Lungenkrebs zu sterben als Nichtraucher. Bei Personen, die zwischen einer und 10 Zigaretten pro Tag rauchten, war das Risiko an Lungenkrebs zu sterben fast 12 Mal höher als bei Nichtrauchern.
+
+Eingabe: Ein Stein ist genauso groß wie ein Kiesel.
+Wissen: Ein Kiesel ist ein Gesteinsfragment mit einer Partikelgröße von 4 bis 64 Millimetern nach der Udden-Wentworth-Skala der Sedimentologie. Kiesel werden allgemein als größer als Granulate (2 bis 4 Millimeter Durchmesser) und kleiner als Gerölle (64 bis 256 Millimeter Durchmesser) angesehen.
+
+Eingabe: Teil des Golfspiels ist es, eine höhere Punktzahl als andere zu erzielen.
+Wissen:
+```
+
+*Wissen 1:*
+```
+Das Ziel des Golfs ist es, eine Reihe von Löchern mit möglichst wenigen Schlägen zu spielen. Eine Golfrunde besteht typischerweise aus 18 Löchern. Jedes Loch wird in der Runde auf einem Standardgolfplatz einmal gespielt. Jeder Schlag wird als ein Punkt gezählt, und die Gesamtzahl der Schläge wird verwendet, um den Gewinner des Spiels zu bestimmen.
+```
+
+*Wissen 2:*
+```
+Golf ist eine Präzisionssportart mit Schläger und Ball, bei der konkurrierende Spieler (oder Golfer) viele Arten von Schlägern verwenden, um Bälle in einer Reihe von Löchern auf einem Kurs mit der geringsten Anzahl von Schlägen zu treffen. Das Ziel ist es, den Kurs mit der niedrigsten Punktzahl zu beenden, die durch das Zusammenzählen der Gesamtzahl der Schläge auf jedem Loch berechnet wird. Der Spieler mit der niedrigsten Punktzahl gewinnt das Spiel.
+```
+
+Wir verwenden den Prompt aus dem Paper von [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf).
+
+Der nächste Schritt ist die Integration des Wissens und die Erstellung einer Vorhersage. Ich habe die Frage in ein QA-Format umformatiert, um das Format der Antwort zu leiten.
+
+*Prompt:*
+```
+Frage: Teil des Golfspiels ist es, eine höhere Punktzahl als andere zu erzielen. Ja oder Nein?
+
+Wissen: Das Ziel des Golfs ist es, eine Reihe von Löchern mit möglichst wenigen Schlägen zu spielen. Eine Golfrunde besteht typischerweise aus 18 Löchern. Jedes Loch wird in der Runde auf einem Standardgolfplatz einmal gespielt. Jeder Schlag wird als ein Punkt gezählt, und die Gesamtzahl der Schläge wird verwendet, um den Gewinner des Spiels zu bestimmen.
+
+Erkläre und antworte:
+```
+
+*Antwort 1 (Vertrauen sehr hoch):*
+```
+Nein, das Ziel des Golfs besteht nicht darin, eine höhere Punktzahl als andere zu erzielen, sondern eine Reihe von Löchern mit möglichst wenigen Schlägen zu spielen. Die Gesamtzahl der Schläge wird verwendet, um den Gewinner des Spiels zu bestimmen, nicht die Gesamtzahl der Punkte.
+```
+
+```
+Frage: Teil des Golfspiels ist es, eine höhere Punktzahl als andere zu erzielen. Ja oder Nein?
+
+Wissen: Golf ist eine Präzisionssportart mit Schläger und Ball, bei der konkurrierende Spieler (oder Golfer) viele Arten von Schlägern verwenden, um Bälle in einer Reihe von Löchern auf einem Kurs mit der geringsten Anzahl von Schlägen zu treffen. Das Ziel ist es, den Kurs mit der niedrigsten Punktzahl zu beenden, die durch das Zusammenzählen der Gesamtzahl der Schläge auf jedem Loch berechnet wird. Der Spieler mit der niedrigsten Punktzahl gewinnt das Spiel.
+
+Erkläre und antworte:
+```
+
+*Antwort 2 (Vertrauen deutlich niedriger):*
+```
+Ja, ein Teil des Golfspiels ist es, zu versuchen eine höhere Punktzahl als andere zu erzielen. Jeder Spieler versucht, den Kurs mit der niedrigsten Punktzahl zu beenden, die durch das Zusammenzählen der Gesamtzahl der Schläge auf jedem Loch berechnet wird. Der Spieler mit der niedrigsten Punktzahl gewinnt das Spiel.
+```
+
+Bei diesem Beispiel sind einige wirklich interessante Dinge passiert. Bei der ersten Antwort war das Modell sehr zuversichtlich, aber bei der zweiten nicht so sehr. Ich habe den Prozess für Demonstrationszwecke vereinfacht, aber es gibt einige weitere Details, die berücksichtigt werden müssen, um zur endgültigen Antwort zu gelangen. Weitere Informationen finden Sie im Paper.

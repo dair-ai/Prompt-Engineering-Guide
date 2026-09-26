@@ -1,0 +1,117 @@
+# PAL (Modelli linguistici assistiti da programmi)
+ 
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import PAL from '../../img/pal.png'
+
+[Gao et al., (2022)](https://arxiv.org/abs/2211.10435) presenta un metodo che utilizza gli LLM per leggere problemi in linguaggio naturale e generare programmi come passaggi di ragionamento intermedi. Denominato PAL (Program-Aided Language Model), si differenzia dal prompt a catena di pensiero (CoT) perché, invece di utilizzare testo in forma libera per ottenere la soluzione, delega il passo della soluzione a un runtime programmatico come un interprete Python.
+
+<Screenshot src={PAL} alt="PAL" />
+Fonte immagine: [Gao et al., (2022)](https://arxiv.org/abs/2211.10435)
+
+Vediamo un esempio che utilizza LangChain e OpenAI GPT-3. Siamo interessati a sviluppare una semplice applicazione che sia in grado di interpretare la domanda posta e fornire una risposta sfruttando l'interprete Python. 
+
+In particolare, siamo interessati a creare una funzionalità che permetta l'uso dell'LLM per rispondere a domande che richiedono la comprensione delle date. Forniremo all'LLM un prompt che include alcuni esempi adottati da [qui](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py).
+
+Questi sono gli import necessari:
+
+```python
+import openai
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+import os
+from langchain.llms import OpenAI
+from dotenv import load_dotenv
+```
+
+Prima di tutto configuriamo alcune variabili:
+
+```python
+load_dotenv()
+
+# API configuration
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# for LangChain
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+```
+
+Impostazione dell'istanza del modello:
+
+
+```python
+llm = OpenAI(model_name='text-davinci-003', temperature=0)
+```
+
+Impostazione prompt + domanda:
+
+```python
+question = "Oggi è il 27 febbraio 2023. Sono nato esattamente 25 anni fa. Qual è la data di nascita in MM/DD/YYYY?"."
+
+DATE_UNDERSTANDING_PROMPT = """
+# D: Il 2015 si avvicina tra 36 ore. Qual è la data di una settimana da oggi in MM/DD/YYYY?
+# Se il 2015 arriverà tra 36 ore, allora oggi è 36 ore prima.
+today = datetime(2015, 1, 1) - relativedelta(hours=36)
+# Una settimana da oggi,
+one_week_from_today = today + relativedelta(weeks=1)
+# La risposta formattata come %m/%d/%Y è
+one_week_from_today.strftime('%m/%d/%Y')
+# D: Se il primo giorno del 2019 è un martedì e oggi è il primo lunedì del 2019, allora oggi è 6 giorni dopo.
+today = datetime(2019, 1, 1) + relativedelta(days=6)
+# La risposta formattata come %m/%d/%Y è
+today.strftime('%m/%d/%Y')
+# D: Il concerto era previsto per il 06/01/1943, ma è stato posticipato di un giorno a oggi. Qual è la data di 10 giorni fa in MM/DD/YYYY?
+# Se il concerto era previsto per il 06/01/1943, ma è stato posticipato di un giorno a oggi, allora oggi è un giorno successivo.
+today = datetime(1943, 6, 1) + relativedelta(days=1)
+# 10 giorni fa,
+ten_days_ago = today - relativedelta(days=10)
+# La risposta formattata come %m/%d/%Y è
+ten_days_ago.strftime('%m/%d/%Y')
+# D: Oggi è il 4/19/1969. Qual è la data di 24 ore dopo in MM/DD/YYYY?
+# Oggi è il 4/19/1969.
+today = datetime(1969, 4, 19)
+# 24 ore dopo,
+later = today + relativedelta(hours=24)
+# La risposta formattata come %m/%d/%Y è
+today.strftime('%m/%d/%Y')
+# D: Jane pensava che oggi fosse il 3/11/2002, ma in realtà è il 12 marzo, cioè un giorno dopo. Qual è la data di 24 ore dopo in MM/DD/YYYY?
+# Se Jane pensava che oggi fosse il 3/11/2002, ma in realtà è il 12 marzo, allora oggi è il 3/12/2002.
+today = datetime(2002, 3, 12)
+# 24 hours later,
+later = today + relativedelta(hours=24)
+# La risposta formattata come %m/%d/%Y è
+later.strftime('%m/%d/%Y')
+# D: Jane è nata l'ultimo giorno di febbraio del 2001. Oggi compie 16 anni. Qual è la data di ieri in MM/DD/YYYY?
+# Se Jane è nata l'ultimo giorno di febbraio del 2001 e oggi compie 16 anni, allora oggi sono passati 16 anni.
+today = datetime(2001, 2, 28) + relativedelta(years=16)
+# Ieri,
+yesterday = today - relativedelta(days=1)
+# La risposta formattata come %m/%d/%Y è
+yesterday.strftime('%m/%d/%Y')
+# D: {question}
+""".strip() + '\n'
+```
+
+```python
+llm_out = llm(DATE_UNDERSTANDING_PROMPT.format(question=question))
+print(llm_out)
+```
+
+Si otterrà il seguente risultato:
+```
+# Se oggi è il 27 febbraio 2023 e io sono nato esattamente 25 anni fa, allora sono nato 25 anni prima.
+today = datetime(2023, 2, 27)
+# Sono nato 25 anni prima,
+born = today - relativedelta(years=25)
+# La risposta formattata con %m/%d/%Y è
+born.strftime('%m/%d/%Y')
+```
+
+
+Il contenuto di `llm_out` è un frammento di codice Python. Di seguito, il comando `exec` viene utilizzato per eseguire questo frammento di codice Python.
+```python
+exec(llm_out)
+print(born)
+```
+
+Si otterrà il seguente risultato: `02/27/1998`

@@ -1,0 +1,11 @@
+# Paramètres LLM
+
+En travaillant avec des instructions, vous interagirez avec LLM via une API ou directement. Vous pouvez configurer quelques paramètres pour obtenir différents résultats pour vos instructions.
+
+**Temperature** - En bref, plus la `temperature` est basse, plus les résultats sont déterministes dans le sens où le jeton suivant le plus probable est toujours choisi. L'augmentation de la température peut conduire à plus d'aléatoire en encourageant des sorties plus diverses ou créatives. Nous augmentons essentiellement les poids des autres jetons possibles. En termes d'application, nous pourrions vouloir utiliser une valeur de température plus basse pour les tâches de questions-réponses factuelles afin d'encourager des réponses plus factuelles et concises. Pour la génération de poèmes ou d'autres tâches créatives, il pourrait être bénéfique d'augmenter la valeur de la température
+
+**Top_p** -  De même, avec `top_p`, une technique d'échantillonnage avec la température appelée échantillonnage du noyau, vous pouvez contrôler la détermination du modèle lors de la génération d'une réponse. Si vous recherchez des réponses exactes et factuelles, maintenez cette valeur faible. Si vous recherchez des réponses plus diverses, augmentez-la à une valeur plus élevée. 
+
+La recommandation générale est de modifier l'un ou l'autre, mais pas les deux.
+
+Avant de commencer avec quelques exemples de base, gardez à l'esprit que vos résultats peuvent varier en fonction de la version de LLM que vous utilisez.

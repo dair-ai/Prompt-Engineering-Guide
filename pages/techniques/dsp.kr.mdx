@@ -1,0 +1,16 @@
+# Directional Stimulus Prompting
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import DSP from '../../img/dsp.jpeg'
+
+[Li et al., (2023)](https://arxiv.org/abs/2302.11520) 에서는 원하는 요약을 생성하는 데 있어 대규모언어모델을 더 잘 안내하는 새로운 프롬프팅 기법을 제안합니다.
+
+조정 가능한 정책 언어모델\(Tuneable policy LM\)은 자극\(stimulus\)/힌트\(hint\)를 생성하도록 훈련됩니다. 대규모언어모델을 최적화하기 위해 강화 학습\(RL\)을 더 많이 사용하고 있습니다.
+
+아래 그림은 방향 자극 프롬프팅(directional stimulus prompting)이 표준 프롬프팅과 어떻게 비교되는지 보여줍니다. 정책 언어모델은 블랙박스 고정 대규모언어모델\(black-box frozen LLM\)을 안내하는 힌트를 생성하기 위해 작게 최적화될 수 있습니다.
+
+<Screenshot src={DSP} alt="DSP" />
+이미지 출처: [Li et al., (2023)](https://arxiv.org/abs/2302.11520)
+
+전체 예시는 곧 제공될 예정입니다!

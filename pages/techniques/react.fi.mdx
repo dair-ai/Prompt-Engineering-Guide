@@ -1,0 +1,168 @@
+# ReAct-Kehote
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import REACT from '../../img/react.png'
+import REACT1 from '../../img/react/table1.png'
+import REACT2 from '../../img/react/alfworld.png'
+
+[Yao ym., 2022](https://arxiv.org/abs/2210.03629) esittelevät ReAct-nimisen kehyksen, jossa LLM:ää käytetään sekä päättelyketjujen että tehtäväkohtaisten toimintojen tuottamiseen lomittain. 
+
+Päättelyketjujen tuottaminen mahdollistaa mallin toimintasuunnitelmien induktion, seurannan ja päivittämisen sekä jopa poikkeusten käsittelyn. Toimintavaihe mahdollistaa tiedon keräämisen ulkoisista lähteistä, kuten tietokannoista tai muista ympäristöistä.
+
+ReAct-kehys voi mahdollistaa LLM:ien vuorovaikutuksen ulkoisten työkalujen kanssa lisätiedon hankkimiseksi, mikä johtaa luotettavampiin ja tosiasiallisempiin vastauksiin.
+
+Tulokset osoittavat, että ReAct suoriutuu paremmin kuin useat huippuluokan vertailukohdat kielitehtävissä ja päätöksenteossa. ReAct parantaa myös ihmisten kykyä tulkita kielimalleja ja lisää ihmisten luottamusta tuloksiin. Kaiken kaikkiaan tutkijat havaitsivat, että paras lähestymistapa käyttää ReActia yhdessä ajatusketjupäättelyn (CoT) kanssa, mikä mahdollistaa sekä sisäisen tiedon että päättelyn aikana saatujen ulkoisten tietojen käytön.
+
+## Miten se toimii?
+
+ReAct pohjautuu "toiminnan" ja "päättelyn" välisiin synergioihin, joiden avulla ihmiset voivat oppia uusia tehtäviä sekä tehdä päätöksiä ja päättelyä.
+
+Ajatusketju (CoT) -kehote on osoittanut suurten kielimallien (LLM) kyvyn suorittaa päätteluketjuja vastausten generoimiseksi kysymyksiin, jotka liittyvät esimerkiksi aritmetiikkaan ja arkijärkeen [(Wei ym., 2022)](https://arxiv.org/abs/2201.11903). Mutta sen puuttuva pääsy ulkoiseen maailmaan tai kyvyttömyys päivittää tietämystään voi johtaa ongelmiin, kuten faktahallusinaatioihin ja virheiden leviämiseen. 
+
+ReAct on yleinen paradigma, joka yhdistää päättelyn ja toiminnan suurten kielimallien kanssa. ReAct kehottaa LLM:ää tuottamaan verbaalisia päättelyketjuja ja suorittamaan tehtäviin liittyviä toimintoja. Tämä mahdollistaa dynaamisen päättelyn käytön toimintasuunnitelmien luomiseen, ylläpitoon ja säätämiseen sekä vuorovaikutuksen ulkoisiin ympäristöihin (esim. Wikipedia) lisätiedon sisällyttämiseksi päättelyyn. Alla oleva kuva näyttää esimerkin ReActista ja siihen liittyvistä vaiheista kysymyksiin vastaamiseksi.
+
+<Screenshot src={REACT} alt="REACT" />
+Kuvan lähde: [Yao ym., 2022](https://arxiv.org/abs/2210.03629)
+
+Esimerkissä yllä esitämme kysymyksen [HotpotQA](https://hotpotqa.github.io/)-lähteestä:
+
+```
+Aside from the Apple Remote, what other devices can control the program Apple Remote was originally designed to interact with?
+```
+
+Huomautettakoon, että myös kontekstiin liittyviä esimerkkejä lisätään kehotteeseen, mutta jätämme ne tässä yksinkertaisuuden vuoksi pois. Voimme nähdä, että malli luo tehtävänratkaisun kehityskaaria (ajatus, toiminta). Obs vastaa havaintoa ympäristöstä, jonka kanssa ollaan vuorovaikutuksessa (esim. Hakukone). Periaatteessa ReAct voi hakea tietoa päättelyn tueksi, ja päättely auttaa kohdentamaan, mitä seuraavaksi hakea.
+
+## ReAct Kehottaminen
+Esitelläksemme, miten ReAct-kehote toimii, seuraamme esimerkkiä artikkelista.
+
+Ensimmäinen vaihe on valita tapauksia koulutusjoukosta (esim. HotPotQA) ja muodostaa ReAct-muotoisia kehityskaaria. Näitä käytetään vähäisen ohjauksen esimerkkeinä kehotteissa. Kehityskaaret koostuvat useista ajatus-toiminta-havainto -vaiheista, kuten yllä olevasta kuvasta käy ilmi. Vapaamuotoisia ajatuksia käytetään monenlaisten tehtävien suorittamiseen, kuten kysymysten hajottamiseen, tietojen poimimiseen, arkijärjen/aritmeettisen päättelyn suorittamiseen, hakulausekkeen ohjaamiseen ja lopullisen vastauksen muodostamiseen.
+
+Tässä on esimerkki siitä, miltä ReAct-kehote-esimerkit näyttävät (saatu artikkelista ja lyhennetty yhteen esimerkkiin yksinkertaisuuden vuoksi):
+
+```
+Kysymys: Mikä on korkeusvaihtelualue alueelle, johon Coloradon orogeenin itäinen sektori ulottuu?
+Ajatus 1: Minun täytyy etsiä Coloradon orogeeni, löytää alue, johon Coloradon orogeenin itäinen sektori ulottuu, ja sitten löytää alueen korkeusvaihtelu.
+Toiminta 1: Haku[Coloradon orogeeni]
+Havainto 1: Coloradon orogeeni oli vuoristojen muodostumisen jakso (orogeeni) Coloradossa ja ympäröivillä alueilla.
+Ajatus 2: Siinä ei mainita itäistä sektoria. Joten minun täytyy etsiä itäinen sektori.
+Toiminta 2: Haku[itäinen sektori]
+Havainto 2: (Tulos 1 / 1) Itäinen sektori ulottuu High Plains -alueelle ja sitä kutsutaan Central Plains -orogeeniksi.
+Ajatus 3: Coloradon orogeenin itäinen sektori ulottuu High Plains -alueelle. Joten minun täytyy etsiä High Plains ja löytää sen korkeusvaihtelualue.
+Toiminta 3: Haku[High Plains]
+Havainto 3: High Plains viittaa kahteen erilliseen maantieteelliseen alueeseen.
+Ajatus 4: Minun täytyy sen sijaan etsiä High Plains (Yhdysvallat).
+Toiminta 4: Haku[High Plains (Yhdysvallat)]
+Havainto 4: High Plains on osa suurten tasankojen aluetta. Idästä länteen High Plainsin korkeus nousee noin 1,800-7,000 jalkaan (550-2,130 metriä).[3]
+Ajatus 5: High Plainsin korkeus nousee noin 1,800-7,000 jalkaan, joten vastaus on 1,800-7,000 jalkaa.
+Toiminta 5: Lopeta[1,800-7,000 jalkaa]
+...
+```
+
+Huomaa, että erilaisia kehoterakenteita käytetään erityyppisiin tehtäviin. Tehtävissä, joissa päättely on ensisijaisen tärkeää (esim. HotpotQA), tehtävänratkaisun kehityskaariin käytetään useita ajatus-toiminta-havainto -vaiheita. Päätöksenteon tehtävissä, jotka sisältävät paljon toimintavaiheita, ajatuksia käytetään harvakseltaan.
+
+## Tulokset Tietointensiivisissä Tehtävissä
+
+Julkaisu arvioi ensin ReActia tietointensiivisissä päättelytehtävissä, kuten kysymysten vastaamisessa (HotPotQA) ja tosiasioiden varmistamisessa ([Fever](https://fever.ai/resources.html)). PaLM-540B toimii pohjamallina kehotteille. 
+
+<Screenshot src={REACT1} alt="REACT1" />
+Kuvan lähde: [Yao ym., 2022](https://arxiv.org/abs/2210.03629)
+
+Kehotetulokset HotPotQA:ssa ja Feverissä erilaisten kehotemenetelmien avulla osoittavat, että ReAct suoriutuu yleensä paremmin kuin Act (johon liittyy vain toiminta) molemmissa tehtävissä.
+
+Voimme myös havaita, että ReAct suoriutuu paremmin kuin CoT Feverissä ja jää jälkeen CoT:sta HotpotQA:ssa. Artikkelissa esitetään yksityiskohtainen virheanalyysi. Yhteenvetona:
+
+- CoT kärsii faktahallusinaatioista
+- ReActin rakenteelliset rajoitukset vähentävät sen joustavuutta muotoilla päättelyvaiheita
+- ReAct nojaa paljon hankkimaansa tietoon; ei-informatiiviset hakutulokset ohjaavat mallin päättelyä harhaan ja johtavat vaikeuksiin toipua ja uudelleenmuotoilla ajatuksia
+
+Kehotemenetelmät, jotka yhdistävät ja tukevat ReActin ja CoT+Itsejohdonmukaisuuden välillä vaihtamista, suoriutuvat yleensä paremmin kuin muut kehotemenetelmät.
+
+## Tulokset Päätöksentekotehtävissä
+
+Julkaisussa esitetään myös tuloksia, jotka osoittavat ReActin suorituskyvyn päätöksentekotehtävissä. ReActia arvioidaan kahdella vertailukohteella, jotka ovat [ALFWorld](https://alfworld.github.io/) (tekstipohjainen peli) ja [WebShop](https://webshop-pnlp.github.io/) (verkkokaupan ympäristö). Molemmat sisältävät monimutkaisia ympäristöjä, jotka vaativat päättelyä tulokselliseen toimintaan ja tutkimiseen. 
+
+Huomaa, että ReAct-kehote on suunniteltu eri tavoin näitä tehtäviä varten, mutta se yhdistää samalla tavalla päättelyn ja toiminnan. Alla on esimerkki ALFWorld-ongelmasta, johon liittyy ReAct-kehote.
+
+<Screenshot src={REACT2} alt="REACT2" />
+Kuvan lähde: [Yao ym., 2022](https://arxiv.org/abs/2210.03629)
+
+ReAct suoriutuu paremmin kuin Act sekä ALFWorldissa että Webshopissa. Act ei pysty ilman "ajatuksia" jakamaan tavoitteita alatavoitteisiin. Päättely näyttää olevan eduksi ReActille tämän tyyppisissä tehtävissä, mutta nykyiset kehoteperusteiset menetelmät ovat vielä kaukana asiantuntijaihmisten suorituskyvystä näissä tehtävissä.
+
+Tutustu julkaisuun saadaksesi yksityiskohtaisempia tuloksia.
+
+## LangChain ReActin käyttö
+
+Alla on korkean tason esimerkki siitä, miten ReAct-kehote lähestymistapa toimii käytännössä. Käytämme OpenAI:n kielimallia ja [LangChainia](https://python.langchain.com/en/latest/index.html), koska siinä on jo sisäänrakennettu toiminnallisuus, joka hyödyntää ReAct-kehystä rakentaakseen agentteja, jotka suorittavat tehtäviä yhdistämällä LLM:ien voiman ja erilaiset työkalut.
+
+Aloitetaan asentamalla ja tuomalla tarvittavat kirjastot:
+
+``` python
+%%capture
+# update or install the necessary libraries
+!pip install --upgrade openai
+!pip install --upgrade langchain
+!pip install --upgrade python-dotenv
+!pip install google-search-results
+
+# import libraries
+import openai
+import os
+from langchain.llms import OpenAI
+from langchain.agents import load_tools
+from langchain.agents import initialize_agent
+from dotenv import load_dotenv
+load_dotenv()
+
+# load API keys; you will need to obtain these if you haven't yet
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+os.environ["SERPER_API_KEY"] = os.getenv("SERPER_API_KEY")
+
+```
+
+Nyt voimme määrittää LLM:n, käyttämämme työkalut ja agentin, joka mahdollistaa ReAct-kehyksen hyödyntämisen yhdessä LLM:n ja työkalujen kanssa. Huomaa, että käytämme hakuliittymää ulkoisen tiedon etsimiseen ja LLM:ää matematiikkatyökaluna.
+
+``` python
+llm = OpenAI(model_name="text-davinci-003" ,temperature=0)
+tools = load_tools(["serpapi", "llm-math"], llm=llm)
+agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
+```
+
+Nyt kun olemme määrittäneet LLM:n, käyttämämme työkalut ja agentin, joka mahdollistaa ReAct-kehikon hyödyntämisen yhdessä LLM:n ja työkalujen kanssa, voimme suorittaa agentin halutulla kyselyllä/kehotteella. Tässä yhteydessä ei tarvitse tarjota vähäisen ohjauksen esimerkkejä, kuten artikkelissa aiemmin selitettiin.
+
+``` python
+agent.run("Who is Olivia Wilde's boyfriend? What is his current age raised to the 0.23 power?")
+```
+
+Kun suoritamme ketjun, sen toiminta näyttää seuraavalta:
+
+``` yaml
+> Entering new AgentExecutor chain...
+ I need to find out who Olivia Wilde's boyfriend is and then calculate his age raised to the 0.23 power.
+Action: Search
+Action Input: "Olivia Wilde boyfriend"
+Observation: Olivia Wilde started dating Harry Styles after ending her years-long engagement to Jason Sudeikis — see their relationship timeline.
+Thought: I need to find out Harry Styles' age.
+Action: Search
+Action Input: "Harry Styles age"
+Observation: 29 years
+Thought: I need to calculate 29 raised to the 0.23 power.
+Action: Calculator
+Action Input: 29^0.23
+Observation: Answer: 2.169459462491557
+
+Thought: I now know the final answer.
+Final Answer: Harry Styles, Olivia Wilde's boyfriend, is 29 years old and his age raised to the 0.23 power is 2.169459462491557.
+
+> Finished chain.
+```
+
+Suorituksen tuloksena saamme seuraavanlaisen tuloksen:
+
+```
+"Harry Styles, Olivia Wilde's boyfriend, is 29 years old and his age raised to the 0.23 power is 2.169459462491557."
+```
+
+Mukautimme esimerkin [LangChain dokumentaatiosta](https://python.langchain.com/docs/modules/agents). Kannustamme lukijaa tutkimaan erilaisia työkalu- ja tehtäväyhdistelmiä. 
+
+Löydät tämän koodin sisältävän Notebook-ympäristön täältä: https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/react.ipynb

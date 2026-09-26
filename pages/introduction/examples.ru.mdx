@@ -1,0 +1,290 @@
+# Примеры промптов
+
+Предыдущий раздел представил базовый пример того, как использовать промпты с LLM. 
+
+В этом разделе мы предоставим больше примеров того, как использовать промпты для выполнения различных задач и введем ключевые концепции на примерах. Часто лучший способ изучить концепции - пройти через примеры. Несколько примеров ниже иллюстрируют, как вы можете использовать хорошо продуманные промпты для выполнения различных типов задач.
+
+Темы:
+- [Сжатие текста](#Сжатие-текста)
+- [Извлечение информации](#Извлечение-информации)
+- [Вопросно-ответные системы](#Вопросно-ответные-системы)
+- [Классификация текста](#Классификация-текста)
+- [Диалог](#Диалог)
+- [Генерация кода](#Генерация-кода)
+- [Рассуждение](#Рассуждение)
+
+---
+
+## Сжатие текста
+Одна из стандартных задач в генерации естественного языка - это сжатие текста. Сжатие текста может включать множество различных вариантов и областей. Фактически, одно из наиболее перспективных применений языковых моделей - это возможность сжатия статей и концепций в быстрые и легко читаемые резюме. Давайте попробуем базовую задачу сжатия текста с помощью промптов.
+
+Предположим, вы хотите узнать о антибиотиках, и вы можете попробовать следующий промпт:
+
+*Промпт:*
+```
+Explain antibiotics
+
+A:
+```
+
+*Результат:*
+```
+Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.
+```
+
+В формате "A:" указывается явный промпт для ответа, который вы используете в вопросно-ответной форме. Вы использовали это здесь, чтобы сообщить модели, что ожидается продолжение. В этом примере не совсем ясно, насколько это помогает, но мы вернемся к этому позже. Предположим, что это слишком много информации, и вам хотелось бы сжать ее еще больше. На самом деле, вы можете указать модели сжать ее в одно предложение, например, так:
+
+*Промпт:*
+```
+Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.
+
+Explain the above in one sentence:
+```
+
+*Результат:*
+```
+Antibiotics are medications used to treat bacterial infections by either killing the bacteria or stopping them from reproducing, but they are not effective against viruses and overuse can lead to antibiotic resistance.
+```
+
+Не обращая слишком много внимания на точность вывода выше, о которой мы поговорим позже, модель попыталась сжать параграф в одно предложение. Вы можете экспериментировать с инструкциями, чтобы улучшить результаты.
+
+---
+## Извлечение информации
+Хотя языковые модели обучаются выполнять генерацию естественного языка и связанные задачи, они также способны выполнять классификацию и ряд других задач обработки естественного языка (NLP).
+
+Вот пример промпта, извлекающего информацию из заданного параграфа.
+
+*Промпт:*
+```
+Author-contribution statements and acknowledgements in research papers should state clearly and specifically whether, and to what extent, the authors used AI technologies such as ChatGPT in the preparation of their manuscript and analysis. They should also indicate which LLMs were used. This will alert editors and reviewers to scrutinize manuscripts more carefully for potential biases, inaccuracies and improper source crediting. Likewise, scientific journals should be transparent about their use of LLMs, for example when selecting submitted manuscripts.
+
+Mention the large language model based product mentioned in the paragraph above:
+```
+
+*Результат:*
+```
+The large language model based product mentioned in the paragraph above is ChatGPT.
+```
+
+Есть множество способов улучшить результаты выше, но это уже очень полезно.
+
+К настоящему моменту должно быть очевидно, что вы можете попросить модель выполнить различные задачи, просто указав ей, что делать. Это мощная возможность, которую уже используют разработчики продуктов и искусственного интеллекта для опытов и создания полезных приложений.
+
+Источник параграфа: [ChatGPT: five priorities for research](https://www.nature.com/articles/d41586-023-00288-7) 
+
+---
+## Вопросно-ответные системы (Q&A)
+
+Один из лучших способов получить от модели конкретные ответы - это улучшить формат промпта. Как было рассмотрено ранее, промпт может сочетать в себе инструкции, контекст, входные данные и индикаторы вывода для получения улучшенных результатов. Хотя эти компоненты не являются обязательными, это является хорошей практикой, поскольку чем более конкретными вы будете в инструкции, тем лучше результаты вы получите. Ниже приведен пример того, как это может выглядеть при использовании более структурированного промпта.
+
+*Промпт:*
+```
+Answer the question based on the context below. Keep the answer short and concise. Respond "Unsure about answer" if not sure about the answer.
+
+Context: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.
+
+Question: What was OKT3 originally sourced from?
+
+Answer:
+```
+
+*Результат:*
+```
+Mice.
+```
+
+Контекст получен из [Nature](https://www.nature.com/articles/d41586-023-00400-x).
+
+---
+
+## Классификация текста
+До сих пор вы использовали простые инструкции для выполнения задачи. В качестве промпт-инженера вам нужно стать лучше в предоставлении более точных инструкций. Но это еще не все! Вы также обнаружите, что для более сложных случаев просто предоставление инструкций будет недостаточно. Здесь вам нужно подумать больше о контексте и разных элементах, которые можно использовать в промпте. Другие элементы, которые вы можете предоставить, это `входные данные` или `примеры`.
+
+Давайте попробуем продемонстрировать это на примере классификации текста.
+
+*Промпт:*
+```
+Classify the text into neutral, negative or positive. 
+
+Text: I think the food was okay. 
+Sentiment:
+```
+
+*Результат:*
+```
+Neutral
+```
+
+Вы дали инструкцию классифицировать текст, и модель вернула `'Neutral'`, что является правильным. В этом ничего плохого, но допустим, что вам действительно нужно, чтобы модель возвращала метку в точно нужном формате. Вместо `Neutral` вы хотите, чтобы она возвращала `neutral`. Как это достичь? Есть несколько способов сделать это. Вам важна конкретность, поэтому чем больше информации вы можете предоставить промпту, тем лучше результаты. Вы можете попробовать предоставить примеры, чтобы указать правильное поведение. Давайте попробуем снова:
+
+*Промпт:*
+```
+Classify the text into neutral, negative or positive. 
+
+Text: I think the vacation is okay.
+Sentiment: neutral 
+
+Text: I think the food was okay. 
+Sentiment:
+```
+
+*Результат:*
+```
+neutral
+```
+
+Отлично! На этот раз модель вернула `neutral`, что является точной меткой, которую вы искали. Кажется, что пример, предоставленный в промпте, помог модели быть конкретной в выводе. 
+
+Чтобы показать, почему иногда важна конкретность, посмотрите на следующий пример и найдите проблему:
+
+*Промпт:*
+```
+Classify the text into nutral, negative or positive. 
+
+Text: I think the vacation is okay.
+Sentiment:
+```
+
+*Результат:*
+```
+Neutral
+```
+
+В чем проблема? На подсказку, придуманная метка `nutral` полностью игнорируется моделью. Вместо этого модель выводит `Нейтральный`, так как она немного предвзята к этой метке. Но предположим, что вам действительно нужно `nutral`. Как исправить это? Возможно, вы можете попробовать добавить описания к меткам или добавить больше примеров в промпт? Если вы не уверены, мы обсудим несколько идей в следующих разделах.
+
+---
+
+## Диалог
+
+Одно из самых интересных применений промпт-инженерии - это инструктирование LLM-системы о том, как вести себя, какая должна быть ее намеренность и какая должна быть ее личность. Это особенно полезно, когда вы создаете системы диалога, такие как чат-боты для обслуживания клиентов.
+
+Например, давайте создадим систему диалога, которая способна генерировать более технические и научные ответы на вопросы. Обратите внимание, как вы явно указываете, как она должна себя вести через инструкцию. Иногда это называют *ролевой промптинг*.
+
+*Промпт:*
+```
+The following is a conversation with an AI research assistant. The assistant tone is technical and scientific.
+
+Human: Hello, who are you?
+AI: Greeting! I am an AI research assistant. How can I help you today?
+Human: Can you tell me about the creation of blackholes?
+AI:
+```
+
+*Результат:*
+```
+Sure! Black holes are regions of spacetime where the gravitational force is so strong that nothing, not even light, can escape from it. They are created when a very massive star dies and its core collapses in on itself, forming a singularity of infinite density. The intense gravity of the singularity pulls in all the matter and radiation around it, creating the black hole.
+```
+
+Наш исследовательский ассистент звучит слишком технически, верно? Хорошо, давайте изменим это поведение и научим систему давать более доступные ответы. 
+
+*Промпт:*
+```
+The following is a conversation with an AI research assistant. The assistant answers should be easy to understand even by primary school students.
+
+Human: Hello, who are you?
+AI: Greeting! I am an AI research assistant. How can I help you today?
+Human: Can you tell me about the creation of black holes?
+AI: 
+```
+
+*Результат:*
+```
+Sure! Black holes are created when a very massive star runs out of fuel and collapses in on itself. The gravity of the star is so strong that nothing, not even light, can escape its pull. This creates a point in space-time with an intense gravitational force called a black hole.
+```
+
+Вы сделали некоторый прогресс. Можно продолжать улучшать это. Если вы добавите больше примеров, вы можете получить еще лучшие результаты.
+
+---
+
+## Генерация кода
+Одно из применений, в которых LLMs довольно эффективны, - это генерация кода. Copilot - прекрасный пример этого. С помощью хорошо продуманных промптов вы можете выполнять множество задач по генерации кода. Рассмотрим несколько примеров ниже.
+
+Сначала попробуем простую программу, которая приветствует пользователя.
+
+*Промпт:*
+```
+/*
+Ask the user for their name and say "Hello"
+*/
+```
+
+*Результат:*
+```
+let name = prompt("What is your name?");
+console.log(`Hello, ${name}!`);
+```
+
+Обратите внимание, что вам даже не нужно указывать язык программирования.
+
+Давайте немного повысим уровень. Приведенный ниже пример показывает, насколько мощными могут быть LLMs с небольшими усилиями в разработке промптов.
+
+*Промпт:*
+```
+"""
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+Create a MySQL query for all students in the Computer Science Department
+"""
+```
+
+*Результат:*
+```
+SELECT StudentId, StudentName 
+FROM students 
+WHERE DepartmentId IN (SELECT DepartmentId FROM departments WHERE DepartmentName = 'Computer Science');
+```
+
+Это очень впечатляюще. В этом примере вы предоставили данные о схеме базы данных и попросили его сгенерировать корректный запрос MySQL.
+
+---
+
+## Рассуждение
+Возможно, одна из самых сложных задач для LLM на сегодняшний день - это задача, требующая некоторой формы рассуждения. Рассуждение является одной из наиболее интересных областей из-за типов сложных приложений, которые могут возникнуть из LLM.
+
+Были достигнуты некоторые успехи в задачах, связанных с математическими возможностями. Однако важно отметить, что текущие LLM все еще испытывают трудности с выполнением задач рассуждения, поэтому для этого требуются еще более продвинутые техники промпт-инженерии. Мы рассмотрим эти продвинутые техники позднее. Пока что мы рассмотрим несколько базовых примеров для показа математических возможностей.
+
+*Промпт:*
+```
+What is 9,000 * 9,000?
+```
+
+*Результат:*
+```
+81,000,000
+```
+
+Давайте попробуем что-то более сложное.
+
+*Промпт:*
+```
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
+
+A: 
+```
+
+*Результат:*
+```
+No, the odd numbers in this group add up to an odd number: 119.
+```
+
+Ответ неправильный! Попробуем улучшить это, улучшив промпт.
+
+*Промпт:*
+```
+The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1. 
+
+Solve by breaking the problem into steps. First, identify the odd numbers, add them, and indicate whether the result is odd or even. 
+```
+
+*Результат:*
+```
+Odd numbers: 15, 5, 13, 7, 1
+Sum: 41 
+41 is an odd number.
+```
+
+Гораздо лучше, не так ли? Кстати, я пробовал это несколько раз, и система иногда ошибается. Если вы предоставите более точные инструкции вместе с примерами, это может помочь получить лучшие результаты.
+
+Мы продолжим включать больше примеров распространенных приложений в этом разделе руководства.
+
+В следующем разделе мы рассмотрим еще более продвинутые концепции и техники промпт-инженерии для улучшения результатов при выполнении всех этих и более сложных задач.

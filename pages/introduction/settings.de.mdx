@@ -1,0 +1,27 @@
+# LLM Einstellungen
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/CB0H7esOl68?si=OECAnvgnvJHy0qZ2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Beim Entwerfen und Testen von Prompts interagieren Sie normalerweise über eine API mit dem LLM. Sie können einige Parameter konfigurieren, um unterschiedliche Ergebnisse für Ihre Prompts zu erhalten. Das Anpassen dieser Einstellungen ist wichtig, um die Zuverlässigkeit und Erwünschtheit der Antworten zu verbessern, und es bedarf des Experimentierens, um die richtigen Einstellungen für Ihre Anwendungsfälle herauszufinden. Unten finden Sie die gängigen Einstellungen, auf die Sie bei der Verwendung verschiedener LLM-Anbieter stoßen werden:
+
+**Temperatur** - Kurz gesagt, je niedriger die `temperature`, desto deterministischer sind die Ergebnisse in dem Sinne, dass immer das wahrscheinlichste nächste Token gewählt wird. Eine Erhöhung der Temperatur kann zu mehr Zufälligkeit führen und damit vielfältigere oder kreativere Ausgaben fördern. Sie erhöhen im Grunde das Gewicht der anderen möglichen Tokens. Im Hinblick auf die Anwendung möchten Sie vielleicht einen niedrigeren Temperaturwert für Aufgaben wie faktenbasierte QA verwenden, um präzisere und knappere Antworten zu fördern. Für die Generierung von Gedichten oder andere kreative Aufgaben könnte es vorteilhaft sein, den Temperaturwert zu erhöhen.
+
+**Top P** - Eine Stichprobentechnik mit Temperatur, bekannt als Nucleus Sampling, bei der Sie steuern können, wie deterministisch das Modell ist. Wenn Sie nach exakten und faktischen Antworten suchen, halten Sie diesen Wert niedrig. Wenn Sie nach vielfältigeren Antworten suchen, erhöhen Sie ihn auf einen höheren Wert. Wenn Sie Top P verwenden, bedeutet das, dass nur die Token berücksichtigt werden, die die `top_p` Wahrscheinlichkeitsmasse bilden, sodass ein niedriger `top_p` Wert die selbstsichersten Antworten auswählt. Dies bedeutet, dass ein hoher `top_p` Wert es dem Modell ermöglicht, mehr mögliche Wörter zu betrachten, einschließlich unwahrscheinlicher, was zu vielfältigeren Ausgaben führt. Die allgemeine Empfehlung ist, entweder die Temperatur oder Top P zu ändern, aber nicht beides.
+
+**Maximale Länge (`max length`)** - Sie können die Anzahl der vom Modell generierten Tokens steuern, indem Sie `max length` anpassen. Wenn Sie eine maximale Länge angeben, helfen Sie dabei, lange oder irrelevante Antworten zu verhindern und die Kosten zu kontrollieren.
+
+**Stop-Sequenzen (`stop sequence`)** - Eine `stop sequence` ist eine Zeichenfolge, die das Modell daran hindert, weitere Tokens zu generieren. Die Angabe von Stop-Sequenzen ist eine weitere Möglichkeit, die Länge und Struktur der Antwort des Modells zu kontrollieren. Sie können zum Beispiel dem Modell sagen, dass es Listen generieren soll, die nicht mehr als 10 Elemente haben, indem Sie "11" als Stop-Sequenz hinzufügen.
+
+**Frequenzstrage (`frequence penalty`)** - Die `frequency penalty` wendet eine Strafe auf das nächste Token an, die proportional dazu ist, wie oft dieses Token bereits in der Antwort und im Prompt aufgetaucht ist. Je höher die Häufigkeitsstrafe, desto unwahrscheinlicher wird ein Wort erneut erscheinen. Diese Einstellung reduziert die Wiederholung von Wörtern in der Antwort des Modells, indem Tokens, die häufiger vorkommen, eine höhere Strafe bekommen.
+
+**Anwesenheitsstrafe (`presence penalty`)** - Die `presence penalty` wendet ebenfalls eine Strafe auf wiederholte Token an, aber im Gegensatz zur Frequenzstrafe ist die Strafe für alle wiederholten Token gleich. Ein Token, das zweimal und ein Token, das 10 Mal erscheint, werden gleich bestraft. Diese Einstellung verhindert, dass das Modell Phrasen zu oft in seiner Antwort wiederholt. Wenn Sie möchten, dass das Modell vielfältigen oder kreativen Text generiert, möchten Sie vielleicht eine höhere Anwesenheitsstrafe verwenden. Oder, wenn Sie benötigen, dass das Modell fokussiert bleibt, versuchen Sie, eine niedrigere Anwesenheitsstrafe zu verwenden.
+
+Ähnlich wie bei `temperature` und `top_p` lautet die allgemeine Empfehlung, entweder die Häufigkeitsstrafe oder die Präsenzstrafe zu verändern, nicht beides.
+
+Bevor Sie mit einigen grundlegenden Beispielen beginnen, behalten Sie im Hinterkopf, dass Ihre Ergebnisse je nach Version des LLM, das Sie verwenden, variieren können.

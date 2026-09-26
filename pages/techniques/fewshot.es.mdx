@@ -1,0 +1,110 @@
+# Prompt con pocas muestras (Few-shot)
+
+Si bien los modelos de lenguaje grandes demuestran capacidades notables sin entrenamiento previo (zero-shot), todavía tienen deficiencias usando esta configuración en tareas más complejas. Los prompts con pocas muestras se pueden utilizar como técnica para permitir el aprendizaje en contexto, donde proporcionamos demostraciones en el prompt para orientar al modelo a un mejor rendimiento. Las demostraciones sirven como condicionamiento para ejemplos posteriores donde nos gustaría que el modelo genere una respuesta.
+
+Según [Touvron et al. 2023](https://arxiv.org/pdf/2302.13971.pdf) este tipo de prompt apareció por primera vez cuando los modelos se escalaron a un tamaño suficiente [(Kaplan et al., 2020)](https://arxiv.org/abs/2001.08361).
+
+Demostraremos los prompts con pocas muestras a través de un ejemplo que se presentó en [Brown et al. 2020](https://arxiv.org/abs/2005.14165). En el ejemplo, la tarea es usar correctamente una nueva palabra en una oración.
+
+*Prompt:*
+```
+Un "whatpu" es un animal pequeño y peludo originario de Tanzania. 
+Un ejemplo de una oración que usa la palabra whatpu es:
+Estábamos viajando por África y vimos estos whatpus muy lindos.
+Hacer un "farduddle" significa saltar hacia arriba y hacia abajo muy rápido. 
+Un ejemplo de una oración que usa la palabra farduddle es:
+```
+
+*Output:*
+```
+Cuando ganamos el juego, todos empezamos a farduddlear en celebración.
+```
+
+Podemos observar que el modelo ha aprendido de alguna manera cómo realizar la tarea al proporcionarle solo un ejemplo o muestra (es decir, 1-shot). Para tareas más difíciles, podemos experimentar con aumentar las demostraciones (por ejemplo, 3-shots, 5-shots, 10-shots, etc.).
+
+Siguiendo los hallazgos de [Min et al. (2022)](https://arxiv.org/abs/2202.12837), haquí hay algunos consejos más sobre demostraciones/ejemplos usando pocas muestras:
+
+- el espacio de etiquetas y la distribución del texto de entrada especificado por los ejemplos son ambos importantes (independientemente de si las etiquetas son correctas para las entradas individuales)
+- el formato que utilice también desempeña un papel clave en el rendimiento, incluso si solo usa etiquetas aleatorias, esto es mucho mejor que no tener etiquetas en absoluto.
+- los resultados adicionales muestran que seleccionar etiquetas aleatorias de una verdadera distribución de etiquetas (en lugar de una distribución uniforme) también ayuda.
+
+Intentemos algunos ejemplos. Primero, intentemos un ejemplo con etiquetas aleatorias (lo que significa que las etiquetas Negativo y Positivo se asignan aleatoriamente a las entradas):
+
+*Prompt:*
+```
+Esto es increíble! // Negativo
+Esto es malo! // Positivo
+¡Guau, esa película fue increíble! // Positivo
+¡Qué horrible programa! //
+```
+
+*Salida:*
+```
+Negativo
+```
+
+Aún obtenemos la respuesta correcta, aunque las etiquetas han sido aleatorizadas. Tenga en cuenta que también mantuvimos el formato, lo que también ayuda. De hecho, con más experimentación, parece que los nuevos modelos GPT con los que estamos experimentando se están volviendo más resistentes incluso a los formatos aleatorios. Ejemplo:
+
+*Prompt:*
+```
+¡Esto es increíble! Positivo
+¡Esto es malo! Negativo
+¡Guau, esa película fue genial! Positivo
+¡Qué espectáculo tan horrible! - - Negativo
+```
+
+*Salida:*
+```
+Negativo
+```
+
+No hay consistencia en el formato anterior, pero el modelo todavía predijo la etiqueta correcta. Debemos realizar un análisis más exhaustivo para confirmar si esto se aplica a diferentes y más complejas tareas, incluidas diferentes variaciones de estímulos.
+
+
+### Limitaciones de los prompts con pocas muestras
+
+Los prompts con pocas muestras funcionan bien para muchas tareas, pero aún no es una técnica perfecta, especialmente cuando se trata de tareas de razonamiento más complejas. Demostremos por qué esto es así. ¿Recuerda el ejemplo anterior donde proporcionamos la siguiente tarea?
+
+```
+Los números impares de este grupo suman un número par: 15, 32, 5, 13, 82, 7, 1. 
+
+R:
+```
+
+Si lo intentamos de nuevo, el modelo produce lo siguiente:
+
+```
+Sí, los números impares de este grupo suman 107, que es un número par.
+```
+
+Esta no es la respuesta correcta, lo que no solo resalta las limitaciones de estos sistemas, sino que también muestra la necesidad de una ingeniería de prompt más avanzada.
+
+Intentemos agregar algunos ejemplos para ver si prompts con pocas muestras mejoran los resultados.
+
+*Prompt:*
+```
+Los números impares de este grupo suman un número par: 4, 8, 9, 15, 12, 2, 1.
+R: La respuesta es Falsa.
+
+Los números impares de este grupo suman un número par: 17, 10, 19, 4, 8, 12, 24.
+R: La respuesta es Verdadera.
+
+Los números impares de este grupo suman un número par: 16, 11, 14, 4, 8, 13, 24.
+R: La respuesta es Verdadera.
+
+Los números impares de este grupo suman un número par: 17, 9, 10, 12, 13, 4, 2.
+R: La respuesta es Falsa.
+
+Los números impares de este grupo suman un número par: 15, 32, 5, 13, 82, 7, 1. 
+R:
+```
+
+*Salida:*
+```
+La respuesta es Verdadera.
+```
+
+Eso no funcionó. Parece que los prompts con pocas muestras no son suficiente para obtener respuestas confiables para este tipo de problema de razonamiento. El ejemplo anterior proporciona información básica sobre la tarea. Si observas más de cerca, el tipo de tarea que hemos introducido implica algunos pasos de razonamiento más. En otras palabras, podría ayudar si descomponemos el problema en pasos y lo demostramos al modelo. Más recientemente, se ha popularizado la técnica de [prompt de cadena de pensamientos]((https://arxiv.org/abs/2201.11903)) (CoT, por sus siglas en inglés) para abordar tareas de razonamiento aritmético, sentido común y simbólico más complejas.
+
+
+En general, parece que proporcionar ejemplos es útil para resolver algunas tareas. En los casos en los que los prompts sin entrenamiento previo y con pocas muestras no son suficientes, podría significar que lo que aprendió el modelo no es suficiente para hacerlo bien en la tarea. Recomendamos comenzar a pensar en afinar tus modelos o experimentar con técnicas de prompt más avanzadas. A continuación, hablamos de una de las técnicas de activación populares llamada prompt de cadena de pensamientos, que ha ganado mucha popularidad.

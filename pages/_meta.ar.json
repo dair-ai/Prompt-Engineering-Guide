@@ -1,0 +1,19 @@
+{
+  "index": "هندسة التلقين",
+  "introduction": "مقدمة",
+  "techniques": "تقنيات",
+  "applications": "تطبيقات",
+  "prompts": "الأوامر",
+  "models": "نماذج",
+  "risks": "المخاطر وسوء الاستخدام",
+  "research": "أبحاث",
+  "papers": "أوراق بحثية",
+  "tools": "أدوات",
+  "notebooks": "دفاتر ملاحظات",
+  "datasets": "مجموعات البيانات",
+  "readings": "قراءات إضافية",
+  "about": {
+    "title": "حول الدليل",
+    "type": "page"
+  }
+}

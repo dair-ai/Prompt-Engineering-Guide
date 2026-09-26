@@ -1,0 +1,44 @@
+# Generierung von Daten
+LLMs haben starke Fähigkeiten, konsistenten Text zu generieren. Die Verwendung effektiver Prompt-Strategien kann das Modell dazu anleiten, bessere, konsistentere und faktengenauere Antworten zu produzieren. LLMs können auch besonders nützlich sein, um Daten zu generieren, die wirklich hilfreich sind, um alle Arten von Experimenten und Evaluierungen durchzuführen. Zum Beispiel können wir es nutzen, um schnell Muster für einen Sentiment-Classifier wie folgt zu erzeugen:
+
+*Prompt:*
+```
+Erzeuge 10 Beispiele für die Sentimentanalyse. Die Beispiele werden entweder als positiv oder negativ kategorisiert. Erzeuge 2 negative Beispiele und 8 positive Beispiele. Verwende dieses Format für die Beispiele:
+Q: <sentence>
+A: <sentiment>
+```
+
+*Ausgabe:*
+```
+Q: Ich habe gerade die besten Nachrichten überhaupt bekommen!
+A: Positiv
+
+Q: Wir haben gerade eine Gehaltserhöhung bei der Arbeit bekommen!
+A: Positiv
+
+Q: Ich bin so stolz auf das, was ich heute erreicht habe.
+A: Positiv
+
+Q: Ich habe den besten Tag überhaupt!
+A: Positiv
+
+Q: Ich freue mich wirklich auf das Wochenende.
+A: Positiv
+
+Q: Ich habe gerade das beste Geschenk überhaupt bekommen!
+A: Positiv
+
+Q: Ich bin jetzt so glücklich.
+A: Positiv
+
+Q: Ich bin so gesegnet, so eine unglaubliche Familie zu haben.
+A: Positiv
+
+Q: Das Wetter draußen ist so trübe.
+A: Negativ
+
+Q: Ich habe gerade einige schreckliche Nachrichten bekommen.
+A: Negativ
+```
+
+Das ist sehr nützlich. Wir verwenden dieses Beispiel tatsächlich für einen anderen Test in einem anderen Abschnitt der Leitfäden.

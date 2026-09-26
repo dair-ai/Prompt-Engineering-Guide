@@ -1,0 +1,44 @@
+# Datan Generointi
+Suurten kielimallien (LLM) avulla voidaan luoda yhtenäistä tekstiä. Tehokkaat kehote-strategiat auttavat ohjaamaan mallia tuottamaan parempia, johdonmukaisempia ja todenmukaisempia vastauksia. LLM:t ovat erityisen hyödyllisiä datan generoinnissa, joka on tärkeä osa monenlaisten kokeiden ja arviointien suorittamista. Esimerkiksi, voimme käyttää LLM:tä nopeiden näytteiden luomiseen tunnesentimenttien luokittelijalle seuraavasti:
+
+*Kehote:*
+```
+Luo 10 esimerkkiä tunnesentimenttianalyysia varten. Esimerkit luokitellaan joko positiivisiksi tai negatiivisiksi. Tuota 2 negatiivista esimerkkiä ja 8 positiivista esimerkkiä. Käytä tätä muotoa esimerkeissä:
+K: <lause>
+V: <sentimentti>
+```
+
+*Tulos:*
+```
+K: Tämä ravintola tarjoaa aivan uskomattoman herkullista ruokaa!
+V: Positiivinen
+
+K: Näkymä parvekkeeltani on henkeäsalpaavan kaunis.
+V: Positiivinen
+
+K: Sain juuri työpaikan unelmieni yrityksestä!
+V: Positiivinen
+
+K: On aina ilo nähdä sinut hymyilevän.
+V: Positiivinen
+
+K: Tämä loma on ollut todella rentouttava ja virkistävä.
+V: Positiivinen
+
+K: Sain viimein valmiiksi sen haastavan projektin, ja olen todella ylpeä itsestäni.
+V: Positiivinen
+
+K: Ystäväni järjesti yllätysjuhlat syntymäpäivänäni, ja se oli niin ihanaa.
+V: Positiivinen
+
+K: Onnistuin viimein saavuttamaan tavoitteeni ja tunnen itseni niin onnelliseksi.
+V: Positiivinen
+
+K: Tämä päivä on ollut todella huono, enkä kestä enää yhtään vastoinkäymistä.
+V: Negatiivinen
+
+K: Olen niin pettynyt itseeni, kun en saanut sitä työpaikkaa.
+V: Negatiivinen
+```
+
+Tämä on erittäin hyödyllistä. Tulemme käyttämään tätä esimerkkiä toisessa osiossa tätä opasta.

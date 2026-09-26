@@ -1,0 +1,20 @@
+{
+    "zeroshot": "Sıfır-Örnekli İstem",
+    "fewshot": "Az-Örnekli İstem",
+    "cot": "Düşünce Zinciri İstemleri",
+    "consistency": "Öz-Tutarlılık",
+    "knowledge": "Üretilmiş Bilgi İstemleri",
+    "prompt_chaining": "Prompt Chaining",
+    "tot": "Düşünce Ağacı",
+    "rag": "Veri Alımı Artırılmış Üretim",
+    "art": "Otomatik Akıl Yürütme ve Araç Kullanımı",
+    "ape": "Otomatik İstem Mühendisi",
+    "activeprompt": "Aktif-İstem",
+    "dsp": "Yönlendirici Uyarı İstemi",
+    "pal": "Program-Aided Language Models",
+    "react": "ReAct",
+    "reflexion": "Reflexion",
+    "multimodalcot": "Çok Modlu CoT İstemi",
+    "graph": "Grafik İstemi"
+}
+  

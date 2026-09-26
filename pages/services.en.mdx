@@ -1,0 +1,26 @@
+# Services
+
+Welcome to our services page! Here you can find information about the services we offer.
+
+## Our Offerings
+
+### Trainings & Workshops
+We offer both cohort-based trainings for teams to learn how to systematically apply proven techniques around prompt engineering, context engineering, RAG, and AI Agents.
+
+If you looking for a private training, please request more information at training@dair.ai
+
+---
+
+### Consulting
+We offer expert technical consulting services for prompt engineering, context engineering, RAG, and AI Agents.
+
+Reach out to hello@dair.ai or book a session [here](https://calendly.com/elvisosaravia/connect-with-elvis-saravia).
+
+---
+
+### Custom Solutions
+If you are looking to implement tailored AI solutions for your specific needs, we can help you with that.
+
+Reach out to hello@dair.ai to connect with our team.
+
+---

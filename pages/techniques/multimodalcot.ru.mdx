@@ -1,0 +1,15 @@
+# Multimodal CoT Prompting
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import MCOT from '../../img/multimodal-cot.png'
+
+[Zhang и др. (2023)](https://arxiv.org/abs/2302.00923) недавно предложили подход мультимодальной формулировки цепочки мыслей (Multimodal CoT). Традиционная цепочка мыслей сосредоточена на языковой модальности. В отличие от этого, мультимодальная цепочка мыслей объединяет текст и визуальную информацию в двухэтапной структуре. Первый шаг включает генерацию обоснований на основе мультимодальной информации. Затем следует второй этап – вывод ответа, в котором используются информативные созданные обоснования.
+
+Модель мультимодальной цепочки мыслей (1B) превосходит GPT-3.5 на бенчмарке ScienceQA.
+
+<Screenshot src={MCOT} alt="MCOT" />
+Источник изображения: [Zhang и др. (2023)](https://arxiv.org/abs/2302.00923)
+
+Дополнительная литература:
+- [Language Is Not All You Need: Aligning Perception with Language Models](https://arxiv.org/abs/2302.14045) (Feb 2023)

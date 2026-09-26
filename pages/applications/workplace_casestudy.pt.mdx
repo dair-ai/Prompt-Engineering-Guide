@@ -1,0 +1,56 @@
+# Estudo de Caso de Classificação de Empregos para Graduados
+
+[Clavié et al., 2023](https://arxiv.org/abs/2303.07142) apresentam um estudo de caso sobre engenharia de estímulos aplicada a um caso de classificação de texto em média escala em um sistema de produção. Usando a tarefa de classificar se um emprego é adequado para um recém-formado ("entry-level job") ou não, eles avaliaram uma série de técnicas de engenharia de estímulos e relataram seus resultados usando o GPT-3.5 (`gpt-3.5-turbo`).
+
+O trabalho mostra que LLMs superam todos os outros modelos testados, incluindo uma linha de base extremamente forte no DeBERTa-V3. O `gpt-3.5-turbo` também supera de forma notável as variantes mais antigas do GPT3 em todas as métricas-chave, mas requer análise adicional da saída, pois sua capacidade de aderir a um modelo parece ser pior do que nas outras variantes.
+
+As principais descobertas de sua abordagem de engenharia de estímulos são:
+
+- Para tarefas como esta, onde não é necessário conhecimento especializado, o estímulo CoT de poucas vezes (Few-shot CoT) teve um desempenho pior do que o estímulo de zero vezes (Zero-shot prompting) em todos os experimentos.
+- O impacto do estímulo na obtenção do raciocínio correto é enorme. Simplesmente pedir ao modelo para classificar um determinado emprego resulta em uma pontuação F1 de 65,6, enquanto o modelo com engenharia de estímulo pós-prompt alcança uma pontuação F1 de 91,7.
+- Tentar forçar o modelo a aderir a um modelo reduz o desempenho em todos os casos (esse comportamento desaparece nos testes iniciais com o GPT-4, que são posteriores ao artigo).
+- Muitas pequenas modificações têm um impacto desproporcional no desempenho.
+  - As tabelas abaixo mostram todas as modificações testadas.
+  - Dar instruções apropriadas e repetir os pontos-chave parece ser o maior impulsionador de desempenho.
+  - Algo tão simples como dar um nome (humano) ao modelo e se referir a ele assim aumentou a pontuação F1 em 0,6 pontos.
+
+### Modificações de Estímulo Testadas
+
+| Nome abreviado | Descrição                                                                |
+|----------------|----------------------------------------------------------------------------|
+| Baseline       | Fornecer um anúncio de emprego e perguntar se é adequado para um graduado. |
+| CoT            | Dar alguns exemplos de classificação precisa antes da consulta.            |
+| Zero-CoT       | Pedir ao modelo para raciocinar passo a passo antes de fornecer a resposta.|
+| rawinst        | Dar instruções sobre seu papel e a tarefa ao adicionar à mensagem do usuário. |
+| sysinst        | Dar instruções sobre seu papel e a tarefa como uma mensagem do sistema.    |
+| bothinst       | Dividir as instruções, com o papel como mensagem do sistema e a tarefa como mensagem do usuário.|
+| mock           | Dar instruções da tarefa simulando uma discussão em que ele as reconhece. |
+| reit           | Reforçar elementos-chave nas instruções repetindo-os.                     |
+| strict         | Pedir ao modelo para responder seguindo estritamente um modelo fornecido.|
+| loose          | Pedir apenas a resposta final seguindo um modelo fornecido.               |
+| right          | Pedir ao modelo para chegar à conclusão correta.                          |
+| info           | Fornecer informações adicionais para abordar falhas comuns de raciocínio. |
+| name           | Dar ao modelo um nome pelo qual nos referimos a ele na conversa.          |
+| pos            | Fornecer feedback positivo ao modelo antes de consultar.                  |
+
+
+### Impacto de Desempenho de Todas as Modificações de Estímulo
+
+|                                        | Precisão      | Recuperação    | F1            | Adesão ao Modelo    |
+|----------------------------------------|---------------|---------------|---------------|------------------------|
+| _Baseline_                             | _61,2_        | _70,6_        | _65,6_        | _79%_                  |
+| _CoT_                                  | _72,6_        | _85,1_        | _78,4_        | _87%_                  |
+| _Zero-CoT_                             | _75,5_        | _88,3_        | _81,4_        | _65%_                  |
+| _+rawinst_                             | _80_          | _92,4_        | _85,8_        | _68%_                  |
+| _+sysinst_                             | _77,7_        | _90,9_        | _83,8_        | _69%_                  |
+| _+bothinst_                            | _81,9_        | _93,9_        | _87,5_        | _71%_                  |
+| +bothinst+mock                         | 83,3          | 95,1          | 88,8          | 74%                    |
+| +bothinst+mock+reit                    | 83,8          | 95,5          | 89,3          | 75%                    |
+| _+bothinst+mock+reit+strict_           | _79,9_        | _93,7_        | _86,3_        | _**98%**_              |
+| _+bothinst+mock+reit+loose_            | _80,5_        | _94,8_        | _87,1_        | _95%_                  |
+| +bothinst+mock+reit+right              | 84            | 95,9          | 89,6          | 77%                    |
+| +bothinst+mock+reit+right+info         | 84,9          | 96,5          | 90,3          | 77%                    |
+| +bothinst+mock+reit+right+info+name    | 85,7          | 96,8          | 90,9          | 79%                    |
+| +bothinst+mock+reit+right+info+name+pos| **86,9**      | **97**        | **91,7**      | 81%                    |
+
+A adesão ao modelo se refere à frequência com que o modelo responde no formato desejado.```

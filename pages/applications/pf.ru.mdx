@@ -1,0 +1,112 @@
+# Функции в промпте
+
+## Введение
+Когда мы проводим параллель между диалоговым интерфейсом GPT и оболочкой языка программирования, можно считать, что инкапсулированный промпт формирует функцию. У этой функции есть уникальное имя, и когда мы вызываем это имя с текстом ввода, она производит результаты на основе заданных внутренних правил. Вкратце, мы создаем повторно используемый промпт с именем, которое облегчает взаимодействие с GPT. Это похоже на наличие удобного инструмента, который позволяет GPT выполнять определенные задачи за нас - мы просто предоставляем входные данные, и получаем желаемый результат.
+
+Путем инкапсуляции промптов в функции вы можете создавать серию функций для установления рабочего процесса. Каждая функция представляет собой определенный шаг или задачу, и когда они объединяются в определенном порядке, они могут автоматизировать сложные процессы или эффективно решать проблемы. Такой подход позволяет более структурированно и эффективно взаимодействовать с GPT, в конечном итоге расширяя его возможности и делая его мощным инструментом для решения широкого спектра задач.
+
+Поэтому, прежде чем использовать функцию, мы должны позволить GPT о ней узнать. Вот промпт, которая определяет функцию.
+
+*Промпт:*
+> Давайте назовем этот промпт **мета-промптом**.  
+Этот промпт была протестирована на GPT3.5 и работает еще лучше на GPT4.
+
+```
+Hello, ChatGPT! I hope you are doing well. I am reaching out to you for assistance with a specific function. I understand that you have the capability to process information and perform various tasks based on the instructions provided. In order to help you understand my request more easily, I will be using a template to describe the function, input, and instructions on what to do with the input. Please find the details below:
+
+function_name: [Function Name]
+input: [Input]
+rule: [Instructions on how to process the input]
+
+I kindly request you to provide the output for this function, based on the details I have provided. Your assistance is greatly appreciated. Thank you!
+I will replace the text inside the brackets with the relevant information for the function I want you to perform. This detailed introduction should help you understand my request more efficiently and provide the desired output. The format is function_name(input) If you understand, just answer one word with ok.
+
+```
+
+
+
+## Примеры
+
+### Ассистент для изучения английского языка
+Например, предположим, что мы хотим использовать GPT для помощи в изучении английского языка. Мы можем упростить процесс, создав серию функций.
+
+Этот пример был протестирован на GPT3.5 и работает еще лучше на GPT4.
+
+#### Описание функции
+
+Мы должны вставить **мета-промпт**, которая была определена выше раздела, в GPT
+
+Затем мы создадим функцию `trans_word`.  
+Эта функция подсказывает GPT перевести китайский текст на английский.
+
+*Промпт:*
+```
+function_name: [trans_word]
+input: ["text"]
+rule: [I want you to act as an English translator, spelling corrector and improver. I will provide you with input forms including "text" in any language and you will detect the language, translate it and answer in the corrected of my text, in English.]
+```
+
+
+Напишите функцию, которая расширяет текст.
+
+*Промпт:*
+```
+function_name: [expand_word]
+input: ["text"]
+rule: [Please serve as a Chatterbox, spelling corrector, and language enhancer. I will provide you with input forms including "text" in any language, and output the original language.I want you to Keep the meaning same, but make them more literary.]
+```
+
+Напишите функцию, которая исправляет текст.
+
+*Промпт:*
+```
+function_name: [fix_english]
+input: ["text"]
+rule: [Please serve as an English master, spelling corrector, and language enhancer. I will provide you with input forms including "text", I want you to improve the text's vocabulary and sentences with more natural and elegent. Keep the meaning same.]
+```
+Наконец, вы можете запускать функцию независимо или объединять их в цепочку.
+
+*Промпт:*
+```
+trans_word('婆罗摩火山处于享有“千岛之国”美称的印度尼西亚. 多岛之国印尼有4500座之多的火山, 世界著名的十大活火山有三座在这里.')
+fix_english('Finally, you can run the function independently or chain them together.')
+fix_english(expand_word(trans_word('婆罗摩火山处于享有“千岛之国”美称的印度尼西亚. 多岛之国印尼有4500座之多的火山, 世界著名的十大活火山有三座在这里.')))
+```
+
+Представляя функции в таком формате, вы можете ясно видеть имя каждой функции, входные данные и правило для обработки входных данных. Это обеспечивает организованный способ понимания функциональности и цели каждого шага в рабочем процессе.
+
+_советы:_
+Если вы не хотите, чтобы ChatGPT выдавал лишнюю информацию, вы можете просто добавить предложение после определения правил функции.
+```
+DO NOT SAY THINGS ELSE OK, UNLESS YOU DONT UNDERSTAND THE FUNCTION
+```
+
+### Функция с несколькими параметрами
+Давайте создадим функцию, которая генерирует пароль, используя пять входных параметров, и выводит сгенерированный пароль.
+
+*Промпт:*
+```
+function_name: [pg]
+input: ["length", "capitalized", "lowercase", "numbers", "special"]
+rule: [I want you to act as a password generator for individuals in need of a secure password. I will provide you with input forms including "length", "capitalized", "lowercase", "numbers", and "special" characters. Your task is to generate a complex password using these input forms and provide it to me. Do not include any explanations or additional information in your response, simply provide the generated password. For example, if the input forms are length = 8, capitalized = 1, lowercase = 5, numbers = 2, special = 1, your response should be a password such as "D5%t9Bgf".]
+```
+
+```
+pg(length = 10, capitalized = 1, lowercase = 5, numbers = 2, special = 1)
+pg(10,1,5,2,1)
+```
+
+### Мысли
+На данный момент уже существует множество проектов, работающих над программированием GPT, таких как:
+- [GitHub Copilot](https://github.com/features/copilot)
+- [Microsoft AI](https://www.microsoft.com/en-us/ai)
+- [chatgpt-plugins](https://openai.com/blog/chatgpt-plugins)
+- [LangChain](https://github.com/hwchase17/langchain)
+- [marvin](https://github.com/PrefectHQ/marvin)
+
+Но эти проекты разрабатываются либо для клиентов продукта, либо для пользователей, способных программировать на Python или других языках программирования.
+Для обычного пользователя используйте этот простой шаблон для повседневной работы и несколько раз повторите итерацию. Используйте приложение для заметок для документирования функции, и оно даже может быть обновлено до библиотеки.
+
+В качестве альтернативы, можно использовать некоторые инструменты с открытым исходным кодом для ChatGPT, такие как ChatGPT-Next-Web, chatbox и ChatGPT-Desktop. В настоящее время ChatGPT-Next-Web позволяет добавлять несколько подсказок перед инициализацией нового чата.
+
+Мы можем использовать эту функцию, чтобы добавить нашу функцию, которую можно будет использовать.

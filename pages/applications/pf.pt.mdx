@@ -1,0 +1,102 @@
+# Função Prompt
+
+## Introdução
+Quando estabelecemos um paralelo entre a interface de diálogo do GPT e o shell de uma linguagem de programação, o prompt de encapsulamento pode ser considerado como a criação de uma função. Essa função tem um nome único e, quando a chamamos por esse nome com o texto de entrada, ela produz resultados com base nas regras internas definidas. Em resumo, criamos um prompt reutilizável com um nome que facilita o engajamento com o GPT. É como ter uma ferramenta prática que permite ao GPT realizar tarefas específicas em nosso nome - só precisamos fornecer a entrada e receber a saída desejada.
+
+Ao encapsular prompts em funções, é possível criar uma série de funções para estabelecer um fluxo de trabalho. Cada função representa uma etapa ou tarefa específica e, quando combinadas em uma ordem específica, podem automatizar processos complexos ou resolver problemas de forma mais eficiente. Essa abordagem permite uma interação mais estruturada e simplificada com o GPT, aumentando suas capacidades e tornando-o uma ferramenta poderosa para realizar uma ampla gama de tarefas.
+
+Portanto, antes de podermos usar uma função, precisamos informar ao GPT sobre ela. Aqui está um prompt que define a função.
+
+*Prompt:*
+> Vamos chamar este prompt de **meta prompt**.  
+Este prompt foi testado no GPT3.5 e funciona ainda melhor no GPT4.
+
+```
+Olá, ChatGPT! Espero que esteja bem. Estou entrando em contato para solicitar ajuda com uma função específica. Entendo que você tem a capacidade de processar informações e realizar várias tarefas com base nas instruções fornecidas. Para ajudá-lo a entender minha solicitação de forma mais fácil, usarei um modelo para descrever a função, a entrada e as instruções sobre o que fazer com a entrada. Por favor, veja os detalhes abaixo:
+function_name: [Nome da Função]
+input: [Entrada]
+rule: [Instruções sobre como processar a entrada]
+Peço que você forneça a saída para esta função, com base nas informações que forneci. Sua ajuda é muito apreciada. Obrigado!
+Substituirei o texto dentro dos colchetes pelas informações relevantes para a função que desejo que você execute. Essa introdução detalhada deve ajudá-lo a entender minha solicitação de forma mais eficiente e fornecer a saída desejada. O formato é function_name(input). Se entendeu, responda apenas com uma palavra "ok".
+```
+
+## Exemplos 
+
+### Assistente de estudo de inglês
+Por exemplo, digamos que queremos usar o GPT para nos auxiliar nos estudos de inglês. Podemos simplificar o processo criando uma série de funções.
+
+Este exemplo foi testado no GPT3.5 e funciona ainda melhor no GPT4.
+
+#### Descrição da função
+
+Precisamos colar o **meta prompt** que foi definido acima nesta seção no GPT
+
+Em seguida, criaremos uma função `trans_word`.  
+Esta função solicita ao GPT para traduzir do chinês para o inglês.
+
+*Prompt:*
+```
+function_name: [trans_word]
+input: ["texto"]
+rule: [Quero que você atue como um tradutor de inglês, corretor ortográfico e aprimorador. Vou fornecer formas de entrada incluindo "texto" em qualquer idioma, e você deve detectar o idioma, traduzi-lo e responder com o meu texto corrigido, em inglês.]
+```
+
+Escreva uma função que expande o texto.
+
+*Prompt:*
+```
+function_name: [expand_word]
+input: ["texto"]
+rule: [Por favor, atue como uma Caixa de Diálogo, corretor ortográfico e aprimorador de idiomas. Vou fornecer formas de entrada incluindo "texto" em qualquer idioma e você deve fornecer o idioma original. Quero que mantenha o significado, mas torne-o mais literário.]
+```
+
+Escreva uma função que corrige o texto.
+
+*Prompt:*
+```
+function_name: [fix_english]
+input: ["texto"]
+rule: [Por favor, atue como um mestre em inglês, corretor ortográfico e aprimorador de idiomas. Vou fornecer formas de entrada incluindo "texto" e quero que você melhore o vocabulário e as frases do texto para que fiquem mais naturais e elegantes. Mantenha o mesmo significado.]
+```
+Por fim, você pode executar a função de forma independente ou encadeá-las.
+
+*Prompt:*
+```
+trans_word('婆罗摩火山处于享有“千岛之国”美称的印度尼西亚. 多岛之国印尼有4500座之多的火山, 世界著名的十大活火山有三座在这里.')
+fix_english('Finally, you can run the function independently or chain them together.')
+fix_english(expand_word(trans_word('婆罗摩火山处于享有“千岛之国”美称的印度尼西亚. 多岛之国印尼有4500座之多的火山, 世界著名的十大活火山有三座在这里.')))
+```
+Ao representar as funções nesse formato, é possível ver claramente o nome de cada função, a entrada e a regra para processar a entrada. Isso fornece uma forma organizada de entender a funcionalidade e o propósito de cada etapa no fluxo de trabalho.
+
+_Dicas:_
+Se você não quiser que o ChatGPT forneça informações excessivas, basta adicionar uma frase após definir as regras da função.
+```
+NÃO DIGA OUTRAS COISAS, A MENOS QUE NÃO ENTENDA A FUNÇÃO
+```
+
+### Função com múltiplos parâmetros
+Vamos criar uma função que gera uma senha a partir de cinco parâmetros de entrada e retorna a senha gerada.
+
+*Prompt:*
+```
+function_name: [pg]
+input: ["comprimento", "maiusculas", "minusculas", "numeros", "especiais"]
+rule: [Quero que você atue como um gerador de senhas para pessoas que precisam de uma senha segura. Fornecerei formas de entrada, incluindo "comprimento", "maiusculas", "minusculas", "numeros" e caracteres "especiais". Sua tarefa é gerar uma senha complexa usando essas formas de entrada e me fornecer. Não inclua explicações ou informações adicionais na resposta, simplesmente forneça a senha gerada. Por exemplo, se as formas de entrada forem comprimento = 8, maiusculas = 1, minusculas = 5, numeros = 2, especiais = 1, sua resposta deve ser uma senha como "D5%t9Bgf".]
+```
+```
+pg(comprimento = 10, maiusculas = 1, minusculas = 5, numeros = 2, especiais = 1)
+pg(10,1,5,2,1)
+```
+
+### Reflexão
+Atualmente, já existem muitos projetos que trabalham na programação do GPT, como:
+- [GitHub Copilot](https://github.com/features/copilot)
+- [Microsoft AI](https://www.microsoft.com/en-us/ai)
+- [chatgpt-plugins](https://openai.com/blog/chatgpt-plugins)
+- [LangChain](https://github.com/hwchase17/langchain)
+- [marvin](https://github.com/PrefectHQ/marvin)
+
+Mas esses projetos são projetados para clientes de produtos ou usuários que sabem programar em Python ou outras linguagens de programação.
+Para o usuário médio, utilize este modelo fácil para o trabalho diário e itere algumas vezes. Use um aplicativo de anotações para documentar a função, e até mesmo atualizá-la para uma biblioteca.
+Alternativamente, alguns ChatGPTs de código aberto, como [ChatGPT-Next-Web](https://github.com/Yidadaa/ChatGPT-Next-Web), [chatbox](https://github.com/Bin-Huang/chatbox), [PromptAppGPT](https://github.com/mleoking/PromptAppGPT) e [ChatGPT-Desktop](https://github.com/lencx/ChatGPT), podem ser utilizados. Atualmente, o ChatGPT-Next-Web permite adicionar algumas consultas antes de inicializar o novo chat. E o PromptAppGPT suporta o desenvolvimento de aplicativos web de baixo código com base em modelos de estímulo e permite que qualquer pessoa desenvolva aplicativos semelhantes ao AutoGPT com algumas linhas de estímulo.
+Podemos usar essa funcionalidade para adicionar nossa função, que pode ser usada em seguida.

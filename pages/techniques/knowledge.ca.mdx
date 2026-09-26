@@ -1,0 +1,92 @@
+# Estímuls de coneixement generat
+
+import {Screenshot} from 'components/screenshot'
+import GENKNOW from '../../img/gen-knowledge.png'
+
+<Screenshot src={GENKNOW} alt="GENKNOW" />
+
+Font de la imatge: [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf)
+
+Els LLM continuen millorant i una tècnica popular inclou la capacitat d'incorporar coneixement o informació per ajudar el model a fer prediccions més precises.
+
+Utilitzant una idea similar, es pot utilitzar també el model per generar coneixement abans de fer una predicció? Això és el que es prova en l'article de [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf): generar coneixement per ser utilitzat com a part de l'estímul. En particular, com d'útil és això per a tasques com el raonament de sentit comú?
+
+Provem un estímul simple:
+
+*Estímul:*
+```
+Formar part del golf és intentar obtenir un total de punts més alt que els altres. Sí o no?
+```
+
+*Sortida:*
+```
+Sí.
+```
+
+Aquest tipus d'error revela les limitacions dels LLM per realitzar tasques que requereixen més coneixement sobre el món. Com podem millorar això amb la generació de coneixement?
+
+En primer lloc, generem alguns "coneixements":
+
+*Estímul:*
+```
+Entrada: Grècia és més gran que Mèxic.
+Coneixement: Grècia té aproximadament 131.957 km², mentre que Mèxic té aproximadament 1.964.375 km², fent que Mèxic sigui un 1.389% més gran que Grècia.
+
+Entrada: Les ulleres sempre s'empassen.
+Coneixement: La condensació es produeix en les lents de les ulleres quan el vapor d'aigua del teu suor, alè i humitat ambient cau sobre una superfície freda, es refreda i després es transforma en petites gotes de líquid, formant una pel·lícula que veus com boira. Les teves lents seran relativament fredes en comparació amb el teu alè, especialment quan l'aire exterior és fred.
+
+Entrada: Un peix és capaç de pensar.
+Coneixement: Els peixos són més intel·ligents del que semblen. En moltes àrees, com ara la memòria, les seves capacitats cognitives igualen o superen les dels vertebrats 'superiors', incloent-hi els primats no humans. La memòria a llarg termini dels peixos els ajuda a mantenir un seguiment de les relacions socials complexes.
+
+Entrada: Un efecte comú de fumar molts cigarrets al llarg de la vida és una probabilitat més alta del normal de patir càncer de pulmó.
+Coneixement: Aquells que van mantenir una mitjana de menys d'un cigarret al dia al llarg de la seva vida tenien nou vegades més risc de morir de càncer de pulmó que els que mai fumaven. Entre les persones que fumaven entre un i deu cigarrets al dia, el risc de morir de càncer de pulmó era gairebé 12 vegades més alt que el dels que mai fumaven.
+
+Entrada: Una roca té la mateixa mida que una pedra.
+Coneixement: Una pedra és un fragment de roca amb una mida de partícula de 4 a 64 mil·límetres basat en l'escala de sedimentologia Udden-Wentworth. Les pedres generalment es consideren més grans que les grànules (2 a 4 mil·límetres de diàmetre) i més petites que els codols (64 a 256 mil·límetres de diàmetre).
+
+Entrada: Formar part del golf és intentar obtenir un total de punts més alt que els altres.
+Coneixement:
+```
+
+*Coneixement 1:*
+```
+L'objectiu del golf és jugar un conjunt de forats amb el menor nombre de cops possible. Una ronda de golf típicament consisteix en 18 forats. Cada forat es juga una vegada en la ronda en un camp de golf estàndard. Cada cop es compta com un punt, i el nombre total de cops s'utilitza per determinar el guanyador del joc.
+```
+
+*Coneixement 2:*
+```
+El golf és un esport de precisió de pal i pilota en què els jugadors que competeixen (o golfistes) utilitzen molts tipus de pals per colpejar les pilotes en una sèrie de forats en un camp utilitzant el menor nombre de cops possible. L'objectiu és completar el camp amb la puntuació més baixa, que es calcula sumant el nombre total de cops realitzats en cada forat. El jugador amb la puntuació més baixa guanya el joc.
+```
+
+Estem utilitzant l'estímul proporcionat en l'article de [Liu et al. 2022](https://arxiv.org/pdf/2110.08387.pdf).
+
+El següent pas és integrar el coneixement i obtenir una predicció. He reformat la pregunta en format QA per guiar el format de la resposta.
+
+*Estímul:*
+```
+Pregunta: Formar part del golf és intentar obtenir un total de punts més alt que els altres. Sí o no?
+
+Coneixement: L'objectiu del golf és jugar un conjunt de forats amb el menor nombre de cops possible. Una ronda de golf típicament consisteix en 18 forats. Cada forat es juga una vegada en la ronda en un camp de golf estàndard. Cada cop es compta com un punt, i el nombre total de cops s'utilitza per determinar el guanyador del joc.
+
+Explica i respon: 
+```
+
+*Resposta 1 (confiança molt alta):*
+```
+No, l'objectiu del golf no és obtenir un total de punts més alt que els altres. Més aviat, l'objectiu és jugar un conjunt de forats amb el menor nombre de cops possible. El nombre total de cops s'utilitza per determinar el guanyador del joc, no el total de punts.
+```
+
+```
+Pregunta: Formar part del golf és intentar obtenir un total de punts més alt que els altres. Sí o no?
+
+Coneixement: El golf és un esport de precisió de pal i pilota en què els jugadors que competeixen (o golfistes) utilitzen molts tipus de pals per colpejar les pilotes en una sèrie de forats en un camp utilitzant el menor nombre de cops possible. L'objectiu és completar el camp amb la puntuació més baixa, que es calcula sumant el nombre total de cops realitzats en cada forat. El jugador amb la puntuació més baixa guanya el joc.
+
+Explica i respon:
+```
+
+*Resposta 2 (la confiança és molt menor):*
+```
+Sí, formar part del golf és intentar obtenir un total de punts més alt que els altres. Cada jugador intenta completar el camp amb la puntuació més baixa, que es calcula sumant el nombre total de cops realitzats en cada forat. El jugador amb la puntuació més baixa guanya el joc.
+```
+
+Algunes coses realment interessants van passar amb aquest exemple. En la primera resposta, el model estava molt confiat, però en la segona no tant. Simplifico el procés per a demostració, però hi ha alguns detalls més a tenir en compte a l'hora d'arribar a la resposta final. Consulteu l'article per a més informació.

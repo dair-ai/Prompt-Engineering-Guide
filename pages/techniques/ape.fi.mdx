@@ -1,0 +1,26 @@
+# Automoitu Kehotesuunnittelu
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import APE from '../../img/APE.png'
+import APECOT from '../../img/ape-zero-shot-cot.png'
+
+<Screenshot src={APE} alt="APE" />
+Kuvan lähde: [Zhou ym. (2022)](https://arxiv.org/abs/2211.01910)
+
+[Zhou ym. (2022)](https://arxiv.org/abs/2211.01910)-artikkelissa käsitellään automoitua kehotesuunnittelua (Automatic Prompt Engineer, APE). Ohjeiden luomisen haasteena on luonnollisen kielen synteesi, joka ratkaistaan mustan laatikon optimointiongelmana käyttäen LLM:ää ehdokasratkaisujen luomiseen ja etsimiseen.
+
+Ensimmäinen vaihe sisältää suuren kielimallin (tulkintamallina), jolle annetaan esimerkkejä ohje-ehdokkaiden luomiseksi tehtävää varten. Nämä ehdokasratkaisut ohjaavat etsintäprosessia. Ohjeet toteutetaan kohdemallilla ja sopivin ohje valitaan laskettujen arviointipisteiden perusteella.
+
+APE löytää paremman nollaohjauksen CoT:n kuin ihmisen suunnittelema "Let's think step by step" -ohjaus ([Kojima ym., 2022](https://arxiv.org/abs/2205.11916)).
+
+Kehote "Käydään tämä läpi askel askeleelta, jotta olemme varmoja oikeasta vastauksesta." herättää ajatusketjun kautta rationalisoinnin, ja parantaa suorituskykyä MultiArith- ja GSM8K-arviointimittareissa:
+
+<Screenshot src={APECOT} alt="APECOT" />
+Kuvan lähde: [Zhou ym., (2022)](https://arxiv.org/abs/2211.01910)
+
+Tämä artikkeli käsittelee tärkeää aihetta kehotesuunnittelussa, eli automaattisesti optimoitavia ohjeita. Vaikka emme käy tätä aihetta läpi syvällisesti tässä oppaassa, tässä on muutamia keskeisiä artikkeleita, jos olet kiinnostunut aiheesta:
+
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - esittää lähestymistavan automaattisten kehotteiden luomiseksi monipuolisille tehtäville gradientti-ohjatun haun avulla.
+- [Prefix Tuning](https://arxiv.org/abs/2101.00190) -  kevyempi vaihtoehto hienosäädölle, joka lisää koulutettavan jatkuvan etuliitteen NLG-tehtäviin. 
+- [Prompt Tuning](https://arxiv.org/abs/2104.08691) - esittelee mekanismin pehmeiden kehotteiden oppimiseen taaksepäin suuntautuvan vastavirta-algoritmin (backpropagation) avulla.

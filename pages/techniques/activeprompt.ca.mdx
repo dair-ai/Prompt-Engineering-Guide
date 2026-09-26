@@ -1,0 +1,12 @@
+# Active-Prompt
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ACTIVE from '../../img/active-prompt.png'
+
+Les mètodes de cadena de pensament (CoT) es basen en un conjunt fix d'exemplars anotats per humans. El problema d'això és que els exemplars podrien no ser els exemples més eficaços per a les diferents tasques. Per abordar això, [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf) van proposar recentment un nou enfocament de prompts anomenat Active-Prompt per adaptar els LLMs a diferents exemples de tasques específiques (anotats amb raonament CoT dissenyat per humans).
+
+A continuació es mostra una il·lustració de l'enfocament. El primer pas és consultar el LLM amb o sense alguns exemples de CoT. Es generen *k* respostes possibles per a un conjunt de preguntes d'entrenament. Es calcula una mètrica d'incertesa basada en les *k* respostes (es fa servir el desacord). Les preguntes més incertes es seleccionen per a ser anotades per humans. Els nous exemplars anotats s'utilitzen llavors per inferir cada pregunta.
+
+<Screenshot src={ACTIVE} alt="ACTIVE" />
+Font de la imatge: [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf)

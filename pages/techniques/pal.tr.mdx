@@ -1,0 +1,116 @@
+# PAL (Program Destekli Dil Modelleri)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import PAL from '../../img/pal.png'
+
+[Gao ve ekibi, (2022)](https://arxiv.org/abs/2211.10435), doğal dil problemlerini okumak ve ara adım olarak önermeleri oluşturmak için LLM'leri kullanan bir metod sunmuştur. Program destekli dil modelleri (PAL) olarak adlandırılan bu yöntem, çözümü Python yorumlayıcısı gibi programlamaya dayalı bir çalışma zamanına devrederek, düşünce zinciri isteminin serbest formatta çözüm elde etme yönteminden farklıdır. 
+
+<Screenshot src={PAL} alt="PAL" />
+Resim Kaynağı: [Gao ve ekibi, (2022)](https://arxiv.org/abs/2211.10435)
+
+Bir örneği, LangChain ve OpenAI GPT-3 kullanarak inceleyelim. Python yorumlayıcısını kullanarak sorulan soruyu yorumlayabilen ve bir cevap sağlayabilen basit bir uygulama geliştirmek istiyoruz.
+
+Özellikle, LLM'yi tarih anlama gerektiren soruları yanıtlamak için kullanabilen bir işlevsellik oluşturma ilgisi duyuyoruz. LLM'ye, [buradan](https://github.com/reasoning-machines/pal/blob/main/pal/prompt/date_understanding_prompt.py) alınan birkaç örnek içeren bir istem sunacağız.
+
+İhtiyacımız olan importlar şunlardır:
+
+```python
+import openai
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+import os
+from langchain.llms import OpenAI
+from dotenv import load_dotenv
+```
+
+Öncelikle birkaç şeyi yapılandıralım:
+
+```python
+load_dotenv()
+
+# API configuration
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# for LangChain
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+```
+
+Model örneğini kurulmuş hali:
+
+```python
+llm = OpenAI(model_name='text-davinci-003', temperature=0)
+```
+
+İstem ve sorunun kurulumu: 
+
+```python
+question = "Bugün 27 Şubat 2023. Tam 25 yıl önce doğmuştum. Doğduğum tarih MM/DD/YYYY formatında neydi?"
+
+DATE_UNDERSTANDING_PROMPT = """
+# S: 2015 yılına 36 saat kaldı. Bir hafta sonra günün tarihi MM/DD/YYYY formatında ne olacak?
+# Eğer 2015 yılına 36 saat kaldıysa, bugün 36 saat öncesidir.
+today = datetime(2015, 1, 1) - relativedelta(hours=36)
+# Bir hafta sonrası,
+one_week_from_today = today + relativedelta(weeks=1)
+# Cevap %m/%d/%Y formatında
+one_week_from_today.strftime('%m/%d/%Y')
+# S: 2019'un ilk günü bir Salı’dır ve bugün 2019'un ilk Pazartesi'si. Bugünün tarihi MM/DD/YYYY formatında ne?
+# Eğer 2019’un ilk günü bir Salı ve bugün 2019’un ilk Pazartesi’si ise, bu, bugünün 6 gün sonrası olduğu anlamına gelir.
+today = datetime(2019, 1, 1) + relativedelta(days=6)
+# Cevap %m/%d/%Y formatında
+today.strftime('%m/%d/%Y')
+# S: Konser 06/01/1943'te olması planlanıyordu, ancak bugüne bir gün ertelendi. 10 gün önceki tarih MM/DD/YYYY formatında neydi?
+# Eğer konser 06/01/1943’te olması planlanıyor ama bir günlük gecikmeyle bugüne denk geldiyse, o zaman bugün bir gün sonrasıdır.
+today = datetime(1943, 6, 1) + relativedelta(days=1)
+# 10 gün önce,
+ten_days_ago = today - relativedelta(days=10)
+# Cevap %m/%d/%Y formatında
+ten_days_ago.strftime('%m/%d/%Y')
+# S: Bugün 4/19/1969. 24 saat sonra tarih MM/DD/YYYY formatında ne olacak?
+# Bugün 4/19/1969.
+today = datetime(1969, 4, 19)
+# 24 saat sonra,
+later = today + relativedelta(hours=24)
+# Cevap %m/%d/%Y formatında
+today.strftime('%m/%d/%Y')
+# S: Jane bugünün 3/11/2002 olduğunu düşündü, ancak bugün aslında 12 Mart, yani 1 gün sonrası. 24 saat sonrası tarih MM/DD/YYYY formatında ne olacak?
+# Eğer Jane bugünün 3/11/2002 olduğunu düşündü, ancak bugün aslında 12 Mart ise, o zaman bugün 3/12/2002’dir.
+today = datetime(2002, 3, 12)
+# 24 saat sonra,
+later = today + relativedelta(hours=24)
+# Cevap %m/%d/%Y formatında
+later.strftime('%m/%d/%Y')
+# S: Jane, 2001'in Şubat ayının son gününde doğdu. Bugün onun 16. yaş günü. Dünkünün tarihi MM/DD/YYYY formatında neydi?
+# Eğer Jane 2001'in Şubat ayının son gününde doğdu ve bugün onun 16. yaşı ise, o zaman bugün 16 yıl sonrasıdır.
+today = datetime(2001, 2, 28) + relativedelta(years=16)
+# Dün,
+yesterday = today - relativedelta(days=1)
+# Cevap %m/%d/%Y formatında
+yesterday.strftime('%m/%d/%Y')
+# S: {question}
+""".strip() + '\n'
+```
+
+```python
+llm_out = llm.execute(DATE_UNDERSTANDING_PROMPT.format(question=question))
+print(llm_out)
+```
+
+Bu, aşağıdakini çıktı olarak verecektir:
+```
+# Eğer bugün 27 Şubat 2023 ve tam 25 yıl önce doğduysam, o zaman doğum tarihim 25 yıl öncesidir.
+today = datetime(2023, 2, 27)
+# Doğum tarihim 25 yıl öncesidir,
+born = today - relativedelta(years=25)
+# Cevap %m/%d/%Y formatında
+born.strftime('%m/%d/%Y')
+```
+
+`llm_out`'un içeriği bir Python kodu parçacığıdır. Aşağıda, bu Python kod parçacığını çalıştırmak için `exec` komutu kullanılmaktadır.
+```python
+exec(llm_out)
+print(born)
+```
+
+Bu, aşağıdakini çıktı olarak verecektir: `02/27/1998`

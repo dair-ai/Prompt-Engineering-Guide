@@ -1,0 +1,35 @@
+# Veracidad
+
+Los LLMs tienen una tendencia a generar respuestas que suenan coherentes y convincentes, pero a veces pueden ser inventadas. Mejorar las instrucciones puede ayudar a mejorar el modelo para generar respuestas más precisas/factuales y reducir la probabilidad de generar respuestas inconsistentes e inventadas.
+
+Algunas soluciones pueden incluir:
+
+- proporcionar verdades fundamentales (por ejemplo, un párrafo de un artículo relacionado o una entrada de Wikipedia) como parte del contexto para reducir la probabilidad de que el modelo produzca texto inventado.
+- configurar el modelo para producir respuestas menos diversas disminuyendo los parámetros de probabilidad e instruyéndolo a admitir (por ejemplo, "No lo sé") cuando no sepa la respuesta.
+- proporcionar en las instrucciones una combinación de ejemplos de preguntas y respuestas que pueda conocer o no.
+
+Veamos un ejemplo sencillo:
+
+*Prompt:*
+```
+P: ¿Qué es un átomo?
+R: Un átomo es una partícula diminuta que lo conforma todo.
+
+P: ¿Quién es Alvan Muntz?
+R: ?
+
+P: ¿Qué es Kozar-09?
+R: ?
+
+P: ¿Cuántas lunas tiene Marte?
+R: Dos, Fobos y Deimos.
+
+P: ¿Quién es Neto Beto Roberto?
+```
+
+*Salida:*
+```
+R: ?
+```
+
+Inventé el nombre "Neto Beto Roberto", por lo que el modelo es correcto en este caso. Intenta cambiar la pregunta un poco y ve si puedes hacer que funcione. Hay diferentes formas de mejorar esto aún más basándose en todo lo que has aprendido hasta ahora.

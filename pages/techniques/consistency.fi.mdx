@@ -1,0 +1,65 @@
+# Itsejohdonmukaisuus
+
+Itsejohdonmukaisuus on ehkä yksi kehittyneimmistä kehotesuunnittelutekniikoista. [Wang ym. (2022)](https://arxiv.org/pdf/2203.11171.pdf), ehdottama itsejohdonmukaisuus pyrkii "korvaamaan naiivin ahneen dekoodauksen, jota käytetään ajatusketjukehotteissa". Ajatus on ottaa näytteitä useista erilaisista päättelypoluista vähäisen ohjauksen CoT:lla ja valita tuotosten joukosta johdonmukaisin vastaus. Tämä auttaa parantamaan CoT-kehoteen suorituskykyä tehtävissä, jotka vaativat aritmetiikkaa ja maalaisjärkeä.
+
+Kokeillaan seuraavaa esimerkkiä aritmeettiselle päättelylle:
+
+*Kehote:*
+```
+Kun olin 6, siskoni oli puolet ikäisestäni. Nyt
+olen 70, kuinka vanha siskoni on?
+```
+
+*Tulos:*
+```
+35
+```
+
+Tulos on väärä! Kuinka voimme parantaa tätä itsejohdonmukaisuudella? Kokeillaan. Käytämme Wang ym. (2022) -julkaisun vähäisen ohjauksen esimerkkejä (taulukko 17):
+
+*Kehote:*
+```
+K: Puutarhassa on 15 puuta. Puutarhatyöntekijät istuttavat tänään puita puutarhaan. Kun he ovat valmiita, puita on 21. Kuinka monta puuta puutarhatyöntekijät istuttivat tänään?
+V: Aloitetaan 15 puusta. Myöhemmin meillä on 21 puuta. Ero on istutettujen puiden määrä. Joten heidän on täytynyt istuttaa 21 - 15 = 6 puuta. Vastaus on 6.
+
+K: Jos pysäköintialueella on 3 autoa ja sinne tulee vielä 2 autoa, kuinka monta autoa pysäköintialueella on?
+V: Pysäköintialueella on jo 3 autoa. 2 lisää saapuu. Nyt autoja on 3 + 2 = 5. Vastaus on 5.
+
+K: Leahilla oli 32 suklaata ja hänen siskollaan oli 42. Jos he söivät 35, kuinka monta suklaata heillä on jäljellä yhteensä?
+V: Leahilla oli 32 suklaata ja Leahin siskolla oli 42. Alun perin suklaata oli 32 + 42 = 74. He ovat syöneet 35 suklaata. Joten heillä on yhteensä jäljellä 74 - 35 = 39 suklaata. Vastaus on 39.
+
+K: Jasonilla oli 20 tikkaria. Hän antoi osan Dennylle. Nyt Jasonilla on 12 tikkaria. Kuinka monta tikkaria Jason antoi Dennylle?
+V: Jasonilla oli 20 tikkaria. Koska hänellä on nyt vain 12, hän on antanut loput Dennylle. Hän on antanut Dennylle 20 - 12 = 8 tikkaria. Vastaus on 8.
+
+K: Shawnilla on viisi lelua. Jouluna hän sai sekä äidiltään että isältään kaksi lelua. Kuinka monta lelua hänellä on nyt?
+V: Hänellä on 5 lelua. Hän sai 2 äidiltä, joten sen jälkeen hänellä on 5 + 2 = 7 lelua. Sitten hän sai 2 lisää isältä, joten yhteensä hänellä on 7 + 2 = 9 lelua. Vastaus on 9.
+
+K: Palvelinhuoneessa oli yhdeksän tietokonetta. Maanantaista torstaihin asennettiin joka päivä viisi lisää. Kuinka monta tietokonetta on nyt palvelinhuoneessa?
+V: Maanantaista torstaihin on 4 päivää. Joka päivä lisättiin 5 tietokonetta. Se tarkoittaa, että yhteensä lisättiin 4 * 5 = 20 tietokonetta. Alussa oli 9 tietokonetta, joten nyt niitä on 9 + 20 = 29. Vastaus on 29.
+
+K: K: Michaelilla oli 58 golfpalloa. Tiistaina hän menetti 23 golfpalloa. Keskiviikkona hän menetti 2 lisää. Kuinka monta golfpalloa hänellä oli keskiviikon lopussa?
+V: Michaelilla oli aluksi 58 palloa. Hän menetti tiistaina 23, joten sen jälkeen hänellä on 58 - 23 = 35 palloa. Keskiviikkona hän menetti 2 lisää, joten nyt hänellä on 35 - 2 = 33 palloa. Vastaus on 33.
+
+K: Olivialla on 23 dollaria. Hän osti viisi sämpylää, jotka maksoivat 3 dollaria kappaleelta. Kuinka paljon rahaa hänellä on jäljellä?
+V: Hän osti 5 sämpylää hintaan 3 dollaria kappaleelta. Tämä tarkoittaa, että hän käytti 5 * 3 = 15 dollaria. Aluksi hänellä oli 23 dollaria, joten hänellä on nyt jäljellä 23 - 15 = 8 dollaria. Vastaus on 8.
+
+K: Kun olin 6-vuotias, siskoni oli puolet niin vanha kuin minä. Nyt olen 70-vuotias, kuinka vanha siskoni on?
+V:
+```
+
+*Tulos 1:*
+```
+V: Kun olit 6-vuotias, siskosi oli puolet niin vanha, eli 3 vuotta nuorempi kuin sinä. Nyt olet 70-vuotias, joten siskosi on 70 - 3 = 67-vuotias. Vastaus on 67.
+```
+
+*Tulos 2:*
+```
+V: Kun olit 6-vuotias, siskosi oli puolet eli 3 vuotta nuorempi. Nyt olet 70-vuotias, joten siskosi on 70 - 3 = 67-vuotias. Vastaus on 67.
+```
+
+*Tulos 3:*
+```
+V: Kun olit 6-vuotias, siskosi oli 3-vuotias, koska hän oli puolet iästäsi. Nyt olet 70-vuotias, joten 70 / 2 = 35. Siskosi on nyt 35-vuotias.
+```
+
+Lopullisen vastauksen laskeminen sisältää muutamia vaiheita (katso yksityiskohdat artikkelista), mutta koska todennäköisin vastaus on jo muodostumassa, se tulisi käytännössä lopulliseksi vastaukseksi.

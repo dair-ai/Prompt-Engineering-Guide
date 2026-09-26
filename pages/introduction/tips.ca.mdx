@@ -1,0 +1,106 @@
+# Consells generals per dissenyar prompts
+
+Aquí teniu alguns consells a tenir en compte mentre dissenyeu els vostres prompts:
+
+### Comenceu amb coses senzilles
+En començar a dissenyar prompts, heu de tenir en compte que és un procés iteratiu que requereix molta experimentació per obtenir resultats òptims. Utilitzar un terreny de joc senzill d'OpenAI o Cohere és un bon punt de partida.
+
+Podeu començar amb prompts senzills i anar afegint més elements i context a mesura que busqueu resultats millors. La iteració del vostre prompt és vital per aquesta raó. A mesura que llegiu la guia, veureu molts exemples on la especificitat, la simplicitat i la concisió us donaran sovint millors resultats.
+
+Quan teniu una tasca gran que implica moltes subtasques diferents, podeu intentar descompondre la tasca en subtasques més senzilles i anar construint a mesura que obteniu resultats millors. Això evita afegir massa complexitat al procés de disseny de prompts al principi.
+
+### La instrucció
+Podeu dissenyar prompts efectius per a diferents tasques senzilles utilitzant ordres per indicar al model què voleu aconseguir, com ara "Escriviu", "Classifiqueu", "Resumiu", "Traduïu", "Ordeneu", etc.
+
+Tingueu en compte que també heu de fer moltes proves per veure què funciona millor. Proveu diferents instruccions amb diferents paraules clau, contextos i dades i vegeu què funciona millor per al vostre cas d'ús i tasca en particular. Normalment, com més específic i rellevant sigui el context per a la tasca que esteu intentant realitzar, millor. Parlar de la importància de la selecció i afegir més context en les guies que vindran.
+
+Altres recomanen que col·loqueu les instruccions al principi del prompt. Una altra recomanació és utilitzar algun separador clar com "###" per separar la instrucció i el context.
+
+Per exemple:
+
+*Prompt:*
+```
+### Instrucció ###
+Traduïu el text següent a l'espanyol:
+
+Text: "hola!"
+```
+
+*Output:*
+```
+¡Hola!
+```
+
+### Especificitat
+Sigues molt específic sobre la instrucció i la tasca que vols que el model realitzi. Com més descriptiu i detallat sigui el prompt, millors seran els resultats. Això és particularment important quan teniu un resultat o estil de generació desitjat que esteu cercant. No hi ha tokens o paraules clau específiques que portin a millors resultats. És més important tenir un bon format i prompt descriptiu. De fet, proporcionar exemples al prompt és molt eficaç per obtenir sortida desitjada en formats específics.
+
+En dissenyar prompts, també haureu de tenir en compte la longitud del prompt, ja que hi ha limitacions pel que fa a la quantitat de text que podeu proporcionar. Penseu en què tan específic i detallat heu de ser. Incloent massa detalls innecessaris no és necessàriament una bona aproximació. Els detalls haurien de ser rellevants i contribuir a la tasca en qüestió. Això és alguna cosa amb el qual haureu de fer moltes proves. Us animem a experimentar i iterar molt per optimitzar els prompts per a les vostres aplicacions.
+
+Com a exemple, provem un prompt senzill per extreure informació específica d'un fragment de text.
+
+*Prompt:*
+```
+Extreu el nom dels llocs en el següent text.
+
+Format desitjat:
+Lloc: <llista_separada_per_comes_de_noms_de_companies>
+
+Entrada: "Although these developments are encouraging to researchers, much is still a mystery. “We often have a black box between the brain and the effect we see in the periphery,” says Henrique Veiga-Fernandes, a neuroimmunologist at the Champalimaud Centre for the Unknown in Lisbon. “If we want to use it in the therapeutic context, we actually need to understand the mechanism.""
+```
+
+*Output:*
+```
+Lloc: Champalimaud Centre for the Unknown, Lisboa
+```
+
+El text d'entrada s'ha obtingut d'aquest [article de Nature](https://www.nature.com/articles/d41586-023-00509-z).
+
+### Eviteu la imprecisió
+
+Donats els consells anteriors sobre ser detallat i millorar el format, és fàcil caure en la trampa de voler ser massa enginyós amb els prompts i potencialment crear descripcions imprecises. Sovint és millor ser específic i directe. L'analogia aquí és molt similar a la comunicació efectiva: com més directa, més efectiva serà la transmissió del missatge.
+
+Per exemple, potser esteu interessat a aprendre el concepte d'enginyeria de prompts. Podríeu provar alguna cosa com:
+
+```
+Explica el concepte d'enginyeria de prompts. Mantingueu l'explicació breu, només unes quantes frases, i no siguis massa descriptiu.
+```
+
+No és clar des del prompt anterior quantes frases s'han d'utilitzar i quin estil. Podreu obtenir respostes prou bones amb els prompts anteriors, però el millor prompt seria aquell que és molt específic, concís i directe. Alguna cosa com:
+
+```
+Utilitzeu 2-3 frases per explicar el concepte d'enginyeria de prompts a un estudiant de secundària.
+```
+
+### Fer o no fer?
+Un altre consell comú en el disseny de prompts és evitar dir el que no s'ha de fer, sinó dir el que s'ha de fer en lloc d'això. Això fomenta més especificitat i es centra en els detalls que porten a bones respostes del model.
+
+Aquí teniu un exemple d'un xatbot de recomanació de pel·lícules que falla exactament en el que no vull que faci a causa de com vaig escriure la instrucció, centrant-se en el que no s'ha de fer.
+
+*Prompt:*
+```
+El següent és un agent que recomana pel·lícules a un client. NO DEMANI INTERESSOS. NO DEMANI INFORMACIÓ PERSONAL.
+
+Client: Si us plau, recomaneu-me una pel·lícula basada en els meus interessos.
+Agent: 
+```
+
+*Output:*
+```
+Clar, puc recomanar una pel·lícula basada en els teus interessos. Quin tipus de pel·lícula t'agradaria veure? Prefereixes acció, comèdia, romance o alguna cosa diferent?
+```
+
+Aquí teniu un prompt millor:
+
+*Prompt:*
+```
+El següent és un agent que recomana pel·lícules a un client. L'agent és responsable de recomanar una pel·lícula a partir de les pel·lícules més populars en tendència a nivell mundial. Ha d'abstenir-se de preguntar als usuaris sobre les seves preferències i evitar demanar informació personal. Si l'agent no té cap pel·lícula per recomanar, hauria de respondre "Ho sento, no he pogut trobar cap pel·lícula per recomanar avui".
+
+Client: Si us plau, recomaneu-me una pel·lícula basada en els meus interessos.
+Agent:
+```
+
+*Output:*
+```
+Ho sent, no tinc cap informació sobre els teus interessos. No obstant, aquí tens una llista de les pel·lícules més populars en tendència a nivell mundial ara mateix: [llista de pel·lícules]. Espero que trobis alguna cosa que t'agradi!```
+
+Alguns dels exemples anteriors s'han adoptat de l'article ["Best practices for prompt engineering with OpenAI API"](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api).

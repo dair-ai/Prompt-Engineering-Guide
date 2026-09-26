@@ -3,6 +3,7 @@
 import {Screenshot} from 'components/screenshot'
 import COT from '../../img/cot.png'
 import ZEROCOT from '../../img/zero-cot.png'
+import AUTOCOT from '../../img/auto-cot.png'
 
 
 ## 链式思考（CoT）提示
@@ -11,7 +12,7 @@ import ZEROCOT from '../../img/zero-cot.png'
 
 图片来源：[Wei等人（2022）](https://arxiv.org/abs/2201.11903)
 
-在[Wei等人（2022）](https://arxiv.org/abs/2201.11903)中引入的链式思考（CoT）提示通过中间推理步骤实现了复杂的推理能力。您可以将其与少样本提示相结合，以获得更好的结果，以便在回答之前进行推理的更复杂的任务。
+在 [Wei等人（2022）](https://arxiv.org/abs/2201.11903) 中引入的链式思考（CoT）提示通过中间推理步骤实现了复杂的推理能力。您可以将其与少样本提示相结合，以获得更好的结果，以便在回答之前进行推理的更复杂的任务。
 
 *提示：*
 ```
@@ -54,13 +55,13 @@ A：
 
 请记住，作者声称这是足够大的语言模型才会出现的新兴能力。
 
-## 零样本COT提示
+## 零样本 COT 提示
 
 <Screenshot src={ZEROCOT} alt="Zero-shot COT" />
 
 图片来源：[Kojima等人（2022）](https://arxiv.org/abs/2205.11916)
 
-最近提出的一个新想法是[零样本CoT](https://arxiv.org/abs/2205.11916)（Kojima等人，2022年），它基本上涉及将“让我们逐步思考”添加到原始提示中。让我们尝试一个简单的问题，看看模型的表现如何：
+最近提出的一个新想法是 [零样本CoT](https://arxiv.org/abs/2205.11916)（ Kojima 等人，2022年），它基本上涉及将“让我们逐步思考”添加到原始提示中。让我们尝试一个简单的问题，看看模型的表现如何：
 
 *提示：*
 ```
@@ -90,3 +91,20 @@ A：
 ```
 
 令人印象深刻的是，这个简单的提示在这个任务中非常有效。这在您没有太多示例可用于提示时特别有用。
+
+## 自动思维链（Auto-CoT）
+当使用思维链提示时，这个过程需要手工制作有效且多样化的例子。这种手动工作可能会导致次优解决方案。[Zhang et al. （2022）](https://arxiv.org/abs/2210.03493) 提出了一种消除人工的方法，即利用 LLMs “让我们一步一步地思考” 提示来生成一个接一个的推理链。这种自动过程仍然可能在生成的链中出现错误。为了减轻错误的影响，演示的多样性很重要。这项工作提出了Auto-CoT，它对具有多样性的问题进行采样，并生成推理链来构建演示。
+
+Auto-CoT 主要由两个阶段组成：
+- 阶段1：**问题聚类**：将给定问题划分为几个聚类
+- 阶段2：**演示抽样**：从每组数组中选择一个具有代表性的问题，并使用带有简单启发式的 Zero-Shot-CoT 生成其推理链
+
+简单的启发式方法可以是问题的长度（例如，60 个 tokens）和理由的步骤数（例如，5 个推理步骤）。这鼓励模型使用简单而准确的演示。
+
+该过程如下图所示：
+
+<Screenshot src={AUTOCOT} alt="AUTOCOT" />
+
+图片来源：[Zhang等人（2022）](https://arxiv.org/abs/2210.03493)
+
+Auto-CoT 的代码可在这里找到：[Github](https://github.com/amazon-science/auto-cot)。

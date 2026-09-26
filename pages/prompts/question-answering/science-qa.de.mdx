@@ -1,0 +1,78 @@
+# Wissenschaftliches Frage-Antworten mit LLMs
+
+import { Tabs, Tab } from 'nextra/components';
+import { Callout } from 'nextra/components';
+
+## Hintergrund
+
+Der folgende Prompt testet die Fähigkeiten eines LLM, wissenschaftliche Fragen zu beantworten.
+
+## Prompt
+
+```markdown
+Beantworte die Frage basierend auf dem unten stehenden Kontext. Halte die Antwort kurz und prägnant. Antworte mit "Unsicher über Antwort", wenn du dir nicht sicher über die Antwort bist.
+
+Kontext: Teplizumab hat seine Wurzeln in einem Pharmaunternehmen aus New Jersey namens Ortho Pharmaceutical. Dort entwickelten Wissenschaftler eine frühe Version des Antikörpers, genannt OKT3. Ursprünglich aus Mäusen gewonnen, konnte das Molekül an die Oberfläche von T-Zellen binden und deren zelltötendes Potenzial einschränken. Im Jahr 1986 wurde es zur Prävention der Abstoßung von Organen nach Nierentransplantationen zugelassen, was es zum ersten für die menschliche Anwendung erlaubten therapeutischen Antikörper machte.
+
+Frage: Woraus wurde OKT3 ursprünglich gewonnen?
+Antwort:
+```
+
+## Code / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+        "role": "user",
+        "content": "Answer the question based on the context below. Keep the answer short and concise. Respond \"Unsure about answer\" if not sure about the answer.\n\nContext: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.\n\nQuestion: What was OKT3 originally sourced from?\nAnswer:"
+        }
+    ],
+    temperature=1,
+    max_tokens=250,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Answer the question based on the context below. Keep the answer short and concise. Respond \"Unsure about answer\" if not sure about the answer.\n\nContext: Teplizumab traces its roots to a New Jersey drug company called Ortho Pharmaceutical. There, scientists generated an early version of the antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to bind to the surface of T cells and limit their cell-killing potential. In 1986, it was approved to help prevent organ rejection after kidney transplants, making it the first therapeutic antibody allowed for human use.\n\nQuestion: What was OKT3 originally sourced from?\nAnswer:",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+</Tabs>
+
+## Referenz
+
+- [Prompt Engineering Guide](https://www.promptingguide.ai/introduction/examples#question-answering) (16. März 2023)

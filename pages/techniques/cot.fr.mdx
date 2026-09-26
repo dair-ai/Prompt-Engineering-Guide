@@ -1,0 +1,92 @@
+# Chain-of-Thought Prompting
+
+import {Screenshot} from 'components/screenshot'
+import COT from '../../img/cot.png'
+import ZEROCOT from '../../img/zero-cot.png'
+
+
+## Chain-of-Thought (CoT) Prompting
+
+<Screenshot src={COT} alt="COT" />
+
+Image Source: [Wei et al. (2022)](https://arxiv.org/abs/2201.11903)
+
+Introduit dans [Wei et al. (2022)](https://arxiv.org/abs/2201.11903), le prompt "chain-of-thought" (CoT) permet des capacités de raisonnement complexes grâce à des étapes de raisonnement intermédiaires. Vous pouvez le combiner avec des prompts à quelques exemples pour obtenir de meilleurs résultats sur des tâches plus complexes qui nécessitent un raisonnement avant de répondre.
+
+*Prompt:*
+```
+La somme des nombres impairs de ce groupe donne un nombre pair : 4, 8, 9, 15, 12, 2, 1.
+R : L'addition de tous les nombres impairs (9, 15, 1) donne 25. La réponse est Faux.
+
+La somme des nombres impairs de ce groupe donne un nombre pair : 17, 10, 19, 4, 8, 12, 24.
+R : L'addition de tous les nombres impairs (17, 19) donne 36. La réponse est Vrai.
+
+La somme des nombres impairs de ce groupe donne un nombre pair : 16, 11, 14, 4, 8, 13, 24.
+R : L'addition de tous les nombres impairs (11, 13) donne 24. La réponse est Vrai.
+
+La somme des nombres impairs de ce groupe donne un nombre pair : 17, 9, 10, 12, 13, 4, 2.
+R : L'addition de tous les nombres impairs (17, 9, 13) donne 39. La réponse est Faux.
+
+La somme des nombres impairs de ce groupe donne un nombre pair : 15, 32, 5, 13, 82, 7, 1.
+R :
+```
+
+*Output:*
+```
+L'addition de tous les nombres impairs (15, 5, 13, 7, 1) donne 41. La réponse est Faux.
+```
+
+Wow! Nous pouvons voir un résultat parfait lorsque nous avons fourni l'étape de raisonnement. En fait, nous pouvons résoudre cette tâche en ne fournissant encore moins d'exemples, c'est-à-dire qu'un seul exemple semble suffisant:
+
+*Prompt:*
+```
+La somme des nombres impairs de ce groupe donne un nombre pair : 4, 8, 9, 15, 12, 2, 1.
+R : L'addition de tous les nombres impairs (9, 15, 1) donne 25. La réponse est Faux.
+
+La somme des nombres impairs de ce groupe donne un nombre pair : 15, 32, 5, 13, 82, 7, 1.
+R :
+```
+
+*Output:*
+```
+L'addition de tous les nombres impairs (15, 5, 13, 7, 1) donne 41. La réponse est Faux.
+```
+
+Gardez à l'esprit que les auteurs affirment que c'est une capacité émergente qui se produit avec des modèles de langage suffisamment grands.
+
+## Zero-shot COT Prompting
+
+<Screenshot src={ZEROCOT} alt="Zero-shot COT" />
+
+Image Source: [Kojima et al. (2022)](https://arxiv.org/abs/2205.11916)
+
+Une idée récente qui est sortie plus récemment est l'idée de [zero-shot CoT](https://arxiv.org/abs/2205.11916) (Kojima et al. 2022) qui consiste essentiellement à ajouter « Pensons étape par étape » aux prompt d'origine. Essayons un problème simple et voyons comment le modèle fonctionne :
+
+*Prompt:*
+```
+Je suis allé au marché et j'ai acheté 10 pommes. J'ai donné 2 pommes au voisin et 2 au dépanneur. Je suis ensuite allé acheter 5 pommes de plus et j'en ai mangé 1. Avec combien de pommes suis-je resté ?
+```
+
+*Output:*
+```
+11 pommes
+```
+
+La réponse est incorrecte ! Essayons maintenant avec l'invite spéciale.
+
+*Prompt:*
+```
+Je suis allé au marché et j'ai acheté 10 pommes. J'ai donné 2 pommes au voisin et 2 au dépanneur. Je suis ensuite allé acheter 5 pommes de plus et j'en ai mangé 1. Avec combien de pommes suis-je resté ?
+
+Réfléchissons étape par étape.
+```
+
+*Output:*
+```
+Tout d'abord, vous avez commencé avec 10 pommes.
+Vous avez donné 2 pommes au voisin et 2 au réparateur, il vous restait donc 6 pommes.
+Ensuite, vous avez acheté 5 pommes de plus, alors vous avez maintenant 11 pommes.
+Enfin, vous avez mangé 1 pomme, vous resterez donc avec 10 pommes.
+```
+
+C'est impressionnant que cette instruction simple soit efficace pour cette tâche. Cela est particulièrement utile lorsque vous n'avez pas trop d'exemples à utiliser dans l'instruction.

@@ -1,0 +1,108 @@
+# Yleisiä Vinkkejä Kehotteiden Suunnitteluun
+
+Tässä on joitakin vinkkejä, jotka kannattaa pitää mielessä kehotteita suunnitellessa:
+
+
+### Aloita Yksinkertaisesti
+Kehotteiden suunnittelun aloittamisessa kannattaa muistaa, että kyseessä on iteratiivinen prosessi, joka vaatii paljon kokeilua optimaalisten tulosten saavuttamiseksi. OpenAI:n tai Cohere:n Playground-ympäristöt ovat hyviä paikkoja aloittaa.
+
+Voit aloittaa yksinkertaisilla kehotteilla ja lisätä elementtejä ja kontekstia pyrkiessäsi parempiin tuloksiin. Kehotteen iterointi matkan varrella on tästä syystä elintärkeää. Oppaasta löydät monia esimerkkejä, joissa spesifisyys, yksinkertaisuus ja tarkkuus antavat usein parempia tuloksia.
+
+Kun tehtävä jonka haluat suorittaa on suuri ja se sisältää monia eri alatehtäviä, voit yrittää jakaa tehtävän yksinkertaisemmiksi alatehtäviksi. Voit jatkaa tarkentamista ja kehotteiden muotoilua kun saat parempia tuloksia. Tällä tavalla vältät liiallisen monimutkaisuuden lisäämisen kehotteen suunnitteluprosessiin sen alkuvaiheessa.
+
+### Ohje
+Voit suunnitella tehokkaita kehotteita yksinkertaisiin tehtäviin käyttämällä komentoja, jotka ohjaavat mallia siinä, mitä haluat saavuttaa, kuten "Kirjoita", "Luokittele", "Tiivistä", "Käännä", "Järjestä" jne.
+
+Pidä mielessä, että sinun on myös kokeiltava paljon nähdäksesi mikä toimii parhaiten. Kokeile erilaisia ohjeita eri avainsanoilla, konteksteilla ja tiedoilla ja katso, mikä toimii parhaiten haluamassasi käyttötarkoituksessa ja tehtävässä. Yleisesti ottaen, mitä tarkempi ja asiaankuuluvampi konteksti on suhteessa tehtävään, jonka yrität suorittaa, sitä parempi. Käsittelemme esimerkkien ja lisäkontekstin lisäämisen tärkeyttä tulevissa oppaissa.
+
+Jotkut suosittelevat ohjeiden sijoittamista kehotteen alkuun. Toinen suositus on käyttää jotain selkeää erotinta, kuten "###", ohjeen ja kontekstin erottamiseen.
+
+Esimerkiksi:
+
+*Kehote:*
+```
+### Ohje ###
+Käännä alla oleva teksti espanjaksi.
+
+Teksti: "Hei!"
+```
+
+*Tulos:*
+```
+¡Hola!
+```
+
+### Spesifisyys
+Ole erittäin tarkka ohjeista ja tehtävistä, joita haluat mallin suorittavan. Mitä kuvailevampi ja yksityiskohtaisempi kehote on, sitä paremmat tulokset saat. Tämä on erityisen tärkeää, kun sinulla on tietty toivottu tulos, tai tuotantotyyli jossa haluat saada tuloksen. Tärkeintä on siis kehotteen hyvä muotoilu ja tuloksen tarkka kuvaus, sillä se on usein ainoa tapa saada parempia tuloksia. Esimerkkien antaminen kehotteessa on erittäin tehokas tapa saada haluttu tulos tietyssä muodossa.
+
+Kehotteita suunnitellessasi sinun tulisi myös ottaa huomioon kehotteen pituus, sillä kehotteen pituudessa on rajoituksia. Kehotetta suunnitellessa on hyvä ensin miettiä, kuinka tarkka ja yksityiskohtainen sinun tulisi olla. Liian monien tarpeettomien yksityiskohtien sisällyttäminen ei välttämättä ole hyvä lähestymistapa. Yksityiskohtien tulisi olla asiaankuuluvia ja tukea käsillä olevaa tehtävää. Kannustamme kokeilemaan paljon ja iteroida saavutettujen tulosten perusteella. Tällä tavalla voit nopeuttaa kykyäsi optimoida kehotteita tarpeisiisi.
+
+Esimerkkinä yksinkertainen kehote spesifisen tiedon erottamiseksi tekstistä.
+
+*Kehote:*
+```
+Erota seuraavasta tekstistä paikkojen nimet.
+
+Toivottu muoto:
+Paikka: <pilkuin_eroteltu_luettelo_paikkojen_nimistä>
+
+Syöte: "Vaikka nämä kehityksaskeleet ovat rohkaisevia tutkijoille, mysteerejä on vielä paljon. ”Aivojen ja periferiassa näkemämme vaikutuksen välillä on usein musta laatikko”, sanoo neuroimmunologi Henrique Veiga-Fernandes Lissabonissa sijaitsevasta Champalimaud Centre for the Unknownista. ”Jos haluamme käyttää sitä terapeuttisessa yhteydessä, meidän täytyy oikeastaan ymmärtää mekanismi.""
+```
+
+*Tulos:*
+```
+Paikka: Lissabon, Champalimaud Centre for the Unknown
+```
+
+Käytetty teksti on peräisin [tästä Nature-artikkelista](https://www.nature.com/articles/d41586-023-00509-z).
+
+### Vältä Epätarkkuutta
+
+Ottaen huomioon edellä mainitut vinkit yksityiskohtaisuudesta ja muotoilun parantamisesta, on helppo langeta ansaan, jossa liiallisella nokkeluudella kehotteiden kanssa luodaan mahdollisesti epätarkkoja kuvauksia. Analogia on hyvin samankaltainen kuin tehokkaassa viestinnässä – mitä suorempi viesti, sitä tehokkaammin se välittyy.
+
+Saatat esimerkiksi olla kiinnostunut oppimaan kehotesuunnittelun käsitteen. Voit kokeilla jotain tällaista:
+
+```
+Selitä kehotesuunnittelun käsite. Pidä selitys lyhyenä, vain muutamassa lauseessa, äläkä ole liian kuvaileva.
+```
+
+Yllä olevasta kehotteesta ei ole selvää, kuinka monta lausetta tulokseen halutaan, ja millä tyylillä. Saatat silti saada jossain määrin hyviä vastauksia yllä olevalla kehotteella, mutta parempi kehote olisi erittäin tarkka, ytimekäs ja suoraviivainen. Kuten esimerkiksi:
+
+```
+Selitä kehotesuunnittelun käsite 2-3 lauseella lukiolaiselle.
+```
+
+### Tehdä vai ei tehdä?
+Toinen yleinen vinkki kehotteiden suunnittelussa on välttää kielteisten ohjeiden antamista, vaan sanoa sen sijaan, mitä tehdä. Tämä kannustaa spesifimpiin vastauksiin ja keskittyy yksityiskohtiin, jotka johtavat hyviin vastauksiin mallilta.
+
+Tässä on esimerkki elokuvasuositus-chatbotista, joka epäonnistuu tehtävässään, koska ohjeet keskittyivät kielteisiin asioihin.
+
+*Kehote:*
+```
+Seuraava on elokuvia suositteleva agentti asiakkaalle. ÄLÄ KYSY KIINNOSTUKSEN KOHTEITA. ÄLÄ KYSY HENKILÖKOHTAISTA TIETOA.
+
+Asiakas: Suosittele elokuva kiinnostukseni perusteella.
+Agentti:
+```
+
+*Tulos:*
+```
+Totta kai, voin suositella elokuvaa kiinnostuksesi perusteella. Minkä tyyppistä elokuvaa haluaisit katsoa? Pidätkö toiminnasta, komediasta, romantiikasta vai jostakin muusta?
+```
+
+Tässä parempi kehote:
+
+*Kehote:*
+```
+Seuraava on elokuvia käyttäjälle suositteleva agentti. Agentin tehtävänä on suositella elokuva maailmanlaajuisesti suosituimmista elokuvista. Sen tulisi pidättäytyä kysymästä käyttäjien mieltymyksiä ja välttää henkilökohtaisen tiedon kysymistä. Jos agentilla ei ole suositeltavaa elokuvaa, sen tulisi vastata "Anteeksi, en löytänyt tänään suositeltavaa elokuvaa.".
+
+Käyttäjä: Suosittele elokuva kiinnostukseni perusteella.
+Agentti:
+```
+
+*Tulos:*
+```
+Anteeksi, mutta en voi suositella elokuvaa kiinnostuksesi perusteella. Voisin kuitenkin suositella maailmanlaajuisesti suosituimpia elokuvia, joita ovat esimerkiksi: [lista elokuvista]. Toivottavasti näistä löytyy mielenkiintoista katsottavaa!
+```
+
+Osa esimerkeistä on otettu ["Best practices for prompt engineering with OpenAI API".](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)-artikkelista

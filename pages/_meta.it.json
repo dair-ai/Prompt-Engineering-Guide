@@ -1,0 +1,19 @@
+{
+  "index": "Prompt Engineering",
+  "introduction": "Introduzione",
+  "techniques": "Tecniche",
+  "applications": "Applicazioni",
+  "prompts": "Prompt Hub",
+  "models": "Modelli",
+  "risks": "Rischi & Abusi",
+  "papers": "Articoli scientifici",
+  "research": "LLM Research Findings",
+  "tools": "Strumenti",
+  "notebooks": "Notebook",
+  "datasets": "Dataset",
+  "readings": "Letture",
+  "about": {
+    "title": "Informazioni",
+    "type": "page"
+  }
+}

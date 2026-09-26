@@ -1,0 +1,21 @@
+# Reduzierung von Halluzinationen in strukturierten Ausgaben durch RAG
+
+import {Bleed} from 'nextra-theme-docs'
+
+<Bleed>
+  <iframe width="100%"
+    height="415px"
+    src="https://www.youtube.com/embed/TUL5guqZejw?si=Doc7lzyAY-SKr21L" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+    />
+</Bleed>
+
+Forscher bei ServiceNow haben ein [neues Paper](https://arxiv.org/abs/2404.08189) veröffentlicht, in dem sie diskutieren, wie ein effizientes RAG-System für strukturierte Ausgabeaufgaben eingesetzt werden kann.
+
+!["RAG Halluzination"](../../img/research/structured_outputs.png)
+
+Das RAG-System kombiniert ein kleines Sprachmodell mit einem sehr kleinen Retriever. Es zeigt, dass RAG den Einsatz leistungsfähiger LLM-basierter Systeme in Ressourcen-begrenzten Einstellungen ermöglichen kann, während Probleme wie Halluzinationen verringert und die Zuverlässigkeit der Ausgaben erhöht werden.
+
+Das Paper behandelt die sehr nützliche unternehmensbezogene Anwendung der Übersetzung von natürlichsprachlichen Anforderungen in Workflows (formatiert in JSON). Aus dieser Aufgabe kann viel Produktivität gewonnen werden, aber es gibt noch viel Optimierungspotenzial (z.B. durch den Einsatz von spekulativem Decoding oder die Verwendung von YAML statt JSON).
+
+Das Paper bietet einige großartige Einblicke und praktische Tipps, wie man RAG-Systeme effektiv für die reale Welt entwickeln kann.

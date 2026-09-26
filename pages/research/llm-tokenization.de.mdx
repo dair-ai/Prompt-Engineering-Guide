@@ -1,0 +1,27 @@
+# LLM Tokenisierung
+
+Andrej Karpathy hat kürzlich einen neuen [Vortag](https://youtu.be/zduSFxRajkE?si=Hq_93DBE72SQt73V) über die Tokenisierung von großen Sprachmodellen (LLM) veröffentlicht. Die Tokenisierung ist ein wesentlicher Teil des Trainings von LLMs, aber es ist ein Prozess, der das Trainieren von Tokenizern mit ihren eigenen Datensätzen und Algorithmen beinhaltet (z.B. [Byte Pair Encoding](https://en.wikipedia.org/wiki/Byte_pair_encoding)).
+
+In dem Vortrag zeigt Karpathy, wie man einen GPT-Tokenisierer von Grund auf implementiert. Er diskutiert auch merkwürdige Verhaltensweisen, die auf die Tokenisierung zurückzuführen sind.
+
+!["LLM-Tokenisierung"](../../img/research/tokenization.png)
+
+*Quelle der Abbildung: https://youtu.be/zduSFxRajkE?t=6711*
+
+Hier ist die Textversion der Liste oben:
+
+- Warum können LLM keine Wörter buchstabieren? Tokenisierung.
+- Warum können LLM keine super einfachen Zeichenkettenverarbeitungsaufgaben wie das Umkehren einer Zeichenkette durchführen? Tokenisierung.
+- Warum sind LLM bei nicht-englischen Sprachen (z.B. Japanisch) schlechter? Tokenisierung.
+- Warum sind LLM schlecht in einfacher Arithmetik? Tokenisierung.
+- Warum hatte GPT-2 mehr als nötige Probleme beim Programmieren in Python? Tokenisierung.
+- Warum stoppt mein LLM abrupt, wenn es die Zeichenkette "\<endoftext\>" sieht? Tokenisierung.
+- Was ist diese merkwürdige Warnung, die ich über ein "nachlaufendes Leerzeichen" bekomme? Tokenisierung.
+- Warum bricht das LLM ab, wenn ich es nach "SolidGoldMagikarp" frage? Tokenisierung.
+- Warum sollte ich YAML über JSON bei der Verwendung von LLMs bevorzugen? Tokenisierung.
+- Warum ist LLM eigentlich keine End-to-End-Sprachmodellierung? Tokenisierung.
+- Was ist die wirkliche Wurzel des Leidens? Tokenisierung.
+
+Um die Zuverlässigkeit von LLMs zu verbessern, ist es wichtig zu verstehen, wie man diese Modelle promptet, was ebenfalls das Verständnis ihrer Einschränkungen beinhaltet. Obwohl nicht allzu viel Wert auf Tokenizer (jenseits der Konfiguration von `max_tokens`) zur Inferenzzeit gelegt wird, beinhaltet gutes Prompt-Engineering ein Verständnis der Einschränkungen und Grenzen, die in der Tokenisierung ähnlich sind, wie Sie Ihren Prompt strukturieren oder formatieren. Sie könnten ein Szenario haben, in dem Ihr Prompt unterdurchschnittlich abschneidet, weil es beispielsweise versagt, ein Akronym oder Konzept zu verstehen, das nicht richtig verarbeitet oder tokenisiert wird. Das ist ein sehr häufiges Problem, das viele LLM-Entwickler und Forscher übersehen.
+
+Ein gutes Werkzeug für die Tokenisierung ist der [Tiktokenizer](https://tiktokenizer.vercel.app/) und das ist tatsächlich das, was im Vortrag zu Demonstrationszwecken verwendet wird.

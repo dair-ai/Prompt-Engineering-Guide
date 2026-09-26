@@ -1,0 +1,16 @@
+# Directional Stimulus Prompting
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import DSP from '../../img/dsp.jpeg'
+
+[Li et al., (2023)](https://arxiv.org/abs/2302.11520) schlagen eine neue Prompting-Technik vor, um den LLM bei der Erzeugung der gewünschten Zusammenfassung besser zu leiten.
+
+Ein abstimmbarer Policy-LM wird trainiert, um den Stimulus/Hinweis zu generieren. Man sieht einen vermehrten Einsatz von RL, um LLMs zu optimieren.
+
+Die untenstehende Abbildung zeigt, wie sich Directional Stimulus Prompting im Vergleich zum standard Prompting verhält. Der Policy-LM kann klein sein und optimiert werden, um die Hinweise zu generieren, die einen Black-Box gefrorenen LLM leiten.
+
+<Screenshot src={DSP} alt="DSP" />
+Bildquelle: [Li et al., (2023)](https://arxiv.org/abs/2302.11520)
+
+Ein vollständiges Beispiel folgt in Kürze!

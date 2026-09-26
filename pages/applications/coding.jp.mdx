@@ -1,0 +1,195 @@
+# コード生成
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import CODE1 from '../../img/code-generation/chat-mode.png'
+
+<Callout emoji="⚠️">
+  このセクションの内容は、鋭意開発進行中です。
+</Callout>
+
+ChatGPTのような大規模言語モデルは、コード生成に非常に効果的です。このセクションでは、コード生成でChatGPTをどのように利用するかについて、いくつかの例をご紹介します。
+
+全ての例ではOpenAI Playground (Chat Mode)と`gpt-3.5-turbo`モデルを利用します。
+
+他のすべてのOpenAIのチャットモデルと同様に、応答の動作とフォーマットを定義するために`System Message`を利用することができます。ここでは、プロンプトの例として以下のシステムメッセージを使用します。
+
+```
+あなたは新人開発者にコードの書き方を教えることができる便利なコードアシスタントです。言語はPythonを利用してください。コードの説明はせずに、コードブロックだけを生成してください。
+```
+
+## 基本の例
+
+`User Message`はモデルにコード生成を指示するプロンプトです。以下はコード生成の最初のプロンプトのスクリーンショットです。`Assistant`によってコードが生成されています。
+
+<Screenshot src={CODE1} alt="CODE1" />
+
+自分で試したい場合は、以下のプロンプトを利用してください。
+
+```
+ユーザーに名前を尋ねて"Hello"と挨拶をするコードを書いてください。
+```
+
+## コメントをコードに変換
+
+コメントからコードを生成するために、大規模言語モデルのコード生成機能を利用することもできます。以下のコメントブロックの指示の例を見てみましょう。
+
+*プロンプト:*
+```
+"""
+1. 映画の一覧を生成する
+2. これらの映画の評価の一覧を生成する
+3. これらを組み合わさて、10件の映画と評価からなるJSONオブジェクトを生成する。
+"""
+```
+
+*出力:*
+```python
+movies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Forrest Gump", "Inception",
+          "The Lord of the Rings: The Fellowship of the Ring", "The Matrix", "Goodfellas", "Pulp Fiction", "Fight Club"]
+
+ratings = [9.3, 9.2, 9.0, 8.8, 8.7, 8.8, 8.7, 8.7, 8.9, 8.8]
+
+movie_ratings = []
+for i in range(10):
+    movie_rating = {"movie": movies[i], "rating": ratings[i]}
+    movie_ratings.append(movie_rating)
+
+import json
+print(json.dumps(movie_ratings))
+```
+
+生成されたコードは動作するように見えます。しかし、`import json`のような重要な`import`文が含まれていません。これらのモデルは動作するコードを生成しますが、このようなコードの詳細部分に細心の注意を払い、常にコードをテストして動作確認をする必要があります。
+
+## 関数の補完や次の行
+
+これらの大規模言語モデルはGitHub Copilotのような開発者にとって便利なツールにも取り入れられています。便利な機能の一つとして関数の補完があります。
+
+*プロンプト:*
+```python
+# 2つの数字を掛けて合わせて、それに75を足す関数
+
+def multiply(
+```
+
+*出力:*
+```python
+a, b):
+    result = a * b
+    result += 75
+    return result
+```
+
+## MySQLクエリの生成
+
+上記の基本的なコード生成の例のほかにも、MySQLクエリの生成やテストなど、プログラミングの他の場面で使用されるコードを生成するためにモデルを使用することもできます。
+
+例えば、いくつかの情報のデータセットをプロンプトの一部に含めて、モデルに特定のクエリを生成するように指示をします。例えば、以下の通りです:
+
+*プロンプト:*
+```
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+
+Computer Scienceの全生徒を対象としたMySQLクエリを生成してください。
+```
+
+*出力:*
+```
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+```
+
+モデルがMySQLクエリを生成しました！しかし、この例では生成されたクエリをテストするデータベースが無いので、そのためのデータベースを作成します。もしこの例を試すのであれば、このデータベースを作成しておくと便利でしょう。幸運にも、データベースを生成することにもChatGPTを利用できます。アプローチの一つはデータベースのスキーマを生成するように上記のプロンプトの指示を少し修正します:
+
+```
+Table departments, columns = [DepartmentId, DepartmentName]
+Table students, columns = [DepartmentId, StudentId, StudentName]
+
+上記のテーブルとカラムを持つ有効なデータベーススキーマを生成してください。
+```
+
+以下のスキーマを生成します:
+
+```
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+```
+
+[sqliteonline.com](https://sqliteonline.com/)のようなサービスを利用して一時的なデータベースを作成することができます。
+
+生成されたクエリが有効だった場合に、動作をテストをするためのダミーデータも必要です。これにもChatGPTを使ってみましょう！プロンプトは次のようになります:
+
+```
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+
+上記のデータベーススキーマで、各テーブルに4行を含む有効な挿入ステートメントを生成してください。
+```
+
+挿入ステートメントの出力:
+
+```
+INSERT INTO departments (DepartmentId, DepartmentName)
+VALUES (1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics'), (4, 'Biology');
+
+INSERT INTO students (DepartmentId, StudentId, StudentName)
+VALUES (1, 101, 'John Doe'), (1, 102, 'Jane Doe'), (2, 201, 'Alice Smith'), (2, 202, 'Bob Johnson');
+```
+
+今やデーターベースとダミーデータを持っているので、クエリをテストすることができます。ダミーデーターに基づくと、結果は`Jane Doe`と`John Dou`の2行になるはずです。
+
+## コードの説明
+ある言語のプログラミングを学んでいたら、コードの特定の部分を説明するようにモデルに促すことが役に立つかもしれません。生成された上記のクエリを再利用してモデルにクエリの説明をしてもらいましょう。
+
+もし先ほどと同じ同じSystem Messageを利用する場合は、モデルへの指示の仕方に注意してください。例えば、もし次の例を利用した時に、モデルは「Pythonのコードアシスタントである」と主張しますが、それでも説明をすることができます。モデルはSystem Messageに従うように設計されているので、あなたが指示した内容を生成することを拒否することがあります。
+
+*プロンプト:*
+```
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+
+上記のSQLステートメントを説明してください。
+```
+
+*出力:*
+```
+すみません、私はPython用のコードアシスタントなので、SQLのコードを生成することができません。しかし、提供されたSQLステートメントの目的について説明することができます。
+
+このSQL文は、departmentsテーブルのDepartmentName列が 'コンピュータサイエンス' に等しい場合に、studentsテーブルからStudentIdとStudentNameの列を選択します。このために、studentsテーブルとdepartmentsテーブルのDepartmentId列に対して内部結合を実行しています。
+
+より簡単な言葉で言うと、コンピュータサイエンス学科に在籍している学生の名前とIDを選択しています。
+```
+
+## コードの編集
+例は近日公開予定です！
+
+## Debugging Code
+例は近日公開予定です！
+
+## Best practices
+近日公開予定！

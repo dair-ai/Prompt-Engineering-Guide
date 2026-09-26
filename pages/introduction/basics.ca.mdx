@@ -1,0 +1,114 @@
+# Conceptes bàsics de la creació de prompts
+
+## Prompts bàsics
+
+Pots aconseguir molt amb prompts senzills, però la qualitat dels resultats depèn de la quantitat d'informació que proporciones i de com estiguin ben dissenyats. Un prompt pot contenir informació com ara *instruccions* o *preguntes* que passis al model i incloure altres detalls com *context*, *entrades* o *exemples*. Pots utilitzar aquests elements per instruir millor el model i, com a resultat, obtenir resultats millors.
+
+Comencem repassant un exemple bàsic d'un prompt senzill:
+
+*Prompt*
+```
+El cel és
+```
+
+*Sortida:*
+```
+blau
+
+El cel és blau en un dia clar. En un dia núvol, el cel pot ser gris o blanc.
+```
+
+Com pots veure, el model de llenguatge ofereix una continuació de cadenes que té sentit donat el context `"El cel és"`. La sortida pot ser inesperada o lluny de la tasca que vols aconseguir.
+
+Aquest exemple bàsic també destaca la necessitat de proporcionar més context o instruccions sobre què específicament vols aconseguir.
+
+Provem de millorar-ho una mica:
+
+*Prompt:*
+```
+Completa la frase:
+
+El cel és
+```
+
+*Sortida:*
+
+```
+tan bonic avui.
+```
+
+És això millor? Bé, li has dit al model que completi la frase, així que el resultat sembla molt millor, ja que segueix exactament el que li has dit que faci ("completa la frase"). Aquest enfocament de dissenyar prompts òptims per instruir el model a realitzar una tasca és el que s'anomena **enginyeria de prompts**.
+
+L'exemple anterior és una il·lustració bàsica del que és possible amb LLMs avui en dia. Els LLMs actuals poden realitzar tot tipus de tasques avançades que van des de la resum de text fins al raonament matemàtic i la generació de codi.
+
+## Format de prompts
+
+Has provat un prompt molt senzill anteriorment. Un prompt estàndard té el següent format:
+
+```
+<Pregunta>?
+```
+
+o
+
+```
+<Instrucció>
+```
+
+Pots formatejar-ho en un format de pregunta-resposta (QA), que és estàndard en molts conjunts de dades de QA, de la següent manera:
+
+```
+Q: <Pregunta>?
+A: 
+```
+
+Quan fas servir un prompt com el de dalt, també se li diu *zero-shot prompting*, és a dir, estàs demanant directament al model una resposta sense cap exemple ni demostració de la tasca que vols aconseguir. Alguns models de llenguatge grans tenen la capacitat de realitzar zero-shot prompting, però depèn de la complexitat i el coneixement de la tasca en qüestió.
+
+Tenint en compte el format estàndard anterior, una tècnica popular i eficaç per crear prompts és la que s'anomena *few-shot prompting*, on proporciones exemplars (és a dir, demostracions). Pots formatejar prompts de few-shot de la següent manera:
+
+```
+<Pregunta>?
+<Resposta>
+
+<Pregunta>?
+<Resposta>
+
+<Pregunta>?
+<Resposta>
+
+<Pregunta>?
+
+```
+
+La versió en format QA es veuria així:
+
+```
+Q: <Pregunta>?
+A: <Resposta>
+
+Q: <Pregunta>?
+A: <Resposta>
+
+Q: <Pregunta>?
+A: <Resposta>
+
+Q: <Pregunta>?
+A:
+```
+
+Tingues en compte que no cal utilitzar el format QA. El format del prompt depèn de la tasca que es vulgui realitzar. Per exemple, pots fer una tasca de classificació senzilla i proporcionar exemples que demostrin la tasca de la següent manera:
+
+*Prompt:*
+```
+Això és genial! // Positiu
+Això és dolent! // Negatiu
+Vaja, quina pel·lícula més xula! // Positiu
+Quin espectacle més horrible! //
+```
+
+*Sortida:*
+```
+Negatiu
+```
+
+Els prompts de few-shot permeten l'aprenentatge en context, que és la capacitat dels models de llenguatge d'aprendre tasques donades algunes demostracions.

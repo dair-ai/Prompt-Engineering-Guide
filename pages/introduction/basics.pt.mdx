@@ -18,7 +18,7 @@ azul
 O céu é azul em um dia claro. Em um dia nublado, o céu pode ser cinza ou branco.
 ```
 
-Como você pode ver, o modelo de linguagem gera uma continuação de strings que fazem sentido no contexto `"The sky is"`. A saída pode ser inesperada ou distante da tarefa que queremos realizar.
+Como você pode ver, o modelo de linguagem gera uma continuação de strings que fazem sentido no contexto `"O céu é"`. A saída pode ser inesperada ou distante da tarefa que queremos realizar.
 
 Este exemplo básico também destaca a necessidade de fornecer mais contexto ou instruções sobre o que especificamente queremos alcançar.
 
@@ -34,7 +34,7 @@ O céu é
 *Saída:*
 
 ```
-tão lindo hoje.
+tão lindo.
 ```
 
 Isto é melhor? Bem, dissemos ao modelo para completar a frase para que o resultado fique muito melhor, pois segue exatamente o que dissemos para fazer ("complete a frase"). Essa abordagem de projetar prompts ideais para instruir o modelo a executar uma tarefa é chamada de **engenharia de prompt**.
@@ -58,13 +58,13 @@ ou
 Isso pode ser formatado em um formato de resposta a perguntas (QA), que é padrão em muitos conjuntos de dados de QA, como segue:
 
 ```
-P: <Pergunta>?
+Q: <Pergunta>?
 A:
 ```
 
-Ao solicitar como o acima, também é chamado de *prompt de tiro zero*, ou seja, você está solicitando diretamente ao modelo uma resposta sem nenhum exemplo ou demonstração sobre a tarefa que deseja realizar. Alguns modelos de linguagem grandes têm a capacidade de executar prompts zero-shot, mas isso depende da complexidade e do conhecimento da tarefa em questão.
+Ao solicitar como o acima, também chamado de *prompt de tiro zero*, ou seja, você está solicitando diretamente ao modelo uma resposta sem nenhum exemplo ou demonstração sobre a tarefa que deseja realizar. Alguns modelos de linguagem grandes têm a capacidade de executar prompts zero-shot, mas isso depende da complexidade e do conhecimento da tarefa em questão.
 
-Dado o formato padrão acima, uma técnica popular e eficaz para solicitação é chamada de *promoção de poucos tiros*, onde fornecemos exemplos (ou seja, demonstrações). Os prompts de poucas fotos podem ser formatados da seguinte maneira:
+Dado o formato padrão acima, uma técnica popular e eficaz para solicitação é chamada de *prompt de poucos tiros*, onde fornecemos exemplos (ou seja, demonstrações). Os prompts de poucos tiros podem ser formatados da seguinte maneira:
 
 ```
 <Pergunta>?
@@ -83,16 +83,16 @@ Dado o formato padrão acima, uma técnica popular e eficaz para solicitação �
 A versão do formato QA ficaria assim:
 
 ```
-P: <Pergunta>?
-R: <Resposta>
+Q: <Pergunta>?
+A: <Resposta>
 
-P: <Pergunta>?
-R: <Resposta>
+Q: <Pergunta>?
+A: <Resposta>
 
-P: <Pergunta>?
-R: <Resposta>
+Q: <Pergunta>?
+A: <Resposta>
 
-P: <Pergunta>?
+Q: <Pergunta>?
 A:
 ```
 
@@ -102,7 +102,7 @@ Lembre-se de que não é necessário usar o formato QA. O formato do prompt depe
 ```
 Isso é incrível! // Positivo
 Isto é mau! // Negativo
-Uau, esse filme foi rad! // Positivo
+Uau, esse filme foi radical! // Positivo
 Que espetáculo horrível! //
 ```
 
@@ -111,4 +111,4 @@ Que espetáculo horrível! //
 Negativo
 ```
 
-Os prompts de poucos disparos permitem o aprendizado no contexto, que é a capacidade dos modelos de linguagem de aprender tarefas dadas algumas demonstrações.
+Os prompts de poucos tiros permitem o aprendizado no contexto, que é a capacidade dos modelos de linguagem de aprender tarefas dadas algumas demonstrações.

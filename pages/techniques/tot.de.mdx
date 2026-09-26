@@ -1,0 +1,45 @@
+# Tree of Thoughts (ToT)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import TOT from '../../img/TOT.png'
+import TOT2 from '../../img/TOT2.png'
+import TOT3 from '../../img/TOT3.png'
+
+Bei komplexen Aufgaben, die Erkundung oder strategische Vorausschau erfordern, stoßen traditionelle oder einfache Prompting-Techniken an ihre Grenzen. [Yao et al. (2023)](https://arxiv.org/abs/2305.10601) und [Long (2023)](https://arxiv.org/abs/2305.08291) haben kürzlich den Rahmen "Tree of Thoughts" (ToT) vorgeschlagen, der das Chain-of-Thought Prompting generalisiert und das Erkunden von Gedanken fördert, die als Zwischenschritte zur allgemeinen Problemlösung mit Sprachmodellen dienen.
+
+ToT erhält einen Baum von Gedanken, bei dem Gedanken kohärente Sprachsequenzen darstellen, die als Zwischenschritte zur Lösung eines Problems dienen. Dieser Ansatz ermöglicht es einem Sprachmodell (LM), den Fortschritt von Zwischengedanken in Bezug auf die Problemlösung durch einen bewussten Denkprozess selbst zu bewerten. Die Fähigkeit des LM, Gedanken zu generieren und zu evaluieren, wird dann mit Suchalgorithmen (z.B. Breitensuche und Tiefensuche) kombiniert, um eine systematische Erkundung von Gedanken mit Vorausschau und Rückverfolgung zu ermöglichen.
+
+Das ToT-Framework wird unten illustriert:
+
+<Screenshot src={TOT} alt="TOT" />
+Bildquelle: [Yao et al. (2023)](https://arxiv.org/abs/2305.10601)
+
+Bei der Verwendung von ToT müssen für verschiedene Aufgaben die Anzahl der Kandidaten und die Anzahl der Gedanken/Schritte definiert werden. So wird beispielsweise im Paper das Spiel "Game of 24" als eine mathematische Denkaufgabe verwendet, bei der die Gedanken in 3 Schritte zerlegt werden, von denen jeder eine Zwischengleichung beinhaltet. In jedem Schritt werden die besten b=5 Kandidaten beibehalten.
+
+Um in ToT eine Breitensuche (BFS) für die Aufgabe "Game of 24" durchzuführen, wird das LM aufgefordert, jeden Gedankenkandidaten als "sicher/vielleicht/unmöglich" in Bezug auf das Erreichen von 24 zu bewerten. Wie die Autoren angeben, besteht das Ziel darin, "korrekte Teil-Lösungen zu fördern, die innerhalb weniger Vorausschauprüfungen bestätigt werden können, und unmögliche Teil-Lösungen zu eliminieren, die auf "zu groß/klein" Allgemeinwissen basieren, und den Rest als 'vielleicht' zu behalten". Die Werte werden für jeden Gedanken dreimal gesampelt. Der Prozess wird unten illustriert:
+
+<Screenshot src={TOT2} alt="TOT2" />
+Bildquelle: [Yao et al. (2023)](https://arxiv.org/abs/2305.10601)
+
+Aus den in der folgenden Abbildung berichteten Ergebnissen geht hervor, dass ToT die anderen Prompting-Methoden deutlich übertrifft:
+
+<Screenshot src={TOT3} alt="TOT3" />
+Bildquelle: [Yao et al. (2023)](https://arxiv.org/abs/2305.10601)
+
+Code verfügbar [hier](https://github.com/princeton-nlp/tree-of-thought-llm) und [hier](https://github.com/jieyilong/tree-of-thought-puzzle-solver)
+
+Auf einer hohen Ebene sind die Hauptideen von [Yao et al. (2023)](https://arxiv.org/abs/2305.10601) und [Long (2023)](https://arxiv.org/abs/2305.08291) ähnlich. Beide verbessern die Fähigkeit von LLMs zur Lösung komplexer Probleme durch Baumsuche über eine mehrstufige Konversation. Ein Hauptunterschied besteht darin, dass [Yao et al. (2023)](https://arxiv.org/abs/2305.10601) Methoden wie DFS/BFS/Beam Search nutzt, während die in [Long (2023)](https://arxiv.org/abs/2305.08291) vorgeschlagene Baumsuchstrategie (d.h. wann zurückverfolgt wird und Rückverfolgung um wie viele Level usw.) von einem durch Verstärkungslernen trainierten "ToT Controller" gesteuert wird. DFS/BFS/Beam Search sind generische Lösungssuchstrategien ohne Anpassung an spezifische Probleme. Im Vergleich dazu könnte ein durch RL trainierter ToT-Controller möglicherweise aus neuen Datensätzen lernen oder durch Selbstspiel (AlphaGo vs. Brute-Force-Suche) und so das RL-basierte ToT-System kann weiterhin neues Wissen erlernen, selbst mit einem festen LLM.
+
+[Hulbert (2023)](https://github.com/dave1010/tree-of-thought-prompting) hat das Baum-der-Gedanken-Prompting vorgeschlagen, das das Hauptkonzept aus den ToT-Frameworks als einfache Prompting-Technik anwendet, indem das LLM dazu gebracht wird, Zwischengedanken in einem einzigen Prompt zu evaluieren. Ein Beispiel für ein ToT-Prompt lautet:
+
+```
+Stellen Sie sich vor, drei verschiedene Experten beantworten diese Frage.
+Alle Experten schreiben 1 Schritt ihres Denkens auf,
+dann teilen Sie es mit der Gruppe.
+Dann gehen alle Experten zum nächsten Schritt über usw.
+Wenn ein Experte zu irgendeinem Zeitpunkt feststellt, dass er sich geirrt hat, verlässt er die Gruppe.
+Die Frage lautet...
+```
+
+[Sun (2023)](https://github.com/holarissun/PanelGPT) hat das Baum-der-Gedanken-Prompting mit groß angelegten Experimenten gebenchmarkt und PanelGPT eingeführt --- eine Idee des Prompting mit Podiumsdiskussionen unter LLMs.

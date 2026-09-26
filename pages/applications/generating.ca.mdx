@@ -1,0 +1,45 @@
+# Generació de dades
+
+Els LLMs tenen una gran capacitat per generar text coherent. L'ús d'estratègies de prompts efectives pot dirigir el model per produir respostes millors, més consistents i més factuales. Els LLMs també poden ser especialment útils per generar dades, que és realment útil per realitzar tot tipus d'experiments i avaluacions. Per exemple, podem utilitzar-lo per generar mostres ràpides per a un classificador de sentiments com aquest:
+
+*Prompt:*
+```
+Genera 10 exemples per a l'anàlisi de sentiments. Els exemples es classifiquen com a positius o negatius. Genera 2 exemples negatius i 8 exemples positius. Utilitza aquest format per als exemples:
+Q: <frase>
+A: <sentiment>
+```
+
+*Sortida:*
+```
+Q: Acabo de rebre la millor notícia de la meva vida!
+A: Positiu
+
+Q: Ens han pujat el sou a la feina!
+A: Positiu
+
+Q: Estic molt orgullós del que he aconseguit avui.
+A: Positiu
+
+Q: Estic tenint el millor dia de la meva vida!
+A: Positiu
+
+Q: Estic molt emocionat pel cap de setmana.
+A: Positiu
+
+Q: Acabo de rebre el millor regal de la meva vida!
+A: Positiu
+
+Q: Estic tan feliç ara mateix.
+A: Positiu
+
+Q: Estic tan agraït de tenir una família tan increïble.
+A: Positiu
+
+Q: El temps a fora està molt ennuvolat.
+A: Negatiu
+
+Q: Acabo de rebre una notícia terrible.
+A: Negatiu
+```
+
+Això és molt útil. De fet, utilitzem aquest exemple per a una prova diferent en una altra secció de les guies.

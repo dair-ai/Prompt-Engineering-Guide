@@ -1,4 +1,6 @@
 {
-    "pal": "Program-Aided Language Models",
-    "generating": "Generating Data"
+    "generating": "Generating Data",
+    "coding": "Generating Code",
+    "workplace_casestudy": "Graduate Job Classification Case Study",
+    "pf": "Prompt Function"
 }

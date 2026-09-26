@@ -1,0 +1,192 @@
+# 开始使用Gemini
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import GEMINI1 from '../../img/gemini/gemini-1.png'
+import GEMINI2 from '../../img/gemini/gemini-architecture.png'
+import GEMINI3 from '../../img/gemini/gemini-result.png'
+import GEMINI4 from '../../img/gemini/gemini-2.png'
+import GEMINI5 from '../../img/gemini/gemini-3.png'
+import GEMINI6 from '../../img/gemini/gemini-6.png'
+import GEMINI7 from '../../img/gemini/gemini-7.png'
+import GEMINI8 from '../../img/gemini/gemini-8.png'
+
+本章概述了Gemini模型和如何有效地提示和使用这些模型。本章也包括了有关Gemini模型的功能，技巧，应用，限制，论文和其他阅读材料。
+
+## Gemini简介
+
+Gemini是Google Deepmind最新、最强大的AI模型。它原生支持多模态，具备跨模态推理能力，包括文本，图像，视频，音频和代码。
+
+Gemini分为三个版本：
+
+- **Ultra** - 三个模型版本中功能最强大，适用于高度复杂的任务
+- **Pro** - 适用于广泛任务的最佳模型
+- **Nano** - 性能最佳的模型，适用于终端设备和内存有限的任务；包括1.8B参数（Nano-1）和3.25B参数（Nano-2）两个版本，从较大的Gemini模型中蒸馏训练得到，采用4位量化。
+
+根据随附的[技术报告](https://storage.googleapis.com/deepmind-media/gemini/gemini_1_report.pdf)，Gemini在32个基准测试中的30个上取得了领先，涵盖了语言、编码、推理和多模态推理等任务。
+
+Gemini是第一个在[MMLU](https://paperswithcode.com/dataset/mmlu)（大规模多任务语言理解）上超越人类专家的模型，声称在20项多模态测试基准处于领先水平。Gemini Ultra在MMLU上达到90.0%准确率，在[MMMU基准](https://mmmu-benchmark.github.io/)上达到62.4%准确率，相当于大学水平的学科知识和推理能力。
+
+Gemini模型在32K的序列长度上进行训练，并建立在具有高效注意力机制(例如, [multi-query attention](https://arxiv.org/abs/1911.02150))的Transformer解码器之上，在跨越上下文长度进行查询时表现出98%的准确率。这个重要的功能支撑了新的应用场景如文档检索和视频理解。
+
+<Screenshot src={GEMINI2} alt="GEMINI2" />
+
+Gemini模型基于多模态和多语言数据进行训练，例如网络文档，书籍和代码数据，包括图像，音频和视频数据。这些模型经过所有模态数据的联合训练，展现出强大的跨模态推理能力，甚至在每个领域都具有强大的能力。
+
+## Gemini实验结果
+
+Gemini Ultra在与[思维链提示(chain-of-thought (CoT) prompting)](https://www.promptingguide.ai/techniques/cot)和[自洽性(self-consistency)](https://www.promptingguide.ai/techniques/consistency)等有助于处理模型不确定性的方法相结合时，达到了最高的准确率。
+
+技术报告中提到，Gemini Ultra在32个样本上的MMLU测试效果，从贪婪采样(greedy sampling)方法的84.0%提高到不确定性路由思维链(uncertainty-routed chain-of-thought)方法(包括CoT和多数投票(majority voting)）的90.0%，如果仅使用32个思维链样本，则略微提高到85.0%。类似地，思维链(CoT)和自洽性(self-consistency)在GSM8K小学数学基准上实现了94.4%的准确率。此外，Gemini Ultra正确地实现了74.4%的[HumanEval](https://paperswithcode.com/dataset/humaneval)代码补全问题。下表总结了Gemini的测试结果以及与其他著名模型的结果对比。
+
+<Screenshot src={GEMINI3} alt="GEMINI3" />
+
+Gemini Nano模型在事实性（即检索相关任务），推理，STEM（科学、技术、工程、数学），编码，多模态和多语言任务方面也表现出强大的性能。
+
+除了标准的多语言功能之外，Gemini在多语言数学和摘要基准（例如[MGSM](https://paperswithcode.com/dataset/mgsm)和[XLSum](https://paperswithcode.com/dataset/xl-sum)）上分别表现出了出色的效果。
+
+Gemini模型在32K的序列长度上进行训练，在跨越上下文长度进行查询时表现出98%的准确率。这个重要的功能支持了新的应用场景如文档检索和视频理解。
+
+在遵循指令，创意写作和安全等重要能力方面，经过指令调整的Gemini模型受到人类评估者的一致青睐。
+
+## Gemini的多模态推理能力
+
+Gemini经过原生多模态训练，表现出了将跨模态能力与大语言模型的推理能力相结合的能力。它的功能包括但不限于从表格，图表和图形中提取信息。还有其他有趣的功能，例如从输入中辨别细粒度的细节，跨空间和时间聚合上下文以及跨不同模态组合信息。
+
+Gemini在图像理解任务，例如高级目标检测（high-level object recognition），细粒度语音识别（fine-grained transcription），图表理解和多模态推理方面始终优于现有方法。一些图像理解和生成功能还可以跨多种全球语言进行传输（例如，使用印地语和罗马尼亚语等语言生成图像描述）。
+
+### 文本摘要
+
+虽然Gemini是作为多模态系统进行训练的，但它拥有现代大语言模型（如GPT-3.5、Claude和Llama）中存在的许多功能。以下是使用Gemini Pro实现简单文本摘要任务的示例。本例中我们使用[Google AI Studio](https://ai.google.dev)，温度值（temperature）为0。
+
+提示:
+```
+Your task is to summarize an abstract into one sentence.
+
+Avoid technical jargon and explain it in the simplest of words.
+
+Abstract: Antibiotics are a type of medication used to treat bacterial infections. They work by either killing the bacteria or preventing them from reproducing, allowing the body’s immune system to fight off the infection. Antibiotics are usually taken orally in the form of pills, capsules, or liquid solutions, or sometimes administered intravenously. They are not effective against viral infections, and using them inappropriately can lead to antibiotic resistance.
+```
+
+Gemini Pro输出:
+
+```
+Antibiotics are medicines used to kill or stop the growth of bacteria causing infections, but they don't work against viruses.
+```
+
+Google AI Studio里的任务和模型响应（高亮）截图
+
+<Screenshot src={GEMINI8} alt="GEMINI8" />
+
+### 信息提取
+
+接下来的示例是一个分析一段文本并提取所需信息的任务。注意，本例使用零样本提示，因此结果并不完美，但模型的性能相对较好。
+
+提示:
+```
+Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\"model_name\"]. If you don't find model names in the abstract or you are not sure, return [\"NA\"]
+
+Abstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca…
+```
+
+Gemini Pro输出:
+
+```
+[\"LLMs\", \"ChatGPT\", \"GPT-4\", \"Chinese LLaMA\", \"Alpaca\"]
+```
+
+### 验证和纠错
+
+Gemini模型展示了令人印象深刻的跨模态推理能力。例如，下图(左)是一个物理问题的解答，该问题是由一位物理老师画的。然后，Gemini被提示对该问题进行推理，并解释该学生在答案中出错的地方（如果有错误）。该模型还被指示解决问题并使用LaTeX来完成数学部分。右图是模型的响应，详细解释了问题和答案。
+
+<Screenshot src={GEMINI1} alt="GEMINI1" />
+
+### 重新排列图表 
+
+以下是技术报告中的另一个有趣的示例，展示了基于Gemini的多模态推理能力生成用于重新排列subplots的matplotlib代码。左上角展示的是多模态提示，生成的代码显示在右侧，代码渲染显示在左下角。该模型利用多种功能来解决任务，例如，识别，代码生成，subplot位置的抽象推理以及按照指示以将subplot重新排列在所需位置。
+
+<Screenshot src={GEMINI4} alt="GEMINI4" />
+
+### 视频理解
+
+Gemini Ultra在各种少样本（few-shot）视频字幕生成任务和零样本（zero-shot）视频问答任务中取得了最先进的结果。下面的示例展示了为模型提供了一个视频和文本指令作为输入。它可以分析视频并对情况进行推理，以提供适当的答案，或者，在本示例中，提供了视频中的人物如何改进技术的建议。
+
+<Screenshot src={GEMINI5} alt="GEMINI5" />
+
+### 图像理解
+
+Gemini Ultra也可以基于少样本（few-shot）提示生成图片。如下例所示，可以使用图像和文本交错的示例提示，其中用户提供了有关两种颜色和图像建议的信息。然后，模型接受提示中的最终指令，然后基于它看到的颜色和一些想法做出响应。
+
+<Screenshot src={GEMINI6} alt="GEMINI6" />
+
+### 模态组合
+
+Gemini模型还展示了原生支持处理一系列音频和图像的能力。从示例中，我们使用一系列音频和图像来提示模型。然后，该能模型基于每次交互的上下文做出文本响应。
+
+<Screenshot src={GEMINI7} alt="GEMINI7" />
+
+### Gemini多面手编程助理
+
+Gemini还被用于构建一个名为AlphaCode 2的多面手助理，它将推理功能与搜索和工具使用相结合，用来解决编程竞赛问题。AlphaCode 2在Codeforces编程竞赛平台的参赛者中名列前15%。
+
+## 库的使用
+
+下面这个简单的示例演示了如何使用Gemini API提示Gemini Pro模型。你需要安装`google-generativeai`库并从Google AI Studio获取API密钥。下面的示例是以上章节中提到的信息提取任务的代码。
+
+```python
+"""
+At the command line, only need to run once to install the package via pip:
+
+$ pip install google-generativeai
+"""
+
+import google.generativeai as genai
+
+genai.configure(api_key="YOUR_API_KEY")
+
+# Set up the model
+generation_config = {
+  "temperature": 0,
+  "top_p": 1,
+  "top_k": 1,
+  "max_output_tokens": 2048,
+}
+
+safety_settings = [
+  {
+    "category": "HARM_CATEGORY_HARASSMENT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+  {
+    "category": "HARM_CATEGORY_HATE_SPEECH",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+  {
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  },
+  {
+    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+  }
+]
+
+model = genai.GenerativeModel(model_name="gemini-pro",
+                              generation_config=generation_config,
+                              safety_settings=safety_settings)
+
+prompt_parts = [
+  "Your task is to extract model names from machine learning paper abstracts. Your response is an array of the model names in the format [\\\"model_name\\\"]. If you don't find model names in the abstract or you are not sure, return [\\\"NA\\\"]\n\nAbstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have revolutionized natural language processing research and demonstrated potential in Artificial General Intelligence (AGI). However, the expensive training and deployment of LLMs present challenges to transparent and open academic research. To address these issues, this project open-sources the Chinese LLaMA and Alpaca… [\\\"LLMs\\\", \\\"ChatGPT\\\", \\\"GPT-4\\\", \\\"Chinese LLaMA\\\", \\\"Alpaca\\\"]",
+]
+
+response = model.generate_content(prompt_parts)
+print(response.text)
+```
+
+## 引用
+
+- [Introducing Gemini: our largest and most capable AI model](https://blog.google/technology/ai/google-gemini-ai/#sundar-note)
+- [How it’s Made: Interacting with Gemini through multimodal prompting](https://developers.googleblog.com/2023/12/how-its-made-gemini-multimodal-prompting.html)
+- [Welcome to the Gemini era](https://deepmind.google/technologies/gemini/#introduction)
+- [Gemini: A Family of Highly Capable Multimodal Models - Technical Report](https://storage.googleapis.com/deepmind-media/gemini/gemini_1_report.pdf)
+- [Fast Transformer Decoding: One Write-Head is All You Need](https://arxiv.org/abs/1911.02150)

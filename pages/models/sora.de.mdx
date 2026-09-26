@@ -1,0 +1,62 @@
+# Sora
+
+import { Bleed } from 'nextra-theme-docs'
+
+OpenAI stellt Sora vor, sein neues Text-zu-Video-KI-Modell. Sora kann Videos von bis zu einer Minute realistischer und fantasievoller Szenen nach Textanweisungen erstellen.
+
+OpenAI berichtet, dass seine Vision darin besteht, KI-Systeme zu entwickeln, die die physische Welt in Bewegung verstehen und simulieren und Modelle trainieren, um Probleme zu lösen, die reale Interaktion erfordern.
+
+## Fähigkeiten
+
+Sora kann Videos generieren, die eine hohe visuelle Qualität und die Einhaltung eines Benutzer-Prompts gewährleisten. Sora hat auch die Fähigkeit, komplexe Szenen mit mehreren Charakteren, unterschiedlichen Bewegungsarten und Hintergründen zu generieren und zu verstehen, wie sie miteinander in Beziehung stehen. Weitere Fähigkeiten umfassen das Erstellen mehrerer Aufnahmen innerhalb eines einzigen Videos mit Persistenz über Charaktere und visuellen Stil hinweg. Unten sind einige Beispiele von Videos aufgeführt, die von Sora generiert wurden.
+
+Prompt:
+```
+Eine stilvolle Frau geht eine Tokioter Straße entlang, die von warm leuchtenden Neonlichtern und animierter Stadtschilderung erfüllt ist. Sie trägt eine schwarze Lederjacke, ein langes rotes Kleid und schwarze Stiefel und hat eine schwarze Handtasche dabei. Sie trägt Sonnenbrille und roten Lippenstift. Sie geht selbstbewusst und locker. Die Straße ist feucht und spiegelnd, wodurch ein Spiegeleffekt der bunten Lichter entsteht. Viele Fußgänger gehen umher.
+```
+
+<iframe
+  src="https://cdn.openai.com/sora/videos/tokyo-walk.mp4"
+  width="100%"
+  height="300px"
+  title="SWR-States"
+/>
+
+Prompt:
+
+```
+Ein Filmtrailer, der die Abenteuer des 30-jährigen Raumfahrers zeigt, der einen roten Woll- gestrickten Motorradhelm trägt, blauer Himmel, Salzwüste, kinematografischer Stil, auf 35mm Film gedreht, leuchtende Farben.
+```
+
+<iframe
+  src="https://cdn.openai.com/sora/videos/mitten-astronaut.mp4"
+  width="100%"
+  height="300px"
+  title="SWR-States"
+/>
+
+*Videoquelle: https://openai.com/sora*
+
+## Methoden
+Es wird berichtet, dass Sora ein Diffusionsmodell ist, das ganze Videos generieren oder generierte Videos erweitern kann. Es verwendet auch eine Transformer-Architektur, die zu einer skalierenden Leistung führt. Videos und Bilder werden ähnlich wie Token in GPT als Patches dargestellt, was zu einem einheitlichen Videosystem führt, das längere Dauern, Auflösungen und Bildformate ermöglicht. Sie verwenden die in DALL·E 3 verwendete Neubeschriftungstechnik, damit Sora den Textanweisungen genauer folgen kann. Sora kann auch Videos aus einem gegebenen Bild generieren, was es dem System ermöglicht, das Bild genau zu animieren.
+
+## Einschränkungen und Sicherheit
+
+Zu den berichteten Einschränkungen von Sora gehören die Simulation von Physik und der Mangel an Ursache und Wirkung. Räumliche Details und Ereignisse, die in den Prompts beschrieben werden (z.B. Kameratrajektorie), werden manchmal auch von Sora missverstanden. OpenAI berichtet, dass sie Sora Red Teamern und Erstellern zur Verfügung stellen, um Schäden und Fähigkeiten zu bewerten.
+
+Prompt:
+
+```
+Szene im Schritt-Druck-Verfahren einer rennenden Person, kinematografische Filmaufnahme in 35mm.
+```
+
+<iframe
+  src="https://cdn.openai.com/sora/videos/backward-jogger.mp4"
+  width="100%"
+  height="300px"
+  title="SWR-States"
+/>
+
+*Videoquelle: https://openai.com/sora*
+
+Finden Sie hier mehr Beispiele für Videos, die vom Sora-Modell generiert wurden: https://openai.com/sora

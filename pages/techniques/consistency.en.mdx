@@ -1,6 +1,7 @@
 # Self-Consistency
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 
-Perhaps one of the more advanced techniques out there for prompt engineering is self-consistency. Proposed by [Wang et al. (2022)](https://arxiv.org/pdf/2203.11171.pdf), self-consistency aims "to replace the naive greedy decoding used in chain-of-thought prompting". The idea is to sample multiple, diverse reasoning paths through few-shot CoT, and use the generations to select the most consistent answer. This helps to boost the performance of CoT prompting on tasks involving arithmetic and commonsense reasoning.
+Perhaps one of the more advanced techniques out there for prompt engineering is self-consistency. Proposed by [Wang et al. (2022)](https://arxiv.org/abs/2203.11171), self-consistency aims "to replace the naive greedy decoding used in chain-of-thought prompting". The idea is to sample multiple, diverse reasoning paths through few-shot CoT, and use the generations to select the most consistent answer. This helps to boost the performance of CoT prompting on tasks involving arithmetic and commonsense reasoning.
 
 Let's try the following example for arithmetic reasoning:
 
@@ -53,7 +54,7 @@ A: Michael initially had 58 balls. He lost 23 on Tuesday, so after that he has 5
 Wednesday he lost 2 more so now he has 35 - 2 = 33 balls. The answer is 33.
 
 Q: Olivia has $23. She bought five bagels for $3 each. How much money does she have left?
-A: She bought 5 bagels for $3 each. This means she spent 5
+A: She bought 5 bagels for $3 each. This means she spent $15. She has $8 left.
 
 Q: When I was 6 my sister was half my age. Now I’m 70 how old is my sister?
 A:
@@ -75,3 +76,32 @@ When I was 6 my sister was half my age, so she was 3. Now I am 70, so she is 70/
 ```
 
 Computing for the final answer involves a few steps (check out the paper for the details) but for the sake of simplicity, we can see that there is already a majority answer emerging so that would essentially become the final answer. 
+
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Master self-consistency, chain-of-thought, and advanced reasoning techniques for complex tasks."
+    href="https://academy.dair.ai/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents. Covers function calling, tool integration, and debugging agentic systems."
+    href="https://academy.dair.ai/courses/building-effective-ai-agents"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://academy.dair.ai/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>

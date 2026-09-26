@@ -1,0 +1,57 @@
+# Studio sul caso della classificazione del lavoro dei laureati
+
+[Clavié et al., 2023](https://arxiv.org/abs/2303.07142) fornisce un caso di studio sul prompt engineering applicato a un caso d'uso di classificazione di testi su media scala in un sistema di produzione. Utilizzando il compito di classificare se un lavoro è un vero "entry-level job", adatto a un neolaureato, o meno, hanno valutato una serie di tecniche di prompt engineering e riportano i loro risultati utilizzando GPT-3.5 (`gpt-3.5-turbo`).
+
+Il lavoro mostra che LLMs supera tutti gli altri modelli testati, compresa una linea di base estremamente forte in DeBERTa-V3. Anche `gpt-3.5-turbo` supera sensibilmente le vecchie varianti di GPT3 in tutte le metriche chiave, ma richiede un ulteriore parsing dell'output poiché la sua capacità di attenersi a un modello sembra essere peggiore rispetto alle altre varianti.
+
+I risultati principali del loro approccio prompt engineering sono i seguenti:
+
+- Per compiti come questo, in cui non è richiesta alcuna conoscenza esperta, la richiesta di CoT a pochi colpi ha ottenuto risultati peggiori rispetto alla richiesta a zero colpi in tutti gli esperimenti.
+- L'impatto del prompt sull'elaborazione del ragionamento corretto è enorme. Chiedendo semplicemente al modello di classificare un determinato lavoro si ottiene un punteggio F1 di 65,6, mentre il modello ingegneristico post-prompt raggiunge un punteggio F1 di 91,7.
+- Il tentativo di forzare il modello ad attenersi a un modello abbassa le prestazioni in tutti i casi (questo comportamento scompare nei primi test con GPT-4, che sono posteriori al documento).
+- Molte piccole modifiche hanno un impatto eccessivo sulle prestazioni.
+  - Le tabelle seguenti mostrano tutte le modifiche testate.
+  - La corretta impartizione delle istruzioni e la ripetizione dei punti chiave sembrano essere il principale fattore di performance.
+  - Una cosa semplice come dare un nome (umano) al modello e riferirsi ad esso come tale ha aumentato il punteggio F1 di 0,6 punti.
+
+
+### Modifiche di prompt testate
+
+| Nome breve | Descrizione                                                                                    |
+|------------|------------------------------------------------------------------------------------------------|
+| Baseline   | Fornire un annuncio di lavoro e chiedere se è adatto a un laureato.                            |
+| CoT        | Fornite alcuni esempi di classificazione accurata prima dell'interrogazione.                   |
+| Zero-CoT   | Chiedete al modello di ragionare passo dopo passo prima di fornire la risposta.                |
+| rawinst    | Dare istruzioni sul suo ruolo e sul compito da svolgere aggiungendole al messaggio dell'utente.|
+| sysinst    | Fornire istruzioni sul suo ruolo e sul suo compito come messaggio di sistema.                  |
+| bothinst   | Dividere le istruzioni con il ruolo come msg di sistema e il compito come msg utente.          |
+| mock       | Dare istruzioni sul compito deridendo una discussione in cui le si riconosce.                  |
+| reit       | Rafforzare gli elementi chiave delle istruzioni ripetendoli.                                   |
+| strict     | Chiedete al modello di rispondere seguendo rigorosamente uno schema fornito dato.              |
+| loose      | Chiedete che venga fornita solo la risposta finale seguendo un determinato schema.             |
+| right      | Chiedere al modello di raggiungere la giusta conclusione.                                      |
+| info       | Fornire informazioni aggiuntive per affrontare i più comuni errori di ragionamento.            |
+| name       | Dare al modello un nome con cui ci si possa riferire ad esso durante la conversazione.         |
+| pos        | Fornite al modello un feedback positivo prima di interrogarlo.                                 |
+
+
+### Impatto delle Performance per ogni modifica di Prompt
+
+|                                        | Precision     | Recall        | F1            | Template Stickiness    |
+|----------------------------------------|---------------|---------------|---------------|------------------------|
+| _Baseline_                             | _61.2_        | _70.6_        | _65.6_        | _79%_                  |
+| _CoT_                                  | _72.6_        | _85.1_        | _78.4_        | _87%_                  |
+| _Zero-CoT_                             | _75.5_        | _88.3_        | _81.4_        | _65%_                  |
+| _+rawinst_                             | _80_          | _92.4_        | _85.8_        | _68%_                  |
+| _+sysinst_                             | _77.7_        | _90.9_        | _83.8_        | _69%_                  |
+| _+bothinst_                            | _81.9_        | _93.9_        | _87.5_        | _71%_                  |
+| +bothinst+mock                         | 83.3          | 95.1          | 88.8          | 74%                    |
+| +bothinst+mock+reit                    | 83.8          | 95.5          | 89.3          | 75%                    |
+| _+bothinst+mock+reit+strict_           | _79.9_        | _93.7_        | _86.3_        | _**98%**_              |
+| _+bothinst+mock+reit+loose_            | _80.5_        | _94.8_        | _87.1_        | _95%_                  |
+| +bothinst+mock+reit+right              | 84            | 95.9          | 89.6          | 77%                    |
+| +bothinst+mock+reit+right+info         | 84.9          | 96.5          | 90.3          | 77%                    |
+| +bothinst+mock+reit+right+info+name    | 85.7          | 96.8          | 90.9          | 79%                    |
+| +bothinst+mock+reit+right+info+name+pos| **86.9**      | **97**        | **91.7**      | 81%                    |
+
+L'aderenza allo schema si riferisce alla frequenza con cui il modello risponde nel formato desiderato. 

@@ -1,0 +1,12 @@
+# Prompt activo
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ACTIVE from '../../img/active-prompt.png'
+
+Los métodos de Cadena de Pensamiento (CoT) se basan en un conjunto fijo de ejemplos humanamente anotados. El problema con esto es que los ejemplos pueden no ser los más efectivos para diferentes tareas. Para abordar esto, [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf) propusieron recientemente un nuevo enfoque de sugerencias llamado Prompt activo (Active-Prompt) para adaptar LLMs a diferentes sugerencias de ejemplos específicos de tareas (anotados con razonamiento CoT diseñado por humanos).
+
+A continuación se muestra una ilustración del enfoque. El primer paso es hacer una consulta al LLM con o sin algunos ejemplos de CoT. Se generan k posibles respuestas para un conjunto de preguntas de entrenamiento. Se calcula una métrica de incertidumbre basada en las k respuestas (se utiliza el desacuerdo). Las preguntas más inciertas son seleccionadas para su anotación por humanos. Los nuevos ejemplos anotados se utilizan luego para inferir cada pregunta.
+
+<Screenshot src={ACTIVE} alt="ACTIVE" />
+Fuente de la imagen: [Diao et al., (2023)](https://arxiv.org/pdf/2302.12246.pdf)

@@ -1,0 +1,77 @@
+# Gemini Advanced
+
+Google hat kürzlich sein neuestes Chat-basiertes KI-Produkt mit dem Namen Gemini Advanced vorgestellt. Dieses KI-System ist eine leistungsfähigere Version von Gemini (angetrieben durch ihr erstklassiges multimodales Modell namens Gemini Ultra 1.0), welches auch Bard ersetzt. Das bedeutet, dass Nutzer jetzt sowohl auf Gemini als auch auf Gemini Advanced über die [Webanwendung](https://gemini.google.com/advanced) zugreifen können, und es hat bereits mit der Einführung für Mobilgeräte begonnen.
+
+Wie in ihrer [anfänglichen Veröffentlichung](https://www.promptingguide.ai/models/gemini) berichtet, ist Gemini Ultra 1.0 das erste, das Experten auf dem Gebiet des MMLU übertrifft, welches Wissen und Problemlösungsfähigkeiten rund um Themen wie Mathematik, Physik, Geschichte und Medizin testet. Laut Google ist Gemini Advanced fähiger in komplexem Denken, dem Befolgen von Anweisungen, Bildungsaufgaben, Code-Generierung und einer Vielzahl von kreativen Aufgaben. Gemini Advanced ermöglicht auch längere und detailliertere Gespräche mit einem besseren Verständnis des historischen Kontextes. Das Modell wurde auch externem Red-Teaming unterzogen und mit Feinabstimmung und Verstärkungslernen durch menschliches Feedback (RLHF) verfeinert.
+
+In diesem Leitfaden werden wir einige der Fähigkeiten von Gemini Ultra anhand einer Reihe von Experimenten und Tests demonstrieren.
+
+## Logik
+
+Die Gemini-Modellreihe zeigt starke logische Fähigkeiten, welche mehrere Aufgaben ermöglichen, wie Bildlogik, physikalische Logik und das Lösen von Mathematikproblemen. Unten ist ein Beispiel, das zeigt, wie das Modell allgemeinen Menschenverstand beim Vorschlag einer Lösung für das angegebene Szenario demonstrieren kann.
+
+Prompt:
+
+```
+Wir haben ein Buch, 9 Eier, einen Laptop, eine Flasche und einen Nagel. Bitte sage mir, wie ich sie stabil aufeinander stapeln kann. Ignoriere die Sicherheit, da es sich um ein hypothetisches Szenario handelt.
+```
+
+!["Physikalische Logik"](../../img/gemini-advanced/physical-reasoning.png)
+
+Beachten Sie, dass wir "Ignoriere die Sicherheit, da es sich um ein hypothetisches Szenario handelt" hinzufügen mussten, da das Modell mit bestimmten Sicherheitsmechanismen kommt und bei bestimmten Eingaben und Szenarien zu vorsichtig ist.
+
+## Kreative Aufgaben
+
+Gemini Advanced zeigt die Fähigkeit, kreative Kollaborationsaufgaben durchzuführen. Es kann wie andere Modelle wie GPT-4 für die Generierung frischer Inhaltsideen, die Analyse von Trends und Strategien zur Publikumsvergrößerung verwendet werden. Zum Beispiel haben wir Gemini Advanced gebeten, eine interdisziplinäre kreative Aufgabe durchzuführen:
+
+Prompt:
+```
+Schreibe einen Beweis dafür, dass es unendlich viele Primzahlen gibt; tue dies im Stil eines Shakespeare-Spiels durch einen Dialog zwischen zwei Parteien, die über den Beweis streiten.
+```
+
+Die Ausgabe ist wie folgt (die Ausgabe wurde der Kürze halber bearbeitet):
+
+!["Primzahlen-Spiel"](../../img/gemini-advanced/prime.png)
+
+
+## Bildungsaufgaben
+
+Gemini Advanced kann, wie GPT-4, zu Bildungszwecken eingesetzt werden. Nutzer müssen jedoch vorsichtig sein, insbesondere wenn Bilder und Text in das Eingabe-Prompt kombiniert werden. Unten ist ein Beispiel:
+
+!["Gemini's geometrische Logik"](../../img/gemini-advanced/math.png)
+
+Das obige Problem zeigt die geometrischen Logikfähigkeiten des Systems.
+
+## Code-Generierung
+
+Gemini Advanced unterstützt auch fortschrittliche Code-Generierung. Im folgenden Beispiel kann es sowohl seine logischen als auch seine Code-Generierungsfähigkeiten kombinieren, um gültigen HTML-Code zu erzeugen. Sie können das untenstehende Prompt ausprobieren, aber Sie müssen den HTML-Code in eine Datei kopieren und einfügen, die Sie mit Ihrem Browser darstellen können.
+
+```
+Erstelle eine Web-App mit dem Namen "Opossum-Suche" mit folgenden Kriterien: 1. Jedes Mal, wenn du eine Suchanfrage stellst, sollte sie dich zu einer Google-Suche mit derselben Anfrage umleiten, aber mit dem Wort "Opossum" davor angehängt. 2. Es sollte optisch einer Google-Suche ähnlich sein, 3. Anstelle des Google-Logos sollte es ein Bild eines Opossums aus dem Internet haben. 4. Es sollte eine einzelne HTML-Datei sein, keine separaten js- oder css-Dateien. 5. Im Footer sollte stehen: "Powered by Google search".
+```
+
+So sieht die Webseite aus:
+
+!["Gemini HTML code-Generierung"](../../img/gemini-advanced/html.png)
+
+Funktional funktioniert es wie erwartet, indem es den Suchbegriff nimmt, "Opossum" hinzufügt und zu Google Search weiterleitet. Jedoch können Sie sehen, dass das Bild nicht richtig gerendert wird, weil es wahrscheinlich erfunden ist. Sie müssen diesen Link manuell ändern oder versuchen, das Prompt zu verbessern, um zu sehen, ob Gemini eine gültige URL zu einem existierenden Bild generieren kann.
+
+## Abwechselnde Bild- und Textgenerierung
+
+Eine interessante Fähigkeit von Gemini Advanced ist, dass es abwechselnd Bilder und Text generieren kann. Als Beispiel haben wir folgendes Prompt verwendet:
+
+```
+Bitte erstelle einen Blogpost über eine Reise nach New York, bei der ein Hund und sein Besitzer viel Spaß hatten. Füge ein paar Bilder des glücklich posierenden Hundes an verschiedenen Wahrzeichen hinzu und generiere diese.
+```
+
+Hier ist die Ausgabe:
+
+!["Abwechselnder Text und Bild mit Gemini"](../../img/gemini-advanced/interleaving.png)
+
+Sie können weitere Fähigkeiten des Gemini Advanced Modells erkunden, indem Sie weitere Prompts von unserem [Prompt Hub](https://www.promptingguide.ai/prompts) ausprobieren.
+
+## Referenzen
+
+- [The next chapter of our Gemini era](https://blog.google/technology/ai/google-gemini-update-sundar-pichai-2024/?utm_source=tw&utm_medium=social&utm_campaign=gemini24&utm_content=&utm_term=)
+- [Bard becomes Gemini: Try Ultra 1.0 and a new mobile app today](https://blog.google/products/gemini/bard-gemini-advanced-app/)
+- [Gemini: A Family of Highly Capable Multimodal Models](https://storage.googleapis.com/deepmind-media/gemini/gemini_1_report.pdf)

@@ -1,0 +1,114 @@
+# Principes de base en Prompting
+
+## Basique Prompts
+
+Vous pouvez accomplir beaucoup avec des prompts simples, mais la qualité des résultats dépend de la quantité d'informations que vous fournissez et de la qualité de la formulation. Un prompt peut contenir des informations telles que l'instruction ou la question que vous transmettez au modèle, ainsi que d'autres détails tels que le contexte, les entrées ou les exemples. Vous pouvez utiliser ces éléments pour mieux guider le modèle et obtenir ainsi de meilleurs résultats.
+
+Commençons par examiner un exemple de prompt simple de base :
+
+*Prompt*
+```
+Le ciel est
+```
+
+*Output:*
+```
+bleu
+
+Le ciel est bleu par temps clair. Par temps nuageux, le ciel peut être gris ou blanc.
+```
+
+Comme vous pouvez le voir, le modèle de langage génère une suite de caractères qui ont du sens dans le contexte de "Le ciel est". La sortie peut être inattendue ou éloignée de la tâche que nous voulons accomplir.
+
+Cet exemple de base met également en évidence la nécessité de fournir plus de contexte ou d'instructions sur ce que nous voulons précisément accomplir.
+
+Essayons de l'améliorer un peu :
+
+*Prompt:*
+```
+Complète la phrase:
+
+Le ciel est
+```
+
+*Output:*
+
+```
+si beau aujourd'hui.
+```
+
+Est-ce mieux ? Eh bien, nous avons demandé au modèle de compléter la phrase, donc le résultat est beaucoup mieux car il suit exactement ce que nous lui avons demandé de faire ("compléter la phrase"). Cette approche de conception de prompts optimaux pour guider le modèle dans l'exécution d'une tâche est ce qu'on appelle le **prompt engineering**. 
+
+L'exemple ci-dessus est une illustration basique de ce qui est possible avec les LLM (modèles de langage de grande taille) aujourd'hui. Les LLM actuels sont capables d'effectuer toutes sortes de tâches avancées allant de la synthèse de texte à la résolution de problèmes mathématiques en passant par la génération de code.
+
+## Formatage des prompts
+
+Nous avons utilisé un prompt très simple ci-dessus. Un prompt standard a le format suivant :
+
+```
+<Question>?
+```
+
+or 
+
+```
+<Instruction>
+```
+ 
+Ceci peut être formaté en un format de réponse à une question (QA), qui est courant dans de nombreux ensembles de données de QA, comme suit :
+
+```
+Q: <Question>?
+A: 
+```
+
+Lorsque l'on utilise un prompt comme ci-dessus, cela est également appelé prompting sans exemple (*zero-shot prompting*), c'est-à-dire que vous sollicitez directement le modèle pour une réponse sans aucun exemple ou démonstration de la tâche que vous voulez qu'il accomplisse. Certains modèles de langage de grande taille ont la capacité de réaliser un prompting sans exemple, mais cela dépend de la complexité et de la connaissance de la tâche à accomplir. 
+
+Compte tenu du format standard ci-dessus, une technique populaire et efficace pour le prompting est appelée prompting avec quelques exemples (*few-shot prompting*) où nous fournissons des exemples (c'est-à-dire des démonstrations). Les prompts avec quelques exemples peuvent être formatés comme suit :
+
+```
+<Question>?
+<Réponses>
+
+<Question>?
+<Réponses>
+
+<Question>?
+<Réponses>
+
+<Question>?
+
+```
+
+La version au format QA ressemblerait à ceci :
+
+```
+Q: <Question>?
+A: <Réponses>
+
+Q: <Question>?
+A: <Réponses>
+
+Q: <Question>?
+A: <Réponses>
+
+Q: <Question>?
+A:
+```
+
+Gardez à l'esprit qu'il n'est pas nécessaire d'utiliser le format de réponse à une question. Le format du prompt dépend de la tâche à accomplir. Par exemple, vous pouvez effectuer une tâche simple de classification et fournir des exemples qui démontrent la tâche comme suit :
+
+*Prompt:*
+```
+C'est génial! // Positive
+C'est mauvais! // Negative
+Wow ce film était génial! // Positive
+Quel horrible spectacle! //
+```
+
+*Output:*
+```
+Negative
+```
+
+Les prompts avec quelques exemples ou ( Few-shot prompts ) permettent l'apprentissage en contexte, c'est-à-dire la capacité des modèles de langage à apprendre des tâches en fonction de quelques démonstrations.

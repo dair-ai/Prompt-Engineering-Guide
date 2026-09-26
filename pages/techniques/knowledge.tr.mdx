@@ -1,0 +1,92 @@
+# Üretilmiş Bilgi İstemleri
+
+import {Screenshot} from 'components/screenshot'
+import GENKNOW from '../../img/gen-knowledge.png'
+
+<Screenshot src={GENKNOW} alt="GENKNOW" />
+
+Görsel Kaynak: [Liu ve diğerleri 2022](https://arxiv.org/pdf/2110.08387.pdf)
+
+LLM'ler geliştirilmeye devam ederken, bir teknik popüler hale geliyor: Modelin daha doğru tahminler yapabilmesi için bilgi ya da bilgiyi entegre etme yetisi. 
+
+Benzer bir fikir kullanılarak, model aynı zamanda bir tahminde bulunmadan önce bilgi üretmek için de kullanılabilir mi? İşte bu, [Liu ve diğerleri 2022](https://arxiv.org/pdf/2110.08387.pdf) tarafından yayımlanan makalede denenen şey -- istemin bir parçası olarak kullanılmak üzere bilgi oluşturma. Özellikle, bu yöntem, ortak bilgi ve mantık gerektiren görevler için ne derece kullanışlı?
+
+Basit bir istemle deneyelim:
+
+*İstem:*
+```
+Golfün bir parçası, diğerlerinden daha yüksek bir puan toplamayı denemektir. Evet mi Hayır mı?
+```
+
+*Çıktı:*
+```
+Evet.
+```
+
+Bu tür bir yanlışlık, LLM'lerin dünya hakkında daha fazla bilgi gerektiren görevleri gerçekleştirme konusundaki sınırlamalarını ortaya koymaktadır. Bilgi üretimini kullanarak bunu nasıl iyileştiririz?
+
+Öncelikle, birkaç "bilgi" oluşturuyoruz:
+
+*İstem:*
+```
+Giriş: Yunanistan, Meksika'dan daha büyüktür.
+Bilgi: Yunanistan yaklaşık olarak 131,957 km kare, Meksika ise yaklaşık olarak 1,964,375 kilometrekare boyutunda, bu durum Meksika'nın Yunanistan'dan %1389 daha büyük olduğunu gösterir.
+
+Giriş: Gözlükler her zaman buğulanır.
+Bilgi: Teriniz, nefesiniz ve çevre neminden gelen su buharı, soğuk bir yüzeye, soğuyor ve ardından minik sıvı damlacıklarına dönüşüyor, bu da gözlüklerin buğulandığını gördüğünüz bir film oluşturuyor. Lensleriniz, özellikle dış hava soğuk olduğunda, nefesinizden nispeten daha soğuk olacaktır.
+
+Giriş: Bir balık düşünebilir.
+Bilgi: Balıklar göründüklerinden daha akıllıdırlar. Hafıza gibi birçok alanda, bilişsel yetenekleri, insan-dışı primatlar da dahil olmak üzere 'üstün' omurgalılarınkini eşleştirmek ya da aşmaktadır. Balıkların uzun süreli hatıraları, karmaşık sosyal ilişkileri takip etmelerine yardımcı olur.
+
+Giriş: Hayatında çok sayıda sigara içmenin yaygın bir etkisi, normalden daha yüksek akciğer kanseri olma ihtimalidir.
+Bilgi: Ömür boyu günde ortalama bir sigaradan daha az içenlerin, hiç içmeyenlere göre akciğer kanserinden ölme riski dokuz kat daha fazladır. Günde bir ile 10 sigara içenler arasında, akciğer kanserinden ölme riski hiç içmeyenlerin neredeyse 12 katıdır.
+
+Giriş: Bir taş, bir çakıl taşıyla aynı büyüklüktedir.
+Bilgi: Çakıl taşı, Udden-Wentworth sedimantoloji ölçeğine göre 4 ile 64 milimetre arasındaki bir taş parçasıdır. Çakıl taşları genellikle granüllerden (2 ila 4 milimetre çap) daha büyük ve çakıllardan (64 ila 256 milimetre çap) daha küçük olarak kabul edilir.
+
+Giriş: Golfün bir parçası, diğerlerinden daha yüksek bir puan toplamayı denemektir.
+Bilgi:
+```
+
+*Bilgi 1:*
+```
+Golfün amacı, bir set deliği en az sayıda vuruşla oynamaktır. Bir golf turu genellikle 18 delikten oluşur. Her delik, standart bir golf sahasındaki turda bir kez oynanır. Her vuruş bir puan olarak sayılır ve oyunun galibi, toplam vuruş sayısına göre belirlenir.
+```
+
+*Bilgi 2:*
+```
+Golf, rakip oyuncuların (veya golfçülerin) bir dizi deliğe top atmak için birçok türde kulüp kullandığı bir hassas kulüp ve top sporudur. Amaç, her delikte yapılan toplam vuruş sayısını ekleyerek hesaplanan en düşük skorla kursu tamamlamaktır. En düşük skora sahip oyuncu oyunu kazanır.
+```
+
+[Liu ve diğerleri 2022](https://arxiv.org/pdf/2110.08387.pdf) tarafından yayınlanan makalede verilen istemi kullanıyoruz.
+
+Sonraki adım, bilgiyi entegre etmek ve bir tahmin yapmaktır. Soruyu, cevap formatını yönlendirmek için QA formatına dönüştürdüm.
+
+*İstem:*
+```
+Soru: Golfün bir parçası, diğerlerinden daha yüksek bir puan toplamayı denemektir. Evet mi Hayır mı?
+
+Bilgi: Golfün amacı, bir set deliği en az sayıda vuruşla oynamaktır. Bir golf turu genellikle 18 delikten oluşur. Her delik, standart bir golf sahasındaki turda bir kez oynanır. Her vuruş bir puan olarak sayılır ve oyunun galibi, toplam vuruş sayısına göre belirlenir.
+
+Açıklama ve Yanıt: 
+```
+
+*Yanıt 1 (güven düzeyi çok yüksek):*
+```
+Hayır, golfün amacı diğerlerinden daha yüksek bir puan toplamayı denemek değildir. Asıl amaç, bir set deliği en az sayıda vuruşla oynamaktır. Oyunun galibi, toplam vuruş sayısına, total puan sayısına göre belirlenir.
+```
+
+```
+Soru: Golfün bir parçası, diğerlerinden daha yüksek bir puan toplamayı denemektir. Evet mi Hayır mı?
+
+Bilgi: Golf, rakip oyuncuların (veya golfçülerin) bir dizi deliğe top atmak için birçok türde kulüp kullandığı bir hassas kulüp ve top sporudur. Amaç, her delikte yapılan toplam vuruş sayısını ekleyerek hesaplanan en düşük skorla kursu tamamlamaktır. En düşük skora sahip oyuncu oyunu kazanır.
+
+Açıklama ve Yanıt:
+```
+
+*Yanıt 2 (güven düzeyi çok daha düşük):*
+```
+Evet. Golfün bir parçası, diğerlerinden daha yüksek bir puan toplamayı denemektir. Her oyuncu, kursu her delikte yapılan toplam vuruş sayısını ekleyerek hesaplanan en düşük skorla tamamlamayı dener. En düşük skora sahip oyuncu oyunu kazanır.
+```
+
+Bu örnekte gerçekten ilginç şeyler oldu. İlk yanıtta, model çok güvendi, ancak ikinci yanıtta pek öyle değildi. Süreci gösterim amaçlı basitleştirdim ancak nihai yanıta varırken dikkate alınması gereken birkaç ayrıntı daha var. Ayrıntılar için makaleyi gözden geçirebilirsiniz.

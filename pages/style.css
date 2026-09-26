@@ -1,0 +1,9 @@
+pre { white-space: pre-wrap; }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  /* Hide logo text on mobile, show only icon */
+  .logo-text {
+    display: none;
+  }
+}

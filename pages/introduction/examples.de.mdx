@@ -1,0 +1,313 @@
+# Beispiele für Prompts
+
+import {Cards, Card} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+import {Bleed} from 'nextra-theme-docs'
+
+Der vorherige Abschnitt hat ein grundlegendes Beispiel dafür vorgestellt, wie man Prompts für LLMs verwendet.
+
+Dieser Abschnitt wird mehr Beispiele dafür liefern, wie man Prompts für verschiedene Aufgaben verwenden kann und währenddessen Schlüsselkonzepte einführen. Oft ist der beste Weg, Konzepte zu erlernen, sie anhand von Beispielen durchzugehen. Die folgenden Beispiele veranschaulichen, wie Sie gut gestaltete Prompts für unterschiedliche Arten von Aufgaben verwenden können.
+
+Themen:
+- [Textzusammenfassung](#textzusammenfassung)
+- [Informationsgewinnung](#informationsgewinnung)
+- [Fragenbeantwortung](#fragenbeantwortung)
+- [Textklassifizierung](#textklassifizierung)
+- [Konversation](#konversation)
+- [Code-Generierung](#code-generierung)
+- [Schlussfolgerung](#schlussfolgerung)
+
+---
+
+<Bleed>
+  <iframe width="100%"
+    height="415px"
+    src="https://www.youtube.com/embed/TBhRC4Dath4?si=6nwh0GuYAOv1H6yT" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+    />
+</Bleed>
+
+## Textzusammenfassung
+Eine der Standardaufgaben in der Generierung natürlicher Sprache ist die Textzusammenfassung. Textzusammenfassung kann viele verschiedene Varianten und Bereiche umfassen. Tatsächlich ist eine der vielversprechendsten Anwendungen von Sprachmodellen die Fähigkeit, Artikel und Konzepte in schnelle und leicht verständliche Zusammenfassungen zu transformieren. Versuchen wir eine grundlegende Aufgabe zur Zusammenfassung mit Hilfe von Prompts.
+
+Angenommen, Sie möchten mehr über Antibiotika erfahren. Dann könnten Sie einen Prompt wie diesen ausprobieren:
+
+*Prompt:*
+```
+Erkläre Antibiotika
+
+A:
+```
+
+*Ausgabe:*
+```
+Antibiotika sind eine Art Medikament, das zur Behandlung von bakteriellen Infektionen eingesetzt wird. Sie funktionieren, indem sie entweder die Bakterien abtöten oder deren Vermehrung verhindern, sodass das Immunsystem des Körpers die Infektion bekämpfen kann. Antibiotika werden normalerweise oral in Form von Pillen, Kapseln oder flüssigen Lösungen eingenommen oder manchmal intravenös verabreicht. Sie sind nicht wirksam gegen virale Infektionen, und der unsachgemäße Gebrauch kann zu Antibiotikaresistenzen führen.
+```
+
+Das "A:" ist ein explizites Prompt-Format, das Sie bei der Beantwortung von Fragen verwenden. Sie haben es hier benutzt, um dem Modell zu sagen, dass weiter unten eine Antwort erwartet wird. In diesem Beispiel ist nicht klar, wie dies nützlich ist im Vergleich dazu, es nicht zu verwenden, aber das lassen wir für spätere Beispiele so stehen. Nehmen wir einfach an, dass dies zu viele Informationen sind und Sie es weiter zusammenfassen möchten. Tatsächlich können Sie das Modell anweisen, es in einem Satz zusammenzufassen, wie folgt:
+
+*Prompt:*
+```
+Antibiotika sind eine Art Medikament, das zur Behandlung von bakteriellen Infektionen eingesetzt wird. Sie funktionieren, indem sie entweder die Bakterien abtöten oder deren Vermehrung verhindern, sodass das Immunsystem des Körpers die Infektion bekämpfen kann. Antibiotika werden normalerweise oral in Form von Pillen, Kapseln oder flüssigen Lösungen eingenommen oder manchmal intravenös verabreicht. Sie sind nicht wirksam gegen virale Infektionen, und der unsachgemäße Gebrauch kann zu Antibiotikaresistenzen führen.
+
+Fassen Sie das oben Gesagte in einem Satz zusammen:
+ ```
+
+*Ausgabe:*
+```
+Antibiotika sind Medikamente, die bakterielle Infektionen behandeln, indem sie entweder die Bakterien abtöten oder deren Vermehrung stoppen, aber sie wirken nicht gegen Viren und ein Übergebrauch kann zu Antibiotikaresistenzen führen.
+```
+
+Ohne zu sehr auf die Genauigkeit der obigen Ausgabe zu achten, was etwas ist, das wir in einem späteren Leitfaden berühren werden, hat das Modell versucht, den Absatz in einem Satz zusammenzufassen. Sie können mit den Anweisungen kreativ werden, aber das heben wir uns für ein späteres Kapitel auf. Fühlen Sie sich frei, hier zu pausieren und zu experimentieren, um zu sehen, ob Sie bessere Ergebnisse erzielen.
+
+---
+## Informationsgewinnung
+Während Sprachmodelle darauf trainiert sind, natürliche Sprachgeneration und verwandte Aufgaben auszuführen, sind sie auch sehr fähig, Klassifizierungsaufgaben und eine Reihe anderer Aufgaben zur Verarbeitung natürlicher Sprache (NLP) zu erledigen.
+
+Hier ist ein Beispiel für einen Prompt, der Informationen aus einem gegebenen Absatz extrahiert.
+
+*Prompt:*
+```
+Erklärungen über Beitrag der Autoren und Danksagungen in Forschungsarbeiten sollten klar und spezifisch angeben, ob und inwieweit die Autoren KI-Technologien wie ChatGPT bei der Vorbereitung ihres Manuskripts und bei der Analyse verwendet haben. Es sollte auch angegeben werden, welche LLMs verwendet wurden. Dies wird Herausgeber und Gutachter darauf aufmerksam machen, Manuskripte sorgfältiger auf mögliche Voreingenommenheiten, Ungenauigkeiten und unsachgemäße Quellenangaben zu überprüfen. Ebenso sollten wissenschaftliche Zeitschriften transparent sein bezüglich ihrer Nutzung von LLMs, zum Beispiel bei der Auswahl eingereichter Manuskripte.
+
+Nennen Sie das in dem Absatz oben erwähnte auf großen Sprachmodellen basierende Produkt:
+```
+
+*Ausgabe:*
+```
+Das in dem Absatz oben erwähnte auf großen Sprachmodellen basierende Produkt ist ChatGPT.
+```
+
+Es gibt viele Möglichkeiten, wie Sie die Ergebnisse oben verbessern können, aber das ist bereits sehr nützlich.
+
+Mittlerweile sollte klar sein, dass Sie das Modell verschiedene Aufgaben ausführen lassen können, indem Sie ihm einfach instruieren, was es tun soll. Das ist eine leistungsfähige Fähigkeit, die AI-Produktentwickler bereits nutzen, um kraftvolle Produkte und Erfahrungen zu schaffen.
+
+Quelle des Absatzes: [ChatGPT: fünf Prioritäten für die Forschung](https://www.nature.com/articles/d41586-023-00288-7)
+
+---
+## Fragenbeantwortung
+
+Eine der besten Methoden, um das Modell dazu zu bringen, auf spezifische Antworten zu reagieren, ist, das Format des Prompts zu verbessern. Wie zuvor behandelt, könnte ein Prompt Anweisungen, Kontext, Eingabe und Ausgabe-Indikatoren kombinieren, um verbesserte Ergebnisse zu erzielen. Obwohl diese Komponenten nicht erforderlich sind, wird es eine gute Praxis, da die Ergebnisse umso besser werden, je spezifischer Sie mit der Anweisung sind. Unten ist ein Beispiel dafür, wie dies nach einem strukturierteren Prompt aussehen könnte.
+
+*Prompt:*
+```
+Beantworten Sie die Frage basierend auf dem untenstehenden Kontext. Halten Sie die Antwort kurz und prägnant. Antworten Sie mit "Unsicher bezüglich der Antwort", wenn Sie sich nicht sicher über die Antwort sind.
+
+Kontext: Teplizumab hat seine Wurzeln in einem pharmazeutischen Unternehmen aus New Jersey namens Ortho Pharmaceutical. Dort haben Wissenschaftler eine frühe Version des Antikörpers erzeugt, der OKT3 genannt wurde. Ursprünglich aus Mäusen gewonnen, konnte das Molekül an die Oberfläche von T-Zellen binden und deren zellabtötendes Potenzial limitieren. Im Jahr 1986 wurde es zugelassen, um Organabstoßungen nach Nierentransplantationen zu verhindern und war damit der erste für den menschlichen Gebrauch zugelassene therapeutische Antikörper.
+
+Frage: Woraus wurde OKT3 ursprünglich gewonnen?
+
+Antwort:
+```
+
+*Ausgabe:*
+```
+Mäuse.
+```
+
+Kontext erhalten von [Nature](https://www.nature.com/articles/d41586-023-00400-x).
+
+---
+
+## Textklassifizierung
+Bisher haben Sie einfache Anweisungen zur Durchführung einer Aufgabe verwendet. Als Prompt-Engineer müssen Sie besser darin werden, bessere Anweisungen zu liefern. Aber das ist noch nicht alles! Sie werden auch feststellen, dass für schwierigere Fälle nur das Geben von Anweisungen nicht ausreicht. Hier müssen Sie mehr über den Kontext und die verschiedenen Elemente nachdenken, die Sie in einem Prompt verwenden können. Weitere Elemente, die Sie liefern können, sind `Eingabedaten` oder `Beispiele`.
+
+Versuchen wir das zu demonstrieren, indem wir ein Beispiel für Textklassifizierung liefern.
+
+*Prompt:*
+```
+Klassifizieren Sie den Text als neutral, negativ oder positiv.
+
+Text: Ich denke, das Essen war okay.
+Empfingung:
+```
+
+*Ausgabe:*
+```
+Neutral
+```
+
+Sie gaben die Anweisung, den Text zu klassifizieren, und das Modell antwortete mit `'Neutral'`, was korrekt ist. Damit ist nichts falsch, aber sagen wir, Sie benötigen tatsächlich, dass das Modell das Label im genauen Format, das Sie möchten, zurückgibt. Anstatt `Neutral` möchten Sie, dass es `neutral` zurückgibt. Wie erreichen Sie das? Es gibt verschiedene Möglichkeiten, dies zu tun. Hier ist Ihnen die Spezifität wichtig, daher je mehr Informationen Sie dem Prompt liefern können, desto bessere Ergebnisse. Sie können versuchen, Beispiele bereitzustellen, um das korrekte Verhalten zu spezifizieren. Versuchen wir es noch einmal:
+
+*Prompt:*
+```
+Klassifizieren Sie den Text als neutral, negativ oder positiv.
+
+Text: Ich denke, der Urlaub ist okay.
+Stimmung: neutral
+
+Text: Ich denke, das Essen war okay.
+Stimmung:
+```
+
+*Ausgabe:*
+```
+neutral
+```
+
+Perfekt! Dieses Mal gab das Modell `neutral` zurück, das ist das spezifische Label, das Sie gesucht haben. Es scheint, dass das im Prompt bereitgestellte Beispiel dem Modell geholfen hat, in seiner Ausgabe spezifisch zu sein.
+
+Um hervorzuheben, warum manchmal Spezifizität wichtig ist, schauen Sie sich das untenstehende Beispiel an und stellen Sie das Problem fest:
+
+*Prompt:*
+```
+Klassifizieren Sie den Text als nutral, negativ oder positiv.
+
+Text: Ich denke, der Urlaub ist okay.
+Stimmung:
+```
+
+*Ausgabe:*
+```
+Neutral
+```
+
+Was ist das Problem hier? Als kleiner Tipp, das erfundene Label `nutral` wird vom Modell komplett ignoriert. Stattdessen gibt das Modell `Neutral` aus, da es eine gewisse Voreingenommenheit gegenüber diesem Label hat. Aber nehmen wir an, Sie möchten wirklich `nutral`. Wie würden Sie das korrigieren? Vielleicht können Sie Beschreibungen zu den Labels hinzufügen oder mehr Beispiele zum Prompt? Wenn Sie sich nicht sicher sind, werden wir einige Ideen in den kommenden Abschnitten besprechen.
+
+---
+
+## Konversation
+Vielleicht ist eine der interessantesten Dinge, die Sie mit Prompt-Engineering erreichen können, dem LLM-System zu instruieren, wie es sich verhalten soll, was seine Absicht ist und seine Identität. Dies ist besonders nützlich, wenn Sie konversationelle Systeme wie Kundenservice-Chatbots entwickeln.
+
+Erstellen wir zum Beispiel ein konversationelles System, das fähig ist, auf Fragen technischere und wissenschaftlichere Antworten zu geben. Beachten Sie, wie Sie es explizit durch die Anweisung dazu anweisen, wie es sich verhalten soll. Dies wird manchmal als *Rollen-Prompting* bezeichnet.
+
+*Prompt:*
+```
+Das Folgende ist ein Gespräch mit einem KI-Forschungsassistent. Der Ton des Assistenten ist technisch und wissenschaftlich.
+
+Mensch: Hallo, wer bist Du?
+KI: Gruß! Ich bin ein KI-Forschungsassistent. Wie kann ich Ihnen heute helfen?
+Mensch: Kannst Du mir über die Entstehung von Schwarzen Löchern erzählen?
+KI:
+```
+
+*Ausgabe:*
+```
+Klar! Schwarze Löcher sind Regionen der Raumzeit, in denen die Gravitationskraft so stark ist, dass nichts, nicht einmal Licht, daraus entkommen kann. Sie entstehen, wenn ein sehr massiver Stern stirbt und sein Kern in sich zusammenfällt, wodurch ein Punkt von unendlicher Dichte, eine Singularität, entsteht. Die intensive Gravität der Singularität zieht alle Materie und Strahlung in der Umgebung in sich hinein, wodurch das Schwarze Loch entsteht.
+```
+
+Unser KI-Forschungsassistent klingt etwas zu technisch, oder? Okay, ändern wir dieses Verhalten und weisen das System an, verständlichere Antworten zu geben.
+
+*Prompt:*
+```
+Das Folgende ist ein Gespräch mit einem KI-Forschungsassistent. Die Antworten des Assistenten sollten auch von Grundschülern leicht verstanden werden können.
+
+Mensch: Hallo, wer bist Du?
+KI: Gruß! Ich bin ein KI-Forschungsassistent. Wie kann ich Ihnen heute helfen?
+Mensch: Kannst Du mir über die Entstehung von Schwarzen Löchern erzählen?
+KI:
+```
+
+*Ausgabe:*
+```
+Klar! Schwarze Löcher entstehen, wenn ein sehr massiver Stern keinen Treibstoff mehr hat und in sich zusammenfällt. Die Gravitation des Sterns ist so stark, dass nichts, nicht einmal Licht, entkommen kann. Dies schafft einen Punkt im Raum-Zeit-Kontinuum mit einer intensiven Gravitationskraft, der als Schwarzes Loch bezeichnet wird.
+```
+
+Sie haben Fortschritte gemacht. Sie können damit fortfahren, es zu verbessern. Wenn Sie weitere Beispiele hinzufügen, könnten Sie noch bessere Ergebnisse erzielen.
+
+---
+
+## Code-Generierung
+Eine Anwendung, bei der LLMs sehr effektiv sind, ist die Code-Generierung. Copilot ist ein großartiges Beispiel dafür. Es gibt eine Vielzahl von Code-Generierungsaufgaben, die Sie mit cleveren Prompts durchführen können. Schauen wir uns einige Beispiele unten an.
+
+Zuerst versuchen wir ein einfaches Programm, das den Benutzer begrüßt.
+
+*Prompt:*
+```
+/*
+Fordere den Nutzer auf, seinen Namen anzugeben und sage "Hallo"
+*/
+```
+
+*Ausgabe:*
+```
+let name = prompt("Wie ist Ihr Name?");
+console.log(`Hallo, ${name}!`);
+```
+
+Beachten Sie, dass Sie nicht einmal die verwendete Sprache angeben mussten.
+
+Wechseln wir ein wenig das Niveau. Das folgende Beispiel zeigt, wie leistungsfähig LLMs mit ein wenig mehr Aufwand beim Entwerfen der Prompts sein können.
+
+*Prompt:*
+```
+"""
+Tabelle departments, Spalten = [DepartmentId, DepartmentName]
+Tabelle students, Spalten = [DepartmentId, StudentId, StudentName]
+Erstelle eine MySQL-Abfrage für alle Studenten der Informatik-Fakultät
+"""
+```
+
+*Ausgabe:*
+```
+SELECT StudentId, StudentName 
+FROM students 
+WHERE DepartmentId IN (SELECT DepartmentId FROM departments WHERE DepartmentName = 'Informatik');
+```
+
+Das ist sehr beeindruckend. In diesem Fall haben Sie Daten über das Datenbankschema zur Verfügung gestellt und es aufgefordert, eine gültige MySQL-Abfrage zu generieren.
+
+---
+
+## Schlussfolgerung
+Vielleicht ist eine der schwierigsten Aufgaben für ein LLM heute solch eine, die eine Form von Schlussfolgerung erfordert. Schlussfolgerung ist eines der interessantesten Gebiete aufgrund der Arten von komplexen Anwendungen, die aus LLMs hervorgehen können.
+
+Es gab einige Verbesserungen bei Aufgaben, die mathematische Fähigkeiten umfassen. Es ist jedoch wichtig zu beachten, dass aktuelle LLMs Probleme haben,  Schlussfolgerungsaufgaben zu bewältigen, daher erfordert dies noch fortgeschrittenere Prompt-Engineering-Techniken. Wir werden diese fortgeschrittenen Techniken im nächsten Leitfaden behandeln. Für den Moment werden wir einige grundlegende Beispiele zeigen, um arithmetische Fähigkeiten zu demonstrieren.
+
+*Prompt:*
+```
+Was ist 9.000 * 9.000?
+```
+
+*Ausgabe:*
+```
+81.000.000
+```
+
+Versuchen wir etwas Schwierigeres.
+
+*Prompt:*
+```
+Die ungeraden Zahlen in dieser Gruppe ergeben eine gerade Zahl: 15, 32, 5, 13, 82, 7, 1.
+
+A:
+```
+
+*Ausgabe:*
+```
+Nein, die ungeraden Zahlen in dieser Gruppe ergeben eine ungerade Zahl: 119.
+```
+
+Das ist falsch! Versuchen wir, dies zu verbessern, indem wir den Prompt verbessern.
+
+*Prompt:*
+```
+Die ungeraden Zahlen in dieser Gruppe ergeben eine gerade Zahl: 15, 32, 5, 13, 82, 7, 1.
+
+Lösen Sie das Problem, indem Sie es in Schritte zerlegen. Identifizieren Sie zuerst die ungeraden Zahlen, addieren Sie sie und geben Sie an, ob das Ergebnis ungerade oder gerade ist.
+```
+
+*Ausgabe:*
+```
+Ungerade Zahlen: 15, 5, 13, 7, 1
+Summe: 41
+41 ist eine ungerade Zahl.
+```
+
+Viel besser, nicht wahr? Übrigens, ich habe das ein paar Mal versucht und manchmal scheitert das System. Wenn Sie bessere Anweisungen kombiniert mit Beispielen bereitstellen, könnte dies helfen, genauere Ergebnisse zu erzielen.
+
+Wir werden diesen Abschnitt des Leitfadens weiterhin mit mehr Beispielen für gängige Anwendungen ergänzen.
+
+Im nächsten Abschnitt werden wir noch weiter fortgeschrittene Konzepte und Techniken des Prompt-Engineerings besprechen und wie man die Leistung bei all diesen und schwierigeren Aufgaben verbessern kann.
+
+## Notebook
+
+Wenn Sie mit den oben genannten Prompts in Python üben möchten, haben wir ein Notebook vorbereitet, um einige der Prompts mit den OpenAI-Modellen zu testen.
+
+<Cards>
+    <Card
+    icon={<CodeIcon />}
+    title="Getting Started with Prompt Engineering"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb"
+    />
+</Cards>

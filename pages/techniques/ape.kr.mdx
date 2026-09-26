@@ -1,0 +1,26 @@
+# Automatic Prompt Engineer (APE)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import APE from '../../img/APE.png'
+import APECOT from '../../img/ape-zero-shot-cot.png'
+
+<Screenshot src={APE} alt="APE" />
+이미지 출처: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+[Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)은 명령의 자동 생성 및 선택을 위한 프레임워크인 자동 프롬프트 엔지니어(APE)를 제안합니다. 명령 생성 문제는 LLM을 사용하여 솔루션 후보를 생성하고 검색하는 블랙 박스 최적화 문제로 해결된 자연어 합성으로 프레임화됩니다.
+
+첫 번째 단계는 작업에 대한 명령어 후보를 생성하기 위해 출력 데모가 제공되는 큰 언어 모델(인터페이스 모델)을 포함합니다. 이러한 후보 솔루션이 검색 절차를 안내합니다. 대상 모델을 사용하여 명령을 실행한 다음 계산된 평가 점수를 기준으로 가장 적합한 명령을 선택합니다.
+
+APE는 사람이 설계한 "단계별로 생각하자" 프롬프트보다 더 우수한 zero-shot CoT 프롬프트를 찾아냈습니다. ([Kojima et al., 2022](https://arxiv.org/abs/2205.11916)).
+
+"우리가 올바른 답을 가지고 있는지 확인하기 위해 단계적으로 이 문제를 해결합시다."라는 프롬프트는 일련의 추론을 이끌어 내고 MultiArith 및 GSM8K 벤치마크에서 성능을 향상시킵니다:
+
+<Screenshot src={APECOT} alt="APECOT" />
+이미지 출처: [Zhou et al., (2022)](https://arxiv.org/abs/2211.01910)
+
+이 논문에서는 프롬프트를 자동으로 최적화하는 아이디어인 프롬프트 엔지니어링과 관련된 중요한 주제를 다룹니다. 우리는 이 주제에 대해 더 자세히 설명하지는 않지만, 관심이 있는 경우 몇 가지 주요 문서를 참조하세요:
+
+- [AutoPrompt](https://arxiv.org/abs/2010.15980) - 경사 유도 검색(gradient-guided search)을 기반하여 자동으로 생성하는 프롬프트의 다양한 방법을 제안.
+- [Prefix Tuning](https://arxiv.org/abs/2101.00190) - NLG 작업에 대해 학습 가능한 연속 접두사를 추가하는 미세 조정에 대한 가벼운 대안.
+- [Prompt Tuning](https://arxiv.org/abs/2104.08691) - 역전파를 통해 소프트 프롬프트를 학습하는 매커니즘을 제안.

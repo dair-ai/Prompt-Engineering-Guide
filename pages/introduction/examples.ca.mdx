@@ -1,0 +1,263 @@
+# Exemples de Prompts
+
+A la secció anterior, vam introduir i donar exemples bàsics de com fer prompts als MLL.
+
+En aquesta secció, proporcionarem més exemples de com s'utilitzen els prompts per aconseguir diferents tasques i introduirem conceptes clau pel camí. Sovint, la millor manera d'aprendre conceptes és mitjançant exemples. A continuació, tractem alguns exemples de com els prompts ben elaborats es poden utilitzar per realitzar diferents tipus de tasques.
+
+Temes:
+- [Resum de text](#resum-de-text)
+- [Extracció d'informació](#extracció-dinformació)
+- [Resposta a preguntes](#resposta-a-preguntes)
+- [Classificació de text](#classificació-de-text)
+- [Conversa](#conversa)
+- [Generació de codi](#generació-de-codi)
+- [Raonament](#raonament)
+
+---
+
+## Resum de text
+Una de les tasques estàndard en la generació de llenguatge natural és el resum de text. El resum de text pot incloure molts sabors i dominis diferents. De fet, una de les aplicacions més prometedores dels models de llenguatge és la capacitat de resumir articles i conceptes en resums ràpids i fàcils de llegir. Provem una tasca bàsica de resum utilitzant prompts.
+
+Posem que estic interessat a aprendre sobre els antibiòtics, podria provar un prompt com aquest:
+
+*Prompt:*
+```
+Explica els antibiòtics
+
+A:
+```
+
+*Sortida:*
+```
+Els antibiòtics són un tipus de medicament utilitzat per tractar infeccions bacterianes. Funcionen matant les bacteris o prevenint-ne la reproducció, permetent al sistema immunitari del cos combatre la infecció. Els antibiòtics normalment es prenen per via oral en forma de pastilles, càpsules o solucions líquides, o en alguns casos s'administren per via intravenosa. No són efectius contra les infeccions virals, i utilitzar-los de manera inadequada pot portar a la resistència als antibiòtics.
+```
+
+La "A:" és un format de prompt explícit que s'utilitza en la resposta a preguntes. L'he utilitzat aquí per indicar al model que hi ha una continuació esperada. En aquest exemple, no està clar com això és útil en comparació amb no utilitzar-lo, però deixarem això per als exemples posteriors. Suposem que això és massa informació i volem resumir-ho més. De fet, podem indicar al model que ho resumi en una sola frase com així:
+
+*Prompt:*
+```
+Els antibiòtics són un tipus de medicament utilitzat per tractar infeccions bacterianes. Funcionen matant les bacteris o prevenint-ne la reproducció, permetent al sistema immunitari del cos combatre la infecció. Els antibiòtics normalment es prenen per via oral en forma de pastilles, càpsules o solucions líquides, o en alguns casos s'administren per via intravenosa. No són efectius contra les infeccions virals, i utilitzar-los de manera inadequada pot portar a la resistència als antibiòtics.
+
+Explica el que hi ha sobre en una sola frase:
+```
+
+*Sortida:*
+```
+Els antibiòtics són medicaments utilitzats per tractar infeccions bacterianes matant les bactèries o prevenint-ne la reproducció, però no són efectius contra els virus i l'ús inadequat pot portar a la resistència als antibiòtics.
+
+ada en el context següent. Mantingueu la resposta breu i concisa. Respongueu "Incert sobre la resposta" si no esteu segur de la resposta.
+
+Context: Teplizumab té les seves arrels en una empresa farmacèutica de Nova Jersey anomenada Ortho Pharmaceutical. Allà, els científics van generar una versió primerenca de l'anticòs, anomenada OKT3. Originalment obtingut de ratolins, la molècula era capaç de unir-se a la superfície de les cèl·lules T i limitar el seu potencial de matar cèl·lules. El 1986, es va aprovar per ajudar a prevenir el rebuig d'òrgans després de trasplantaments de ronyó, convertint-se en el primer anticòs terapèutic permès per a ús humà.
+
+Pregunta: D'on es va obtenir originalment OKT3?
+
+Resposta:
+```
+Ratolins.
+```
+
+Context obtingut de [Nature](https://www.nature.com/articles/d41586-023-00400-x).ada en el context següent. Mantingueu la resposta breu i concisa. Respongueu "Incert sobre la resposta" si no esteu segur de la resposta.
+
+Context: Teplizumab té les seves arrels en una empresa farmacèutica de Nova Jersey anomenada Ortho Pharmaceutical. Allà, els científics van generar una versió primerenca de l'anticòs, anomenada OKT3. Originalment obtingut de ratolins, la molècula era capaç de unir-se a la superfície de les cèl·lules T i limitar el seu potencial de matar cèl·lules. El 1986, es va aprovar per ajudar a prevenir el rebuig d'òrgans després de trasplantaments de ronyó, convertint-se en el primer anticòs terapèutic permès per a ús humà.
+
+Pregunta: D'on es va obtenir originalment OKT3?
+
+Resposta:
+```
+Ratolins.
+```
+
+Context obtingut de [Nature](https://www.nature.com/articles/d41586-023-00400-x).
+
+--- 
+
+## Classificació de textos
+Fins ara, hem utilitzat instruccions simples per realitzar una tasca. Com a enginyer de prompt, haureu de millorar en proporcionar instruccions més precisos. Però això no és tot! També haureu de veure que per a casos d'ús més complexos, només proporcionar instruccions no serà suficient. Aquí és on haureu de pensar més en el context i en els diferents elements que podeu utilitzar en un prompt. Altres elements que podeu proporcionar són `dades d'entrada` o `exemples`.
+
+Provem de demostrar-ho proporcionant un exemple de classificació de textos.
+
+*Prompt:*
+```
+Classifiqueu el text en neutral, negatiu o positiu. 
+
+Text: Crec que el menjar va estar bé. 
+Sentiment:
+```
+
+*Output:*
+```
+Neutral
+```
+
+Hem donat la instrucció per classificar el text i el model ha respost amb `'Neutral'`, que és correcte. No hi ha res de malament amb això, però diguem que el que realment necessitem és que el model retorni l'etiqueta en el format exacte que volem. Així, en lloc de `Neutral`, volem que retorni `neutral`. Com ho aconseguim? Hi ha diferents maneres de fer-ho. Ens importa la especificitat aquí, així que com més informació puguem proporcionar al prompt, millors seran els resultats. Podem provar de proporcionar exemples per especificar el comportament correcte. Provem-ho de nou:
+
+*Prompt:*
+```
+Classifiqueu el text en neutral, negatiu o positiu. 
+
+Text: Crec que les vacances estan bé.
+Sentiment: neutral 
+
+Text: Crec que el menjar va estar bé. 
+Sentiment:
+```
+
+*Output:*
+```
+neutral
+```
+
+Perfecte! Aquesta vegada, el model ha retornat `neutral`, que és l'etiqueta específica que cercava. Sembla que l'exemple proporcionat en el prompt ha ajudat el model a ser específic en la seva sortida.
+
+Per destacar per què a vegades és important ser específic, mirem l'exemple següent i detectem el problema:
+
+*Prompt:*
+```
+Classifiqueu el text en neutre, negatiu o positiu. 
+
+Text: Crec que les vacances estan bé.
+Sentiment:
+```
+
+*Output:*
+```
+Neutral
+```
+
+Quin és el problema aquí? Com a pista, l'etiqueta inventada `nutral` és completament ignorada pel model. En lloc d'això, el model emet `Neutral`, ja que té cert biaix cap a aquesta etiqueta. Però suposem que el que realment volem és `nutral`. Com ho arreglaríeu? Potser podeu provar d'afegir descripcions a les etiquetes o afegir més exemples al prompt? Si no esteu segurs, discutirem algunes idees en les seccions següents.
+
+---
+
+## Conversa
+Potser una de les coses més interessants que es poden aconseguir amb la tècnica de prompt engineering és instruir el sistema LLM sobre com comportar-se, la seva intenció i la seva identitat. Això és particularment útil quan es construeixen sistemes de conversa com els chatbots de servei al client.
+
+Per exemple, creem un sistema de conversa que sigui capaç de generar respostes més tècniques i científiques a les preguntes. Noteu com li estem dient explícitament com comportar-se a través de la instrucció. Això es coneix a vegades com a *role prompting*.
+
+*Prompt:*
+```
+La següent és una conversa amb un assistent d'investigació en IA. El to de l'assistent és tècnic i científic.
+
+Humà: Hola, qui ets?
+IA: Salutacions! Sóc un assistent d'investigació en IA. Com puc ajudar-te avui?
+Humà: Em pots explicar la creació dels forats negres?
+IA:
+```
+
+*Output:*
+```
+Claro! Els forats negres són regions de l'espai temps on la força gravitatòria és tan forta que res, ni tan sols la llum, pot escapar d'ella. Es creen quan una estrella molt massiva mor i el seu nucli col·lapsa cap a dins, formant una singularitat d'infinita densitat. La intensa gravetat de la singularitat atreu tota la matèria i la radiació que l'envolta, creant el forat negre.
+```
+
+El nostre assistent d'investigació en IA sembla una mica massa tècnic, oi? Bé, canviem aquest comportament i instruïm el sistema per donar respostes més accessibles.
+
+*Prompt:*
+```
+La següent és una conversa amb un assistent d'investigació en IA. Les respostes de l'assistent han de ser fàcils de comprendre fins i tot per als estudiants de primària.
+
+Humà: Hola, qui ets?
+IA: Salutacions! Sóc un assistent d'investigació en IA. Com puc ajudar-te avui?
+Humà: Em pots explicar la creació dels forats negres?
+IA:
+```
+
+*Output:*
+```
+Clar! Els forats negres es creen quan una estrella molt massiva es queda sense combustible i col·lapsa cap a dins. La gravetat de l'estrella és tan forta que res, ni tan sols la llum, pot escapar del seu camp de gravetat. Això crea un punt en l'espai-temps amb una força gravitatòria intensa anomenada forat negre.
+```
+
+Crec que hem fet algun progrés. Podeu continuar millorant-lo. Estic segur que si afegiu més exemples, podreu obtenir resultats encara millors.
+
+---
+
+## Generació de codi
+Una aplicació on els LLMs són bastant efectius és la generació de codi. Copilot és un gran exemple d'això. Hi ha una gran quantitat de tasques de generació de codi que es poden realitzar amb prompts intel·ligents. Vegem alguns exemples a continuació.
+
+En primer lloc, provem un programa senzill que saluda l'usuari.
+
+*Prompt:*
+```
+/*
+Preguntar a l'usuari pel seu nom i dir "Hola"
+*/
+```
+
+*Output:*
+```
+let nom = prompt("Com et dius?");
+console.log(`Hola, ${nom}!`);
+```
+
+Podeu veure que ni tan sols vam haver d'especificar el llenguatge a usar.
+
+Canviem una mica de nivell. Vull mostrar-vos com de potents poden ser els LLMs amb una mica més d'esforç en el disseny dels prompts.
+
+*Prompt:*
+```
+"""
+Taula departaments, columnes = [DepartmentId, DepartmentName]
+Taula estudiants, columnes = [DepartmentId, StudentId, StudentName]
+Crea una consulta MySQL per a tots els estudiants del Departament d'Informàtica.
+"""
+```
+
+*Output:*
+```
+SELECT StudentId, StudentName 
+FROM students 
+WHERE DepartmentId IN (SELECT DepartmentId FROM departments WHERE DepartmentName = 'Informàtica');
+```
+
+Això és molt impressionant. En aquest cas, vam proporcionar dades sobre l'esquema de la base de dades i li vam demanar que generés una consulta MySQL vàlida.
+
+---
+
+## Raonament
+Potser una de les tasques més difícils per a un LLM avui en dia és la que requereix alguna forma de raciocini. El raciocini és una de les àrees que m'entusiasma més a causa dels tipus d'aplicacions complexes que poden sorgir dels LLM.
+
+S'han produït algunes millores en les tasques que involucren capacitats matemàtiques. Tanmateix, és important destacar que els LLM actuals tenen dificultats per realitzar tasques de raonament, la qual cosa requereix tècniques de prompt engineering encara més avançades. Cobrirem aquestes tècniques avançades en la propera guia. Per ara, cobrirem alguns exemples bàsics per mostrar les capacitats aritmètiques.
+
+*Prompt:*
+```
+Quin és el resultat de 9.000 * 9.000?
+```
+
+*Output:*
+```
+81.000.000
+```
+
+Provem alguna cosa més difícil.
+
+*Prompt:*
+```
+Els números imparells d'aquest grup sumen un número parell: 15, 32, 5, 13, 82, 7, 1. 
+
+A: 
+```
+
+*Output:*
+```
+No, els números imparells d'aquest grup sumen un número senar: 119.
+```
+
+Això és incorrecte! Intentem millorar-ho millorant el prompt.
+
+*Prompt:*
+```
+Els números imparells d'aquest grup sumen un número parell: 15, 32, 5, 13, 82, 7, 1. 
+
+Resoleu-lo dividint el problema en etapes. Primer, identifiqueu els números imparells, sumeu-los i indiqueu si el resultat és parell o senar.
+```
+
+*Output:*
+```
+Nombres imparells: 15, 5, 13, 7, 1
+Suma: 41 
+41 és un número senar.
+```
+
+Molt millor, oi? Això sí, he provat això un parell de vegades i el sistema a vegades falla. Si proporcioneu instruccions millors combinades amb exemples, potser ajudaria a obtenir resultats més precisos.
+
+Continuarem incluint més exemples d'aplicacions comunes en aquesta secció de la guia.
+
+En la propera secció, cobrirem conceptes de prompt engineering encara més avançats i tècniques per millorar el rendiment en totes aquestes tasques i altres més difícils.

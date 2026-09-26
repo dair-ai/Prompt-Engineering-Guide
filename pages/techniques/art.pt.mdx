@@ -1,0 +1,24 @@
+# Raciocínio Automático e Uso de Ferramentas (ART)
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import ART from '../../img/ART.png'
+import ART2 from '../../img/ART2.png'
+
+A combinação de estímulo CoT (Cadeia de Pensamento) e o uso de ferramentas de maneira intercalada tem se mostrado uma abordagem sólida e robusta para abordar muitas tarefas com modelos de linguagem de grande porte (LLMs). Essas abordagens geralmente exigem demonstrações específicas da tarefa feitas manualmente e uma intercalação cuidadosamente elaborada entre gerações do modelo e uso de ferramentas. [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014) propõem uma nova estrutura que utiliza um LLM congelado para gerar automaticamente etapas intermediárias de raciocínio como um programa.
+
+O ART funciona da seguinte forma:
+- Dada uma nova tarefa, ele seleciona demonstrações de raciocínio de múltiplas etapas e uso de ferramentas de uma biblioteca de tarefas.
+- No momento dos testes, ele pausa a geração sempre que ferramentas externas são chamadas e integra a saída delas antes de retomar a geração.
+
+O ART incentiva o modelo a generalizar a partir das demonstrações para decompor uma nova tarefa e utilizar as ferramentas nos lugares apropriados, de forma automática. Além disso, o ART é extensível, pois também permite que os seres humanos corrijam erros nas etapas de raciocínio ou adicionem novas ferramentas simplesmente atualizando as bibliotecas de tarefas e ferramentas. O processo é demonstrado abaixo:
+
+<Screenshot src={ART} alt="ART" />
+Fonte da imagem: [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)
+
+O ART melhora substancialmente as abordagens de estímulo poucas vezes (few-shot prompting) e CoT automático em tarefas não vistas nos conjuntos de referência BigBench e MMLU, e supera o desempenho de estímulos CoT feitos manualmente quando o feedback humano é incorporado.
+
+Abaixo está uma tabela demonstrando o desempenho do ART em tarefas do BigBench e MMLU:
+
+<Screenshot src={ART2} alt="ART2" />
+Fonte da imagem: [Paranjape et al., (2023)](https://arxiv.org/abs/2303.09014)```

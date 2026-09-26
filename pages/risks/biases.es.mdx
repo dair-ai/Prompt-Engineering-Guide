@@ -1,0 +1,99 @@
+# Sesgos
+
+Las LLMs pueden producir textos problemáticas que pueden ser potencialmente perjudiciales y mostrar sesgos que podrían deteriorar el rendimiento del modelo en tareas posteriores. Algunos de estos sesgos pueden mitigarse mediante estrategias de prompting efectivas, pero podrían requerir soluciones más avanzadas como la moderación y el filtrado.
+
+### Distribución de ejemplos
+
+¿La distribución de los ejemplos afecta el rendimiento del modelo o lo sesga de alguna manera al realizar aprendizaje de pocos ejemplos (few-shot learning)? Podemos realizar una prueba sencilla para comprobarlo.
+
+*Prompt:*
+```
+P: ¡Acabo de recibir las mejores noticias de mi vida!
+R: Positivo
+
+P: ¡Acabamos de recibir un aumento en el trabajo!
+R: Positivo
+
+P: Estoy muy orgulloso de lo que logré hoy.
+R: Positivo
+
+P: ¡Hoy es el mejor día de mi vida!
+R: Positivo
+
+P: Realmente estoy esperando el fin de semana.
+R: Positivo
+
+P: ¡Acabo de recibir el mejor regalo de mi vida!
+R: Positivo
+
+P: Estoy muy feliz en este momento.
+R: Positivo
+
+P: Me siento muy afortunado de tener una familia increíble.
+R: Positivo
+
+P: El clima afuera es muy sombrío.
+R: Negativo
+
+P: Acabo de recibir algunas noticias terribles.
+R: Negativo
+
+P: Eso dejó un sabor amargo.
+R:
+```
+
+*Salida:*
+```
+Negativo
+```
+
+En el ejemplo anterior, parece que la distribución de ejemplos no sesga el modelo. Esto es bueno. Intentemos otro ejemplo con un texto más difícil de clasificar y veamos cómo lo hace el modelo:
+
+*Prompt:*
+```
+P: ¡La comida aquí es deliciosa!
+R: Positivo 
+
+P: Estoy muy cansado de este trabajo escolar.
+R: Negativo
+
+P: No puedo creer que haya suspendido el examen.
+R: Negativo
+
+P: ¡Hoy tuve un gran día!
+R: Positivo 
+
+P: Odio este trabajo.
+R: Negativo
+
+P: El servicio aquí es terrible.
+R: Negativo
+
+P: Estoy muy frustrado con mi vida.
+R: Negativo
+
+P: Nunca tengo un descanso.
+R: Negativo
+
+P: Esta comida sabe horrible.
+R: Negativo
+
+P: No soporto a mi jefe.
+R: Negativo
+
+P: Siento algo.
+R:
+```
+
+*Salida:*
+```
+Negativo
+```
+
+Si bien esa última oración es algo subjetiva, invertí la distribución y en su lugar usé 8 ejemplos positivos y 2 ejemplos negativos y luego intenté la misma oración exacta de nuevo. ¿Adivina qué respondió el modelo? Respondió "Positivo". El modelo puede tener mucho conocimiento sobre la clasificación de sentimientos, por lo que será difícil hacer que muestre sesgos para este problema. El consejo aquí es evitar sesgar la distribución y en su lugar proporcionar un número más equilibrado de ejemplos para cada etiqueta. Para tareas más difíciles en las que el modelo no tiene demasiado conocimiento, es probable que tenga más dificultades.
+
+### Orden de los ejemplos
+
+Al realizar el aprendizaje con pocos ejemplos, ¿afecta el orden el rendimiento del modelo o genera algún tipo de sesgo?
+
+Puede probar los ejemplos anteriores y ver si puede hacer que el modelo esté sesgado hacia una etiqueta cambiando el orden. El consejo es ordenar los ejemplos al azar. Por ejemplo, evitar tener todos los ejemplos positivos primero y luego los ejemplos negativos al final. Este problema se amplifica aún más si la distribución de etiquetas está sesgada. Siempre asegúrese de experimentar mucho para reducir este tipo de sesgo.

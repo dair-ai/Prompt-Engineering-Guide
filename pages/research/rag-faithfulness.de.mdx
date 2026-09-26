@@ -1,0 +1,24 @@
+# Wie zuverlässig sind RAG-Modelle?
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/eEU1dWVE8QQ?si=b-qgCU8nibBCSX8H" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Dieses neue Paper von [Wu et al. (2024)](https://arxiv.org/abs/2404.10198) zielt darauf ab, das Kräftemessen zwischen den RAG-Modellen und der internen Priorisierung von LLMs zu quantifizieren.
+
+Es konzentriert sich dabei auf GPT-4 und andere LLMs bei der Beantwortung von Fragen zur Analyse.
+
+Es wurde festgestellt, dass das Bereitstellen korrekter abgerufener Informationen die meisten Fehler des Modells korrigiert (94% Genauigkeit).
+
+!["RAG Treue"](../../img/research/rag-faith.png)
+*Quelle: [Wu et al. (2024)](https://arxiv.org/abs/2404.10198)*
+
+Wenn die Dokumente mehr falsche Werte enthalten und das interne Priorisieren des LLM schwach ist, neigt das LLM eher dazu, falsche Informationen wiederzugeben. Es wurde jedoch festgestellt, dass die LLMs widerstandsfähiger sind, wenn sie eine stärkere Vorprägung haben.
+
+Das Paper berichtet auch, dass „je mehr die modifizierte Information von der Vorprägung des Modells abweicht, desto unwahrscheinlicher ist es, dass das Modell sie bevorzugt.“
+
+Viele Entwickler und Unternehmen setzen RAG-Systeme in der Produktion ein. Diese Arbeit hebt die Bedeutung der Risikobewertung bei der Verwendung von LLMs hervor, die verschiedene Arten von Kontextinformationen enthalten können, die unterstützende, widersprüchliche oder völlig inkorrekte Informationen enthalten können.

@@ -1,0 +1,41 @@
+## LLaMA: Açık ve Verimli Temel Dil Modelleri
+
+<Callout emoji="⚠️">
+  This section is under heavy development.
+</Callout>
+
+
+import {Screenshot} from 'components/screenshot'
+import { Callout, FileTree } from 'nextra-theme-docs'
+import LLAMA1 from '../../img/llama-1.png'
+
+
+## Yenilikler neler?
+
+Bu makale, 7B'den 65B'ye kadar parametreleri olan temel dil modelleri koleksiyonunu tanıtır. 
+
+Modeller, genel olarak mevcut veri setleri ile trilyonlarca token üzerinde eğitilmiştir.
+
+[(Hoffman ve ark. 2022)](https://arxiv.org/abs/2203.15556) tarafından yapılan çalışma, daha küçük modellerin çok daha fazla veri üzerinde eğitilmesi durumunda, büyük modellerden daha iyi performans gösterebileceğini ortaya koydu. Bu çalışma, 10B modellerin 200B token üzerinde eğitilmesini önerir. Ancak, LLaMA makalesi, 7B modelin performansının 1T tokenin üzerine çıkmasının ardından bile gelişmeye devam ettiğini bulmuştur.
+
+<Screenshot src={LLAMA1} alt="LLAMA1" />
+
+Bu çalışma, daha fazla token üzerinde eğitim yaparak, çeşitli çıkarım bütçelerinde olabilecek en iyi performansı elde eden modeller (LLaMA) üzerine odaklanmaktadır.
+
+## Yetenekler & Ana Sonuçlar
+
+Genel olarak, LLaMA-13B, 10 kat daha küçük olmasına ve tek bir GPU'da çalıştırılabilmesine rağmen, birçok referans noktasında GPT-3(175B)'yu geride bırakır. LLaMA 65B, Chinchilla-70B ve PaLM-540B gibi modellerle rekabetçidir.
+
+*Makale:* [LLaMA: Açık ve Verimli Temel Dil Modelleri](https://arxiv.org/abs/2302.13971)
+
+*Kod:* https://github.com/facebookresearch/llama
+
+## Kaynaklar
+
+- [Koala: A Dialogue Model for Academic Research](https://bair.berkeley.edu/blog/2023/04/03/koala/) (April 2023)
+- [Baize: An Open-Source Chat Model with Parameter-Efficient Tuning on Self-Chat Data](https://arxiv.org/abs/2304.01196) (April 2023)
+- [Vicuna: An Open-Source Chatbot Impressing GPT-4 with 90%* ChatGPT Quality](https://vicuna.lmsys.org/) (March 2023)
+- [LLaMA-Adapter: Efficient Fine-tuning of Language Models with Zero-init Attention](https://arxiv.org/abs/2303.16199) (March 2023)
+- [GPT4All](https://github.com/nomic-ai/gpt4all) (March 2023)
+- [ChatDoctor: A Medical Chat Model Fine-tuned on LLaMA Model using Medical Domain Knowledge](https://arxiv.org/abs/2303.14070) (March 2023)
+- [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) (March 2023)

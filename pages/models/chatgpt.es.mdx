@@ -1,0 +1,251 @@
+# Ingeniería de prompt con ChatGPT
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import CHATGPT1 from '../../img/chatgpt-1.png'
+import CHATGPTCLASSIC from '../../img/chatgpt-classic.png'
+
+En esta sección, cubrimos las últimas técnicas de ingeniería de prompts para ChatGPT, incluyendo consejos, aplicaciones, limitaciones, papers y materiales adicionales de lectura.
+
+<Callout emoji="⚠️">
+Esta sección está en pleno desarrollo.
+</Callout>
+
+Topics:
+- [Introducción a ChatGPT](#introducción-a-chatgpt)
+- [Revisando la tarea de conversación](#revisando-la-tarea-de-conversación)
+- [Conversaciones con ChatGPT](#conversaciones-con-chatgpt)
+
+---
+## Introducción a ChatGPT
+
+ChatGPT es un nuevo modelo [entrenado por OpenAI](https://openai.com/blog/chatgpt) que tiene la capacidad de interactuar de manera conversacional. Este modelo está entrenado para seguir instrucciones en un prompt y proporcionar respuestas apropiadas en el contexto de un diálogo. ChatGPT puede ayudar a responder preguntas, sugerir recetas, escribir letras de canciones en un cierto estilo, generar código y mucho más.
+
+ChatGPT se entrena utilizando Aprendizaje por Refuerzo a partir de la retroalimentación humana (RLHF). Si bien este modelo es mucho más capaz que las iteraciones anteriores de GPT (y también está entrenado para reducir las salidas dañinas e inveraces), aún tiene limitaciones. Cubramos algunas de las capacidades y limitaciones con ejemplos concretos.
+
+Puedes usar la preview de investigación de ChatGPT [aquí](chat.openai.com) pero para los ejemplos a continuación, usaremos el modo `Chat` en el OpenAI Playground.
+
+---
+## Revisando la tarea de conversación
+
+En una de las guías anteriores, cubrimos un poco sobre las capacidades de conversación y el prompting de roles. Cubrimos cómo instruir al LLM para tener una conversación en un estilo específico, con una intención, comportamiento e identidad específicos.
+
+Revisemos nuestro ejemplo básico anterior donde creamos un sistema de conversación capaz de generar respuestas más técnicas y científicas a preguntas.
+
+*Prompt:*
+```
+
+La siguiente es una conversación con un asistente de investigación de inteligencia artificial.
+El tono del asistente es técnico y científico.
+
+Humano: Hola, ¿quién eres?
+IA: ¡Saludos! Soy un asistente de investigación de IA. ¿Cómo puedo ayudarte hoy?
+Humano: ¿Puedes contarme sobre la creación de agujeros negros?
+IA:
+```
+
+A partir del ejemplo anterior, se pueden observar dos componentes importantes:
+
+- la **intención** o explicación de lo que es el chatbot
+- la **identidad** que instruye el estilo o tono que el chatbot utilizará para responder
+
+
+El ejemplo sencillo anterior funciona bien con las APIs de completado de texto que utilizan `text-davinci-003`. Más recientemente, OpenAI [anunció las APIs de ChatGPT](https://openai.com/blog/introducing-chatgpt-and-whisper-apis), donde un modelo más poderoso y más barato llamado `gpt-3.5-turbo` fue específicamente construido para este tipo de funcionalidad (completar conversaciones). De hecho, OpenAI lo recomienda como su mejor modelo incluso para casos de uso no relacionados con chat. Otros beneficios de usar las APIs de ChatGPT son una reducción significativa de costos (90%) y eficiencia.
+
+Grandes empresas como Snap Inc. e Instacart ya están integrando características de conversación impulsadas por ChatGPT en sus productos que van desde recomendaciones personalizadas hasta objetivos de compra abiertos.
+
+---
+## Conversaciones con ChatGPT
+
+### Conversaciones multi-turno
+
+Para comenzar a demostrar las capacidades de ChatGPT, utilizaremos el ejemplo de asistente de chatbot anterior y discutiremos los resultados. En comparación con `text-davinci-003`, el modelo `gpt-3.5-turbo` que impulsa ChatGPT utiliza un formato de chat como entrada. El modelo espera una serie de mensajes como entrada y los utiliza para generar una respuesta.
+
+*Entrada:*
+```
+SISTEMA: Eres un asistente de investigación de IA. Utilizas un tono técnico y científico.
+USUARIO: Hola, ¿quién eres?
+ASISTENTE: ¡Saludos! Soy un asistente de investigación de IA. ¿En qué puedo ayudarte hoy?
+USUARIO: ¿Puedes contarme sobre la creación de los agujeros negros?
+```
+
+*Salida:*
+```
+ASISTENTE: ¡Por supuesto! Los agujeros negros se crean cuando una estrella masiva se queda
+sin combustible y colapsa bajo su propia gravedad. Este colapso hace que la estrella se
+vuelva increíblemente densa, con un campo gravitacional tan fuerte que ni siquiera la luz
+puede escapar de ella. Este punto de no retorno se conoce como el horizonte de sucesos.
+Una vez que una estrella cruza el horizonte de sucesos, se considera un agujero negro...
+```
+
+Ten en cuenta que en el ejemplo anterior, he simplificado la entrada y la salida, pero la API de completado de chat de ChatGPT requiere que los mensajes estén en un formato específico. He agregado una captura de pantalla a continuación de cómo se vería este ejemplo usando el `Chat Mode` en el Playground de OpenAI:
+
+<Screenshot src={CHATGPT1} alt="CHATGPT1" />
+
+La llamada formal al API para nuestro ejemplo tendria este aspecto:
+
+```python
+import openai
+
+openai.ChatCompletion.create(
+  model="gpt-3.5-turbo",
+  messages=[
+        {"role": "system", "content": "Eres un asistente de investigación de IA. Utilizas un tono técnico y científico."},
+        {"role": "user", "content": "Hola, ¿quién eres?"},
+        {"role": "assistant", "content": "¡Saludos! Soy un asistente de investigación de IA. ¿En qué puedo ayudarte hoy?"},
+        {"role": "user", "content": "¿Puedes contarme sobre la creación de los agujeros negros?"}
+    ]
+)
+```
+
+Se espera que en el futuro, la forma en que los desarrolladores interactúen con ChatGPT se realice a través del [Lenguaje de Marcado de Chat](https://github.com/openai/openai-python/blob/main/chatml.md) (ChatML).
+
+### Tareas de una sola interacción
+
+El formato de chat permite conversaciones de múltiples interacciones, pero también admite tareas de una sola interacción similares a las que usamos con `text-davinci-003`. Esto significa que podemos usar ChatGPT para realizar tareas similares a las que hemos demostrado para los modelos GPT originales. Por ejemplo, intentemos realizar la siguiente tarea de respuesta a preguntas utilizando ChatGPT:
+
+*Entrada:*
+```
+USER: Responda la pregunta basándose en el contexto a continuación. Mantenga la respuesta corta y concisa. Responda "Inseguro sobre la respuesta" si no está seguro sobre la respuesta.
+
+Contexto: Teplizumab tiene sus raíces en una compañía farmacéutica de Nueva Jersey llamada Ortho Pharmaceutical. Allí, los científicos generaron una versión temprana del anticuerpo, llamado OKT3. Originariamente obtenido de ratones, la molécula era capaz de unirse a la superficie de las células T y limitar su potencial para matar células. En 1986, se aprobó para ayudar a prevenir el rechazo de órganos después de los trasplantes de riñón, convirtiéndose en el primer anticuerpo terapéutico permitido para uso humano.
+
+Pregunta: ¿De dónde se obtuvo originalmente el OKT3?
+
+Respuesta:
+```
+
+*Salida:*
+```
+ASSISTANT: De ratones.
+```
+
+Ten en cuenta que estoy agregando las etiquetas USER y ASSISTANT para demostrar mejor cómo se puede realizar la tarea con ChatGPT. Aquí está el ejemplo usando Playground:
+
+<Screenshot src={CHATGPTCLASSIC} alt="CHATGPTCLASSIC" />
+
+De manera más formal, esta es la llamada a la API (solo he incluido el componente del mensaje de la solicitud):
+
+```python
+CONTENT = """Responda la pregunta basándose en el contexto a continuación. Mantenga la respuesta corta y concisa. Responda \"Inseguro sobre la respuesta\" si no está seguro sobre la respuesta.
+
+Contexto: Teplizumab tiene sus raíces en una compañía farmacéutica de Nueva Jersey llamada Ortho Pharmaceutical. Allí, los científicos generaron una versión temprana del anticuerpo, llamado OKT3. Originariamente obtenido de ratones, la molécula era capaz de unirse a la superficie de las células T y limitar su potencial para matar células. En 1986, se aprobó para ayudar a prevenir el rechazo de órganos después de los trasplantes de riñón, convirtiéndose en el primer anticuerpo terapéutico permitido para uso humano.
+
+Pregunta: ¿De dónde se obtuvo originalmente el OKT3?
+
+Respuesta:
+"""
+
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "user", "content": CONTENT},
+    ],
+    temperature=0,
+)
+```
+
+### Instructing Chat Models
+
+Según la documentación oficial de OpenAI, también se pondrán a disposición snapshots del modelo `gpt-3.5-turbo`. Por ejemplo, podemos acceder al snapshot del 1 de marzo `gpt-3.5-turbo-0301`. Esto permite que los desarrolladores opten por versiones específicas del modelo. Esto también significa que las mejores prácticas para instruir modelos pueden cambiar de una versión a otra.
+
+La recomendación actual para `gpt-3.5-turbo-0301` es agregar instrucciones en el mensaje del usuario en lugar del mensaje del sistema disponible.
+
+---
+## Referencias
+
+- [Is ChatGPT a Good Sentiment Analyzer? A Preliminary Study](https://arxiv.org/abs/2304.04339) (April 2023)
+- [A Preliminary Evaluation of ChatGPT for Zero-shot Dialogue Understanding](https://arxiv.org/abs/2304.04256) (April 2023)
+- [Extractive Summarization via ChatGPT for Faithful Summary Generation](https://arxiv.org/abs/2304.04193) (April 2023)
+- [What does ChatGPT return about human values? Exploring value bias in ChatGPT using a descriptive value theory](https://arxiv.org/abs/2304.03612) (April 2023)
+- [On the Evaluations of ChatGPT and Emotion-enhanced Prompting for Mental Health Analysis](https://arxiv.org/abs/2304.03347) (April 2023)
+- [ChatGPT-Crawler: Find out if ChatGPT really knows what it's talking about](https://arxiv.org/abs/2304.03325) (April 2023)
+- [Should ChatGPT be Biased? Challenges and Risks of Bias in Large Language Models](https://arxiv.org/abs/2304.03738) (April 2023)
+- [Synthesis of Mathematical programs from Natural Language Specifications](https://arxiv.org/abs/2304.03287) (April 2023)
+- [Large language models effectively leverage document-level context for literary translation, but critical errors persist](https://arxiv.org/abs/2304.03245) (April 2023)
+- [Investigating Chain-of-thought with ChatGPT for Stance Detection on Social Media](https://arxiv.org/abs/2304.03087) (April 2023)
+- [ChatGPT for Shaping the Future of Dentistry: The Potential of Multi-Modal Large Language Model](https://arxiv.org/abs/2304.03086) (April 2023)
+- [Can Large Language Models Play Text Games Well? Current State-of-the-Art and Open Questions](https://arxiv.org/abs/2304.02868) (April 2023)
+- [Human-like Summarization Evaluation with ChatGPT](https://arxiv.org/abs/2304.02554) (April 2023)
+- [Evaluation of ChatGPT Family of Models for Biomedical Reasoning and Classification](https://arxiv.org/abs/2304.02496) (April 2023)
+- [Comparative Analysis of CHATGPT and the evolution of language models](https://arxiv.org/abs/2304.02468) (April 2023)
+- [Unleashing the Power of ChatGPT for Translation: An Empirical Study](https://arxiv.org/abs/2304.02182) (April 2023)
+- [Geotechnical Parrot Tales (GPT): Overcoming GPT hallucinations with prompt engineering for geotechnical applications](https://arxiv.org/abs/2304.02138) (April 2023)
+- [Unlocking the Potential of ChatGPT: A Comprehensive Exploration of its Applications, Advantages, Limitations, and Future Directions in Natural Language Processing](https://arxiv.org/abs/2304.02017) (April 2023)
+- [Summary of ChatGPT/GPT-4 Research and Perspective Towards the Future of Large Language Models](https://arxiv.org/abs/2304.01852) (April 2023)
+- [Is ChatGPT a Highly Fluent Grammatical Error Correction System? A Comprehensive Evaluation](https://arxiv.org/abs/2304.01746) (April 2023)
+- [Safety Analysis in the Era of Large Language Models: A Case Study of STPA using ChatGPT](https://arxiv.org/abs/2304.01246) (April 2023)
+- [Large language models can rate news outlet credibility](https://arxiv.org/abs/2304.00228) (April 2023)
+- [Can AI Chatbots Pass the Fundamentals of Engineering (FE) and Principles and Practice of Engineering (PE) Structural Exams?](https://arxiv.org/abs/2303.18149) (April 2023)
+- [Can AI Put Gamma-Ray Astrophysicists Out of a Job?](https://arxiv.org/abs/2303.17853) (March 2023)
+- [Comparing Abstractive Summaries Generated by ChatGPT to Real Summaries Through Blinded Reviewers and Text Classification Algorithms](https://arxiv.org/abs/2303.17650) (March 2023)
+- [HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in HuggingFace](https://arxiv.org/abs/2303.17580) (March 2023)
+- [WavCaps: A ChatGPT-Assisted Weakly-Labelled Audio Captioning Dataset for Audio-Language Multimodal Research](https://arxiv.org/abs/2303.17395) (March 2023)
+- [How well do Large Language Models perform in Arithmetic tasks?](https://arxiv.org/abs/2304.02015) (March 2023)
+- [Assessing Cross-Cultural Alignment between ChatGPT and Human Societies: An Empirical Study](https://arxiv.org/abs/2303.17466) (March 2023)
+- [Yes but.. Can ChatGPT Identify Entities in Historical Documents?](https://arxiv.org/abs/2303.17322) (March 2023)
+- [Evaluation of ChatGPT for NLP-based Mental Health Applications](https://arxiv.org/abs/2303.15727) (March 2023)
+- [A Perspectival Mirror of the Elephant: Investigating Language Bias on Google, ChatGPT, Wikipedia, and YouTube](https://arxiv.org/abs/2303.16281) (March 2023)
+- [ChatGPT or academic scientist? Distinguishing authorship with over 99% accuracy using off-the-shelf machine learning tools](https://arxiv.org/abs/2303.16352) (March 2023)
+- [Zero-shot Clinical Entity Recognition using ChatGPT](https://arxiv.org/abs/2303.16416) (March 2023)
+- [ChatGPT is a Knowledgeable but Inexperienced Solver: An Investigation of Commonsense Problem in Large Language Models](https://arxiv.org/abs/2303.16421) (March 2023)
+- [ChatGPT4PCG Competition: Character-like Level Generation for Science Birds](https://arxiv.org/abs/2303.15662) (March 2023)
+- [ChatGPT as a Factual Inconsistency Evaluator for Abstractive Text Summarization](https://arxiv.org/abs/2303.15621) (March 2023)
+- [Chat-REC: Towards Interactive and Explainable LLMs-Augmented Recommender System](https://arxiv.org/abs/2303.14524) (March 2023)
+- [A comprehensive evaluation of ChatGPT's zero-shot Text-to-SQL capability](https://arxiv.org/abs/2303.13547) (March 2023)
+- [Towards Making the Most of ChatGPT for Machine Translation](https://arxiv.org/abs/2303.13780) (March 2023)
+- [Error Analysis Prompting Enables Human-Like Translation Evaluation in Large Language Models: A Case Study on ChatGPT](https://arxiv.org/abs/2303.13809) (March 2023)
+- [ChatGPT Outperforms Crowd-Workers for Text-Annotation Tasks](https://arxiv.org/pdf/2303.15056v1.pdf) (March 2023)
+- [ChatGPT or Grammarly? Evaluating ChatGPT on Grammatical Error Correction Benchmark](https://arxiv.org/abs/2303.13648) (March 2023)
+- [ChatGPT and a New Academic Reality: AI-Written Research Papers and the Ethics of the Large Language Models in Scholarly Publishing](https://arxiv.org/abs/2303.13367) (March 2023)
+- [Are LLMs the Master of All Trades? : Exploring Domain-Agnostic Reasoning Skills of LLMs](https://arxiv.org/abs/2303.12810) (March 2023)
+- [Is ChatGPT A Good Keyphrase Generator? A Preliminary Study](https://arxiv.org/abs/2303.13001) (March 2023)
+- [MM-REACT: Prompting ChatGPT for Multimodal Reasoning and Action](https://arxiv.org/abs/2303.11381) (March 2023)
+- [Large Language Models Can Be Used to Estimate the Ideologies of Politicians in a Zero-Shot Learning Setting](https://arxiv.org/abs/2303.12057) (March 2023)
+- [Chinese Intermediate English Learners outdid ChatGPT in deep cohesion: Evidence from English narrative writing](https://arxiv.org/abs/2303.11812) (March 2023)
+- [A Comprehensive Capability Analysis of GPT-3 and GPT-3.5 Series Models](https://arxiv.org/abs/2303.10420) (March 2023)
+- [ChatGPT as the Transportation Equity Information Source for Scientific Writing](https://arxiv.org/abs/2303.11158) (March 2023)
+- [Translating Radiology Reports into Plain Language using ChatGPT and GPT-4 with Prompt Learning: Promising Results, Limitations, and Potential](https://arxiv.org/abs/2303.09038) (March 2023)
+- [ChatGPT Participates in a Computer Science Exam](https://arxiv.org/abs/2303.09461) (March 2023)
+- [Consistency Analysis of ChatGPT](https://arxiv.org/abs/2303.06273) (Mar 2023)
+- [Algorithmic Ghost in the Research Shell: Large Language Models and Academic Knowledge Creation in Management Research](https://arxiv.org/abs/2303.07304) (Mar 2023)
+- [Large Language Models in the Workplace: A Case Study on Prompt Engineering for Job Type Classification](https://arxiv.org/abs/2303.07142) (March 2023)
+- [Seeing ChatGPT Through Students' Eyes: An Analysis of TikTok Data](https://arxiv.org/abs/2303.05349) (March 2023)
+- [Extracting Accurate Materials Data from Research Papers with Conversational Language Models and Prompt Engineering -- Example of ChatGPT](https://arxiv.org/abs/2303.05352) (Mar 2023)
+- [ChatGPT is on the horizon: Could a large language model be all we need for Intelligent Transportation?](https://arxiv.org/abs/2303.05382) (Mar 2023)
+- [Making a Computational Attorney](https://arxiv.org/abs/2303.05383) (Mar 2023)
+- [Does Synthetic Data Generation of LLMs Help Clinical Text Mining?](https://arxiv.org/abs/2303.04360) (Mar 2023)
+- [MenuCraft: Interactive Menu System Design with Large Language Models](https://arxiv.org/abs/2303.04496) (Mar 2023)
+- [A Comprehensive Survey of AI-Generated Content (AIGC): A History of Generative AI from GAN to ChatGPT](https://arxiv.org/abs/2303.04226) (Mar 2023)
+- [Exploring the Feasibility of ChatGPT for Event Extraction](https://arxiv.org/abs/2303.03836)
+- [ChatGPT: Beginning of an End of Manual Annotation? Use Case of Automatic Genre Identification](https://arxiv.org/abs/2303.03953) (Mar 2023)
+- [Is ChatGPT a Good NLG Evaluator? A Preliminary Study](https://arxiv.org/abs/2303.04048) (Mar 2023)
+- [Will Affective Computing Emerge from Foundation Models and General AI? A First Evaluation on ChatGPT](https://arxiv.org/abs/2303.03186) (Mar 2023)
+- [UZH_CLyp at SemEval-2023 Task 9: Head-First Fine-Tuning and ChatGPT Data Generation for Cross-Lingual Learning in Tweet Intimacy Prediction](https://arxiv.org/abs/2303.01194) (Mar 2023)
+- [How to format inputs to ChatGPT models](https://github.com/openai/openai-cookbook/blob/main/examples/How_to_format_inputs_to_ChatGPT_models.ipynb) (Mar 2023)
+- [Can ChatGPT Assess Human Personalities? A General Evaluation Framework](https://arxiv.org/abs/2303.01248) (Mar 2023)
+- [Cross-Lingual Summarization via ChatGPT](https://arxiv.org/abs/2302.14229) (Feb 2023)
+- [ChatAug: Leveraging ChatGPT for Text Data Augmentation](https://arxiv.org/abs/2302.13007) (Feb 2023)
+- [Dr ChatGPT, tell me what I want to hear: How prompt knowledge impacts health answer correctness](https://arxiv.org/abs/2302.13793) (Feb 2023)
+- [An Independent Evaluation of ChatGPT on Mathematical Word Problems (MWP)](https://arxiv.org/abs/2302.13814) (Feb 2023)
+- [ChatGPT: A Meta-Analysis after 2.5 Months](https://arxiv.org/abs/2302.13795) (Feb 2023)
+- [Let's have a chat! A Conversation with ChatGPT: Technology, Applications, and Limitations](https://arxiv.org/abs/2302.13817) (Feb 2023)
+- [Check Your Facts and Try Again: Improving Large Language Models with External Knowledge and Automated Feedback](https://arxiv.org/abs/2302.12813) (Feb 2023)
+- [On the Robustness of ChatGPT: An Adversarial and Out-of-distribution Perspective](https://arxiv.org/abs/2302.12095) (Feb 2023)
+- [How Generative AI models such as ChatGPT can be (Mis)Used in SPC Practice, Education, and Research? An Exploratory Study](https://arxiv.org/abs/2302.10916) (Feb 2023)
+- [Can ChatGPT Understand Too? A Comparative Study on ChatGPT and Fine-tuned BERT](https://arxiv.org/abs/2302.10198) (Feb 2023)
+- [A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT](https://arxiv.org/abs/2302.11382) (Feb 2023)
+- [Zero-Shot Information Extraction via Chatting with ChatGPT](https://arxiv.org/abs/2302.10205) (Feb 2023)
+- [ChatGPT: Jack of all trades, master of none](https://arxiv.org/abs/2302.10724) (Feb 2023)
+- [A Pilot Evaluation of ChatGPT and DALL-E 2 on Decision Making and Spatial Reasoning](https://arxiv.org/abs/2302.09068) (Feb 2023)
+- [Netizens, Academicians, and Information Professionals' Opinions About AI With Special Reference To ChatGPT](https://arxiv.org/abs/2302.07136) (Feb 2023)
+- [Linguistic ambiguity analysis in ChatGPT](https://arxiv.org/abs/2302.06426) (Feb 2023)
+- [ChatGPT versus Traditional Question Answering for Knowledge Graphs: Current Status and Future Directions Towards Knowledge Graph Chatbots](https://arxiv.org/abs/2302.06466) (Feb 2023)
+- [What ChatGPT and generative AI mean for science](https://www.nature.com/articles/d41586-023-00340-6) (Feb 2023)
+- [Applying BERT and ChatGPT for Sentiment Analysis of Lyme Disease in Scientific Literature](https://arxiv.org/abs/2302.06474) (Feb 2023)
+- [Exploring AI Ethics of ChatGPT: A Diagnostic Analysis](https://arxiv.org/abs/2301.12867) (Jan 2023)
+- [ChatGPT for Good? On Opportunities and Challenges of Large Language Models for Education](https://www.edu.sot.tum.de/fileadmin/w00bed/hctl/_my_direct_uploads/ChatGPT_for_Good_.pdf) (Jan 2023)
+- [The political ideology of conversational AI: Converging evidence on ChatGPT's pro-environmental, left-libertarian orientation](https://arxiv.org/abs/2301.01768) (Jan 2023)
+- [Techniques to improve reliability - OpenAI Cookbook](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md)
+- [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
+- [Introducing ChatGPT](https://openai.com/blog/chatgpt) (Nov 2022)

@@ -3,6 +3,15 @@
     "chatgpt": "ChatGPT",
     "llama": "LLaMA",
     "gpt-4": "GPT-4",
+    "mistral-7b": "Mistral 7B",
+    "gemini": "Gemini",
+    "gemini-advanced": "Gemini Advanced",
+    "gemini-pro": "Gemini 1.5 Pro",
+    "phi-2": "Phi-2",
+    "mixtral": "Mixtral",
+    "code-llama": "Code Llama",
+    "olmo": "OLMo",
+    "sora": "Sora",
     "collection": "Model Collection" 
 }
   

@@ -1,0 +1,87 @@
+# Eine Person mit Alphabet-Buchstaben zeichnen
+
+import { Tabs, Tab } from 'nextra/components';
+import { Callout } from 'nextra/components';
+
+## Hintergrund
+
+Der folgende Prompt testet die Fähigkeiten eines LLMs, visuelle Konzepte zu verarbeiten, obwohl es nur auf Text trainiert wurde. Dies ist eine herausfordernde Aufgabe für das LLM, daher umfasst sie mehrere Iterationen. Im folgenden Beispiel fordert der Nutzer zunächst eine gewünschte Visualisierung an und gibt dann Feedback zusammen mit Korrekturen und Ergänzungen. Die nachfolgenden Anweisungen hängen vom Fortschritt ab, den das LLM bei der Aufgabe macht. Beachten Sie, dass bei dieser Aufgabe darum gebeten wird, TikZ-Code zu generieren, der dann manuell vom Nutzer kompiliert werden muss.
+
+## Prompt
+
+Prompt-Iteration 1:
+
+```markdown
+Erzeuge TikZ-Code, der eine Person zeichnet, die aus Buchstaben des Alphabets besteht. Die Arme und der Oberkörper können der Buchstabe Y sein, das Gesicht kann der Buchstabe O sein (füge einige Gesichtszüge hinzu) und die Beine können die Beine des Buchstaben H sein. Fühle dich frei, weitere Merkmale hinzuzufügen.
+```
+
+Prompt-Iteration 2:
+
+```markdown
+Der Oberkörper ist ein bisschen zu lang, die Arme sind zu kurz, und es sieht so aus, als würde der rechte Arm das Gesicht tragen, anstatt dass das Gesicht direkt über dem Oberkörper ist. Könnten Sie das bitte korrigieren?
+```
+
+Prompt-Iteration 3:
+
+```markdown
+Bitte fügen Sie ein Hemd und Hosen hinzu.
+```
+
+## Code / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+  
+    ```python
+    from openai import OpenAI
+    client = OpenAI()
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+        "role": "user",
+        "content": "Produce TikZ code that draws a person composed from letters in the alphabet. The arms and torso can be the letter Y, the face can be the letter O (add some facial features) and the legs can be the legs of the letter H. Feel free to add other features.."
+        }
+    ],
+    temperature=1,
+    max_tokens=1000,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
+    )
+    ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "Produce TikZ code that draws a person composed from letters in the alphabet. The arms and torso can be the letter Y, the face can be the letter O (add some facial features) and the legs can be the legs of the letter H. Feel free to add other features.",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+</Tabs>
+
+## Referenz
+
+- [Sparks of Artificial General Intelligence: Early experiments with GPT-4](https://arxiv.org/abs/2303.12712) (13. April 2023)

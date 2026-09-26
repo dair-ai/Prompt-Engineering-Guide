@@ -1,0 +1,97 @@
+# Pregiudizi
+
+Gli LLM possono produrre generazioni problematiche che possono essere potenzialmente dannose e mostrare distorsioni che potrebbero deteriorare le prestazioni del modello nelle attività a valle. Alcuni di questi possono essere mitigati attraverso efficaci strategie di suggerimento, ma potrebbero richiedere soluzioni più avanzate come la moderazione e il filtraggio.
+
+### Distribuzione degli esempi
+Quando si esegue l'apprendimento a pochi colpi, la distribuzione degli esemplari influisce sulle prestazioni del modello o lo pregiudica in qualche modo? Possiamo eseguire un semplice test qui.
+
+*Prompt:*
+```
+D: Ho appena ricevuto la migliore notizia di sempre!
+R: Positivo
+
+D: Abbiamo appena ricevuto un aumento al lavoro!
+R: Positivo
+
+D: Sono così orgoglioso di ciò che ho realizzato oggi.
+R: Positivo
+
+D: Sto avendo il miglior giorno di sempre!
+R: Positivo
+
+D: Non vedo davvero l'ora che arrivi il fine settimana.
+R: Positivo
+
+D: Ho appena ricevuto il miglior regalo di sempre!
+R: Positivo
+
+D: Sono così felice in questo momento.
+R: Positivo
+
+D: Sono così felice di avere una famiglia così straordinaria.
+R: Positivo
+
+D: Il tempo fuori è così cupo.
+R: Negativo
+
+D: Ho appena ricevuto una terribile notizia.
+R: Negativo
+
+D: Mi ha lasciato un sapore amaro.
+R:
+```
+
+*Output:*
+```
+Negativo
+```
+
+Nell'esempio sopra, sembra che la distribuzione degli esempi non generi un bias nel modello. Questo è buono. Proviamo un altro esempio con un testo più difficile da classificare e vediamo come funziona il modello:
+
+*Prompt:*
+```
+D: il cibo qui è delizioso
+R: Positivo 
+
+D: Sono così stanco di questi corsi.
+R: Negativo
+
+D: Non posso credere di non avere passato l'esame.
+R: Negativo
+
+D: Ho passato una bella giornata oggi!
+R: Positivo 
+
+D: Io odio questo lavoro.
+R: Negativo
+
+D: Il servizio qui è terribile
+R: Negativo
+
+D: Sono così frustrato dalla mia vita
+R: Negativo
+
+D: Non ho mai una pausa.
+R: Negativo
+
+D: Questo pasto ha un sapore terribile.
+R: Negativo
+
+D: Non sopporto il mio capo.
+R: Negativo
+
+D: Provo qualcosa.
+R:
+```
+
+*Output:*
+```
+Negativo
+```
+
+Sebbene l'ultima frase sia in qualche modo soggettiva, ho capovolto la distribuzione e invece ho usato 8 esempi positivi e 2 esempi negativi e poi ho provato di nuovo la stessa identica frase. Indovina cosa ha risposto il modello? Ha risposto "Positivo". Il modello potrebbe avere molte conoscenze sulla classificazione dei sentimenti, quindi sarà difficile convincerlo a mostrare pregiudizi per questo problema. Il consiglio qui è di evitare di distorcere la distribuzione e fornire invece un numero più equilibrato di esempi per ogni etichetta. Per compiti più difficili di cui il modello non ha troppa conoscenza, probabilmente farà più fatica.
+
+### Ordine degli esempi
+Quando si esegue l'apprendimento few-shot, l'ordine influisce sulle prestazioni del modello o lo influenza in qualche modo?
+
+Puoi provare gli esempi precedenti e vedere se riesci a far sì che il modello sia orientato verso un'etichetta modificando l'ordine. Il consiglio è di ordinare a caso gli esemplari. Ad esempio, evita di avere prima tutti gli esempi positivi e poi gli esempi negativi per ultimi. Questo problema è ulteriormente amplificato se la distribuzione delle etichette è distorta. Assicurati sempre di sperimentare molto per ridurre questo tipo di bias.

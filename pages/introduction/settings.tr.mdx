@@ -1,0 +1,11 @@
+# LLM Ayarları
+
+İstemlerle çalışırken, bir API üzerinden veya doğrudan LLM ile etkileşime girersiniz. İsteminiz için farklı sonuçlar almak üzere birkaç parametreyi yapılandırabilirsiniz.
+
+**Temperature** - Kısacası, `temperature` düştükçe, sonuçlar daima en yüksek olası sonraki belirteci seçme anlamında daha belirgin hale gelir. Sıcaklığı artırmak, daha fazla rastlantısallığa yol açabilir, bu da daha çeşitli veya yaratıcı çıktıları teşvik eder. Temelde, diğer olası belirteçlerin ağırlıklarını artırıyorsunuz. Uygulama açısından, daha somut ve özlü yanıtları teşvik etmek için gerçeklere dayalı QA gibi görevlerde daha düşük bir sıcaklık değeri kullanmak isteyebilirsiniz. Şiir oluşturma veya diğer yaratıcı görevler için, sıcaklık değerini artırmak yararlı olabilir.
+
+**Top_p** - Benzer şekilde, `top_p` ile, çekirdek örnekleme denilen bir sıcaklık örnekleme tekniği ile, modelin bir yanıt oluşturma konusundaki belirleyiciliğini kontrol edebilirsiniz. Kesin ve gerçek yanıtlar arıyorsanız bu değeri düşük tutun. Daha çeşitli yanıtlar arıyorsanız, bu değeri daha yüksek bir değere çıkarın.
+
+Genel öneri, ikisinden birini değil, birini değiştirmektir.
+
+Bazı temel örneklere başlamadan önce, sonuçlarınızın kullandığınız LLM sürümüne bağlı olarak değişebileceğini unutmayın.

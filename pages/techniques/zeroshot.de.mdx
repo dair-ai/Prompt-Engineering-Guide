@@ -1,0 +1,33 @@
+# Zero-Shot Prompting
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/ZTaHqdkxUMs?si=EDLjgAxuFxFcrSM3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Große LLMs (Language-Modelle) wie beispielsweise GPT-3.5 Turbo, GPT-4 und Claude 3 sind heute darauf abgestimmt, Anweisungen zu befolgen, und wurden mit großen Datenmengen trainiert. Groß angelegtes Training ermöglicht es diesen Modellen, einige Aufgaben auf
+ "Zero-Shot"-Weise auszuführen. Zero-Shot-Prompting bedeutet, dass der Prompt, der verwendet wird, um mit dem Modell zu interagieren, keine Beispiele oder Demonstrationen enthält. Der Zero-Shot-Prompt instruiert das Modell direkt, eine Aufgabe ohne zusätzliche Beispiele auszuführen, um es zu lenken.
+
+Wir haben einige Zero-Shot-Beispiele im vorherigen Abschnitt ausprobiert. Hier ist eines der Beispiele, die wir verwendet haben (Text-Klassifizierung):
+
+*Prompt:*
+```
+Klassifizieren Sie den Text als neutral, negativ oder positiv.
+
+Text: Ich finde den Urlaub okay.
+Empfindung:
+```
+
+*Ausgabe:*
+```
+Neutral
+```
+
+Beachten Sie, dass wir im oben genannten Prompt keine Beispiele für Texte zusammen mit ihren Klassifizierungen gegeben haben, das LLM versteht "Empfindung" bereits – das sind die Zero-Shot-Fähigkeiten in Aktion.
+
+Instruction Tuning hat sich als Verbesserung für Zero-Shot Learning erwiesen [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). Instruction Tuning ist im Wesentlichen das Konzept des Feinabstimmens von Modellen auf Datensätze, die durch Anweisungen beschrieben werden. Weiterhin wurde [RLHF](https://arxiv.org/abs/1706.03741) (Reinforcement Learning from Human Feedback) adaptiert, um das Instruction Tuning zu skalieren, wobei das Modell so ausgerichtet wird, dass es besser zu menschlichen Präferenzen passt. Diese jüngste Entwicklung treibt Modelle wie ChatGPT an. Wir werden all diese Ansätze und Methoden in den kommenden Abschnitten besprechen.
+
+Wenn Zero-Shot nicht funktioniert, wird empfohlen, Demonstrationen oder Beispiele im Prompt bereitzustellen, was zu Few-Shot-Prompting führt. Im nächsten Abschnitt demonstrieren wir Few-Shot-Prompting.

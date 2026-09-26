@@ -1,0 +1,15 @@
+# Directional Stimulus Prompting
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import DSP from '../../img/dsp.jpeg'
+
+[Li et al., (2023)](https://arxiv.org/abs/2302.11520) propose une nouvelle technique d'incitation pour mieux guider le LLM dans la génération du résumé souhaité.
+
+Une politique accordable LM est entraînée pour générer le stimulus/indice. Voir plus d'utilisation de RL pour optimiser les LLM.
+
+La figure ci-dessous montre comment un prompt de stimulation directionnelle se compare à un prompt standard. Le LM de politique peut être petit et optimisé pour générer les conseils qui guident un LLM gelé en boîte noire.
+<Screenshot src={DSP} alt="DSP" />
+Image Source: [Li et al., (2023)](https://arxiv.org/abs/2302.11520)
+
+Exemple complet à venir !

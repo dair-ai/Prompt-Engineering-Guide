@@ -1,0 +1,42 @@
+## LLaMA: Open and Efficient Foundation Language Models
+
+<Callout emoji="⚠️">
+  Данный раздел находится в активной разработке.
+</Callout>
+
+
+import {Screenshot} from 'components/screenshot'
+import { Callout, FileTree } from 'nextra-theme-docs'
+import LLAMA1 from '../../img/llama-1.png'
+
+
+## Что нового?
+
+В статье представлена коллекция основных языковых моделей (LLaMA) с количеством параметров от 7 млрд до 65 млрд.
+
+Модели обучаются на триллионах токенов с использованием публично доступных наборов данных.
+
+Работа [(Hoffman et al., 2022)](https://arxiv.org/abs/2203.15556) показывает, что при ограниченном вычислительном бюджете более маленькие модели, обученные на гораздо большем объеме данных, могут достичь лучшей производительности по сравнению с более крупными моделями. В этой работе рекомендуется обучать модели размером 10 млрд на 200 млрд токенов. Однако статья LLaMA обнаружила, что производительность модели размером 7 млрд продолжает улучшаться даже после 1 трлн токенов. 
+
+<Screenshot src={LLAMA1} alt="LLAMA1" />
+
+В этой работе акцент сделан на обучении моделей (LLaMA), достигающих наилучшей производительности при различных бюджетах вывода, путем обучения на большем количестве токенов.
+
+
+## Возможности и ключевые моменты
+
+В целом, модель LLaMA-13B показывает лучшие результаты по сравнению с GPT-3(175B) на многих бенчмарках, несмотря на то, что она в 10 раз меньше и может работать на одной графической карте. Модель LLaMA-65B конкурентоспособна с моделями, такими как Chinchilla-70B и PaLM-540B.
+
+*Статья:* [LLaMA: Open and Efficient Foundation Language Models](https://arxiv.org/abs/2302.13971)
+
+*Код:* https://github.com/facebookresearch/llama
+
+## Ссылки
+
+- [Koala: A Dialogue Model for Academic Research](https://bair.berkeley.edu/blog/2023/04/03/koala/) (April 2023)
+- [Baize: An Open-Source Chat Model with Parameter-Efficient Tuning on Self-Chat Data](https://arxiv.org/abs/2304.01196) (April 2023)
+- [Vicuna: An Open-Source Chatbot Impressing GPT-4 with 90%* ChatGPT Quality](https://vicuna.lmsys.org/) (March 2023)
+- [LLaMA-Adapter: Efficient Fine-tuning of Language Models with Zero-init Attention](https://arxiv.org/abs/2303.16199) (March 2023)
+- [GPT4All](https://github.com/nomic-ai/gpt4all) (March 2023)
+- [ChatDoctor: A Medical Chat Model Fine-tuned on LLaMA Model using Medical Domain Knowledge](https://arxiv.org/abs/2303.14070) (March 2023)
+- [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) (March 2023)

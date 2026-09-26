@@ -1,0 +1,12 @@
+# Agents
+
+import { Callout } from 'nextra/components'
+import ContentFileNames from 'components/ContentFileNames'
+
+In this section, we provide an overview of LLM-based agents, including definitions, common design patterns, tips, use cases, and applications. 
+
+<Callout type="info" emoji="📚">
+This content is based on our new course ["Building Effective AI Agents with n8n"](https://academy.dair.ai/courses/building-effective-ai-agents), which provides comprehensive insights, downloadable templates, prompts, and advanced tips into designing and implementing agentic systems.
+</Callout>
+
+<ContentFileNames section="agents" lang="en"/>

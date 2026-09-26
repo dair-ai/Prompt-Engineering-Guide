@@ -1,0 +1,34 @@
+# Faktentreue
+
+LLMs neigen dazu, Antworten zu generieren, die kohärent und überzeugend klingen, aber manchmal erfunden sein können. Eine Verbesserung der Prompts kann helfen, das Modell dazu zu bringen, genauere/faktentreue Antworten zu generieren und die Wahrscheinlichkeit zu verringern, inkonsistente und erfundene Antworten zu produzieren.
+
+Einige Lösungen könnten beinhalten:
+- Bereitstellen von Grundwahrheiten (z.B. ein verwandter Artikelabschnitt oder Wikipedia-Eintrag) als Teil des Kontextes, um die Wahrscheinlichkeit zu reduzieren, dass das Modell erfundenen Text produziert.
+- Konfigurieren des Modells, um weniger vielfältige Antworten zu produzieren, indem die Wahrscheinlichkeitsparameter verringert und es angewiesen wird, zuzugeben (z.B. „Ich weiß es nicht“), wenn es die Antwort nicht kennt.
+- Im Prompt eine Kombination aus Beispielen von Fragen und Antworten bereitstellen, die es möglicherweise weiß und nicht weiß
+
+Lassen Sie uns ein einfaches Beispiel betrachten:
+
+*Prompt:*
+```
+Q: Was ist ein Atom?
+A: Ein Atom ist ein winziges Teilchen, das alles aufbaut.
+
+Q: Wer ist Alvan Muntz?
+A: ?
+
+Q: Was ist Kozar-09?
+A: ?
+
+Q: Wie viele Monde hat der Mars?
+A: Zwei, Phobos und Deimos.
+
+Q: Wer ist Neto Beto Roberto?
+```
+
+*Ausgabe:*
+```
+A: ?
+```
+
+Ich habe den Namen „Neto Beto Roberto“ erfunden, also ist das Modell in diesem Fall korrekt. Versuchen Sie, die Frage ein wenig zu verändern und sehen Sie, ob Sie es zum Laufen bringen können. Es gibt verschiedene Wege, wie Sie dies basierend auf allem, was Sie bisher gelernt haben, weiter verbessern können.

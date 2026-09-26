@@ -1,0 +1,76 @@
+# Autoconsistència
+
+Potser una de les tècniques més avançades en enginyeria de prompts és l'autoconsistència. Proposada per [Wang et al. (2022)](https://arxiv.org/pdf/2203.11171.pdf), l'autoconsistència té com a objectiu "substituir la descodificació ingènua i àvida utilitzada en la motivació de la cadena de pensament". La idea és mostrejar múltiples camins de raonament diversos mitjançant pocs trets de CoT i utilitzar les generacions per seleccionar la resposta més consistent. Això ajuda a augmentar el rendiment de la motivació de CoT en tasques que impliquen raonament aritmètic i de sentit comú.
+
+Provem el següent exemple per al raonament aritmètic:
+
+*Indicació:*
+```
+Quan tenia 6 anys, la meva germana tenia la meitat de la meva edat. Ara tinc 70 anys, quants anys té la meva germana?
+```
+
+*Sortida:*
+```
+35
+```
+
+La sortida és incorrecta! Com podem millorar això amb autoconsistència? Provem-ho. Utilitzarem els exemplars amb pocs trets de Wang et al. 2022 (Taula 17):
+
+*Indicació:*
+```
+Q: Hi ha 15 arbres al bosquet. Els treballadors del bosquet plantaran arbres avui. Després que acabin,
+hi haurà 21 arbres. Quants arbres han plantat els treballadors del bosquet avui?
+A: Comencem amb 15 arbres. Més tard tenim 21 arbres. La diferència ha de ser el nombre d'arbres que han plantat.
+Així que, han de haver plantat 21 - 15 = 6 arbres. La resposta és 6.
+
+Q: Si hi ha 3 cotxes al pàrquing i arriben 2 cotxes més, quantes cotxes hi ha al pàrquing?
+A: Hi ha 3 cotxes al pàrquing ja. Arriben 2 més. Ara hi ha 3 + 2 = 5 cotxes. La resposta és 5.
+
+Q: Leah tenia 32 xocolates i la seva germana en tenia 42. Si se'n mengen 35, quants trossos els queden en total?
+A: Leah tenia 32 xocolates i la germana de Leah en tenia 42. Això significa que originalment hi havia 32 + 42 = 74
+xocolates. Se n'han menjat 35. Així que en total encara tenen 74 - 35 = 39 xocolates. La resposta és 39.
+
+Q: Jason tenia 20 llaminadures. Va donar algunes llaminadures a Denny. Ara Jason té 12 llaminadures. Quantas llaminadures
+va donar Jason a Denny?
+A: Jason tenia 20 llaminadures. Com que ara només en té 12, ha de haver donat la resta a Denny. El nombre de
+llaminadures que llaminadures que ha donat a Denny ha de ser 20 - 12 = 8 llaminadures. La resposta és 8.
+
+Q: Shawn té cinc joguines. Per Nadal, va obtenir dues joguines de la seva mare i del seu pare. Quantas joguines
+té ara?
+A: Té 5 joguines. Va obtenir 2 de la mare, així que després d'això té 5 + 2 = 7 joguines. Després va obtenir 2 més del pare, així
+que en total té 7 + 2 = 9 joguines. La resposta és 9.
+
+Q: Hi havia nou ordinadors a la sala de servidors. Es van instal·lar cinc ordinadors més cada dia, de
+dilluns a dijous. Quantas ordinadors hi ha ara a la sala de servidors?
+A: Hi ha 4 dies de dilluns a dijous. Es van afegir 5 ordinadors cada dia. Això vol dir que en total es van afegir 4 * 5 =
+20 ordinadors. Hi havia 9 ordinadors al començament, així que ara hi ha 9 + 20 = 29 ordinadors.
+La resposta és 29.
+
+Q: Michael tenia 58 boles de golf. Dimarts, va perdre 23 boles de golf. Dimecres, va perdre 2 més. Quantas
+boles de golf tenia al final del dimecres?
+A: Michael inicialment tenia 58 boles. Va perdre 23 dimarts, així que després d'això té 58 - 23 = 35 boles. El
+dimecres va perdre 2 més, així que ara té 35 - 2 = 33 boles. La resposta és 33.
+
+Q: Olivia té 23 dòlars. Va comprar cinc rosquilles per 3 dòlars cadascuna. Quant de diners li queda?
+A: Va comprar 5 rosquilles per 3 dòlars cadascuna. Això vol dir que va gastar 5
+
+Q: Quan tenia 6 anys, la meva germana tenia la meitat de la meva edat. Ara tinc 70 anys, quants anys té la meva germana?
+A:
+```
+
+*Sortida 1:*
+```
+Quan tenia 6 anys, la meva germana tenia la meitat de la meva edat, així que tenia 3 anys. Ara tinc 70 anys, així que ella té 70 - 3 = 67 anys. La resposta és 67.
+```
+
+*Sortida 2:*
+```
+Quan el narrador tenia 6 anys, la seva germana tenia la meitat de la seva edat, que és 3. Ara que el narrador té 70 anys, la seva germana tindria 70 - 3 = 67 anys. La resposta és 67.
+```
+
+*Sortida 3:*
+```
+Quan tenia 6 anys, la meva germana tenia la meitat de la meva edat, així que tenia 3 anys. Ara tinc 70 anys, així que ella té 70/2 = 35. La resposta és 35.
+```
+
+El càlcul de la resposta final implica alguns passos (consulteu l'article per obtenir més detalls), però per simplificar, ja podem veure que hi ha una resposta majoritària emergent, de manera que aquesta resposta es convertiria essencialment en la resposta final. En aquest cas, la resposta correcta és 67, ja que la majoria de les sortides han arribat a aquesta conclusió. Així, l'autoconsistència ens ajuda a obtenir una resposta més precisa en comparació amb la motivació de CoT sense aquesta tècnica.

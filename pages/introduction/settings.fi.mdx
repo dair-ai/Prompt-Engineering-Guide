@@ -1,0 +1,11 @@
+# LLM-asetukset
+
+Kehotteiden kanssa työskennellessäsi käytät LLM:ää suoraan sovelluksessa tai API:n kautta. Voit määrittää joitakin parametreja saadaksesi erilaisia tuloksia kehotteisiisi.
+
+**Temperature** - Lyhyesti sanottuna, mitä alhaisempi ´temperature´-parametri (lämpötila), sitä deterministisemmät tulokset saat, koska todennäköisin seuraava merkki valitaan. Lämpötilan nostaminen voi johtaa suurempaan satunnaisuuteen, mikä kannustaa monipuolisempiin tai luovempiin tuloksiin. Käytännössä nostamalla lämpötilaa lisäät muiden mahdollisten merkkien painoarvoja. Sovelluksen kannalta saatat haluta käyttää alhaisempaa temperature-arvoa tehtävissä, kuten faktoihin perustuvassa kysymys/vastaus -kehottamisessa, jotta saat tarkempia vastauksia. Runojen generoinnissa tai muissa luovissa tehtävissä voi olla hyödyllistä nostaa temperature-arvoa.
+
+**Top_p** - Sama pätee ´top_p´-parametriin. Top_p-parametri liittyy nucleus sampling -tekniikkaan (ydinnäytteenotto), jota käytetään temperature-parametrin kanssa. Sen avulla voit hallita, kuinka deterministinen malli on vastausten tuottamisessa. Jos etsit tarkkoja ja tosiasiallisia vastauksia, pidä tämä matalana. Jos etsit monipuolisempia vastauksia, nosta arvo suuremmaksi. 
+
+Yleinen suositus on säätää vain toista näistä parametreista, ei molempia. Aloittaessasi ei ole tarpeellista muuttaa kumpaakaan asetusta.
+
+Ennen kuin aloitat perusesimerkkien kanssa, pidä mielessä, että tuloksesi voivat vaihdella sen mukaan, mitä LLM-versiota käytät.

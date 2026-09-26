@@ -1,0 +1,74 @@
+# Few-Shot Sentimentklassifikation mit LLMs
+
+import { Tabs, Tab } from 'nextra/components';
+
+## Hintergrund
+
+Dieser Prompt testet die Textklassifikationsfähigkeiten eines LLM, indem er es auffordert, einen Text anhand weniger Beispiele in das richtige Sentiment einzuordnen.
+
+## Prompt
+
+```markdown
+Das ist fantastisch! // Negativ
+Das ist schlecht! // Positiv
+Wow, der Film war genial! // Positiv
+Was für eine schreckliche Show! //
+```
+
+## Code / API
+
+<Tabs items={['GPT-4 (OpenAI)', 'Mixtral MoE 8x7B Instruct (Fireworks)']}>
+    <Tab>
+        ```python
+        from openai import OpenAI
+        client = OpenAI()
+
+        response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {
+                "role": "user",
+                "content": "This is awesome! // Negative\nThis is bad! // Positive\nWow that movie was rad! // Positive\nWhat a horrible show! //"
+                }
+            ],
+            temperature=1,
+            max_tokens=256,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        ```
+    </Tab>
+
+    <Tab>
+        ```python
+        import fireworks.client
+        fireworks.client.api_key = "<FIREWORKS_API_KEY>"
+        completion = fireworks.client.ChatCompletion.create(
+            model="accounts/fireworks/models/mixtral-8x7b-instruct",
+            messages=[
+                {
+                "role": "user",
+                "content": "This is awesome! // Negative\nThis is bad! // Positive\nWow that movie was rad! // Positive\nWhat a horrible show! //",
+                }
+            ],
+            stop=["<|im_start|>","<|im_end|>","<|endoftext|>"],
+            stream=True,
+            n=1,
+            top_p=1,
+            top_k=40,
+            presence_penalty=0,
+            frequency_penalty=0,
+            prompt_truncate_len=1024,
+            context_length_exceeded_behavior="truncate",
+            temperature=0.9,
+            max_tokens=4000
+        )
+        ```
+    </Tab>
+
+</Tabs>
+
+## Referenz
+
+- [Prompt Engineering Guide](https://www.promptingguide.ai/techniques/fewshot) (16. März 2023)

@@ -1,0 +1,98 @@
+# Verzerrungen (_biases_)
+
+LLMs können problematische Generierungen hervorbringen, die potenziell schädlich sein können und Verzerrungen (_biases_) aufweisen, welche die Leistung des Modells bei nachgelagerten Aufgaben beeinträchtigen können. Einige davon können durch effektive Prompting-Strategien gemildert werden, könnten aber fortgeschrittenere Lösungen wie Moderation und Filterung erfordern.
+
+### Verteilung der Exemplare
+Beeinflusst die Verteilung der Exemplare bei der Durchführung von Few-Shot-Learning die Leistung des Modells oder verzerrt sie das Modell in irgendeiner Weise? Wir können hier einen einfachen Test durchführen.
+
+*Prompt:*
+```
+Q: Ich habe gerade die beste Nachricht überhaupt bekommen!
+A: Positiv
+
+Q: Wir haben gerade eine Gehaltserhöhung bei der Arbeit bekommen!
+A: Positiv
+
+Q: Ich bin so stolz auf das, was ich heute erreicht habe.
+A: Positiv
+
+Q: Ich habe den besten Tag überhaupt!
+A: Positiv
+
+Q: Ich freue mich wirklich auf das Wochenende.
+A: Positiv
+
+Q: Ich habe gerade das beste Geschenk überhaupt bekommen!
+A: Positiv
+
+Q: Ich bin gerade so glücklich.
+A: Positiv
+
+Q: Ich bin so gesegnet, so eine erstaunliche Familie zu haben.
+A: Positiv
+
+Q: Das Wetter draußen ist so trübselig.
+A: Negativ
+
+Q: Ich habe gerade einige schreckliche Nachrichten bekommen.
+A: Negativ
+
+Q: Das hinterließ einen bitteren Geschmack.
+A:
+```
+
+*Ausgabe:*
+```
+Negativ
+```
+
+In dem oben genannten Beispiel scheint es, dass die Verteilung der Exemplare das Modell nicht verzerrt. Das ist gut. Versuchen wir ein anderes Beispiel mit einem schwierigeren Text zur Klassifizierung und sehen wir, wie sich das Modell verhält:
+
+*Prompt:*
+```
+Q: Das Essen hier ist köstlich!
+A: Positiv 
+
+Q: Ich bin so müde von diesem Kursarbeiten.
+A: Negativ
+
+Q: Ich kann nicht glauben, dass ich die Prüfung nicht bestanden habe.
+A: Negativ
+
+Q: Ich hatte heute einen tollen Tag!
+A: Positiv 
+
+Q: Ich hasse diesen Job.
+A: Negativ
+
+Q: Der Service hier ist schrecklich.
+A: Negativ
+
+Q: Ich bin so frustriert mit meinem Leben.
+A: Negativ
+
+Q: Ich bekomme nie eine Pause.
+A: Negativ
+
+Q: Dieses Essen schmeckt furchtbar.
+A: Negativ
+
+Q: Ich kann meinen Chef nicht ausstehen.
+A: Negativ
+
+Q: Ich fühle etwas.
+A:
+```
+
+*Ausgabe:*
+```
+Negativ
+```
+
+Obwohl der letzte Satz etwas subjektiv ist, habe ich die Verteilung umgedreht und statt 8 positiven Beispielen 2 negative verwendet und dann denselben genauen Satz noch einmal ausprobiert. Und was glauben Sie, hat das Modell geantwortet? Es antwortete "Positiv". Das Modell könnte viel Wissen über die Klassifizierung von Stimmungen haben, daher wird es schwierig sein, es dazu zu bringen, eine Verzerrung für dieses Problem anzuzeigen. Der Rat hier ist, die Verteilung nicht zu verzerren, sondern stattdessen eine ausgewogenere Anzahl von Beispielen für jedes Label zu liefern. Für schwierigere Aufgaben, von denen das Modell nicht zu viel Wissen hat, wird es wahrscheinlich mehr Schwierigkeiten haben.
+
+
+### Reihenfolge der Exemplare
+Beeinflusst bei der Durchführung von Few-Shot-Learning die Reihenfolge die Leistung des Modells oder verzerrt sie das Modell in irgendeiner Weise?
+
+Sie können die oben genannten Exemplare ausprobieren und sehen, ob Sie das Modell dazu bringen können, eine Verzerrung in Richtung eines Labels zu zeigen, indem Sie die Reihenfolge ändern. Der Rat ist, die Exemplare zufällig anzuordnen. Vermeiden Sie es beispielsweise, alle positiven Beispiele zuerst und dann die negativen zuletzt zu haben. Dieses Problem wird noch verstärkt, wenn die Verteilung der Labels verzerrt ist. Stellen Sie immer sicher, viel zu experimentieren, um diesen Typ von Verzerrung zu reduzieren.

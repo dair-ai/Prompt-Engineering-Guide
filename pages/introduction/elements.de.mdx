@@ -1,0 +1,34 @@
+import {Bleed} from 'nextra-theme-docs'
+
+# Elemente eines Prompts
+
+Während wir immer mehr Beispiele und Anwendungen mit Prompt-Engineering behandeln, werden Sie feststellen, dass bestimmte Elemente einen Prompt ausmachen.
+
+Ein Prompt enthält eines oder mehrere der folgenden Elemente:
+
+**Anweisung** - eine spezifische Aufgabe oder Anweisung, die Sie vom Modell durchführen lassen möchten
+
+**Kontext** - externe Informationen oder zusätzlicher Kontext, der das Modell zu besseren Antworten lenken kann
+
+**Eingabedaten** - die Eingabe oder Frage, für die wir eine Antwort finden möchten
+
+**Ausgabeindikator** - die Art oder das Format der Ausgabe.
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/kgBZhJnh-vk?si=-a-KvhmXFJMtAuCB" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Um die Elemente eines Prompts besser zu demonstrieren, hier ein einfaches Beispiel, das darauf abzielt, eine Textklassifizierungsaufgabe durchzuführen:
+
+*Prompt*
+```
+Klassifizieren Sie den Text in neutral, negativ oder positiv
+Text: Ich denke, das Essen war okay.
+Stimmung:
+```
+
+Im obigen Beispielprompt entspricht die Anweisung der Klassifizierungsaufgabe, "Klassifizieren Sie den Text in neutral, negativ oder positiv". Die Eingabedaten entsprechen dem Teil "Ich denke, das Essen war okay." und der verwendete Ausgabeindikator ist "Stimmung:". Beachten Sie, dass dieses grundlegende Beispiel keinen Kontext verwendet, aber dieser kann auch als Teil des Prompts bereitgestellt werden. Beispielsweise kann der Kontext für dieses Textklassifizierungsprompt zusätzliche Beispiele sein, die als Teil des Prompts bereitgestellt werden, um dem Modell zu helfen, die Aufgabe besser zu verstehen und die Art der Ausgaben zu steuern, die Sie erwarten.
+
+Sie benötigen nicht alle vier Elemente für einen Prompt und das Format hängt von der jeweiligen Aufgabe ab. Wir werden in kommenden Anleitungen auf konkretere Beispiele eingehen.

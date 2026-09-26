@@ -1,0 +1,25 @@
+# Überlegungen mit Zwischenrevision und Suche für LLMs
+
+import {Bleed} from 'nextra-theme-docs'
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/13fr5m6ezOM?si=DH3XYfzbMsg9aeIx" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+Diese Arbeit von [Chi et al. (2024)](https://arxiv.org/abs/2404.05966) stellt einen Ansatz für allgemeines Überlegen und Suchen bei Aufgaben vor, die in Komponenten zerlegt werden können.
+
+Das vorgeschlagene, auf Graphen basierende Framework, THOUGHTSCULPT, integriert iterative Selbstüberprüfungsfähigkeiten und ermöglicht es einem LLM, ein verwobenes Netzwerk von Gedanken aufzubauen.
+
+Anders als bei anderen Ansätzen, wie dem Baum der Gedanken, die den Überlegungsprozess mithilfe eines Baumes formen, integriert dieser neue Ansatz Monte Carlo Tree Search (MCTS), um den Suchraum effizient zu navigieren.
+
+Diese neue Methode verwendet einen von einem LLM betriebenen Gedankenbewerter, um Feedback zu Kandidaten partieller Outputs zu geben. Anschließend produziert eine Gedankengenerator-Komponente potenzielle Lösungen. Der Gedankenbewerter und der Gedankengenerator sind als Expansionsphase zu betrachten, die bei der Verfeinerung der aktuellen Lösung hilft.
+
+!["ThoughtSculpt"](../../img/research/thoughtsculpt.png)
+
+Schließlich simuliert der Entscheidungssimulator (der als Teil des MCTS-Prozesses agiert) aufeinanderfolgende Gedankenlinien, um den potenziellen Wert eines Pfades zu bewerten.
+
+Aufgrund seiner Fähigkeit zur kontinuierlichen Gedankeniteration eignet sich THOUGHTSCULPT besonders für Aufgaben wie offene Generierung, mehrstufiges Überlegen und kreative Ideenfindung.
+
+Wir könnten in Zukunft fortschrittlichere Ansätze sehen, die ähnliche Konzepte und Suchalgorithmen verwenden, um die Überlegungsfähigkeiten von LLMs zu erhöhen und die Fähigkeit, Probleme zu lösen, die komplexes Überlegen und Planen erfordern. Ein großartiges Paper, um diesen Forschungstrend im Auge zu behalten.

@@ -1,0 +1,95 @@
+# Autoconsistencia
+
+
+Quizás una de las técnicas más avanzadas para la ingeniería de consignas es la autoconsistencia. Propuesta por [Wang et al. (2022)](https://arxiv.org/pdf/2203.11171.pdf), la autoconsistencia tiene como objetivo "reemplazar la decodificación codiciosa ingenua utilizada en la generación de cadenas de pensamiento". La idea es muestrear múltiples caminos de razonamiento diversos a través de pocos ejemplos de la generación de cadenas de pensamiento, y usar las generaciones para seleccionar la respuesta más consistente. Esto ayuda a mejorar el rendimiento de la generación de cadenas de pensamiento en tareas que implican razonamiento aritmético y sentido común.
+
+Probemos el siguiente ejemplo para el razonamiento aritmético:
+
+*Prompt:*
+```
+Cuando tenía 6 años, mi hermana tenía la mitad de mi edad. Ahora tengo 70 años, 
+¿cuántos años tiene mi hermana?
+
+```
+
+*Salida:*
+```
+35
+```
+
+¡La respuesta es incorrecta! ¿Cómo podemos mejorar esto con autoconsistencia? Vamos a probarlo. Usaremos los pocos ejemplos del artículo de Wang et al. 2022 (Tabla 17):
+
+
+*Prompt:*
+```
+P: Hay 15 árboles en el bosque. Los trabajadores plantarán árboles en el bosque hoy. 
+Después de que terminen, habrá 21 árboles. ¿Cuántos árboles plantaron los trabajadores 
+del bosque hoy?
+R: Comenzamos con 15 árboles. Luego tenemos 21 árboles. La diferencia debe ser el 
+número de árboles que plantaron. Por lo tanto, deben haber plantado 21 - 15 = 6 árboles. 
+La respuesta es 6.
+  
+P: Si hay 3 autos en el estacionamiento y llegan 2 autos más, ¿cuántos autos hay 
+en el estacionamiento?
+R: Ya hay 3 autos en el estacionamiento. Llegan 2 más. Ahora hay 3 + 2 = 5 autos. 
+La respuesta es 5.
+  
+P: Leah tenía 32 chocolates y su hermana tenía 42. Si se comieron 35, ¿cuántas piezas 
+les quedan en total?
+R: Leah tenía 32 chocolates y la hermana de Leah tenía 42. Eso significa que originalmente 
+había 32 + 42 = 74 chocolates. Se han comido 35. Así que en total todavía tienen 74 - 35 = 39 
+chocolates. La respuesta es 39.
+  
+P: Jason tenía 20 piruletas. Le dio algunas piruletas a Denny. Ahora Jason tiene 12 
+piruletas. ¿Cuántas piruletas le dio Jason a Denny?
+R: Jason tenía 20 piruletas. Como ahora solo tiene 12, debe haberle dado el resto a 
+Denny. El número de piruletas que le dio a Denny debe haber sido 20 - 12 = 8 piruletas. 
+La respuesta es 8.
+  
+P: Shawn tiene cinco juguetes. Para Navidad, recibió dos juguetes de su mamá y dos 
+de su papá. ¿Cuántos juguetes tiene ahora?
+R: Él tiene 5 juguetes. Recibió 2 de su mamá, así que después de eso tiene 5 + 2 = 7 
+juguetes. Luego recibió 2 más de su papá, por lo que en total tiene 7 + 2 = 9 juguetes. 
+La respuesta es 9.
+  
+P: Había nueve ordenadores en la sala del servidor. Se instalaron cinco ordenadores 
+más cada día, de lunes a jueves. ¿Cuántos ordenadores hay ahora en la sala del servidor?
+R: Hay 4 días de lunes a jueves. Se agregaron 5 ordenadores cada día. Eso significa que 
+en total se agregaron 4 * 5 = 20 ordenadores. Había 9 ordenadores al principio, por lo 
+que ahora hay 9 + 20 = 29 ordenadores. La respuesta es 29.
+  
+P: Michael tenía 58 bolas de golf. El martes, perdió 23 bolas de golf. El miércoles, 
+perdió 2 más. ¿Cuántas bolas de golf tenía al final del miércoles?
+R: Michael inicialmente tenía 58 bolas. Perdió 23 el martes, así que después de eso tiene 
+58 - 23 = 35 bolas. El miércoles perdió 2 más, por lo que ahora tiene 35 - 2 = 33 bolas. 
+La respuesta es 33.
+  
+P: Olivia tiene $23. Compró cinco bagels por $3 cada uno. ¿Cuánto dinero le queda?
+R: Compró 5 bagels por $3 cada uno. Esto significa que gastó 5 * 3 = $15. Por lo tanto, 
+le quedan $23 - $15 = $8.
+  
+P: Cuando tenía 6 años, mi hermana tenía la mitad de mi edad. Ahora tengo 70 años, 
+¿cuántos años tiene mi hermana?
+R: 
+```
+
+*Salida 1:*
+```
+Cuando tenía 6 años, mi hermana tenía la mitad de mi edad, por lo que tenía 3 años. 
+Ahora tengo 70 años, por lo que ella tiene 70 - 3 = 67 años. La respuesta es 67.
+```
+
+*Salida 2:*
+```
+Cuando el narrador tenía 6 años, su hermana tenía la mitad de su edad, que son 3 años. 
+Ahora que el narrador tiene 70 años, su hermana tendría 70 - 3 = 67 años. La respuesta es 67.
+```
+
+*Salida 3:*
+```
+Cuando tenía 6 años, mi hermana tenía la mitad de mi edad, por lo que tenía 3 años. 
+Ahora tengo 70 años, por lo que ella tiene 70/2 = 35 años. La respuesta es 35.
+
+```
+
+Realizar el cálculo para obtener la respuesta final implica algunos pasos (consulte el documento para obtener detalles), pero por simplicidad, podemos ver que ya está emergiendo una respuesta mayoritaria que esencialmente se convierte en la respuesta final.

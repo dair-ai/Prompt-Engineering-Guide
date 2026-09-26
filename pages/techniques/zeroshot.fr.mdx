@@ -1,0 +1,21 @@
+# Zero-Shot Prompting
+Les LLM d'aujourd'hui, formés sur de grandes quantités de données et ajustés pour suivre des instructions, sont capables d'effectuer des tâches en "zero-shot". Nous avons essayé quelques exemples de "zero-shot" dans la section précédente. Voici l'un des exemples que nous avons utilisés :
+
+*Prompt:*
+```
+Classe le texte en neutre, négatif ou positif.
+
+Texte : Je pense que les vacances vont bien.
+Sentiment:
+```
+
+*Output:*
+```
+Neutre
+```
+
+Notez que dans la prompt ci-dessus, nous n'avons pas fourni au modèle d'exemples -- cela est possible grâce à la capacité de zero-shot.
+
+Le réglage des instructions a montré qu'il améliorait l'apprentissage du tir zéro [Wei et al. (2022)](https://arxiv.org/pdf/2109.01652.pdf). Le réglage des instructions est essentiellement le concept de modèles de réglage fin sur des ensembles de données décrits via des instructions. De plus, [RLHF](https://arxiv.org/abs/1706.03741) (apprentissage par renforcement à partir de la rétroaction humaine) a été adopté pour mettre à l'échelle le réglage des instructions dans lequel le modèle est aligné pour mieux s'adapter aux préférences humaines. Ce développement récent alimente des modèles comme ChatGPT. Nous discuterons de toutes ces approches et méthodes dans les prochaines sections.
+
+Lorsque la méthode de zero-shot ne fonctionne pas, il est recommandé de fournir des démonstrations ou des exemples dans la requête, ce qui conduit à la méthode few-shot prompting. Dans la prochaine section, nous allons démontrer la méthode few-shot prompting.

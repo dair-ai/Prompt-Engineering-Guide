@@ -1,0 +1,196 @@
+# Codegenerierung
+
+import { Callout, FileTree } from 'nextra-theme-docs'
+import {Screenshot} from 'components/screenshot'
+import CODE1 from '../../img/code-generation/chat-mode.png'
+
+<Callout emoji="⚠️">
+  Dieser Abschnitt befindet sich in Entwicklung.
+</Callout>
+
+Großsprachmodelle (LLMs) wie ChatGPT sind sehr effektiv bei der Generierung von Code. In diesem Abschnitt werden wir viele Beispiele dafür behandeln, wie man ChatGPT für die Codegenerierung nutzen kann.
+
+Der Spielplatz von OpenAI (Chat-Modus) und das `gpt-3.5-turbo` Modell werden für alle unten aufgeführten Beispiele verwendet.
+
+Wie bei allen Chat-Modellen von OpenAI können Sie eine `System Message` verwenden, um das Verhalten und das Format der Antworten zu definieren. Wir werden folgende Systemnachricht für die Prompt-Beispiele verwenden:
+
+```
+Sie sind ein hilfreicher Code-Assistent, der einem Junior-Entwickler das Programmieren beibringen kann. Ihre bevorzugte Sprache ist Python. Erklären Sie den Code nicht, generieren Sie einfach den Codeblock selbst.
+```
+
+## Einfaches Beispiel
+
+Die `User Message` ist dann der Prompt selbst mit der Anweisung des spezifischen Codes, den Sie vom Modell generieren lassen möchten. Unten ist eine Momentaufnahme des ersten einfachen Prompts für die Codegenerierung zu sehen. Beachten Sie, dass der endgültige Code vom `Assistant` generiert wurde.
+
+<Screenshot src={CODE1} alt="CODE1" />
+
+Hier ist der Prompt, wenn Sie es selbst ausprobieren möchten:
+
+```
+Schreiben Sie Code, der den Benutzer nach seinem Namen fragt und "Hallo" sagt
+```
+
+## Kommentare In Code Umwandeln
+
+Diese LLMs können auch genutzt werden, um Code allein aus Kommentaren zu generieren. Schauen wir uns ein weiteres Beispiel an, das die Anweisungen als Kommentarblock übermittelt:
+
+*Prompt:*
+```
+"""
+1. Erstellen Sie eine Liste von Filmen
+2. Erstellen Sie eine Liste von Bewertungen für diese Filme
+3. Kombinieren Sie diese, um ein json-Objekt von 10 Filmen mit ihren Bewertungen zu erstellen.
+"""
+```
+
+*Output:*
+```python
+movies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Schindler's List", "Pulp Fiction", "The Lord of the Rings: The Return of the King", "Forrest Gump", "Star Wars: Episode V - The Empire Strikes Back", "Inception", "The Silence of the Lambs"]
+
+ratings = [9.3, 9.2, 9.0, 8.9, 8.9, 8.9, 8.8, 8.7, 8.7, 8.6]
+
+movie_ratings = {}
+
+for i in range(len(movies)):
+    movie_ratings[movies[i]] = ratings[i]
+
+json_object = json.dumps(movie_ratings, indent=4)
+
+print(json_object)
+```
+
+Der generierte Code sieht wie funktionierender Code aus. Allerdings fehlt in der Ausgabe eine wichtige `import`-Anweisung, nämlich `import json`. Obwohl diese Modelle funktionierenden Code generieren, müssen Sie kleine Details wie dieses genau beachten und immer sicherstellen, dass Sie Ihren Code testen.
+
+## Vervollständigung von Funktionen oder Nächste Zeile
+
+Diese LLMs wurden auch in Werkzeuge wie GitHub Copilot integriert, was sie für Entwickler nützlich macht. Eine nützliche Funktion ist die Fähigkeit des Modells, Funktionen zu vervollständigen.
+
+*Prompt:*
+```python
+# Funktion, um zwei Zahlen zu multiplizieren und 75 dazu zu addieren
+
+def multiply(
+```
+
+*Output:*
+```python
+a, b):
+    result = a * b
+    result += 75
+    return result
+```
+
+## MySQL-Abfragegenerierung
+
+Neben dem oben genannten Beispiel der grundlegenden Codegenerierung können Sie das Modell auch verwenden, um nützlichen Code zu generieren, der in anderen Aspekten der Programmierung verwendet werden könnte, wie das Erstellen und Testen von MySQL-Abfragen.
+
+Angenommen, Sie haben einen Datensatz mit Informationen, den Sie als Teil des Prompts einbinden können, um ihn dann zu instruieren, eine spezifische Abfrage zu generieren. Zum Beispiel:
+
+```
+"""
+Tabelle departments, Spalten = [DepartmentId, DepartmentName]
+Tabelle students, Spalten = [DepartmentId, StudentId, StudentName]
+Erstellen Sie eine MySQL-Abfrage für alle Studenten der Informatik-Abteilung
+"""
+```
+
+*Output:*
+```mysql
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+```
+
+Das Modell generiert eine Abfrage! In diesem Beispiel haben wir jedoch die Datenbank erfunden, so dass wir keine Datenbank haben, um die generierte Abfrage zu testen. Wenn Sie dieses Beispiel testen möchten, könnte es nützlich sein, diese Datenbank erstellt zu haben. Glücklicherweise können Sie auch ChatGPT verwenden, um dies für Sie zu generieren. Ein Ansatz könnte eine modifizierte Version des oben genannten Prompts mit leicht abgeänderten Anweisungen sein, um ein Datenbankschema zu generieren:
+
+```mysql
+Tabelle departments, Spalten = [DepartmentId, DepartmentName]
+Tabelle students, Spalten = [DepartmentId, StudentId, StudentName]
+Erstellen Sie ein gültiges Datenbankschema mit den oben genannten Tabellen und Spalten
+```
+
+Das Modell hat folgendes Schema generiert:
+
+```mysql
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+```
+
+Sie können eine temporäre Datenbank mit etwas wie [sqliteonline.com](https://sqliteonline.com/) erstellen.
+
+Sie benötigen auch Dummy-Daten, um zu testen, ob die ursprünglich generierte Abfrage gültig war. Lassen Sie uns auch dafür ChatGPT verwenden! Der Prompt könnte wie folgt aussehen:
+
+```mysql
+CREATE TABLE departments (
+  DepartmentId INT PRIMARY KEY,
+  DepartmentName VARCHAR(50)
+);
+
+CREATE TABLE students (
+  DepartmentId INT,
+  StudentId INT PRIMARY KEY,
+  StudentName VARCHAR(50),
+  FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)
+);
+
+Angesichts des obigen Datenbankschemas generieren Sie gültige Einfügeanweisungen, die 4 Zeilen für jede Tabelle enthalten.
+```
+
+Die Ausgabe mit den Einfügeanweisungen:
+
+```mysql
+INSERT INTO departments (DepartmentId, DepartmentName)
+VALUES (1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics'), (4, 'Biology');
+
+INSERT INTO students (DepartmentId, StudentId, StudentName)
+VALUES (1, 101, 'John Doe'), (1, 102, 'Jane Doe'), (2, 201, 'Alice Smith'), (2, 202, 'Bob Johnson');
+```
+
+Jetzt, da Sie die Datenbank und die Dummy-Daten haben, können Sie die ursprüngliche Abfrage testen. Basierend auf den Dummy-Daten sollte das Ergebnis zwei Zeilen mit `Jane Doe` und `John Doe` sein.
+
+## Code Erklären
+Wenn Sie in einer bestimmten Sprache programmieren lernen, könnte es nützlich sein, das Modell aufzufordern, bestimmte Codeabschnitte zu erklären. Verwenden wir die oben generierte Abfrage erneut und bitten das Modell, sie zu erklären.
+
+Wenn Sie dieselbe Systemnachricht wie zuvor verwenden, seien Sie vorsichtig, wie Sie das Modell anweisen. Wenn wir zum Beispiel das folgende Beispiel verwenden, wird sich das Modell beschweren, dass es ein Code-Assistent in Python ist, aber es bietet dennoch eine Erklärung an. Manchmal weigert sich das Modell zu generieren, was Sie anweisen, weil es so konzipiert ist, der Systemnachricht zu folgen.
+
+*Prompt:*
+
+```mysql
+SELECT students.StudentId, students.StudentName
+FROM students
+INNER JOIN departments
+ON students.DepartmentId = departments.DepartmentId
+WHERE departments.DepartmentName = 'Computer Science';
+
+Erklären Sie die obige SQL-Anweisung.
+```
+
+*Output:*
+
+```
+Entschuldigung, als Code-Assistent in Python kann ich keinen SQL-Code generieren. Allerdings kann ich den Zweck der bereitgestellten SQL-Anweisung erklären.
+
+Diese SQL-Anweisung wählt die Spalten `StudentId` und `StudentName` aus der Tabelle `students`, wobei die Spalte `DepartmentName` in der Tabelle `departments` gleich 'Computer Science' ist. Um dies zu erreichen, führt die Anweisung einen inneren Join über die Spalte `DepartmentId` zwischen den Tabellen `students` und `departments` durch.
+
+Einfacher ausgedrückt, es werden die Namen und IDs von Studenten ausgewählt, die in der Informatik-Abteilung eingeschrieben sind.
+```
+
+## Code Bearbeiten
+Beispiel kommt bald!
+
+## Debugging von Code
+Beispiel kommt bald!
+
+## Best Practices
+Kommt bald!

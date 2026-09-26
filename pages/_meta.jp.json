@@ -3,8 +3,10 @@
   "introduction": "Introduction",
   "techniques": "Techniques",
   "applications": "Applications",
+  "prompts": "Prompt Hub",
   "models": "Models",
   "risks": "Risks & Misuses",
+  "research": "LLM Research Findings",
   "papers": "Papers",
   "tools": "Tools",
   "notebooks": "Notebooks",
@@ -13,15 +15,5 @@
   "about": {
     "title": "About",
     "type": "page"
-  },
-  "course":{
-    "title": "Prompt Engineering Course",
-    "type": "page"
-  },
-  "contact": {
-    "title": "Contact ↗",
-    "type": "page",
-    "href": "https://twitter.com/dair_ai",
-    "newWindow": true
   }
 }

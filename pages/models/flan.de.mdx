@@ -1,0 +1,83 @@
+# Skalierung von anleitungsfeinabgestimmten Sprachmodellen
+
+import {Screenshot} from 'components/screenshot'
+import FLAN1 from '../../img/flan-1.png'
+import FLAN2 from '../../img/flan-2.png'
+import FLAN3 from '../../img/flan-3.png'
+import FLAN4 from '../../img/flan-4.png'
+import FLAN5 from '../../img/flan-5.png'
+import FLAN6 from '../../img/flan-6.png'
+import FLAN7 from '../../img/flan-7.png'
+import FLAN8 from '../../img/flan-8.png'
+import FLAN9 from '../../img/flan-9.png'
+import FLAN10 from '../../img/flan-10.png'
+import FLAN11 from '../../img/flan-11.png'
+
+## Was ist neu?
+
+<Screenshot src={FLAN1} alt="FLAN1" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Dieser Artikel untersucht die Vorteile des Skalierens von [_instruction finetuning_](https://arxiv.org/pdf/2109.01652.pdf) und wie es die Leistung einer Vielzahl von Modellen (PaLM, T5), Prompting-Setups (Zero-Shot, Few-Shot, CoT) und Benchmarks (MMLU, TyDiQA) verbessert. Dies wird anhand folgender Aspekte erforscht: Skalierung der Anzahl von Aufgaben (1,8K Aufgaben), Skalierung der Größe des Modells sowie Feinabstimmung auf Chain-of-Thought-Daten (9 Datensätze verwendet).
+
+**Feinabstimmungsverfahren:**
+- 1,8K Aufgaben wurden als Anleitungen formuliert und zum Feinabstimmen des Modells verwendet
+- Verwendet sowohl mit als auch ohne Exemplare und mit bzw. ohne Chain of Thought (CoT)
+
+Feinabstimmungsaufgaben und zurückgehaltene Aufgaben unten dargestellt:
+
+<Screenshot src={FLAN11} alt="FLAN11" />
+
+## Fähigkeiten & Hauptergebnisse
+
+- Anleitungsfeinabstimmung (_instruction finetuning_) skaliert gut mit der Anzahl von Aufgaben und der Größe des Modells; dies legt die Notwendigkeit nahe, die Anzahl der Aufgaben und die Größe des Modells weiter zu skalieren
+- Das Hinzufügen von CoT-Datensätzen in die Feinabstimmung ermöglicht gute Leistung bei Aufgaben, die schlussfolgerndes Denken erfordern
+- Flan-PaLM hat verbesserte multilinguale Fähigkeiten; 14,9% Verbesserung bei One-Shot TyDiQA; 8,1% Verbesserung bei arithmetischem Schlussfolgern in unterrepräsentierten Sprachen
+- Plan-PaLM zeigt auch gute Leistungen bei Fragen zur offenen Textgenerierung, was ein guter Indikator für verbesserte Benutzbarkeit ist
+- Verbessert die Leistung über verantwortungsbewusste KI (RAI)-Benchmarks hinweg
+- Mit Anleitungen feinabgestimmte Flan-T5-Modelle demonstrieren starke Few-Shot-Fähigkeiten und übertreffen öffentliche Checkpoints wie T5
+
+
+**Die Ergebnisse beim Skalieren der Anzahl von Feinabstimmungsaufgaben und der Modellgröße:** Es wird erwartet, dass weitere Skalierungen sowohl der Größe des Modells als auch der Anzahl der Feinabstimmungsaufgaben die Leistung weiter verbessern, obwohl die Skalierung der Anzahl der Aufgaben abnehmende Erträge hat.
+
+<Screenshot src={FLAN2} alt="FLAN2" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+**Die Ergebnisse beim Feinabstimmen mit nicht-CoT und CoT-Daten:** Die gemeinsame Feinabstimmung auf nicht-CoT und CoT-Daten verbessert die Leistung bei beiden Bewertungen im Vergleich zur Feinabstimmung auf nur eine von beiden.
+
+<Screenshot src={FLAN3} alt="FLAN3" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Außerdem erreicht Selbstkonsistenz in Kombination mit CoT State-of-the-Art-Ergebnisse bei mehreren Benchmarks. CoT + Selbstkonsistenz verbessert auch signifikant die Ergebnisse bei Benchmarks, die Matheprobleme beinhalten (z.B. MGSM, GSM8K).
+
+<Screenshot src={FLAN4} alt="FLAN4" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+CoT-Feinabstimmung ermöglicht Zero-Shot-Schlussfolgerung, ausgelöst durch die Phrase "denken wir Schritt für Schritt", bei BIG-Bench-Aufgaben. Im Allgemeinen übertrifft Zero-Shot CoT Flan-PaLM Zero-Shot CoT PaLM ohne Feinabstimmung.
+
+<Screenshot src={FLAN6} alt="FLAN6" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Unten sind einige Demonstrationen von Zero-Shot CoT für PaLM und Flan-PaLM bei ungesehenen Aufgaben aufgeführt.
+
+<Screenshot src={FLAN5} alt="FLAN5" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Weiter unten finden Sie mehr Beispiele für Zero-Shot Prompting. Es zeigt, wie das PaLM-Modell Schwierigkeiten mit Wiederholungen hat und in der Zero-Shot-Einstellung nicht auf Anleitungen antwortet, während das Flan-PaLM gut abschneidet. Few-Shot-Exemplare können diese Fehler abschwächen.
+
+<Screenshot src={FLAN7} alt="FLAN7" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Hier sind einige Beispiele, die weitere Zero-Shot-Fähigkeiten des Flan-PALM-Modells bei verschiedenen Arten von herausfordernden offenen Fragen demonstrieren:
+
+<Screenshot src={FLAN8} alt="FLAN8" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+
+<Screenshot src={FLAN9} alt="FLAN9" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+<Screenshot src={FLAN10} alt="FLAN10" />
+Bildquelle: [Scaling Instruction-Finetuned Language Models](https://arxiv.org/abs/2210.11416)
+
+Sie können [Flan-T5-Modelle auf dem Hugging Face Hub](https://huggingface.co/google/flan-t5-xxl) ausprobieren.

@@ -1,0 +1,144 @@
+# Grundlagen des Promptings
+
+import {Screenshot} from 'components/screenshot'
+import INTRO1 from '../../img/introduction/sky.png'
+import {Bleed} from 'nextra-theme-docs'
+
+## Prompts an ein LLM stellen
+
+Mit einfachen Prompts können Sie viel erreichen, aber die Qualität der Ergebnisse hängt davon ab, wie viele Informationen Sie bereitstellen und wie gut der Prompt formuliert ist. Ein Prompt kann Informationen wie die *Anweisung* oder *Frage* enthalten, die Sie an das Modell weitergeben, und weitere Details wie *Kontext*, *Eingaben* oder *Beispiele* umfassen. Sie können diese Elemente nutzen, um das Modell effektiver zu instruieren und somit die Qualität der Ergebnisse zu erhöhen.
+
+Beginnen wir mit einem grundlegenden Beispiel für einen einfachen Prompt:
+
+*Prompt*
+
+```md
+Der Himmel ist
+```
+
+*Ausgabe:*
+```md
+blau.
+```
+
+Wenn Sie den OpenAI Playground oder einen anderen Playground verwenden, dann können Sie dem Modell einen Prompt stellen, wie im folgenden Screenshot zu sehen: 
+
+<Screenshot src={INTRO1} alt="INTRO1" />
+
+Hier ist eine Anleitung, wie man mit dem OpenAI Playground beginnen kann:
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/iwYtzPJELkk?si=irua5h_wHrkNCY0V" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  />
+
+
+Zu beachten ist, dass man bei der Verwendung der OpenAI-Chatmodelle wie `gtp-3.5-turbo` oder `gpt-4` die Struktur des Prompts mit drei verschiedenen Rollen gestalten kann: `system`, `user` und `assistant`. Eine Eingabe mit `system` ist nicht erforderlich, hilft aber, das Gesamtverhalten des Assistenten festzulegen. Das obige Beispiel beinhaltet nur eine Nutzernachricht, mit der man das Modell direkt auffordern kann. Zur Vereinfachung wird in allen Beispielen, außer es ist ausdrücklich erwähnt, nur die `user`-Nachricht verwendet, um das `gtp-3.5-turbo` Modell zu prompten. Die `assistant`-Nachricht im obigen Beispiel entspricht der Modellantwort. Man kann auch eine Assistentennachricht definieren, um Beispiele für das gewünschte Verhalten zu übermitteln, das man erreichen möchte. Mehr über das Arbeiten mit Chatmodellen kann man [hier](https://www.promptingguide.ai/models/chatgpt) erfahren.
+
+Man kann aus dem obigen Beispielprompt erkennen, dass das Sprachmodell mit einer Sequenz von Token antwortet, die im Kontext `"Der Himmel ist"` Sinn ergeben. Die Ausgabe könnte unerwartet oder weit von der Aufgabe entfernt sein, die man erreichen möchte. Tatsächlich hebt dieses einfache Beispiel die Notwendigkeit hervor, mehr Kontext oder Anweisungen darüber zu geben, was man speziell mit dem System erreichen möchte. Darum geht es beim Prompt-Engineering.
+
+Versuchen wir es ein wenig zu verbessern:
+
+*Prompt:*
+```
+Vervollständige diesen Satz:
+
+Der Himmel ist
+```
+
+*Ausgabe:*
+
+```
+blau am Tag und dunkel in der Nacht.
+```
+
+Ist das besser? Nun, mit dem oben genannten Prompt weisen Sie das Modell an, den Satz zu vervollständigen, sodass das Ergebnis viel besser aussieht, da es genau dem folgt, was Sie ihm gesagt haben ("vervollständigen Sie den Satz"). Dieser Ansatz, effektive Prompts zu entwerfen, um das Modell anzuweisen, eine gewünschte Aufgabe auszuführen, wird in diesem Leitfaden als **Prompt-Engineering** bezeichnet.
+
+Das oben gezeigte Beispiel ist eine grundlegende Veranschaulichung dessen, was heute mit LLMs möglich ist. Die heutigen LLMs sind in der Lage, alle Arten von fortgeschrittenen Aufgaben zu erfüllen, von der Textzusammenfassung über mathematische Argumentation bis hin zur Codegenerierung.
+
+## Prompt-Formatierung
+
+Sie haben oben bereits einen sehr einfachen Prompt ausprobiert. Ein Standard-Prompt hat das folgende Format:
+
+```
+<Frage>?
+```
+
+oder 
+
+```
+<Anweisung>
+```
+ 
+Sie können dies in ein Frage-Antwort-Format umformen, das in vielen QA-Datensätzen Standard ist, wie folgt:
+
+```
+Q: <Frage>?
+A: 
+```
+
+Wenn man wie oben vorgeht, spricht man auch von *Zero-Shot-Prompting*, d.h., man fordert das Modell direkt zu einer Antwort auf, ohne Beispiele oder Demonstrationen über die Aufgabe zu geben, die es erfüllen soll. Einige große Sprachmodelle haben die Fähigkeit zum Zero-Shot-Prompting, aber das hängt von der Komplexität und dem Wissen über die jeweilige Aufgabe sowie den Aufgaben ab, für die das Modell gut trainiert wurde.
+
+Ein konkretes Prompt-Beispiel ist wie folgt:
+
+*Prompt*
+```
+Q: Was ist Prompt-Engineering?
+```
+
+Bei einigen der neueren Modelle kann man den Teil "Q:" weglassen, da es vom Modell aufgrund der Zusammensetzung der Sequenz als Fragebeantwortungsaufgabe impliziert und verstanden wird. Mit anderen Worten, der Prompt könnte wie folgt vereinfacht werden:
+
+*Prompt*
+```
+Was ist Prompt-Engineering?
+```
+
+Angesichts des obigen Standardformats ist eine beliebte und effektive Technik beim Prompting als *Few-Shot Prompting* bekannt, bei der Sie Beispiele (d.h. Demonstrationen) bereitstellen. Sie können Few-Shot Prompts wie folgt formatieren:
+
+```
+<Frage>?
+<Antwort>
+
+<Frage>?
+<Antwort>
+
+<Frage>?
+<Antwort>
+
+<Frage>?
+
+```
+
+Die QA-Format-Version würde so aussehen:
+
+```
+Q: <Frage>?
+A: <Antwort>
+
+Q: <Frage>?
+A: <Antwort>
+
+Q: <Frage>?
+A: <Antwort>
+
+Q: <Frage>?
+A:
+```
+
+Beachten Sie, dass die QA-Formatierung nicht erforderlich ist. Das Format des Prompts hängt von der jeweiligen Aufgabe ab. Beispielsweise können Sie eine einfache Klassifizierungsaufgabe durchführen und Beispiele geben, die die Aufgabe veranschaulichen, wie folgt:
+
+*Prompt:*
+```
+Das ist toll! // Positiv
+Das ist schlecht! // Negativ
+Wow, der Film war klasse! // Positiv
+Was für eine fürchterliche Vorstellung! //
+```
+
+*Ausgabe:*
+```
+Negativ
+```
+
+Few-Shot Prompts ermöglichen das in-context learning, also die Fähigkeit von Sprachmodellen, Aufgaben anhand einiger Demonstrationen zu erlernen. Wir diskutieren das Zero-Shot-Prompting und das Few-Shot-Prompting ausführlicher in den kommenden Abschnitten.

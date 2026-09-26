@@ -1,0 +1,5 @@
+{
+    "prompt-injection": "提示词注入",
+    "prompt-leaking": "提示词泄露",
+    "jailbreaking-llms": "'越狱'"
+}
