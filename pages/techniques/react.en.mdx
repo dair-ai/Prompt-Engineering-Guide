@@ -1,6 +1,7 @@
 # ReAct Prompting
 
-import { Callout, FileTree } from 'nextra-theme-docs'
+import { FileTree } from 'nextra-theme-docs'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 import {Screenshot} from 'components/screenshot'
 import REACT from '../../img/react.png'
 import REACT1 from '../../img/react/table1.png'
@@ -13,7 +14,6 @@ Generating reasoning traces allow the model to induce, track, and update action 
 The ReAct framework can allow LLMs to interact with external tools to retrieve additional information that leads to more reliable and factual responses.
 
 Results show that ReAct can outperform several state-of-the-art baselines on language and decision-making tasks. ReAct also leads to improved human interpretability and trustworthiness of LLMs. Overall, the authors found that best approach uses ReAct combined with chain-of-thought (CoT) that allows use of both internal knowledge and external information obtained during reasoning. 
-
 
 ## How it Works?
 
@@ -71,6 +71,15 @@ Action 5 Finish[1,800 to 7,000 ft]
 ```
 
 Note that different prompts setups are used for different types of tasks. For tasks where reasoning is of primary importance (e.g., HotpotQA), multiple thought-action-observation steps are used for the task-solving trajectory. For decision making tasks involving lots of action steps, thoughts are used sparsely.  
+
+
+<iframe width="100%"
+  height="415px"
+  src="https://www.youtube.com/embed/f8whjxDBcd8?si=YuLAggOKAPOIxNkV"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
+
 
 ## Results on Knowledge-Intensive Tasks
 
@@ -177,3 +186,32 @@ The output we get is as follows:
 We adapted the example from the [LangChain documentation](https://python.langchain.com/docs/modules/agents/agent_types/react), so credit goes to them. We encourage the learner to explore different combination of tools and tasks. 
 
 You can find the notebook for this code here: https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/react.ipynb
+
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Master ReAct prompting, chain-of-thought, and advanced reasoning techniques for complex tasks."
+    href="https://academy.dair.ai/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents with ReAct patterns. Covers function calling, tool integration, and agentic systems."
+    href="https://academy.dair.ai/courses/building-effective-ai-agents"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://academy.dair.ai/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>

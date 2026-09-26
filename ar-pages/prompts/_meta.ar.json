@@ -1,0 +1,14 @@
+{
+  "classification": "التصنيف",
+  "coding": "كتابة أكواد",
+  "creativity": "الابداع",
+  "evaluation": "التقييم",
+  "information-extraction": "استخراج المعلومات",
+  "image-generation": "توليد الصور",
+  "mathematics": "الرياضيات",
+  "question-answering": "الإجابة على الأسئلة",
+  "reasoning": "الاستنتاج",
+  "text-summarization": "تلخيص النصوص",
+  "truthfulness": "المصداقية",
+  "adversarial-prompting": "التلقين العكسي"
+}

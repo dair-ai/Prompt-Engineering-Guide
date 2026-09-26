@@ -1,22 +1,26 @@
+'use client'
+
 import cn from 'clsx'
-import type { ComponentProps, ReactElement } from 'react'
+import type { ReactElement, HTMLAttributes } from 'react'
 import { useCallback, useRef } from 'react'
 import { WordWrapIcon } from './word-wrap'
 import { Button } from './button'
 import { CopyToClipboard } from './copy-to-clipboard'
 import React from 'react'
 
+interface PreProps {
+  children?: React.ReactNode
+  className?: string
+  hasCopyCode?: boolean
+  filename?: string
+}
 
 export const Pre = ({
   children,
   className,
   hasCopyCode = true,
-  filename,
-  ...props
-}: ComponentProps<'pre'> & {
-  filename?: string
-  hasCopyCode?: boolean
-}): ReactElement => {
+  filename
+}: PreProps): ReactElement => {
   const preRef = useRef<HTMLPreElement | null>(null);
 
   const toggleWordWrap = useCallback(() => {
@@ -31,7 +35,7 @@ export const Pre = ({
 
   const renderChildren = () => {
     if (React.isValidElement(children) && children.type === 'code') {
-      return children.props.children;
+      return children.props.children as React.ReactNode;
     }
     return children;
   };
@@ -51,7 +55,6 @@ export const Pre = ({
           className
         )}
         ref={preRef}
-        {...props}
       >
         {renderChildren()}
       </pre>

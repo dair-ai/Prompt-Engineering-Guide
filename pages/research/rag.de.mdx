@@ -17,10 +17,12 @@ Kurz gesagt, die bei RAG abgerufenen Belege können als eine Möglichkeit dienen
 Während RAG auch die Optimierung von Vortrainingsmethoden involviert hat, haben aktuelle Ansätze sich größtenteils darauf verlagert, die Stärken von RAG und leistungsfähigen feinabgestimmten Modellen wie [ChatGPT](https://www.promptingguide.ai/models/chatgpt) und [Mixtral](https://www.promptingguide.ai/models/mixtral) zu kombinieren. Das folgende Diagramm zeigt die Entwicklung der RAG-bezogenen Forschung:
 
 !["RAG Framework"](../../img/rag/rag-evolution.png)
+*[Bildquelle](https://arxiv.org/abs/2312.10997)*
 
 Unten ist ein typischer RAG-Anwendungsworkflow dargestellt:
 
 !["RAG Framework"](../../img/rag/rag-process.png)
+*[Bildquelle](https://arxiv.org/abs/2312.10997)*
 
 Wir können die verschiedenen Schritte/Komponenten wie folgt erklären:
 - **Input:** Die Frage, auf die das LLM-System antwortet, wird als Eingabe bezeichnet. Wenn kein RAG verwendet wird, wird das LLM direkt verwendet, um auf die Frage zu antworten.
@@ -35,6 +37,7 @@ Im gezeigten Beispiel scheitert die direkte Verwendung des Modells daran, auf di
 In den letzten Jahren haben sich RAG-Systeme von Naive RAG zu Advanced RAG und Modular RAG entwickelt. Diese Entwicklung fand statt, um bestimmte Einschränkungen bezüglich der Leistung, der Kosten und der Effizienz zu adressieren.
 
 !["RAG Framework"](../../img/rag/rag-paradigms.png)
+*[Bildquelle](https://arxiv.org/abs/2312.10997)*
 
 ### Naive RAG
 Naive RAG folgt dem traditionellen zuvor erwähnten Prozess der Indizierung, des Retrievals und der Generierung. Kurz gesagt, eine Benutzereingabe wird verwendet, um relevante Dokumente abzufragen, die dann mit einem Prompt kombiniert und dem Modell übergeben werden, um eine endgültige Antwort zu generieren. Konversationshistorie kann in den Prompt integriert werden, wenn die Anwendung Interaktionen in mehreren Schritten umfasst.
@@ -103,6 +106,7 @@ Der Generator in einem RAG-System ist für die Umwandlung abgerufener Informatio
 Augmentierung beinhaltet den Prozess der effektiven Integration von Kontext aus abgerufenen Passagen mit der aktuellen Generierungsaufgabe. Bevor wir näher auf den Augmentierungsprozess, die Augmentierungsstufen und die Augmentierungsdaten eingehen, hier ist eine Taxonomie von RAGs Kernkomponenten:
 
 !["RAG Taxonomy"](../../img/rag/rag-taxonomy.png)
+*[Bildquelle](https://arxiv.org/abs/2312.10997)*
 
 Retrieval Augmentation kann in vielen verschiedenen Phasen wie Vor-Training, Fine-Tuning und Inferenz angewandt werden.
 
@@ -118,15 +122,18 @@ Retrieval Augmentation kann in vielen verschiedenen Phasen wie Vor-Training, Fin
 Die folgende Abbildung zeigt eine detaillierte Darstellung der RAG-Forschung mit verschiedenen Augmentierungsaspekten, einschließlich der Augmentierungsphasen, -quelle und -prozess.
 
 !["RAG Augmentierungsaspekte"](../../img/rag/rag-augmentation.png)
+*[Bildquelle](https://arxiv.org/abs/2312.10997)*
 
 ### RAG vs. Fine-Tuning
 Es gibt viele offene Diskussionen über den Unterschied zwischen RAG und Fine-Tuning und in welchen Szenarien jedes angemessen ist. Forschungen in diesen beiden Bereichen deuten darauf hin, dass RAG nützlich ist, um neues Wissen zu integrieren, während Fine-Tuning verwendet werden kann, um die Leistung und Effizienz des Modells durch Verbesserung des internen Wissens, des Ausgabeformats und des Lehrens komplexer Befehlsfolgen zu verbessern. Diese Ansätze schließen sich nicht gegenseitig aus und können sich in einem iterativen Prozess, der darauf abzielt, die Nutzung von LLMs für komplexe wissensintensive und skalierbare Anwendungen zu verbessern, ergänzen, die Zugang zu schnell entwickelndem Wissen erfordern und angepasste Antworten liefern, die ein bestimmtes Format, einen Ton und Stil befolgen. Zudem kann auch das Engineering von Prompts helfen, Ergebnisse durch Nutzung der inhärenten Fähigkeiten des Modells zu optimieren. Unten ist eine Abbildung, die die verschiedenen Charakteristiken von RAG im Vergleich zu anderen Modell-Optimierungsmethoden zeigt:
 
 !["RAG Optimierung"](../../img/rag/rag-optimization.png)
+*[Bildquelle](https://arxiv.org/abs/2312.10997)*
 
 Hier ist eine Tabelle aus dem Survey-Paper, das die Merkmale zwischen RAG- und feinabgestimmten Modellen vergleicht:
 
 !["RAG Augmentierungsaspekte"](../../img/rag/rag-vs-finetuning.png)
+*[Bildquelle](https://arxiv.org/abs/2312.10997)*
 
 ## RAG Bewertung
 
@@ -137,6 +144,7 @@ Ziele der RAG-Bewertung werden sowohl für das Abrufen als auch für die Generie
 Die Bewertung eines RAG-Frameworks konzentriert sich auf drei primäre Qualitätsscores und vier Fähigkeiten. Qualitätsscores umfassen das Messen der Kontextrelevanz (d.h. die Präzision und Spezifität des abgerufenen Kontexts), Antworttreue (d.h. die Treue der Antworten zum abgerufenen Kontext) und Antwortrelevanz (d.h. die Relevanz der Antworten auf gestellte Fragen). Zusätzlich gibt es vier Fähigkeiten, die helfen, die Anpassungsfähigkeit und Effizienz eines RAG-Systems zu messen: Geräuschrobustheit, Ablehnung negativer Informationen, Informationsintegration und kontrafaktische Robustheit. Unten ist eine Zusammenfassung der Metriken, die für die Bewertung verschiedener Aspekte eines RAG-Systems verwendet werden:
 
 !["RAG Augmentierungsaspekte"](../../img/rag/rag-metrics.png)
+*[Bildquelle](https://arxiv.org/abs/2312.10997)*
 
 Mehrere Benchmarks wie [RGB](https://arxiv.org/abs/2309.01431) und [RECALL](https://arxiv.org/abs/2311.08147) werden verwendet, um RAG-Modelle zu bewerten. Viele Tools wie [RAGAS](https://arxiv.org/abs/2309.15217), [ARES](https://arxiv.org/abs/2311.09476) und [TruLens](https://www.trulens.org/trulens_eval/core_concepts_rag_triad/) wurden entwickelt, um den Prozess der Bewertung von RAG-Systemen zu automatisieren. Einige der Systeme verlassen sich auf LLMs, um einige der oben definierten Qualitätsscores zu bestimmen.
 
@@ -165,8 +173,6 @@ Abschließend haben sich RAG-Systeme schnell entwickelt, einschließlich der Ent
 !["RAG Ecosystem"](../../img/rag/rag-metrics.png)
 
 ---
-
-*Quellen der Abbildungen: [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997)*
 
 ## RAG Forschungsergebnisse
 

@@ -14,7 +14,17 @@ notebooks/.env
 pages/research/local_research/
 .DS_Store
 .vscode
+agent.toml
+content_suggestions/
+.claude/
+.qodo/
+Prompt-Engineering-Guide-notes/
 
 # app
 .next
 node_modules
+prompts
+
+#mcp
+.mcp.json
+.env.local

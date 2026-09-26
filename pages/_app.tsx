@@ -2,6 +2,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
+import AnnouncementBar from '../components/AnnouncementBar';
 import './style.css';
  
 function MyApp({ Component, pageProps }: AppProps) {
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 `}
 </Script>
 
+      <AnnouncementBar />
       <Component {...pageProps} />
      
       <Analytics />

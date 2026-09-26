@@ -1,5 +1,9 @@
 # Beispiele für Prompts
 
+import {Cards, Card} from 'nextra-theme-docs'
+import {CodeIcon} from 'components/icons'
+import {Bleed} from 'nextra-theme-docs'
+
 Der vorherige Abschnitt hat ein grundlegendes Beispiel dafür vorgestellt, wie man Prompts für LLMs verwendet.
 
 Dieser Abschnitt wird mehr Beispiele dafür liefern, wie man Prompts für verschiedene Aufgaben verwenden kann und währenddessen Schlüsselkonzepte einführen. Oft ist der beste Weg, Konzepte zu erlernen, sie anhand von Beispielen durchzugehen. Die folgenden Beispiele veranschaulichen, wie Sie gut gestaltete Prompts für unterschiedliche Arten von Aufgaben verwenden können.
@@ -14,6 +18,14 @@ Themen:
 - [Schlussfolgerung](#schlussfolgerung)
 
 ---
+
+<Bleed>
+  <iframe width="100%"
+    height="415px"
+    src="https://www.youtube.com/embed/TBhRC4Dath4?si=6nwh0GuYAOv1H6yT" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+    />
+</Bleed>
 
 ## Textzusammenfassung
 Eine der Standardaufgaben in der Generierung natürlicher Sprache ist die Textzusammenfassung. Textzusammenfassung kann viele verschiedene Varianten und Bereiche umfassen. Tatsächlich ist eine der vielversprechendsten Anwendungen von Sprachmodellen die Fähigkeit, Artikel und Konzepte in schnelle und leicht verständliche Zusammenfassungen zu transformieren. Versuchen wir eine grundlegende Aufgabe zur Zusammenfassung mit Hilfe von Prompts.
@@ -287,3 +299,15 @@ Viel besser, nicht wahr? Übrigens, ich habe das ein paar Mal versucht und manch
 Wir werden diesen Abschnitt des Leitfadens weiterhin mit mehr Beispielen für gängige Anwendungen ergänzen.
 
 Im nächsten Abschnitt werden wir noch weiter fortgeschrittene Konzepte und Techniken des Prompt-Engineerings besprechen und wie man die Leistung bei all diesen und schwierigeren Aufgaben verbessern kann.
+
+## Notebook
+
+Wenn Sie mit den oben genannten Prompts in Python üben möchten, haben wir ein Notebook vorbereitet, um einige der Prompts mit den OpenAI-Modellen zu testen.
+
+<Cards>
+    <Card
+    icon={<CodeIcon />}
+    title="Getting Started with Prompt Engineering"
+    href="https://github.com/dair-ai/Prompt-Engineering-Guide/blob/main/notebooks/pe-lecture.ipynb"
+    />
+</Cards>

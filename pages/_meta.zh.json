@@ -12,14 +12,6 @@
   "notebooks": "Prompt Engineering 笔记本",
   "datasets": "数据集",
   "readings": "阅读推荐",
-  "course":{
-    "title": "提示工程课程",
-    "type": "page"
-  },
-  "services": {
-    "title": "服务",
-    "type": "page"
-  },
   "about": {
     "title": "关于",
     "type": "page"

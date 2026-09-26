@@ -12,14 +12,6 @@
   "notebooks": "Notlar",
   "datasets": "Veri Kümeleri",
   "readings": "Ek Okumalar",
-  "course":{
-    "title": "İstem Mühendisliği Kursu",
-    "type": "page"
-  },
-  "services": {
-    "title": "Hizmetler",
-    "type": "page"
-  },
   "about": {
     "title": "Hakkında",
     "type": "page"

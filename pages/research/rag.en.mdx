@@ -1,5 +1,7 @@
 # Retrieval Augmented Generation (RAG) for LLMs
 
+import { Callout } from 'nextra/components'
+
 There are many challenges when working with LLMs such as domain knowledge gaps, factuality issues, and hallucination. Retrieval Augmented Generation (RAG) provides a solution to mitigate some of these issues by augmenting LLMs with external knowledge such as databases. RAG is particularly useful in knowledge-intensive scenarios or domain-specific applications that require knowledge that's continually updating. A key advantage of RAG over other approaches is that the LLM doesn't need to be retrained for task-specific applications. RAG has been popularized recently with its application in conversational agents. 
 
 In this summary, we highlight the main findings and practical insights from the recent survey titled [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997) (Gao et al., 2023). In particular, we focus on the existing approaches, state-of-the-art RAG, evaluation, applications and technologies surrounding the different components that make up a RAG system (retrieval, generation, and augmentation techniques). 
@@ -17,10 +19,12 @@ In short, the retrieved evidence obtained in RAG can serve as a way to enhance t
 While RAG has also involved the optimization of pre-training methods, current approaches have largely shifted to combining the strengths of RAG and powerful fine-tuned models like [ChatGPT](https://www.promptingguide.ai/models/chatgpt) and [Mixtral](https://www.promptingguide.ai/models/mixtral). The chart below shows the evolution of RAG-related research:
 
 !["RAG Framework"](../../img/rag/rag-evolution.png)
+*[Figure Source](https://arxiv.org/abs/2312.10997)*
 
 Below is a typical RAG application workflow:
 
 !["RAG Framework"](../../img/rag/rag-process.png)
+*[Figure Source](https://arxiv.org/abs/2312.10997)*
 
 We can explain the different steps/components as follows:
 - **Input:** The question to which the LLM system responds is referred to as the input. If no RAG is used, the LLM is directly used to respond to the question. 
@@ -30,12 +34,19 @@ We can explain the different steps/components as follows:
 
 In the example provided, using the model directly fails to respond to the question due to a lack of knowledge of current events. On the other hand, when using RAG, the system can pull the relevant information needed for the model to answer the question appropriately.
 
+<Callout type= "info" emoji="🎓">
+Learn more about RAG and advanced prompting methods in our new AI courses. [Join now!](https://academy.dair.ai/)
+
+Use code PROMPTING20 to get an extra 20% off.
+</Callout>
+
 
 ## RAG Paradigms
 
 Over the past few years, RAG systems have evolved from Naive RAG to Advanced RAG and Modular RAG. This evolution has occurred to address certain limitations around performance, cost, and efficiency. 
 
 !["RAG Framework"](../../img/rag/rag-paradigms.png)
+*[Figure Source](https://arxiv.org/abs/2312.10997)*
 
 ### Naive RAG
 Naive RAG follows the traditional aforementioned process of indexing, retrieval, and generation. In short, a user input is used to query relevant documents which are then combined with a prompt and passed to the model to generate a final response. Conversational history can be integrated into the prompt if the application involves multi-turn dialogue interactions.
@@ -107,6 +118,7 @@ The generator in a RAG system is responsible for converting retrieved informatio
 Augmentation involves the process of effectively integrating context from retrieved passages with the current generation task. Before discussing more on the augmentation process, augmentation stages, and augmentation data, here is a taxonomy of RAG's core components:
 
 !["RAG Taxonomy"](../../img/rag/rag-taxonomy.png)
+*[Figure Source](https://arxiv.org/abs/2312.10997)*
 
 Retrieval augmentation can be applied in many different stages such as pre-training, fine-tuning, and inference. 
 
@@ -123,16 +135,19 @@ Retrieval augmentation can be applied in many different stages such as pre-train
 The figure below depicts a detailed representation of RAG research with different augmentation aspects, including the augmentation stages, source, and process.
 
 !["RAG Augmentation Aspects"](../../img/rag/rag-augmentation.png)
+*[Figure Source](https://arxiv.org/abs/2312.10997)*
 
 
 ### RAG vs. Fine-tuning
 There are a lot of open discussions about the difference between RAG and fine-tuning and in which scenarios each is appropriate. Research in these two areas suggests that RAG is useful for integrating new knowledge while fine-tuning can be used to improve model performance and efficiency through improving internal knowledge, output format, and teaching complex instruction following. These approaches are not mutually exclusive and can compliment each other in an iterative process that aims to improve the use of LLMs for a complex knowledge-intensive and scalable application that requires access to quickly-evolving knowledge and customized responses that follow a certain format, tone, and style. In addition, Prompting Engineering can also help to optimize results by leveraging the inherent capabilities of the model. Below is a figure showing the different characteristics of RAG compared with other model optimization methods: 
 
 !["RAG Optimization"](../../img/rag/rag-optimization.png)
+*[Figure Source](https://arxiv.org/abs/2312.10997)*
 
 Here is table from the survey paper that compares the features between RAG and fine-tuned models:
 
 !["RAG Augmentation Aspects"](../../img/rag/rag-vs-finetuning.png)
+*[Figure Source](https://arxiv.org/abs/2312.10997)*
 
 
 ## RAG Evaluation
@@ -144,6 +159,7 @@ RAG evaluation targets are determined for both retrieval and generation where th
 Evaluating a RAG framework focuses on three primary quality scores and four abilities. Quality scores include measuring context relevance (i.e., the precision and specificity of retrieved context), answer faithfulness (i.e., the faithfulness of answers to the retrieved context), and answer relevance (i.e., the relevance of answers to posed questions). In addition, there are four abilities that help measure the adaptability and efficiency of a RAG system: noise robustness, negative rejection, information integration, and counterfactual robustness. Below is a summary of metrics used for evaluating different aspects of a RAG system:
 
 !["RAG Augmentation Aspects"](../../img/rag/rag-metrics.png)
+*[Figure Source](https://arxiv.org/abs/2312.10997)*
 
 Several benchmarks like [RGB](https://arxiv.org/abs/2309.01431) and [RECALL](https://arxiv.org/abs/2311.08147) are used to evaluate RAG models. Many tools like [RAGAS](https://arxiv.org/abs/2309.15217), [ARES](https://arxiv.org/abs/2311.09476), and [TruLens](https://www.trulens.org/trulens_eval/core_concepts_rag_triad/) have been developed to automate the process of evaluating RAG systems. Some of the systems rely on LLMs to determine some of the quality scores defined above. 
 
@@ -166,14 +182,13 @@ Some popular comprehensive tools to build RAG systems include [LangChain](https:
 
 ## Conclusion
 
-In conclusion, RAG systems have evolved rapidly including the development of more advanced paradigms that enable customization and further the performance and utility of RAG across a wide range of domains. There is a huge demand for RAG applications, which has accelerated the development of methods to improve the different components of a RAG system. From hybrid methodologies to self-retrieval, these are some of the currently explored research areas of modern RAG models. There is also increasing demand for better evaluation tools and metrics. The figure above provides a recap of the RAG ecosystem, techniques to enhance RAG, challenges, and other related aspects covered in this overview:
+In conclusion, RAG systems have evolved rapidly including the development of more advanced paradigms that enable customization and further the performance and utility of RAG across a wide range of domains. There is a huge demand for RAG applications, which has accelerated the development of methods to improve the different components of a RAG system. From hybrid methodologies to self-retrieval, these are some of the currently explored research areas of modern RAG models. There is also increasing demand for better evaluation tools and metrics. The figure below provides a recap of the RAG ecosystem, techniques to enhance RAG, challenges, and other related aspects covered in this overview:
 
 
-!["RAG Ecosystem"](../../img/rag/rag-metrics.png)
+!["RAG Ecosystem"](../../img/rag/rag-ecosystem.png)
+*[Figure Source](https://arxiv.org/abs/2312.10997)*
 
 ---
-
-*Figures Source: [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997)*
 
 ## RAG Research Insights
 
@@ -181,6 +196,7 @@ Below is a collection of research papers highlighting key insights and the lates
 
 | **Insight**  | **Reference** | **Date** |
 | ------------- | ------------- | ------------- |
+| Shows how retrieval augmentation can be used to distill language model assistants by training retrieval augmented simulators | [KAUCUS: Knowledge Augmented User Simulators for Training Language Model Assistants](https://aclanthology.org/2024.scichat-1.5)| Mar 2024 |
 | Proposes Corrective Retrieval Augmented Generation (CRAG) to improve the robustness of generation in a RAG system. The core idea is to implement a self-correct component for the retriever and improve the utilization of retrieved documents for augmenting generation. The retrieval evaluator helps to assess the overall quality of retrieved documents given a query. Using web search and optimized knowledge utilization operations can improve automatic self-correction and efficient utilization of retrieved documents. | [Corrective Retrieval Augmented Generation](https://arxiv.org/abs/2401.15884)| Jan 2024|
 | Recursively embeds, clusters, and summarizes chunks of text, constructing a tree with differing levels of summarization from the bottom up. At inference time, the proposed RAPTOR model retrieves from the tree, integrating information across lengthy documents at different levels of abstraction. | [RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval](https://arxiv.org/abs/2401.18059)| Jan 2024 |
 | A general program with multi-step interactions between LMs and retrievers to efficiently tackle multi-label classification problems. | [In-Context Learning for Extreme Multi-Label Classification](https://arxiv.org/abs/2401.12178) | Jan 2024 |
@@ -235,6 +251,7 @@ Below is a collection of research papers highlighting key insights and the lates
 
 ## References
 
+- [KAUCUS: Knowledge Augmented User Simulators for Training Language Model Assistants](https://aclanthology.org/2024.scichat-1.5)
 - [A Survey on Hallucination in Large Language Models: Principles,Taxonomy, Challenges, and Open Questions](https://arxiv.org/abs/2311.05232)
 - [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [Retrieval-augmented multimodal language modeling](https://arxiv.org/abs/2211.12561)

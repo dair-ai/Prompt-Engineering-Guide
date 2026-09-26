@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infographic Review — Annotation Tool</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #111113;
+    --surface: #1a1a1e;
+    --surface-2: #232328;
+    --border: #2e2e35;
+    --text: #e0e0e6;
+    --text-dim: #8888a0;
+    --accent: #e85d2a;
+    --accent-dim: rgba(232, 93, 42, 0.15);
+    --pin-size: 28px;
+    --radius: 8px;
+    --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+    height: 50px;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .header h1 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .header h1 span { color: var(--text-dim); font-weight: 400; }
+  .badge {
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 99px;
+  }
+  .header-actions { display: flex; gap: 8px; }
+
+  /* ── Buttons ── */
+  .btn {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn:hover { border-color: #444; background: #2a2a30; }
+  .btn-accent {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .btn-accent:hover { background: #d14e1e; }
+  .btn-danger { color: #e55; }
+  .btn-danger:hover { background: rgba(238, 85, 85, 0.1); border-color: #e55; }
+  .btn-sm { padding: 4px 10px; font-size: 11px; }
+  .btn-icon {
+    width: 30px; height: 30px;
+    padding: 0; justify-content: center;
+    border-radius: 6px;
+  }
+
+  /* ── Main layout ── */
+  .main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── Canvas area ── */
+  .canvas-area {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(30,30,40,1) 0%, var(--bg) 100%);
+  }
+
+  .canvas-area.dragover {
+    background: var(--accent-dim);
+  }
+
+  .image-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: crosshair;
+    margin: 30px;
+  }
+  .image-wrapper img {
+    display: block;
+    max-height: calc(100vh - 160px);
+    max-width: calc(100vw - 420px);
+    border-radius: 4px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  }
+
+  /* ── Drop zone ── */
+  .dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    padding: 60px 80px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .dropzone:hover, .canvas-area.dragover .dropzone {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .dropzone-icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .dropzone p { color: var(--text-dim); font-size: 14px; line-height: 1.6; }
+  .dropzone p strong { color: var(--text); }
+  .dropzone input { display: none; }
+  .dropzone-link {
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ── Pins ── */
+  .pin {
+    position: absolute;
+    width: var(--pin-size);
+    height: var(--pin-size);
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(232,93,42,0.5);
+    transition: transform 0.12s, box-shadow 0.12s;
+    z-index: 10;
+    user-select: none;
+  }
+  .pin:hover, .pin.active {
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 2px 16px rgba(232,93,42,0.7);
+  }
+  .pin.active {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 360px;
+    border-left: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: width 0.2s, opacity 0.2s;
+  }
+  .sidebar.collapsed { width: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+
+  .sidebar-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sidebar-header h2 { font-size: 13px; font-weight: 600; }
+
+  .annotations-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+  }
+  .annotations-list::-webkit-scrollbar { width: 4px; }
+  .annotations-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .annotation-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 30px;
+    text-align: center;
+    color: var(--text-dim);
+    gap: 8px;
+  }
+  .annotation-empty .icon { font-size: 32px; opacity: 0.3; }
+  .annotation-empty p { font-size: 13px; line-height: 1.5; }
+
+  /* ── Annotation card ── */
+  .annotation-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: all 0.12s;
+  }
+  .annotation-card:hover { border-color: #444; }
+  .annotation-card.active { border-color: var(--accent); background: var(--accent-dim); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .card-number {
+    background: var(--accent);
+    color: #fff;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-region {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+  }
+  .card-delete {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    line-height: 1;
+  }
+  .card-delete:hover { color: #e55; background: rgba(238,85,85,0.1); }
+
+  .card-input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13px;
+    padding: 8px 10px;
+    resize: vertical;
+    min-height: 36px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .card-input:focus { border-color: var(--accent); }
+  .card-input::placeholder { color: var(--text-dim); }
+
+  /* ── Prompt output ── */
+  .prompt-bar {
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    padding: 12px 16px;
+    flex-shrink: 0;
+  }
+  .prompt-bar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .prompt-bar-header h3 { font-size: 12px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  .prompt-output {
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+    max-height: 120px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .prompt-output::-webkit-scrollbar { width: 4px; }
+  .prompt-output::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .copied-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--accent);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.2s;
+    pointer-events: none;
+    z-index: 999;
+  }
+  .copied-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── Zoom controls ── */
+  .zoom-controls {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px;
+    z-index: 20;
+  }
+  .zoom-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    font-family: var(--mono);
+  }
+
+  /* ── Tooltip on pin hover ── */
+  .pin-tooltip {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: var(--text);
+    white-space: nowrap;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    z-index: 30;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    transform: translate(-50%, -100%);
+    margin-top: -8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Infographic Review <span>— Annotation Tool</span></h1>
+    <div class="badge" id="count-badge">0 annotations</div>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-danger btn-sm" id="clear-btn" title="Clear all annotations">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m2 0v14a2 2 0 01-2 2H8a2 2 0 01-2-2V6h12z"/></svg>
+      Clear All
+    </button>
+    <button class="btn btn-sm" id="toggle-sidebar-btn" title="Toggle sidebar">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 3H3v18h18V3zM15 3v18"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="canvas-area" id="canvas-area">
+    <!-- Dropzone shown when no image is loaded -->
+    <div class="dropzone" id="dropzone">
+      <div class="dropzone-icon">&#128444;&#65039;</div>
+      <p>
+        <strong>Drop your infographic here</strong><br>
+        or <span class="dropzone-link" id="browse-link">browse files</span> to load
+      </p>
+      <input type="file" id="file-input" accept="image/*">
+    </div>
+
+    <!-- Image + pins shown when image is loaded -->
+    <div class="image-wrapper" id="image-wrapper" style="display:none;">
+      <img id="main-image" src="" alt="Infographic">
+    </div>
+
+    <div class="zoom-controls" id="zoom-controls" style="display:none;">
+      <button class="btn btn-icon btn-sm" id="zoom-out">−</button>
+      <span class="zoom-label" id="zoom-label">100%</span>
+      <button class="btn btn-icon btn-sm" id="zoom-in">+</button>
+      <button class="btn btn-sm" id="zoom-fit">Fit</button>
+    </div>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Annotations</h2>
+    </div>
+    <div class="annotations-list" id="annotations-list">
+      <div class="annotation-empty" id="empty-state">
+        <div class="icon">&#128205;</div>
+        <p>Click anywhere on the image<br>to add an annotation pin</p>
+      </div>
+    </div>
+    <div class="prompt-bar">
+      <div class="prompt-bar-header">
+        <h3>Prompt Output</h3>
+        <button class="btn btn-accent btn-sm" id="copy-btn">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-output" id="prompt-output">Add annotations to generate a revision prompt…</div>
+    </div>
+  </div>
+</div>
+
+<div class="copied-toast" id="toast">Copied to clipboard!</div>
+
+<script>
+  // ── State ──
+  const state = {
+    annotations: [],
+    activeId: null,
+    imageLoaded: false,
+    zoom: 1,
+    nextId: 1
+  };
+
+  // ── DOM refs ──
+  const $ = id => document.getElementById(id);
+  const canvasArea = $('canvas-area');
+  const dropzone = $('dropzone');
+  const browseLink = $('browse-link');
+  const fileInput = $('file-input');
+  const imageWrapper = $('image-wrapper');
+  const mainImage = $('main-image');
+  const annotationsList = $('annotations-list');
+  const emptyState = $('empty-state');
+  const promptOutput = $('prompt-output');
+  const countBadge = $('count-badge');
+  const copyBtn = $('copy-btn');
+  const clearBtn = $('clear-btn');
+  const toggleSidebarBtn = $('toggle-sidebar-btn');
+  const sidebar = $('sidebar');
+  const zoomControls = $('zoom-controls');
+  const zoomLabel = $('zoom-label');
+  const toast = $('toast');
+
+  // ── Image loading ──
+  function loadImage(src) {
+    mainImage.onload = () => {
+      dropzone.style.display = 'none';
+      imageWrapper.style.display = 'inline-block';
+      zoomControls.style.display = 'flex';
+      state.imageLoaded = true;
+      fitZoom();
+    };
+    mainImage.onerror = () => {
+      // If relative path fails, keep dropzone visible
+      if (src === 'building_effective_agents_infographic.jpg') return;
+      alert('Failed to load image.');
+    };
+    mainImage.src = src;
+  }
+
+  // Try loading from relative path on startup
+  loadImage('building_effective_agents_infographic.jpg');
+
+  browseLink.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', e => {
+    if (e.target.files[0]) {
+      const url = URL.createObjectURL(e.target.files[0]);
+      loadImage(url);
+    }
+  });
+
+  // Drag and drop
+  canvasArea.addEventListener('dragover', e => { e.preventDefault(); canvasArea.classList.add('dragover'); });
+  canvasArea.addEventListener('dragleave', () => canvasArea.classList.remove('dragover'));
+  canvasArea.addEventListener('drop', e => {
+    e.preventDefault();
+    canvasArea.classList.remove('dragover');
+    if (e.dataTransfer.files[0] && e.dataTransfer.files[0].type.startsWith('image/')) {
+      loadImage(URL.createObjectURL(e.dataTransfer.files[0]));
+    }
+  });
+
+  // ── Zoom ──
+  function fitZoom() {
+    const area = canvasArea.getBoundingClientRect();
+    const iw = mainImage.naturalWidth;
+    const ih = mainImage.naturalHeight;
+    const maxW = area.width - 420 > 200 ? area.width - 80 : area.width - 40;
+    const maxH = area.height - 80;
+    state.zoom = Math.min(maxW / iw, maxH / ih, 1);
+    applyZoom();
+  }
+
+  function applyZoom() {
+    mainImage.style.maxHeight = 'none';
+    mainImage.style.maxWidth = 'none';
+    mainImage.style.width = (mainImage.naturalWidth * state.zoom) + 'px';
+    mainImage.style.height = (mainImage.naturalHeight * state.zoom) + 'px';
+    zoomLabel.textContent = Math.round(state.zoom * 100) + '%';
+  }
+
+  $('zoom-in').addEventListener('click', () => { state.zoom = Math.min(state.zoom + 0.1, 3); applyZoom(); });
+  $('zoom-out').addEventListener('click', () => { state.zoom = Math.max(state.zoom - 0.1, 0.15); applyZoom(); });
+  $('zoom-fit').addEventListener('click', fitZoom);
+
+  // ── Clicking on image to add pins ──
+  imageWrapper.addEventListener('click', e => {
+    if (e.target.classList.contains('pin')) return;
+    const rect = mainImage.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    const region = getRegionLabel(y);
+
+    const annotation = {
+      id: state.nextId++,
+      x: +x.toFixed(2),
+      y: +y.toFixed(2),
+      label: '',
+      region
+    };
+
+    state.annotations.push(annotation);
+    state.activeId = annotation.id;
+    renderAll();
+
+    // Focus the input for the new annotation
+    requestAnimationFrame(() => {
+      const input = document.querySelector(`.annotation-card[data-id="${annotation.id}"] .card-input`);
+      if (input) input.focus();
+    });
+  });
+
+  function getRegionLabel(yPct) {
+    if (yPct < 10) return 'Header';
+    if (yPct < 20) return 'Workflows vs Agents';
+    if (yPct < 30) return 'Augmented LLM';
+    if (yPct < 35) return 'Workflow Patterns Title';
+    if (yPct < 60) return 'Workflow Patterns';
+    if (yPct < 68) return 'Evaluator-Optimizer';
+    if (yPct < 80) return 'Autonomous Agents';
+    if (yPct < 95) return 'Key Principles';
+    return 'Footer';
+  }
+
+  // ── Rendering ──
+  function renderAll() {
+    renderPins();
+    renderCards();
+    updatePrompt();
+    countBadge.textContent = state.annotations.length + ' annotation' + (state.annotations.length !== 1 ? 's' : '');
+  }
+
+  // Lightweight update that only toggles active classes without rebuilding DOM
+  function updateActiveState(newActiveId) {
+    state.activeId = newActiveId;
+    // Update pin classes
+    imageWrapper.querySelectorAll('.pin').forEach(pin => {
+      const pinId = parseInt(pin.textContent);
+      pin.classList.toggle('active', pinId === state.activeId);
+    });
+    // Update card classes
+    annotationsList.querySelectorAll('.annotation-card').forEach(card => {
+      card.classList.toggle('active', parseInt(card.dataset.id) === state.activeId);
+    });
+  }
+
+  function renderPins() {
+    imageWrapper.querySelectorAll('.pin, .pin-tooltip').forEach(el => el.remove());
+    state.annotations.forEach(a => {
+      const pin = document.createElement('div');
+      pin.className = 'pin' + (a.id === state.activeId ? ' active' : '');
+      pin.textContent = a.id;
+      pin.style.left = a.x + '%';
+      pin.style.top = a.y + '%';
+      pin.addEventListener('click', e => {
+        e.stopPropagation();
+        state.activeId = a.id;
+        renderAll();
+        const card = document.querySelector(`.annotation-card[data-id="${a.id}"]`);
+        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      pin.addEventListener('mouseenter', () => {
+        if (!a.label) return;
+        const tt = document.createElement('div');
+        tt.className = 'pin-tooltip';
+        tt.textContent = a.label;
+        tt.style.left = a.x + '%';
+        tt.style.top = a.y + '%';
+        imageWrapper.appendChild(tt);
+      });
+      pin.addEventListener('mouseleave', () => {
+        imageWrapper.querySelectorAll('.pin-tooltip').forEach(el => el.remove());
+      });
+      imageWrapper.appendChild(pin);
+    });
+  }
+
+  function renderCards() {
+    // Remove old cards but keep empty state
+    annotationsList.querySelectorAll('.annotation-card').forEach(el => el.remove());
+    emptyState.style.display = state.annotations.length === 0 ? 'flex' : 'none';
+
+    state.annotations.forEach(a => {
+      const card = document.createElement('div');
+      card.className = 'annotation-card' + (a.id === state.activeId ? ' active' : '');
+      card.dataset.id = a.id;
+      card.addEventListener('click', (e) => {
+        // Don't rebuild if clicking inside the textarea
+        if (e.target.classList.contains('card-input')) return;
+        updateActiveState(a.id);
+      });
+
+      card.innerHTML = `
+        <div class="card-top">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="card-number">${a.id}</div>
+            <span class="card-region">${a.region}</span>
+          </div>
+          <button class="card-delete" title="Remove">&times;</button>
+        </div>
+        <textarea class="card-input" placeholder="What needs improvement here?" rows="2">${a.label}</textarea>
+      `;
+
+      card.querySelector('.card-delete').addEventListener('click', e => {
+        e.stopPropagation();
+        state.annotations = state.annotations.filter(x => x.id !== a.id);
+        if (state.activeId === a.id) state.activeId = null;
+        renderAll();
+      });
+
+      const textarea = card.querySelector('.card-input');
+      textarea.addEventListener('input', e => {
+        a.label = e.target.value;
+        updatePrompt();
+      });
+      textarea.addEventListener('click', e => e.stopPropagation());
+      textarea.addEventListener('focus', () => {
+        // Only update visual active state — never rebuild DOM while typing
+        updateActiveState(a.id);
+      });
+
+      annotationsList.appendChild(card);
+    });
+  }
+
+  // ── Prompt generation ──
+  function updatePrompt() {
+    const labeled = state.annotations.filter(a => a.label.trim());
+    if (labeled.length === 0) {
+      promptOutput.textContent = 'Add annotations to generate a revision prompt…';
+      return;
+    }
+
+    let lines = [`Please revise the "Building Effective Agents" infographic with the following changes:\n`];
+    labeled.forEach(a => {
+      lines.push(`${a.id}. [${a.region}] — ${a.label.trim()}`);
+    });
+
+    const unlabeled = state.annotations.filter(a => !a.label.trim());
+    if (unlabeled.length > 0) {
+      lines.push(`\n(${unlabeled.length} pin(s) placed but unlabeled — review these areas too)`);
+    }
+
+    promptOutput.textContent = lines.join('\n');
+  }
+
+  // ── Actions ──
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(promptOutput.textContent).then(() => {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1800);
+    });
+  });
+
+  clearBtn.addEventListener('click', () => {
+    if (state.annotations.length === 0) return;
+    state.annotations = [];
+    state.activeId = null;
+    state.nextId = 1;
+    renderAll();
+  });
+
+  toggleSidebarBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('collapsed');
+  });
+
+  // ── Keyboard shortcuts ──
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      state.activeId = null;
+      renderAll();
+    }
+    if (e.key === 'Backspace' && state.activeId && document.activeElement.tagName !== 'TEXTAREA') {
+      state.annotations = state.annotations.filter(a => a.id !== state.activeId);
+      state.activeId = null;
+      renderAll();
+    }
+  });
+</script>
+</body>
+</html>

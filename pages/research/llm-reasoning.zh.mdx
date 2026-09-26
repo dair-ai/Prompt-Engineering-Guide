@@ -1,0 +1,36 @@
+# 大语言模型的推理能力
+
+在过去几年里，大语言模型(LLM/Large Language Model)在广泛的任务中取得了长足进展。最近，随着规模的扩大，LLM展现出了具备推理能力的潜力。推理是智力的基础，但 AI 模型如何学会并利用这种能力来解决复杂问题尚不完全清楚。这是目前许多研究实验室关注和大力投资的热门领域。
+
+## 基础模型的推理
+[Sun et al. (2023)](https://arxiv.org/abs/2312.11562) 最近提出了一个关于基础模型推理的概述，重点介绍了各种推理任务的最新进展。该概述还着重探讨了跨多模态模型和自主语言智能体(AI Agent)的推理能力。
+
+推理任务可能包括数学推理、逻辑推理、因果推理、视觉推理等。下图概述了该调查论文中讨论的推理任务，包括基础模型的推理技术，如对齐训练和上下文学习(In-context Learning)。
+
+!["Reasoning Tasks"](../../img/research/reasoning-tasks.png)
+*Figure source: [Sun et al.， 2023](https://arxiv.org/pdf/2212.09597.pdf)*
+
+## 如何引发LLM的推理能力?
+可以通过多种提示方法来引发和增强LLM的推理能力。[Qiao et al. (2023)](https://arxiv.org/abs/2212.09597) 将推理方法研究分为推理增强策略和知识增强推理两大类。推理策略包括提示工程(Prompt Engineering)、过程优化和外部引擎。例如，单级提示策略有[思维链(Chain-of-Thought)](https://www.promptingguide.ai/techniques/cot) 和[主动提示(Active-Prompt)](https://www.promptingguide.ai/techniques/activeprompt)等。下图总结了该论文所提出的语言模型提示推理分类：
+
+!["Reasoning Taxonomy"](../../img/research/reasoning-taxonomy.png)
+*Figure source: [Qiao et al.， 2023](https://arxiv.org/pdf/2212.09597.pdf)*
+
+
+[Huang et al. (2023)](https://arxiv.org/pdf/2212.10403) 也总结了改进或引发大语言模型(LLM，如 GPT-3)推理能力的多种技术，包括使用监督微调模型(在解释数据集上训练)到少样本(Few-shot)和零样本(Zero-shot)的提示方法，如思维链(Chain-of-Thought)、问题分解和上下文学习(In-context Learning)。下图总结了论文中描述的这些技术:
+
+!["Reasoning Techniques"](../../img/research/reasoning-techniques.png)
+*Figure source: [Huang et al.， 2023](https://arxiv.org/pdf/2212.10403.pdf)*
+
+## LLM 能否进行推理和规划?
+关于 LLM 是否具备推理和规划的能力存在很大争议。推理和规划是 LLM 在机器人领域、自主智能体等复杂应用中发挥作用的关键能力。[这篇立场文章](https://arxiv.org/abs/2403.04121) 探讨了 LLM 推理和规划的话题。作者的结论总结如下:
+
+> 从我所阅读、验证或完成的一切来看，都没有让我确信 LLM 确实能够进行通常所理解的推理/规划。它们所做的，是利用网络规模训练数据进行通用近似检索，这有时会被误认为是推理能力。
+
+## 参考文献
+
+- [语言模型提示推理:一项调查](https://arxiv.org/abs/2212.09597)
+- [走向大语言模型推理:一项调查](https://arxiv.org/abs/2212.10403)
+- [大语言模型能够推理和规划吗?](https://arxiv.org/abs/2403.04121)
+- [重新思考LLM推理的范围:多智能体讨论是关键吗?](https://arxiv.org/abs/2402.18272v1)
+- [Awesome LLM Reasoning](https://github.com/atfortes/Awesome-LLM-Reasoning)

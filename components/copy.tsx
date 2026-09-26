@@ -1,6 +1,6 @@
-import type { ComponentProps, ReactElement } from 'react'
+import type { ReactElement, SVGAttributes } from 'react'
 
-export function CopyIcon(props: ComponentProps<'svg'>): ReactElement {
+export function CopyIcon(props: SVGAttributes<SVGElement>): ReactElement {
   return (
     <svg
       width="24"
@@ -9,7 +9,7 @@ export function CopyIcon(props: ComponentProps<'svg'>): ReactElement {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       stroke="currentColor"
-      {...props}
+      {...(props as any)}
     >
       <rect
         x="9"

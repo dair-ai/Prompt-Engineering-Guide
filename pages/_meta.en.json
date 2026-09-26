@@ -1,7 +1,9 @@
 {
   "index": "Prompt Engineering",
   "introduction": "Introduction",
-  "techniques": "Techniques",
+  "techniques": "Prompting Techniques",
+  "agents": "AI Agents",
+  "guides": "Guides",
   "applications": "Applications",
   "prompts": "Prompt Hub",
   "models": "Models",
@@ -12,16 +14,43 @@
   "notebooks": "Notebooks",
   "datasets": "Datasets",
   "readings": "Additional Readings",
-  "course":{
-    "title": "🎓 Prompt Engineering Course",
-    "type": "page"
-  },
-  "services": {
-    "title": "Services",
-    "type": "page"
+  "courses":{
+    "title": "🎓 Courses",
+    "type": "menu",
+    "items": {
+      "intro-prompt-engineering": {
+        "title": "Intro to Prompt Engineering",
+        "href": "https://academy.dair.ai/courses/introduction-prompt-engineering"
+      },
+      "advanced-prompt-engineering": {
+        "title": "Advanced Prompt Engineering",
+        "href": "https://academy.dair.ai/courses/advanced-prompt-engineering"
+      },
+      "intro-ai-agents": {
+        "title": "Intro to AI Agents",
+        "href": "https://academy.dair.ai/courses/introduction-ai-agents"
+      },
+      "agents-with-n8n": {
+        "title": "Building Effective AI Agents with n8n",
+        "href": "https://academy.dair.ai/courses/building-effective-ai-agents"
+      },
+      "rag-systems": {
+        "title": "Build RAG Systems",
+        "href": "https://academy.dair.ai/courses/introduction-to-rag"
+      },
+      "advanced-agents": {
+        "title": "Building Advanced AI Agents",
+        "href": "https://academy.dair.ai/courses/advanced-ai-agents"
+      },
+      "all-courses": {
+        "title": "See all →",
+        "href": "https://academy.dair.ai/courses"
+      }
+    }
   },
   "about": {
     "title": "About",
     "type": "page"
   }
 }
+

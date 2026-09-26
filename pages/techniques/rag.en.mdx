@@ -5,7 +5,7 @@ import {TerminalIcon} from 'components/icons'
 import {CodeIcon} from 'components/icons'
 import {Screenshot} from 'components/screenshot'
 import RAG from '../../img/rag.png'
-import { Callout } from 'nextra/components'
+import { CoursePromo, CoursesSection, CourseCard } from '../../components/CourseCard'
 
 General-purpose language models can be fine-tuned to achieve several common tasks such as sentiment analysis and named entity recognition. These tasks generally don't require additional background knowledge.
 
@@ -38,11 +38,37 @@ Below, we have prepared a notebook tutorial showcasing the use of open-source LL
     />
 </Cards>
 
-<Callout type= "info" emoji="🎓">
-  Want to learn more about RAG? Check out our [new cohort-based course](https://maven.com/dair-ai/prompt-engineering-llms?cohortSlug=). Use promo code MAVENAI20 for a 20% discount.
-</Callout>
 
 ## References
 
 - [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997) (Dec 2023)
 - [Retrieval Augmented Generation: Streamlining the creation of intelligent natural language processing models](https://ai.meta.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) (Sep 2020)
+
+<CoursesSection title="Related Learning">
+  <CourseCard
+    tag="Course"
+    tagColor="blue"
+    title="Prompt Engineering for LLMs"
+    description="Master RAG, knowledge retrieval, and advanced prompting techniques for knowledge-intensive tasks."
+    href="https://academy.dair.ai/courses/introduction-prompt-engineering"
+    level="Beginner"
+    duration="2 hours"
+  />
+  <CourseCard
+    tag="Course"
+    tagColor="purple"
+    title="Building Effective AI Agents"
+    description="Learn to build effective AI agents. Covers function calling, tool integration, and debugging agentic systems."
+    href="https://academy.dair.ai/courses/building-effective-ai-agents"
+    level="Intermediate"
+    duration="5 hours"
+  />
+</CoursesSection>
+
+<CoursePromo
+  title="Explore All Courses"
+  description="Discover our full catalog of AI and prompt engineering courses. From beginners to advanced practitioners."
+  href="https://academy.dair.ai/"
+  buttonText="Browse Academy"
+  promoCode="PROMPTING20"
+/>

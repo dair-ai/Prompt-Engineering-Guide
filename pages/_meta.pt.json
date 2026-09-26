@@ -12,14 +12,6 @@
   "notebooks": "Notebooks",
   "datasets": "Conjuntos de dados",
   "readings": "Leituras Adicionais",
-  "course":{
-    "title": "Curso de Engenharia Prompt",
-    "type": "page"
-  },
-  "services": {
-    "title": "Serviços",
-    "type": "page"
-  },
   "about": {
     "title": "Sobre",
     "type": "page"

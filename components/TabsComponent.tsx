@@ -31,13 +31,13 @@ response = client.chat.completions.create(
     };
 
     return (
-        <Tabs items={tabsData.map(tab => tab.model)}>
-            {tabsData.map((tab, index) => (
+        <Tabs items={tabsData.map(tab => tab.model)} children={
+            tabsData.map((tab, index) => (
                 <Tab key={index}>
                     <pre><code data-language="python">{renderCodeBlock(tab)}</code></pre>
                 </Tab>
-            ))}
-        </Tabs>
+            ))
+        } />
     );
 };
 
