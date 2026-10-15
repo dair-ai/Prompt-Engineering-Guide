@@ -10,7 +10,7 @@ module.exports = withNextra({
     defaultLocale: 'en',
   },
   webpack(config) {
-    const allowedSvgRegex = /components\/icons\/.+\.svg$/
+    const allowedSvgRegex = /components[\\/]icons[\\/].+\.svg$/
 
     const fileLoaderRule = config.module.rules.find(rule =>
       rule.test?.test?.('.svg')
