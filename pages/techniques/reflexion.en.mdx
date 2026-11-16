@@ -56,6 +56,7 @@ Reflexion is effective in the following tasks:
 Here are some limitations of Reflexion:
 
 - **Reliance on self-evaluation capabilities**: Reflexion relies on the agent's ability to accurately evaluate its performance and generate useful self-reflections. This can be challenging, especially for complex tasks but it's expected that Reflexion gets better over time as models keep improving in capabilities.
+- **Role separation is not independent verification**: The Actor, Evaluator, and Self-Reflection roles can share evidence, memory, or assumptions. For example, if the Actor and Evaluator both use the same outdated source, their feedback may reinforce the same error. When independent verification matters, consider a relevant external test, independently obtained evidence, or a reviewer with a distinct failure path.
 - **Long-term memory constraints**: Reflexion makes use of a sliding window with maximum capacity but for more complex tasks it may be advantageous to use advanced structures such as vector embedding or SQL databases. 
 - **Code generation limitations**: There are limitations to test-driven development in specifying accurate input-output mappings (e.g., non-deterministic generator function and function outputs influenced by hardware).
 
